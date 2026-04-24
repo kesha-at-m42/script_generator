@@ -1,0 +1,823 @@
+{
+  "batch_only_items": [
+    "s1_1_decision_checklist_consolidation_type_b",
+    "s2_1_scale_strengths_type_pattern_discovery",
+    "s3_1_real_world_connection_type_c",
+    "s4_1_metacognitive_reflection_type_1_strategy"
+  ],
+  "data": [
+    {
+      "id": "s1_0_opening_frame",
+      "type": "transition",
+      "beats": [
+        {
+          "type": "dialogue",
+          "text": "You learned to choose scales. You checked if the biggest number fits. You checked the last digits. Now let's connect what you discovered.",
+          "id": "s1_0_opening_frame_b0"
+        },
+        {
+          "type": "current_scene",
+          "elements": [],
+          "id": "s1_0_opening_frame_b1"
+        }
+      ],
+      "_generated_at": "2026-04-20T16:58:55.118135+00:00"
+    },
+    {
+      "id": "s1_1_decision_checklist_consolidation_type_b",
+      "beats": [
+        {
+          "type": "dialogue",
+          "text": "Here's the first question you learned: Does the biggest number fit?",
+          "id": "s1_1_decision_checklist_consolidation_type_b_b0"
+        },
+        {
+          "type": "dialogue",
+          "text": "Dan scored 80. That's too big for Scale of 5. You'd need a bigger scale.",
+          "id": "s1_1_decision_checklist_consolidation_type_b_b1"
+        },
+        {
+          "type": "current_scene",
+          "elements": [],
+          "id": "s1_1_decision_checklist_consolidation_type_b_b2"
+        },
+        {
+          "type": "dialogue",
+          "text": "Here's the second question: Do all the numbers end in 0 or 5?",
+          "id": "s1_1_decision_checklist_consolidation_type_b_b3"
+        },
+        {
+          "type": "dialogue",
+          "text": "7, 12, 19, 23. None of them end in 0 or 5. Scale of 2 is the only one that works exactly. When you look at new data, which question do you check first?",
+          "id": "s1_1_decision_checklist_consolidation_type_b_b4"
+        },
+        {
+          "type": "prompt",
+          "text": "Which question should you check FIRST?",
+          "tool": "multiple_choice",
+          "options": [
+            "Does the biggest number fit?",
+            "Do the numbers end in 0 or 5?"
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "selected": "Does the biggest number fit?"
+              },
+              "description": "Student selected Does the biggest number fit?, correct",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Right. Check if it fits first. That tells you which scales are even possible. Then check the digits.",
+                  "id": "s1_1_decision_checklist_consolidation_type_b_b5_v0_b0"
+                }
+              ]
+            }
+          ],
+          "id": "s1_1_decision_checklist_consolidation_type_b_b5"
+        },
+        {
+          "type": "current_scene",
+          "elements": [],
+          "id": "s1_1_decision_checklist_consolidation_type_b_b6"
+        }
+      ],
+      "_generated_at": "2026-04-20T16:59:01.749188+00:00"
+    },
+    {
+      "id": "s2_1_scale_strengths_type_pattern_discovery",
+      "beats": [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_a",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Apples",
+              "Bananas",
+              "Cherries"
+            ],
+            "scale": 1,
+            "axis_range": [
+              0,
+              60
+            ],
+            "description": "Graph A: vertical bar graph with scale of 1. Apples=20, Bananas=40, Cherries=60. Most tick marks, very detailed."
+          },
+          "id": "s2_1_scale_strengths_type_pattern_discovery_b0"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_b",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Apples",
+              "Bananas",
+              "Cherries"
+            ],
+            "scale": 2,
+            "axis_range": [
+              0,
+              60
+            ],
+            "description": "Graph B: vertical bar graph with scale of 2. Apples=20, Bananas=40, Cherries=60. Many tick marks."
+          },
+          "id": "s2_1_scale_strengths_type_pattern_discovery_b1"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_c",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Apples",
+              "Bananas",
+              "Cherries"
+            ],
+            "scale": 5,
+            "axis_range": [
+              0,
+              60
+            ],
+            "description": "Graph C: vertical bar graph with scale of 5. Apples=20, Bananas=40, Cherries=60. Medium tick marks."
+          },
+          "id": "s2_1_scale_strengths_type_pattern_discovery_b2"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_d",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Apples",
+              "Bananas",
+              "Cherries"
+            ],
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
+            ],
+            "description": "Graph D: vertical bar graph with scale of 10. Apples=20, Bananas=40, Cherries=60. Fewest tick marks, clean."
+          },
+          "id": "s2_1_scale_strengths_type_pattern_discovery_b3"
+        },
+        {
+          "type": "dialogue",
+          "text": "Here's the same data shown four different ways. Look at the differences.",
+          "id": "s2_1_scale_strengths_type_pattern_discovery_b4"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_a",
+              "description": "Graph A: vertical bar graph with scale of 1. Apples=20, Bananas=40, Cherries=60. Most tick marks.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Apples",
+                "Bananas",
+                "Cherries"
+              ],
+              "scale": 1
+            },
+            {
+              "tangible_id": "bar_graph_b",
+              "description": "Graph B: vertical bar graph with scale of 2. Apples=20, Bananas=40, Cherries=60. Many tick marks.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Apples",
+                "Bananas",
+                "Cherries"
+              ],
+              "scale": 2
+            },
+            {
+              "tangible_id": "bar_graph_c",
+              "description": "Graph C: vertical bar graph with scale of 5. Apples=20, Bananas=40, Cherries=60. Medium tick marks.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Apples",
+                "Bananas",
+                "Cherries"
+              ],
+              "scale": 5
+            },
+            {
+              "tangible_id": "bar_graph_d",
+              "description": "Graph D: vertical bar graph with scale of 10. Apples=20, Bananas=40, Cherries=60. Fewest tick marks.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Apples",
+                "Bananas",
+                "Cherries"
+              ],
+              "scale": 10
+            }
+          ],
+          "id": "s2_1_scale_strengths_type_pattern_discovery_b5"
+        },
+        {
+          "type": "dialogue",
+          "text": "Scale of 1 has the most lines. Scale of 10 has the fewest. All four show the same information. Which graph is easiest to read?",
+          "id": "s2_1_scale_strengths_type_pattern_discovery_b6"
+        },
+        {
+          "type": "prompt",
+          "text": "Which graph is easiest to read?",
+          "tool": "multiple_choice",
+          "options": [
+            "Graph A",
+            "Graph B",
+            "Graph C",
+            "Graph D"
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "selected": "Graph D"
+              },
+              "description": "Student selected Graph D (scale of 10), correct",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_d",
+                  "params": {
+                    "highlight": true,
+                    "description": "Graph D highlights to confirm selection."
+                  },
+                  "id": "s2_1_scale_strengths_type_pattern_discovery_b7_v0_b0"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Right. Scale of 10 is easiest to read here. Fewer lines to count. When all your numbers end in 0 or 5, the bigger scale is usually cleaner.",
+                  "id": "s2_1_scale_strengths_type_pattern_discovery_b7_v0_b1"
+                }
+              ]
+            }
+          ],
+          "id": "s2_1_scale_strengths_type_pattern_discovery_b7"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_a",
+              "description": "Graph A: vertical bar graph with scale of 1. Apples=20, Bananas=40, Cherries=60.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Apples",
+                "Bananas",
+                "Cherries"
+              ],
+              "scale": 1
+            },
+            {
+              "tangible_id": "bar_graph_b",
+              "description": "Graph B: vertical bar graph with scale of 2. Apples=20, Bananas=40, Cherries=60.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Apples",
+                "Bananas",
+                "Cherries"
+              ],
+              "scale": 2
+            },
+            {
+              "tangible_id": "bar_graph_c",
+              "description": "Graph C: vertical bar graph with scale of 5. Apples=20, Bananas=40, Cherries=60.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Apples",
+                "Bananas",
+                "Cherries"
+              ],
+              "scale": 5
+            },
+            {
+              "tangible_id": "bar_graph_d",
+              "description": "Graph D: vertical bar graph with scale of 10. Apples=20, Bananas=40, Cherries=60. Multiple choice tool active.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Apples",
+                "Bananas",
+                "Cherries"
+              ],
+              "scale": 10
+            }
+          ],
+          "id": "s2_1_scale_strengths_type_pattern_discovery_b8"
+        },
+        {
+          "type": "dialogue",
+          "text": "Scale of 1 and 2 are for smaller data. They show every number exactly. Scale of 5 and 10 are for bigger data. They're cleaner and easier to read.",
+          "id": "s2_1_scale_strengths_type_pattern_discovery_b9"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_a",
+              "description": "Graph A: vertical bar graph with scale of 1. Apples=20, Bananas=40, Cherries=60.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Apples",
+                "Bananas",
+                "Cherries"
+              ],
+              "scale": 1
+            },
+            {
+              "tangible_id": "bar_graph_b",
+              "description": "Graph B: vertical bar graph with scale of 2. Apples=20, Bananas=40, Cherries=60.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Apples",
+                "Bananas",
+                "Cherries"
+              ],
+              "scale": 2
+            },
+            {
+              "tangible_id": "bar_graph_c",
+              "description": "Graph C: vertical bar graph with scale of 5. Apples=20, Bananas=40, Cherries=60.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Apples",
+                "Bananas",
+                "Cherries"
+              ],
+              "scale": 5
+            },
+            {
+              "tangible_id": "bar_graph_d",
+              "description": "Graph D: vertical bar graph with scale of 10. Apples=20, Bananas=40, Cherries=60.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Apples",
+                "Bananas",
+                "Cherries"
+              ],
+              "scale": 10
+            }
+          ],
+          "id": "s2_1_scale_strengths_type_pattern_discovery_b10"
+        }
+      ],
+      "_generated_at": "2026-04-20T16:59:25.399739+00:00"
+    },
+    {
+      "id": "s3_1_real_world_connection_type_c",
+      "beats": [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table_steps",
+          "tangible_type": "data_table",
+          "params": {
+            "title": "Daily Steps",
+            "categories": [
+              "Mon",
+              "Tue",
+              "Wed",
+              "Thu"
+            ],
+            "values": [
+              4500,
+              3200,
+              5100,
+              2800
+            ],
+            "description": "Data table A appears. Daily Steps. Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800."
+          },
+          "id": "s3_1_real_world_connection_type_c_b0"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table_coins",
+          "tangible_type": "data_table",
+          "params": {
+            "title": "Coins Collected",
+            "categories": [
+              "Jar 1",
+              "Jar 2",
+              "Jar 3",
+              "Jar 4"
+            ],
+            "values": [
+              7,
+              12,
+              19,
+              23
+            ],
+            "description": "Data table B appears. Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23."
+          },
+          "id": "s3_1_real_world_connection_type_c_b1"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "data_table_books",
+          "tangible_type": "data_table",
+          "params": {
+            "title": "Books Read",
+            "categories": [
+              "Room A",
+              "Room B",
+              "Room C",
+              "Room D"
+            ],
+            "values": [
+              25,
+              30,
+              35,
+              40
+            ],
+            "description": "Data table C appears. Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40."
+          },
+          "id": "s3_1_real_world_connection_type_c_b2"
+        },
+        {
+          "type": "dialogue",
+          "text": "People collect data about all kinds of things. Look at these three tables. Which data would have to use Scale of 2?",
+          "id": "s3_1_real_world_connection_type_c_b3"
+        },
+        {
+          "type": "prompt",
+          "text": "Which data would HAVE to use Scale of 2?",
+          "tool": "multiple_choice",
+          "options": [
+            "Table A",
+            "Table B",
+            "Table C"
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "selected": "Table B"
+              },
+              "description": "Student selected Table B (Coins Collected), correct",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "data_table_coins",
+                  "params": {
+                    "highlight": true,
+                    "description": "Table B (Coins Collected) highlights to confirm selection."
+                  },
+                  "id": "s3_1_real_world_connection_type_c_b4_v0_b0"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Right. The coin counts: 7, 12, 19, 23. None of them end in 0 or 5, so Scale of 2 is the only way to show them exactly.",
+                  "id": "s3_1_real_world_connection_type_c_b4_v0_b1"
+                }
+              ]
+            }
+          ],
+          "id": "s3_1_real_world_connection_type_c_b4"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table_steps",
+              "description": "Data table A. Daily Steps. Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800.",
+              "tangible_type": "data_table",
+              "title": "Daily Steps",
+              "categories": [
+                "Mon",
+                "Tue",
+                "Wed",
+                "Thu"
+              ],
+              "values": [
+                4500,
+                3200,
+                5100,
+                2800
+              ]
+            },
+            {
+              "tangible_id": "data_table_coins",
+              "description": "Data table B. Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23.",
+              "tangible_type": "data_table",
+              "title": "Coins Collected",
+              "categories": [
+                "Jar 1",
+                "Jar 2",
+                "Jar 3",
+                "Jar 4"
+              ],
+              "values": [
+                7,
+                12,
+                19,
+                23
+              ]
+            },
+            {
+              "tangible_id": "data_table_books",
+              "description": "Data table C. Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40.",
+              "tangible_type": "data_table",
+              "title": "Books Read",
+              "categories": [
+                "Room A",
+                "Room B",
+                "Room C",
+                "Room D"
+              ],
+              "values": [
+                25,
+                30,
+                35,
+                40
+              ]
+            }
+          ],
+          "id": "s3_1_real_world_connection_type_c_b5"
+        },
+        {
+          "type": "dialogue",
+          "text": "Here's a quick check: Do all the numbers end in 0 or 5? If yes, you have options. If no and the numbers are small, Scale of 2 is your go-to.",
+          "id": "s3_1_real_world_connection_type_c_b6"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "data_table_steps",
+              "description": "Data table A. Daily Steps. Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800.",
+              "tangible_type": "data_table",
+              "title": "Daily Steps",
+              "categories": [
+                "Mon",
+                "Tue",
+                "Wed",
+                "Thu"
+              ],
+              "values": [
+                4500,
+                3200,
+                5100,
+                2800
+              ]
+            },
+            {
+              "tangible_id": "data_table_coins",
+              "description": "Data table B highlighted. Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23.",
+              "tangible_type": "data_table",
+              "title": "Coins Collected",
+              "categories": [
+                "Jar 1",
+                "Jar 2",
+                "Jar 3",
+                "Jar 4"
+              ],
+              "values": [
+                7,
+                12,
+                19,
+                23
+              ]
+            },
+            {
+              "tangible_id": "data_table_books",
+              "description": "Data table C. Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40.",
+              "tangible_type": "data_table",
+              "title": "Books Read",
+              "categories": [
+                "Room A",
+                "Room B",
+                "Room C",
+                "Room D"
+              ],
+              "values": [
+                25,
+                30,
+                35,
+                40
+              ]
+            }
+          ],
+          "id": "s3_1_real_world_connection_type_c_b7"
+        }
+      ],
+      "_generated_at": "2026-04-20T16:59:42.424896+00:00"
+    },
+    {
+      "id": "s4_1_metacognitive_reflection_type_1_strategy",
+      "type": "transition",
+      "beats": [
+        {
+          "type": "dialogue",
+          "text": "What helped you most when deciding which scale to use?",
+          "id": "s4_1_metacognitive_reflection_type_1_strategy_b0"
+        },
+        {
+          "type": "prompt",
+          "text": "What helped you most when deciding which scale to use?",
+          "tool": "multiple_choice",
+          "options": [
+            "Checking the biggest number first",
+            "Looking at the last digits",
+            "Trying the preview to see what happens",
+            "Thinking about which graph would be easiest to read"
+          ],
+          "validator": [
+            {
+              "condition_id": "selected_biggest_number",
+              "condition": {
+                "selected": "Checking the biggest number first"
+              },
+              "description": "Student selected checking the biggest number first",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Nice. That's one of the two key questions. Checking the biggest number tells you right away which scales can even work.",
+                  "id": "s4_1_metacognitive_reflection_type_1_strategy_b1_v0_b0"
+                }
+              ]
+            },
+            {
+              "condition_id": "selected_last_digits",
+              "condition": {
+                "selected": "Looking at the last digits"
+              },
+              "description": "Student selected looking at the last digits",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Right. That's one of the key checks. Spotting those last digits tells you whether you have multiples of 5 or need a smaller scale like 1 or 2.",
+                  "id": "s4_1_metacognitive_reflection_type_1_strategy_b1_v1_b0"
+                }
+              ]
+            },
+            {
+              "condition_id": "selected_preview",
+              "condition": {
+                "selected": "Trying the preview to see what happens"
+              },
+              "description": "Student selected trying the preview",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Good. The preview is helpful! And here's a shortcut: ask yourself the two key questions first. Does the biggest number fit without too many lines? Are the numbers multiples of 5? Those two checks guide you every time.",
+                  "id": "s4_1_metacognitive_reflection_type_1_strategy_b1_v2_b0"
+                }
+              ]
+            },
+            {
+              "condition_id": "selected_easiest_to_read",
+              "condition": {
+                "selected": "Thinking about which graph would be easiest to read"
+              },
+              "description": "Student selected thinking about which graph would be easiest to read",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "That matters once you know your options. Start with the two key questions: Does the biggest number fit? Are the numbers multiples of 5? Then pick what's easiest to read without too many lines.",
+                  "id": "s4_1_metacognitive_reflection_type_1_strategy_b1_v3_b0"
+                }
+              ]
+            }
+          ],
+          "id": "s4_1_metacognitive_reflection_type_1_strategy_b1"
+        },
+        {
+          "type": "current_scene",
+          "elements": [],
+          "id": "s4_1_metacognitive_reflection_type_1_strategy_b2"
+        }
+      ],
+      "_generated_at": "2026-04-20T16:59:50.785089+00:00"
+    },
+    {
+      "id": "s4_2_identity_building_closure",
+      "type": "transition",
+      "beats": [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_completed",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10,
+            "description": "Completed vertical bar graph appears with Scale of 10."
+          },
+          "id": "s4_2_identity_building_closure_b0"
+        },
+        {
+          "type": "dialogue",
+          "text": "You learned to choose scales, not just use them. You check if the biggest number fits. You check the last digits to look for multiples of 5. Then you pick what's easiest to read without too many lines.",
+          "id": "s4_2_identity_building_closure_b1"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_completed",
+              "description": "Completed vertical bar graph with Scale of 10.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 10
+            }
+          ],
+          "id": "s4_2_identity_building_closure_b2"
+        },
+        {
+          "type": "dialogue",
+          "text": "That's strategic thinking. You're not just following rules. You're making decisions.",
+          "id": "s4_2_identity_building_closure_b3"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_completed",
+              "description": "Completed vertical bar graph with Scale of 10.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 10
+            }
+          ],
+          "id": "s4_2_identity_building_closure_b4"
+        },
+        {
+          "type": "dialogue",
+          "text": "Next time, you'll use your graphs to solve problems and answer questions. The scale you choose will help you find answers faster.",
+          "id": "s4_2_identity_building_closure_b5"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_completed",
+              "description": "Completed vertical bar graph with Scale of 10.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 10
+            }
+          ],
+          "id": "s4_2_identity_building_closure_b6"
+        }
+      ],
+      "_generated_at": "2026-04-20T16:59:58.117190+00:00"
+    }
+  ]
+}

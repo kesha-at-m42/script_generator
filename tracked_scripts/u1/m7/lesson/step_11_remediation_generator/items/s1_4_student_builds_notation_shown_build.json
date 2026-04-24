@@ -1,0 +1,136 @@
+{
+  "id": "s1_4_student_builds_notation_shown_build",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student set wrong container count on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Check the question. How many groups do we need?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student set wrong container count on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "highlight_control": "container_count",
+                "description": "Container count control highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "I asked for 4 groups. That means 4 containers. Use the control to set it to 4."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student set wrong container count three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "event": "set_container_count_animated",
+                "status": "confirmed",
+                "description": "System demonstrates setting container count to 4. Four empty containers appear one by one.",
+                "container_count": 4
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how it works. I need 4 groups, so I set the control to 4. That gives me 4 containers, one for each group. The number of groups is always how many containers you see."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student set wrong items per container on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Look at the question again. How many in each group?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student set wrong items per container on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "highlight_control": "items_per_container",
+                "description": "Items per container control highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "I asked for 3 in each group. That means 3 items go in every container. Use the control to set it to 3."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student set wrong items per container three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "event": "set_items_per_container_animated",
+                "status": "confirmed",
+                "description": "System demonstrates setting items per container to 3. Three items appear in each of the 4 containers, one at a time.",
+                "items_per_container": 3
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Watch how I do this. I need 3 in each group, so I set the control to 3. Now every container gets 3 items. That makes 4 groups of 3, which we write as 4 times 3."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:04:31.441153+00:00"
+}

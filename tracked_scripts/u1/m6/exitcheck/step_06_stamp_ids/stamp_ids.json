@@ -1,0 +1,754 @@
+[
+  {
+    "id": "s1_0_transition_into_exit_check",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You learned to solve problems that need two steps. You know to find the combined total first, then compare. Let's see what you know.",
+        "id": "s1_0_transition_into_exit_check_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_transition_into_exit_check_b1"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:59:44.566594+00:00"
+  },
+  {
+    "id": "s1_1_single_step_comparison_compare",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_supplies",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 5,
+          "axis_range": [
+            0,
+            50
+          ],
+          "categories": [
+            "Pencils",
+            "Erasers",
+            "Notebooks",
+            "Markers"
+          ],
+          "values": {
+            "Pencils": 40,
+            "Erasers": 25,
+            "Notebooks": 35,
+            "Markers": 20
+          },
+          "description": "Vertical bar graph appears. School Supplies Sold. Scale of 5, axis 0-50. Pencils 40, Erasers 25, Notebooks 35, Markers 20."
+        },
+        "id": "s1_1_single_step_comparison_compare_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "How many more pencils were sold than markers?",
+        "id": "s1_1_single_step_comparison_compare_b1"
+      },
+      {
+        "type": "prompt",
+        "text": "How many more pencils were sold than markers?",
+        "tool": "multiple_choice",
+        "options": [
+          60,
+          40,
+          20,
+          15
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 20
+            },
+            "description": "Student selected 20, correct (40 - 20 = 20)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "20 more pencils sold. This one asked about only two categories and was just one step—no combined, so straight to comparing.",
+                "id": "s1_1_single_step_comparison_compare_b2_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_single_step_comparison_compare_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_supplies",
+            "description": "Vertical bar graph in reading mode. School Supplies Sold. Scale of 5, axis 0-50. Pencils 40, Erasers 25, Notebooks 35, Markers 20.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 5,
+            "axis_range": [
+              0,
+              50
+            ],
+            "categories": [
+              "Pencils",
+              "Erasers",
+              "Notebooks",
+              "Markers"
+            ]
+          }
+        ],
+        "id": "s1_1_single_step_comparison_compare_b3"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:59:52.988488+00:00"
+  },
+  {
+    "id": "s1_2_two_step_problem_identify_compare",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_books",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 10,
+          "axis_range": [
+            0,
+            60
+          ],
+          "categories": [
+            "Fiction",
+            "Nonfiction",
+            "Comics",
+            "Poetry"
+          ],
+          "values": [
+            50,
+            30,
+            40,
+            20
+          ],
+          "title": "Books Read This Month",
+          "description": "Horizontal bar graph appears. Books Read This Month. Scale of 10, axis 0-60. Fiction 50, Nonfiction 30, Comics 40, Poetry 20."
+        },
+        "id": "s1_2_two_step_problem_identify_compare_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "How many more fiction books were read than nonfiction and poetry combined?",
+        "id": "s1_2_two_step_problem_identify_compare_b1"
+      },
+      {
+        "type": "prompt",
+        "text": "What should we find first?",
+        "tool": "multiple_choice",
+        "options": [
+          "Add nonfiction and poetry",
+          "Compare fiction to nonfiction",
+          "Add all four categories",
+          "Subtract poetry from nonfiction"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "Add nonfiction and poetry"
+            },
+            "description": "Student selected add nonfiction and poetry, correct first step",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Combine nonfiction and poetry first.",
+                "id": "s1_2_two_step_problem_identify_compare_b2_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_2_two_step_problem_identify_compare_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_books",
+            "description": "Horizontal bar graph. Books Read This Month. Scale of 10. Fiction 50, Nonfiction 30, Comics 40, Poetry 20.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
+            ],
+            "categories": [
+              "Fiction",
+              "Nonfiction",
+              "Comics",
+              "Poetry"
+            ]
+          }
+        ],
+        "id": "s1_2_two_step_problem_identify_compare_b3"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_books",
+        "params": {
+          "highlight_categories": [
+            "Nonfiction",
+            "Poetry"
+          ],
+          "description": "Nonfiction bar and Poetry bar highlight."
+        },
+        "id": "s1_2_two_step_problem_identify_compare_b4"
+      },
+      {
+        "type": "dialogue",
+        "text": "What's the combined total of nonfiction and poetry?",
+        "id": "s1_2_two_step_problem_identify_compare_b5"
+      },
+      {
+        "type": "prompt",
+        "text": "How many nonfiction and poetry books combined?",
+        "tool": "multiple_choice",
+        "options": [
+          10,
+          40,
+          50,
+          60
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 50
+            },
+            "description": "Student answered 50, correct, 30 plus 20",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "50 combined. That's nonfiction 30 plus poetry 20.",
+                "id": "s1_2_two_step_problem_identify_compare_b6_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_2_two_step_problem_identify_compare_b6"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_books",
+            "description": "Horizontal bar graph. Books Read This Month. Nonfiction and Poetry bars highlighted. Scale of 10.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
+            ],
+            "categories": [
+              "Fiction",
+              "Nonfiction",
+              "Comics",
+              "Poetry"
+            ]
+          }
+        ],
+        "id": "s1_2_two_step_problem_identify_compare_b7"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_books",
+        "params": {
+          "highlight_categories": [
+            "Fiction"
+          ],
+          "description": "Fiction bar highlights."
+        },
+        "id": "s1_2_two_step_problem_identify_compare_b8"
+      },
+      {
+        "type": "dialogue",
+        "text": "Nonfiction and poetry combined is 50. How many fiction books were read? Find how many more.",
+        "id": "s1_2_two_step_problem_identify_compare_b9"
+      },
+      {
+        "type": "prompt",
+        "text": "How many more fiction books than nonfiction and poetry combined?",
+        "tool": "multiple_choice",
+        "options": [
+          100,
+          50,
+          10,
+          0
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 0
+            },
+            "description": "Student answered 0, correct, fiction equals combined total, no difference",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Zero! Fiction is 50, combined is 50. Same amount. No difference.",
+                "id": "s1_2_two_step_problem_identify_compare_b10_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_2_two_step_problem_identify_compare_b10"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_books",
+            "description": "Horizontal bar graph. Books Read This Month. Fiction bar highlighted. Scale of 10.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
+            ],
+            "categories": [
+              "Fiction",
+              "Nonfiction",
+              "Comics",
+              "Poetry"
+            ]
+          }
+        ],
+        "id": "s1_2_two_step_problem_identify_compare_b11"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:09.966415+00:00"
+  },
+  {
+    "id": "s1_3_two_step_problem_identify_compare",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_fieldtrip",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 5,
+          "axis_range": [
+            0,
+            60
+          ],
+          "categories": [
+            "Aquarium",
+            "Museum",
+            "Zoo",
+            "Park",
+            "Farm"
+          ],
+          "values": {
+            "Aquarium": 35,
+            "Museum": 25,
+            "Zoo": 45,
+            "Park": 30,
+            "Farm": 15
+          },
+          "description": "Vertical bar graph appears. Scale of 5, axis 0-60. Context: Votes for Field Trip. Five categories: Aquarium 35, Museum 25, Zoo 45, Park 30, Farm 15."
+        },
+        "id": "s1_3_two_step_problem_identify_compare_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "How many fewer votes did the museum and farm combined get than the zoo?",
+        "id": "s1_3_two_step_problem_identify_compare_b1"
+      },
+      {
+        "type": "prompt",
+        "text": "What should we find first?",
+        "tool": "multiple_choice",
+        "options": [
+          "Add museum and farm",
+          "Compare zoo to museum",
+          "Add all five places",
+          "Subtract farm from museum"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "Add museum and farm"
+            },
+            "description": "Student selected to add museum and farm first, correct strategy",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Combine museum and farm first.",
+                "id": "s1_3_two_step_problem_identify_compare_b2_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_3_two_step_problem_identify_compare_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_fieldtrip",
+            "description": "Vertical bar graph in reading mode. Votes for Field Trip data. Five categories displayed.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 5,
+            "axis_range": [
+              0,
+              60
+            ],
+            "categories": [
+              "Aquarium",
+              "Museum",
+              "Zoo",
+              "Park",
+              "Farm"
+            ]
+          }
+        ],
+        "id": "s1_3_two_step_problem_identify_compare_b3"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_fieldtrip",
+        "params": {
+          "highlight_categories": [
+            "Museum",
+            "Farm"
+          ],
+          "description": "Museum bar (25) and Farm bar (15) highlight."
+        },
+        "id": "s1_3_two_step_problem_identify_compare_b4"
+      },
+      {
+        "type": "dialogue",
+        "text": "What's the combined total of votes for the museum and farm?",
+        "id": "s1_3_two_step_problem_identify_compare_b5"
+      },
+      {
+        "type": "prompt",
+        "text": "How many votes did museum and farm get combined?",
+        "tool": "multiple_choice",
+        "options": [
+          10,
+          30,
+          40,
+          45
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 40
+            },
+            "description": "Student answered 40, correct (25 + 15 = 40)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "40 combined. That's 25 plus 15.",
+                "id": "s1_3_two_step_problem_identify_compare_b6_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_3_two_step_problem_identify_compare_b6"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_fieldtrip",
+            "description": "Vertical bar graph. Museum and Farm bars highlighted. Votes for Field Trip data.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 5,
+            "axis_range": [
+              0,
+              60
+            ],
+            "categories": [
+              "Aquarium",
+              "Museum",
+              "Zoo",
+              "Park",
+              "Farm"
+            ]
+          }
+        ],
+        "id": "s1_3_two_step_problem_identify_compare_b7"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_fieldtrip",
+        "params": {
+          "highlight_categories": [
+            "Zoo"
+          ],
+          "description": "Zoo bar (45) highlights. Combined value 40 displayed."
+        },
+        "id": "s1_3_two_step_problem_identify_compare_b8"
+      },
+      {
+        "type": "dialogue",
+        "text": "Museum and farm combined is 40. Now find how many fewer votes they got than the zoo.",
+        "id": "s1_3_two_step_problem_identify_compare_b9"
+      },
+      {
+        "type": "prompt",
+        "text": "How many fewer votes did the museum and farm combined get than the zoo?",
+        "tool": "multiple_choice",
+        "options": [
+          85,
+          45,
+          40,
+          5
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 5
+            },
+            "description": "Student answered 5, correct (45 - 40 = 5)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "5 fewer. Museum and farm combined got 5 fewer votes than the zoo. You used two steps: first added, then compared.",
+                "id": "s1_3_two_step_problem_identify_compare_b10_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_3_two_step_problem_identify_compare_b10"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_fieldtrip",
+            "description": "Vertical bar graph. Zoo bar highlighted. Votes for Field Trip data. Combined value 40 displayed.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 5,
+            "axis_range": [
+              0,
+              60
+            ],
+            "categories": [
+              "Aquarium",
+              "Museum",
+              "Zoo",
+              "Park",
+              "Farm"
+            ]
+          }
+        ],
+        "id": "s1_3_two_step_problem_identify_compare_b11"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:27.688772+00:00"
+  },
+  {
+    "id": "s1_4_two_step_with_scale_2",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_books",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 2,
+          "categories": [
+            "Maya",
+            "Ben",
+            "Carla",
+            "David"
+          ],
+          "values": {
+            "Maya": 14,
+            "Ben": 9,
+            "Carla": 11,
+            "David": 6
+          },
+          "description": "Vertical bar graph appears. Books Read This Week data. Scale of 2. Maya=14, Ben=9, Carla=11, David=6."
+        },
+        "id": "s1_4_two_step_with_scale_2_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "Different graph, different scale. Use what you know.",
+        "id": "s1_4_two_step_with_scale_2_b1"
+      },
+      {
+        "type": "prompt",
+        "text": "How many books did Maya and Ben read together?",
+        "tool": "multiple_choice",
+        "options": [
+          23,
+          5,
+          14,
+          22
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 23
+            },
+            "description": "Student selected 23, correct (14 + 9 = 23)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "23 books together. You added Maya's 14 and Ben's 9.",
+                "id": "s1_4_two_step_with_scale_2_b2_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_4_two_step_with_scale_2_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_books",
+            "description": "Vertical bar graph in reading mode. Books Read This Week data. Scale of 2. Maya=14, Ben=9, Carla=11, David=6.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 2,
+            "categories": [
+              "Maya",
+              "Ben",
+              "Carla",
+              "David"
+            ]
+          }
+        ],
+        "id": "s1_4_two_step_with_scale_2_b3"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_books",
+        "params": {
+          "highlight_categories": [
+            "Carla"
+          ],
+          "description": "Carla bar highlights for step 2."
+        },
+        "id": "s1_4_two_step_with_scale_2_b4"
+      },
+      {
+        "type": "dialogue",
+        "text": "Now compare that total to Carla.",
+        "id": "s1_4_two_step_with_scale_2_b5"
+      },
+      {
+        "type": "prompt",
+        "text": "How many MORE books did Maya and Ben read together than Carla?",
+        "tool": "multiple_choice",
+        "options": [
+          34,
+          12,
+          23,
+          17
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 12
+            },
+            "description": "Student selected 12, correct (23 - 11 = 12)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "12 more. You found the combined total first, then compared.",
+                "id": "s1_4_two_step_with_scale_2_b6_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_4_two_step_with_scale_2_b6"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_books",
+            "description": "Vertical bar graph in reading mode. Books Read This Week data. Scale of 2. Carla bar highlighted. Maya=14, Ben=9, Carla=11, David=6.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 2,
+            "categories": [
+              "Maya",
+              "Ben",
+              "Carla",
+              "David"
+            ]
+          }
+        ],
+        "id": "s1_4_two_step_with_scale_2_b7"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:41.115060+00:00"
+  },
+  {
+    "id": "s1_5_exit_check_closure",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You're ready to practice.",
+        "id": "s1_5_exit_check_closure_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_5_exit_check_closure_b1"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:44.291252+00:00"
+  }
+]

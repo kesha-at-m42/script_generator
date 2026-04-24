@@ -1,0 +1,104 @@
+{
+  "id": "s4_1_m9_m10_growth",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_m9",
+      "tangible_type": "equation",
+      "params": {
+        "expression": [
+          "6",
+          "x",
+          "5",
+          "=",
+          "30"
+        ],
+        "label": "Last time",
+        "context_image": "bags",
+        "description": "Left equation: 6 × 5 = 30. Labeled 'Last time'. Bags context image. M9 style — standard form, no unknown."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_m10",
+      "tangible_type": "equation",
+      "params": {
+        "expression": [
+          "__",
+          "=",
+          "3",
+          "x",
+          "10"
+        ],
+        "label": "Today",
+        "context_image": "stacks",
+        "description": "Right equation: ☐ = 3 × 10. Labeled 'Today'. Stacks context image. M10 style — reversed, unknown on left."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Here's an equation you have seen before. And here's one from today. What changed?"
+    },
+    {
+      "type": "prompt",
+      "text": "What's different about today's equation?",
+      "tool": "multiple_choice",
+      "options": [
+        "The total moved to the other side",
+        "There's an unknown number",
+        "The picture uses stacks, not bags",
+        "All of these are different today"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "All of these are different today"
+          },
+          "description": "Student selected D, recognizing all three M10 changes",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Three new things, all in one equation. The equals sign works both ways. Unknowns can go anywhere. And equations work for stacks, rows, groups — not just bags."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_m9",
+          "description": "Left equation: 6 × 5 = 30. Labeled 'Last time'. Bags context image.",
+          "tangible_type": "equation",
+          "expression": [
+            "6",
+            "x",
+            "5",
+            "=",
+            "30"
+          ],
+          "label": "Last time"
+        },
+        {
+          "tangible_id": "equation_m10",
+          "description": "Right equation: ☐ = 3 × 10. Labeled 'Today'. Stacks context image.",
+          "tangible_type": "equation",
+          "expression": [
+            "__",
+            "=",
+            "3",
+            "x",
+            "10"
+          ],
+          "label": "Today"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:02.587440+00:00"
+}

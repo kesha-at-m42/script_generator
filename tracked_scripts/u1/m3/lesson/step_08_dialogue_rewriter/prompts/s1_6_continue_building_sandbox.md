@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:04:04.856512
+# Generated: 2026-04-23T12:28:24.251788
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,7 @@ Cacheable: Yes
   "id": "s1_6_continue_building_sandbox",
   "dialogues": [
     {
-      "text": "Let's complete the picture graph. Sandbox has 10. That's the smallest number.",
+      "text": "Let's complete the picture graph. Sandbox has 10. That's the smallest number. Click to set the height for Sandbox.",
       "context": "lesson"
     },
     {

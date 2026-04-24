@@ -1,0 +1,88 @@
+{
+  "id": "s1_1_single_step_comparison_compare",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_supplies",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "scale": 5,
+        "axis_range": [
+          0,
+          50
+        ],
+        "categories": [
+          "Pencils",
+          "Erasers",
+          "Notebooks",
+          "Markers"
+        ],
+        "values": {
+          "Pencils": 40,
+          "Erasers": 25,
+          "Notebooks": 35,
+          "Markers": 20
+        },
+        "description": "Vertical bar graph appears. School Supplies Sold. Scale of 5, axis 0-50. Pencils 40, Erasers 25, Notebooks 35, Markers 20."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "How many more pencils were sold than markers?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many more pencils were sold than markers?",
+      "tool": "multiple_choice",
+      "options": [
+        60,
+        40,
+        20,
+        15
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 20
+          },
+          "description": "Student selected 20, correct (40 - 20 = 20)",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "20 more pencils sold. This one asked about only two categories and was just one step—no combined, so straight to comparing."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_supplies",
+          "description": "Vertical bar graph in reading mode. School Supplies Sold. Scale of 5, axis 0-50. Pencils 40, Erasers 25, Notebooks 35, Markers 20.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 5,
+          "axis_range": [
+            0,
+            50
+          ],
+          "categories": [
+            "Pencils",
+            "Erasers",
+            "Notebooks",
+            "Markers"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:59:52.988488+00:00"
+}

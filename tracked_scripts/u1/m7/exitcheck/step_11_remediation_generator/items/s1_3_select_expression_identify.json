@@ -1,0 +1,118 @@
+{
+  "id": "s1_3_select_expression_identify",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "2 × 4"
+        },
+        "description": "Student selected 2 × 4, reversed factors",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "highlight_containers": true,
+                "description": "All 4 circles highlight to emphasize the group count."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Count the circles. That's how many groups you have. The groups number goes first in the expression."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "4 + 2"
+        },
+        "description": "Student selected 4 + 2, used addition instead of multiplication",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "highlight_items_in_container": 0,
+                "description": "Items in one circle highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You have equal groups here. When we have groups with the same amount in each, we multiply. Look: 4 circles, 2 dots each. That's 4 × 2."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "2 + 4"
+        },
+        "description": "Student selected 2 + 4, used addition instead of multiplication",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "highlight_items_in_container": 0,
+                "description": "Items in one circle highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You have equal groups here. When we have groups with the same amount in each, we multiply. Look: 4 circles, 2 dots each. That's 4 × 2."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "event": "count_containers",
+                "status": "confirmed",
+                "description": "Circles highlight sequentially as they are counted: 1, 2, 3, 4."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. First, count the circles: 1, 2, 3, 4. That's 4 groups."
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "event": "count_items_in_container",
+                "status": "confirmed",
+                "container_index": 0,
+                "description": "Dots in one circle highlight: 1, 2."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Now look inside one circle: 1, 2. Two in each group. So it's 4 groups of 2. That's 4 × 2. The groups number comes first, then what's in each group."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:01:21.529508+00:00"
+}

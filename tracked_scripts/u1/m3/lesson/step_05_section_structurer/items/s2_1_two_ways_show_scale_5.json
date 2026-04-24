@@ -16,7 +16,41 @@
           "Sandbox"
         ],
         "scale": 5,
-        "description": "Vertical picture graph appears. Favorite Playground Activities data. Swings=4 symbols, Slides=3, Monkey Bars=5, Sandbox=2. Key visible: Each ⭐ = 5."
+        "symbols_placed": {
+          "Swings": 4,
+          "Slides": 3,
+          "Monkey Bars": 5,
+          "Sandbox": 2
+        },
+        "description": "Vertical picture graph appears on left. Favorite Playground Activities. Swings 4 symbols, Slides 3, Monkey Bars 5, Sandbox 2. Key visible: Each star = 5."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_playground",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Swings",
+          "Slides",
+          "Monkey Bars",
+          "Sandbox"
+        ],
+        "category_values": {
+          "Swings": 20,
+          "Slides": 15,
+          "Monkey Bars": 25,
+          "Sandbox": 10
+        },
+        "axis_range": [
+          0,
+          30
+        ],
+        "axis_interval": 5,
+        "description": "Vertical bar graph appears on right. Same Playground Activities data. Swings 20, Slides 15, Monkey Bars 25, Sandbox 10. Axis labeled 0 to 30 in 5s. All bars pre-filled."
       }
     },
     {
@@ -25,7 +59,7 @@
       "tangible_id": "data_table",
       "tangible_type": "data_table",
       "params": {
-        "description": "Data table appears showing Playground Activities values: Swings=20, Slides=15, Monkey Bars=25, Sandbox=10."
+        "description": "Data table appears alongside both graphs showing Playground Activities values: Swings 20, Slides 15, Monkey Bars 25, Sandbox 10."
       }
     },
     {
@@ -33,22 +67,12 @@
       "text": "You've read bar graphs before. Here's the same Playground data as a bar graph."
     },
     {
-      "type": "scene",
-      "method": "animate",
-      "tangible_id": "picture_graph_playground",
-      "params": {
-        "event": "transform_to_bar_graph",
-        "status": "confirmed",
-        "description": "Picture graph transforms into vertical bar graph. Categories: Swings=20, Slides=15, Monkey Bars=25, Sandbox=10. Axis labeled 0–30 in 5s. All 4 bars pre-filled."
-      }
-    },
-    {
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "bar_graph_playground",
-          "description": "Vertical bar graph. Playground Activities data. Swings=20, Slides=15, Monkey Bars=25, Sandbox=10. Axis labeled 0–30 in 5s.",
-          "tangible_type": "bar_graph",
+          "tangible_id": "picture_graph_playground",
+          "description": "Vertical picture graph in reading mode. Favorite Playground Activities. Swings 4 symbols, Slides 3, Monkey Bars 5, Sandbox 2. Key: Each star = 5.",
+          "tangible_type": "picture_graph",
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
@@ -57,11 +81,20 @@
             "Monkey Bars",
             "Sandbox"
           ],
-          "axis_range": [
-            0,
-            30
-          ],
           "scale": 5
+        },
+        {
+          "tangible_id": "bar_graph_playground",
+          "description": "Vertical bar graph showing same data. Swings 20, Slides 15, Monkey Bars 25, Sandbox 10. Axis 0–30 in 5s.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Swings",
+            "Slides",
+            "Monkey Bars",
+            "Sandbox"
+          ]
         },
         {
           "tangible_id": "data_table",
@@ -73,6 +106,43 @@
     {
       "type": "dialogue",
       "text": "In a picture graph, you count by 5s using SYMBOLS: 5, 10, 15, 20, 25."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_playground",
+          "description": "Vertical picture graph in reading mode. Favorite Playground Activities. Swings 4 symbols, Slides 3, Monkey Bars 5, Sandbox 2. Key: Each star = 5.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Swings",
+            "Slides",
+            "Monkey Bars",
+            "Sandbox"
+          ],
+          "scale": 5
+        },
+        {
+          "tangible_id": "bar_graph_playground",
+          "description": "Vertical bar graph showing same data. Swings 20, Slides 15, Monkey Bars 25, Sandbox 10. Axis 0–30 in 5s.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Swings",
+            "Slides",
+            "Monkey Bars",
+            "Sandbox"
+          ]
+        },
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Playground Activities values.",
+          "tangible_type": "data_table"
+        }
+      ]
     },
     {
       "type": "dialogue",
@@ -108,9 +178,9 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "bar_graph_playground",
-          "description": "Vertical bar graph. Playground Activities data. Swings=20, Slides=15, Monkey Bars=25, Sandbox=10. Axis labeled 0–30 in 5s.",
-          "tangible_type": "bar_graph",
+          "tangible_id": "picture_graph_playground",
+          "description": "Vertical picture graph in reading mode. Favorite Playground Activities. Swings 4 symbols, Slides 3, Monkey Bars 5, Sandbox 2. Key: Each star = 5.",
+          "tangible_type": "picture_graph",
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
@@ -119,11 +189,20 @@
             "Monkey Bars",
             "Sandbox"
           ],
-          "axis_range": [
-            0,
-            30
-          ],
           "scale": 5
+        },
+        {
+          "tangible_id": "bar_graph_playground",
+          "description": "Vertical bar graph showing same data. Swings 20, Slides 15, Monkey Bars 25, Sandbox 10. Axis 0–30 in 5s. Multiple choice tool active.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Swings",
+            "Slides",
+            "Monkey Bars",
+            "Sandbox"
+          ]
         },
         {
           "tangible_id": "data_table",
@@ -133,5 +212,5 @@
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:00:47.155001+00:00"
+  "_generated_at": "2026-04-23T17:22:55.880006+00:00"
 }

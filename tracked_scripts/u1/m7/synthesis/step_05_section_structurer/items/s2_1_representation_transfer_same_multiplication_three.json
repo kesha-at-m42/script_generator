@@ -1,0 +1,116 @@
+{
+  "id": "s2_1_representation_transfer_same_multiplication_three",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_bags",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 3,
+        "items_per_container": 5,
+        "container_style": "bags",
+        "label": "Bags",
+        "description": "3 bags appear on the left. Each bag contains 5 items. Label: Bags."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_circles",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 3,
+        "items_per_container": 5,
+        "container_style": "circles",
+        "label": "Circles",
+        "description": "3 circles appear in the center. Each circle contains 5 dots. Label: Circles."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_symbols",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Graph"
+        ],
+        "scale": 5,
+        "symbol_count": 3,
+        "label": "Graph",
+        "description": "Picture graph appears on the right showing 3 symbols at scale of 5. Key: Each symbol = 5. Label: Graph."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Three different pictures. Take a look at each one. What do all three pictures show?"
+    },
+    {
+      "type": "prompt",
+      "text": "What do all three pictures show?",
+      "tool": "multiple_choice",
+      "options": [
+        "3 groups of 5",
+        "5 groups of 3",
+        "3 + 5",
+        "15 things with no groups"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "3 groups of 5"
+          },
+          "description": "Student selected 3 groups of 5, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "All three show 3 groups of 5. Bags, circles, graph symbols — different containers, same structure inside. That's what multiplication IS. It describes the same pattern no matter how the groups look. 3 groups of 5 is always 3 × 5 — whether it's bags on a shelf, dots in circles, or symbols on a graph."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_bags",
+          "description": "3 bags on the left, each containing 5 items. Label: Bags.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 5,
+          "container_style": "bags"
+        },
+        {
+          "tangible_id": "equal_groups_circles",
+          "description": "3 circles in the center, each containing 5 dots. Label: Circles.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 5,
+          "container_style": "circles"
+        },
+        {
+          "tangible_id": "picture_graph_symbols",
+          "description": "Picture graph on the right showing 3 symbols at scale of 5. Key: Each symbol = 5. Label: Graph.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Graph"
+          ],
+          "scale": 5
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:16.555139+00:00"
+}

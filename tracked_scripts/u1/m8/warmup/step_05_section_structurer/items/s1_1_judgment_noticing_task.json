@@ -1,0 +1,90 @@
+{
+  "id": "s1_1_judgment_noticing_task",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_left",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 3,
+        "items_per_container": 5,
+        "context": "bags",
+        "position": "left",
+        "description": "Left visual: 3 bags, 5 items in each bag. Equal groups arrangement."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_right",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 5,
+        "items_per_container": 3,
+        "context": "bags",
+        "position": "right",
+        "description": "Right visual: 5 bags, 3 items in each bag. Equal groups arrangement."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Look closely at both. What's DIFFERENT about these two?"
+    },
+    {
+      "type": "prompt",
+      "text": "What's different about these groups?",
+      "tool": "multiple_choice",
+      "options": [
+        "Different number of bags",
+        "Different items inside",
+        "One has more total items inside",
+        "Nothing—they're the same"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Different number of bags"
+          },
+          "description": "Student selected Different number of bags, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Right. Different number of bags. The left has 3 bags. The right has 5 bags."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_left",
+          "description": "Left visual: 3 bags, 5 items in each bag.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 5,
+          "context": "bags",
+          "position": "left"
+        },
+        {
+          "tangible_id": "equal_groups_right",
+          "description": "Right visual: 5 bags, 3 items in each bag.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 3,
+          "context": "bags",
+          "position": "right"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:59:54.885712+00:00"
+}

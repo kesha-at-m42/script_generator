@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:54.900433
+# Generated: 2026-04-23T12:28:11.819544
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,7 @@ Cacheable: Yes
   "id": "s1_2_grouping_animation_groups_5_worked",
   "dialogues": [
     {
-      "text": "Let's see how 20 items become symbols when the scale is 5. Watch—we'll group by 5s.",
+      "text": "Let's see how 20 items become symbols when the scale is 5. Watch. We'll group by 5s.",
       "context": "lesson"
     },
     {

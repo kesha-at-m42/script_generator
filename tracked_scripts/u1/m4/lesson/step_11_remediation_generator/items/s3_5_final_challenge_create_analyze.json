@@ -1,0 +1,181 @@
+{
+  "id": "s3_5_final_challenge_create_analyze",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student set one or more bars incorrectly on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Check the data table. Each bar should match its number exactly."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student set one or more bars incorrectly on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_plants",
+              "params": {
+                "highlight_categories": [
+                  "Tomatoes",
+                  "Peppers",
+                  "Carrots",
+                  "Beans"
+                ],
+                "description": "All four categories highlight on bar graph."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at each value in the table. Tomatoes is 60, right at the line. Peppers is 35, between 30 and 40. Carrots is 45, between 40 and 50. Beans is 20, at the line. Set each bar to match."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student set one or more bars incorrectly three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_plants",
+              "params": {
+                "event": "set_all_bars",
+                "status": "confirmed",
+                "description": "System sets all four bars: Tomatoes to 60, Peppers to 35, Carrots to 45, Beans to 20."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how to build it. Tomatoes is 60, so I set that bar at the 60 line. Peppers is 35, halfway between 30 and 40. Carrots is 45, halfway between 40 and 50. Beans is 20, at the 20 line. Each bar matches the value in the table. That's how you build a bar graph from data."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": 70
+        },
+        "description": "Student selected 70: likely subtracted instead of added",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_plants",
+              "params": {
+                "highlight_categories": [
+                  "Peppers",
+                  "Carrots"
+                ],
+                "description": "Peppers and Carrots bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The question asks for IN ALL. That means add the two values together. What is 35 plus 45?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 75
+        },
+        "description": "Student selected 75: incorrect addition or misread one bar value",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_plants",
+              "params": {
+                "highlight_categories": [
+                  "Peppers",
+                  "Carrots"
+                ],
+                "description": "Peppers and Carrots bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Check where each bar ends. Peppers is at 35, between 30 and 40. Carrots is at 45, between 40 and 50. Add those two values."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 90
+        },
+        "description": "Student selected 90: possibly added all four bars instead of just two",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_plants",
+              "params": {
+                "highlight_categories": [
+                  "Peppers",
+                  "Carrots"
+                ],
+                "description": "Peppers and Carrots bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The question asks only for Peppers and Carrots. Find those two bars and add their values."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_plants",
+              "params": {
+                "event": "highlight_and_label_sum",
+                "status": "confirmed",
+                "description": "Peppers bar at 35 and Carrots bar at 45 highlight. Visual shows 35 + 45 = 80."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how to find it. Peppers is at 35, halfway between 30 and 40. Carrots is at 45, halfway between 40 and 50. The question asks how many in all, so I add: 35 plus 45 equals 80. The answer is 80 plants in all."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:07:11.017492+00:00"
+}

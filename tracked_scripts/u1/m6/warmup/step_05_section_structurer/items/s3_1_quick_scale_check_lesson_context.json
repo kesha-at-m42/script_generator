@@ -1,0 +1,95 @@
+{
+  "id": "s3_1_quick_scale_check_lesson_context",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_lunch",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "scale": 5,
+        "categories": [
+          "Pizza",
+          "Tacos",
+          "Salad",
+          "Burgers"
+        ],
+        "values": {
+          "Pizza": 45,
+          "Tacos": 25,
+          "Salad": 10,
+          "Burgers": 15
+        },
+        "axis_range": [
+          0,
+          50
+        ],
+        "description": "Vertical bar graph appears. Favorite Lunch data. Scale of 5. Pizza=45, Tacos=25, Salad=10, Burgers=15."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Different graph, different scale. Quick check."
+    },
+    {
+      "type": "prompt",
+      "text": "How many students chose pizza?",
+      "tool": "multiple_choice",
+      "options": [
+        9,
+        25,
+        45,
+        50
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 45
+          },
+          "description": "Student answered 45, correct, 9 marks × 5",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "highlight_categories": [
+                  "Pizza"
+                ],
+                "description": "Pizza bar highlights to confirm selection."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "45 students. Scale of 5—you've got it."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_lunch",
+          "description": "Vertical bar graph. Favorite Lunch data. Scale of 5. Pizza=45, Tacos=25, Salad=10, Burgers=15. Pizza bar highlighted.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 5,
+          "categories": [
+            "Pizza",
+            "Tacos",
+            "Salad",
+            "Burgers"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:59:47.799035+00:00"
+}

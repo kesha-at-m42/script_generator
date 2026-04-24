@@ -1,0 +1,79 @@
+{
+  "id": "s3_3_student_matches_expression_visual",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "B"
+        },
+        "description": "Student selected option B: 3 bags of 5 (reversed the numbers)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder_match",
+              "params": {
+                "highlight_slot": 0,
+                "description": "First slot (5) highlights in the expression."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The first number tells you how many groups. Look at the expression. How many groups do you need?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "C"
+        },
+        "description": "Student selected option C: scattered items with no groups",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder_match",
+              "params": {
+                "highlight_expression": true,
+                "description": "The expression 5 × 3 highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Multiplication shows equal groups. Look for a picture with groups, not scattered items. How many groups do you see in the expression?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_option_a",
+              "params": {
+                "event": "highlight_containers_sequentially",
+                "status": "confirmed",
+                "description": "Option A bags highlight one by one as system counts."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. The expression says 5 times 3. The first number, 5, tells us how many groups. Count the bags in Option A: 1, 2, 3, 4, 5. Five groups. The second number, 3, tells us how many in each group. Look inside any bag: 3 items. Option A matches because it shows 5 groups with 3 in each. That is what 5 times 3 means."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:06:54.738679+00:00"
+}

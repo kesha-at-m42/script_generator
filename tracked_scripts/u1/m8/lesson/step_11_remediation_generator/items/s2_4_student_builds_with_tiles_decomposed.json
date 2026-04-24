@@ -1,0 +1,140 @@
+{
+  "id": "s2_4_student_builds_with_tiles_decomposed",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "groups": 4,
+          "items": 2
+        },
+        "description": "Student reversed the numbers: placed 4 × 2 instead of 2 × 4",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "highlight_containers": true,
+                "description": "Bags highlight to draw attention to group count."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You switched the numbers. Count the bags first. That's your groups number. Then count inside one bag. That's your in-each number."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 1
+            },
+            {
+              "not": {
+                "groups": 4,
+                "items": 2
+              }
+            }
+          ]
+        },
+        "description": "Student placed incorrect values on first attempt, not the reversed case",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Let's look closely. How many bags do you see?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 2
+            },
+            {
+              "not": {
+                "groups": 4,
+                "items": 2
+              }
+            }
+          ]
+        },
+        "description": "Student placed incorrect values on second attempt, not the reversed case",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "event": "highlight_containers_sequentially",
+                "status": "confirmed",
+                "description": "Bags highlight one by one as system counts."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Count the bags: 1, 2. That's 2 groups. Now pick one bag and count what's inside. How many items?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "event": "highlight_containers_sequentially",
+                "status": "confirmed",
+                "description": "Bags highlight one by one. Then items in one bag highlight."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_bags",
+              "params": {
+                "event": "demo_place_tile",
+                "status": "confirmed",
+                "description": "System places 2 tile in first slot, then 4 tile in second slot.",
+                "tile_value": 2,
+                "slot_position": 1
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_bags",
+              "params": {
+                "event": "demo_place_tile",
+                "status": "confirmed",
+                "description": "System places 4 tile in second slot.",
+                "tile_value": 4,
+                "slot_position": 2
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how to build it. First I count the bags. 1, 2. Two bags means 2 groups, so I place 2 in the first slot. Then I look inside one bag and count the items. 1, 2, 3, 4. Four items means 4 in each group, so I place 4 in the second slot. The answer is 2 times 4, because that's what the picture shows: 2 groups of 4."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:06:23.621959+00:00"
+}

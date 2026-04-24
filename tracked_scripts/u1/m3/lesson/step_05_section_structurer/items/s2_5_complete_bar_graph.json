@@ -4,6 +4,15 @@
     {
       "type": "scene",
       "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Vertical data table titled Favorite Lunch Foods appears. Categories: Pizza (20), Tacos (30), Salad (15), Pasta (25), Sandwiches (15)."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
       "tangible_id": "bar_graph_lunch",
       "tangible_type": "bar_graph",
       "params": {
@@ -12,18 +21,21 @@
         "categories": [
           "Pizza",
           "Tacos",
-          "Sandwiches",
           "Salad",
-          "Pasta"
+          "Pasta",
+          "Sandwiches"
         ],
-        "bar_heights": {
+        "axis_range": [
+          0,
+          35
+        ],
+        "axis_interval": 5,
+        "pre_filled_bars": {
           "Pizza": 20,
           "Tacos": 30,
-          "Sandwiches": 15,
-          "Salad": 0,
-          "Pasta": 0
+          "Sandwiches": 15
         },
-        "description": "Vertical bar graph appears. Favorite Lunch Foods. Pizza bar at 20, Tacos at 30, Sandwiches at 15. Salad and Pasta bars empty, ready to build."
+        "description": "Vertical bar graph titled Favorite Lunch Foods appears in building mode. Y-axis ranges 0 to 35 in intervals of 5. Categories: Pizza, Tacos, Salad, Pasta, Sandwiches. Pre-filled bars: Pizza at 20, Tacos at 30, Sandwiches at 15. Empty bars: Salad, Pasta."
       }
     },
     {
@@ -42,14 +54,12 @@
             "and": [
               {
                 "bar_height": {
-                  "category": "Salad",
-                  "value": 15
+                  "Salad": 15
                 }
               },
               {
                 "bar_height": {
-                  "category": "Pasta",
-                  "value": 25
+                  "Pasta": 25
                 }
               }
             ]
@@ -62,9 +72,9 @@
               "method": "animate",
               "tangible_id": "bar_graph_lunch",
               "params": {
-                "event": "confirm_bar_heights",
+                "event": "draw_bar_guideline",
                 "status": "confirmed",
-                "description": "Salad and Pasta bars confirm at correct heights."
+                "description": "Horizontal guideline draws from top of Salad bar to axis at 15, then from top of Pasta bar to axis at 25."
               }
             },
             {
@@ -79,21 +89,31 @@
       "type": "current_scene",
       "elements": [
         {
+          "tangible_id": "data_table",
+          "description": "Vertical data table showing Favorite Lunch Foods values: Pizza 20, Tacos 30, Salad 15, Pasta 25, Sandwiches 15.",
+          "tangible_type": "data_table"
+        },
+        {
           "tangible_id": "bar_graph_lunch",
-          "description": "Vertical bar graph. Favorite Lunch Foods. Pizza=20, Tacos=30, Sandwiches=15, Salad=15, Pasta=25. All bars complete.",
+          "description": "Vertical bar graph in building mode titled Favorite Lunch Foods. Y-axis ranges 0–35 in intervals of 5. All five bars filled: Pizza 20, Tacos 30, Salad 15, Pasta 25, Sandwiches 15. Guidelines drawn to confirm Salad and Pasta heights.",
           "tangible_type": "bar_graph",
           "mode": "building",
           "orientation": "vertical",
           "categories": [
             "Pizza",
             "Tacos",
-            "Sandwiches",
             "Salad",
-            "Pasta"
-          ]
+            "Pasta",
+            "Sandwiches"
+          ],
+          "axis_range": [
+            0,
+            35
+          ],
+          "axis_interval": 5
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:01:33.640574+00:00"
+  "_generated_at": "2026-04-23T17:24:17.199599+00:00"
 }

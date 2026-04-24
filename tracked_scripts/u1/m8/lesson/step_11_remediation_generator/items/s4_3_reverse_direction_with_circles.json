@@ -1,0 +1,90 @@
+{
+  "id": "s4_3_reverse_direction_with_circles",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "equal_groups_option_b"
+        },
+        "description": "Student selected Option B: 6 circles of 5 dots, reversed the numbers",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_5x6",
+              "params": {
+                "event": "highlight_first_number",
+                "status": "confirmed",
+                "description": "First number 5 in expression highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The first number tells you how many groups. Look at 5 times 6. How many groups does that mean?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "equal_groups_option_c"
+        },
+        "description": "Student selected Option C: scattered dots without containers, no grouping structure",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_option_a",
+              "params": {
+                "highlight_containers": true,
+                "description": "Option A containers highlight to show group structure."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Multiplication shows equal groups. You need to see groups, not scattered items. Which picture shows groups?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_5x6",
+              "params": {
+                "event": "highlight_numbers_sequentially",
+                "status": "confirmed",
+                "description": "Numbers in expression highlight sequentially: first 5, then 6."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_option_a",
+              "params": {
+                "event": "count_groups_then_items",
+                "status": "confirmed",
+                "description": "Option A demonstrates counting: circles pulse one by one showing 5 groups, then items in one circle highlight showing 6 in each."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how to read 5 times 6. The first number is groups. I count the circles: 1, 2, 3, 4, 5. Five groups. The second number is in each group. I count inside one circle: 1, 2, 3, 4, 5, 6. Six in each. So 5 times 6 means 5 groups with 6 in each group. That's Option A."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:07:46.655643+00:00"
+}

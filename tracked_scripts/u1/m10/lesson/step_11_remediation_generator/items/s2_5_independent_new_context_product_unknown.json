@@ -1,0 +1,73 @@
+{
+  "id": "s2_5_independent_new_context_product_unknown",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student placed a wrong tile on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Count all the jars. How many total?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student placed a wrong tile on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_shelves",
+              "params": {
+                "highlight_containers": [
+                  0,
+                  1
+                ],
+                "description": "Both shelves highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's count together. First shelf has 8 jars. Second shelf has 8 jars. 8 plus 8. What's the total?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student placed a wrong tile three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_shelves",
+              "params": {
+                "event": "tile_locks_in_slot",
+                "status": "confirmed",
+                "description": "16 tile slides into the product slot, completing 2 × 8 = 16."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. First shelf, 8 jars. Second shelf, 8 jars. 8 plus 8 equals 16. Or we can skip count by 8s: 8, 16. Either way, 2 times 8 equals 16. That's the product."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:08:53.654247+00:00"
+}

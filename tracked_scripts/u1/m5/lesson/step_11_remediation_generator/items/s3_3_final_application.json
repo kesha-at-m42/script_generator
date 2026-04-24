@@ -1,0 +1,802 @@
+{
+  "id": "s3_3_final_application",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 5,
+          "incorrect_count": 1
+        },
+        "description": "Student selected Scale of 5 on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Scale of 5 works for these numbers. But check if there's a bigger scale that's even easier to read."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 2,
+          "incorrect_count": 1
+        },
+        "description": "Student selected Scale of 2 on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Scale of 2 fits. But 70 is a big number. Try a bigger scale to keep the axis cleaner."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 1,
+          "incorrect_count": 1
+        },
+        "description": "Student selected Scale of 1 on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Count to 70 by ones. That's a lot of marks on the axis. Try a bigger scale."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 5,
+          "incorrect_count": 2
+        },
+        "description": "Student selected Scale of 5 on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_values": [
+                  25,
+                  55,
+                  70,
+                  40
+                ],
+                "description": "Data values highlighted showing ones place digits: 5, 5, 0, 0."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at the last digits: all 0 or 5. These are multiples of 5. Both scales of 5 and 10 work. Which gives fewer marks on the axis to reach 70?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 2,
+          "incorrect_count": 2
+        },
+        "description": "Student selected Scale of 2 on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_values": [
+                  25,
+                  55,
+                  70,
+                  40
+                ],
+                "description": "Data values highlighted showing ones place digits: 5, 5, 0, 0."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Check the ones place: 5, 5, 0, 0. They're all 0 or 5, so these are multiples of 5. What's the biggest scale where all these numbers land exactly?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 1,
+          "incorrect_count": 2
+        },
+        "description": "Student selected Scale of 1 on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_values": [
+                  70
+                ],
+                "description": "Largest value (70) highlighted."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The biggest number is 70. Count by ones to 70: that's 70 tick marks. For bigger data, a bigger scale makes the graph easier to read. Which scale reaches 70 with the fewest marks?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "data_table",
+              "params": {
+                "event": "highlight_analysis",
+                "status": "confirmed",
+                "description": "System highlights ones place digits: 5, 5, 0, 0. Then shows comparison: Scale of 5 needs 14 marks (0, 5, 10...70), Scale of 10 needs 8 marks (0, 10, 20...70)."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. All values end in 0 or 5, so both scales of 5 and 10 work. But look: Scale of 5 needs 14 tick marks to reach 70. Scale of 10 only needs 8. Same data, cleaner graph. For big data that's multiples of 5, Scale of 10 is best."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "bar_height": 20,
+          "category": "Red Team",
+          "incorrect_count": 1
+        },
+        "description": "Student set Red Team bar to 20 on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Check the data table. How many points did Red Team score?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "bar_height": 30,
+          "category": "Red Team",
+          "incorrect_count": 1
+        },
+        "description": "Student set Red Team bar to 30 on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Close. Red Team scored 25, not 30. Where does 25 land?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student set Red Team bar to any other wrong height on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Find 25 on the axis. It's halfway between two marks."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "bar_height": 20,
+          "category": "Red Team",
+          "incorrect_count": 2
+        },
+        "description": "Student set Red Team bar to 20 on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_categories": [
+                  "Red Team"
+                ],
+                "description": "Red Team row highlighted showing value 25."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at the data table. Red Team scored 25 points, not 20. Find the mark for 20, then go halfway to 30."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "bar_height": 30,
+          "category": "Red Team",
+          "incorrect_count": 2
+        },
+        "description": "Student set Red Team bar to 30 on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_team_scores",
+              "params": {
+                "highlight_axis_marks": [
+                  20,
+                  30
+                ],
+                "description": "Axis marks at 20 and 30 highlighted."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Red Team scored 25, not 30. Look at the axis marks: 20 and 30. Where does 25 go? Exactly halfway between those two marks."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student set Red Team bar to any other wrong height on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_team_scores",
+              "params": {
+                "highlight_axis_marks": [
+                  20,
+                  30
+                ],
+                "description": "Axis marks at 20 and 30 highlighted with midpoint indicator."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Red Team scored 25. The axis goes by tens: 0, 10, 20, 30. Find 20 and 30. 25 is exactly halfway between them. Place the bar there."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_team_scores",
+              "params": {
+                "event": "model_bar_placement",
+                "status": "confirmed",
+                "category": "Red Team",
+                "height": 25,
+                "description": "System demonstrates: highlights axis marks at 20 and 30, shows midpoint indicator at 25, then draws bar to that height. Bar locks at 25."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Watch. Red Team scored 25. I find 20 and 30 on the axis. 25 is halfway between them. With Scale of 10, any number ending in 5 lands exactly at the midpoint. The bar for Red Team goes to 25."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "bar_height": 30,
+          "category": "Blue Team",
+          "incorrect_count": 1
+        },
+        "description": "Student set Blue Team bar to 30 on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Check the data table. How many points did Blue Team score?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "bar_height": 50,
+          "category": "Blue Team",
+          "incorrect_count": 1
+        },
+        "description": "Student set Blue Team bar to 50 on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Blue Team scored 40, not 50. Find 40 on the axis."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student set Blue Team bar to any other wrong height on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Look at the data table. Blue Team scored 40. That's right on a mark."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "bar_height": 30,
+          "category": "Blue Team",
+          "incorrect_count": 2
+        },
+        "description": "Student set Blue Team bar to 30 on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_categories": [
+                  "Blue Team"
+                ],
+                "description": "Blue Team row highlighted showing value 40."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Check the data table. Blue Team scored 40, not 30. Find the mark labeled 40 on the axis."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "bar_height": 50,
+          "category": "Blue Team",
+          "incorrect_count": 2
+        },
+        "description": "Student set Blue Team bar to 50 on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_team_scores",
+              "params": {
+                "highlight_axis_marks": [
+                  40
+                ],
+                "description": "Axis mark at 40 highlighted."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Blue Team scored 40, not 50. The number ends in 0, so it lands exactly on a mark. Find the mark labeled 40."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student set Blue Team bar to any other wrong height on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_team_scores",
+              "params": {
+                "highlight_axis_marks": [
+                  40
+                ],
+                "description": "Axis mark at 40 highlighted."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Blue Team scored 40. That ends in 0, so it lands right on a mark. Look at the axis: 0, 10, 20, 30, 40. Place the bar at 40."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_team_scores",
+              "params": {
+                "event": "model_bar_placement",
+                "status": "confirmed",
+                "category": "Blue Team",
+                "height": 40,
+                "description": "System demonstrates: highlights axis mark at 40, then draws bar directly to that mark. Bar locks at 40."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Watch. Blue Team scored 40. The number ends in 0, so with Scale of 10, it lands exactly on a tick mark. I find 40 on the axis and place the bar right there. The bar for Blue Team goes to 40."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "bar_height": 50,
+          "category": "Green Team",
+          "incorrect_count": 1
+        },
+        "description": "Student set Green Team bar to 50 on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Green Team scored 55, not 50. Where does 55 land?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "bar_height": 60,
+          "category": "Green Team",
+          "incorrect_count": 1
+        },
+        "description": "Student set Green Team bar to 60 on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Check the data table. How many points did Green Team score?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student set Green Team bar to any other wrong height on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Look at the data table. Green Team scored 55. That's halfway between two marks."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "bar_height": 50,
+          "category": "Green Team",
+          "incorrect_count": 2
+        },
+        "description": "Student set Green Team bar to 50 on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_categories": [
+                  "Green Team"
+                ],
+                "description": "Green Team row highlighted showing value 55."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Green Team scored 55, not 50. Look at the axis: find 50 and 60. Where does 55 go between them?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "bar_height": 60,
+          "category": "Green Team",
+          "incorrect_count": 2
+        },
+        "description": "Student set Green Team bar to 60 on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_team_scores",
+              "params": {
+                "highlight_axis_marks": [
+                  50,
+                  60
+                ],
+                "description": "Axis marks at 50 and 60 highlighted."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Green Team scored 55, not 60. Look at the marks for 50 and 60. 55 is exactly halfway between those two marks."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student set Green Team bar to any other wrong height on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_team_scores",
+              "params": {
+                "highlight_axis_marks": [
+                  50,
+                  60
+                ],
+                "description": "Axis marks at 50 and 60 highlighted with midpoint indicator."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Green Team scored 55. Find 50 and 60 on the axis. 55 is exactly halfway between them. Place the bar at that midpoint."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_team_scores",
+              "params": {
+                "event": "model_bar_placement",
+                "status": "confirmed",
+                "category": "Green Team",
+                "height": 55,
+                "description": "System demonstrates: highlights axis marks at 50 and 60, shows midpoint indicator at 55, then draws bar to that height. Bar locks at 55."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Watch. Green Team scored 55. I find 50 and 60 on the axis. 55 is halfway between them. With Scale of 10, numbers ending in 5 land at the midpoint. The bar for Green Team goes to 55."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "bar_height": 60,
+          "category": "Yellow Team",
+          "incorrect_count": 1
+        },
+        "description": "Student set Yellow Team bar to 60 on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Yellow Team scored 70, not 60. Find 70 on the axis."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "bar_height": 80,
+          "category": "Yellow Team",
+          "incorrect_count": 1
+        },
+        "description": "Student set Yellow Team bar to 80 on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Check the data table. How many points did Yellow Team score?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student set Yellow Team bar to any other wrong height on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Look at the data table. Yellow Team scored 70. That's right on a mark."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "bar_height": 60,
+          "category": "Yellow Team",
+          "incorrect_count": 2
+        },
+        "description": "Student set Yellow Team bar to 60 on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_categories": [
+                  "Yellow Team"
+                ],
+                "description": "Yellow Team row highlighted showing value 70."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Yellow Team scored 70, not 60. The number ends in 0, so it lands exactly on a mark. Find the mark labeled 70."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "bar_height": 80,
+          "category": "Yellow Team",
+          "incorrect_count": 2
+        },
+        "description": "Student set Yellow Team bar to 80 on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_team_scores",
+              "params": {
+                "highlight_axis_marks": [
+                  70
+                ],
+                "description": "Axis mark at 70 highlighted."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Yellow Team scored 70, not 80. Find the mark labeled 70 on the axis. That's where the bar should end."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student set Yellow Team bar to any other wrong height on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_team_scores",
+              "params": {
+                "highlight_axis_marks": [
+                  70
+                ],
+                "description": "Axis mark at 70 highlighted."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Yellow Team scored 70. That ends in 0, so it lands right on a mark. Look at the axis: 0, 10, 20, 30, 40, 50, 60, 70. Place the bar at 70."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_team_scores",
+              "params": {
+                "event": "model_bar_placement",
+                "status": "confirmed",
+                "category": "Yellow Team",
+                "height": 70,
+                "description": "System demonstrates: highlights axis mark at 70, then draws bar directly to that mark. Bar locks at 70."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Watch. Yellow Team scored 70. The number ends in 0, so with Scale of 10, it lands exactly on a tick mark. I find 70 on the axis and place the bar right there. The bar for Yellow Team goes to 70."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:07:29.411172+00:00"
+}

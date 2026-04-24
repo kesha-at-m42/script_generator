@@ -1,0 +1,104 @@
+{
+  "id": "s1_3_solve_1st_factor_unknown",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_stacks",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "building",
+        "container_count": 0,
+        "items_per_container": 5,
+        "context": "stacks",
+        "description": "Equal groups construction area appears, empty. Control panel shows +/- group buttons. Each new group will have 5 items. Running total display shows Total: 0."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_factor",
+      "tangible_type": "equation_builder",
+      "params": {
+        "template": [
+          "__",
+          "×",
+          "5",
+          "=",
+          "15"
+        ],
+        "style": "equation",
+        "description": "Equation builder appears with pre-filled template: blank × 5 = 15. First position is fillable slot, 5 and 15 are visible."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "How many stacks of 5 make 15? Pick the number."
+    },
+    {
+      "type": "prompt",
+      "text": "☐ × 5 = 15. How many stacks?",
+      "tool": "multiple_choice",
+      "options": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 3
+          },
+          "description": "Student selected 3, correct answer",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_stacks",
+              "params": {
+                "event": "build_groups_sequentially",
+                "status": "confirmed",
+                "description": "3 stacks of 5 items appear, building one stack at a time. Running total updates: 5, 10, 15."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "3 stacks of 5 equals 15. That's how you find the missing factor by skip counting."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_stacks",
+          "description": "Equal groups construction area showing 3 stacks of 5 items. Running total display shows Total: 15.",
+          "tangible_type": "equal_groups",
+          "mode": "building",
+          "container_count": 3,
+          "items_per_container": 5,
+          "context": "stacks"
+        },
+        {
+          "tangible_id": "equation_builder_factor",
+          "description": "Equation builder showing completed equation: 3 × 5 = 15.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "3",
+            "×",
+            "5",
+            "=",
+            "15"
+          ],
+          "style": "equation"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:19.051479+00:00"
+}

@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:51.280280
+# Generated: 2026-04-23T12:28:08.847444
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,7 @@ Cacheable: Yes
   "id": "s1_1_building_on_scale_comparison",
   "dialogues": [
     {
-      "text": "In Warmup, you saw something important. Same data, but the scale of 5 graph needed fewer symbols. That's because each symbol represents MORE.",
+      "text": "In Warmup, you saw something important. Same data, but the scale-of-5 graph needed fewer symbols. That's because each symbol represents MORE.",
       "context": "lesson"
     },
     {

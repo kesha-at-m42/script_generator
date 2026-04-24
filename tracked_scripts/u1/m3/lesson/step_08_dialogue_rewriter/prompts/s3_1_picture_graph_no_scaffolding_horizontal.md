@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:04:37.219929
+# Generated: 2026-04-23T12:28:54.823015
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,7 @@ Cacheable: Yes
   "id": "s3_1_picture_graph_no_scaffolding_horizontal",
   "dialogues": [
     {
-      "text": "This graph goes sideways, horizontal. Same idea, you just click for the length for the number of symbols instead of height.",
+      "text": "This graph goes sideways—horizontal. Same idea, you just click for the length for the number of symbols instead of height.",
       "context": "lesson"
     },
     {
@@ -952,7 +952,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "7 symbols for 35 books. 5, 10, 15, 20, 25, 30, 35. That's how you count by the scale to place the right number of symbols.",
+      "text": "7 symbols for 35 books. 5, 10, 15, 20, 25, 30, 35.",
       "context": "on_correct"
     }
   ]

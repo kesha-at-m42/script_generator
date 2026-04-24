@@ -1,0 +1,103 @@
+{
+  "id": "s2_2_reduced_scaffolding_product_introduction",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "3 groups of 2"
+        },
+        "description": "Student selected 3 groups of 2: counted groups correctly but undercounted items per group",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "highlight_one_container": true,
+                "description": "One circle highlights to draw attention to counting items inside."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted the circles correctly. Now look inside ONE circle. Count the dots carefully."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "2 groups of 3"
+        },
+        "description": "Student selected 2 groups of 3: reversed the groups count and items per group",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "highlight_all_containers": true,
+                "description": "All three circles highlight to emphasize the group count."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The 2 tells us about the items inside. The groups are the circles themselves. How many circles do you see?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "4 groups of 3"
+        },
+        "description": "Student selected 4 groups of 3: overcounted the number of groups",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "highlight_all_containers": true,
+                "description": "All circles highlight to emphasize counting the groups."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Each circle is one group. Count the circles: how many circles are there?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "event": "highlight_containers_sequentially",
+                "status": "confirmed",
+                "description": "Circles highlight one at a time as they are counted: 1, 2, 3. Then one circle opens and dots inside highlight one at a time: 1, 2, 3."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. First, count the circles: 1, 2, 3. Three circles. Those are the groups. Now look inside one circle: 1, 2, 3 dots. Three in each group. So we have 3 groups of 3. That's how you identify equal groups: count the containers first, then count what's inside one of them."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:05:33.592445+00:00"
+}

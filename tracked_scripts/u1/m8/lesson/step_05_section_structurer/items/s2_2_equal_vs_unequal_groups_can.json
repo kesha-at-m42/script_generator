@@ -1,0 +1,167 @@
+{
+  "id": "s2_2_equal_vs_unequal_groups_can",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_a",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 3,
+        "items_per_container": 4,
+        "container_type": "bag",
+        "label": "A",
+        "description": "Equal groups labeled A. 3 bags with 4 items each."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_b",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 3,
+        "items_per_container": [
+          4,
+          2,
+          6
+        ],
+        "container_type": "bag",
+        "label": "B",
+        "description": "Unequal groups labeled B. 3 bags with 4, 2, 6 items."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_c",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 4,
+        "items_per_container": 3,
+        "container_type": "bag",
+        "label": "C",
+        "description": "Equal groups labeled C. 4 bags with 3 items each."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_d",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 4,
+        "items_per_container": [
+          3,
+          3,
+          1,
+          5
+        ],
+        "container_type": "bag",
+        "label": "D",
+        "description": "Unequal groups labeled D. 4 bags with 3, 3, 1, 5 items."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "All of these show bags with items inside. But can I write a multiplication expression for all of them? Remember — multiplication shows EQUAL groups."
+    },
+    {
+      "type": "dialogue",
+      "text": "Select the pictures where every bag has the SAME number inside."
+    },
+    {
+      "type": "prompt",
+      "text": "Select ALL the pictures that show equal groups.",
+      "tool": "multi_select",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "selected": "A"
+              },
+              {
+                "selected": "C"
+              }
+            ]
+          },
+          "description": "Student selected A and C, both equal groups, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "A has 3 bags with 4 in each — equal groups, 3 times 4. C has 4 bags with 3 in each — equal groups, 4 times 3. B and D? Different amounts in the bags so they have unequal groups. We can't write a multiplication expression for those."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_a",
+          "description": "Equal groups labeled A. 3 bags with 4 items each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 4,
+          "container_type": "bag",
+          "label": "A"
+        },
+        {
+          "tangible_id": "equal_groups_b",
+          "description": "Unequal groups labeled B. 3 bags with 4, 2, 6 items.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": [
+            4,
+            2,
+            6
+          ],
+          "container_type": "bag",
+          "label": "B"
+        },
+        {
+          "tangible_id": "equal_groups_c",
+          "description": "Equal groups labeled C. 4 bags with 3 items each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 3,
+          "container_type": "bag",
+          "label": "C"
+        },
+        {
+          "tangible_id": "equal_groups_d",
+          "description": "Unequal groups labeled D. 4 bags with 3, 3, 1, 5 items.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": [
+            3,
+            3,
+            1,
+            5
+          ],
+          "container_type": "bag",
+          "label": "D"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:50.124360+00:00"
+}

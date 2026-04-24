@@ -1,0 +1,132 @@
+{
+  "id": "s1_1_representation_transfer_same_expression_different",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_bags",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 2,
+        "items_per_container": 5,
+        "container_type": "bags",
+        "description": "2 bags with 5 items each appear on left."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_boxes",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 2,
+        "items_per_container": 5,
+        "container_type": "boxes",
+        "description": "2 boxes with 5 items each appear in center."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_circles",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 2,
+        "items_per_container": 5,
+        "container_type": "circles",
+        "description": "2 circles with 5 dots each appear on right."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_shared",
+      "tangible_type": "equation",
+      "params": {
+        "expression": [
+          "2",
+          "×",
+          "5"
+        ],
+        "description": "Expression 2 × 5 appears below all three visualizations."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "These three pictures look different. Bags, boxes, circles. But they all show the same thing."
+    },
+    {
+      "type": "prompt",
+      "text": "What stays the same across all three?",
+      "tool": "multiple_choice",
+      "options": [
+        "2 groups with 5 in each",
+        "The containers (bags/boxes/circles)",
+        "The items inside",
+        "The colors or shapes"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "2 groups with 5 in each"
+          },
+          "description": "Student selected 2 groups with 5 in each, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Exactly. The CONTAINERS change—bags, boxes, circles—but the structure doesn't. 2 groups of 5 every time. That's what the expression 2 times 5 captures—the structure underneath."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_bags",
+          "description": "2 bags with 5 items each on left.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 2,
+          "items_per_container": 5,
+          "container_type": "bags"
+        },
+        {
+          "tangible_id": "equal_groups_boxes",
+          "description": "2 boxes with 5 items each in center.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 2,
+          "items_per_container": 5,
+          "container_type": "boxes"
+        },
+        {
+          "tangible_id": "equal_groups_circles",
+          "description": "2 circles with 5 dots each on right.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 2,
+          "items_per_container": 5,
+          "container_type": "circles"
+        },
+        {
+          "tangible_id": "equation_shared",
+          "description": "Expression 2 × 5 below all three visualizations.",
+          "tangible_type": "equation",
+          "expression": [
+            "2",
+            "×",
+            "5"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:28.810110+00:00"
+}

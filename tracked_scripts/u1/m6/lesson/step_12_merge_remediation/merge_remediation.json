@@ -1,0 +1,3079 @@
+[
+  {
+    "id": "s1_1_transition_warmup",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_lunch",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 5,
+          "categories": [
+            "Pizza",
+            "Tacos",
+            "Salad",
+            "Burgers"
+          ],
+          "values": {
+            "Pizza": 45,
+            "Tacos": 25,
+            "Salad": 10,
+            "Burgers": 15
+          },
+          "title": "Favorite Lunch Foods",
+          "description": "Horizontal bar graph appears. Favorite Lunch Foods. Scale of 5. Pizza 45, Tacos 25, Salad 10, Burgers 15."
+        },
+        "id": "s1_1_transition_warmup_b0",
+        "_notion_block_id": "3485917e-ac52-81b6-b151-e88623068f5f"
+      },
+      {
+        "type": "dialogue",
+        "text": "In Warmup, you read graphs with different scales. Now let's use graphs to solve problems. Here's data about students' favorite lunch foods.",
+        "id": "s1_1_transition_warmup_b1",
+        "_notion_block_id": "3485917e-ac52-8106-a7d8-f5d9754dd2a9"
+      },
+      {
+        "type": "dialogue",
+        "text": "First, a quick check on something you learned before.",
+        "id": "s1_1_transition_warmup_b2",
+        "_notion_block_id": "3485917e-ac52-8118-b803-f8695b45b21f"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_lunch",
+            "description": "Horizontal bar graph. Favorite Lunch Foods. Scale of 5. Pizza 45, Tacos 25, Salad 10, Burgers 15.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 5,
+            "categories": [
+              "Pizza",
+              "Tacos",
+              "Salad",
+              "Burgers"
+            ]
+          }
+        ],
+        "id": "s1_1_transition_warmup_b3",
+        "_toml_key": "step_100_transition_warmup"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:50.436815+00:00",
+    "_notion_block_id": "3485917e-ac52-8187-9cb5-edf271121170",
+    "_toml_key": "section_100_transition_warmup"
+  },
+  {
+    "id": "s1_2_single_step_activation",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_lunch",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Pizza",
+            "Salad",
+            "Sandwich",
+            "Pasta"
+          ],
+          "axis_range": [
+            0,
+            50
+          ],
+          "scale": 5,
+          "description": "Vertical bar graph appears. Favorite Lunch data. Pizza=45, Salad=10, Sandwich=25, Pasta=30. Scale: 5."
+        },
+        "id": "s1_2_single_step_activation_b0",
+        "_notion_block_id": "3485917e-ac52-8179-a366-fa03baa93c68"
+      },
+      {
+        "type": "dialogue",
+        "text": "How many more students chose pizza than salad? Remember what how many more tells us to do.",
+        "id": "s1_2_single_step_activation_b1",
+        "_notion_block_id": "3485917e-ac52-8142-b6b7-f0d781f8cd73"
+      },
+      {
+        "type": "prompt",
+        "text": "How many more students chose pizza than salad?",
+        "tool": "multiple_choice",
+        "options": [
+          55,
+          35,
+          30,
+          15
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 35
+            },
+            "description": "Student selected 35, correct (45 - 10 = 35)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 35 more. How many more means compare. We subtract. Pizza is 45, salad is 10, so 45 minus 10 is 35.",
+                "id": "s1_2_single_step_activation_b2_v0_b0",
+                "_notion_block_id": "3485917e-ac52-81bc-9eec-e13af7bd2a19"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 55
+            },
+            "description": "Student selected 55 (added instead of subtracting)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_categories": [
+                    "Pizza",
+                    "Salad"
+                  ],
+                  "description": "Pizza and Salad bars highlight."
+                },
+                "id": "s1_2_single_step_activation_b2_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You added pizza and salad. How many more means compare. We need to subtract, not add. Find the difference between 45 and 10.",
+                "id": "s1_2_single_step_activation_b2_v1_b1",
+                "_notion_block_id": "3485917e-ac52-8112-91c6-c629c939e5d4"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 30
+            },
+            "description": "Student selected 30 (incorrect calculation or misread values)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_categories": [
+                    "Pizza",
+                    "Salad"
+                  ],
+                  "description": "Pizza and Salad bars highlight."
+                },
+                "id": "s1_2_single_step_activation_b2_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Check the bar heights. Pizza reaches 45, salad reaches 10. How many more means subtract. What is 45 minus 10?",
+                "id": "s1_2_single_step_activation_b2_v2_b1",
+                "_notion_block_id": "3485917e-ac52-8115-b8c6-ff8314217b5f"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 15
+            },
+            "description": "Student selected 15 (subtracted wrong values or misread scale)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_categories": [
+                    "Pizza",
+                    "Salad"
+                  ],
+                  "description": "Pizza and Salad bars highlight."
+                },
+                "id": "s1_2_single_step_activation_b2_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the numbers. Pizza is at 45, salad is at 10. Count by fives to check. How many more means subtract those two numbers.",
+                "id": "s1_2_single_step_activation_b2_v3_b1",
+                "_notion_block_id": "3485917e-ac52-810f-a0ef-d94f2d802f0a"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "event": "show_calculation",
+                  "status": "confirmed",
+                  "description": "Animation shows: Pizza bar (45) and Salad bar (10) highlight, then 45 - 10 = 35 displays"
+                },
+                "id": "s1_2_single_step_activation_b2_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. How many more tells us to compare. Pizza is 45 students. Salad is 10 students. To find how many more, we subtract: 45 minus 10 equals 35. The answer is 35 because that is the difference between pizza and salad.",
+                "id": "s1_2_single_step_activation_b2_v4_b1",
+                "_notion_block_id": "3485917e-ac52-81eb-9824-e7bcccb00422"
+              }
+            ]
+          }
+        ],
+        "id": "s1_2_single_step_activation_b2",
+        "_notion_block_id": "3485917e-ac52-81f2-9823-e610764130c8"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_lunch",
+            "description": "Vertical bar graph. Favorite Lunch data. Pizza=45, Salad=10, Sandwich=25, Pasta=30. Scale: 5.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Pizza",
+              "Salad",
+              "Sandwich",
+              "Pasta"
+            ],
+            "axis_range": [
+              0,
+              50
+            ],
+            "scale": 5
+          }
+        ],
+        "id": "s1_2_single_step_activation_b3",
+        "_toml_key": "step_101_single_step_activation"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:59.661637+00:00",
+    "_notion_block_id": "3485917e-ac52-8175-a290-e5f78410a6f6",
+    "_toml_key": "section_101_single_step_activation"
+  },
+  {
+    "id": "s1_3_section_transition",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_colors",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Yellow",
+            "Red",
+            "Blue",
+            "Green"
+          ],
+          "description": "Vertical bar graph appears. Favorite Colors data. Yellow=6, Red=5, Blue=4, Green=4."
+        },
+        "id": "s1_3_section_transition_b0",
+        "_notion_block_id": "3485917e-ac52-8138-a3d4-e078e5c113cb"
+      },
+      {
+        "type": "dialogue",
+        "text": "Good. How many more means compare, and compare means subtract. You've got that. Now here's something new: What if the problem asks about more than one category?",
+        "id": "s1_3_section_transition_b1",
+        "_notion_block_id": "3485917e-ac52-816a-848c-fd8323d14ab2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_colors",
+            "description": "Vertical bar graph in reading mode. Favorite Colors data. Yellow=6, Red=5, Blue=4, Green=4.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Yellow",
+              "Red",
+              "Blue",
+              "Green"
+            ]
+          }
+        ],
+        "id": "s1_3_section_transition_b2",
+        "_toml_key": "step_102_section_transition"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:01:04.925449+00:00",
+    "_notion_block_id": "3485917e-ac52-811e-9e7a-c3a34d9d4eed",
+    "_toml_key": "section_102_section_transition"
+  },
+  {
+    "id": "s2_1_return_warmup_question",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_lunch",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Pizza",
+            "Tacos",
+            "Salad",
+            "Burgers"
+          ],
+          "values": {
+            "Pizza": 45,
+            "Tacos": 25,
+            "Salad": 10,
+            "Burgers": 15
+          },
+          "description": "Vertical bar graph appears. Favorite Lunch data. Pizza 45, Tacos 25, Salad 10, Burgers 15. Question displayed: How many more students chose pizza than tacos and salad together?"
+        },
+        "id": "s2_1_return_warmup_question_b0",
+        "_notion_block_id": "3485917e-ac52-81c2-9672-e5f4e55f850c"
+      },
+      {
+        "type": "dialogue",
+        "text": "Remember this question from Warmup? You noticed it needed more than one step. Now let's figure out how to solve it.",
+        "id": "s2_1_return_warmup_question_b1",
+        "_notion_block_id": "3485917e-ac52-8164-8b90-d65ad2a1d5c2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_lunch",
+            "description": "Vertical bar graph. Favorite Lunch data. Pizza 45, Tacos 25, Salad 10, Burgers 15. Question displayed.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Pizza",
+              "Tacos",
+              "Salad",
+              "Burgers"
+            ]
+          }
+        ],
+        "id": "s2_1_return_warmup_question_b2",
+        "_notion_block_id": "3485917e-ac52-81d7-9885-df5f9c855be3",
+        "_toml_key": "step_103_return_warmup_question"
+      },
+      {
+        "type": "dialogue",
+        "text": "First, let's find the categories we need. Which categories does the question ask about? Select all of the needed categories.",
+        "id": "s2_1_return_warmup_question_b3",
+        "_notion_block_id": "3485917e-ac52-818e-a26d-da987c9f00b5"
+      },
+      {
+        "type": "prompt",
+        "text": "Which categories do we need?",
+        "tool": "multi_select",
+        "options": [
+          "Pizza",
+          "Tacos",
+          "Salad",
+          "Burgers"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "selected": "Pizza"
+                },
+                {
+                  "selected": "Tacos"
+                },
+                {
+                  "selected": "Salad"
+                }
+              ]
+            },
+            "description": "Student selected Pizza, Tacos, and Salad (all three correct categories)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. Those three. Notice we don't need burgers. The question doesn't ask about burgers.",
+                "id": "s2_1_return_warmup_question_b4_v0_b0",
+                "_notion_block_id": "3485917e-ac52-815d-82ac-f7d71e5cfc99"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "selected": "Pizza"
+                },
+                {
+                  "selected": "Tacos"
+                },
+                {
+                  "selected": "Salad"
+                },
+                {
+                  "selected": "Burgers"
+                }
+              ]
+            },
+            "description": "Student selected all four categories including Burgers (over-selecting)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_categories": [
+                    "Pizza",
+                    "Tacos",
+                    "Salad"
+                  ],
+                  "description": "Pizza, Tacos, and Salad bars highlight."
+                },
+                "id": "s2_1_return_warmup_question_b4_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You picked Pizza, Tacos, and Salad correctly. But the question doesn't ask about Burgers. Look at which foods the question names.",
+                "id": "s2_1_return_warmup_question_b4_v1_b1",
+                "_notion_block_id": "3485917e-ac52-81d1-93e3-e91069a7ffd1"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "or": [
+                    {
+                      "selected": "Pizza"
+                    },
+                    {
+                      "selected": "Tacos"
+                    },
+                    {
+                      "selected": "Salad"
+                    }
+                  ]
+                },
+                {
+                  "not": {
+                    "and": [
+                      {
+                        "selected": "Pizza"
+                      },
+                      {
+                        "selected": "Tacos"
+                      },
+                      {
+                        "selected": "Salad"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "not": {
+                    "selected": "Burgers"
+                  }
+                }
+              ]
+            },
+            "description": "Student selected some but not all correct categories (under-selecting)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_categories": [
+                    "Pizza",
+                    "Tacos",
+                    "Salad"
+                  ],
+                  "description": "Pizza, Tacos, and Salad bars pulse."
+                },
+                "id": "s2_1_return_warmup_question_b4_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You found some of them. Read the question again. Which foods does it name? Select all three.",
+                "id": "s2_1_return_warmup_question_b4_v2_b1",
+                "_notion_block_id": "3485917e-ac52-811b-86de-f78e3d27defc"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "not": {
+                "or": [
+                  {
+                    "selected": "Pizza"
+                  },
+                  {
+                    "selected": "Tacos"
+                  },
+                  {
+                    "selected": "Salad"
+                  }
+                ]
+              }
+            },
+            "description": "Student selected none of the correct categories or only Burgers (all-wrong)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_categories": [
+                    "Pizza",
+                    "Tacos",
+                    "Salad"
+                  ],
+                  "description": "Pizza, Tacos, and Salad bars highlight."
+                },
+                "id": "s2_1_return_warmup_question_b4_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "The question asks about pizza compared to tacos and salad together. Those are the three categories we need.",
+                "id": "s2_1_return_warmup_question_b4_v3_b1",
+                "_notion_block_id": "3485917e-ac52-8187-94b7-d1603e60414f"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "event": "highlight_selections",
+                  "status": "confirmed",
+                  "description": "System selects Pizza, Tacos, and Salad in sequence."
+                },
+                "id": "s2_1_return_warmup_question_b4_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The question says pizza compared to tacos and salad together. That names three foods: Pizza, Tacos, and Salad. We select those three because the question asks about them.",
+                "id": "s2_1_return_warmup_question_b4_v4_b1",
+                "_notion_block_id": "3485917e-ac52-813c-8746-f2afbbc5139c"
+              }
+            ]
+          }
+        ],
+        "id": "s2_1_return_warmup_question_b4",
+        "_notion_block_id": "3485917e-ac52-818d-b5b4-ce98178fbd5f"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_lunch",
+            "description": "Vertical bar graph. Favorite Lunch data. Pizza, Tacos, and Salad bars highlighted to indicate needed categories.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Pizza",
+              "Tacos",
+              "Salad",
+              "Burgers"
+            ],
+            "highlight_categories": [
+              "Pizza",
+              "Tacos",
+              "Salad"
+            ]
+          }
+        ],
+        "id": "s2_1_return_warmup_question_b5",
+        "_toml_key": "step_104_return_warmup_question"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:01:15.231463+00:00",
+    "_notion_block_id": "3485917e-ac52-818f-9b2d-ed618a7bc2a5",
+    "_toml_key": "section_103_return_warmup_question"
+  },
+  {
+    "id": "s2_2_worked_example_with_think_aloud",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_lunch",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Pizza",
+            "Tacos",
+            "Salad",
+            "Burgers"
+          ],
+          "values": {
+            "Pizza": 45,
+            "Tacos": 25,
+            "Salad": 10,
+            "Burgers": 15
+          },
+          "description": "Vertical bar graph appears. Favorite Lunch data. Pizza=45, Tacos=25, Salad=10, Burgers=15."
+        },
+        "id": "s2_2_worked_example_with_think_aloud_b0",
+        "_notion_block_id": "3485917e-ac52-81c9-9326-c32a98229529"
+      },
+      {
+        "type": "dialogue",
+        "text": "Let me show you how I solve this. First, I ask myself: What should I find first?",
+        "id": "s2_2_worked_example_with_think_aloud_b1",
+        "_notion_block_id": "3485917e-ac52-81cd-b82c-fa7e7da2c2bd"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_lunch",
+            "description": "Vertical bar graph. Favorite Lunch data. Pizza=45, Tacos=25, Salad=10, Burgers=15.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Pizza",
+              "Tacos",
+              "Salad",
+              "Burgers"
+            ]
+          }
+        ],
+        "id": "s2_2_worked_example_with_think_aloud_b2",
+        "_notion_block_id": "3485917e-ac52-810d-be1f-c0b84b62d46d",
+        "_toml_key": "step_105_worked_example_with_think_aloud"
+      },
+      {
+        "type": "dialogue",
+        "text": "The question says tacos and salad together. That word together tells me to add those first. Let me find that total.",
+        "id": "s2_2_worked_example_with_think_aloud_b3",
+        "_notion_block_id": "3485917e-ac52-815d-a5e6-c98b963d9f5e"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_lunch",
+        "params": {
+          "highlight_categories": [
+            "Tacos",
+            "Salad"
+          ],
+          "description": "Tacos bar (25) and Salad bar (10) highlight together."
+        },
+        "id": "s2_2_worked_example_with_think_aloud_b4",
+        "_notion_block_id": "3485917e-ac52-810b-b12d-cb871ac745ba"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "bar_graph_lunch",
+        "params": {
+          "event": "show_calculation",
+          "status": "confirmed",
+          "description": "Animation shows: 25 + 10 = 35"
+        },
+        "id": "s2_2_worked_example_with_think_aloud_b5",
+        "_notion_block_id": "3485917e-ac52-8194-82fa-ed2923e60198"
+      },
+      {
+        "type": "dialogue",
+        "text": "Tacos is 25, salad is 10. Combined, that's 35.",
+        "id": "s2_2_worked_example_with_think_aloud_b6",
+        "_notion_block_id": "3485917e-ac52-8151-bf43-fa4d2483600b"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_lunch",
+            "description": "Vertical bar graph. Tacos (25) and Salad (10) highlighted. Calculation 25 + 10 = 35 displayed.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Pizza",
+              "Tacos",
+              "Salad",
+              "Burgers"
+            ]
+          }
+        ],
+        "id": "s2_2_worked_example_with_think_aloud_b7",
+        "_notion_block_id": "3485917e-ac52-816b-86e9-c3ac222cbc35",
+        "_toml_key": "step_106_worked_example_with_think_aloud"
+      },
+      {
+        "type": "dialogue",
+        "text": "Now I can compare. How many more is pizza than that total of 35?",
+        "id": "s2_2_worked_example_with_think_aloud_b8",
+        "_notion_block_id": "3485917e-ac52-8193-a58b-f43adb544933"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_lunch",
+        "params": {
+          "highlight_categories": [
+            "Pizza"
+          ],
+          "description": "Pizza bar (45) highlights. Shows: 45 compared to 35."
+        },
+        "id": "s2_2_worked_example_with_think_aloud_b9",
+        "_notion_block_id": "3485917e-ac52-81b3-a551-d78e06b8cdb1"
+      },
+      {
+        "type": "dialogue",
+        "text": "Pizza is 45 while tacos and salad combined is 35. 45 minus 35 is 10. Pizza is 10 more than tacos and salad combined.",
+        "id": "s2_2_worked_example_with_think_aloud_b10",
+        "_notion_block_id": "3485917e-ac52-8140-a499-e81584eb4c49"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_lunch",
+            "description": "Vertical bar graph. Pizza bar (45) highlighted. Comparison to 35 shown.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Pizza",
+              "Tacos",
+              "Salad",
+              "Burgers"
+            ]
+          }
+        ],
+        "id": "s2_2_worked_example_with_think_aloud_b11",
+        "_toml_key": "step_107_worked_example_with_think_aloud"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:01:27.657011+00:00",
+    "_notion_block_id": "3485917e-ac52-81d7-9766-c1ec22f7293c",
+    "_toml_key": "section_104_worked_example_with_think_aloud"
+  },
+  {
+    "id": "s2_3_strategy_naming",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "Here's the strategy: When you see combined or together or altogether, find the total of those categories first. Then compare to the other given category.",
+        "id": "s2_3_strategy_naming_b0",
+        "_notion_block_id": "3485917e-ac52-8101-818b-f3682dd1eb24"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s2_3_strategy_naming_b1",
+        "_notion_block_id": "3485917e-ac52-81a3-8135-ed590f515a48",
+        "_toml_key": "step_108_strategy_naming"
+      },
+      {
+        "type": "dialogue",
+        "text": "Find the combined total first, then compare. That's the key to these problems.",
+        "id": "s2_3_strategy_naming_b2",
+        "_notion_block_id": "3485917e-ac52-8104-a85c-ffaf12b05452"
+      },
+      {
+        "type": "prompt",
+        "text": "What do we find first when we see combined?",
+        "tool": "multiple_choice",
+        "options": [
+          "The total",
+          "The difference",
+          "The largest number"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "The total"
+            },
+            "description": "Student selected The total, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. Find the total by adding. That's always our first step when we see combined.",
+                "id": "s2_3_strategy_naming_b3_v0_b0",
+                "_notion_block_id": "3485917e-ac52-818e-8293-d94a81362bc6"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "The difference"
+            },
+            "description": "Student selected The difference (confusing compare step with first step)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "We do find the difference, but that's the second step. When we see combined, we add first. What do we find when we add?",
+                "id": "s2_3_strategy_naming_b3_v1_b0",
+                "_notion_block_id": "3485917e-ac52-8161-961a-d253a4ed3c8d"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "The largest number"
+            },
+            "description": "Student selected The largest number (focusing on comparison rather than combining)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "The largest number helps us compare, but that comes later. Combined means put together. What operation puts numbers together?",
+                "id": "s2_3_strategy_naming_b3_v2_b0",
+                "_notion_block_id": "3485917e-ac52-8183-b3bf-c45c06d29dca"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "When we see combined, together, or altogether, we add those categories first to find the total. That total becomes one number we can compare to the other category. The answer is the total.",
+                "id": "s2_3_strategy_naming_b3_v3_b0",
+                "_notion_block_id": "3485917e-ac52-8137-a039-c6a49dbd3a9f"
+              }
+            ]
+          }
+        ],
+        "id": "s2_3_strategy_naming_b3",
+        "_notion_block_id": "3485917e-ac52-8179-a7af-d4ae3a71729d"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s2_3_strategy_naming_b4",
+        "_toml_key": "step_109_strategy_naming"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:01:32.975986+00:00",
+    "_notion_block_id": "3485917e-ac52-8103-8738-c09b0c8aecdb",
+    "_toml_key": "section_105_strategy_naming"
+  },
+  {
+    "id": "s2_4_guided_practice_full_scaffolding",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_rolling",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 10,
+          "categories": [
+            "Skateboards",
+            "Rollerblades",
+            "Bikes",
+            "Scooters"
+          ],
+          "values": {
+            "Skateboards": 15,
+            "Rollerblades": 10,
+            "Bikes": 65,
+            "Scooters": 30
+          },
+          "title": "Favorite Ways to Roll",
+          "description": "Vertical bar graph appears. Favorite Ways to Roll. Scale of 10. Skateboards 15, Rollerblades 10, Bikes 65, Scooters 30."
+        },
+        "id": "s2_4_guided_practice_full_scaffolding_b0",
+        "_notion_block_id": "3485917e-ac52-8185-aae2-f155ebcb26b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "Your turn. Here's a new graph.",
+        "id": "s2_4_guided_practice_full_scaffolding_b1",
+        "_notion_block_id": "3485917e-ac52-81ae-9905-c50232abf31e"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_rolling",
+            "description": "Vertical bar graph. Favorite Ways to Roll. Scale of 10. Skateboards 15, Rollerblades 10, Bikes 65, Scooters 30.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10,
+            "categories": [
+              "Skateboards",
+              "Rollerblades",
+              "Bikes",
+              "Scooters"
+            ]
+          }
+        ],
+        "id": "s2_4_guided_practice_full_scaffolding_b2",
+        "_notion_block_id": "3485917e-ac52-8164-a189-f16d60dccdf9",
+        "_toml_key": "step_110_guided_practice_full_scaffolding"
+      },
+      {
+        "type": "dialogue",
+        "text": "This problem needs two steps. What should we find first?",
+        "id": "s2_4_guided_practice_full_scaffolding_b3",
+        "_notion_block_id": "3485917e-ac52-8153-9610-fb1fd364a074"
+      },
+      {
+        "type": "prompt",
+        "text": "Select what to find first.",
+        "tool": "multiple_choice",
+        "options": [
+          "Add scooters and skateboards",
+          "Compare bikes to scooters",
+          "Add all four categories"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "Add scooters and skateboards"
+            },
+            "description": "Student selected add scooters and skateboards, correct first step",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. Scooters and skateboards combined. Let's find that total.",
+                "id": "s2_4_guided_practice_full_scaffolding_b4_v0_b0",
+                "_notion_block_id": "3485917e-ac52-8107-8392-c90fd4e2f7c7"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "Compare bikes to scooters"
+            },
+            "description": "Student selected compare bikes to scooters, skipping the addition step",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_rolling",
+                "params": {
+                  "highlight_categories": [
+                    "Scooters",
+                    "Skateboards"
+                  ],
+                  "description": "Scooters and Skateboards bars highlight."
+                },
+                "id": "s2_4_guided_practice_full_scaffolding_b4_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "The question asks about scooters and skateboards together. That word together means find the total of those two first.",
+                "id": "s2_4_guided_practice_full_scaffolding_b4_v1_b1",
+                "_notion_block_id": "3485917e-ac52-81ec-81a4-df19773ce14d"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "Add all four categories"
+            },
+            "description": "Student selected add all four categories, including categories not needed",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_rolling",
+                "params": {
+                  "highlight_categories": [
+                    "Scooters",
+                    "Skateboards"
+                  ],
+                  "description": "Scooters and Skateboards bars highlight."
+                },
+                "id": "s2_4_guided_practice_full_scaffolding_b4_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "The question only asks about scooters and skateboards together. We don't need rollerblades or bikes yet. Add just those two.",
+                "id": "s2_4_guided_practice_full_scaffolding_b4_v2_b1",
+                "_notion_block_id": "3485917e-ac52-8126-81fe-e390fe9e5d9d"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_rolling",
+                "params": {
+                  "event": "show_calculation",
+                  "status": "confirmed",
+                  "description": "Animation shows: Scooters (30) and Skateboards (15) bars pulse, then calculation 30 + 15 = 45 appears"
+                },
+                "id": "s2_4_guided_practice_full_scaffolding_b4_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "When we see together, we add those categories first. Scooters is 30, skateboards is 15. Combined, that's 45. We find the total of the categories named together before we compare to anything else. The answer is add scooters and skateboards.",
+                "id": "s2_4_guided_practice_full_scaffolding_b4_v3_b1",
+                "_notion_block_id": "3485917e-ac52-819d-94eb-d7fc03369ea6"
+              }
+            ]
+          }
+        ],
+        "id": "s2_4_guided_practice_full_scaffolding_b4",
+        "_notion_block_id": "3485917e-ac52-8173-b2b1-f52ad4c8f351"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_rolling",
+            "description": "Vertical bar graph. Favorite Ways to Roll. Scale of 10. Skateboards 15, Rollerblades 10, Bikes 65, Scooters 30. Question visible: How many more students chose bikes than scooters and skateboards together?",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10,
+            "categories": [
+              "Skateboards",
+              "Rollerblades",
+              "Bikes",
+              "Scooters"
+            ]
+          }
+        ],
+        "id": "s2_4_guided_practice_full_scaffolding_b5",
+        "_notion_block_id": "3485917e-ac52-8175-a857-f5b453aac933",
+        "_toml_key": "step_111_guided_practice_full_scaffolding"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_rolling",
+        "params": {
+          "highlight_categories": [
+            "Scooters",
+            "Skateboards"
+          ],
+          "description": "Scooters and Skateboards bars highlight. Shows 30 + 15 = 45."
+        },
+        "id": "s2_4_guided_practice_full_scaffolding_b6",
+        "_notion_block_id": "3485917e-ac52-8124-9a05-d8716f4aa399"
+      },
+      {
+        "type": "dialogue",
+        "text": "Scooters and skateboards combined is 45. Now we compare. How many more is bikes than 45?",
+        "id": "s2_4_guided_practice_full_scaffolding_b7",
+        "_notion_block_id": "3485917e-ac52-8168-97ef-ee0b25d5586a"
+      },
+      {
+        "type": "prompt",
+        "text": "How many more is bikes than 45?",
+        "tool": "multiple_choice",
+        "options": [
+          110,
+          65,
+          45,
+          20
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 20
+            },
+            "description": "Student answered 20, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's it. Bikes is 65, combined is 45, so 65 minus 45 is 20. You used the strategy: find the combined total first, then compare.",
+                "id": "s2_4_guided_practice_full_scaffolding_b8_v0_b0",
+                "_notion_block_id": "3485917e-ac52-815f-8739-cb3a7d0636d1"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 110
+            },
+            "description": "Student selected 110, added bikes (65) and combined total (45) instead of subtracting",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_rolling",
+                "params": {
+                  "highlight_categories": [
+                    "Bikes"
+                  ],
+                  "description": "Bikes bar highlights."
+                },
+                "id": "s2_4_guided_practice_full_scaffolding_b8_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "How many more means compare. Compare means subtract, not add. Bikes is 65. The combined total is 45. How many more?",
+                "id": "s2_4_guided_practice_full_scaffolding_b8_v1_b1",
+                "_notion_block_id": "3485917e-ac52-811c-aab2-e3b9254f4aa1"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 65
+            },
+            "description": "Student selected 65, which is the bikes value without comparing",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_rolling",
+                "params": {
+                  "highlight_categories": [
+                    "Bikes"
+                  ],
+                  "description": "Bikes bar (65) highlights. Combined total 45 displays."
+                },
+                "id": "s2_4_guided_practice_full_scaffolding_b8_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Bikes is 65, but the question asks how many more bikes than the combined total. Subtract: bikes minus combined. What's 65 minus 45?",
+                "id": "s2_4_guided_practice_full_scaffolding_b8_v2_b1",
+                "_notion_block_id": "3485917e-ac52-8184-9f97-f16e0199e30e"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 45
+            },
+            "description": "Student selected 45, the combined total instead of the difference",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_rolling",
+                "params": {
+                  "highlight_categories": [
+                    "Bikes"
+                  ],
+                  "description": "Bikes bar (65) and combined value (45) both display."
+                },
+                "id": "s2_4_guided_practice_full_scaffolding_b8_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the combined total of scooters and skateboards. Now we compare that total to bikes. How many more is 65 than 45?",
+                "id": "s2_4_guided_practice_full_scaffolding_b8_v3_b1",
+                "_notion_block_id": "3485917e-ac52-816a-9a57-d2059d475108"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_rolling",
+                "params": {
+                  "event": "show_comparison",
+                  "status": "confirmed",
+                  "description": "Animation shows: Bikes bar (65) pulses, then comparison to combined value (45) displays, then calculation 65 - 45 = 20 appears"
+                },
+                "id": "s2_4_guided_practice_full_scaffolding_b8_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me walk you through this. We found the combined total: scooters and skateboards is 45. Now we compare. Bikes is 65. How many more means subtract: 65 minus 45 equals 20. Bikes is 20 more than scooters and skateboards combined. That's how we solve these problems: find the combined total first, then compare by subtracting.",
+                "id": "s2_4_guided_practice_full_scaffolding_b8_v4_b1",
+                "_notion_block_id": "3485917e-ac52-8193-a0c1-f5ab83f83c92"
+              }
+            ]
+          }
+        ],
+        "id": "s2_4_guided_practice_full_scaffolding_b8",
+        "_notion_block_id": "3485917e-ac52-8121-9d18-dc2d567c661c"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_rolling",
+            "description": "Vertical bar graph. Favorite Ways to Roll. Scale of 10. Scooters and Skateboards bars highlighted. Shows 30 + 15 = 45.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10,
+            "categories": [
+              "Skateboards",
+              "Rollerblades",
+              "Bikes",
+              "Scooters"
+            ]
+          }
+        ],
+        "id": "s2_4_guided_practice_full_scaffolding_b9",
+        "_toml_key": "step_112_guided_practice_full_scaffolding"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:01:48.073858+00:00",
+    "_notion_block_id": "3485917e-ac52-8124-8a96-c1003784c412",
+    "_toml_key": "section_106_guided_practice_full_scaffolding"
+  },
+  {
+    "id": "s2_5_section_transition",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You're getting it. Find the combined total first, then compare. Let's practice more, and I'll give you less help each time.",
+        "id": "s2_5_section_transition_b0",
+        "_notion_block_id": "3485917e-ac52-8103-8667-d249abcfea0f"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s2_5_section_transition_b1",
+        "_toml_key": "step_113_section_transition"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:01:50.907528+00:00",
+    "_notion_block_id": "3485917e-ac52-8103-b13c-cadd97cd4825",
+    "_toml_key": "section_107_section_transition"
+  },
+  {
+    "id": "s3_1_reduced_scaffolding_3_step_chain",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_fruit_stand",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 5,
+          "categories": [
+            "Grapes",
+            "Apples",
+            "Bananas",
+            "Oranges"
+          ],
+          "values": {
+            "Grapes": 15,
+            "Apples": 45,
+            "Bananas": 30,
+            "Oranges": 25
+          },
+          "title": "Fruit Stand Sales",
+          "description": "Horizontal bar graph appears. Title: Fruit Stand Sales. Scale of 5. Grapes 15, Apples 45, Bananas 30, Oranges 25."
+        },
+        "id": "s3_1_reduced_scaffolding_3_step_chain_b0",
+        "_notion_block_id": "3485917e-ac52-81a1-927a-d154500d20d8"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's another one. What should we find first?",
+        "id": "s3_1_reduced_scaffolding_3_step_chain_b1",
+        "_notion_block_id": "3485917e-ac52-818e-acc7-e310081cf977"
+      },
+      {
+        "type": "prompt",
+        "text": "Select what to find first.",
+        "tool": "multiple_choice",
+        "options": [
+          "Add oranges and grapes",
+          "Subtract grapes from oranges",
+          "Compare apples to oranges"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "Add oranges and grapes"
+            },
+            "description": "Student selected add oranges and grapes, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. Oranges and grapes combined. Find that total.",
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b2_v0_b0",
+                "_notion_block_id": "3485917e-ac52-81e7-8078-c4c7c0c739d0"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "Subtract grapes from oranges"
+            },
+            "description": "Student selected subtract grapes from oranges, wrong operation for finding combined total",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_fruit_stand",
+                "params": {
+                  "highlight_categories": [
+                    "Oranges",
+                    "Grapes"
+                  ],
+                  "description": "Oranges and Grapes bars highlight."
+                },
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b2_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "The question asks about oranges and grapes together. Together means add, not subtract. What's the total of those two?",
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b2_v1_b1",
+                "_notion_block_id": "3485917e-ac52-8116-8e5c-f70af453fbae"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "Compare apples to oranges"
+            },
+            "description": "Student selected compare apples to oranges, skipping the combined step",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_fruit_stand",
+                "params": {
+                  "highlight_categories": [
+                    "Oranges",
+                    "Grapes"
+                  ],
+                  "description": "Oranges and Grapes bars highlight."
+                },
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b2_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "The question says oranges and grapes combined. When you see combined, find that total first. What do oranges and grapes add up to?",
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b2_v2_b1",
+                "_notion_block_id": "3485917e-ac52-810a-a213-ec77f2e2e7c7"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_fruit_stand",
+                "params": {
+                  "event": "show_calculation",
+                  "status": "confirmed",
+                  "description": "Calculation appears: Oranges 25 + Grapes 15 = 40"
+                },
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b2_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The question asks about oranges and grapes combined. Combined tells us to add first. Oranges is 25, grapes is 15, so 25 plus 15 equals 40. The first step is always to find the combined total when you see that word. The answer is add oranges and grapes.",
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b2_v3_b1",
+                "_notion_block_id": "3485917e-ac52-81d9-9efc-c199bfc94b7e"
+              }
+            ]
+          }
+        ],
+        "id": "s3_1_reduced_scaffolding_3_step_chain_b2",
+        "_notion_block_id": "3485917e-ac52-8188-bd2c-d3030431cd1e"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_fruit_stand",
+            "description": "Horizontal bar graph. Fruit Stand Sales. Scale of 5. Grapes 15, Apples 45, Bananas 30, Oranges 25.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 5,
+            "categories": [
+              "Grapes",
+              "Apples",
+              "Bananas",
+              "Oranges"
+            ]
+          }
+        ],
+        "id": "s3_1_reduced_scaffolding_3_step_chain_b3",
+        "_notion_block_id": "3485917e-ac52-8114-a86b-f685e7436b12",
+        "_toml_key": "step_114_reduced_scaffolding_3_step_chain"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_fruit_stand",
+        "params": {
+          "highlight_categories": [
+            "Oranges",
+            "Grapes"
+          ],
+          "description": "Oranges bar (25) and Grapes bar (15) highlight."
+        },
+        "id": "s3_1_reduced_scaffolding_3_step_chain_b4",
+        "_notion_block_id": "3485917e-ac52-819f-bdf9-c465666f1cdf"
+      },
+      {
+        "type": "dialogue",
+        "text": "Oranges is 25. Grapes is 15. What's the combined total?",
+        "id": "s3_1_reduced_scaffolding_3_step_chain_b5",
+        "_notion_block_id": "3485917e-ac52-81d9-9afe-d76e8acec4a8"
+      },
+      {
+        "type": "prompt",
+        "text": "How many oranges and grapes combined?",
+        "tool": "multiple_choice",
+        "options": [
+          10,
+          30,
+          40,
+          45
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 40
+            },
+            "description": "Student selected 40, correct (25 + 15 = 40)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's right. 40 combined.",
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b6_v0_b0",
+                "_notion_block_id": "3485917e-ac52-817f-9e37-c7e7ff3b0adb"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 10
+            },
+            "description": "Student selected 10, subtracted instead of added",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_fruit_stand",
+                "params": {
+                  "highlight_categories": [
+                    "Oranges",
+                    "Grapes"
+                  ],
+                  "description": "Oranges and Grapes bars highlight."
+                },
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b6_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You subtracted. We need to add when finding combined. Oranges is 25, grapes is 15. Add them.",
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b6_v1_b1",
+                "_notion_block_id": "3485917e-ac52-81b0-9be5-d1bd21543058"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 30
+            },
+            "description": "Student selected 30, miscounted or used wrong values",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_fruit_stand",
+                "params": {
+                  "highlight_categories": [
+                    "Oranges",
+                    "Grapes"
+                  ],
+                  "description": "Oranges and Grapes bars highlight."
+                },
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b6_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Check the values. Oranges is 25, grapes is 15. Count by fives along each bar, then add.",
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b6_v2_b1",
+                "_notion_block_id": "3485917e-ac52-8121-a13f-f64d216c058b"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 45
+            },
+            "description": "Student selected 45, used apples value instead of adding oranges and grapes",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_fruit_stand",
+                "params": {
+                  "highlight_categories": [
+                    "Oranges",
+                    "Grapes"
+                  ],
+                  "description": "Oranges and Grapes bars highlight."
+                },
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b6_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the apples value. We need oranges and grapes combined. Look at those two bars. What do they add up to?",
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b6_v3_b1",
+                "_notion_block_id": "3485917e-ac52-81a3-b26d-efe38580398f"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_fruit_stand",
+                "params": {
+                  "event": "show_calculation",
+                  "status": "confirmed",
+                  "description": "Calculation appears: 25 + 15 = 40"
+                },
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b6_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's how to find it. I look at the oranges bar: 25. I look at the grapes bar: 15. Combined means add them together: 25 plus 15 equals 40. The combined total is 40.",
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b6_v4_b1",
+                "_notion_block_id": "3485917e-ac52-81b7-b36c-d5ded8380b03"
+              }
+            ]
+          }
+        ],
+        "id": "s3_1_reduced_scaffolding_3_step_chain_b6",
+        "_notion_block_id": "3485917e-ac52-815d-8c24-c73b0eccd90b"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_fruit_stand",
+            "description": "Horizontal bar graph. Fruit Stand Sales. Oranges (25) and Grapes (15) bars highlighted.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 5,
+            "categories": [
+              "Grapes",
+              "Apples",
+              "Bananas",
+              "Oranges"
+            ],
+            "highlight_categories": [
+              "Oranges",
+              "Grapes"
+            ]
+          }
+        ],
+        "id": "s3_1_reduced_scaffolding_3_step_chain_b7",
+        "_notion_block_id": "3485917e-ac52-8196-8545-d22e599861fc",
+        "_toml_key": "step_115_reduced_scaffolding_3_step_chain"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_fruit_stand",
+        "params": {
+          "highlight_categories": [
+            "Apples"
+          ],
+          "display_value": 40,
+          "description": "Combined value 40 displayed. Apples bar (45) highlights."
+        },
+        "id": "s3_1_reduced_scaffolding_3_step_chain_b8",
+        "_notion_block_id": "3485917e-ac52-81fb-94a8-e7616c5c4156"
+      },
+      {
+        "type": "dialogue",
+        "text": "Oranges and grapes combined is 40. Apples is 45. Now find how many fewer.",
+        "id": "s3_1_reduced_scaffolding_3_step_chain_b9",
+        "_notion_block_id": "3485917e-ac52-8168-bdab-d8d4edf17123"
+      },
+      {
+        "type": "prompt",
+        "text": "How many fewer oranges and grapes combined than apples?",
+        "tool": "multiple_choice",
+        "options": [
+          85,
+          45,
+          40,
+          5
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 5
+            },
+            "description": "Student selected 5, correct (45 - 40 = 5)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's it. 5 fewer. You found the combined total first, then compared.",
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b10_v0_b0",
+                "_notion_block_id": "3485917e-ac52-818d-a2fb-e15441c978b3"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 85
+            },
+            "description": "Student selected 85, added instead of subtracted",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_fruit_stand",
+                "params": {
+                  "highlight_categories": [
+                    "Apples"
+                  ],
+                  "description": "Apples bar highlights."
+                },
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b10_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You added. How many fewer means compare, and compare means subtract. What's 45 minus 40?",
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b10_v1_b1",
+                "_notion_block_id": "3485917e-ac52-8115-aa9b-e34890aa33c3"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 45
+            },
+            "description": "Student selected 45, chose apples value instead of finding difference",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_fruit_stand",
+                "params": {
+                  "highlight_categories": [
+                    "Apples"
+                  ],
+                  "display_value": 40,
+                  "description": "Apples bar highlights. Combined value 40 displayed."
+                },
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b10_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's just the apples amount. How many fewer asks for the difference. Apples is 45, combined is 40. Subtract to compare.",
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b10_v2_b1",
+                "_notion_block_id": "3485917e-ac52-81e4-901b-d7d1db2c139c"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 40
+            },
+            "description": "Student selected 40, chose combined value instead of finding difference",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_fruit_stand",
+                "params": {
+                  "highlight_categories": [
+                    "Apples"
+                  ],
+                  "display_value": 40,
+                  "description": "Apples bar highlights. Combined value 40 displayed."
+                },
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b10_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the combined total. We already found that. Now we need to compare. How much more is 45 than 40?",
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b10_v3_b1",
+                "_notion_block_id": "3485917e-ac52-81f6-94e3-fa51a8d0db5e"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_fruit_stand",
+                "params": {
+                  "event": "show_calculation",
+                  "status": "confirmed",
+                  "description": "Calculation appears: 45 - 40 = 5"
+                },
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b10_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me walk you through it. We found oranges and grapes combined: 40. Now we compare to apples. Apples is 45. How many fewer means subtract: 45 minus 40 equals 5. The combined total is 5 fewer than apples. The answer is 5.",
+                "id": "s3_1_reduced_scaffolding_3_step_chain_b10_v4_b1",
+                "_notion_block_id": "3485917e-ac52-8113-80ba-d54f1680ae67"
+              }
+            ]
+          }
+        ],
+        "id": "s3_1_reduced_scaffolding_3_step_chain_b10",
+        "_notion_block_id": "3485917e-ac52-81b4-b5d9-ff7cac15061e"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_fruit_stand",
+            "description": "Horizontal bar graph. Fruit Stand Sales. Combined value 40 displayed. Apples bar (45) highlighted.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 5,
+            "categories": [
+              "Grapes",
+              "Apples",
+              "Bananas",
+              "Oranges"
+            ],
+            "highlight_categories": [
+              "Apples"
+            ]
+          }
+        ],
+        "id": "s3_1_reduced_scaffolding_3_step_chain_b11",
+        "_toml_key": "step_116_reduced_scaffolding_3_step_chain"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:02:07.603425+00:00",
+    "_notion_block_id": "3485917e-ac52-8145-b651-e101afe7b71b",
+    "_toml_key": "section_108_reduced_scaffolding_3_step_chain"
+  },
+  {
+    "id": "s3_2_minimal_scaffolding_3_step_chain",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_pets",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 10,
+          "categories": [
+            "Dogs",
+            "Cats",
+            "Birds",
+            "Fish"
+          ],
+          "values": {
+            "Dogs": 65,
+            "Cats": 40,
+            "Birds": 25,
+            "Fish": 30
+          },
+          "title": "Pets at the Shelter",
+          "description": "Horizontal bar graph appears. Pets at the Shelter. Dogs 65, Cats 40, Birds 25, Fish 30. Scale of 10."
+        },
+        "id": "s3_2_minimal_scaffolding_3_step_chain_b0",
+        "_notion_block_id": "3485917e-ac52-8118-bd1e-c721674f44a3"
+      },
+      {
+        "type": "dialogue",
+        "text": "One more. Think about what to do first.",
+        "id": "s3_2_minimal_scaffolding_3_step_chain_b1",
+        "_notion_block_id": "3485917e-ac52-81c2-9d53-f34b387d3bef"
+      },
+      {
+        "type": "prompt",
+        "text": "Select what to find first.",
+        "tool": "multiple_choice",
+        "options": [
+          "Add fish and birds",
+          "Compare dogs to fish",
+          "Subtract birds from dogs",
+          "Add all pets"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "Add fish and birds"
+            },
+            "description": "Student selected add fish and birds, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. Fish and birds combined. Find that total.",
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b2_v0_b0",
+                "_notion_block_id": "3485917e-ac52-818e-8b22-ed1022801f0a"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "Compare dogs to fish"
+            },
+            "description": "Student selected Compare dogs to fish: jumps to comparison without finding combined total first",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Fish",
+                    "Birds"
+                  ],
+                  "description": "Fish and Birds bars highlight."
+                },
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b2_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "The question says fish and birds combined. That word combined tells us to add those two first, before we compare to dogs.",
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b2_v1_b1",
+                "_notion_block_id": "3485917e-ac52-8187-a49d-d65162855040"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "Subtract birds from dogs"
+            },
+            "description": "Student selected Subtract birds from dogs: attempts to subtract before finding the combined total",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Fish",
+                    "Birds"
+                  ],
+                  "description": "Fish and Birds bars highlight."
+                },
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b2_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Before we compare dogs to anything, we need the total of fish and birds combined. Look for the word combined in the question.",
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b2_v2_b1",
+                "_notion_block_id": "3485917e-ac52-8170-bbf0-e577f2d6723c"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "Add all pets"
+            },
+            "description": "Student selected Add all pets: adds all categories instead of just the two mentioned as combined",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Fish",
+                    "Birds"
+                  ],
+                  "description": "Fish and Birds bars highlight."
+                },
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b2_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "We don't need all four categories. The question asks about fish and birds combined, so we only add those two.",
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b2_v3_b1",
+                "_notion_block_id": "3485917e-ac52-8155-9d97-df831d279083"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct strategy.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "event": "show_calculation",
+                  "status": "confirmed",
+                  "description": "Fish (30) and Birds (25) bars highlight. Calculation appears: 30 + 25 = 55"
+                },
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b2_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you the strategy. The question says fish and birds combined. That word combined tells me to add those first. Fish is 30, birds is 25, so 30 plus 25 is 55. Now I can compare: dogs is 65, combined is 55, so 65 minus 55 is 10 more. The answer is add fish and birds. We always find the combined total before we compare.",
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b2_v4_b1",
+                "_notion_block_id": "3485917e-ac52-81d0-8224-c7722a6fee57"
+              }
+            ]
+          }
+        ],
+        "id": "s3_2_minimal_scaffolding_3_step_chain_b2",
+        "_notion_block_id": "3485917e-ac52-81a3-97ee-c9c211721564"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_pets",
+            "description": "Horizontal bar graph. Pets at the Shelter. Dogs 65, Cats 40, Birds 25, Fish 30. Scale of 10.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 10,
+            "categories": [
+              "Dogs",
+              "Cats",
+              "Birds",
+              "Fish"
+            ]
+          }
+        ],
+        "id": "s3_2_minimal_scaffolding_3_step_chain_b3",
+        "_notion_block_id": "3485917e-ac52-8182-95ed-e1e146a9c58a",
+        "_toml_key": "step_117_minimal_scaffolding_3_step_chain"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_pets",
+        "params": {
+          "highlight_categories": [
+            "Fish",
+            "Birds"
+          ],
+          "description": "Fish bar (30) and Birds bar (25) highlight."
+        },
+        "id": "s3_2_minimal_scaffolding_3_step_chain_b4",
+        "_notion_block_id": "3485917e-ac52-817a-86af-cf1201d8e608"
+      },
+      {
+        "type": "dialogue",
+        "text": "Fish is 30. Birds is 25. What's the combined total of fish and birds?",
+        "id": "s3_2_minimal_scaffolding_3_step_chain_b5",
+        "_notion_block_id": "3485917e-ac52-81bb-8168-e51c213a0140"
+      },
+      {
+        "type": "prompt",
+        "text": "How many fish and birds combined?",
+        "tool": "multiple_choice",
+        "options": [
+          5,
+          45,
+          55,
+          65
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 55
+            },
+            "description": "Student selected 55, correct (30 + 25)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's right, 55 combined.",
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b6_v0_b0",
+                "_notion_block_id": "3485917e-ac52-81f5-80a3-c9d4b9f55c29"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 5
+            },
+            "description": "Student selected 5: subtracted values instead of adding them (30 - 25 = 5)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Fish",
+                    "Birds"
+                  ],
+                  "description": "Fish and Birds bars remain highlighted."
+                },
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b6_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "The question asks for combined. Combined means add, not subtract. Add the values for fish and birds.",
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b6_v1_b1",
+                "_notion_block_id": "3485917e-ac52-8147-8d7a-c21d44742ffa"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 45
+            },
+            "description": "Student selected 45: calculation error or misread graph values",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Fish",
+                    "Birds"
+                  ],
+                  "description": "Fish and Birds bars remain highlighted."
+                },
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b6_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Count carefully. Fish is at 30, birds is at 25. Count by tens on this scale, then add the extra marks.",
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b6_v2_b1",
+                "_notion_block_id": "3485917e-ac52-81c7-aa4e-eb49c6820bfc"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 65
+            },
+            "description": "Student selected 65: chose the dogs value instead of finding fish and birds combined",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Fish",
+                    "Birds"
+                  ],
+                  "description": "Fish and Birds bars remain highlighted."
+                },
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b6_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the dogs value. We need fish and birds combined. Look at the highlighted bars and add those two values.",
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b6_v3_b1",
+                "_notion_block_id": "3485917e-ac52-81dd-97e7-ebe2e8f6f481"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "event": "show_calculation",
+                  "status": "confirmed",
+                  "description": "Calculation animates: 30 + 25 = 55"
+                },
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b6_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Fish is at 30 on the scale. Birds is at 25. When we combine them, we add: 30 plus 25 equals 55. The combined total is 55. That's what combined means: add the values together.",
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b6_v4_b1",
+                "_notion_block_id": "3485917e-ac52-815b-a185-c8dd45c99d02"
+              }
+            ]
+          }
+        ],
+        "id": "s3_2_minimal_scaffolding_3_step_chain_b6",
+        "_notion_block_id": "3485917e-ac52-81fb-aa7e-ce90b0b46694"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_pets",
+            "description": "Horizontal bar graph. Fish bar (30) and Birds bar (25) highlighted. Pets at the Shelter.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 10,
+            "categories": [
+              "Dogs",
+              "Cats",
+              "Birds",
+              "Fish"
+            ]
+          }
+        ],
+        "id": "s3_2_minimal_scaffolding_3_step_chain_b7",
+        "_notion_block_id": "3485917e-ac52-8134-90bd-ee8c4479b28b",
+        "_toml_key": "step_118_minimal_scaffolding_3_step_chain"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_pets",
+        "params": {
+          "highlight_categories": [
+            "Dogs"
+          ],
+          "description": "Dogs bar (65) highlights."
+        },
+        "id": "s3_2_minimal_scaffolding_3_step_chain_b8",
+        "_notion_block_id": "3485917e-ac52-81d3-b49d-d5bba481f9b5"
+      },
+      {
+        "type": "dialogue",
+        "text": "Fish and birds combined is 55. Now find how many more dogs there are.",
+        "id": "s3_2_minimal_scaffolding_3_step_chain_b9",
+        "_notion_block_id": "3485917e-ac52-8192-ab91-f2b577cb598b"
+      },
+      {
+        "type": "prompt",
+        "text": "How many more dogs than fish and birds combined?",
+        "tool": "multiple_choice",
+        "options": [
+          120,
+          65,
+          55,
+          10
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 10
+            },
+            "description": "Student selected 10, correct (65 - 55)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right, 10 more dogs. You found the combined total first, then compared.",
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b10_v0_b0",
+                "_notion_block_id": "3485917e-ac52-81c2-9b4f-c327910c5ffc"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 120
+            },
+            "description": "Student selected 120: added instead of subtracting (65 + 55 = 120)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Dogs"
+                  ],
+                  "description": "Dogs bar remains highlighted."
+                },
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b10_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "How many more means compare. Compare means subtract, not add. Dogs is 65, combined is 55. Subtract to find the difference.",
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b10_v1_b1",
+                "_notion_block_id": "3485917e-ac52-8154-8dbb-ef6484a4128c"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 65
+            },
+            "description": "Student selected 65: gave the dogs value instead of finding the difference",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Dogs"
+                  ],
+                  "description": "Dogs bar remains highlighted."
+                },
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b10_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's how many dogs there are. The question asks how many more dogs than the combined total. We need the difference between 65 and 55.",
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b10_v2_b1",
+                "_notion_block_id": "3485917e-ac52-81c3-9ca9-c23bbd36d883"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 55
+            },
+            "description": "Student selected 55: gave the combined total instead of finding the difference",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Dogs"
+                  ],
+                  "description": "Dogs bar remains highlighted."
+                },
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b10_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the combined total. Now we need to compare. Dogs is 65, combined is 55. How many more means subtract those two numbers.",
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b10_v3_b1",
+                "_notion_block_id": "3485917e-ac52-8197-aab9-d0bd1119768a"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "event": "show_calculation",
+                  "status": "confirmed",
+                  "description": "Comparison animation shows: 65 - 55 = 10"
+                },
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b10_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's the comparison. Dogs is 65. Fish and birds combined is 55. How many more means we subtract: 65 minus 55 equals 10. There are 10 more dogs than fish and birds combined. This is a two-step problem: first we found the combined total of 55, then we compared it to dogs at 65. The answer is 10.",
+                "id": "s3_2_minimal_scaffolding_3_step_chain_b10_v4_b1",
+                "_notion_block_id": "3485917e-ac52-81e5-8ea3-d55b45fb7ab4"
+              }
+            ]
+          }
+        ],
+        "id": "s3_2_minimal_scaffolding_3_step_chain_b10",
+        "_notion_block_id": "3485917e-ac52-81a0-8f29-d5ba540cbc1a"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_pets",
+            "description": "Horizontal bar graph. Dogs bar (65) highlighted. Pets at the Shelter.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 10,
+            "categories": [
+              "Dogs",
+              "Cats",
+              "Birds",
+              "Fish"
+            ]
+          }
+        ],
+        "id": "s3_2_minimal_scaffolding_3_step_chain_b11",
+        "_toml_key": "step_119_minimal_scaffolding_3_step_chain"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:02:23.023864+00:00",
+    "_notion_block_id": "3485917e-ac52-8170-8421-dab62ccb5203",
+    "_toml_key": "section_109_minimal_scaffolding_3_step_chain"
+  },
+  {
+    "id": "s3_3_mixed_problem_single_step_check",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_pets",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Dogs",
+            "Cats",
+            "Birds",
+            "Fish"
+          ],
+          "values": {
+            "Dogs": 65,
+            "Cats": 40,
+            "Birds": 25,
+            "Fish": 30
+          },
+          "description": "Vertical bar graph appears. Pet Survey data. Dogs 65, Cats 40, Birds 25, Fish 30."
+        },
+        "id": "s3_3_mixed_problem_single_step_check_b0",
+        "_notion_block_id": "3485917e-ac52-81cf-8ade-e93cbbac79d5"
+      },
+      {
+        "type": "dialogue",
+        "text": "How about this one? How many more dogs are there than cats?",
+        "id": "s3_3_mixed_problem_single_step_check_b1",
+        "_notion_block_id": "3485917e-ac52-818f-8481-f3ec97e9056d"
+      },
+      {
+        "type": "prompt",
+        "text": "How many more dogs are there than cats?",
+        "tool": "multiple_choice",
+        "options": [
+          105,
+          65,
+          30,
+          25
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 25
+            },
+            "description": "Student answered 25, correct. 65 minus 40 equals 25.",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 25 more dogs than cats. This one was just one step. No combined, so straight to comparing.",
+                "id": "s3_3_mixed_problem_single_step_check_b2_v0_b0",
+                "_notion_block_id": "3485917e-ac52-81f0-894d-f7e495c1c162"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 105
+            },
+            "description": "Student selected 105 (added dogs and cats instead of finding difference)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Dogs",
+                    "Cats"
+                  ],
+                  "description": "Dogs and Cats bars highlight."
+                },
+                "id": "s3_3_mixed_problem_single_step_check_b2_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "How many more means compare. When we compare, we subtract. What's 65 minus 40?",
+                "id": "s3_3_mixed_problem_single_step_check_b2_v1_b1",
+                "_notion_block_id": "3485917e-ac52-8168-8cc7-d68bcfc467e5"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 65
+            },
+            "description": "Student selected 65 (read only the Dogs value, didn't compare)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Dogs",
+                    "Cats"
+                  ],
+                  "description": "Dogs and Cats bars highlight."
+                },
+                "id": "s3_3_mixed_problem_single_step_check_b2_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the total for Dogs. But the question asks how many more dogs than cats. Compare by subtracting. What's 65 minus 40?",
+                "id": "s3_3_mixed_problem_single_step_check_b2_v2_b1",
+                "_notion_block_id": "3485917e-ac52-81b6-b064-eaa49de2907d"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 30
+            },
+            "description": "Student selected 30 (possibly confused Fish value or calculation error)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Dogs",
+                    "Cats"
+                  ],
+                  "description": "Dogs and Cats bars highlight."
+                },
+                "id": "s3_3_mixed_problem_single_step_check_b2_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the bars for Dogs and Cats. Dogs is 65, Cats is 40. Subtract to find how many more. What's 65 minus 40?",
+                "id": "s3_3_mixed_problem_single_step_check_b2_v3_b1",
+                "_notion_block_id": "3485917e-ac52-8160-9158-fd85d1b54e1c"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "event": "show_calculation",
+                  "status": "confirmed",
+                  "description": "System demonstrates: Dogs bar (65) and Cats bar (40) highlight. Calculation shows 65 - 40 = 25."
+                },
+                "id": "s3_3_mixed_problem_single_step_check_b2_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. How many more means compare. Dogs is 65, Cats is 40. We subtract: 65 minus 40 equals 25. The answer is 25 because comparing means finding the difference between two values.",
+                "id": "s3_3_mixed_problem_single_step_check_b2_v4_b1",
+                "_notion_block_id": "3485917e-ac52-81cb-842a-ec59bb517dcc"
+              }
+            ]
+          }
+        ],
+        "id": "s3_3_mixed_problem_single_step_check_b2",
+        "_notion_block_id": "3485917e-ac52-81dd-83b5-cb49c2e8e91d"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_pets",
+            "description": "Vertical bar graph showing Pet Survey data. Dogs 65, Cats 40, Birds 25, Fish 30.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Dogs",
+              "Cats",
+              "Birds",
+              "Fish"
+            ]
+          }
+        ],
+        "id": "s3_3_mixed_problem_single_step_check_b3",
+        "_toml_key": "step_120_mixed_problem_single_step_check"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:02:30.600960+00:00",
+    "_notion_block_id": "3485917e-ac52-81d8-b458-f61b167bb414",
+    "_toml_key": "section_110_mixed_problem_single_step_check"
+  },
+  {
+    "id": "s3_4_final_two_step_independence_check",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_colors",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 5,
+          "categories": [
+            "Yellow",
+            "Red",
+            "Green",
+            "Purple",
+            "Blue"
+          ],
+          "values": {
+            "Yellow": 20,
+            "Red": 45,
+            "Green": 25,
+            "Purple": 15,
+            "Blue": 45
+          },
+          "title": "Favorite Colors",
+          "description": "Vertical bar graph appears. Favorite Colors data. Scale of 5. Yellow=20, Red=45, Green=25, Purple=15, Blue=45."
+        },
+        "id": "s3_4_final_two_step_independence_check_b0",
+        "_notion_block_id": "3485917e-ac52-8155-b7a9-eaca04b4c261"
+      },
+      {
+        "type": "dialogue",
+        "text": "Last one before we check what you know.",
+        "id": "s3_4_final_two_step_independence_check_b1",
+        "_notion_block_id": "3485917e-ac52-810e-8753-e2e2c3d3e0ff"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_colors",
+            "description": "Vertical bar graph in reading mode. Favorite Colors data. Scale of 5. Five categories visible.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 5,
+            "categories": [
+              "Yellow",
+              "Red",
+              "Green",
+              "Purple",
+              "Blue"
+            ],
+            "values": {
+              "Yellow": 20,
+              "Red": 45,
+              "Green": 25,
+              "Purple": 15,
+              "Blue": 45
+            }
+          }
+        ],
+        "id": "s3_4_final_two_step_independence_check_b2",
+        "_notion_block_id": "3485917e-ac52-816e-b0ef-c4e216340867",
+        "_toml_key": "step_121_final_two_step_independence_check"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_colors",
+        "params": {
+          "question_text": "How many more students chose red than chose green or yellow together?",
+          "description": "Question appears: How many more students chose red than chose green or yellow together?"
+        },
+        "id": "s3_4_final_two_step_independence_check_b3",
+        "_notion_block_id": "3485917e-ac52-8170-a51b-cc780f7e3e25"
+      },
+      {
+        "type": "dialogue",
+        "text": "How many more students chose red than chose green or yellow together? What do you find first?",
+        "id": "s3_4_final_two_step_independence_check_b4",
+        "_notion_block_id": "3485917e-ac52-814c-bc52-d698e00b0cde"
+      },
+      {
+        "type": "prompt",
+        "text": "Select what to find first.",
+        "tool": "multiple_choice",
+        "options": [
+          "Add green and yellow",
+          "Compare red to green",
+          "Add all colors",
+          "Subtract yellow from green"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "Add green and yellow"
+            },
+            "description": "Student selected add green and yellow, correct first step",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. Total green and yellow first. That's how you start a two-step problem.",
+                "id": "s3_4_final_two_step_independence_check_b5_v0_b0",
+                "_notion_block_id": "3485917e-ac52-8122-bc6d-cdfa9d2d9afc"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "Compare red to green"
+            },
+            "description": "Student selected compare red to green, skipping the combined total step",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Green",
+                    "Yellow"
+                  ],
+                  "description": "Green and Yellow bars highlight together."
+                },
+                "id": "s3_4_final_two_step_independence_check_b5_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "The question says green or yellow together. That word together tells us to add those first. What is green plus yellow?",
+                "id": "s3_4_final_two_step_independence_check_b5_v1_b1",
+                "_notion_block_id": "3485917e-ac52-8154-a0b9-e293c029afe8"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "Add all colors"
+            },
+            "description": "Student selected add all colors, not identifying the specific categories needed",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Green",
+                    "Yellow"
+                  ],
+                  "description": "Green and Yellow bars highlight."
+                },
+                "id": "s3_4_final_two_step_independence_check_b5_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "We only need the categories the question asks about. It says green or yellow together. Add those two, not all five colors.",
+                "id": "s3_4_final_two_step_independence_check_b5_v2_b1",
+                "_notion_block_id": "3485917e-ac52-8130-af2a-fd45c2ec285a"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "Subtract yellow from green"
+            },
+            "description": "Student selected subtract yellow from green, missing the combined total step",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Green",
+                    "Yellow"
+                  ],
+                  "description": "Green and Yellow bars highlight together."
+                },
+                "id": "s3_4_final_two_step_independence_check_b5_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "When a question says together or combined, that tells us to add, not subtract. Find the total of green and yellow first.",
+                "id": "s3_4_final_two_step_independence_check_b5_v3_b1",
+                "_notion_block_id": "3485917e-ac52-81bd-8271-f5954648f0cb"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct first step.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "event": "highlight_categories",
+                  "status": "confirmed",
+                  "categories": [
+                    "Green",
+                    "Yellow"
+                  ],
+                  "description": "Green and Yellow bars highlight. System demonstrates adding them."
+                },
+                "id": "s3_4_final_two_step_independence_check_b5_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's how to start a two-step problem. The question says green or yellow together. That word together means add those categories first. Green is 25, yellow is 20, so we add: 25 plus 20 equals 45. Now we have the combined total, and we can compare it to red. The first step is always: find the combined total.",
+                "id": "s3_4_final_two_step_independence_check_b5_v4_b1",
+                "_notion_block_id": "3485917e-ac52-8123-a797-e20958ed7738"
+              }
+            ]
+          }
+        ],
+        "id": "s3_4_final_two_step_independence_check_b5",
+        "_notion_block_id": "3485917e-ac52-813e-b0e3-f6282cf22cc7"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_colors",
+            "description": "Vertical bar graph. Favorite Colors data. Question displayed. multiple_choice tool active.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 5,
+            "categories": [
+              "Yellow",
+              "Red",
+              "Green",
+              "Purple",
+              "Blue"
+            ],
+            "values": {
+              "Yellow": 20,
+              "Red": 45,
+              "Green": 25,
+              "Purple": 15,
+              "Blue": 45
+            }
+          }
+        ],
+        "id": "s3_4_final_two_step_independence_check_b6",
+        "_notion_block_id": "3485917e-ac52-8133-8a0f-fc2f3b6b2d3b",
+        "_toml_key": "step_122_final_two_step_independence_check"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_colors",
+        "params": {
+          "highlight_categories": [
+            "Green",
+            "Yellow"
+          ],
+          "description": "Green and Yellow bars highlight."
+        },
+        "id": "s3_4_final_two_step_independence_check_b7",
+        "_notion_block_id": "3485917e-ac52-8181-b7eb-c126739de3cd"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "bar_graph_colors",
+        "params": {
+          "event": "show_calculation",
+          "status": "confirmed",
+          "calculation": "25 + 20 = 45",
+          "description": "Calculation appears: 25 + 20 = 45"
+        },
+        "id": "s3_4_final_two_step_independence_check_b8",
+        "_notion_block_id": "3485917e-ac52-8168-8511-f0d04998b4de"
+      },
+      {
+        "type": "dialogue",
+        "text": "Green and yellow combined is 45. Now compare to red.",
+        "id": "s3_4_final_two_step_independence_check_b9",
+        "_notion_block_id": "3485917e-ac52-81d4-9886-fc354fe62624"
+      },
+      {
+        "type": "prompt",
+        "text": "How many more students chose red than green and yellow combined?",
+        "tool": "multiple_choice",
+        "options": [
+          90,
+          45,
+          10,
+          0
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 0
+            },
+            "description": "Student answered 0, correct, equal values",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's it. Red is 45, combined is 45. They're equal. No difference.",
+                "id": "s3_4_final_two_step_independence_check_b10_v0_b0",
+                "_notion_block_id": "3485917e-ac52-81a6-ba3d-ff98ca72664d"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 90
+            },
+            "description": "Student selected 90, likely added instead of subtracting",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Red"
+                  ],
+                  "description": "Red bar highlights."
+                },
+                "id": "s3_4_final_two_step_independence_check_b10_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "How many more means compare. We subtract, not add. Red is 45, combined is 45. What is 45 minus 45?",
+                "id": "s3_4_final_two_step_independence_check_b10_v1_b1",
+                "_notion_block_id": "3485917e-ac52-81b7-895b-c8576c7b2c8a"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 45
+            },
+            "description": "Student selected 45, repeating one of the values without comparing",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Red"
+                  ],
+                  "description": "Red bar (45) highlights alongside the combined value 45."
+                },
+                "id": "s3_4_final_two_step_independence_check_b10_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You named one of the numbers, but we need the difference. Red is 45, the combined total is 45. How far apart are they?",
+                "id": "s3_4_final_two_step_independence_check_b10_v2_b1",
+                "_notion_block_id": "3485917e-ac52-81b9-8cc9-d5e99325a2bc"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 10
+            },
+            "description": "Student selected 10, incorrect comparison value",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Red"
+                  ],
+                  "description": "Red bar (45) highlights. Combined value 45 displayed."
+                },
+                "id": "s3_4_final_two_step_independence_check_b10_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the two values we're comparing. Red is 45. Combined is 45. Those numbers are the same. What does that tell you about the difference?",
+                "id": "s3_4_final_two_step_independence_check_b10_v3_b1",
+                "_notion_block_id": "3485917e-ac52-81f6-8765-fe5122111ce7"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct comparison.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "event": "show_comparison",
+                  "status": "confirmed",
+                  "description": "Red bar and combined value 45 display side by side. System demonstrates comparison."
+                },
+                "id": "s3_4_final_two_step_independence_check_b10_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Green and yellow combined equals 45. Red equals 45. Now we compare: 45 minus 45 equals 0. When two values are equal, there is no difference. The answer is 0. Red is not more than green and yellow combined. They're the same.",
+                "id": "s3_4_final_two_step_independence_check_b10_v4_b1",
+                "_notion_block_id": "3485917e-ac52-8143-b451-f364d9cee584"
+              }
+            ]
+          }
+        ],
+        "id": "s3_4_final_two_step_independence_check_b10",
+        "_notion_block_id": "3485917e-ac52-81e4-a0fd-fbe9ba2d8608"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_colors",
+            "description": "Vertical bar graph. Green and Yellow bars highlighted. Calculation 25 + 20 = 45 displayed. multiple_choice tool active for step 2.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 5,
+            "categories": [
+              "Yellow",
+              "Red",
+              "Green",
+              "Purple",
+              "Blue"
+            ],
+            "values": {
+              "Yellow": 20,
+              "Red": 45,
+              "Green": 25,
+              "Purple": 15,
+              "Blue": 45
+            }
+          }
+        ],
+        "id": "s3_4_final_two_step_independence_check_b11",
+        "_toml_key": "step_123_final_two_step_independence_check"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:02:48.019034+00:00",
+    "_notion_block_id": "3485917e-ac52-815c-9bd7-c8d9ddce6450",
+    "_toml_key": "section_111_final_two_step_independence_check"
+  },
+  {
+    "id": "s3_5_bridge_exit_check",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You've got the strategy: find the combined total first, then compare. Let's see what you know.",
+        "id": "s3_5_bridge_exit_check_b0",
+        "_notion_block_id": "3485917e-ac52-81f9-bd6e-c23eedbee01a"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s3_5_bridge_exit_check_b1",
+        "_toml_key": "step_124_bridge_exit_check"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:02:51.567167+00:00",
+    "_notion_block_id": "3485917e-ac52-81ce-b11f-d492c3f7cd80",
+    "_toml_key": "section_112_bridge_exit_check"
+  }
+]

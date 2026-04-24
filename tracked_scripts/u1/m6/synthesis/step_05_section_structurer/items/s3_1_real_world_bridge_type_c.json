@@ -1,0 +1,57 @@
+{
+  "id": "s3_1_real_world_bridge_type_c",
+  "type": "transition",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "word_problem_area_scenarios",
+      "tangible_type": "word_problem_area",
+      "params": {
+        "description": "Three real-world scenarios displayed: 1) Who has more stickers—just Maya, or Ben and Carlos put together? 2) Which team scored more—the Red team alone, or the Blue and Green teams combined? 3) Did I spend more on only snacks, or on drinks and dessert altogether?"
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "This kind of thinking shows up all the time—not just in math problems."
+    },
+    {
+      "type": "prompt",
+      "text": "What would you need to DO to answer all of these?",
+      "tool": "multiple_choice",
+      "options": [
+        "Count everything",
+        "Combine some things first, then compare",
+        "Find the biggest number",
+        "Subtract twice"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Combine some things first, then compare"
+          },
+          "description": "Student selected option B, combine first then compare, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Combine first, then compare. That pattern shows up everywhere."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "word_problem_area_scenarios",
+          "description": "Three real-world scenarios displayed on screen. multiple_choice tool active.",
+          "tangible_type": "word_problem_area"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:30.561313+00:00"
+}

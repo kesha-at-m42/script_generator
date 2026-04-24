@@ -1,0 +1,103 @@
+{
+  "id": "s1_2_solve_product_unknown_reversed_form",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_flowers",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 4,
+        "items_per_container": 7,
+        "item_type": "flowers",
+        "container_style": "circled",
+        "description": "Equal groups visual appears: 4 circled clusters of flowers, 7 flowers in each cluster."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_reversed",
+      "tangible_type": "equation_builder",
+      "params": {
+        "template": [
+          "__",
+          "=",
+          "4",
+          "x",
+          "7"
+        ],
+        "palette": [
+          11,
+          21,
+          24,
+          28
+        ],
+        "description": "Equation builder appears with reversed form: blank equals 4 times 7. Answer palette shows tiles 11, 21, 24, 28."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "4 groups of 7 flowers. The equation is flipped — total goes first. Find the total and place it."
+    },
+    {
+      "type": "prompt",
+      "text": "☐ = 4 × 7. Find the total.",
+      "tool": "place_tile",
+      "target": "equation_builder_reversed",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "total": 28
+          },
+          "description": "Student placed 28 in the blank, correct product",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_reversed",
+              "params": {
+                "event": "tile_placed",
+                "status": "confirmed",
+                "description": "28 tile locks into blank slot, equation complete: 28 = 4 × 7."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "28 equals 4 times 7. Same value, both sides."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_flowers",
+          "description": "Equal groups visual showing 4 circled clusters of 7 flowers each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 7
+        },
+        {
+          "tangible_id": "equation_builder_reversed",
+          "description": "Equation builder showing completed reversed equation: 28 = 4 × 7.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "28",
+            "=",
+            "4",
+            "x",
+            "7"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:04.849149+00:00"
+}

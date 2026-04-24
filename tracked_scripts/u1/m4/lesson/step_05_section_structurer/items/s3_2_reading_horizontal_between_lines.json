@@ -1,0 +1,72 @@
+{
+  "id": "s3_2_reading_horizontal_between_lines",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_field_trip",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "categories": [
+          "Zoo",
+          "Museum",
+          "Aquarium",
+          "Park"
+        ],
+        "description": "Horizontal bar graph appears. Votes for Field Trip data. Park bar highlighted, extends to 55, between 50–60 axis lines."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Look at the Park bar. What value does the Park bar represent?"
+    },
+    {
+      "type": "prompt",
+      "text": "What value does the Park bar represent?",
+      "tool": "multiple_choice",
+      "options": [
+        50,
+        55,
+        58,
+        60
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 55
+          },
+          "description": "Student selected 55, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "55. Halfway between 50 and 60."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_field_trip",
+          "description": "Horizontal bar graph in reading mode. Votes for Field Trip data. Park bar highlighted, extends to 55, between 50–60 axis lines.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Zoo",
+            "Museum",
+            "Aquarium",
+            "Park"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:20.140617+00:00"
+}

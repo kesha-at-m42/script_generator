@@ -1,0 +1,110 @@
+{
+  "id": "s1_1_graph_reading_with_scale_2",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 6
+        },
+        "description": "Student selected 6, which is where the Soccer bar ends but ignores the scale of 2",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_activities",
+              "params": {
+                "highlight_categories": [
+                  "Soccer"
+                ],
+                "description": "Soccer bar highlights. Scale axis emphasized."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted where the bar ends. But look at the scale: each mark stands for 2 students, not 1. Count by 2s."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 10
+        },
+        "description": "Student selected 10, close to correct but miscounted the intervals",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_activities",
+              "params": {
+                "highlight_categories": [
+                  "Soccer"
+                ],
+                "description": "Soccer bar highlights. Scale markings emphasized."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Almost. The scale goes by 2s. Count each mark carefully: 2, 4, 6, 8, 10, 12. Where does the Soccer bar end?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 24
+        },
+        "description": "Student selected 24, which doubles the correct answer by counting each interval as 2 rather than each mark representing 2",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_activities",
+              "params": {
+                "highlight_categories": [
+                  "Soccer"
+                ],
+                "description": "Soccer bar highlights. Scale axis emphasized."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That number is too high. The scale tells us what each mark means. Each mark on the axis shows 2 students. Count the marks where the Soccer bar ends."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_activities",
+              "params": {
+                "event": "highlight_category",
+                "status": "confirmed",
+                "category": "Soccer",
+                "description": "Soccer bar highlights. System demonstrates counting by 2s along the scale."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. The scale goes by 2s: 2, 4, 6, 8, 10, 12. The Soccer bar reaches the 12 mark. That means 12 students chose soccer. The answer is 12 because the scale tells us each mark represents 2 students, not 1."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:00:30.634694+00:00"
+}

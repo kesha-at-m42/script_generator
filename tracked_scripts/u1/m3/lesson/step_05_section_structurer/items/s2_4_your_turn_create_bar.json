@@ -7,7 +7,7 @@
       "tangible_id": "data_table",
       "tangible_type": "data_table",
       "params": {
-        "description": "Data table appears showing Favorite Lunch Foods values: Tacos=30, Pizza=20, Sandwiches=15, Salad=25, Pasta=10."
+        "description": "Vertical data table appears. Favorite Lunch Foods dataset: Pizza 20, Tacos 30, Salad 15, Pasta 25, Sandwiches 15."
       }
     },
     {
@@ -19,22 +19,22 @@
         "mode": "building",
         "orientation": "vertical",
         "categories": [
-          "Tacos",
           "Pizza",
-          "Sandwiches",
+          "Tacos",
           "Salad",
-          "Pasta"
+          "Pasta",
+          "Sandwiches"
         ],
-        "scale": 5,
-        "axis_max": 30,
-        "bar_heights": {
+        "axis_range": [
+          0,
+          35
+        ],
+        "axis_interval": 5,
+        "pre_filled_bars": {
           "Tacos": 30,
-          "Sandwiches": 15,
-          "Pizza": 0,
-          "Salad": 0,
-          "Pasta": 0
+          "Sandwiches": 15
         },
-        "description": "Vertical bar graph appears in building mode. Favorite Lunch Foods. Tacos bar pre-filled at 30, Sandwiches at 15. Pizza, Salad, Pasta bars empty. Scale: 5. Axis shows 0, 5, 10, 15, 20, 25, 30."
+        "description": "Vertical bar graph appears in building mode. Favorite Lunch Foods. Y-axis 0–35 in intervals of 5. Tacos bar pre-filled at 30, Sandwiches bar pre-filled at 15. Pizza, Salad, Pasta bars empty. Click-to-set-height tool active."
       }
     },
     {
@@ -50,8 +50,8 @@
         {
           "condition_id": "correct",
           "condition": {
-            "category": "Pizza",
-            "bar_height": 20
+            "bar": "Pizza",
+            "height": 20
           },
           "description": "Student set Pizza bar height to 20, correct",
           "is_correct": true,
@@ -61,10 +61,10 @@
               "method": "animate",
               "tangible_id": "bar_graph_lunch",
               "params": {
-                "event": "confirm_bar_height",
+                "event": "draw_bar_guideline",
                 "status": "confirmed",
                 "category": "Pizza",
-                "description": "Pizza bar confirms at height 20."
+                "description": "Horizontal guideline draws from top of Pizza bar to axis value 20, confirming correct height."
               }
             },
             {
@@ -80,34 +80,30 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Data table showing Favorite Lunch Foods values.",
+          "description": "Vertical data table showing Favorite Lunch Foods values.",
           "tangible_type": "data_table"
         },
         {
           "tangible_id": "bar_graph_lunch",
-          "description": "Vertical bar graph in building mode. Tacos=30, Sandwiches=15, Pizza=20 confirmed. Salad and Pasta bars empty. Scale: 5.",
+          "description": "Vertical bar graph in building mode. Favorite Lunch Foods. Y-axis 0–35 in intervals of 5. Bars: Tacos 30, Sandwiches 15, Pizza 20. Salad and Pasta empty. Guideline visible on Pizza bar confirming height at 20.",
           "tangible_type": "bar_graph",
           "mode": "building",
           "orientation": "vertical",
           "categories": [
-            "Tacos",
             "Pizza",
-            "Sandwiches",
+            "Tacos",
             "Salad",
-            "Pasta"
+            "Pasta",
+            "Sandwiches"
           ],
-          "scale": 5,
-          "axis_max": 30,
-          "bar_heights": {
-            "Tacos": 30,
-            "Sandwiches": 15,
-            "Pizza": 20,
-            "Salad": 0,
-            "Pasta": 0
-          }
+          "axis_range": [
+            0,
+            35
+          ],
+          "axis_interval": 5
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:01:23.852566+00:00"
+  "_generated_at": "2026-04-23T17:23:57.869958+00:00"
 }

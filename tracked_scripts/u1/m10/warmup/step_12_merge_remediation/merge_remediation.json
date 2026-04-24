@@ -1,0 +1,479 @@
+[
+  {
+    "id": "s1_1_equation_building_callback_activation",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_bags",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 2,
+          "visual_style": "pictures",
+          "container_type": "bags",
+          "description": "Equal groups visual appears: 5 bags with 2 items each."
+        },
+        "id": "s1_1_equation_building_callback_activation_b0",
+        "_notion_block_id": "3485917e-ac52-8136-bafb-f999020a6acc"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_warmup",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": [
+            "__",
+            "×",
+            "__",
+            "=",
+            "__"
+          ],
+          "palette": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "description": "Equation builder appears alongside with full equation template and tile palette 1 through 10."
+        },
+        "id": "s1_1_equation_building_callback_activation_b1",
+        "_notion_block_id": "3485917e-ac52-81db-845c-e58f9f21ac21"
+      },
+      {
+        "type": "dialogue",
+        "text": "Let's warm up. You've been building equations. Let's make sure you've still got it. Build the equation for this picture.",
+        "id": "s1_1_equation_building_callback_activation_b2",
+        "_notion_block_id": "3485917e-ac52-815c-9ba4-dcf081c3a93f"
+      },
+      {
+        "type": "prompt",
+        "text": "Build the equation for this picture.",
+        "tool": "place_tile",
+        "target": "equation_builder_warmup",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "groups": 5,
+              "items": 2,
+              "total": 10
+            },
+            "description": "Student placed 5 × 2 = 10, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 5 groups of 2. 5 times 2 equals 10. You know how to build equations.",
+                "id": "s1_1_equation_building_callback_activation_b3_v0_b0",
+                "_notion_block_id": "3485917e-ac52-81fc-a459-f4134460c846"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "or": [
+                    {
+                      "groups": 2,
+                      "items": 5
+                    },
+                    {
+                      "groups": 10
+                    }
+                  ]
+                },
+                {
+                  "or": [
+                    {
+                      "incorrect_count": 1
+                    },
+                    {
+                      "incorrect_count": 2
+                    }
+                  ]
+                }
+              ]
+            },
+            "description": "Student reversed groups and items (2 × 5) or wrote 10 as groups",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "highlight_containers": true,
+                  "description": "The 5 bags highlight to show groups."
+                },
+                "id": "s1_1_equation_building_callback_activation_b3_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Count the bags. That's your first number, the groups. Then count what's in one bag. That's your second number.",
+                "id": "s1_1_equation_building_callback_activation_b3_v1_b1",
+                "_notion_block_id": "3485917e-ac52-814a-9492-f0ae7982ccdf"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "incorrect_count": 1
+                },
+                {
+                  "not": {
+                    "or": [
+                      {
+                        "groups": 2,
+                        "items": 5
+                      },
+                      {
+                        "groups": 10
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "description": "Student built an incorrect equation on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Count the bags, then what's inside one bag.",
+                "id": "s1_1_equation_building_callback_activation_b3_v2_b0",
+                "_notion_block_id": "3485917e-ac52-81d4-b5f1-e1a051ed03e8"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "incorrect_count": 2
+                },
+                {
+                  "not": {
+                    "or": [
+                      {
+                        "groups": 2,
+                        "items": 5
+                      },
+                      {
+                        "groups": 10
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "description": "Student built an incorrect equation on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "highlight_containers": true,
+                  "description": "The 5 bags highlight."
+                },
+                "id": "s1_1_equation_building_callback_activation_b3_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's what helps: the first number counts how many bags you see. The second number counts what's in one bag. What do you get?",
+                "id": "s1_1_equation_building_callback_activation_b3_v3_b1",
+                "_notion_block_id": "3485917e-ac52-8128-b420-e05445391fcf"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly three or more times. System models the answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_warmup",
+                "params": {
+                  "event": "place_tiles",
+                  "status": "confirmed",
+                  "description": "System places tiles: 5 in first blank, 2 in second blank, 10 in third blank.",
+                  "tiles": [
+                    5,
+                    2,
+                    10
+                  ]
+                },
+                "id": "s1_1_equation_building_callback_activation_b3_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. I count the bags: 5 bags. That's my first number. I count what's in one bag: 2 items. That's my second number. 5 times 2 equals 10. The equation is 5 times 2 equals 10.",
+                "id": "s1_1_equation_building_callback_activation_b3_v4_b1",
+                "_notion_block_id": "3485917e-ac52-8144-9879-ca95a123b071"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_equation_building_callback_activation_b3",
+        "_notion_block_id": "3485917e-ac52-81d1-bc22-e09fe65e15ba"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_bags",
+            "description": "Equal groups visual: 5 bags with 2 items each.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 5,
+            "items_per_container": 2,
+            "visual_style": "pictures",
+            "container_type": "bags"
+          },
+          {
+            "tangible_id": "equation_builder_warmup",
+            "description": "Equation builder with template [___] × [___] = [___] and tile palette 1-10. Place_tile tool active.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "__",
+              "×",
+              "__",
+              "=",
+              "__"
+            ],
+            "palette": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ]
+          }
+        ],
+        "id": "s1_1_equation_building_callback_activation_b4",
+        "_toml_key": "step_100_equation_building_callback_activation"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:30.488251+00:00",
+    "_notion_block_id": "3485917e-ac52-811f-85d9-fcde17fd3a4f",
+    "_toml_key": "section_100_equation_building_callback_activation"
+  },
+  {
+    "id": "s2_1_reversed_equation_judgment_task_curiosity",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_student_built",
+        "tangible_type": "equation",
+        "params": {
+          "expression": [
+            "5",
+            "x",
+            "2",
+            "=",
+            "10"
+          ],
+          "description": "Static equation appears: 5 × 2 = 10. Student's equation from previous section, now read-only."
+        },
+        "id": "s2_1_reversed_equation_judgment_task_curiosity_b0",
+        "_notion_block_id": "3485917e-ac52-81ca-ba65-ea4cd963a311"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_reversed",
+        "tangible_type": "equation",
+        "params": {
+          "expression": [
+            "10",
+            "=",
+            "5",
+            "x",
+            "2"
+          ],
+          "description": "Second equation appears alongside or below first: 10 = 5 × 2. Reversed orientation."
+        },
+        "id": "s2_1_reversed_equation_judgment_task_curiosity_b1",
+        "_notion_block_id": "3485917e-ac52-81d9-9896-d69fc7ecd5e2"
+      },
+      {
+        "type": "dialogue",
+        "text": "Now look at this equation. What do you think?",
+        "id": "s2_1_reversed_equation_judgment_task_curiosity_b2",
+        "_notion_block_id": "3485917e-ac52-81f2-aabc-d8056592df2b"
+      },
+      {
+        "type": "prompt",
+        "text": "What do you think about 10 = 5 × 2?",
+        "tool": "multiple_choice",
+        "options": [
+          "It's true — both sides are 10",
+          "It's true — it's just written differently",
+          "It's wrong — the answer should come last",
+          "I'm not sure"
+        ],
+        "validator": [
+          {
+            "condition_id": "both_sides_10",
+            "condition": {
+              "selected": "It's true — both sides are 10"
+            },
+            "description": "Student chose option A — checked both sides",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You checked both sides. Smart thinking. Hold that thought.",
+                "id": "s2_1_reversed_equation_judgment_task_curiosity_b3_v0_b0",
+                "_notion_block_id": "3485917e-ac52-81d8-aaef-e6fc66a03234"
+              }
+            ]
+          },
+          {
+            "condition_id": "just_flipped",
+            "condition": {
+              "selected": "It's true — it's just written differently"
+            },
+            "description": "Student chose option B — noticed it's the same equation flipped",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You noticed it's the same equation, just flipped. Hold that thought.",
+                "id": "s2_1_reversed_equation_judgment_task_curiosity_b3_v1_b0",
+                "_notion_block_id": "3485917e-ac52-81f0-a7a0-db13fc82865a"
+              }
+            ]
+          },
+          {
+            "condition_id": "answer_last",
+            "condition": {
+              "selected": "It's wrong — the answer should come last"
+            },
+            "description": "Student chose option C — thinks answer must come last",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Interesting. Something looks different about it. Hold that thought.",
+                "id": "s2_1_reversed_equation_judgment_task_curiosity_b3_v2_b0",
+                "_notion_block_id": "3485917e-ac52-8108-a2c7-edfc41853a85"
+              }
+            ]
+          },
+          {
+            "condition_id": "not_sure",
+            "condition": {
+              "selected": "I'm not sure"
+            },
+            "description": "Student chose option D — uncertain",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's honest. It does look different. Hold that thought.",
+                "id": "s2_1_reversed_equation_judgment_task_curiosity_b3_v3_b0",
+                "_notion_block_id": "3485917e-ac52-811c-b689-fd2c968e0753"
+              }
+            ]
+          }
+        ],
+        "id": "s2_1_reversed_equation_judgment_task_curiosity_b3",
+        "_notion_block_id": "3485917e-ac52-81a2-bb80-e7b54a8b0c5d"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equation_student_built",
+            "description": "Static equation: 5 × 2 = 10.",
+            "tangible_type": "equation",
+            "expression": [
+              "5",
+              "x",
+              "2",
+              "=",
+              "10"
+            ]
+          },
+          {
+            "tangible_id": "equation_reversed",
+            "description": "Static equation: 10 = 5 × 2.",
+            "tangible_type": "equation",
+            "expression": [
+              "10",
+              "=",
+              "5",
+              "x",
+              "2"
+            ]
+          }
+        ],
+        "id": "s2_1_reversed_equation_judgment_task_curiosity_b4",
+        "_notion_block_id": "3485917e-ac52-815f-af12-d5d7b8df0532",
+        "_toml_key": "step_101_reversed_equation_judgment_task_curiosity"
+      },
+      {
+        "type": "dialogue",
+        "text": "You can build equations. But today, equations have some surprises. You'll see them in new ways and figure out missing numbers.",
+        "id": "s2_1_reversed_equation_judgment_task_curiosity_b5",
+        "_notion_block_id": "3485917e-ac52-81f2-97e0-c150698ae419"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equation_student_built",
+            "description": "Static equation: 5 × 2 = 10. Remains visible through transition.",
+            "tangible_type": "equation",
+            "expression": [
+              "5",
+              "x",
+              "2",
+              "=",
+              "10"
+            ]
+          },
+          {
+            "tangible_id": "equation_reversed",
+            "description": "Static equation: 10 = 5 × 2. Remains visible through transition.",
+            "tangible_type": "equation",
+            "expression": [
+              "10",
+              "=",
+              "5",
+              "x",
+              "2"
+            ]
+          }
+        ],
+        "id": "s2_1_reversed_equation_judgment_task_curiosity_b6",
+        "_toml_key": "step_102_reversed_equation_judgment_task_curiosity"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:54.934441+00:00",
+    "_notion_block_id": "3485917e-ac52-81b4-8a3a-e1db546e4546",
+    "_toml_key": "section_101_reversed_equation_judgment_task_curiosity"
+  }
+]

@@ -1,0 +1,103 @@
+{
+  "id": "s3_2_expression_recognition_semi_abstract",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "3 × 5"
+        },
+        "description": "Student selected 3 × 5: reversed the groups and items per group",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "highlight_containers": true,
+                "description": "All 5 circles highlight to show the group count."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Count the circles first. That's the first number. How many circles do you see?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "5 + 3"
+        },
+        "description": "Student selected 5 + 3: confused multiplication with addition",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "highlight_one_container_contents": true,
+                "description": "One circle highlights with its 3 dots visible."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "We use × when we have equal groups. The plus sign is for adding. Count the groups, then what's in each."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "3 + 5"
+        },
+        "description": "Student selected 3 + 5: confused multiplication with addition and reversed the values",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "highlight_containers": true,
+                "description": "All 5 circles highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "When you see equal groups, you multiply. The × shows groups of the same size. Which number is the groups?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "event": "count_groups_then_items",
+                "status": "confirmed",
+                "description": "System counts circles one by one (1, 2, 3, 4, 5), then opens one circle to show 3 dots (1, 2, 3)."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. First, I count the circles: 1, 2, 3, 4, 5. Five circles. Those are my groups. Now I look inside one: 1, 2, 3. Three dots in each group. So I have 5 groups of 3. That's 5 × 3."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:06:18.745678+00:00"
+}

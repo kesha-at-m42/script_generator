@@ -1,0 +1,296 @@
+{
+  "id": "s3_1_reduced_scaffolding_3_step_chain",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "Subtract grapes from oranges"
+        },
+        "description": "Student selected subtract grapes from oranges, wrong operation for finding combined total",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_fruit_stand",
+              "params": {
+                "highlight_categories": [
+                  "Oranges",
+                  "Grapes"
+                ],
+                "description": "Oranges and Grapes bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The question asks about oranges and grapes together. Together means add, not subtract. What's the total of those two?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Compare apples to oranges"
+        },
+        "description": "Student selected compare apples to oranges, skipping the combined step",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_fruit_stand",
+              "params": {
+                "highlight_categories": [
+                  "Oranges",
+                  "Grapes"
+                ],
+                "description": "Oranges and Grapes bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The question says oranges and grapes combined. When you see combined, find that total first. What do oranges and grapes add up to?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_fruit_stand",
+              "params": {
+                "event": "show_calculation",
+                "status": "confirmed",
+                "description": "Calculation appears: Oranges 25 + Grapes 15 = 40"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. The question asks about oranges and grapes combined. Combined tells us to add first. Oranges is 25, grapes is 15, so 25 plus 15 equals 40. The first step is always to find the combined total when you see that word. The answer is add oranges and grapes."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": 10
+        },
+        "description": "Student selected 10, subtracted instead of added",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_fruit_stand",
+              "params": {
+                "highlight_categories": [
+                  "Oranges",
+                  "Grapes"
+                ],
+                "description": "Oranges and Grapes bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You subtracted. We need to add when finding combined. Oranges is 25, grapes is 15. Add them."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 30
+        },
+        "description": "Student selected 30, miscounted or used wrong values",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_fruit_stand",
+              "params": {
+                "highlight_categories": [
+                  "Oranges",
+                  "Grapes"
+                ],
+                "description": "Oranges and Grapes bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Check the values. Oranges is 25, grapes is 15. Count by fives along each bar, then add."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 45
+        },
+        "description": "Student selected 45, used apples value instead of adding oranges and grapes",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_fruit_stand",
+              "params": {
+                "highlight_categories": [
+                  "Oranges",
+                  "Grapes"
+                ],
+                "description": "Oranges and Grapes bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's the apples value. We need oranges and grapes combined. Look at those two bars. What do they add up to?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_fruit_stand",
+              "params": {
+                "event": "show_calculation",
+                "status": "confirmed",
+                "description": "Calculation appears: 25 + 15 = 40"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how to find it. I look at the oranges bar: 25. I look at the grapes bar: 15. Combined means add them together: 25 plus 15 equals 40. The combined total is 40."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": 85
+        },
+        "description": "Student selected 85, added instead of subtracted",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_fruit_stand",
+              "params": {
+                "highlight_categories": [
+                  "Apples"
+                ],
+                "description": "Apples bar highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You added. How many fewer means compare, and compare means subtract. What's 45 minus 40?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 45
+        },
+        "description": "Student selected 45, chose apples value instead of finding difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_fruit_stand",
+              "params": {
+                "highlight_categories": [
+                  "Apples"
+                ],
+                "display_value": 40,
+                "description": "Apples bar highlights. Combined value 40 displayed."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's just the apples amount. How many fewer asks for the difference. Apples is 45, combined is 40. Subtract to compare."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 40
+        },
+        "description": "Student selected 40, chose combined value instead of finding difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_fruit_stand",
+              "params": {
+                "highlight_categories": [
+                  "Apples"
+                ],
+                "display_value": 40,
+                "description": "Apples bar highlights. Combined value 40 displayed."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's the combined total. We already found that. Now we need to compare. How much more is 45 than 40?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_fruit_stand",
+              "params": {
+                "event": "show_calculation",
+                "status": "confirmed",
+                "description": "Calculation appears: 45 - 40 = 5"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me walk you through it. We found oranges and grapes combined: 40. Now we compare to apples. Apples is 45. How many fewer means subtract: 45 minus 40 equals 5. The combined total is 5 fewer than apples. The answer is 5."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:04:52.487327+00:00"
+}

@@ -1,0 +1,115 @@
+{
+  "id": "s2_1_scale_comparison_1_5_vs",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_scale_5",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "scale": 5,
+        "description": "Left vertical picture graph appears. Student's data shown with scale of 5. Key: each star symbol = 5."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_scale_10",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "scale": 10,
+        "description": "Right vertical picture graph appears. Same data shown with scale of 10. Key: each star symbol = 10."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Here's your data two ways. Look at both graphs. Which graph uses FEWER symbols to show the same data?"
+    },
+    {
+      "type": "prompt",
+      "text": "Which graph uses FEWER symbols to show the same data?",
+      "tool": "multiple_choice",
+      "options": [
+        "Left graph (scale of 5)",
+        "Right graph (scale of 10)"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Right graph (scale of 10)"
+          },
+          "description": "Student selected the 1:10 graph, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_scale_10",
+              "params": {
+                "event": "highlight_graph",
+                "status": "confirmed",
+                "description": "Right graph highlights to confirm selection."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Scale of 10 uses fewer symbols! Each symbol shows more, so you need fewer of them."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_scale_5",
+          "description": "Left vertical picture graph. Student's data with scale of 5. Key: each star = 5.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 5
+        },
+        {
+          "tangible_id": "picture_graph_scale_10",
+          "description": "Right vertical picture graph highlighted. Same data with scale of 10. Key: each star = 10.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 10
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "With scale of 10, each symbol shows more than scale of 5. That's why you need fewer symbols for the same data!"
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_scale_5",
+          "description": "Left vertical picture graph. Student's data with scale of 5. Key: each star = 5.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 5
+        },
+        {
+          "tangible_id": "picture_graph_scale_10",
+          "description": "Right vertical picture graph. Same data with scale of 10. Key: each star = 10.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 10
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:57:49.722385+00:00"
+}

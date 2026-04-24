@@ -1,0 +1,218 @@
+{
+  "id": "s1_1_identify_groups_items_identify",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 5
+        },
+        "description": "Student selected 5, confusing items per group with number of groups",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_markers",
+              "params": {
+                "highlight_containers": true,
+                "description": "All 3 boxes highlight to emphasize container count."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted what's inside. The question asks how many BOXES. Count the containers, not what's in them."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 8
+        },
+        "description": "Student selected 8, possibly adding groups and items",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_markers",
+              "params": {
+                "highlight_containers": true,
+                "description": "All 3 boxes highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Groups means how many containers you see. Don't add. Just count the boxes."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 15
+        },
+        "description": "Student selected 15, counted total items instead of groups",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_markers",
+              "params": {
+                "highlight_containers": true,
+                "description": "All 3 boxes highlight to emphasize the containers."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted all the markers. We need the number of GROUPS. A group is one box. How many boxes?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_markers",
+              "params": {
+                "event": "count_containers",
+                "status": "confirmed",
+                "description": "Boxes highlight sequentially: 1, 2, 3."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. When we count groups, we count the CONTAINERS. Watch: 1 box, 2 boxes, 3 boxes. Three groups. The answer is 3 because there are 3 boxes."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": 3
+        },
+        "description": "Student selected 3, confusing number of groups with items per group",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_markers",
+              "params": {
+                "event": "open_container",
+                "status": "confirmed",
+                "container_index": 0,
+                "description": "First box opens to reveal 5 markers inside."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's how many boxes there are. Now look INSIDE one box. Count what's in there."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 8
+        },
+        "description": "Student selected 8, possibly adding groups and items",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_markers",
+              "params": {
+                "event": "open_container",
+                "status": "confirmed",
+                "container_index": 0,
+                "description": "First box opens to reveal markers inside."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "We're not adding. Look inside ONE box. How many markers are in that box?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 15
+        },
+        "description": "Student selected 15, counted all items instead of items per group",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_markers",
+              "params": {
+                "event": "open_container",
+                "status": "confirmed",
+                "container_index": 0,
+                "description": "First box opens, showing markers inside."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted all the markers. We need how many in EACH group. Look at just one box. Count those."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_markers",
+              "params": {
+                "event": "open_container",
+                "status": "confirmed",
+                "container_index": 0,
+                "description": "First box opens to reveal 5 markers."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_markers",
+              "params": {
+                "event": "count_items_in_container",
+                "status": "confirmed",
+                "container_index": 0,
+                "description": "Markers inside the first box highlight sequentially: 1, 2, 3, 4, 5."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how to find items in each group. Open one box and count what's inside. Watch: 1, 2, 3, 4, 5. Five markers in this box. The answer is 5 because each box contains 5 markers."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:00:48.163883+00:00"
+}

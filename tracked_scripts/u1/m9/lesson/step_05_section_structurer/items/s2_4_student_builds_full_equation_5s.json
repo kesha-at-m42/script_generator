@@ -1,0 +1,94 @@
+{
+  "id": "s2_4_student_builds_full_equation_5s",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_6x5",
+      "tangible_type": "equation_builder",
+      "params": {
+        "mode": "building",
+        "template": "equation",
+        "structure": [
+          "__",
+          "×",
+          "__",
+          "=",
+          "__"
+        ],
+        "palette": [
+          4,
+          5,
+          6,
+          11,
+          20,
+          25,
+          30,
+          35
+        ],
+        "description": "Equation builder appears with three blank slots and multiplication template. Tile palette shows 4, 5, 6, 11, 20, 25, 30, 35."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Build the whole equation this time. 6 groups of 5. Place the factors and the product."
+    },
+    {
+      "type": "prompt",
+      "text": "Build the equation for 6 groups of 5.",
+      "tool": "place_tile",
+      "target": "equation_builder_6x5",
+      "variable_answer": true,
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "placed": {
+              "groups": 6,
+              "items": 5,
+              "total": 30
+            }
+          },
+          "description": "Student placed 6 × 5 = 30, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "6 times 5 equals 30. Ends in 0 which matches the 5s pattern. You built the complete equation with the factors and product."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_builder_6x5",
+          "description": "Equation builder showing 6 × 5 = 30 with all three slots filled.",
+          "tangible_type": "equation_builder",
+          "mode": "building",
+          "template": "equation",
+          "structure": [
+            "__",
+            "×",
+            "__",
+            "=",
+            "__"
+          ],
+          "palette": [
+            4,
+            5,
+            6,
+            11,
+            20,
+            25,
+            30,
+            35
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:03:23.257784+00:00"
+}

@@ -1,0 +1,155 @@
+{
+  "id": "s1_1_equation_building_callback_activation",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "or": [
+                {
+                  "groups": 2,
+                  "items": 5
+                },
+                {
+                  "groups": 10
+                }
+              ]
+            },
+            {
+              "or": [
+                {
+                  "incorrect_count": 1
+                },
+                {
+                  "incorrect_count": 2
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Student reversed groups and items (2 × 5) or wrote 10 as groups",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "highlight_containers": true,
+                "description": "The 5 bags highlight to show groups."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Count the bags. That's your first number, the groups. Then count what's in one bag. That's your second number."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 1
+            },
+            {
+              "not": {
+                "or": [
+                  {
+                    "groups": 2,
+                    "items": 5
+                  },
+                  {
+                    "groups": 10
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "description": "Student built an incorrect equation on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Count the bags, then what's inside one bag."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 2
+            },
+            {
+              "not": {
+                "or": [
+                  {
+                    "groups": 2,
+                    "items": 5
+                  },
+                  {
+                    "groups": 10
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "description": "Student built an incorrect equation on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "highlight_containers": true,
+                "description": "The 5 bags highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's what helps: the first number counts how many bags you see. The second number counts what's in one bag. What do you get?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_warmup",
+              "params": {
+                "event": "place_tiles",
+                "status": "confirmed",
+                "description": "System places tiles: 5 in first blank, 2 in second blank, 10 in third blank.",
+                "tiles": [
+                  5,
+                  2,
+                  10
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. I count the bags: 5 bags. That's my first number. I count what's in one bag: 2 items. That's my second number. 5 times 2 equals 10. The equation is 5 times 2 equals 10."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:01:15.241509+00:00"
+}

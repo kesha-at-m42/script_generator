@@ -1,0 +1,116 @@
+{
+  "id": "s2_1_comparison_question_single_step",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 18
+        },
+        "description": "Student selected 18: added soccer and tennis instead of finding the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_sports",
+              "params": {
+                "highlight_categories": [
+                  "Soccer",
+                  "Tennis"
+                ],
+                "description": "Soccer and Tennis bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You added soccer and tennis. The question asks how many more, which means we need to find the difference. Subtract the smaller number from the larger one."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 12
+        },
+        "description": "Student selected 12: only read soccer's value instead of comparing",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_sports",
+              "params": {
+                "highlight_categories": [
+                  "Soccer",
+                  "Tennis"
+                ],
+                "description": "Soccer and Tennis bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's how many chose soccer. The question asks how many more chose soccer than tennis. Compare the two bars. What is the difference between their heights?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 3
+        },
+        "description": "Student selected 3: possibly subtracted 6 from 12 incorrectly or confused the values",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_sports",
+              "params": {
+                "highlight_categories": [
+                  "Soccer",
+                  "Tennis"
+                ],
+                "description": "Soccer and Tennis bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Not quite. Soccer has 12 students, tennis has 6. To find how many more, subtract. What is 12 minus 6?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_sports",
+              "params": {
+                "event": "highlight_comparison",
+                "status": "confirmed",
+                "description": "Soccer and Tennis bars highlight to demonstrate the comparison.",
+                "categories": [
+                  "Soccer",
+                  "Tennis"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. How many more means we compare by finding the difference. Soccer is 12, tennis is 6. Subtract: 12 minus 6 equals 6. The answer is 6. That's what the difference between the two bars shows."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:00:45.737092+00:00"
+}

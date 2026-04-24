@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:04:42.837379
+# Generated: 2026-04-23T12:29:00.311675
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,7 @@ Cacheable: Yes
   "id": "s3_3_comparison_question",
   "dialogues": [
     {
-      "text": "Use your graph to find how many fewer books Emma read than Olivia.",
+      "text": "Use your graph to find how many FEWER books Emma read than Olivia.",
       "context": "lesson"
     },
     {

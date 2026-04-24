@@ -4,10 +4,9 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "picture_graph_playground",
-      "tangible_type": "picture_graph",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
       "params": {
-        "mode": "building",
         "orientation": "vertical",
         "categories": [
           "Swings",
@@ -15,17 +14,37 @@
           "Monkey Bars",
           "Sandbox"
         ],
-        "scale": 5,
-        "description": "Vertical picture graph appears in building mode. Favorite Playground Equipment data. Swings has 4 symbols (20 votes), Slides has 3 symbols (15 votes). Monkey Bars and Sandbox rows are empty. Key visible: each symbol = 5 votes."
+        "values": [
+          20,
+          15,
+          25,
+          10
+        ],
+        "description": "Vertical data table appears. Favorite Playground Activities. Swings 20, Slides 15, Monkey Bars 25, Sandbox 10."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "data_table",
-      "tangible_type": "data_table",
+      "tangible_id": "picture_graph_playground",
+      "tangible_type": "picture_graph",
       "params": {
-        "description": "Data table appears alongside graph showing Favorite Playground Equipment values: Swings 20, Slides 15, Monkey Bars 25, Sandbox 18."
+        "mode": "building",
+        "orientation": "vertical",
+        "scale": 5,
+        "categories": [
+          "Swings",
+          "Slides",
+          "Monkey Bars",
+          "Sandbox"
+        ],
+        "symbols_placed": {
+          "Swings": 4,
+          "Slides": 3,
+          "Monkey Bars": 0,
+          "Sandbox": 0
+        },
+        "description": "Vertical picture graph in building mode. Favorite Playground Activities. Scale 5, key visible. Swings has 4 symbols, Slides has 3 symbols. Monkey Bars and Sandbox empty."
       }
     },
     {
@@ -35,16 +54,16 @@
     {
       "type": "prompt",
       "text": "Set the height for Monkey Bars.",
-      "tool": "click_to_set_height",
+      "tool": "click_to_place",
       "target": "picture_graph_playground",
       "validator": [
         {
           "condition_id": "correct",
           "condition": {
-            "category": "Monkey Bars",
-            "symbols_placed": 5
+            "symbols_placed": 5,
+            "category": "Monkey Bars"
           },
-          "description": "Student placed 5 symbols for Monkey Bars, correct",
+          "description": "Student placed 5 symbols in Monkey Bars column, correct",
           "is_correct": true,
           "beats": [
             {
@@ -54,8 +73,8 @@
               "params": {
                 "event": "confirm_placement",
                 "status": "confirmed",
-                "description": "5 symbols lock into place in Monkey Bars row.",
-                "category": "Monkey Bars"
+                "category": "Monkey Bars",
+                "description": "5 symbols confirm in Monkey Bars column."
               }
             },
             {
@@ -70,10 +89,9 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "picture_graph_playground",
-          "description": "Vertical picture graph in building mode. Favorite Playground Equipment data. Swings has 4 symbols, Slides has 3 symbols, Monkey Bars has 5 symbols. Sandbox row is empty. Key visible: each symbol = 5 votes.",
-          "tangible_type": "picture_graph",
-          "mode": "building",
+          "tangible_id": "data_table",
+          "description": "Vertical data table. Favorite Playground Activities. Swings 20, Slides 15, Monkey Bars 25, Sandbox 10.",
+          "tangible_type": "data_table",
           "orientation": "vertical",
           "categories": [
             "Swings",
@@ -81,15 +99,35 @@
             "Monkey Bars",
             "Sandbox"
           ],
-          "scale": 5
+          "values": [
+            20,
+            15,
+            25,
+            10
+          ]
         },
         {
-          "tangible_id": "data_table",
-          "description": "Data table showing Favorite Playground Equipment values alongside the graph.",
-          "tangible_type": "data_table"
+          "tangible_id": "picture_graph_playground",
+          "description": "Vertical picture graph in building mode. Swings 4 symbols, Slides 3 symbols, Monkey Bars 5 symbols, Sandbox empty. Scale 5, key visible.",
+          "tangible_type": "picture_graph",
+          "mode": "building",
+          "orientation": "vertical",
+          "scale": 5,
+          "categories": [
+            "Swings",
+            "Slides",
+            "Monkey Bars",
+            "Sandbox"
+          ],
+          "symbols_placed": {
+            "Swings": 4,
+            "Slides": 3,
+            "Monkey Bars": 5,
+            "Sandbox": 0
+          }
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:00:02.677147+00:00"
+  "_generated_at": "2026-04-23T17:21:35.595061+00:00"
 }

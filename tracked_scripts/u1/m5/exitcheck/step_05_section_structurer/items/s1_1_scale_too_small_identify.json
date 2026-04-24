@@ -1,0 +1,98 @@
+{
+  "id": "s1_1_scale_too_small_identify",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Vertical data table appears: Toys Collected. Amy: 45, Ben: 70, Cora: 15, Dan: 30."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_toys",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Amy",
+          "Ben",
+          "Cora",
+          "Dan"
+        ],
+        "scale_options": [
+          1,
+          2,
+          5,
+          10
+        ],
+        "description": "Four scale options displayed below the data table. Scale of 1, 2, and 5 marked with ❌ and 'doesn't fit'. Scale of 10 marked with ✓."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Four friends collected toys for a donation drive. Ben collected the most with 70 toys. Which scale works best for this data?"
+    },
+    {
+      "type": "prompt",
+      "text": "Which scale works best for this data?",
+      "tool": "multiple_choice",
+      "options": [
+        "Scale of 1",
+        "Scale of 2",
+        "Scale of 5",
+        "Scale of 10"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Scale of 10"
+          },
+          "description": "Student selected Scale of 10, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Scale of 10. For data up to 70, Scale of 2 would need too many lines and Scale of 5 would need fewer, but still many lines. Scale of 10 only needs 8, much easier to read."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Vertical data table showing Toys Collected values: Amy: 45, Ben: 70, Cora: 15, Dan: 30.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_toys",
+          "description": "Bar graph with scale options displayed. Scale of 10 selected and confirmed.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Amy",
+            "Ben",
+            "Cora",
+            "Dan"
+          ],
+          "scale_options": [
+            1,
+            2,
+            5,
+            10
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:59:03.822445+00:00"
+}

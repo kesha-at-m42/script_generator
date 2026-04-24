@@ -1,0 +1,100 @@
+{
+  "id": "s2_4_create_another_between_lines_bar",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Data table appears. Laps Completed data: Runner A=20, Runner B=50, Runner C=35, Runner D=45. Horizontal layout."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_laps",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "building",
+        "orientation": "vertical",
+        "scale": 10,
+        "axis_range": [
+          0,
+          60
+        ],
+        "categories": [
+          "Runner A",
+          "Runner B",
+          "Runner C",
+          "Runner D"
+        ],
+        "bars": {
+          "Runner A": 20,
+          "Runner B": 50,
+          "Runner C": 0,
+          "Runner D": 45
+        },
+        "snap_to": 5,
+        "ghost_gridlines": true,
+        "description": "Vertical bar graph appears. Scale of 10, axis 0–60. Three bars pre-filled: Runner A at 20, Runner B at 50, Runner D at 45. Runner C bar empty. Ghost gridlines at 5s visible. Snap-to-5 enabled."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Runner C completed 35 laps. Set the bar for Runner C to show 35."
+    },
+    {
+      "type": "prompt",
+      "text": "Set the bar for Runner C.",
+      "tool": "click_to_set_height",
+      "target": "bar_graph_laps",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "category": "Runner C",
+            "bar_height": 35
+          },
+          "description": "Student set Runner C bar to 35, correct, halfway between 30 and 40",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "35. Between 30 and 40, right in the middle."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Laps Completed data: Runner A=20, Runner B=50, Runner C=35, Runner D=45.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_laps",
+          "description": "Vertical bar graph in building mode. Scale of 10, axis 0–60. Runner C bar active for setting. Three other bars pre-filled.",
+          "tangible_type": "bar_graph",
+          "mode": "building",
+          "orientation": "vertical",
+          "scale": 10,
+          "axis_range": [
+            0,
+            60
+          ],
+          "categories": [
+            "Runner A",
+            "Runner B",
+            "Runner C",
+            "Runner D"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:41.507357+00:00"
+}

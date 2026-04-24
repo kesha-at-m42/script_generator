@@ -1,0 +1,98 @@
+{
+  "id": "s2_1_comparison_question_single_step",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_sports",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Soccer",
+          "Basketball",
+          "Tennis",
+          "Swimming"
+        ],
+        "values": {
+          "Soccer": 12,
+          "Basketball": 7,
+          "Tennis": 6,
+          "Swimming": 11
+        },
+        "description": "Vertical bar graph appears. Favorite Sports data. Soccer 12, Basketball 7, Tennis 6, Swimming 11."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Now a question about this data. How many more students chose soccer than tennis?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many more students chose soccer than tennis?",
+      "tool": "multiple_choice",
+      "options": [
+        18,
+        12,
+        6,
+        3
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 6
+          },
+          "description": "Student selected 6, correct (12 - 6 = 6)",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_sports",
+              "params": {
+                "event": "highlight_comparison",
+                "status": "confirmed",
+                "description": "Soccer and Tennis bars highlight to confirm the comparison.",
+                "categories": [
+                  "Soccer",
+                  "Tennis"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "6 more. How many more means compare. We subtract. Soccer is 12, tennis is 6, difference is 6."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_sports",
+          "description": "Vertical bar graph in reading mode. Favorite Sports data. Soccer 12, Basketball 7, Tennis 6, Swimming 11. Multiple choice tool active.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Soccer",
+            "Basketball",
+            "Tennis",
+            "Swimming"
+          ],
+          "values": {
+            "Soccer": 12,
+            "Basketball": 7,
+            "Tennis": 6,
+            "Swimming": 11
+          }
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:59:38.364387+00:00"
+}

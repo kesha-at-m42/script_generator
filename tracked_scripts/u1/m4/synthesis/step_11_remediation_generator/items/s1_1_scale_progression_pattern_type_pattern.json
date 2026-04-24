@@ -1,0 +1,73 @@
+{
+  "id": "s1_1_scale_progression_pattern_type_pattern",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student clicked a wrong graph on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Look closely. Count the lines on each graph. Which one has the fewest?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student clicked a wrong graph on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_scale_10",
+              "params": {
+                "highlight_categories": [
+                  "Scale 10"
+                ],
+                "description": "Scale of 10 graph highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me help. The graph on the right shows only 2 lines: 0, 10, 20. Count the lines on the others. Which has the fewest?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student clicked a wrong graph three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_scale_10",
+              "params": {
+                "event": "highlight_category",
+                "status": "confirmed",
+                "description": "Scale of 10 graph highlights to show the correct answer.",
+                "category": "Scale 10"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. The scale of 1 graph has 20 lines. The scale of 2 has 10 lines. The scale of 5 has 4 lines. The scale of 10 has only 2 lines. Scale of 10 uses the fewest lines because each line represents a bigger jump."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T16:58:55.197393+00:00"
+}

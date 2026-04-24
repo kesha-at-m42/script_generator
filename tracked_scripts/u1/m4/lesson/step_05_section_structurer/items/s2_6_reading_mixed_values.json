@@ -1,0 +1,80 @@
+{
+  "id": "s2_6_reading_mixed_values",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_reading",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday"
+        ],
+        "scale": 10,
+        "values": {
+          "Monday": 40,
+          "Tuesday": 35,
+          "Wednesday": 50,
+          "Thursday": 25
+        },
+        "description": "Vertical bar graph appears. Minutes of Reading data. Scale of 10. Monday=40 (at line), Tuesday=35 (between lines), Wednesday=50 (at line), Thursday=25 (between lines)."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Use this graph to answer. How many TOTAL minutes of reading for Monday and Tuesday?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many TOTAL minutes of reading for Monday and Tuesday?",
+      "tool": "multiple_choice",
+      "options": [
+        35,
+        40,
+        75,
+        85
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 75
+          },
+          "description": "Student selected 75, correct total",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "75 minutes total. Monday is 40, Tuesday is 35. 40 plus 35 is 75."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_reading",
+          "description": "Vertical bar graph. Minutes of Reading data. Scale of 10. Monday=40, Tuesday=35, Wednesday=50, Thursday=25.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday"
+          ],
+          "scale": 10
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:59.708718+00:00"
+}

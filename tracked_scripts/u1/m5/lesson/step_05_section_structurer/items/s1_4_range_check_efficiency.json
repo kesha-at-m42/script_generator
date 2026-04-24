@@ -1,0 +1,74 @@
+{
+  "id": "s1_4_range_check_efficiency",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Data table appears showing data values. Largest value (80) is highlighted."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Here's the first thing to check: What's your BIGGEST number? That tells you what scales might work."
+    },
+    {
+      "type": "prompt",
+      "text": "What's the biggest number in this data?",
+      "tool": "multiple_choice",
+      "options": [
+        20,
+        35,
+        55,
+        80
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 80
+          },
+          "description": "Student selected 80, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "80 is the biggest. Always check the biggest number first—does it fit on the scale without too many lines on the axis?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing data values. Largest value (80) highlighted.",
+          "tangible_type": "data_table"
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "You saw that Scale of 5 needed 17 tick marks. Scale of 10 only needs 9. For big data, bigger scales make cleaner graphs."
+    },
+    {
+      "type": "dialogue",
+      "text": "When more than one scale fits, pick the one that's easier to read."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing data values. Largest value (80) highlighted.",
+          "tangible_type": "data_table"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:47.803072+00:00"
+}

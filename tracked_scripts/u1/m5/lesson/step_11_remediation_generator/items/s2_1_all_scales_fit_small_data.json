@@ -1,0 +1,78 @@
+{
+  "id": "s2_1_all_scales_fit_small_data",
+  "incorrects": [
+    [],
+    [
+      {
+        "condition": {
+          "not": {
+            "selected": 1
+          },
+          "incorrect_count": 1
+        },
+        "description": "Student clicked a scale other than 1 on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "That one works too. Now click Scale of 1."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "not": {
+            "selected": 1
+          },
+          "incorrect_count": 2
+        },
+        "description": "Student clicked a scale other than 1 on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_marbles",
+              "params": {
+                "highlight_scale_button": 1,
+                "description": "Scale of 1 button highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "We want to see what Scale of 1 looks like. It's the button on the left. Click it."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student clicked a scale other than 1 three or more times. System models the action.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_marbles",
+              "params": {
+                "event": "click_scale_button",
+                "status": "confirmed",
+                "scale": 1,
+                "description": "System clicks Scale of 1 button. Graph updates to show Scale of 1."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me click Scale of 1 for us. The button on the left selects Scale of 1. When I click it, the graph updates to show what the data looks like with that scale. The axis now shows tick marks at every whole number from 0 to 23. That's 24 tick marks total. Scale of 1 shows every value exactly, but it creates a lot of marks on the axis for this data."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:04:57.198242+00:00"
+}

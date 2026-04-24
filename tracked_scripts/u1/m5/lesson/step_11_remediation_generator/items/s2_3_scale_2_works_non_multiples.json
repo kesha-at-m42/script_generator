@@ -1,0 +1,71 @@
+{
+  "id": "s2_3_scale_2_works_non_multiples",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student clicked wrong scale button on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Look for the Scale of 2 button and click it."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student clicked wrong scale button on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_marbles",
+              "params": {
+                "highlight_scale_button": 2,
+                "description": "Scale of 2 button highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's what to try: click the button that says 'Scale of 2'. It's part of the scale selector."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student clicked wrong scale button three or more times. System models the correct action.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_marbles",
+              "params": {
+                "event": "preview_scale_transition",
+                "status": "confirmed",
+                "new_scale": 2,
+                "description": "System demonstrates: Scale transitions to 2. All bars land exactly on tick marks. Green checkmark indicator appears."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. I click the Scale of 2 button. The scale changes and now all the bars land exactly on tick marks. With Scale of 2, half of 2 is 1, so every whole number lands right on a line or exactly halfway between two lines."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:05:09.637930+00:00"
+}

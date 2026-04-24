@@ -16,14 +16,19 @@
           "Pasta",
           "Sandwiches"
         ],
-        "values": {
-          "Pizza": 20,
-          "Tacos": 30,
-          "Salad": 15,
-          "Pasta": 25,
-          "Sandwiches": 15
-        },
-        "description": "Vertical bar graph appears. Favorite Lunch Foods. Pizza=20, Tacos=30, Salad=15, Pasta=25, Sandwiches=15."
+        "values": [
+          20,
+          30,
+          15,
+          25,
+          15
+        ],
+        "axis_range": [
+          0,
+          35
+        ],
+        "axis_interval": 5,
+        "description": "Vertical bar graph appears. Favorite Lunch Foods. Pizza 20, Tacos 30, Salad 15, Pasta 25, Sandwiches 15. Axis 0–35 by 5s."
       }
     },
     {
@@ -41,8 +46,15 @@
           "Pasta",
           "Sandwiches"
         ],
+        "values": [
+          20,
+          30,
+          15,
+          25,
+          15
+        ],
         "scale": 5,
-        "description": "Vertical picture graph appears alongside bar graph. Same Favorite Lunch Foods data. Each star symbol = 5. Pizza=4 stars, Tacos=6 stars, Salad=3 stars, Pasta=5 stars, Sandwiches=3 stars."
+        "description": "Vertical picture graph appears alongside bar graph. Favorite Lunch Foods. Same data. Scale 5: each star = 5. Pizza 4 symbols, Tacos 6 symbols, Salad 3 symbols, Pasta 5 symbols, Sandwiches 3 symbols. Key visible."
       }
     },
     {
@@ -51,7 +63,7 @@
       "tangible_id": "data_table",
       "tangible_type": "data_table",
       "params": {
-        "description": "Data table appears showing Favorite Lunch Foods values."
+        "description": "Data table appears showing Favorite Lunch Foods values: Pizza 20, Tacos 30, Salad 15, Pasta 25, Sandwiches 15."
       }
     },
     {
@@ -78,7 +90,7 @@
     },
     {
       "type": "dialogue",
-      "text": "Here's the same data as a picture graph. Let's check: do they match? Look at Pasta. The bar shows 25."
+      "text": "Here's the same data as a picture graph. Let's check: do they match? Look at Pasta. The bar shows 25. How many symbols should the picture graph have?"
     },
     {
       "type": "prompt",
@@ -96,7 +108,7 @@
           "condition": {
             "selected": 5
           },
-          "description": "Student answered 5, correct. 5 symbols at scale of 5 equals 25.",
+          "description": "Student selected 5, correct—count by 5s to 25 equals 5 symbols",
           "is_correct": true,
           "beats": [
             {
@@ -112,7 +124,7 @@
       "elements": [
         {
           "tangible_id": "bar_graph_lunch",
-          "description": "Vertical bar graph. Favorite Lunch Foods. Pasta bar highlighted showing 25.",
+          "description": "Vertical bar graph in reading mode. Favorite Lunch Foods. Pasta bar highlighted showing height 25.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -122,11 +134,18 @@
             "Salad",
             "Pasta",
             "Sandwiches"
+          ],
+          "values": [
+            20,
+            30,
+            15,
+            25,
+            15
           ]
         },
         {
           "tangible_id": "picture_graph_lunch",
-          "description": "Vertical picture graph alongside bar graph. Same data. Pasta column highlighted showing 5 stars. Each star = 5.",
+          "description": "Vertical picture graph in reading mode. Favorite Lunch Foods. Scale 5. Pasta column highlighted with 5 symbols.",
           "tangible_type": "picture_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -147,5 +166,5 @@
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:01:47.333795+00:00"
+  "_generated_at": "2026-04-23T17:24:40.955180+00:00"
 }

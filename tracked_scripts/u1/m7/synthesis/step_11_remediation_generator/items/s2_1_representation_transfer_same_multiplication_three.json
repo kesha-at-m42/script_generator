@@ -1,0 +1,103 @@
+{
+  "id": "s2_1_representation_transfer_same_multiplication_three",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "5 groups of 3"
+        },
+        "description": "Student selected 5 groups of 3: reversed the group structure",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "highlight": "containers",
+                "description": "The 3 bags highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're counting what's inside the groups. Count the groups themselves first. How many bags are there? How many circles? How many symbols on the graph?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "3 + 5"
+        },
+        "description": "Student selected 3 + 5: interpreted as addition instead of multiplication",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "highlight": "all",
+                "description": "All circles highlight showing repeated groups."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Addition means we're combining two different amounts. Here, we have the same amount repeating. Each group has 5. Count how many groups have that same 5 inside."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "15 things with no groups"
+        },
+        "description": "Student selected 15 things with no groups: seeing total without structure",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "highlight": "containers",
+                "description": "Bags highlight to show container structure."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The items are organized. They're not loose. Each bag holds 5, each circle holds 5, each symbol represents 5. How many of those containers are there?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "event": "count_containers",
+                "status": "confirmed",
+                "description": "System counts the 3 bags, then shows 5 items in each."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how to see this. First, I count the containers. 1 bag, 2 bags, 3 bags. Then I look inside one bag: 5 items. Every bag has that same 5. So it's 3 groups of 5. The circles show it the same way: 3 circles, 5 dots in each. The graph shows it too: 3 symbols, each symbol stands for 5. Different containers, same structure. All three show 3 groups of 5."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:01:28.420512+00:00"
+}

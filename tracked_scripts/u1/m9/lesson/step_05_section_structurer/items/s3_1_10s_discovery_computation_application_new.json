@@ -1,0 +1,159 @@
+{
+  "id": "s3_1_10s_discovery_computation_application_new",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "products_strip_10s",
+      "tangible_type": "image",
+      "params": {
+        "description": "Products Strip appears showing multiples of 10: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100. Label: Multiples of 10."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "One more family — 10s. Here are the multiples of 10: 10, 20, 30, 40, 50... all the way to 100. See the pattern?"
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "products_strip_10s",
+          "tangible_type": "image",
+          "description": "Products Strip showing multiples of 10 from 10 to 100. Label: Multiples of 10."
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "products_strip_10s",
+      "params": {
+        "event": "highlight_ones_digit",
+        "status": "confirmed",
+        "description": "The 0 in the ones digit highlights across all products on the strip: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "The products ALL end in zero."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "products_strip_10s",
+          "tangible_type": "image",
+          "description": "Products Strip with ones digit 0 highlighted across all multiples of 10."
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "products_strip_10s",
+      "params": {
+        "description": "Factors appear above each product on the strip: 1 × 10, 2 × 10, 3 × 10, 4 × 10, 5 × 10, 6 × 10, 7 × 10, 8 × 10, 9 × 10, 10 × 10."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "See the factor multiplied by 10 with the product? Multiplying by 10 just puts a zero at the end of the other factor. 4 times 10? 4 with a zero — 40."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "products_strip_10s",
+          "tangible_type": "image",
+          "description": "Products Strip showing multiples of 10 with factors displayed above: 1 × 10 = 10, 2 × 10 = 20, etc."
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_7x10",
+      "tangible_type": "equation_builder",
+      "params": {
+        "template": [
+          "__",
+          "x",
+          "__",
+          "=",
+          "__"
+        ],
+        "palette": [
+          4,
+          7,
+          10,
+          40,
+          50,
+          60,
+          70
+        ],
+        "description": "Equation Builder appears below Products Strip. Three blanks with multiplication and equals symbols. Palette contains tiles: 4, 7, 10, 40, 50, 60, 70."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Build the equation for 7 times 10."
+    },
+    {
+      "type": "prompt",
+      "text": "Build the equation for 7 × 10.",
+      "tool": "place_tile",
+      "target": "equation_builder_7x10",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "groups": 7,
+            "items": 10,
+            "total": 70
+          },
+          "description": "Student placed 7 × 10 = 70, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "7 times 10 equals 70. 7 with a zero — the pattern works."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "products_strip_10s",
+          "tangible_type": "image",
+          "description": "Products Strip showing multiples of 10 with factors above each product."
+        },
+        {
+          "tangible_id": "equation_builder_7x10",
+          "tangible_type": "equation_builder",
+          "description": "Equation Builder with three blanks. Palette: 4, 7, 10, 40, 50, 60, 70. place_tile tool active.",
+          "template": [
+            "__",
+            "x",
+            "__",
+            "=",
+            "__"
+          ],
+          "palette": [
+            4,
+            7,
+            10,
+            40,
+            50,
+            60,
+            70
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:03:40.457302+00:00"
+}

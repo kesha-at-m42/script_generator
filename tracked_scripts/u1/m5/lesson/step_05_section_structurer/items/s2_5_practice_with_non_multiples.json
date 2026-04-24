@@ -1,0 +1,254 @@
+{
+  "id": "s2_5_practice_with_non_multiples",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "orientation": "vertical",
+        "categories": [
+          "Round 1",
+          "Round 2",
+          "Round 3",
+          "Round 4"
+        ],
+        "values": [
+          22,
+          15,
+          8,
+          31
+        ],
+        "title": "Points Scored",
+        "description": "Vertical data table appears. Points Scored data. Round 1: 22, Round 2: 15, Round 3: 8, Round 4: 31."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Here's data from a game. Four rounds of points: 22, 15, 8, 31."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Vertical data table showing Points Scored data. Round 1: 22, Round 2: 15, Round 3: 8, Round 4: 31.",
+          "tangible_type": "data_table",
+          "orientation": "vertical",
+          "categories": [
+            "Round 1",
+            "Round 2",
+            "Round 3",
+            "Round 4"
+          ],
+          "values": [
+            22,
+            15,
+            8,
+            31
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Check the ones place digits: 2, 5, 8, 1. Do they all end in 0 or 5?"
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Vertical data table showing Points Scored data. Round 1: 22, Round 2: 15, Round 3: 8, Round 4: 31.",
+          "tangible_type": "data_table",
+          "orientation": "vertical",
+          "categories": [
+            "Round 1",
+            "Round 2",
+            "Round 3",
+            "Round 4"
+          ],
+          "values": [
+            22,
+            15,
+            8,
+            31
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "22... no. 15... yes! 8... no. 31... no. Three of them don't so they aren't multiples of 5. Which scale will show ALL values exactly?"
+    },
+    {
+      "type": "prompt",
+      "text": "Which scale will show ALL values exactly?",
+      "tool": "multiple_choice",
+      "options": [
+        "Scale of 1",
+        "Scale of 2",
+        "Scale of 5",
+        "Scale of 10"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Scale of 2"
+          },
+          "description": "Student selected Scale of 2, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "add",
+              "tangible_id": "bar_graph_points",
+              "tangible_type": "bar_graph",
+              "params": {
+                "mode": "reading",
+                "orientation": "vertical",
+                "categories": [
+                  "Round 1",
+                  "Round 2",
+                  "Round 3",
+                  "Round 4"
+                ],
+                "values": [
+                  22,
+                  15,
+                  8,
+                  31
+                ],
+                "scale": 2,
+                "title": "Points Scored",
+                "description": "Vertical bar graph appears with scale of 2. Points Scored data. Round 1: 22, Round 2: 15, Round 3: 8, Round 4: 31. All bars fit well, exact values clear."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Scale of 2. All of the bars fit well on the graph and their exact values are clear."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Vertical data table showing Points Scored data. Round 1: 22, Round 2: 15, Round 3: 8, Round 4: 31.",
+          "tangible_type": "data_table",
+          "orientation": "vertical",
+          "categories": [
+            "Round 1",
+            "Round 2",
+            "Round 3",
+            "Round 4"
+          ],
+          "values": [
+            22,
+            15,
+            8,
+            31
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_points_scale_1",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Round 1",
+          "Round 2",
+          "Round 3",
+          "Round 4"
+        ],
+        "values": [
+          22,
+          15,
+          8,
+          31
+        ],
+        "scale": 1,
+        "title": "Points Scored",
+        "description": "Second vertical bar graph appears. Scale of 1. Same Points Scored data. Side-by-side comparison with Scale of 2 graph. Same height bars, only axis markings differ."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Scale of 1 also shows the exact values, but it would require a lot of marks on the axis to get to the greatest value of 31. Let's consider when we might choose a scale of 1."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Vertical data table showing Points Scored data. Round 1: 22, Round 2: 15, Round 3: 8, Round 4: 31.",
+          "tangible_type": "data_table",
+          "orientation": "vertical",
+          "categories": [
+            "Round 1",
+            "Round 2",
+            "Round 3",
+            "Round 4"
+          ],
+          "values": [
+            22,
+            15,
+            8,
+            31
+          ]
+        },
+        {
+          "tangible_id": "bar_graph_points",
+          "description": "Vertical bar graph with Scale of 2. Points Scored data.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Round 1",
+            "Round 2",
+            "Round 3",
+            "Round 4"
+          ],
+          "values": [
+            22,
+            15,
+            8,
+            31
+          ],
+          "scale": 2
+        },
+        {
+          "tangible_id": "bar_graph_points_scale_1",
+          "description": "Vertical bar graph with Scale of 1. Points Scored data. Side-by-side with Scale of 2 graph.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Round 1",
+            "Round 2",
+            "Round 3",
+            "Round 4"
+          ],
+          "values": [
+            22,
+            15,
+            8,
+            31
+          ],
+          "scale": 1
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:07.520089+00:00"
+}

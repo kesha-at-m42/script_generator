@@ -1,0 +1,102 @@
+{
+  "id": "s3_1_first_expression_recognition_mc_recognition",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "2 × 3"
+        },
+        "description": "Student selected 2 × 3: reversed the groups and items-per-group",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "event": "highlight_containers_sequentially",
+                "status": "proposed",
+                "description": "Bags highlight one by one to show the group count."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Count the bags first. That's your groups. How many bags do you see?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "3 + 2"
+        },
+        "description": "Student selected 3 + 2: chose addition instead of multiplication",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "description": "One bag opens to reveal its contents."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "When you have groups with the same number in each, that's multiplication, not addition. Count the bags, then count inside one bag."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "2 + 3"
+        },
+        "description": "Student selected 2 + 3: reversed values and chose addition",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "description": "One bag opens to show 2 items inside."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You need multiplication here, not addition. Three bags with two items each means 3 groups of 2. What symbol shows groups?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "event": "highlight_containers_sequentially",
+                "status": "confirmed",
+                "description": "Bags highlight one by one: 1, 2, 3. Then one bag opens to show 2 items inside."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. First I count the bags: 1, 2, 3. Three bags. Those are my groups. Then I look inside one bag: 2 items. That's how many in each group. So I have 3 groups of 2. When we write groups with the times symbol, groups come first: 3 × 2. The answer is 3 × 2 because we have 3 bags with 2 items in each."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:06:05.053101+00:00"
+}

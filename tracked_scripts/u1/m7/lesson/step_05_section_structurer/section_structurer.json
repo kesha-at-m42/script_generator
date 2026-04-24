@@ -1,0 +1,1198 @@
+[
+  {
+    "id": "s1_1_transition_warmup_worked_example_worked",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_bags",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 4,
+          "container_type": "bag",
+          "description": "Three bags appear on screen, each containing 4 items."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "In our Warmup, you saw that graph scales are equal groups. But equal groups show up everywhere, not just in graphs. Today you're going to learn the name for these groups, see them in all kinds of pictures, and discover a new math symbol that makes them easy to write down. Check this out."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_bags",
+            "description": "Three bags on screen, each containing 4 items.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 4,
+            "container_type": "bag"
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "Let me show you how I figure out the groups here. First, I count the BAGS."
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_bags",
+        "params": {
+          "event": "highlight_containers_sequentially",
+          "status": "confirmed",
+          "description": "Bags highlight one by one as they are counted: 1, 2, 3."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "First, count the groups. How many bags? 1, 2, 3. Three bags. These are my GROUPS."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_bags",
+            "description": "Three bags on screen. All three bags highlighted to show the group count.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 4,
+            "container_type": "bag"
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_bags",
+        "params": {
+          "event": "open_one_container",
+          "status": "confirmed",
+          "description": "One bag opens to reveal its contents. Items inside highlight one by one as they are counted: 1, 2, 3, 4."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Next, look inside ONE bag. How many? 1, 2, 3, 4. Four items in each bag. That's how many are IN EACH GROUP."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_bags",
+            "description": "Three bags on screen. One bag open, showing 4 items inside. Items highlighted.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 4,
+            "container_type": "bag"
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "So I have three groups of four. Say it with me: three groups of four."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_bags",
+            "description": "Three bags on screen, each containing 4 items.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 4,
+            "container_type": "bag"
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_display",
+        "tangible_type": "equation",
+        "params": {
+          "expression": [
+            "3",
+            "x",
+            "4"
+          ],
+          "description": "Equation 3 × 4 appears on screen."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "We can write three groups of four like this: 3 × 4."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_bags",
+            "description": "Three bags on screen, each containing 4 items.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 4,
+            "container_type": "bag"
+          },
+          {
+            "tangible_id": "equation_display",
+            "description": "Equation 3 × 4 displayed on screen.",
+            "tangible_type": "equation",
+            "expression": [
+              "3",
+              "x",
+              "4"
+            ]
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:01:13.598518+00:00"
+  },
+  {
+    "id": "s1_2_student_identifies_example_problem_pair",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_boxes",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 2,
+          "items_per_container": 5,
+          "description": "Equal groups appear. 2 boxes, 5 items in each box."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Now you try. Count the groups first."
+      },
+      {
+        "type": "prompt",
+        "text": "How many groups?",
+        "tool": "multiple_choice",
+        "options": [
+          1,
+          2,
+          3,
+          5
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 2
+            },
+            "description": "Student answered 2 groups, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "2 boxes. Those are your groups."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_boxes",
+            "description": "Equal groups in reading mode. 2 boxes, 5 items in each.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 2,
+            "items_per_container": 5
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "Now look inside ONE box. How many?"
+      },
+      {
+        "type": "prompt",
+        "text": "How many in each group?",
+        "tool": "multiple_choice",
+        "options": [
+          2,
+          3,
+          5,
+          10
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 5
+            },
+            "description": "Student answered 5 items, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "5 in each box."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_boxes",
+            "description": "Equal groups in reading mode. 2 boxes, 5 items in each.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 2,
+            "items_per_container": 5
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "So what do you have?"
+      },
+      {
+        "type": "prompt",
+        "text": "Say it: ___ groups of ___.",
+        "tool": "multiple_choice",
+        "options": [
+          "2 groups of 5",
+          "5 groups of 2",
+          "2 groups of 10",
+          "5 groups of 10"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "2 groups of 5"
+            },
+            "description": "Student answered 2 groups of 5, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Two groups of five. These are equal groups—same number in each one."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_boxes",
+            "description": "Equal groups in reading mode. 2 boxes, 5 items in each.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 2,
+            "items_per_container": 5
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:01:25.973636+00:00"
+  },
+  {
+    "id": "s1_3_student_builds_first_build_mode",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_build",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "building",
+          "container_count": 0,
+          "items_per_container": 0,
+          "description": "Build Mode interface appears. Empty workspace, no groups yet. Container count and items-per-container controls visible."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Now you're going to build. Listen carefully. Build 3 groups of 4."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_build",
+            "description": "Build Mode interface. Empty workspace. Container count and items-per-container controls visible, both at 0.",
+            "tangible_type": "equal_groups",
+            "mode": "building",
+            "container_count": 0,
+            "items_per_container": 0
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "How many groups? Set the bags."
+      },
+      {
+        "type": "prompt",
+        "text": "Set the number of groups.",
+        "tool": "set_container_count",
+        "target": "equal_groups_build",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "container_count": 3
+            },
+            "description": "Student set container count to 3, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_build",
+                "params": {
+                  "container_count": 3,
+                  "description": "3 empty bags appear on screen."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "3 groups."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_build",
+            "description": "Build Mode interface. 3 empty bags visible. Items-per-container control ready for next step.",
+            "tangible_type": "equal_groups",
+            "mode": "building",
+            "container_count": 3,
+            "items_per_container": 0
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "How many in each group? Add the items."
+      },
+      {
+        "type": "prompt",
+        "text": "Set the number of items in each group.",
+        "tool": "set_items_per_container",
+        "target": "equal_groups_build",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "items_per_container": 4
+            },
+            "description": "Student set items-per-container to 4, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_build",
+                "params": {
+                  "items_per_container": 4,
+                  "description": "4 items appear in each of the 3 bags."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "4 in each. 3 groups of 4."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_build",
+            "description": "Build Mode interface. 3 bags visible, each containing 4 items. Complete equal groups representation of 3 groups of 4.",
+            "tangible_type": "equal_groups",
+            "mode": "building",
+            "container_count": 3,
+            "items_per_container": 4
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:01:39.702394+00:00"
+  },
+  {
+    "id": "s1_4_student_builds_notation_shown_build",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_build",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "building",
+          "container_count": 0,
+          "items_per_container": 0,
+          "description": "Empty equal groups workspace in building mode. Container count and items per container controls visible."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Build one more. This time, I'll show you how to write it with the × symbol."
+      },
+      {
+        "type": "prompt",
+        "text": "How many groups?",
+        "tool": "set_container_count",
+        "target": "equal_groups_build",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "container_count": 4
+            },
+            "description": "Student set container count to 4",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_build",
+                "params": {
+                  "container_count": 4,
+                  "description": "4 empty containers appear on screen."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "4 groups."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_build",
+            "description": "Equal groups workspace showing 4 empty containers. Items per container control active.",
+            "tangible_type": "equal_groups",
+            "mode": "building",
+            "container_count": 4,
+            "items_per_container": 0
+          }
+        ]
+      },
+      {
+        "type": "prompt",
+        "text": "How many in each?",
+        "tool": "set_items_per_container",
+        "target": "equal_groups_build",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "items_per_container": 3
+            },
+            "description": "Student set items per container to 3",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_build",
+                "params": {
+                  "items_per_container": 3,
+                  "description": "3 items appear in each of the 4 containers."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "4 groups of 3. You just showed me 4 × 3."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_build",
+            "description": "Equal groups workspace showing 4 containers with 3 items in each.",
+            "tangible_type": "equal_groups",
+            "mode": "building",
+            "container_count": 4,
+            "items_per_container": 3
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_display",
+        "tangible_type": "equation",
+        "params": {
+          "expression": [
+            "4",
+            "×",
+            "3"
+          ],
+          "description": "Static equation 4 × 3 appears below the equal groups."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Look. Here's how we write it: 4 × 3. The 4 is the groups. The 3 is how many in each. When we multiply, we're counting equal groups."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_build",
+            "description": "Equal groups workspace showing 4 containers with 3 items in each.",
+            "tangible_type": "equal_groups",
+            "mode": "building",
+            "container_count": 4,
+            "items_per_container": 3
+          },
+          {
+            "tangible_id": "equation_display",
+            "description": "Static equation 4 × 3 displayed below the equal groups.",
+            "tangible_type": "equation",
+            "expression": [
+              "4",
+              "×",
+              "3"
+            ]
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:01:53.519711+00:00"
+  },
+  {
+    "id": "s1_5_identify_with_notation",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_boxes",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 2,
+          "items_per_container": 5,
+          "container_type": "boxes",
+          "description": "2 boxes appear on screen. Each box contains 5 items."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "You've seen this one. Tell me what you see."
+      },
+      {
+        "type": "dialogue",
+        "text": "How many groups? How many in each?"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_boxes",
+            "description": "2 boxes on screen, each containing 5 items.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 2,
+            "items_per_container": 5,
+            "container_type": "boxes"
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "Look at these expressions. Which one shows what you see?"
+      },
+      {
+        "type": "prompt",
+        "text": "Which shows 2 groups of 5?",
+        "tool": "multiple_choice",
+        "options": [
+          "2 × 5",
+          "5 × 2",
+          "2 + 5",
+          "5 + 2"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "2 × 5"
+            },
+            "description": "Student selected 2 × 5, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "2 × 5. The 2 is the groups. The 5 is in each group."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_boxes",
+            "description": "2 boxes on screen, each containing 5 items.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 2,
+            "items_per_container": 5,
+            "container_type": "boxes"
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:02:03.342036+00:00"
+  },
+  {
+    "id": "s2_1_transfer_circles",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_circles",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 2,
+          "container_style": "circle",
+          "item_style": "dot",
+          "description": "4 circles appear, each containing 2 dots."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "No bags now. Just circles. But the thinking is the same."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_circles",
+            "description": "4 circles, each containing 2 dots.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 2,
+            "container_style": "circle",
+            "item_style": "dot"
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "Count the groups."
+      },
+      {
+        "type": "prompt",
+        "text": "How many groups?",
+        "tool": "multiple_choice",
+        "options": [
+          2,
+          3,
+          4,
+          6
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 4
+            },
+            "description": "Student selected 4, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "4 circles. Those are your groups."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_circles",
+            "description": "4 circles, each containing 2 dots. Multiple choice tool active.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 2,
+            "container_style": "circle",
+            "item_style": "dot"
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "Now look inside ONE circle. How many dots?"
+      },
+      {
+        "type": "prompt",
+        "text": "How many in each group?",
+        "tool": "multiple_choice",
+        "options": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 2
+            },
+            "description": "Student selected 2, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "2 dots in each. So you have..."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_circles",
+            "description": "4 circles, each containing 2 dots. Multiple choice tool active.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 2,
+            "container_style": "circle",
+            "item_style": "dot"
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "Say it."
+      },
+      {
+        "type": "prompt",
+        "text": "Say it.",
+        "tool": "multiple_choice",
+        "options": [
+          "4 groups of 2",
+          "2 groups of 4",
+          "8 groups",
+          "4 dots"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "4 groups of 2"
+            },
+            "description": "Student selected 4 groups of 2, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "4 groups of 2. Circles instead of bags, same structure."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_circles",
+            "description": "4 circles, each containing 2 dots. Multiple choice tool active.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 2,
+            "container_style": "circle",
+            "item_style": "dot"
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:02:17.137193+00:00"
+  },
+  {
+    "id": "s2_2_reduced_scaffolding_product_introduction",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_circles",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 3,
+          "container_type": "circles",
+          "item_type": "dots",
+          "description": "3 circles appear, each containing 3 dots."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Here are more circles. What do you notice?"
+      },
+      {
+        "type": "prompt",
+        "text": "How many groups? How many in each?",
+        "tool": "multiple_choice",
+        "options": [
+          "3 groups of 3",
+          "3 groups of 2",
+          "2 groups of 3",
+          "4 groups of 3"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "3 groups of 3"
+            },
+            "description": "Student identified 3 groups of 3, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "3 groups of 3. That's 3 times 3. And here's something new: the answer to a multiplication problem is called the product. 3 times 3 equals 9. 9 is the product. You have 9 dots altogether."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_circles",
+            "description": "3 circles, each containing 3 dots. Reading mode.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 3,
+            "container_type": "circles",
+            "item_type": "dots"
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:02:24.345100+00:00"
+  },
+  {
+    "id": "s2_3_near_independent_graph_callback_identify",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_circles",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 5,
+          "container_type": "circle",
+          "item_type": "dot",
+          "description": "4 circles appear, each containing 5 dots. Same structure as the Warmup graph: 4 groups of 5."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "You know this already. You did something like this in the graph."
+      },
+      {
+        "type": "dialogue",
+        "text": "What do you see?"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_circles",
+            "description": "4 circles, each containing 5 dots. Equal groups structure visible.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 5
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "That's multiplication."
+      },
+      {
+        "type": "prompt",
+        "text": "Which expression matches?",
+        "tool": "multiple_choice",
+        "options": [
+          "4 × 5",
+          "5 × 4",
+          "4 + 5",
+          "5 + 4"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "4 × 5"
+            },
+            "description": "Student selected 4 × 5, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "4 × 5. Four circles, five dots each. Same as the graph scale: 4 groups of 5."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_circles",
+            "description": "4 circles, each containing 5 dots. Multiple choice options displayed.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 5
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:02:33.272961+00:00"
+  },
+  {
+    "id": "s3_1_first_expression_recognition_mc_recognition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_bags",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 2,
+          "container_type": "bags",
+          "description": "3 bags appear, each containing 2 items."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Figure out the groups. Then pick the expression."
+      },
+      {
+        "type": "prompt",
+        "text": "Which expression shows this?",
+        "tool": "multiple_choice",
+        "options": [
+          "3 × 2",
+          "2 × 3",
+          "3 + 2",
+          "2 + 3"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "3 × 2"
+            },
+            "description": "Student selected 3 × 2, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "3 times 2. Three bags, two in each. That's how you match groups to an expression."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_bags",
+            "description": "3 bags, each containing 2 items. Reading mode.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 2,
+            "container_type": "bags"
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:02:41.747831+00:00"
+  },
+  {
+    "id": "s3_2_expression_recognition_semi_abstract",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_circles",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 3,
+          "visual_style": "circles",
+          "description": "5 circles appear, each containing 3 dots. Semi-abstract representation."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Circles now. Same thinking."
+      },
+      {
+        "type": "prompt",
+        "text": "Which expression shows this?",
+        "tool": "multiple_choice",
+        "options": [
+          "5 × 3",
+          "3 × 5",
+          "5 + 3",
+          "3 + 5"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "5 × 3"
+            },
+            "description": "Student selected 5 × 3, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "5 × 3. Five circles, three dots each."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_circles",
+            "description": "5 circles, each containing 3 dots. Semi-abstract equal groups representation in reading mode.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 5,
+            "items_per_container": 3,
+            "visual_style": "circles"
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:02:48.698879+00:00"
+  },
+  {
+    "id": "s3_3_expression_recognition_mixed_with_reduced",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_boxes",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 2,
+          "items_per_container": 4,
+          "container_type": "box",
+          "description": "Two boxes appear, each containing 4 items."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Figure it out."
+      },
+      {
+        "type": "prompt",
+        "text": "Which expression shows this?",
+        "tool": "multiple_choice",
+        "options": [
+          "2 × 4",
+          "4 × 2",
+          "2 + 4",
+          "4 + 2"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "2 × 4"
+            },
+            "description": "Student selected 2 × 4, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "2 × 4. Two boxes, four in each."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_boxes",
+            "description": "Two boxes, each containing 4 items. Multiple choice options displayed.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 2,
+            "items_per_container": 4,
+            "container_type": "box"
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:02:55.761094+00:00"
+  }
+]

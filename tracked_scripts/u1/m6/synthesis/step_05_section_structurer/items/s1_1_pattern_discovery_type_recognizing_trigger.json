@@ -1,0 +1,75 @@
+{
+  "id": "s1_1_pattern_discovery_type_recognizing_trigger",
+  "beats": [
+    {
+      "type": "dialogue",
+      "text": "Look at these three questions. Two of them need two steps. One needs just one step. Which one?"
+    },
+    {
+      "type": "prompt",
+      "text": "Which question needs just ONE step?",
+      "tool": "multiple_choice",
+      "options": [
+        "Question 1: How many more dogs are there than cats?",
+        "Question 2: How many more dogs are there than cats and birds combined?",
+        "Question 3: How many students chose red or blue altogether?"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Question 1: How many more dogs are there than cats?"
+          },
+          "description": "Student selected Question 1, correct answer",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Question 1. It just compares dogs to cats, no combining first."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": []
+    },
+    {
+      "type": "dialogue",
+      "text": "What's the clue that tells you a problem needs two steps?"
+    },
+    {
+      "type": "prompt",
+      "text": "What's the clue that tells you a problem needs two steps?",
+      "tool": "multiple_choice",
+      "options": [
+        "The word \"more\"",
+        "Words like \"combined\" or \"altogether\"",
+        "Big numbers",
+        "Two categories are used"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Words like \"combined\" or \"altogether\""
+          },
+          "description": "Student selected words like combined or altogether, correct answer",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Words like combined, together, and altogether are your signal. When you see them, you know: find that total first, then compare."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": []
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:00.437400+00:00"
+}

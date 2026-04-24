@@ -1,0 +1,297 @@
+{
+  "id": "s1_2_student_identifies_example_problem_pair",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 1
+        },
+        "description": "Student selected 1 instead of 2 (miscounted groups or counted items instead)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "highlight_containers": true,
+                "description": "Both boxes highlight to show the groups."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Count the boxes. Each box is one group. How many boxes do you see?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 3
+        },
+        "description": "Student selected 3 instead of 2 (miscounted groups)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "highlight_containers": true,
+                "description": "Both boxes highlight to show the groups."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Count carefully. Each box is one group. Point to each box as you count."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 5
+        },
+        "description": "Student selected 5 instead of 2 (counted items, not containers)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "highlight_containers": true,
+                "description": "Boxes highlight, not items inside."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted what's inside. The groups are the boxes. How many boxes?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "event": "highlight_containers_sequentially",
+                "status": "confirmed",
+                "description": "Boxes highlight one by one: 1, 2."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. When we count groups, we count the containers. Here's the first box. Here's the second box. Two boxes means two groups."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": 2
+        },
+        "description": "Student selected 2 instead of 5 (counted groups instead of items per group)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "open_one_container": true,
+                "description": "One box opens to show its contents. Items inside highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look inside one box. Don't count the boxes now. Count what's inside one box."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 3
+        },
+        "description": "Student selected 3 instead of 5 (miscounted items in one group)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "open_one_container": true,
+                "description": "One box opens. Items inside highlight one by one."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Count again, carefully. Point to each item in one box. How many are in that box?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 10
+        },
+        "description": "Student selected 10 instead of 5 (counted all items, not items per group)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "open_one_container": true,
+                "description": "One box opens to show its contents."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted everything. We only need to count what's in ONE box. Look inside one box. How many?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "event": "open_one_container_and_count",
+                "status": "confirmed",
+                "description": "One box opens. Items inside highlight one by one: 1, 2, 3, 4, 5."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how I figure it out. I look inside one box and count the items: 1, 2, 3, 4, 5. Five items in each box. That tells me how many are in each group."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": "5 groups of 2"
+        },
+        "description": "Student selected 5 groups of 2 instead of 2 groups of 5 (reversed groups and items)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "highlight_containers": true,
+                "description": "Boxes highlight to emphasize the group count."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You switched them. The groups are the boxes. How many boxes? Then look inside one. How many in each?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "2 groups of 10"
+        },
+        "description": "Student selected 2 groups of 10 instead of 2 groups of 5 (correct group count, wrong items per group)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "open_one_container": true,
+                "description": "One box opens. Items inside highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You got the groups right. But count what's in one box. Are there 10 in one box?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "5 groups of 10"
+        },
+        "description": "Student selected 5 groups of 10 instead of 2 groups of 5 (both values wrong)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "highlight_containers": true,
+                "description": "Boxes highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Count the boxes for the groups. Then look inside one box and count. What do you get?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "event": "demonstrate_groups_and_items",
+                "status": "confirmed",
+                "description": "Boxes highlight one by one (1, 2), then one box opens and items inside highlight one by one (1, 2, 3, 4, 5)."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me walk you through it. First, I count the boxes: 1, 2. Two groups. Then I look inside one box and count: 1, 2, 3, 4, 5. Five in each group. So the answer is 2 groups of 5. The first number is always the groups. The second number is how many in each."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:03:59.482022+00:00"
+}

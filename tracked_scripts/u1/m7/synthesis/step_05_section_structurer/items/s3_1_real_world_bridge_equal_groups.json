@@ -1,0 +1,149 @@
+{
+  "id": "s3_1_real_world_bridge_equal_groups",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "word_problem_real_world",
+      "tangible_type": "word_problem_area",
+      "params": {
+        "stem": "A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes.",
+        "description": "Text scenario appears: A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Equal groups aren't just in math problems. Here's a real situation."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "word_problem_real_world",
+          "description": "Text scenario displayed: A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes.",
+          "tangible_type": "word_problem_area"
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_juice",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "building",
+        "description": "Equal groups building interface appears. Empty workspace ready for student to set container count."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Can you build what the shelf looks like?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many groups? Set the packs.",
+      "tool": "set_container_count",
+      "target": "equal_groups_juice",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "container_count": 4
+          },
+          "description": "Student set 4 containers, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "4 packs."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "word_problem_real_world",
+          "description": "Text scenario: A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes.",
+          "tangible_type": "word_problem_area"
+        },
+        {
+          "tangible_id": "equal_groups_juice",
+          "description": "Equal groups in building mode. 4 empty containers displayed. Ready for items per container.",
+          "tangible_type": "equal_groups",
+          "mode": "building",
+          "container_count": 4
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "How many in each pack? Add the juice boxes."
+    },
+    {
+      "type": "prompt",
+      "text": "How many in each pack? Add the juice boxes.",
+      "tool": "set_items_per_container",
+      "target": "equal_groups_juice",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "items_per_container": 6
+          },
+          "description": "Student set 6 items per container, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "4 packs, 6 in each. Equal groups — right there on a store shelf."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "word_problem_real_world",
+          "description": "Text scenario: A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes.",
+          "tangible_type": "word_problem_area"
+        },
+        {
+          "tangible_id": "equal_groups_juice",
+          "description": "Equal groups showing 4 containers, each containing 6 items. Complete representation of the juice box scenario.",
+          "tangible_type": "equal_groups",
+          "mode": "building",
+          "container_count": 4,
+          "items_per_container": 6
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "4 groups of 6. That's 4 × 6. Any time you see the same number in each container — packs, bags, boxes, cartons — that's equal groups. It's multiplication, even outside math class."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "word_problem_real_world",
+          "description": "Text scenario: A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes.",
+          "tangible_type": "word_problem_area"
+        },
+        {
+          "tangible_id": "equal_groups_juice",
+          "description": "Equal groups showing 4 containers, each containing 6 items. Represents the completed real-world scenario.",
+          "tangible_type": "equal_groups",
+          "mode": "building",
+          "container_count": 4,
+          "items_per_container": 6
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:34.105941+00:00"
+}

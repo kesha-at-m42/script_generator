@@ -15,12 +15,19 @@
           "Noah",
           "Olivia"
         ],
-        "description": "Horizontal picture graph appears. Books Read This Month data. Liam=7 symbols (35 books), Emma=4 symbols (20 books), Noah=5 symbols (25 books), Olivia=8 symbols (40 books). Key visible: each symbol = 5 books."
+        "scale": 5,
+        "symbols_placed": {
+          "Liam": 7,
+          "Emma": 4,
+          "Noah": 5,
+          "Olivia": 8
+        },
+        "description": "Horizontal picture graph titled 'Books Read This Month' appears in reading mode. Four categories: Liam (7 symbols = 35 books), Emma (4 symbols = 20 books), Noah (5 symbols = 25 books), Olivia (8 symbols = 40 books). Key visible: each star symbol = 5 books."
       }
     },
     {
       "type": "dialogue",
-      "text": "Use your graph to find how many fewer books Emma read than Olivia."
+      "text": "Use your graph to find how many FEWER books Emma read than Olivia."
     },
     {
       "type": "prompt",
@@ -38,9 +45,21 @@
           "condition": {
             "selected": 20
           },
-          "description": "Student selected 20, correct difference between Olivia and Emma",
+          "description": "Student selected 20, correct (40 - 20 = 20)",
           "is_correct": true,
           "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Emma",
+                  "Olivia"
+                ],
+                "description": "Emma and Olivia rows highlight to confirm comparison."
+              }
+            },
             {
               "type": "dialogue",
               "text": "20 fewer. Olivia read 40. Emma read 20. The difference is 20."
@@ -54,7 +73,7 @@
       "elements": [
         {
           "tangible_id": "picture_graph_books",
-          "description": "Horizontal picture graph in reading mode. Books Read This Month data. Liam=7 symbols (35), Emma=4 symbols (20), Noah=5 symbols (25), Olivia=8 symbols (40). Key visible.",
+          "description": "Horizontal picture graph titled 'Books Read This Month' in reading mode. Four categories showing: Liam (7 symbols = 35 books), Emma (4 symbols = 20 books), Noah (5 symbols = 25 books), Olivia (8 symbols = 40 books). Key visible: each star symbol = 5 books. Multiple choice tool active.",
           "tangible_type": "picture_graph",
           "mode": "reading",
           "orientation": "horizontal",
@@ -63,10 +82,11 @@
             "Emma",
             "Noah",
             "Olivia"
-          ]
+          ],
+          "scale": 5
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:02:36.646521+00:00"
+  "_generated_at": "2026-04-23T17:25:59.072280+00:00"
 }

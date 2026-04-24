@@ -1,0 +1,131 @@
+{
+  "id": "s1_1_identify_groups_items_identify",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_markers",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 3,
+        "items_per_container": 5,
+        "item_type": "markers",
+        "container_type": "boxes",
+        "description": "3 boxes appear, each containing 5 markers. Equal groups visual in reading mode."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Look at these boxes. Tell me what you see."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_markers",
+          "description": "3 boxes, each containing 5 markers. Equal groups visual in reading mode.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 5,
+          "item_type": "markers",
+          "container_type": "boxes"
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "How many groups? How many in each group?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many groups?",
+      "tool": "multiple_choice",
+      "options": [
+        3,
+        5,
+        8,
+        15
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 3
+          },
+          "description": "Student selected 3 groups, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "3 groups."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_markers",
+          "description": "3 boxes, each containing 5 markers. Multiple choice tool active for group count.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 5,
+          "item_type": "markers",
+          "container_type": "boxes"
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Now how many in each group?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many in each group?",
+      "tool": "multiple_choice",
+      "options": [
+        3,
+        5,
+        8,
+        15
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 5
+          },
+          "description": "Student selected 5 items per group, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "5 markers in each box. 3 groups of 5. That is how you identify groups and items."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_markers",
+          "description": "3 boxes, each containing 5 markers. Multiple choice tool active for items per group.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 5,
+          "item_type": "markers",
+          "container_type": "boxes"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:59:50.753704+00:00"
+}

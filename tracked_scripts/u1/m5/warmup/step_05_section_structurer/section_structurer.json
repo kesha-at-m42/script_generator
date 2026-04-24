@@ -1,0 +1,374 @@
+[
+  {
+    "id": "s1_1_data_collection_game",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "data_collection_game",
+        "tangible_type": "data_collection_game",
+        "params": {
+          "style": "counting_sorting",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
+          "value_constraints": {
+            "type": "multiples_of",
+            "base": 5,
+            "range": [
+              10,
+              45
+            ]
+          },
+          "duration_seconds": 60,
+          "description": "Minis characters appear in animated counting scenario. Four categories of colored blocks to count and sort."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "The Minis are organizing their collections! Let's help them count."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_collection_game",
+            "tangible_type": "data_collection_game",
+            "description": "Data collection game active. Minis characters visible. Four block categories ready for counting.",
+            "style": "counting_sorting",
+            "categories": [
+              "Red blocks",
+              "Blue blocks",
+              "Green blocks",
+              "Yellow blocks"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "data_collection_game",
+        "params": {
+          "event": "game_complete",
+          "status": "confirmed",
+          "description": "Counting game completes. Final counts recorded for all four categories."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "You counted all the blocks. Now let's make a graph with your data."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_collection_game",
+            "tangible_type": "data_collection_game",
+            "description": "Data collection game complete. Counts recorded and visible for Red blocks, Blue blocks, Green blocks, Yellow blocks.",
+            "style": "counting_sorting",
+            "categories": [
+              "Red blocks",
+              "Blue blocks",
+              "Green blocks",
+              "Yellow blocks"
+            ],
+            "status": "complete"
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T16:58:41.072947+00:00"
+  },
+  {
+    "id": "s2_1_scale_preview_exploration",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "data_table",
+        "tangible_type": "data_table",
+        "params": {
+          "description": "Data table appears showing student's collected data from warmup."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_student_data",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale_selector_visible": true,
+          "scale_options": [
+            1,
+            2,
+            5,
+            10
+          ],
+          "description": "Vertical bar graph appears with Scale Preview System. Four clickable scale buttons visible: Scale of 1, Scale of 2, Scale of 5, Scale of 10. Graph displays student's data using currently selected scale."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "You know how to use different scales. But which one should you use for YOUR data?"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing student's collected data.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "bar_graph_student_data",
+            "description": "Vertical bar graph with Scale Preview System. Four scale buttons visible: 1, 2, 5, 10.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale_selector_visible": true,
+            "scale_options": [
+              1,
+              2,
+              5,
+              10
+            ]
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "Let's find out. Click each scale to see what the graph would look like."
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "bar_graph_student_data",
+        "params": {
+          "event": "enable_scale_exploration",
+          "status": "confirmed",
+          "description": "All four scale buttons become active and clickable. Student can freely click between scales to preview how the graph looks with each option."
+        }
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing student's collected data.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "bar_graph_student_data",
+            "description": "Vertical bar graph with Scale Preview System active. All four scale buttons clickable for exploration.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale_selector_visible": true,
+            "scale_options": [
+              1,
+              2,
+              5,
+              10
+            ]
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "All four scales work for this data! You have choices."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing student's collected data.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "bar_graph_student_data",
+            "description": "Vertical bar graph displaying student's data with whichever scale was last selected during exploration.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale_selector_visible": true,
+            "scale_options": [
+              1,
+              2,
+              5,
+              10
+            ]
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T16:58:54.142362+00:00"
+  },
+  {
+    "id": "s3_1_efficiency_comparison",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_scale_5",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 5,
+          "position": "left",
+          "description": "Vertical bar graph appears on left side. Student's data displayed at scale of 5. Categories and bars visible."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_scale_10",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 10,
+          "position": "right",
+          "description": "Vertical bar graph appears on right side. Same data displayed at scale of 10. Categories and bars visible."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Both of these work. Take a look at them side by side. Which graph is easier to read?"
+      },
+      {
+        "type": "prompt",
+        "text": "Which graph is easier to read?",
+        "tool": "multiple_choice",
+        "options": [
+          "Scale of 5",
+          "Scale of 10",
+          "They're the same"
+        ],
+        "validator": [
+          {
+            "condition_id": "selected_scale_10",
+            "condition": {
+              "selected": "Scale of 10"
+            },
+            "description": "Student picked Scale of 10",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You picked Scale of 10. Nice and clean!"
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_scale_5",
+            "condition": {
+              "selected": "Scale of 5"
+            },
+            "description": "Student picked Scale of 5",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You picked Scale of 5. More detail!"
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_same",
+            "condition": {
+              "selected": "They're the same"
+            },
+            "description": "Student picked they're the same",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You think they're both easy to read. Both do work!"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_scale_5",
+            "description": "Vertical bar graph on left. Student's data at scale of 5.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 5
+          },
+          {
+            "tangible_id": "bar_graph_scale_10",
+            "description": "Vertical bar graph on right. Same data at scale of 10.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "When more than one scale works, you get to choose."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_scale_5",
+            "description": "Vertical bar graph on left. Student's data at scale of 5.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 5
+          },
+          {
+            "tangible_id": "bar_graph_scale_10",
+            "description": "Vertical bar graph on right. Same data at scale of 10.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T16:59:05.736599+00:00"
+  },
+  {
+    "id": "s4_1_bridge_lesson",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You just saw that all four scales worked for your data. Nice to have options!"
+      },
+      {
+        "type": "dialogue",
+        "text": "But what if the numbers are bigger? Or what if you need to figure out which scale is BEST?"
+      },
+      {
+        "type": "dialogue",
+        "text": "Let's learn how to figure out which scale to choose—and what tells us that a scale won't work for the data we have."
+      },
+      {
+        "type": "current_scene",
+        "elements": []
+      }
+    ],
+    "_generated_at": "2026-04-20T16:59:09.453320+00:00"
+  }
+]

@@ -1,0 +1,104 @@
+{
+  "id": "s1_5_identify_with_notation",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "5 × 2"
+        },
+        "description": "Student selected 5 × 2: reversed the order, counting items per group first",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "event": "highlight_containers_sequentially",
+                "status": "proposed",
+                "description": "Boxes highlight one by one: 1, 2."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Count the GROUPS first. How many boxes? 1, 2. Two groups. Now look inside ONE box. How many? Five in each. So it's 2 groups of 5, which we write as 2 × 5."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "2 + 5"
+        },
+        "description": "Student selected 2 + 5: used addition instead of multiplication",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "highlight_all_containers": true,
+                "description": "Both boxes highlight to show equal groups structure."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "When we have equal groups, we multiply, not add. The × symbol tells us we're counting groups. 2 groups of 5 is 2 × 5."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "5 + 2"
+        },
+        "description": "Student selected 5 + 2: used addition and reversed the order",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "highlight_all_containers": true,
+                "description": "Both boxes highlight to show equal groups structure."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "This is equal groups, not adding. Count the groups: 2 boxes. Count what's in each: 5. When we multiply, we write groups first: 2 × 5."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "event": "demonstrate_group_structure",
+                "status": "confirmed",
+                "description": "System highlights the two boxes first, then opens one box to show the 5 items inside. Expression 2 × 5 appears below."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. First, I count the groups. Two boxes. That's my first number: 2. Next, I look inside ONE box. Five items. That's my second number: 5. When I have equal groups, I multiply. So this is 2 × 5. The groups come first, then how many in each group."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:04:48.010677+00:00"
+}

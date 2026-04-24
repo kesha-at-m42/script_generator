@@ -1,0 +1,248 @@
+{
+  "id": "s1_3_student_builds_first_build_mode",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "container_count": 4
+            },
+            {
+              "or": [
+                {
+                  "incorrect_count": 1
+                },
+                {
+                  "incorrect_count": 2
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Student set container count to 4 (reversed the numbers)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "highlight_control": "container_count",
+                "description": "Container count control highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You set 4 groups. The problem says 3 groups of 4. The first number is the groups. How many groups?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 1
+            },
+            {
+              "not": {
+                "container_count": 4
+              }
+            }
+          ]
+        },
+        "description": "Student set wrong container count on first attempt (not the reversal)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Listen again: 3 groups of 4. How many groups?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 2
+            },
+            {
+              "not": {
+                "container_count": 4
+              }
+            }
+          ]
+        },
+        "description": "Student set wrong container count on second attempt (not the reversal)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "highlight_control": "container_count",
+                "description": "Container count control highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The first number tells you the groups. 3 groups of 4 means 3 groups. Set the control to 3."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student set wrong container count three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "event": "set_container_count",
+                "status": "confirmed",
+                "description": "System sets container count to 3. Three empty bags appear on screen.",
+                "container_count": 3
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. 3 groups of 4. The first number, 3, is the groups. I set the control to 3, and three bags appear. The first number always tells you how many groups."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "items_per_container": 3
+            },
+            {
+              "or": [
+                {
+                  "incorrect_count": 1
+                },
+                {
+                  "incorrect_count": 2
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Student set items per container to 3 (reversed the numbers)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "highlight_control": "items_per_container",
+                "description": "Items per container control highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You put 3 in each. The problem says 3 groups of 4. The second number is in each group. How many in each?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 1
+            },
+            {
+              "not": {
+                "items_per_container": 3
+              }
+            }
+          ]
+        },
+        "description": "Student set wrong items per container on first attempt (not the reversal)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. 3 groups of 4. How many in each group?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 2
+            },
+            {
+              "not": {
+                "items_per_container": 3
+              }
+            }
+          ]
+        },
+        "description": "Student set wrong items per container on second attempt (not the reversal)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "highlight_control": "items_per_container",
+                "description": "Items per container control highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The second number tells you how many in each group. 3 groups of 4 means 4 in each. Set the control to 4."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student set wrong items per container three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "event": "set_items_per_container",
+                "status": "confirmed",
+                "description": "System sets items per container to 4. Four items appear in each of the three bags.",
+                "items_per_container": 4
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how it works. 3 groups of 4. The second number, 4, is how many in each group. I set the control to 4, and four items appear in each bag. The second number always tells you how many in each group. That's 3 groups of 4."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:04:18.023939+00:00"
+}

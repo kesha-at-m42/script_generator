@@ -7,23 +7,25 @@
         "method": "PLACEHOLDER",
         "tangible_id": "PLACEHOLDER",
         "params": {
-          "description": "Vertical picture graph appears on left. Scale of 2. Each star symbol = 2."
+          "description": "Vertical picture graph appears on left. Scale of 2. Each symbol = 2."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-81d7-a004-de7584f8788e"
       },
       {
         "type": "scene",
         "method": "PLACEHOLDER",
         "tangible_id": "PLACEHOLDER",
         "params": {
-          "description": "Vertical picture graph appears on right. Scale of 5. Each star symbol = 5. Key highlighted."
+          "description": "Vertical picture graph appears on right. Scale of 5. Each symbol = 5. Key highlighted."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-8128-90a5-eb2799b2ece8"
       },
       {
         "type": "dialogue",
         "text": "In Warmup, you saw something important. Same data, but the scale of 5 graph needed fewer symbols. That's because each symbol represents MORE.",
-        "id": "s1_1_building_on_scale_comparison_b2",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-8138-87f1-f3b89d023c3f"
       },
       {
@@ -31,41 +33,47 @@
         "elements": [
           {
             "tangible_id": "picture_graph_scale_2",
-            "description": "Vertical picture graph on left. Scale of 2. Same data as scale of 5 graph.",
+            "description": "Vertical picture graph on left. Books Read This Week data. Scale of 2.",
             "tangible_type": "picture_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Apples",
-              "Bananas",
-              "Oranges"
-            ]
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday"
+            ],
+            "scale": 2
           },
           {
             "tangible_id": "picture_graph_scale_5",
-            "description": "Vertical picture graph on right. Scale of 5. Key highlighted. Fewer symbols than scale of 2 graph.",
+            "description": "Vertical picture graph on right. Same data. Scale of 5. Key highlighted. Multiple choice active.",
             "tangible_type": "picture_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Apples",
-              "Bananas",
-              "Oranges"
-            ]
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday"
+            ],
+            "scale": 5
           }
         ],
-        "id": "s1_1_building_on_scale_comparison_b3",
+        "id": "s1_1_building_on_scale_comparison_b7",
         "_notion_block_id": "3485917e-ac52-81d9-be45-e907d0c37d29"
       },
       {
         "type": "dialogue",
         "text": "Same data, fewer symbols. That's why scale of 5 is useful when numbers get bigger. What does each symbol represent when the scale is 5?",
-        "id": "s1_1_building_on_scale_comparison_b4",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-814c-9bb7-eab608c4ed93"
       },
       {
         "type": "prompt",
-        "text": "What does each symbol represent when the scale is 5?",
+        "notion_flag": "suggested",
         "tool": "multiple_choice",
         "options": [
           2,
@@ -73,128 +81,7 @@
           10,
           1
         ],
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": 5
-            },
-            "description": "Student selected 5, correct",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Right. Each symbol represents 5 items. That's the scale.",
-                "id": "s1_1_building_on_scale_comparison_b5_v0_b0",
-                "_notion_block_id": "3485917e-ac52-8193-989c-ca1cc664fe8f"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 2
-            },
-            "description": "Student selected 2, confusing scale of 2 with scale of 5",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "picture_graph_scale_5",
-                "params": {
-                  "highlight_key": true,
-                  "description": "Key on scale of 5 graph highlights."
-                },
-                "id": "s1_1_building_on_scale_comparison_b5_v1_b0",
-                "_notion_block_id": "3485917e-ac52-81c8-a777-c9d689a2fed9"
-              },
-              {
-                "type": "dialogue",
-                "text": "You're looking at the scale of 2 graph. Look at the key on the scale of 5 graph. What does it say each symbol equals?",
-                "id": "s1_1_building_on_scale_comparison_b5_v1_b1",
-                "_notion_block_id": "3485917e-ac52-812f-9b7a-ff4e536cb32f"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 10
-            },
-            "description": "Student selected 10, possibly doubling the scale value",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "picture_graph_scale_5",
-                "params": {
-                  "highlight_key": true,
-                  "description": "Key on scale of 5 graph highlights."
-                },
-                "id": "s1_1_building_on_scale_comparison_b5_v2_b0",
-                "_notion_block_id": "3485917e-ac52-819d-bbfc-c089585edcaf"
-              },
-              {
-                "type": "dialogue",
-                "text": "The key tells you exactly what each symbol stands for. Read the key on the scale of 5 graph. What number do you see?",
-                "id": "s1_1_building_on_scale_comparison_b5_v2_b1",
-                "_notion_block_id": "3485917e-ac52-816e-b89c-c0e662b7e917"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 1
-            },
-            "description": "Student selected 1, confusing scale with counting by 1s",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "picture_graph_scale_5",
-                "params": {
-                  "highlight_key": true,
-                  "description": "Key on scale of 5 graph highlights."
-                },
-                "id": "s1_1_building_on_scale_comparison_b5_v3_b0",
-                "_notion_block_id": "3485917e-ac52-81a5-ab83-d2edb401d866"
-              },
-              {
-                "type": "dialogue",
-                "text": "When the scale is 5, each symbol represents 5 items, not 1. Look at the key. It shows what each symbol equals.",
-                "id": "s1_1_building_on_scale_comparison_b5_v3_b1",
-                "_notion_block_id": "3485917e-ac52-8185-90f8-e117f496e977"
-              }
-            ]
-          },
-          {
-            "condition": {},
-            "description": "Student answered incorrectly. System models the correct answer.",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_scale_5",
-                "params": {
-                  "event": "highlight_key_and_symbol",
-                  "status": "confirmed",
-                  "description": "Key highlights showing Each ⭐ = 5. One symbol pulses to demonstrate the connection."
-                },
-                "id": "s1_1_building_on_scale_comparison_b5_v4_b0",
-                "_notion_block_id": "3485917e-ac52-812d-9146-e3d398a75fa6"
-              },
-              {
-                "type": "dialogue",
-                "text": "Let me show you. The key says Each star equals 5. That means every symbol you see on this graph represents 5 items. When the scale is 5, each symbol stands for 5. That's what makes it a scale of 5.",
-                "id": "s1_1_building_on_scale_comparison_b5_v4_b1",
-                "_notion_block_id": "3485917e-ac52-81d1-b654-e8e78c55e75e"
-              }
-            ]
-          }
-        ],
-        "id": "s1_1_building_on_scale_comparison_b5",
+        "text": "What does each symbol represent when the scale is 5?",
         "_notion_block_id": "3485917e-ac52-81a1-9059-cd0066da0e0d"
       },
       {
@@ -203,7 +90,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T16:59:13.037000+00:00"
+    "_generated_at": "2026-04-23T17:20:15.682568+00:00",
+    "_notion_block_id": "34c5917e-ac52-8113-81ae-eb5b199fc002"
   },
   {
     "id": "s1_2_grouping_animation_groups_5_worked",
@@ -216,12 +104,14 @@
         "params": {
           "description": "Data table appears. Favorite Playground Activities. Swings: 20, Slides: 15, Monkey Bars: 25, Sandbox: 10. Vertical orientation."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-81e0-9ba7-d230465f7349"
       },
       {
         "type": "dialogue",
         "text": "Here is a table showing what playground activities students voted for as their favorites. Let's see how 20 items become symbols when the scale is 5. Watch. We'll group by 5s.",
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-8158-812d-db0ae05890eb"
       },
       {
         "type": "scene",
@@ -230,18 +120,52 @@
         "params": {
           "description": "20 items appear for Swings category. Key visible: Each ⭐ = 5."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-8135-83b0-e053162ed8be"
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Data table showing Favorite Playground Activities. 20 items displayed for Swings, preparing to group by 5s. Key: Each ⭐ = 5.",
-            "tangible_type": "data_table"
+            "description": "Data table showing Favorite Playground Activities. Swings: 20, Slides: 15, Monkey Bars: 25, Sandbox: 10.",
+            "tangible_type": "data_table",
+            "categories": [
+              "Swings",
+              "Slides",
+              "Monkey Bars",
+              "Sandbox"
+            ],
+            "values": [
+              20,
+              15,
+              25,
+              10
+            ],
+            "orientation": "vertical"
+          },
+          {
+            "tangible_id": "picture_graph_playground",
+            "description": "Vertical picture graph. Swings column shows 4 star symbols stacked. Key: Each ⭐ = 5. Other columns empty.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Swings",
+              "Slides",
+              "Monkey Bars",
+              "Sandbox"
+            ],
+            "scale": 5,
+            "symbols": {
+              "Swings": 4,
+              "Slides": 0,
+              "Monkey Bars": 0,
+              "Sandbox": 0
+            }
           }
         ],
-        "id": "s1_2_grouping_animation_groups_5_worked_b3",
+        "id": "s1_2_grouping_animation_groups_5_worked_b11",
         "_notion_block_id": "3485917e-ac52-81e5-a5dd-e27030ac40d2"
       },
       {
@@ -251,25 +175,18 @@
         "params": {
           "description": "20 items cluster into 4 groups of 5."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-81f7-826b-d0c16fbeb3e3"
       },
       {
         "type": "dialogue",
         "text": "5, 10, 15, 20. That's 4 groups of 5.",
-        "id": "s1_2_grouping_animation_groups_5_worked_b5",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-8166-ab38-d34028210835"
       },
       {
         "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "data_table",
-            "description": "Data table with Swings items grouped into 4 clusters of 5. Key: Each ⭐ = 5.",
-            "tangible_type": "data_table"
-          }
-        ],
-        "id": "s1_2_grouping_animation_groups_5_worked_b6",
-        "_notion_block_id": "3485917e-ac52-81e5-a64b-e9600a62f5e9"
+        "elements": []
       },
       {
         "type": "scene",
@@ -278,12 +195,13 @@
         "params": {
           "description": "4 groups transform into 4 symbols, stacking upward on picture graph for Swings column."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-814f-b53e-d748aae1b642"
       },
       {
         "type": "dialogue",
         "text": "20 items equals 4 symbols. Each symbol shows 5.",
-        "id": "s1_2_grouping_animation_groups_5_worked_b8",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-8124-a058-ee2189adcde5"
       },
       {
@@ -292,7 +210,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T16:59:24.604330+00:00"
+    "_generated_at": "2026-04-23T17:20:38.652546+00:00",
+    "_notion_block_id": "34c5917e-ac52-813d-80b5-fd9fe9a34de2"
   },
   {
     "id": "s1_3_skip_counting_connection",
@@ -304,7 +223,8 @@
         "params": {
           "description": "Vertical picture graph appears. Swings column has 4 star symbols. Other columns empty. Key visible: Each star = 5."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-8162-a8f5-f38f4a5daa09"
       },
       {
         "type": "scene",
@@ -313,26 +233,27 @@
         "params": {
           "description": "Data table appears alongside picture graph showing same playground data."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-8131-b5be-dae3d39ac49e"
       },
       {
         "type": "dialogue",
         "text": "It's easier to read this picture graph if you can count by 5s. That's exactly what we do with scale of 5.",
-        "id": "s1_3_skip_counting_connection_b2",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-81f8-ba16-d60f8881e3e9"
       },
       {
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "picture_graph_swings",
-            "description": "Vertical picture graph. Swings column has 4 star symbols. Other columns empty. Key: Each star = 5.",
+            "tangible_id": "picture_graph_playground",
+            "description": "Vertical picture graph in reading mode. Favorite Playground Activities. Swings column: 4 star symbols. Other columns empty. Key: Each ⭐ = 5. multiple_choice tool active.",
             "tangible_type": "picture_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
               "Swings",
-              "Slide",
+              "Slides",
               "Monkey Bars",
               "Sandbox"
             ],
@@ -340,22 +261,22 @@
           },
           {
             "tangible_id": "data_table",
-            "description": "Data table showing playground data alongside graph.",
+            "description": "Data table showing Favorite Playground Activities values alongside the graph.",
             "tangible_type": "data_table"
           }
         ],
-        "id": "s1_3_skip_counting_connection_b3",
+        "id": "s1_3_skip_counting_connection_b6",
         "_notion_block_id": "3485917e-ac52-81be-87b6-faa4c2b26849"
       },
       {
         "type": "dialogue",
         "text": "Let's check: does the picture graph for the Swings category match our data table? 4 symbols, scale of 5. Count by 5s. What's the total?",
-        "id": "s1_3_skip_counting_connection_b4",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-81ac-9310-d7a2981d6bb2"
       },
       {
         "type": "prompt",
-        "text": "What is the total represented by the picture graph for Swings?",
+        "notion_flag": "suggested",
         "tool": "multiple_choice",
         "options": [
           4,
@@ -363,134 +284,7 @@
           15,
           20
         ],
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": 20
-            },
-            "description": "Student answered 20, correct",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Right. 20 items. 5, 10, 15, 20. Skip counting tells you the total in the picture graph, and that matches the value in the data table.",
-                "id": "s1_3_skip_counting_connection_b5_v0_b0",
-                "_notion_block_id": "3485917e-ac52-81ab-a667-c7ed1fe1e093"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 4
-            },
-            "description": "Student selected 4, treating symbol count as the total",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "picture_graph_swings",
-                "params": {
-                  "highlight_categories": [
-                    "Swings"
-                  ],
-                  "description": "Swings column highlights."
-                },
-                "id": "s1_3_skip_counting_connection_b5_v1_b0",
-                "_notion_block_id": "3485917e-ac52-8130-8922-f89928b73d7b"
-              },
-              {
-                "type": "dialogue",
-                "text": "You counted the symbols. But each symbol stands for more than 1. Check the key. What does each star represent? Skip count by the value in the key.",
-                "id": "s1_3_skip_counting_connection_b5_v1_b1",
-                "_notion_block_id": "3485917e-ac52-8132-946f-e3e944822067"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 9
-            },
-            "description": "Student selected 9, likely miscounting or using wrong scale",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "picture_graph_swings",
-                "params": {
-                  "highlight_categories": [
-                    "Swings"
-                  ],
-                  "description": "Key highlights on picture graph."
-                },
-                "id": "s1_3_skip_counting_connection_b5_v2_b0",
-                "_notion_block_id": "3485917e-ac52-8171-b57a-c2e24c164f54"
-              },
-              {
-                "type": "dialogue",
-                "text": "Look at the key. Each symbol equals 5. Count by 5s: one symbol is 5, two symbols is 10. Keep going.",
-                "id": "s1_3_skip_counting_connection_b5_v2_b1",
-                "_notion_block_id": "3485917e-ac52-818e-9916-ceed90b5470b"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 15
-            },
-            "description": "Student selected 15, stopped counting before the fourth symbol",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "picture_graph_swings",
-                "params": {
-                  "highlight_categories": [
-                    "Swings"
-                  ],
-                  "description": "All 4 symbols in Swings column highlight."
-                },
-                "id": "s1_3_skip_counting_connection_b5_v3_b0",
-                "_notion_block_id": "3485917e-ac52-81f5-83b4-f45e5839b52a"
-              },
-              {
-                "type": "dialogue",
-                "text": "You're counting by 5s. But check how many symbols are in the column. Count all of them: 5, 10, 15. That’s 3 symbols. How many symbols does Swings have?",
-                "id": "s1_3_skip_counting_connection_b5_v3_b1",
-                "_notion_block_id": "3485917e-ac52-8107-9b78-ef48bd6e7506"
-              }
-            ]
-          },
-          {
-            "condition": {},
-            "description": "Student answered incorrectly. System models the correct answer.",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_swings",
-                "params": {
-                  "event": "highlight_scale_counting",
-                  "status": "confirmed",
-                  "description": "System highlights each symbol in sequence while counting: 5, 10, 15, 20."
-                },
-                "id": "s1_3_skip_counting_connection_b5_v4_b0",
-                "_notion_block_id": "3485917e-ac52-81be-9193-d06f668d9028"
-              },
-              {
-                "type": "dialogue",
-                "text": "Let’s think through this. Look at the key: each symbol equals 5. Now skip count by 5s along the Swings category: one symbol is 5, two symbols 10, three symbols 15, four symbols 20. The picture graph shows 20 because we skip count by the scale.",
-                "id": "s1_3_skip_counting_connection_b5_v4_b1",
-                "_notion_block_id": "3485917e-ac52-81f8-a6fc-c65ea4e66aa2"
-              }
-            ]
-          }
-        ],
-        "id": "s1_3_skip_counting_connection_b5",
+        "text": "What is the total represented by the picture graph for Swings?",
         "_notion_block_id": "3485917e-ac52-81e9-af68-f6f1241388b3"
       },
       {
@@ -499,7 +293,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T16:59:37.038683+00:00"
+    "_generated_at": "2026-04-23T17:20:58.004893+00:00",
+    "_notion_block_id": "34c5917e-ac52-8166-ab1f-e173717caf83"
   },
   {
     "id": "s1_4_your_turn_guided_creation",
@@ -509,35 +304,38 @@
         "method": "PLACEHOLDER",
         "tangible_id": "PLACEHOLDER",
         "params": {
-          "description": "Data table appears. Favorite Play Areas numeric data visible. Swings=20, Slides=15, Monkey Bars=25, Sandbox=10"
+          "description": "Vertical data table titled Favorite Playground Activities appears. Categories: Swings, Slides, Monkey Bars, Sandbox. Values: Swings 20, Slides 15, Monkey Bars 25, Sandbox 10."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-8143-88ac-db29d9813aea"
       },
       {
         "type": "scene",
         "method": "PLACEHOLDER",
         "tangible_id": "PLACEHOLDER",
         "params": {
-          "description": "Vertical picture graph appears in building mode. Swings column has 4 symbols pre-filled. Slides, Monkey Bars, Sandbox columns empty. Key visible: each symbol = 5 votes."
+          "description": "Vertical picture graph appears in building mode. Favorite Playground Activities. Scale 5 (Each symbol = 5). Swings column has 4 symbols already placed. Slides, Monkey Bars, Sandbox columns empty. Key visible."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-81f9-9a85-f37a49a70ee5"
       },
       {
         "type": "dialogue",
         "text": "15 students said slides are their favorite equipment on the playground. How many symbols is that?",
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-81c1-bf7c-e96576b4affb"
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Data table showing Favorite Play Areas values. Swings=20, Slides=15, Monkey Bars=10, Sandbox=5.",
+            "description": "Vertical data table showing Favorite Playground Activities data. Swings 20, Slides 15, Monkey Bars 25, Sandbox 10.",
             "tangible_type": "data_table"
           },
           {
-            "tangible_id": "picture_graph_play",
-            "description": "Vertical picture graph in building mode. Swings column has 4 symbols. Slides, Monkey Bars, Sandbox empty. Key: each symbol = 5 votes.",
+            "tangible_id": "picture_graph_playground",
+            "description": "Vertical picture graph in building mode. Scale 5. Swings has 4 symbols. Slides has 3 symbols. Monkey Bars and Sandbox empty. click_to_place tool active.",
             "tangible_type": "picture_graph",
             "mode": "building",
             "orientation": "vertical",
@@ -549,122 +347,21 @@
             ]
           }
         ],
-        "id": "s1_4_your_turn_guided_creation_b3",
+        "id": "s1_4_your_turn_guided_creation_b6",
         "_notion_block_id": "3485917e-ac52-811e-aa9e-c85f5e27bb4b"
       },
       {
         "type": "dialogue",
         "text": "Think: count by 5s until you reach 15. How many 5s? Click to set the height of the Slides.",
-        "id": "s1_4_your_turn_guided_creation_b4",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-8150-b9e8-c58ae0596b00"
       },
       {
         "type": "prompt",
-        "text": "Set the number of symbols for Slides.",
+        "notion_flag": "suggested",
         "tool": "click_to_set_height",
         "target": "picture_graph_play",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "symbols_placed": 3,
-              "category": "Slides"
-            },
-            "description": "Student clicked to place 3 symbols in Slides column, correct",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_play",
-                "params": {
-                  "event": "confirm_symbol_placement",
-                  "status": "confirmed",
-                  "description": "3 symbols appear in Slides column to confirm placement.",
-                  "category": "Slides"
-                },
-                "id": "s1_4_your_turn_guided_creation_b5_v0_b0",
-                "_notion_block_id": "3485917e-ac52-81a5-b194-e33c04d511cd"
-              },
-              {
-                "type": "dialogue",
-                "text": "Right. 3 symbols. 5, 10, 15. You used skip-counting to figure it out.",
-                "id": "s1_4_your_turn_guided_creation_b5_v0_b1",
-                "_notion_block_id": "3485917e-ac52-8154-a93f-f2949cd31fc3"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "incorrect_count": 1
-            },
-            "description": "Student placed wrong number of symbols on first attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Not quite. Count by 5s until you reach 15. How many times did you count?",
-                "id": "s1_4_your_turn_guided_creation_b5_v1_b0",
-                "_notion_block_id": "3485917e-ac52-81ee-a2fb-c9a2ca075502"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "incorrect_count": 2
-            },
-            "description": "Student placed wrong number of symbols on second attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "data_table",
-                "params": {
-                  "highlight_categories": [
-                    "Slides"
-                  ],
-                  "description": "Slides row highlights in data table showing 15."
-                },
-                "id": "s1_4_your_turn_guided_creation_b5_v2_b0",
-                "_notion_block_id": "3485917e-ac52-81da-a886-dd78cc30124a"
-              },
-              {
-                "type": "dialogue",
-                "text": "Look at Slides in the table: 15 votes. Each symbol stands for 5 votes. Count by 5s until you reach 15. That tells you how many symbols to place.",
-                "id": "s1_4_your_turn_guided_creation_b5_v2_b1",
-                "_notion_block_id": "3485917e-ac52-813e-ad14-dda1d75de713"
-              }
-            ]
-          },
-          {
-            "condition": {},
-            "description": "Student placed wrong number of symbols three or more times. System models the answer.",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_play",
-                "params": {
-                  "event": "model_symbol_placement",
-                  "status": "confirmed",
-                  "description": "System demonstrates placing symbols one at a time in Slides column while counting by 5s: 5, 10, 15. Three symbols appear.",
-                  "category": "Slides"
-                },
-                "id": "s1_4_your_turn_guided_creation_b5_v3_b0",
-                "_notion_block_id": "3485917e-ac52-81bb-ad5f-f2a6f8d5846c"
-              },
-              {
-                "type": "dialogue",
-                "text": "Let me show you. Slides has 15 votes. Each symbol represents 5. I count by 5s: 5, 10, 15. That is 3 fives, so 3 symbols. I place 3 symbols for Slides.",
-                "id": "s1_4_your_turn_guided_creation_b5_v3_b1",
-                "_notion_block_id": "3485917e-ac52-810e-9a34-cee143e1da9f"
-              }
-            ]
-          }
-        ],
-        "id": "s1_4_your_turn_guided_creation_b5",
+        "text": "Set the number of symbols for Slides.",
         "_notion_block_id": "3485917e-ac52-8104-8ebc-ec192f3aa6e1"
       },
       {
@@ -673,7 +370,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T16:59:50.475947+00:00"
+    "_generated_at": "2026-04-23T17:21:17.817118+00:00",
+    "_notion_block_id": "34c5917e-ac52-81ff-b6ca-d4ce1c8b24bb"
   },
   {
     "id": "s1_5_complete_graph",
@@ -685,7 +383,8 @@
         "params": {
           "description": "Vertical picture graph appears in building mode. Favorite Playground Equipment data. Swings has 4 symbols (20 votes), Slides has 3 symbols (15 votes). Monkey Bars and Sandbox rows are empty. Key visible: each symbol = 5 votes."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-818b-a3bd-d022b74bbbb2"
       },
       {
         "type": "scene",
@@ -694,121 +393,21 @@
         "params": {
           "description": "Data table appears alongside graph showing Favorite Playground Equipment values: Swings 20, Slides 15, Monkey Bars 25, Sandbox 10."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-810e-bc21-c5522db54267"
       },
       {
         "type": "dialogue",
         "text": "Keep building the picture graph. Monkey Bars has 25. That's a bigger number. Click to set the height of the Monkey Bars.",
-        "id": "s1_5_complete_graph_b2",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-8175-a5f0-f8f132bd86c6"
       },
       {
         "type": "prompt",
-        "text": "Set the height for Monkey Bars.",
+        "notion_flag": "suggested",
         "tool": "click_to_set_height",
         "target": "picture_graph_playground",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "category": "Monkey Bars",
-              "symbols_placed": 5
-            },
-            "description": "Student placed 5 symbols for Monkey Bars, correct",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_playground",
-                "params": {
-                  "event": "confirm_placement",
-                  "status": "confirmed",
-                  "description": "5 symbols lock into place in Monkey Bars row.",
-                  "category": "Monkey Bars"
-                },
-                "id": "s1_5_complete_graph_b3_v0_b0",
-                "_notion_block_id": "3485917e-ac52-819f-a184-eea33395e9a7"
-              },
-              {
-                "type": "dialogue",
-                "text": "Right. 5 symbols for 25. You counted: 5, 10, 15, 20, 25.",
-                "id": "s1_5_complete_graph_b3_v0_b1",
-                "_notion_block_id": "3485917e-ac52-8133-a5c4-e9eefc82cb52"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "incorrect_count": 1
-            },
-            "description": "Student placed wrong number of symbols on first attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Not quite. Count by 5s until you reach 25.",
-                "id": "s1_5_complete_graph_b3_v1_b0",
-                "_notion_block_id": "3485917e-ac52-816f-98e9-d59f85a6ad13"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "incorrect_count": 2
-            },
-            "description": "Student placed wrong number of symbols on second attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "data_table",
-                "params": {
-                  "highlight_categories": [
-                    "Monkey Bars"
-                  ],
-                  "description": "Monkey Bars row highlights in data table."
-                },
-                "id": "s1_5_complete_graph_b3_v2_b0",
-                "_notion_block_id": "3485917e-ac52-8138-96fc-fa40e1724ade"
-              },
-              {
-                "type": "dialogue",
-                "text": "Look at the data table. Monkey Bars has 25 votes. Each symbol equals 5. Count by 5s: how many 5s make 25? ",
-                "id": "s1_5_complete_graph_b3_v2_b1",
-                "_notion_block_id": "3485917e-ac52-81d8-9602-ef544b103948"
-              }
-            ]
-          },
-          {
-            "condition": {},
-            "description": "Student placed wrong number of symbols three or more times. System models the answer.",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_playground",
-                "params": {
-                  "event": "demonstrate_skip_counting",
-                  "status": "confirmed",
-                  "description": "System demonstrates counting by 5s: symbols appear one at a time with labels 5, 10, 15, 20, 25 appearing sequentially.",
-                  "category": "Monkey Bars"
-                },
-                "id": "s1_5_complete_graph_b3_v3_b0",
-                "_notion_block_id": "3485917e-ac52-81f9-88cd-f0c22b6d2aeb"
-              },
-              {
-                "type": "dialogue",
-                "text": "Let me explain step by step. The data table shows Monkey Bars has 25 votes. The key tells us each symbol is worth 5 votes. Count by 5s to reach 25: 5, 10, 15, 20, 25. That's 5 groups of 5. When each symbol equals 5, you need 5 symbols to show 25. I place 5 symbols in the Monkey Bars column.",
-                "id": "s1_5_complete_graph_b3_v3_b1",
-                "_notion_block_id": "3485917e-ac52-813e-aa24-fb2ae71b3733"
-              }
-            ]
-          }
-        ],
-        "id": "s1_5_complete_graph_b3",
+        "text": "Set the height for Monkey Bars.",
         "_notion_block_id": "3485917e-ac52-81b7-8ffe-f01404dc6b1d"
       },
       {
@@ -817,7 +416,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:02.677147+00:00"
+    "_generated_at": "2026-04-23T17:21:35.595061+00:00",
+    "_notion_block_id": "34c5917e-ac52-819b-bc8f-d7ee2fd87c88"
   },
   {
     "id": "s1_6_continue_building_sandbox",
@@ -829,7 +429,8 @@
         "params": {
           "description": "Vertical picture graph appears. Favorite Playground Equipment data. Swings column has 4 symbols, Slides column has 3 symbols, Monkey Bars column has 5 symbols, Sandbox column empty. Key: each symbol = 5 votes."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-81cd-a5e3-f14e8f625e6d"
       },
       {
         "type": "scene",
@@ -838,121 +439,21 @@
         "params": {
           "description": "Data table appears alongside graph, showing Favorite Playground Equipment values: Swings=20, Slides=15, Monkey Bars=25, Sandbox=10."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-8142-8d33-f72403dda7d3"
       },
       {
         "type": "dialogue",
         "text": "Let's complete the picture graph. Sandbox has 10 votes. That's the smallest number.",
-        "id": "s1_6_continue_building_sandbox_b2",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-8121-8843-c8f2b188a62d"
       },
       {
         "type": "prompt",
-        "text": "Set the height for Sandbox.",
+        "notion_flag": "suggested",
         "tool": "click_to_set_height",
         "target": "picture_graph_playground",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "category": "Sandbox",
-              "symbols_placed": 2
-            },
-            "description": "Student set Sandbox to 2 symbols, correct for value 10",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_playground",
-                "params": {
-                  "event": "confirm_symbol_placement",
-                  "status": "confirmed",
-                  "description": "2 symbols appear in Sandbox column to confirm placement.",
-                  "category": "Sandbox"
-                },
-                "id": "s1_6_continue_building_sandbox_b3_v0_b0",
-                "_notion_block_id": "3485917e-ac52-814f-90c6-d7c72d761f6d"
-              },
-              {
-                "type": "dialogue",
-                "text": "That's it. 2 symbols for 10. Count by 5s: 5, 10.",
-                "id": "s1_6_continue_building_sandbox_b3_v0_b1",
-                "_notion_block_id": "3485917e-ac52-810d-83d0-fa6e6a7a254a"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "incorrect_count": 1
-            },
-            "description": "Student set incorrect number of symbols on first attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Check the key. Each symbol stands for 5 votes.",
-                "id": "s1_6_continue_building_sandbox_b3_v1_b0",
-                "_notion_block_id": "3485917e-ac52-814d-b558-f48cfcdf83af"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "incorrect_count": 2
-            },
-            "description": "Student set incorrect number of symbols on second attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "data_table",
-                "params": {
-                  "highlight_categories": [
-                    "Sandbox"
-                  ],
-                  "description": "Sandbox value highlights in data table."
-                },
-                "id": "s1_6_continue_building_sandbox_b3_v2_b0",
-                "_notion_block_id": "3485917e-ac52-8103-a195-fc339a9231e3"
-              },
-              {
-                "type": "dialogue",
-                "text": "Not quite. Sandbox has 10 votes. The key shows each symbol equals 5. Count by 5s: how many 5s make 10?",
-                "id": "s1_6_continue_building_sandbox_b3_v2_b1",
-                "_notion_block_id": "3485917e-ac52-8117-8f44-cb3050b08077"
-              }
-            ]
-          },
-          {
-            "condition": {},
-            "description": "Student set incorrect number of symbols three or more times. System models the answer.",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_playground",
-                "params": {
-                  "event": "model_symbol_placement",
-                  "status": "confirmed",
-                  "description": "System demonstrates placing 2 symbols in Sandbox column, counting by 5s: 5, 10.",
-                  "category": "Sandbox"
-                },
-                "id": "s1_6_continue_building_sandbox_b3_v3_b0",
-                "_notion_block_id": "3485917e-ac52-8153-937e-c1f09f1b008d"
-              },
-              {
-                "type": "dialogue",
-                "text": "Let’s talk through this. Sandbox has 10 votes. Each symbol represents 5 votes. I count by 5s: 5, 10. That's 2 symbols. I place 2 symbols in the Sandbox category because 2 groups of 5 equals 10.",
-                "id": "s1_6_continue_building_sandbox_b3_v3_b1",
-                "_notion_block_id": "3485917e-ac52-8140-a191-c9c0f9a8002d"
-              }
-            ]
-          }
-        ],
-        "id": "s1_6_continue_building_sandbox_b3",
+        "text": "Set the height for Sandbox.",
         "_notion_block_id": "3485917e-ac52-816d-8ea6-e1379203a860"
       },
       {
@@ -961,7 +462,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:13.210439+00:00"
+    "_generated_at": "2026-04-23T17:21:53.215661+00:00",
+    "_notion_block_id": "34c5917e-ac52-8141-b8db-df1dab4c9f73"
   },
   {
     "id": "s1_7_reading_your_graph_most_least",
@@ -973,120 +475,21 @@
         "params": {
           "description": "Vertical picture graph appears. Favorite Playground Activities data. Swings=4 symbols, Slides=3 symbols, Monkey Bars=5 symbols, Sandbox=2 symbols. Key visible: each star symbol = 5 votes."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-81d8-b94f-d8a874594a27"
       },
       {
         "type": "dialogue",
         "text": "You made a scaled picture graph. Let's read it. Which activity is the most popular?",
-        "id": "s1_7_reading_your_graph_most_least_b1",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-81e9-b006-e8ef0ddc9dbc"
       },
       {
         "type": "prompt",
-        "text": "Click on the activity that is most popular.",
+        "notion_flag": "suggested",
         "tool": "click_category",
         "target": "picture_graph_playground",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": "Monkey Bars"
-            },
-            "description": "Student clicked Monkey Bars, correct, 5 symbols = 25 votes",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_playground",
-                "params": {
-                  "event": "highlight_category",
-                  "status": "confirmed",
-                  "category": "Monkey Bars",
-                  "description": "Monkey Bars column highlights to confirm selection."
-                },
-                "id": "s1_7_reading_your_graph_most_least_b2_v0_b0",
-                "_notion_block_id": "3485917e-ac52-810d-9cc3-ce468602d9da"
-              },
-              {
-                "type": "dialogue",
-                "text": "Right. Monkey Bars has 5 symbols, that's 25. The tallest column has the most votes.",
-                "id": "s1_7_reading_your_graph_most_least_b2_v0_b1",
-                "_notion_block_id": "3485917e-ac52-81a6-9151-d170a858c2c9"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "incorrect_count": 1
-            },
-            "description": "Student clicked a wrong category on first attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Not quite. Most popular means the most votes. Which category shows the most?",
-                "id": "s1_7_reading_your_graph_most_least_b2_v1_b0",
-                "_notion_block_id": "3485917e-ac52-8167-9e9a-f0468a0dbe0d"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "incorrect_count": 2
-            },
-            "description": "Student clicked a wrong category on second attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "picture_graph_playground",
-                "params": {
-                  "highlight_categories": [
-                    "Monkey Bars"
-                  ],
-                  "description": "Monkey Bars column highlights."
-                },
-                "id": "s1_7_reading_your_graph_most_least_b2_v2_b0",
-                "_notion_block_id": "3485917e-ac52-8142-910e-f4b54416097f"
-              },
-              {
-                "type": "dialogue",
-                "text": "Look at the heights of the columns. The tallest column shows the most votes. Which one reaches highest?",
-                "id": "s1_7_reading_your_graph_most_least_b2_v2_b1",
-                "_notion_block_id": "3485917e-ac52-81b5-8b1b-f2913411dd92"
-              }
-            ]
-          },
-          {
-            "condition": {},
-            "description": "Student clicked a wrong category three or more times. System models the answer.",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_playground",
-                "params": {
-                  "event": "highlight_category",
-                  "status": "confirmed",
-                  "category": "Monkey Bars",
-                  "description": "Monkey Bars column highlights as system demonstrates."
-                },
-                "id": "s1_7_reading_your_graph_most_least_b2_v3_b0",
-                "_notion_block_id": "3485917e-ac52-8144-a72b-c82f2ec6315e"
-              },
-              {
-                "type": "dialogue",
-                "text": "Let me show you. I look at each column: Swings has 4 symbols, Slides has 3, Monkey Bars has 5, Sandbox has 2. The tallest column is Monkey Bars with 5 symbols. With the scale of 5, that's 25 votes. The most popular activity is Monkey Bars because it has the tallest column.",
-                "id": "s1_7_reading_your_graph_most_least_b2_v3_b1",
-                "_notion_block_id": "3485917e-ac52-8169-9f7e-fcc818a3f84e"
-              }
-            ]
-          }
-        ],
-        "id": "s1_7_reading_your_graph_most_least_b2",
+        "text": "Click on the activity that is most popular.",
         "_notion_block_id": "3485917e-ac52-81e8-bbde-fe49fe8d4576"
       },
       {
@@ -1094,7 +497,7 @@
         "elements": [
           {
             "tangible_id": "picture_graph_playground",
-            "description": "Vertical picture graph. Favorite Playground Activities data. Monkey Bars column highlighted. Key visible: each star = 5 votes.",
+            "description": "Vertical picture graph in reading mode. Favorite Playground Activities. Sandbox column highlighted. Scale 5. Swings 4 symbols, Slides 3 symbols, Monkey Bars 5 symbols, Sandbox 2 symbols.",
             "tangible_type": "picture_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -1104,10 +507,16 @@
               "Monkey Bars",
               "Sandbox"
             ],
-            "scale": 5
+            "scale": 5,
+            "symbols_placed": {
+              "Swings": 4,
+              "Slides": 3,
+              "Monkey Bars": 5,
+              "Sandbox": 2
+            }
           }
         ],
-        "id": "s1_7_reading_your_graph_most_least_b3",
+        "id": "s1_7_reading_your_graph_most_least_b7",
         "_notion_block_id": "3485917e-ac52-8120-bf38-cfd6083fc98e"
       },
       {
@@ -1117,120 +526,21 @@
         "params": {
           "description": "Previous highlight clears."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-8113-ac53-dd38bb1dcbc2"
       },
       {
         "type": "dialogue",
         "text": "And which got the fewest?",
-        "id": "s1_7_reading_your_graph_most_least_b5",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-81ef-90fa-deec70832a08"
       },
       {
         "type": "prompt",
-        "text": "Click on the category with the fewest.",
+        "notion_flag": "suggested",
         "tool": "click_category",
         "target": "picture_graph_playground",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": "Sandbox"
-            },
-            "description": "Student clicked Sandbox, correct, 2 symbols = 10 votes",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_playground",
-                "params": {
-                  "event": "highlight_category",
-                  "status": "confirmed",
-                  "category": "Sandbox",
-                  "description": "Sandbox column highlights to confirm selection."
-                },
-                "id": "s1_7_reading_your_graph_most_least_b6_v0_b0",
-                "_notion_block_id": "3485917e-ac52-814d-9d95-eaa77144cb4e"
-              },
-              {
-                "type": "dialogue",
-                "text": "That's it. Sandbox has only 2 symbols, that's 10 votes. The shortest column is the fewest votes.",
-                "id": "s1_7_reading_your_graph_most_least_b6_v0_b1",
-                "_notion_block_id": "3485917e-ac52-812b-bde5-dfdc9f92b1be"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "incorrect_count": 1
-            },
-            "description": "Student clicked a wrong category on first attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Not exactly. Fewest is the least votes. Which column shows the smallest amount of votes?",
-                "id": "s1_7_reading_your_graph_most_least_b6_v1_b0",
-                "_notion_block_id": "3485917e-ac52-816d-b084-cafcf0f9f353"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "incorrect_count": 2
-            },
-            "description": "Student clicked a wrong category on second attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "picture_graph_playground",
-                "params": {
-                  "highlight_categories": [
-                    "Sandbox"
-                  ],
-                  "description": "Sandbox column highlights."
-                },
-                "id": "s1_7_reading_your_graph_most_least_b6_v2_b0",
-                "_notion_block_id": "3485917e-ac52-81ce-afa0-e8805627bbad"
-              },
-              {
-                "type": "dialogue",
-                "text": "Here's a hint: fewest means the smallest number. Look at the column heights. Which one is shortest?",
-                "id": "s1_7_reading_your_graph_most_least_b6_v2_b1",
-                "_notion_block_id": "3485917e-ac52-81fb-a07b-dfe1f9a2428e"
-              }
-            ]
-          },
-          {
-            "condition": {},
-            "description": "Student clicked a wrong category three or more times. System models the answer.",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_playground",
-                "params": {
-                  "event": "highlight_category",
-                  "status": "confirmed",
-                  "category": "Sandbox",
-                  "description": "Sandbox column highlights as system demonstrates."
-                },
-                "id": "s1_7_reading_your_graph_most_least_b6_v3_b0",
-                "_notion_block_id": "3485917e-ac52-8190-ba6a-dda9b6863300"
-              },
-              {
-                "type": "dialogue",
-                "text": "Let me walk you through this. I compare the heights: Swings has 4 symbols, Slides has 3, Monkey Bars has 5, Sandbox has 2. The shortest column is Sandbox with only 2 symbols. With a scale of 5, that's 10 votes. The activity with the fewest votes is Sandbox because it has the shortest column.",
-                "id": "s1_7_reading_your_graph_most_least_b6_v3_b1",
-                "_notion_block_id": "3485917e-ac52-81a6-93d2-c0c60ea251ed"
-              }
-            ]
-          }
-        ],
-        "id": "s1_7_reading_your_graph_most_least_b6",
+        "text": "Click on the category with the fewest.",
         "_notion_block_id": "3485917e-ac52-8134-ae51-ea8ef0c1808b"
       },
       {
@@ -1239,7 +549,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:26.899625+00:00"
+    "_generated_at": "2026-04-23T17:22:14.852029+00:00",
+    "_notion_block_id": "34c5917e-ac52-8105-a7dc-fbb0b514dabe"
   },
   {
     "id": "s1_8_section_transition",
@@ -1250,14 +561,15 @@
         "method": "PLACEHOLDER",
         "tangible_id": "PLACEHOLDER",
         "params": {
-          "description": "Horizontal picture graph appears on left. Favorite Pets data with scale of 5. Dogs=20, Cats=15, Fish=10, Birds=5, Lizards=0. Key: each paw symbol = 5 votes."
+          "description": "Vertical picture graph appears on left side. Favorite Playground Activities data. Swings 4 symbols, Slides 3 symbols, Monkey Bars 5 symbols, Sandbox 2 symbols. Scale 5: each symbol = 5 votes. Key visible."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-81f8-92c2-de3dc9ee7519"
       },
       {
         "type": "dialogue",
         "text": "You made a picture graph with scale of 5. Now let's see another way to show the exact same data.",
-        "id": "s1_8_section_transition_b1",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-8104-805e-eac88cb2b37a"
       },
       {
@@ -1266,7 +578,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:32.478431+00:00"
+    "_generated_at": "2026-04-23T17:22:26.564303+00:00",
+    "_notion_block_id": "34c5917e-ac52-81a6-a935-cb0c50f84acf"
   },
   {
     "id": "s2_1_two_ways_show_scale_5",
@@ -1278,7 +591,8 @@
         "params": {
           "description": "Vertical picture graph appears. Favorite Playground Activities data. Swings=4 symbols, Slides=3, Monkey Bars=5, Sandbox=2. Key visible: Each ⭐ = 5."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-816e-b3d4-cf52e5765f8a"
       },
       {
         "type": "scene",
@@ -1287,12 +601,13 @@
         "params": {
           "description": "Data table appears showing Playground Activities values: Swings=20, Slides=15, Monkey Bars=25, Sandbox=10."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-81f1-9dd1-c5af67ff5ed9"
       },
       {
         "type": "dialogue",
-        "text": "You've read bar graphs before. Here's the same Playground data as a bar graph.",
-        "id": "s2_1_two_ways_show_scale_5_b2",
+        "text": "Here's the same Playground data from the picture graph as a bar graph. You've read bar graphs before.",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-812c-bdad-fd4613aabb59"
       },
       {
@@ -1302,15 +617,16 @@
         "params": {
           "description": "Picture graph transforms into vertical bar graph. Categories: Swings=20, Slides=15, Monkey Bars=25, Sandbox=10. Axis labeled 0–30 in 5s. All 4 bars pre-filled."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-81db-9e4e-f79cb8d8a2ab"
       },
       {
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "bar_graph_playground",
-            "description": "Vertical bar graph. Playground Activities data. Swings=20, Slides=15, Monkey Bars=25, Sandbox=10. Axis labeled 0–30 in 5s.",
-            "tangible_type": "bar_graph",
+            "tangible_id": "picture_graph_playground",
+            "description": "Vertical picture graph in reading mode. Favorite Playground Activities. Swings 4 symbols, Slides 3, Monkey Bars 5, Sandbox 2. Key: Each star = 5.",
+            "tangible_type": "picture_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
@@ -1319,11 +635,20 @@
               "Monkey Bars",
               "Sandbox"
             ],
-            "axis_range": [
-              0,
-              30
-            ],
             "scale": 5
+          },
+          {
+            "tangible_id": "bar_graph_playground",
+            "description": "Vertical bar graph showing same data. Swings 20, Slides 15, Monkey Bars 25, Sandbox 10. Axis 0–30 in 5s. Multiple choice tool active.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Swings",
+              "Slides",
+              "Monkey Bars",
+              "Sandbox"
+            ]
           },
           {
             "tangible_id": "data_table",
@@ -1331,126 +656,31 @@
             "tangible_type": "data_table"
           }
         ],
-        "id": "s2_1_two_ways_show_scale_5_b4",
+        "id": "s2_1_two_ways_show_scale_5_b9",
         "_notion_block_id": "3485917e-ac52-818c-9973-f4482e217bc1"
       },
       {
         "type": "dialogue",
         "text": "In a picture graph, you count by 5s using symbols: 5, 10, 15, 20, 25.",
-        "id": "s2_1_two_ways_show_scale_5_b5",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-8145-ba62-c121c0e0c88d"
       },
       {
         "type": "dialogue",
-        "text": "In a bar graph, you count by 5s using the numbers written along the side of the graph on the axis. Look: 5, 10, 15, 20, 25, 30. Same skip-counting, just written on the side. Both graphs count by 5s. Where do you see the 5s on the bar graph?",
-        "id": "s2_1_two_ways_show_scale_5_b6",
+        "text": "In a bar graph, you count by 5s using the numbers written along the side of the graph on the {axis}. Look: 5, 10, 15, 20, 25, 30. Same skip-counting, just written on the side. Both graphs count by 5s. Where do you see the 5s on the bar graph?",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-8124-8f77-eaadb491c412"
       },
       {
         "type": "prompt",
-        "text": "Where do you see the 5s on the bar graph?",
+        "notion_flag": "suggested",
         "tool": "multiple_choice",
         "options": [
           "In the symbols",
           "On the axis",
           "In the title"
         ],
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": "On the axis"
-            },
-            "description": "Student selected On the axis, correct",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Right. The axis shows the skip-counting: 5, 10, 15, 20, 25, 30. That's your scale of 5, built right into the side of the graph.",
-                "id": "s2_1_two_ways_show_scale_5_b7_v0_b0",
-                "_notion_block_id": "3485917e-ac52-81ed-8d28-c51b7c7ab12c"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": "In the symbols"
-            },
-            "description": "Student selected 'In the symbols', confusing bar graph with picture graph format",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_playground",
-                "params": {
-                  "highlight_axis": true,
-                  "description": "Axis numbers highlight to draw attention to where the scale is shown."
-                },
-                "id": "s2_1_two_ways_show_scale_5_b7_v1_b0",
-                "_notion_block_id": "3485917e-ac52-8178-b495-dc00079e883a"
-              },
-              {
-                "type": "dialogue",
-                "text": "This is a bar graph, not a picture graph. Bar graphs don't use symbols. Look at the numbers along the side. Those show the scale.",
-                "id": "s2_1_two_ways_show_scale_5_b7_v1_b1",
-                "_notion_block_id": "3485917e-ac52-8166-a775-cec8d1a982d3"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": "In the title"
-            },
-            "description": "Student selected 'In the title', misunderstanding where scale information appears",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_playground",
-                "params": {
-                  "highlight_axis": true,
-                  "description": "Axis numbers highlight to draw attention to the scale."
-                },
-                "id": "s2_1_two_ways_show_scale_5_b7_v2_b0",
-                "_notion_block_id": "3485917e-ac52-81ea-a7b4-ecc42c85b07b"
-              },
-              {
-                "type": "dialogue",
-                "text": "The title names what the graph is about. The scale is shown by the numbers along the side. Look at those numbers. What pattern do you see?",
-                "id": "s2_1_two_ways_show_scale_5_b7_v2_b1",
-                "_notion_block_id": "3485917e-ac52-816b-b303-da33ab3068c6"
-              }
-            ]
-          },
-          {
-            "condition": {},
-            "description": "Student answered incorrectly. System models the correct answer.",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "bar_graph_playground",
-                "params": {
-                  "event": "trace_axis",
-                  "status": "confirmed",
-                  "description": "Animation traces up the axis, highlighting each number: 0, 5, 10, 15, 20, 25, 30."
-                },
-                "id": "s2_1_two_ways_show_scale_5_b7_v3_b0",
-                "_notion_block_id": "3485917e-ac52-81fb-b19a-caf46cd51148"
-              },
-              {
-                "type": "dialogue",
-                "text": "Let me show you. Watch the axis. The numbers go 0, 5, 10, 15, 20, 25, 30. That's counting by 5s. The axis is where the scale lives in a bar graph. The answer is 'On the axis.' That's how bar graphs show scale of 5.",
-                "id": "s2_1_two_ways_show_scale_5_b7_v3_b1",
-                "_notion_block_id": "3485917e-ac52-81ac-a4b1-faf0dd5bbcc9"
-              }
-            ]
-          }
-        ],
-        "id": "s2_1_two_ways_show_scale_5_b7",
+        "text": "Where do you see the 5s on the bar graph?",
         "_notion_block_id": "3485917e-ac52-81f3-be98-eca0a9c92fc1"
       },
       {
@@ -1459,7 +689,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:47.155001+00:00"
+    "_generated_at": "2026-04-23T17:22:55.880006+00:00",
+    "_notion_block_id": "34c5917e-ac52-81b9-9317-e1cc2ffe7b89"
   },
   {
     "id": "s2_2_reading_bar_height",
@@ -1469,18 +700,20 @@
         "method": "PLACEHOLDER",
         "tangible_id": "PLACEHOLDER",
         "params": {
-          "description": "Vertical picture graph appears. Favorite Playground Equipment data. Swings=4 symbols, Slides=3 symbols, Monkey bars=5 symbols. Key: each symbol = 5 votes."
+          "description": "Vertical picture graph titled Favorite Playground Activities. Categories: Swings (4 symbols), Slides (3 symbols), Monkey Bars (5 symbols), Sandbox (2 symbols). Scale 5: each symbol = 5. Key visible."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-81be-8d6e-d0d610799133"
       },
       {
         "type": "scene",
         "method": "PLACEHOLDER",
         "tangible_id": "PLACEHOLDER",
         "params": {
-          "description": "Vertical bar graph appears alongside picture graph. Same Favorite Playground Equipment data. Swings bar height=20, Slides bar height=15, Monkey bars bar height=25."
+          "description": "Vertical bar graph titled Favorite Playground Activities. Categories: Swings (20), Slides (15), Monkey Bars (25), Sandbox (10). Axis: 0 to 30 in intervals of 5. Side-by-side with picture graph."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-8129-a3c8-ecbc33a833d8"
       },
       {
         "type": "scene",
@@ -1489,7 +722,8 @@
         "params": {
           "description": "Slides category highlights on picture graph."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-810c-8581-c5e8afff3239"
       },
       {
         "type": "scene",
@@ -1498,17 +732,18 @@
         "params": {
           "description": "Slides category highlights on bar graph."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-81e0-91db-df3b0a6cd236"
       },
       {
         "type": "dialogue",
-        "text": "In a bar graph, you read the height, where the bar ends on the axis. Look at Slides. What's the height of the Slides bar? Where does it end?",
-        "id": "s2_2_reading_bar_height_b4",
+        "text": "In a bar graph, you read the {height}, where the bar ENDS on the axis. Look at Slides. What's the {height} of the Slides bar? Where does it end?",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-8135-ab14-d5dfa0ea4853"
       },
       {
         "type": "prompt",
-        "text": "What's the HEIGHT of the Slides bar?",
+        "notion_flag": "suggested",
         "tool": "multiple_choice",
         "options": [
           3,
@@ -1516,135 +751,7 @@
           15,
           20
         ],
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": 15
-            },
-            "description": "Student selected 15, correct bar height",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Right. The bar's height is 15. It ends at 15 on the axis. Same as 3 symbols on the picture graph. Both show 15.",
-                "id": "s2_2_reading_bar_height_b5_v0_b0",
-                "_notion_block_id": "3485917e-ac52-81d0-8d3c-c820ac58c728"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 3
-            },
-            "description": "Student selected 3 (the number of symbols in the picture graph)",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_play",
-                "params": {
-                  "highlight_categories": [
-                    "Slides"
-                  ],
-                  "description": "Slides bar highlights. Axis markings pulse at 5, 10, 15."
-                },
-                "id": "s2_2_reading_bar_height_b5_v1_b0",
-                "_notion_block_id": "3485917e-ac52-813b-b8f9-fd846e9c477a"
-              },
-              {
-                "type": "dialogue",
-                "text": "You counted the symbols in the picture graph. In a bar graph, look where the bar ENDS on the axis. Follow the top of the Slides bar across. What number does it reach?",
-                "id": "s2_2_reading_bar_height_b5_v1_b1",
-                "_notion_block_id": "3485917e-ac52-8183-8473-ddbde332fc3a"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 10
-            },
-            "description": "Student selected 10 (incorrect axis reading)",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_play",
-                "params": {
-                  "highlight_categories": [
-                    "Slides"
-                  ],
-                  "description": "Slides bar highlights. Guideline draws from bar top to axis at 15."
-                },
-                "id": "s2_2_reading_bar_height_b5_v2_b0",
-                "_notion_block_id": "3485917e-ac52-8159-9c6f-da8002c2cdea"
-              },
-              {
-                "type": "dialogue",
-                "text": "Look closely at where the bar ends. The axis counts by 5s: 5, 10, 15. The Slides bar goes past 10. Where does the top of the bar land?",
-                "id": "s2_2_reading_bar_height_b5_v2_b1",
-                "_notion_block_id": "3485917e-ac52-81c6-9645-d4f01070ac3e"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 20
-            },
-            "description": "Student selected 20 (reading Swings bar instead of Slides)",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_play",
-                "params": {
-                  "highlight_categories": [
-                    "Slides"
-                  ],
-                  "description": "Slides bar pulses to draw attention. Other bars dim."
-                },
-                "id": "s2_2_reading_bar_height_b5_v3_b0",
-                "_notion_block_id": "3485917e-ac52-813f-9539-c5bdbb978d89"
-              },
-              {
-                "type": "dialogue",
-                "text": "20 is the Swings bar. Look at the Slides bar, the one that is highlighted. Follow the top of that bar to the axis. What number does it reach?",
-                "id": "s2_2_reading_bar_height_b5_v3_b1",
-                "_notion_block_id": "3485917e-ac52-81ed-a979-ebfb7450146e"
-              }
-            ]
-          },
-          {
-            "condition": {},
-            "description": "Student answered incorrectly. System models the correct answer.",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "bar_graph_play",
-                "params": {
-                  "event": "draw_bar_guideline",
-                  "status": "confirmed",
-                  "description": "Guideline draws from top of Slides bar across to axis, landing at 15.",
-                  "category": "Slides"
-                },
-                "id": "s2_2_reading_bar_height_b5_v4_b0",
-                "_notion_block_id": "3485917e-ac52-81a9-a9d6-cbe61f4f0f80"
-              },
-              {
-                "type": "dialogue",
-                "text": "Let me show you. Follow the top of the Slides bar across to the axis. It ends at 15. That is the bar's height. The bar shows 15 votes, the same as 3 symbols in the picture graph. The height tells you the value.",
-                "id": "s2_2_reading_bar_height_b5_v4_b1",
-                "_notion_block_id": "3485917e-ac52-81af-946f-c0d890901978"
-              }
-            ]
-          }
-        ],
-        "id": "s2_2_reading_bar_height_b5",
+        "text": "What's the HEIGHT of the Slides bar?",
         "_notion_block_id": "3485917e-ac52-8100-a13a-e4470afb03f2"
       },
       {
@@ -1653,7 +760,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T17:01:00.624572+00:00"
+    "_generated_at": "2026-04-23T17:23:19.183310+00:00",
+    "_notion_block_id": "34c5917e-ac52-81d5-abf4-f24889a1e123"
   },
   {
     "id": "s2_3_reading_axis_scale_5",
@@ -1665,7 +773,8 @@
         "params": {
           "description": "Data table appears. Favorite Lunch Foods. Pizza=20, Tacos=30, Salad=15, Pasta=25, Sandwiches=15."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-8195-b098-da881090f68e"
       },
       {
         "type": "scene",
@@ -1674,7 +783,8 @@
         "params": {
           "description": "Vertical bar graph appears. Favorite Lunch Foods. Axis labeled 0-35 in 5s. Tacos bar pre-filled at 30, Sandwiches bar pre-filled at 15. Pizza, Salad, Pasta bars empty."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-8163-9139-e1d87a071119"
       },
       {
         "type": "scene",
@@ -1683,23 +793,24 @@
         "params": {
           "description": "Axis numbers highlight to draw attention to the scale."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-8140-849f-d13bea3c4dd7"
       },
       {
         "type": "dialogue",
-        "text": "Before you create the bars, look at the numbers on the axis.",
-        "id": "s2_3_reading_axis_scale_5_b3",
+        "text": "Here’s new data to make a {scaled bar graph}. Students voted for their favorite lunch foods. Before you create the bars, look at the numbers on the {axis}.",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-815c-a0f2-fd672f218b96"
       },
       {
         "type": "dialogue",
-        "text": "These numbers count by 5s—just like you did with symbols. The axis does the skip-counting for you. What comes after 20 on this axis?",
-        "id": "s2_3_reading_axis_scale_5_b4",
+        "text": "These numbers count by 5s, just like you did with symbols. The axis does the skip-counting for you. What comes after 20 on this axis?",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-810c-ab36-c9983fd87ae9"
       },
       {
         "type": "prompt",
-        "text": "What comes after 20 on this axis?",
+        "notion_flag": "suggested",
         "tool": "multiple_choice",
         "options": [
           21,
@@ -1707,143 +818,7 @@
           30,
           22
         ],
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": 25
-            },
-            "description": "Student selected 25, correct",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Right. 25. The axis counts by 5s: 5, 10, 15, 20, 25, 30... Same skip-counting you used for symbols, just written on the side.",
-                "id": "s2_3_reading_axis_scale_5_b5_v0_b0",
-                "_notion_block_id": "3485917e-ac52-81be-870b-fc929e6b4a14"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 21
-            },
-            "description": "Student selected 21: counting by 1s instead of recognizing the scale of 5",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_lunch",
-                "params": {
-                  "highlight_axis_numbers": [
-                    15,
-                    20,
-                    25,
-                    30
-                  ],
-                  "description": "Numbers 15, 20, 25, 30 pulse on the axis to show the pattern."
-                },
-                "id": "s2_3_reading_axis_scale_5_b5_v1_b0",
-                "_notion_block_id": "3485917e-ac52-8101-8258-d215036bc33a"
-              },
-              {
-                "type": "dialogue",
-                "text": "Look at the pattern on the axis. These numbers skip by 5s, not 1s. What number comes after 15?",
-                "id": "s2_3_reading_axis_scale_5_b5_v1_b1",
-                "_notion_block_id": "3485917e-ac52-81aa-ab2a-db93707d4fe8"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 30
-            },
-            "description": "Student selected 30: skipped ahead by 10 instead of 5",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_lunch",
-                "params": {
-                  "highlight_axis_numbers": [
-                    15,
-                    20,
-                    25
-                  ],
-                  "description": "Numbers 15, 20, 25 pulse to show the spacing between marks."
-                },
-                "id": "s2_3_reading_axis_scale_5_b5_v2_b0",
-                "_notion_block_id": "3485917e-ac52-8150-b52f-ca356369b700"
-              },
-              {
-                "type": "dialogue",
-                "text": "Each step on this axis goes up by 5, not 10. From 15 to 20 is 5. From 20 to the next mark is another 5. What's 20 plus 5?",
-                "id": "s2_3_reading_axis_scale_5_b5_v2_b1",
-                "_notion_block_id": "3485917e-ac52-814c-947a-f92bf5e86700"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 22
-            },
-            "description": "Student selected 22: added 2 instead of following the scale pattern",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_lunch",
-                "params": {
-                  "highlight_axis_numbers": [
-                    0,
-                    5,
-                    10,
-                    15,
-                    20
-                  ],
-                  "description": "All axis numbers from 0 to 20 pulse to show the consistent interval."
-                },
-                "id": "s2_3_reading_axis_scale_5_b5_v3_b0",
-                "_notion_block_id": "3485917e-ac52-8177-a4fa-e7cf1f479aea"
-              },
-              {
-                "type": "dialogue",
-                "text": "This axis counts by 5s, just like you counted symbols. 5, 10, 15, 20, and then what? Keep counting by 5s.",
-                "id": "s2_3_reading_axis_scale_5_b5_v3_b1",
-                "_notion_block_id": "3485917e-ac52-819f-a951-dba2313f2fbd"
-              }
-            ]
-          },
-          {
-            "condition": {},
-            "description": "Student answered incorrectly. System models the correct answer.",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "bar_graph_lunch",
-                "params": {
-                  "event": "trace_axis_scale",
-                  "status": "confirmed",
-                  "description": "Axis numbers highlight in sequence: 0, 5, 10, 15, 20, 25, 30, 35, showing the counting by 5s pattern."
-                },
-                "id": "s2_3_reading_axis_scale_5_b5_v4_b0",
-                "_notion_block_id": "3485917e-ac52-81e3-aa92-c55284b86df4"
-              },
-              {
-                "type": "dialogue",
-                "text": "Let me show you. The axis counts by 5s the whole way up: 0, 5, 10, 15, 20. After 20 comes 25. That's how the scale works. The skip-counting is built into the side of the graph.",
-                "id": "s2_3_reading_axis_scale_5_b5_v4_b1",
-                "_notion_block_id": "3485917e-ac52-81d6-a769-c7c9be571b27"
-              }
-            ]
-          }
-        ],
-        "id": "s2_3_reading_axis_scale_5_b5",
+        "text": "What comes after 20 on this axis?",
         "_notion_block_id": "3485917e-ac52-8126-9312-ce34348b4750"
       },
       {
@@ -1852,7 +827,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T17:01:11.986587+00:00"
+    "_generated_at": "2026-04-23T17:23:39.606767+00:00",
+    "_notion_block_id": "34c5917e-ac52-8133-abca-c8ad4a25ad79"
   },
   {
     "id": "s2_4_your_turn_create_bar",
@@ -1864,7 +840,8 @@
         "params": {
           "description": "Data table appears showing Favorite Lunch Foods values: Tacos=30, Pizza=20, Sandwiches=15, Salad=25, Pasta=10."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-814a-9827-c47d10ae95c5"
       },
       {
         "type": "scene",
@@ -1873,121 +850,21 @@
         "params": {
           "description": "Vertical bar graph appears in building mode. Favorite Lunch Foods. Tacos bar pre-filled at 30, Sandwiches at 15. Pizza, Salad, Pasta bars empty. Scale: 5. Axis shows 0, 5, 10, 15, 20, 25, 30."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-81ae-9af8-d0562427bb84"
       },
       {
         "type": "dialogue",
-        "text": "Pizza has 20 votes. You found 20 on the axis. Set the height for Pizza to show 20.",
-        "id": "s2_4_your_turn_create_bar_b2",
+        "text": "Pizza has 20 votes. You found 20 on the axis. Set the height of the bar for Pizza to show 20.",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-81a7-a733-ea1e9f08926b"
       },
       {
         "type": "prompt",
-        "text": "Set the height for Pizza to show 20.",
+        "notion_flag": "suggested",
         "tool": "click_to_set_height",
         "target": "bar_graph_lunch",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "category": "Pizza",
-              "bar_height": 20
-            },
-            "description": "Student set Pizza bar height to 20, correct",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "bar_graph_lunch",
-                "params": {
-                  "event": "confirm_bar_height",
-                  "status": "confirmed",
-                  "category": "Pizza",
-                  "description": "Pizza bar confirms at height 20."
-                },
-                "id": "s2_4_your_turn_create_bar_b3_v0_b0",
-                "_notion_block_id": "3485917e-ac52-8128-b8d8-fce387592abd"
-              },
-              {
-                "type": "dialogue",
-                "text": "Right. The bar ends at 20, right on the axis. The skip-counting is already there. You just match the height.",
-                "id": "s2_4_your_turn_create_bar_b3_v0_b1",
-                "_notion_block_id": "3485917e-ac52-81b0-a53c-d23b8a028471"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "incorrect_count": 1
-            },
-            "description": "Student set incorrect bar height on first attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Not quite. Check the axis. Where is 20?",
-                "id": "s2_4_your_turn_create_bar_b3_v1_b0",
-                "_notion_block_id": "3485917e-ac52-8108-b3a6-d503c4c4dd1f"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "incorrect_count": 2
-            },
-            "description": "Student set incorrect bar height on second attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_lunch",
-                "params": {
-                  "highlight_axis_numbers": [
-                    20
-                  ],
-                  "description": "The number 20 highlights on the axis."
-                },
-                "id": "s2_4_your_turn_create_bar_b3_v2_b0",
-                "_notion_block_id": "3485917e-ac52-8167-b405-d3be7098fb75"
-              },
-              {
-                "type": "dialogue",
-                "text": "Here's what helps: the axis counts by 5s. Find 20 on those numbers and set the bar so it ends right there.",
-                "id": "s2_4_your_turn_create_bar_b3_v2_b1",
-                "_notion_block_id": "3485917e-ac52-8149-aace-f8ed90e50aff"
-              }
-            ]
-          },
-          {
-            "condition": {},
-            "description": "Student set incorrect bar height three or more times. System models the answer.",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "bar_graph_lunch",
-                "params": {
-                  "event": "confirm_bar_height",
-                  "status": "confirmed",
-                  "category": "Pizza",
-                  "description": "Pizza bar extends upward to height 20, demonstrating correct placement."
-                },
-                "id": "s2_4_your_turn_create_bar_b3_v3_b0",
-                "_notion_block_id": "3485917e-ac52-81dd-a4ed-feac3e100beb"
-              },
-              {
-                "type": "dialogue",
-                "text": "Let me show you. Pizza has 20 votes. I look at the axis: 5, 10, 15, 20. I set the bar so it ends at 20. The bar height matches the value. That is how you use the axis to place a bar correctly.",
-                "id": "s2_4_your_turn_create_bar_b3_v3_b1",
-                "_notion_block_id": "3485917e-ac52-81d1-bea2-dde43f012921"
-              }
-            ]
-          }
-        ],
-        "id": "s2_4_your_turn_create_bar_b3",
+        "text": "Set the height of the bar for Pizza to show 20.",
         "_notion_block_id": "3485917e-ac52-8172-9163-e52d610ce2b9"
       },
       {
@@ -1996,7 +873,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T17:01:23.852566+00:00"
+    "_generated_at": "2026-04-23T17:23:57.869958+00:00",
+    "_notion_block_id": "34c5917e-ac52-8108-ab6e-f5fc2934c137"
   },
   {
     "id": "s2_5_complete_bar_graph",
@@ -2006,131 +884,33 @@
         "method": "PLACEHOLDER",
         "tangible_id": "PLACEHOLDER",
         "params": {
+          "description": "Vertical data table titled Favorite Lunch Foods appears. Categories: Pizza (20), Tacos (30), Salad (15), Pasta (25), Sandwiches (15)."
+        },
+        "notion_flag": "suggested",
+        "_notion_block_id": "34b5917e-ac52-805d-86dd-c48bb7f712a4"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
           "description": "Vertical bar graph appears. Favorite Lunch Foods. Pizza bar at 20, Tacos at 30, Sandwiches at 15. Salad and Pasta bars empty, ready to build."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-81c8-b876-da6570f451c1"
       },
       {
         "type": "dialogue",
-        "text": "Finish the graph. Salad has 15, Pasta has 25. Set the heights for Salad and Pasta.",
-        "id": "s2_5_complete_bar_graph_b1",
+        "text": "Finish the bar graph. Salad has 15, Pasta has 25. Set the bar heights for Salad and Pasta.",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-8127-90a9-fa2dd0c7fc07"
       },
       {
         "type": "prompt",
-        "text": "Set the heights for Salad and Pasta.",
+        "notion_flag": "suggested",
         "tool": "click_to_set_height",
         "target": "bar_graph_lunch",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "and": [
-                {
-                  "bar_height": {
-                    "category": "Salad",
-                    "value": 15
-                  }
-                },
-                {
-                  "bar_height": {
-                    "category": "Pasta",
-                    "value": 25
-                  }
-                }
-              ]
-            },
-            "description": "Student set Salad to 15 and Pasta to 25, both correct",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "bar_graph_lunch",
-                "params": {
-                  "event": "confirm_bar_heights",
-                  "status": "confirmed",
-                  "description": "Salad and Pasta bars confirm at correct heights."
-                },
-                "id": "s2_5_complete_bar_graph_b2_v0_b0",
-                "_notion_block_id": "3485917e-ac52-8176-832d-df0309ed9789"
-              },
-              {
-                "type": "dialogue",
-                "text": "Nice. You built the bar graph. Each bar shows exactly how many votes that food got.",
-                "id": "s2_5_complete_bar_graph_b2_v0_b1",
-                "_notion_block_id": "3485917e-ac52-8156-b2a2-d9c87da156d3"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "incorrect_count": 1
-            },
-            "description": "Student set incorrect heights on first attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Look at the data table. What number is next to Salad? What number is next to Pasta?",
-                "id": "s2_5_complete_bar_graph_b2_v1_b0",
-                "_notion_block_id": "3485917e-ac52-81f6-9976-e4c6d2c3c289"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "incorrect_count": 2
-            },
-            "description": "Student set incorrect heights on second attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_lunch",
-                "params": {
-                  "highlight_axis_numbers": true,
-                  "description": "Axis numbers highlight to show the scale increments."
-                },
-                "id": "s2_5_complete_bar_graph_b2_v2_b0",
-                "_notion_block_id": "3485917e-ac52-811e-bf3d-d1f10f99b5e8"
-              },
-              {
-                "type": "dialogue",
-                "text": "The axis counts by 5s. Salad has 15. Count up: 5, 10, 15. Where does 15 land? Pasta has 25. Count: 5, 10, 15, 20, 25. Set each bar to end at its number.",
-                "id": "s2_5_complete_bar_graph_b2_v2_b1",
-                "_notion_block_id": "3485917e-ac52-81b6-bdde-e6724c25c7f8"
-              }
-            ]
-          },
-          {
-            "condition": {},
-            "description": "Student set incorrect heights three or more times. System models the answer.",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "bar_graph_lunch",
-                "params": {
-                  "event": "model_bar_placement",
-                  "status": "confirmed",
-                  "description": "System demonstrates: Salad bar rises to 15 on the axis, then Pasta bar rises to 25."
-                },
-                "id": "s2_5_complete_bar_graph_b2_v3_b0",
-                "_notion_block_id": "3485917e-ac52-81b0-8239-ca1431602474"
-              },
-              {
-                "type": "dialogue",
-                "text": "Let me show you. Salad has 15. I find 15 on the axis and set the bar to end there. Pasta has 25. I find 25 on the axis and set that bar to end there. The bar height matches the value on the axis. That is how bar graphs work: the height shows the count.",
-                "id": "s2_5_complete_bar_graph_b2_v3_b1",
-                "_notion_block_id": "3485917e-ac52-818d-9283-c09ad7a49031"
-              }
-            ]
-          }
-        ],
-        "id": "s2_5_complete_bar_graph_b2",
+        "text": "Set the bar heights for Salad and Pasta.",
         "_notion_block_id": "3485917e-ac52-8150-9588-f6d433cd18c2"
       },
       {
@@ -2139,7 +919,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T17:01:33.640574+00:00"
+    "_generated_at": "2026-04-23T17:24:17.199599+00:00",
+    "_notion_block_id": "34c5917e-ac52-8191-a30c-cbdce9bfe355"
   },
   {
     "id": "s2_6_reading_completed_bar_graph",
@@ -2151,7 +932,8 @@
         "params": {
           "description": "Vertical bar graph appears. Favorite Lunch Foods. Pizza=20, Tacos=30, Salad=15, Pasta=25, Sandwiches=15."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-817f-98e2-e3b90b7d4338"
       },
       {
         "type": "scene",
@@ -2160,7 +942,8 @@
         "params": {
           "description": "Vertical picture graph appears alongside bar graph. Same Favorite Lunch Foods data. Each star symbol = 5. Pizza=4 stars, Tacos=6 stars, Salad=3 stars, Pasta=5 stars, Sandwiches=3 stars."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-810f-afc2-cb833efe7a95"
       },
       {
         "type": "scene",
@@ -2169,7 +952,8 @@
         "params": {
           "description": "Data table appears showing Favorite Lunch Foods values."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-8189-81ca-e08c3855e2a8"
       },
       {
         "type": "scene",
@@ -2178,7 +962,8 @@
         "params": {
           "description": "Pasta bar highlights on bar graph."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-81a7-a9f2-d6b9760289a6"
       },
       {
         "type": "scene",
@@ -2187,17 +972,18 @@
         "params": {
           "description": "Pasta column highlights on picture graph."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-8117-9256-ea19d8593f91"
       },
       {
         "type": "dialogue",
         "text": "Here's the same data as a picture graph. Let's check: do they match? Look at Pasta. The bar shows 25.",
-        "id": "s2_6_reading_completed_bar_graph_b5",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-81a9-90ac-e1860a25c6ac"
       },
       {
         "type": "prompt",
-        "text": "How many symbols should the picture graph have?",
+        "notion_flag": "suggested",
         "tool": "multiple_choice",
         "options": [
           4,
@@ -2205,155 +991,7 @@
           20,
           25
         ],
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": 5
-            },
-            "description": "Student answered 5, correct. 5 symbols at scale of 5 equals 25.",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Right. 5 symbols. Count by 5s: 5, 10, 15, 20, 25. There are 5 fives. Bar graph and picture graph: same information, different format.",
-                "id": "s2_6_reading_completed_bar_graph_b6_v0_b0",
-                "_notion_block_id": "3485917e-ac52-818e-a888-ff3df0c83706"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 4
-            },
-            "description": "Student selected 4, confusing symbols with the value 20",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "picture_graph_lunch",
-                "params": {
-                  "highlight_categories": [
-                    "Pizza"
-                  ],
-                  "description": "Pizza column highlights on picture graph."
-                },
-                "id": "s2_6_reading_completed_bar_graph_b6_v1_b0",
-                "_notion_block_id": "3485917e-ac52-818a-aab3-e9b58886e7ad"
-              },
-              {
-                "type": "dialogue",
-                "text": "Look at Pizza on the picture graph. It has 4 symbols, and that equals 20. But Pasta shows 25 on the bar graph. Count by 5s from the Pasta symbols.",
-                "id": "s2_6_reading_completed_bar_graph_b6_v1_b1",
-                "_notion_block_id": "3485917e-ac52-81fb-9d1d-c53aefbdde08"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 20
-            },
-            "description": "Student selected 20, confusing the number of items with number of symbols",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "picture_graph_lunch",
-                "params": {
-                  "highlight_categories": [],
-                  "description": "All highlights clear."
-                },
-                "id": "s2_6_reading_completed_bar_graph_b6_v2_b0",
-                "_notion_block_id": "3485917e-ac52-81dd-82c1-f762151ee160"
-              },
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_lunch",
-                "params": {
-                  "event": "highlight_key",
-                  "status": "proposed",
-                  "description": "Key pulses: Each star = 5."
-                },
-                "id": "s2_6_reading_completed_bar_graph_b6_v2_b1",
-                "_notion_block_id": "3485917e-ac52-8116-a6d3-ed7622cd6118"
-              },
-              {
-                "type": "dialogue",
-                "text": "The key tells us each symbol represents 5 items, not 1. How many groups of 5 do you need to make 25?",
-                "id": "s2_6_reading_completed_bar_graph_b6_v2_b2",
-                "_notion_block_id": "3485917e-ac52-8186-ab32-c854b304341b"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 25
-            },
-            "description": "Student selected 25, reading the bar value instead of converting to symbols",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "picture_graph_lunch",
-                "params": {
-                  "highlight_categories": [],
-                  "description": "All highlights clear."
-                },
-                "id": "s2_6_reading_completed_bar_graph_b6_v3_b0",
-                "_notion_block_id": "3485917e-ac52-816e-aaa5-ef5d068d923a"
-              },
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_lunch",
-                "params": {
-                  "event": "highlight_key",
-                  "status": "proposed",
-                  "description": "Key pulses: Each star = 5."
-                },
-                "id": "s2_6_reading_completed_bar_graph_b6_v3_b1",
-                "_notion_block_id": "3485917e-ac52-8163-ab91-efa9e0b3e97b"
-              },
-              {
-                "type": "dialogue",
-                "text": "25 is the number of items Pasta got. But the question asks how many SYMBOLS the picture graph needs. Each symbol stands for 5. Count by 5s to reach 25.",
-                "id": "s2_6_reading_completed_bar_graph_b6_v3_b2",
-                "_notion_block_id": "3485917e-ac52-81ab-9e6b-dc7e3d24a43e"
-              }
-            ]
-          },
-          {
-            "condition": {},
-            "description": "Student answered incorrectly. System models the correct answer.",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_lunch",
-                "params": {
-                  "event": "count_by_scale",
-                  "status": "confirmed",
-                  "description": "System counts Pasta symbols by 5s: 5, 10, 15, 20, 25. Each symbol lights up as counted.",
-                  "category": "Pasta"
-                },
-                "id": "s2_6_reading_completed_bar_graph_b6_v4_b0",
-                "_notion_block_id": "3485917e-ac52-819e-baa7-e0087de65331"
-              },
-              {
-                "type": "dialogue",
-                "text": "Let me show you. Pasta has 25 on the bar graph. Count by 5s: 5, 10, 15, 20, 25. That's 5 symbols. Each symbol represents 5 items, so 5 symbols equals 25 items total.",
-                "id": "s2_6_reading_completed_bar_graph_b6_v4_b1",
-                "_notion_block_id": "3485917e-ac52-8184-a820-fa27b8914e87"
-              }
-            ]
-          }
-        ],
-        "id": "s2_6_reading_completed_bar_graph_b6",
+        "text": "How many symbols should the picture graph have?",
         "_notion_block_id": "3485917e-ac52-8114-9dd6-c8f51b8c6eb0"
       },
       {
@@ -2362,7 +1000,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T17:01:47.333795+00:00"
+    "_generated_at": "2026-04-23T17:24:40.955180+00:00",
+    "_notion_block_id": "34c5917e-ac52-816c-913c-d7e4b05231c2"
   },
   {
     "id": "s2_7_comparison_question_bars_work_too",
@@ -2372,19 +1011,20 @@
         "method": "PLACEHOLDER",
         "tangible_id": "PLACEHOLDER",
         "params": {
-          "description": "Vertical bar graph appears. Favorite Lunch Foods. Tacos=30, Pizza=25, Salad=15, Pasta=20. Tacos and Salad bars highlighted."
+          "description": "Vertical bar graph appears. Favorite Lunch Foods. Tacos=30, Pizza=25, Salad=15, Pasta=20, Sandwiches=15. Tacos and Salad bars highlighted."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-81b3-9960-c65c6d54c6db"
       },
       {
         "type": "dialogue",
-        "text": "You already know how to compare using graphs. Same skill works here. How many MORE students chose Tacos than Salad?",
-        "id": "s2_7_comparison_question_bars_work_too_b1",
+        "text": "You already know how to compare using bar graphs when the scale is 1. Same skill works here when the axis counts by 5s. How many more students chose Tacos than Salad?",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-8102-ad32-eca82911d831"
       },
       {
         "type": "prompt",
-        "text": "How many MORE students chose Tacos than Salad?",
+        "notion_flag": "suggested",
         "tool": "multiple_choice",
         "options": [
           10,
@@ -2392,141 +1032,7 @@
           30,
           45
         ],
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": 15
-            },
-            "description": "Student selected 15, correct difference",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "That's right. Tacos has 30, Salad has 15. The difference is 15.",
-                "id": "s2_7_comparison_question_bars_work_too_b2_v0_b0",
-                "_notion_block_id": "3485917e-ac52-8163-9e12-d1c2d7264a2d"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 10
-            },
-            "description": "Student selected 10, likely subtracted 5 instead of finding difference between 30 and 15",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_lunch",
-                "params": {
-                  "highlight_categories": [
-                    "Tacos",
-                    "Salad"
-                  ],
-                  "description": "Tacos and Salad bars pulse to draw attention."
-                },
-                "id": "s2_7_comparison_question_bars_work_too_b2_v1_b0",
-                "_notion_block_id": "3485917e-ac52-81ee-ba41-ee12f0482207"
-              },
-              {
-                "type": "dialogue",
-                "text": "Look at where each bar ends on the axis. Tacos reaches 30. Salad reaches 15. What's the difference between those two numbers?",
-                "id": "s2_7_comparison_question_bars_work_too_b2_v1_b1",
-                "_notion_block_id": "3485917e-ac52-8149-94b2-d5b316260cfa"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 30
-            },
-            "description": "Student selected 30, reading Tacos value instead of finding the difference",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_lunch",
-                "params": {
-                  "highlight_categories": [
-                    "Tacos",
-                    "Salad"
-                  ],
-                  "description": "Tacos and Salad bars pulse."
-                },
-                "id": "s2_7_comparison_question_bars_work_too_b2_v2_b0",
-                "_notion_block_id": "3485917e-ac52-8188-9b62-e45d355bbb17"
-              },
-              {
-                "type": "dialogue",
-                "text": "The question asks how many MORE Tacos got than Salad. That means we need the difference. Tacos is 30, Salad is 15. How far apart are they?",
-                "id": "s2_7_comparison_question_bars_work_too_b2_v2_b1",
-                "_notion_block_id": "3485917e-ac52-81d5-bba5-cff9200fce65"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 45
-            },
-            "description": "Student selected 45, added the two values instead of finding the difference",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_lunch",
-                "params": {
-                  "highlight_categories": [
-                    "Tacos",
-                    "Salad"
-                  ],
-                  "description": "Tacos and Salad bars pulse."
-                },
-                "id": "s2_7_comparison_question_bars_work_too_b2_v3_b0",
-                "_notion_block_id": "3485917e-ac52-818e-83cb-c80b96e755d9"
-              },
-              {
-                "type": "dialogue",
-                "text": "When we ask how many MORE, we subtract to find the difference. We don't add them together. What's 30 minus 15?",
-                "id": "s2_7_comparison_question_bars_work_too_b2_v3_b1",
-                "_notion_block_id": "3485917e-ac52-8132-bfa2-d40d9ad0aa1d"
-              }
-            ]
-          },
-          {
-            "condition": {},
-            "description": "Student answered incorrectly. System models the correct answer.",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "bar_graph_lunch",
-                "params": {
-                  "event": "show_difference",
-                  "status": "confirmed",
-                  "description": "Visual bracket appears connecting Tacos bar at 30 and Salad bar at 15, showing the gap of 15.",
-                  "categories": [
-                    "Tacos",
-                    "Salad"
-                  ]
-                },
-                "id": "s2_7_comparison_question_bars_work_too_b2_v4_b0",
-                "_notion_block_id": "3485917e-ac52-81dc-b6bc-de1cdc869f2c"
-              },
-              {
-                "type": "dialogue",
-                "text": "Let me show you. Tacos ends at 30 on the axis. Salad ends at 15. To find how many more, I subtract: 30 minus 15 equals 15. The difference between the two bars is 15.",
-                "id": "s2_7_comparison_question_bars_work_too_b2_v4_b1",
-                "_notion_block_id": "3485917e-ac52-81bf-a701-e960f5749444"
-              }
-            ]
-          }
-        ],
-        "id": "s2_7_comparison_question_bars_work_too_b2",
+        "text": "How many more students chose Tacos than Salad?",
         "_notion_block_id": "3485917e-ac52-8135-91c2-cfa9ad47576f"
       },
       {
@@ -2535,7 +1041,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T17:01:55.339316+00:00"
+    "_generated_at": "2026-04-23T17:24:55.211786+00:00",
+    "_notion_block_id": "34c5917e-ac52-81bf-b09c-d44aeaf8db04"
   },
   {
     "id": "s2_8_section_transition",
@@ -2548,12 +1055,13 @@
         "params": {
           "description": "Data table appears showing numeric values only."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-817e-af8d-d4024c497f23"
       },
       {
         "type": "dialogue",
         "text": "So far, some parts of the graphs were already filled in for you. Now let's see if you can build a whole graph on your own.",
-        "id": "s2_8_section_transition_b1",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-81fa-bfed-d173043303a2"
       },
       {
@@ -2562,7 +1070,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T17:02:04.030327+00:00"
+    "_generated_at": "2026-04-23T17:25:03.533569+00:00",
+    "_notion_block_id": "34c5917e-ac52-813e-9ca0-d4ad4455089c"
   },
   {
     "id": "s3_1_picture_graph_no_scaffolding_horizontal",
@@ -2574,7 +1083,8 @@
         "params": {
           "description": "Vertical data table appears. Books Read This Month. Liam=35, Emma=20, Noah=25, Olivia=40."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-810f-ae3f-d9bb8ab4f577"
       },
       {
         "type": "scene",
@@ -2583,12 +1093,13 @@
         "params": {
           "description": "Horizontal picture graph appears. Books Read This Month. 0 categories filled. Key visible: Each ⭐ = 5 books."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-81e6-ba85-d3625622930b"
       },
       {
         "type": "dialogue",
-        "text": "This graph goes sideways, horizontal. Same idea, you just click for the length for the number of symbols instead of height.",
-        "id": "s3_1_picture_graph_no_scaffolding_horizontal_b2",
+        "text": "Four students tracked how many books they read this month and here is their data. This graph goes sideways, {horizontal}. Same idea as you build the graph, you just click for the {length} for the number of symbols instead of height.",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-81bf-841a-f083a5387263"
       },
       {
@@ -2596,12 +1107,12 @@
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Vertical data table. Books Read This Month. Liam=35, Emma=20, Noah=25, Olivia=40.",
+            "description": "Vertical data table showing Books Read This Month: Liam 35, Emma 20, Noah 25, Olivia 40.",
             "tangible_type": "data_table"
           },
           {
             "tangible_id": "picture_graph_books",
-            "description": "Horizontal picture graph in building mode. Books Read This Month. 0 categories filled. Key: Each ⭐ = 5 books.",
+            "description": "Horizontal picture graph in building mode. Books Read This Month. Liam row has 7 symbols placed. Emma, Noah, Olivia rows empty. Key visible: Each star = 5 books.",
             "tangible_type": "picture_graph",
             "mode": "building",
             "orientation": "horizontal",
@@ -2614,119 +1125,21 @@
             "scale": 5
           }
         ],
-        "id": "s3_1_picture_graph_no_scaffolding_horizontal_b3",
+        "id": "s3_1_picture_graph_no_scaffolding_horizontal_b6",
         "_notion_block_id": "3485917e-ac52-81db-a2c2-c12539cd6cef"
       },
       {
         "type": "dialogue",
-        "text": "Make a picture graph. Start with Liam. He read 35 books. Set the number of symbols for Liam.",
-        "id": "s3_1_picture_graph_no_scaffolding_horizontal_b4",
+        "text": "Make a picture graph. Start with Liam. He read 35 books. Notice the key. Set the number of symbols for Liam.",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-815c-992f-cac9684d7e9f"
       },
       {
         "type": "prompt",
-        "text": "Set the number of symbols for Liam.",
+        "notion_flag": "suggested",
         "tool": "click_to_place",
         "target": "picture_graph_books",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "symbols_placed": 7
-            },
-            "description": "Student placed 7 symbols for Liam, correct for 35 books at scale 5",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_books",
-                "params": {
-                  "event": "confirm_symbols_placed",
-                  "status": "confirmed",
-                  "description": "7 symbols confirm in Liam row.",
-                  "category": "Liam"
-                },
-                "id": "s3_1_picture_graph_no_scaffolding_horizontal_b5_v0_b0",
-                "_notion_block_id": "3485917e-ac52-81ae-8c60-ed38ba38add1"
-              },
-              {
-                "type": "dialogue",
-                "text": "Right. 7 symbols for 35 books. 5, 10, 15, 20, 25, 30, 35. That's how you count by the scale to place the right number of symbols.",
-                "id": "s3_1_picture_graph_no_scaffolding_horizontal_b5_v0_b1",
-                "_notion_block_id": "3485917e-ac52-817f-ae91-fdcb00696652"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "incorrect_count": 1
-            },
-            "description": "Student placed wrong number of symbols on first attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Not quite. Count by 5s until you reach 35. How many times do you count?",
-                "id": "s3_1_picture_graph_no_scaffolding_horizontal_b5_v1_b0",
-                "_notion_block_id": "3485917e-ac52-817a-ba60-e7e2c8c92275"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "incorrect_count": 2
-            },
-            "description": "Student placed wrong number of symbols on second attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "data_table",
-                "params": {
-                  "highlight_value": "35",
-                  "description": "Liam's value 35 highlights in data table."
-                },
-                "id": "s3_1_picture_graph_no_scaffolding_horizontal_b5_v2_b0",
-                "_notion_block_id": "3485917e-ac52-8195-b18a-f585f44352a8"
-              },
-              {
-                "type": "dialogue",
-                "text": "Look at Liam's value: 35 books. The key shows each symbol equals 5 books. Count by 5s: 5, 10, 15, 20, 25, 30, 35. How many 5s is that?",
-                "id": "s3_1_picture_graph_no_scaffolding_horizontal_b5_v2_b1",
-                "_notion_block_id": "3485917e-ac52-81ac-953c-cb4ef41ddd6c"
-              }
-            ]
-          },
-          {
-            "condition": {},
-            "description": "Student placed wrong number of symbols three or more times. System models the answer.",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_books",
-                "params": {
-                  "event": "model_symbol_placement",
-                  "status": "confirmed",
-                  "description": "7 symbols appear one by one in Liam row, skip-counting by 5s as each appears: 5, 10, 15, 20, 25, 30, 35.",
-                  "category": "Liam"
-                },
-                "id": "s3_1_picture_graph_no_scaffolding_horizontal_b5_v3_b0",
-                "_notion_block_id": "3485917e-ac52-8109-a055-f730fe89f82a"
-              },
-              {
-                "type": "dialogue",
-                "text": "Let me show you. Liam read 35 books. Each symbol stands for 5 books. I count by 5s: 5, 10, 15, 20, 25, 30, 35. That's 7 times I counted 5. So I place 7 symbols. The answer is 7 symbols because 35 equals seven groups of 5.",
-                "id": "s3_1_picture_graph_no_scaffolding_horizontal_b5_v3_b1",
-                "_notion_block_id": "3485917e-ac52-8106-a03c-cab2c72c3b2c"
-              }
-            ]
-          }
-        ],
-        "id": "s3_1_picture_graph_no_scaffolding_horizontal_b5",
+        "text": "Set the number of symbols for Liam.",
         "_notion_block_id": "3485917e-ac52-8151-8e04-e9f4ad995fc4"
       },
       {
@@ -2735,7 +1148,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T17:02:17.467296+00:00"
+    "_generated_at": "2026-04-23T17:25:25.512022+00:00",
+    "_notion_block_id": "34c5917e-ac52-8130-9d8c-c2ea7cd820be"
   },
   {
     "id": "s3_2_complete_picture_graph",
@@ -2747,7 +1161,8 @@
         "params": {
           "description": "Horizontal picture graph appears. Steps Taken data. Liam row filled with 7 symbols. Emma, Noah, Olivia rows empty. Key: each symbol = 5 steps."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-81e2-ad71-cc3c76100641"
       },
       {
         "type": "scene",
@@ -2756,126 +1171,21 @@
         "params": {
           "description": "Data table appears alongside graph showing Steps Taken values: Liam 35, Emma 20, Noah 25, Olivia 40."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-8116-925a-fee58c665e8a"
       },
       {
         "type": "dialogue",
         "text": "Finish the picture graph. Use the data table and complete the graph.",
-        "id": "s3_2_complete_picture_graph_b2",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-8106-b2c0-eceb903ef4ff"
       },
       {
         "type": "prompt",
-        "text": "Set the lengths for all remaining categories.",
+        "notion_flag": "suggested",
         "tool": "click_to_place",
         "target": "picture_graph_steps",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "and": [
-                {
-                  "category": "Emma",
-                  "symbols_placed": 4
-                },
-                {
-                  "category": "Noah",
-                  "symbols_placed": 5
-                },
-                {
-                  "category": "Olivia",
-                  "symbols_placed": 8
-                }
-              ]
-            },
-            "description": "Student placed Emma 4, Noah 5, Olivia 8, all correct",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Nice. You built the whole graph. Each symbol shows 5, and you used skip-counting to figure out how many.",
-                "id": "s3_2_complete_picture_graph_b3_v0_b0",
-                "_notion_block_id": "3485917e-ac52-8145-bbb5-c1cb3b05d6fb"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "incorrect_count": 1
-            },
-            "description": "Student placed incorrect number of symbols on first attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Not quite. Check the data table and count by 5s for each category.",
-                "id": "s3_2_complete_picture_graph_b3_v1_b0",
-                "_notion_block_id": "3485917e-ac52-814b-ad07-c56d64c952b7"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "incorrect_count": 2
-            },
-            "description": "Student placed incorrect number of symbols on second attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "data_table",
-                "params": {
-                  "highlight_rows": [
-                    "Emma",
-                    "Noah",
-                    "Olivia"
-                  ],
-                  "description": "Data table rows highlight for Emma, Noah, and Olivia."
-                },
-                "id": "s3_2_complete_picture_graph_b3_v2_b0",
-                "_notion_block_id": "3485917e-ac52-810b-bca6-c1abb820c3ba"
-              },
-              {
-                "type": "dialogue",
-                "text": "Here's a hint: Emma has 20. Count by 5s until you reach 20. How many 5s is that? Do the same for Noah and Olivia.",
-                "id": "s3_2_complete_picture_graph_b3_v2_b1",
-                "_notion_block_id": "3485917e-ac52-8110-8260-ceabbb91b8bd"
-              }
-            ]
-          },
-          {
-            "condition": {},
-            "description": "Student placed incorrect number of symbols three or more times. System models the answer.",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_steps",
-                "params": {
-                  "event": "confirm_symbols_placed",
-                  "status": "confirmed",
-                  "description": "Emma row fills with 4 symbols, Noah row with 5 symbols, Olivia row with 8 symbols.",
-                  "categories": [
-                    "Emma",
-                    "Noah",
-                    "Olivia"
-                  ]
-                },
-                "id": "s3_2_complete_picture_graph_b3_v3_b0",
-                "_notion_block_id": "3485917e-ac52-81d2-aa35-dd8b341c1c57"
-              },
-              {
-                "type": "dialogue",
-                "text": "Let me show you. Emma has 20 steps. Count by 5s: 5, 10, 15, 20. That's 4 symbols. Noah has 25: 5, 10, 15, 20, 25. That's 5 symbols. Olivia has 40: 5, 10, 15, 20, 25, 30, 35, 40. That's 8 symbols. Each category gets exactly the number of symbols that matches its value when you count by the scale.",
-                "id": "s3_2_complete_picture_graph_b3_v3_b1",
-                "_notion_block_id": "3485917e-ac52-81d2-8f9f-d70e834afbc6"
-              }
-            ]
-          }
-        ],
-        "id": "s3_2_complete_picture_graph_b3",
+        "text": "Set the lengths for all remaining categories.",
         "_notion_block_id": "3485917e-ac52-8124-98bc-deb6ae503ff3"
       },
       {
@@ -2884,7 +1194,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T17:02:28.457493+00:00"
+    "_generated_at": "2026-04-23T17:25:44.056800+00:00",
+    "_notion_block_id": "34c5917e-ac52-81b1-b6b7-ed1a8efbc250"
   },
   {
     "id": "s3_3_comparison_question",
@@ -2896,17 +1207,18 @@
         "params": {
           "description": "Horizontal picture graph appears. Books Read This Month data. Liam=7 symbols (35 books), Emma=4 symbols (20 books), Noah=5 symbols (25 books), Olivia=8 symbols (40 books). Key visible: each symbol = 5 books."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-81ca-a309-e3ddd3bb5ea2"
       },
       {
         "type": "dialogue",
-        "text": "Use your graph to find how many fewer books Emma read than Olivia.",
-        "id": "s3_3_comparison_question_b1",
+        "text": "Now use your graph to find how many fewer books Emma read than Olivia.",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-8165-8eae-e2e77a4fc187"
       },
       {
         "type": "prompt",
-        "text": "How many FEWER books did Emma read compared to Olivia?",
+        "notion_flag": "suggested",
         "tool": "multiple_choice",
         "options": [
           15,
@@ -2914,137 +1226,7 @@
           40,
           60
         ],
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": 20
-            },
-            "description": "Student selected 20, correct difference between Olivia and Emma",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Right. Olivia read 40. Emma read 20. The difference is 20.",
-                "id": "s3_3_comparison_question_b2_v0_b0",
-                "_notion_block_id": "3485917e-ac52-814a-99e9-e15fbb2821bf"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 15
-            },
-            "description": "Student selected 15: possibly subtracted symbol count (8-4=4) then multiplied by 5 incorrectly, or confused which values to compare",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "picture_graph_books",
-                "params": {
-                  "highlight_categories": [
-                    "Emma",
-                    "Olivia"
-                  ],
-                  "description": "Emma and Olivia rows highlight."
-                },
-                "id": "s3_3_comparison_question_b2_v1_b0",
-                "_notion_block_id": "3485917e-ac52-8165-9b77-ee95743c111d"
-              },
-              {
-                "type": "dialogue",
-                "text": "Look at Emma and Olivia. Count the symbols in each row, then skip-count by 5s to find how many books each person read. What's the difference?",
-                "id": "s3_3_comparison_question_b2_v1_b1",
-                "_notion_block_id": "3485917e-ac52-812b-9ba8-c08a1a552362"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 40
-            },
-            "description": "Student selected 40: read Olivia's total instead of finding the difference",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "picture_graph_books",
-                "params": {
-                  "highlight_categories": [
-                    "Emma",
-                    "Olivia"
-                  ],
-                  "description": "Emma and Olivia rows highlight."
-                },
-                "id": "s3_3_comparison_question_b2_v2_b0",
-                "_notion_block_id": "3485917e-ac52-81da-add0-c4680ed4b812"
-              },
-              {
-                "type": "dialogue",
-                "text": "The question asks how many FEWER Emma read than Olivia. You need the difference between them. Find both totals, then subtract.",
-                "id": "s3_3_comparison_question_b2_v2_b1",
-                "_notion_block_id": "3485917e-ac52-8112-beae-ed1964a1ca3d"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 60
-            },
-            "description": "Student selected 60: added Olivia and Emma's totals instead of finding the difference",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "picture_graph_books",
-                "params": {
-                  "highlight_categories": [
-                    "Emma",
-                    "Olivia"
-                  ],
-                  "description": "Emma and Olivia rows highlight."
-                },
-                "id": "s3_3_comparison_question_b2_v3_b0",
-                "_notion_block_id": "3485917e-ac52-810f-a061-e350e3f23689"
-              },
-              {
-                "type": "dialogue",
-                "text": "The word FEWER tells us to compare, not add. Find how many books Olivia read, then how many Emma read. Subtract to find the difference.",
-                "id": "s3_3_comparison_question_b2_v3_b1",
-                "_notion_block_id": "3485917e-ac52-81dc-a4d2-ef41311303c8"
-              }
-            ]
-          },
-          {
-            "condition": {},
-            "description": "Student answered incorrectly. System models the correct answer.",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_books",
-                "params": {
-                  "event": "demonstrate_comparison",
-                  "status": "confirmed",
-                  "description": "System highlights Emma's row showing 4 symbols, counts by 5s: 5, 10, 15, 20. Then highlights Olivia's row showing 8 symbols, counts by 5s: 5, 10, 15, 20, 25, 30, 35, 40. Visual shows subtraction: 40 minus 20 equals 20."
-                },
-                "id": "s3_3_comparison_question_b2_v4_b0",
-                "_notion_block_id": "3485917e-ac52-81d9-b55e-ec32a2536c28"
-              },
-              {
-                "type": "dialogue",
-                "text": "Let me show you. Emma has 4 symbols. Count by 5s: 5, 10, 15, 20. That's 20 books. Olivia has 8 symbols: 5, 10, 15, 20, 25, 30, 35, 40. That's 40 books. The difference between 40 and 20 is 20. Emma read 20 fewer books than Olivia.",
-                "id": "s3_3_comparison_question_b2_v4_b1",
-                "_notion_block_id": "3485917e-ac52-81a3-a778-dda0c2e93057"
-              }
-            ]
-          }
-        ],
-        "id": "s3_3_comparison_question_b2",
+        "text": "How many fewer books did Emma read compared to Olivia?",
         "_notion_block_id": "3485917e-ac52-8135-a6cb-dd47941280f3"
       },
       {
@@ -3053,7 +1235,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T17:02:36.646521+00:00"
+    "_generated_at": "2026-04-23T17:25:59.072280+00:00",
+    "_notion_block_id": "34c5917e-ac52-818a-a386-e42f0bc252f1"
   },
   {
     "id": "s3_4_three_scale_toggle_same_data",
@@ -3063,9 +1246,10 @@
         "method": "PLACEHOLDER",
         "tangible_id": "PLACEHOLDER",
         "params": {
-          "description": "Horizontal picture graph appears. Books Read data. Liam=35 (7 symbols), Emma=20 (4 symbols), Noah=25 (5 symbols), Olivia=40 (8 symbols). Key: Each star = 5 books. Scale toggle control visible with three options: Each star = 1, Each star = 2, Each star = 5. Currently set to scale of 5."
+          "description": "Horizontal picture graph appears. Books Read data. Liam=35 (7 symbols), Emma=20 (4 symbols), Noah=25 (5 symbols), Olivia=40 (8 symbols). Key: Each symbol = 5 books. Scale toggle control visible with three options: Each symbol= 1, Each symbol = 2, Each symbol = 5. Currently set to scale of 5."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-8152-adab-e2ae0271b47c"
       },
       {
         "type": "scene",
@@ -3074,52 +1258,34 @@
         "params": {
           "description": "Data table appears alongside graph showing Books Read values: Liam=35, Emma=20, Noah=25, Olivia=40."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-8169-b18b-c4f174d8421e"
       },
       {
         "type": "dialogue",
         "text": "You built this graph with scale of 5. But what would it look like with a different scale? Try it.",
-        "id": "s3_4_three_scale_toggle_same_data_b2",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-8105-b8d1-eed36235ce42"
       },
       {
         "type": "prompt",
-        "text": "Toggle the scale to 1. What happens?",
+        "notion_flag": "suggested",
         "tool": "click_scale_button",
         "target": "picture_graph_books",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": 1
-            },
-            "description": "Student toggled scale from 5 to 1",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_books",
-                "params": {
-                  "event": "scale_change",
-                  "status": "confirmed",
-                  "description": "Symbols multiply as scale changes to 1. Olivia: 8 symbols → 40 symbols. Liam: 7 symbols → 35 symbols. Noah: 5 symbols → 25 symbols. Emma: 4 symbols → 20 symbols. Key updates to Each star = 1 book."
-                },
-                "id": "s3_4_three_scale_toggle_same_data_b3_v0_b0",
-                "_notion_block_id": "3485917e-ac52-81cf-b0e9-c0f62067b21e"
-              }
-            ]
-          }
-        ],
-        "id": "s3_4_three_scale_toggle_same_data_b3",
+        "text": "Toggle the scale to 1. What happens?",
         "_notion_block_id": "3485917e-ac52-8114-8f30-ff6194d4c3aa"
       },
       {
         "type": "current_scene",
         "elements": [
           {
+            "tangible_id": "data_table",
+            "description": "Data table showing Books Read This Month: Liam 35, Emma 20, Noah 25, Olivia 40.",
+            "tangible_type": "data_table"
+          },
+          {
             "tangible_id": "picture_graph_books",
-            "description": "Horizontal picture graph. Books Read data at scale of 1. Liam=35 (35 symbols), Emma=20 (20 symbols), Noah=25 (25 symbols), Olivia=40 (40 symbols). Key: Each star = 1 book. Scale toggle control active.",
+            "description": "Horizontal picture graph, scale 5. Liam 7 symbols, Emma 4 symbols, Noah 5 symbols, Olivia 8 symbols. Key: Each star = 5. Scale toggle inactive.",
             "tangible_type": "picture_graph",
             "mode": "reading",
             "orientation": "horizontal",
@@ -3129,231 +1295,74 @@
               "Noah",
               "Olivia"
             ],
-            "scale": 1,
-            "scale_options": [
-              1,
-              2,
-              5
-            ]
-          },
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing Books Read values: Liam=35, Emma=20, Noah=25, Olivia=40.",
-            "tangible_type": "data_table"
+            "scale": 5
           }
         ],
-        "id": "s3_4_three_scale_toggle_same_data_b4",
+        "id": "s3_4_three_scale_toggle_same_data_b15",
         "_notion_block_id": "3485917e-ac52-81a4-ab96-d352288b9081"
       },
       {
         "type": "dialogue",
         "text": "Olivia went from 8 symbols to 40. That's a lot of symbols. Now try scale of 2.",
-        "id": "s3_4_three_scale_toggle_same_data_b5",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-81cc-8cb9-d881624032f9"
       },
       {
         "type": "prompt",
-        "text": "Toggle the scale to 2.",
+        "notion_flag": "suggested",
         "tool": "click_scale_button",
         "target": "picture_graph_books",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": 2
-            },
-            "description": "Student toggled scale from 1 to 2",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_books",
-                "params": {
-                  "event": "scale_change",
-                  "status": "confirmed",
-                  "description": "Symbols reduce as scale changes to 2. Olivia: 40 symbols → 20 symbols. Liam: 35 symbols → 17.5 symbols (half-symbol appears). Noah: 25 symbols → 12.5 symbols (half-symbol appears). Emma: 20 symbols → 10 symbols. Key updates to Each star = 2 books."
-                },
-                "id": "s3_4_three_scale_toggle_same_data_b6_v0_b0",
-                "_notion_block_id": "3485917e-ac52-8101-ae86-fb8474c7d5b1"
-              }
-            ]
-          }
-        ],
-        "id": "s3_4_three_scale_toggle_same_data_b6",
+        "text": "Toggle the scale to 2.",
         "_notion_block_id": "3485917e-ac52-81ea-a8c9-cc4501bcecda"
       },
       {
         "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "picture_graph_books",
-            "description": "Horizontal picture graph. Books Read data at scale of 2. Liam=35 (17.5 symbols), Emma=20 (10 symbols), Noah=25 (12.5 symbols), Olivia=40 (20 symbols). Half-symbols visible for odd values. Key: Each star = 2 books. Scale toggle control active.",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "horizontal",
-            "categories": [
-              "Liam",
-              "Emma",
-              "Noah",
-              "Olivia"
-            ],
-            "scale": 2,
-            "scale_options": [
-              1,
-              2,
-              5
-            ]
-          },
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing Books Read values: Liam=35, Emma=20, Noah=25, Olivia=40.",
-            "tangible_type": "data_table"
-          }
-        ],
-        "id": "s3_4_three_scale_toggle_same_data_b7",
-        "_notion_block_id": "3485917e-ac52-8167-b6b8-c43962f34ee2"
+        "elements": []
       },
       {
         "type": "dialogue",
         "text": "Fewer symbols, but still more than scale of 5. Toggle back to 5.",
-        "id": "s3_4_three_scale_toggle_same_data_b8",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-8111-80c9-cd54a410ab7d"
       },
       {
         "type": "prompt",
-        "text": "Toggle the scale back to 5.",
+        "notion_flag": "suggested",
         "tool": "click_scale_button",
         "target": "picture_graph_books",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": 5
-            },
-            "description": "Student toggled scale from 2 to 5",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_books",
-                "params": {
-                  "event": "scale_change",
-                  "status": "confirmed",
-                  "description": "Graph returns to original state. Olivia: 20 symbols → 8 symbols. Liam: 17.5 symbols → 7 symbols. Noah: 12.5 symbols → 5 symbols. Emma: 10 symbols → 4 symbols. Key updates to Each star = 5 books."
-                },
-                "id": "s3_4_three_scale_toggle_same_data_b9_v0_b0",
-                "_notion_block_id": "3485917e-ac52-8141-a417-fc1f5eed4c39"
-              }
-            ]
-          }
-        ],
-        "id": "s3_4_three_scale_toggle_same_data_b9",
+        "text": "Toggle the scale back to 5.",
         "_notion_block_id": "3485917e-ac52-812a-906c-f3b9c6582bef"
       },
       {
         "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "picture_graph_books",
-            "description": "Horizontal picture graph. Books Read data at scale of 5. Liam=35 (7 symbols), Emma=20 (4 symbols), Noah=25 (5 symbols), Olivia=40 (8 symbols). Key: Each star = 5 books. Scale toggle control active.",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "horizontal",
-            "categories": [
-              "Liam",
-              "Emma",
-              "Noah",
-              "Olivia"
-            ],
-            "scale": 5,
-            "scale_options": [
-              1,
-              2,
-              5
-            ]
-          },
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing Books Read values: Liam=35, Emma=20, Noah=25, Olivia=40.",
-            "tangible_type": "data_table"
-          }
-        ],
-        "id": "s3_4_three_scale_toggle_same_data_b10",
-        "_notion_block_id": "3485917e-ac52-81c1-966d-f4d700839161"
+        "elements": []
       },
       {
         "type": "dialogue",
         "text": "Same 40 books for Olivia every time. Scale of 1: 40 symbols. Scale of 2: 20 symbols. Scale of 5: just 8.",
-        "id": "s3_4_three_scale_toggle_same_data_b11",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-810f-823a-dfa84ba7cac2"
       },
       {
         "type": "prompt",
-        "text": "Which scale uses the fewest symbols?",
+        "notion_flag": "suggested",
         "tool": "multiple_choice",
         "options": [
           "Scale of 1",
           "Scale of 2",
           "Scale of 5"
         ],
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": "Scale of 5"
-            },
-            "description": "Student selected Scale of 5, correct",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Right. Scale of 5. Bigger scale, fewer symbols, same data.",
-                "id": "s3_4_three_scale_toggle_same_data_b12_v0_b0",
-                "_notion_block_id": "3485917e-ac52-815c-b24b-e3b8ba546c22"
-              }
-            ]
-          }
-        ],
-        "id": "s3_4_three_scale_toggle_same_data_b12",
+        "text": "Which scale uses the fewest symbols?",
         "_notion_block_id": "3485917e-ac52-8180-966d-e9228a481871"
       },
       {
         "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "picture_graph_books",
-            "description": "Horizontal picture graph. Books Read data at scale of 5. Liam=35 (7 symbols), Emma=20 (4 symbols), Noah=25 (5 symbols), Olivia=40 (8 symbols). Key: Each star = 5 books. Scale toggle control inactive after MC question answered.",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "horizontal",
-            "categories": [
-              "Liam",
-              "Emma",
-              "Noah",
-              "Olivia"
-            ],
-            "scale": 5,
-            "scale_options": [
-              1,
-              2,
-              5
-            ]
-          },
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing Books Read values: Liam=35, Emma=20, Noah=25, Olivia=40.",
-            "tangible_type": "data_table"
-          }
-        ],
-        "id": "s3_4_three_scale_toggle_same_data_b13",
-        "_notion_block_id": "3485917e-ac52-8111-87e2-fce5e28fdf9b"
+        "elements": []
       },
       {
         "type": "dialogue",
-        "text": "All three showed the same information. The scale just changes how many symbols you need. Now let's use your graph to answer some questions.",
-        "id": "s3_4_three_scale_toggle_same_data_b14",
+        "text": "All three graphs showed the same information. The scale just changes how many symbols you need. Now let's use your scale of 5 graph to answer some questions.",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-8159-89b2-d084e6f0a21b"
       },
       {
@@ -3362,7 +1371,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T17:03:07.213419+00:00"
+    "_generated_at": "2026-04-23T17:26:46.142156+00:00",
+    "_notion_block_id": "34c5917e-ac52-81b1-a998-e150b6d886b4"
   },
   {
     "id": "s3_5_reading_axis_horizontal",
@@ -3372,9 +1382,10 @@
         "method": "PLACEHOLDER",
         "tangible_id": "PLACEHOLDER",
         "params": {
-          "description": "Data table appears. Weekend Screen Time (minutes). Saturday=35, Sunday=30, Monday=40, Tuesday=25. 4 categories displayed numerically."
+          "description": "Data table appears. This Week's Screen Time (minutes). Saturday=35, Sunday=30, Monday=40, Tuesday=25. 4 categories displayed numerically."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-81ca-b4c2-f0bd23d9f277"
       },
       {
         "type": "scene",
@@ -3383,17 +1394,18 @@
         "params": {
           "description": "Horizontal bar graph appears. Bars extend sideways from left. Axis along bottom labeled 0, 5, 10, 15, 20, 25, 30, 35, 40, 45. All 4 bars empty."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-814b-936e-f6bf85ef7dce"
       },
       {
         "type": "dialogue",
-        "text": "This bar graph is horizontal. The bars go sideways. But look at the axis along the bottom. Same skip-counting by 5s.",
-        "id": "s3_5_reading_axis_horizontal_b2",
+        "text": "This bar graph is {horizontal}. The bars go sideways. But look at the axis along the bottom. Same skip-counting by 5s. What comes after 35 on this axis?",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-8189-9264-de2fe6ea1751"
       },
       {
         "type": "prompt",
-        "text": "What comes after 35 on this axis?",
+        "notion_flag": "suggested",
         "tool": "multiple_choice",
         "options": [
           36,
@@ -3401,128 +1413,7 @@
           45,
           30
         ],
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": 40
-            },
-            "description": "Student selected 40, correct",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Right. 40. The axis counts by 5s: 5, 10, 15... 35, 40, 45. Same pattern, just running sideways.",
-                "id": "s3_5_reading_axis_horizontal_b3_v0_b0",
-                "_notion_block_id": "3485917e-ac52-8150-8220-ca014e7439e8"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 36
-            },
-            "description": "Student selected 36 — counting by 1s instead of recognizing the scale of 5",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_screen_time",
-                "params": {
-                  "highlight_axis_numbers": true,
-                  "description": "Axis numbers highlight to draw attention to the scale pattern."
-                },
-                "id": "s3_5_reading_axis_horizontal_b3_v1_b0",
-                "_notion_block_id": "3485917e-ac52-81a0-b4ca-d4558e2b2bea"
-              },
-              {
-                "type": "dialogue",
-                "text": "Look at the numbers on the axis. They don't go 31, 32, 33. They jump by 5s. What comes after 30? After 35?",
-                "id": "s3_5_reading_axis_horizontal_b3_v1_b1",
-                "_notion_block_id": "3485917e-ac52-81c1-b5ab-cc4e64c26f89"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 45
-            },
-            "description": "Student selected 45 — skipped ahead, missing the next value in the sequence",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_screen_time",
-                "params": {
-                  "highlight_axis_numbers": true,
-                  "description": "Axis numbers highlight to draw attention to the sequence."
-                },
-                "id": "s3_5_reading_axis_horizontal_b3_v2_b0",
-                "_notion_block_id": "3485917e-ac52-81f5-9e69-f2ce147c07fc"
-              },
-              {
-                "type": "dialogue",
-                "text": "45 is on the axis, but it's not right after 35. Count from 30: 30, then add 5. What do you get?",
-                "id": "s3_5_reading_axis_horizontal_b3_v2_b1",
-                "_notion_block_id": "3485917e-ac52-819f-8038-c48b4c57fc1c"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 30
-            },
-            "description": "Student selected 30 — went backward instead of forward in the sequence",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_screen_time",
-                "params": {
-                  "highlight_axis_numbers": true,
-                  "description": "Axis numbers highlight to draw attention to the direction."
-                },
-                "id": "s3_5_reading_axis_horizontal_b3_v3_b0",
-                "_notion_block_id": "3485917e-ac52-811a-8f80-d27d1595bcda"
-              },
-              {
-                "type": "dialogue",
-                "text": "30 comes before 35, not after. The axis counts up: 0, 5, 10, 15... What's the next jump after 35?",
-                "id": "s3_5_reading_axis_horizontal_b3_v3_b1",
-                "_notion_block_id": "3485917e-ac52-81a9-98aa-f35639ff2e62"
-              }
-            ]
-          },
-          {
-            "condition": {},
-            "description": "Student answered incorrectly. System models the correct answer.",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "bar_graph_screen_time",
-                "params": {
-                  "event": "highlight_skip_counting",
-                  "status": "confirmed",
-                  "description": "Axis numbers highlight in sequence: 5, 10, 15, 20, 25, 30, 35, 40."
-                },
-                "id": "s3_5_reading_axis_horizontal_b3_v4_b0",
-                "_notion_block_id": "3485917e-ac52-8129-9b5c-d3be9e64b765"
-              },
-              {
-                "type": "dialogue",
-                "text": "Here's how the axis works. It counts by 5s: 5, 10, 15, 20, 25, 30, 35. After 35, add 5 more. That gives us 40. The answer is 40. That's how a scale of 5 works on a bar graph axis.",
-                "id": "s3_5_reading_axis_horizontal_b3_v4_b1",
-                "_notion_block_id": "3485917e-ac52-81b3-9d7e-d164f5f53ffb"
-              }
-            ]
-          }
-        ],
-        "id": "s3_5_reading_axis_horizontal_b3",
+        "text": "What comes after 35 on this axis?",
         "_notion_block_id": "3485917e-ac52-81c5-af4b-f4791362c062"
       },
       {
@@ -3531,7 +1422,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T17:03:16.886117+00:00"
+    "_generated_at": "2026-04-23T17:27:02.667972+00:00",
+    "_notion_block_id": "34c5917e-ac52-81c1-b501-df71072b1629"
   },
   {
     "id": "s3_6_bar_graph_independent_creation_horizontal",
@@ -3541,9 +1433,10 @@
         "method": "PLACEHOLDER",
         "tangible_id": "PLACEHOLDER",
         "params": {
-          "description": "Data table appears. Weekend Screen Time (minutes). Saturday=35, Sunday=30, Monday=40, Tuesday=25."
+          "description": "Data table appears. This Week's Screen Time (minutes). Saturday=35, Sunday=30, Monday=40, Tuesday=25."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-81e1-b90e-ef3cbfcd4b5c"
       },
       {
         "type": "scene",
@@ -3552,129 +1445,21 @@
         "params": {
           "description": "Empty horizontal bar graph template appears. Weekend Screen Time. Scale marked 0, 5, 10... up to 45."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-817c-922b-e2f516b4a952"
       },
       {
         "type": "dialogue",
-        "text": "Now a bar graph, also horizontal. Read the data, set the lengths of the bars to complete the graph.",
-        "id": "s3_6_bar_graph_independent_creation_horizontal_b2",
+        "text": "Now let's build the horizontal bar graph. This data shows how many minutes of screen time one person used over 4 days. Read the data, set the lengths of the bars to complete the graph.",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-81ca-99aa-c96c98ed88dc"
       },
       {
         "type": "prompt",
-        "text": "Create the bar graph. Set all four bars.",
+        "notion_flag": "suggested",
         "tool": "click_to_set_height",
         "target": "bar_graph_screen_time",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "and": [
-                {
-                  "bar_height": {
-                    "category": "Saturday",
-                    "value": 35
-                  }
-                },
-                {
-                  "bar_height": {
-                    "category": "Sunday",
-                    "value": 30
-                  }
-                },
-                {
-                  "bar_height": {
-                    "category": "Monday",
-                    "value": 40
-                  }
-                },
-                {
-                  "bar_height": {
-                    "category": "Tuesday",
-                    "value": 25
-                  }
-                }
-              ]
-            },
-            "description": "All four bars correctly set to match data table values",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "That's right. You created the bar graph independently. Horizontal or vertical, you've got this.",
-                "id": "s3_6_bar_graph_independent_creation_horizontal_b3_v0_b0",
-                "_notion_block_id": "3485917e-ac52-81e8-b2e0-d41e9e179442"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "incorrect_count": 1
-            },
-            "description": "Student set one or more bars incorrectly on first attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Not quite. Look at the data table and the axis. Match each value to where it lands on the scale.",
-                "id": "s3_6_bar_graph_independent_creation_horizontal_b3_v1_b0",
-                "_notion_block_id": "3485917e-ac52-818b-b140-e10fe774da52"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "incorrect_count": 2
-            },
-            "description": "Student set one or more bars incorrectly on second attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_screen_time",
-                "params": {
-                  "highlight_axis_numbers": true,
-                  "description": "Axis numbers highlight to show the skip-counting pattern."
-                },
-                "id": "s3_6_bar_graph_independent_creation_horizontal_b3_v2_b0",
-                "_notion_block_id": "3485917e-ac52-81c8-bbbc-c6635c5ea934"
-              },
-              {
-                "type": "dialogue",
-                "text": "Let's think about this together. The axis counts by 5s: 5, 10, 15, 20, 25, 30, 35, 40, 45. For each day, find the number in the data table, then set the bar to end at that number on the axis. Where does Monday's 40 land?",
-                "id": "s3_6_bar_graph_independent_creation_horizontal_b3_v2_b1",
-                "_notion_block_id": "3485917e-ac52-814d-9a05-d60728df467d"
-              }
-            ]
-          },
-          {
-            "condition": {},
-            "description": "Student set one or more bars incorrectly three or more times. System models the answer.",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "bar_graph_screen_time",
-                "params": {
-                  "event": "model_all_bars",
-                  "status": "confirmed",
-                  "description": "System demonstrates setting all four bars. Saturday bar extends to 35, Sunday bar extends to 30, Monday bar extends to 40, Tuesday bar extends to 25."
-                },
-                "id": "s3_6_bar_graph_independent_creation_horizontal_b3_v3_b0",
-                "_notion_block_id": "3485917e-ac52-81d3-84c4-f46e8596ab26"
-              },
-              {
-                "type": "dialogue",
-                "text": "Let me show you how this works. Saturday has 35 minutes, so I set the bar to end at 35 on the axis. Sunday has 30, so the bar ends at 30. Monday has 40, the bar ends at 40. Tuesday has 25, the bar ends at 25. The bar length shows the value. Each bar ends right on the axis number that matches the data.",
-                "id": "s3_6_bar_graph_independent_creation_horizontal_b3_v3_b1",
-                "_notion_block_id": "3485917e-ac52-8112-98a8-ecc082f3e732"
-              }
-            ]
-          }
-        ],
-        "id": "s3_6_bar_graph_independent_creation_horizontal_b3",
+        "text": "Create the bar graph. Set all four bars.",
         "_notion_block_id": "3485917e-ac52-8160-9154-c5fa0490ea31"
       },
       {
@@ -3683,7 +1468,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T17:03:26.389333+00:00"
+    "_generated_at": "2026-04-23T17:27:21.526283+00:00",
+    "_notion_block_id": "34c5917e-ac52-81af-aa87-e3b4dace06a4"
   },
   {
     "id": "s3_7_reading_totals",
@@ -3693,9 +1479,10 @@
         "method": "PLACEHOLDER",
         "tangible_id": "PLACEHOLDER",
         "params": {
-          "description": "Horizontal bar graph appears. Weekend Screen Time data. Saturday=35, Sunday=30, Monday=40, Tuesday=25."
+          "description": "Horizontal bar graph appears. This Week's Screen Time data. Saturday=35, Sunday=30, Monday=40, Tuesday=25."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-8168-8bf4-c1e02fe482e8"
       },
       {
         "type": "scene",
@@ -3704,17 +1491,18 @@
         "params": {
           "description": "Saturday and Sunday bars highlight."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-81ef-80c7-fa30efaabf7c"
       },
       {
         "type": "dialogue",
-        "text": "How many minutes of screen time on Saturday and Sunday in all?",
-        "id": "s3_7_reading_totals_b2",
+        "text": "Let's use your bar graph to answer a question. How many minutes of screen time on Saturday and Sunday in all?",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-81dc-81ac-f0c7e5ea9fcc"
       },
       {
         "type": "prompt",
-        "text": "How many minutes of screen time on Saturday and Sunday in all?",
+        "notion_flag": "suggested",
         "tool": "multiple_choice",
         "options": [
           5,
@@ -3722,137 +1510,7 @@
           65,
           70
         ],
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": 65
-            },
-            "description": "Student selected 65, correct answer (35 + 30)",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Right. 65 minutes in all. Saturday has 35, Sunday has 30. 35 plus 30 is 65. That's how you add values from a bar graph.",
-                "id": "s3_7_reading_totals_b3_v0_b0",
-                "_notion_block_id": "3485917e-ac52-81ec-891c-ec496d7027a8"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 5
-            },
-            "description": "Student selected 5, the scale increment instead of the sum",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_screen_time",
-                "params": {
-                  "highlight_categories": [
-                    "Saturday",
-                    "Sunday"
-                  ],
-                  "description": "Saturday and Sunday bars highlight."
-                },
-                "id": "s3_7_reading_totals_b3_v1_b0",
-                "_notion_block_id": "3485917e-ac52-815a-a516-e2cce064d907"
-              },
-              {
-                "type": "dialogue",
-                "text": "You're looking at the scale. We need the total for these two days. What value does Saturday's bar reach?",
-                "id": "s3_7_reading_totals_b3_v1_b1",
-                "_notion_block_id": "3485917e-ac52-81bb-b8b8-f09880a926f7"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 35
-            },
-            "description": "Student selected 35, only Saturday's value",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_screen_time",
-                "params": {
-                  "highlight_categories": [
-                    "Saturday",
-                    "Sunday"
-                  ],
-                  "description": "Saturday and Sunday bars pulse to draw attention to both."
-                },
-                "id": "s3_7_reading_totals_b3_v2_b0",
-                "_notion_block_id": "3485917e-ac52-8162-b296-e5eca6e8dbb8"
-              },
-              {
-                "type": "dialogue",
-                "text": "You found Saturday: 35 minutes. The question asks for Saturday AND Sunday. Find Sunday's value, then add them together.",
-                "id": "s3_7_reading_totals_b3_v2_b1",
-                "_notion_block_id": "3485917e-ac52-81e6-95f8-e244772fc06e"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "selected": 70
-            },
-            "description": "Student selected 70, possibly doubled 35 or added Monday's value",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_screen_time",
-                "params": {
-                  "highlight_categories": [
-                    "Saturday",
-                    "Sunday"
-                  ],
-                  "description": "Saturday and Sunday bars highlight separately, one after the other."
-                },
-                "id": "s3_7_reading_totals_b3_v3_b0",
-                "_notion_block_id": "3485917e-ac52-81fd-b47c-dfca604e36be"
-              },
-              {
-                "type": "dialogue",
-                "text": "Let's check each bar carefully. Saturday reaches 35 on the axis. Sunday reaches 30. Count by 5s if that helps. What do you get when you add 35 and 30?",
-                "id": "s3_7_reading_totals_b3_v3_b1",
-                "_notion_block_id": "3485917e-ac52-8178-8fb0-cc4e9210c433"
-              }
-            ]
-          },
-          {
-            "condition": {},
-            "description": "Student answered incorrectly three or more times. System models the answer.",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "bar_graph_screen_time",
-                "params": {
-                  "event": "trace_bar_values",
-                  "status": "confirmed",
-                  "description": "System traces Saturday bar from 0 to 35, then Sunday bar from 0 to 30, showing the values on axis."
-                },
-                "id": "s3_7_reading_totals_b3_v4_b0",
-                "_notion_block_id": "3485917e-ac52-8122-bf0f-f18b0e7cfaaf"
-              },
-              {
-                "type": "dialogue",
-                "text": "Let me show you. Saturday's bar ends at 35. Sunday's bar ends at 30. When we add them, 35 plus 30 equals 65. The answer is 65 minutes in all. We read each bar's height, then add those values together.",
-                "id": "s3_7_reading_totals_b3_v4_b1",
-                "_notion_block_id": "3485917e-ac52-8194-a002-c2248e5ac44d"
-              }
-            ]
-          }
-        ],
-        "id": "s3_7_reading_totals_b3",
+        "text": "How many minutes of screen time on Saturday and Sunday in all?",
         "_notion_block_id": "3485917e-ac52-816b-876c-d1cd2f0c48ee"
       },
       {
@@ -3861,7 +1519,8 @@
         "notion_type": "divider"
       }
     ],
-    "_generated_at": "2026-04-20T17:03:35.491135+00:00"
+    "_generated_at": "2026-04-23T17:27:34.913706+00:00",
+    "_notion_block_id": "34c5917e-ac52-8124-88cc-c8ce87fa6304"
   },
   {
     "id": "s3_9_bridge_exit_check",
@@ -3874,15 +1533,22 @@
         "params": {
           "description": "Vertical bar graph appears. Scale of 5. Shows completed work from prior section."
         },
-        "notion_flag": "suggested"
+        "notion_flag": "suggested",
+        "_notion_block_id": "3485917e-ac52-816e-934a-c190ce90cec1"
       },
       {
         "type": "dialogue",
-        "text": "You made picture graphs and bar graphs, both with scale of 5. You used skip-counting to figure out symbols and bar heights. Let's see what you know.",
-        "id": "s3_9_bridge_exit_check_b1",
+        "text": "You made picture graphs and bar graphs, both with scale of 5. You used skip-counting to figure out symbols and bar heights or lengths. Let's see what you know.",
+        "notion_flag": "suggested",
         "_notion_block_id": "3485917e-ac52-8120-b9b0-d05ed1e0e2b0"
+      },
+      {
+        "type": "unparsed",
+        "_notion_block_id": "34b5917e-ac52-8085-99db-e1dde471d3dd",
+        "notion_type": "paragraph"
       }
     ],
-    "_generated_at": "2026-04-20T17:03:50.840190+00:00"
+    "_generated_at": "2026-04-23T17:28:08.546821+00:00",
+    "_notion_block_id": "34c5917e-ac52-811b-9756-ec06459fb640"
   }
 ]

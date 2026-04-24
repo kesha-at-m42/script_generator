@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:04:57.506805
+# Generated: 2026-04-23T12:29:11.105619
 ======================================================================
 
 ## API Parameters
@@ -944,11 +944,11 @@ Cacheable: Yes
   "id": "s3_7_reading_totals",
   "dialogues": [
     {
-      "text": "How many minutes of screen time on Saturday and Sunday in all?",
+      "text": "How many minutes of screen time on Saturday and Sunday IN ALL?",
       "context": "lesson"
     },
     {
-      "text": "65 minutes in all. Saturday has 35, Sunday has 30. 35 plus 30 is 65. That's how you add values from a bar graph.",
+      "text": "65 minutes in all. Saturday has 35, Sunday has 30. 35 plus 30 is 65.",
       "context": "on_correct"
     }
   ]

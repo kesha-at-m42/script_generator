@@ -1,0 +1,180 @@
+{
+  "id": "s3_1_unknown_position_flexibility",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_product_unknown",
+      "tangible_type": "equation_builder",
+      "params": {
+        "mode": "reading",
+        "expression": [
+          "4",
+          "x",
+          "5",
+          "=",
+          "__"
+        ],
+        "description": "First equation appears: 4 × 5 = ☐. Label 'product unknown' appears below."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_factor2_unknown",
+      "tangible_type": "equation_builder",
+      "params": {
+        "mode": "reading",
+        "expression": [
+          "4",
+          "x",
+          "__",
+          "=",
+          "20"
+        ],
+        "description": "Second equation appears below first: 4 × ☐ = 20. Label 'second factor unknown' appears below."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_factor1_unknown",
+      "tangible_type": "equation_builder",
+      "params": {
+        "mode": "reading",
+        "expression": [
+          "__",
+          "x",
+          "5",
+          "=",
+          "20"
+        ],
+        "description": "Third equation appears below second: ☐ × 5 = 20. Label 'first factor unknown' appears below."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Three equations. Same numbers: 4, 5, and 20. But the unknown moved to a different spot each time. What stays the same?"
+    },
+    {
+      "type": "prompt",
+      "text": "What stays the same in all three equations?",
+      "tool": "multiple_choice",
+      "options": [
+        "4 groups of 5 equals 20",
+        "The unknown is always the hardest number",
+        "The numbers are different each time",
+        "The equation changes meaning each time"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "4 groups of 5 equals 20"
+          },
+          "description": "Student selected A: 4 groups of 5 equals 20, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "4 groups of 5 equals 20. The unknown moves, but the relationship stays constant."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_builder_product_unknown",
+          "description": "First equation: 4 × 5 = ☐, labeled 'product unknown'",
+          "tangible_type": "equation_builder",
+          "mode": "reading",
+          "expression": [
+            "4",
+            "x",
+            "5",
+            "=",
+            "__"
+          ]
+        },
+        {
+          "tangible_id": "equation_builder_factor2_unknown",
+          "description": "Second equation: 4 × ☐ = 20, labeled 'second factor unknown'",
+          "tangible_type": "equation_builder",
+          "mode": "reading",
+          "expression": [
+            "4",
+            "x",
+            "__",
+            "=",
+            "20"
+          ]
+        },
+        {
+          "tangible_id": "equation_builder_factor1_unknown",
+          "description": "Third equation: ☐ × 5 = 20, labeled 'first factor unknown'",
+          "tangible_type": "equation_builder",
+          "mode": "reading",
+          "expression": [
+            "__",
+            "x",
+            "5",
+            "=",
+            "20"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "The unknown moves, but the relationship stays: 4 groups of 5 is always 20. You figure out whichever piece is missing."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_builder_product_unknown",
+          "description": "First equation: 4 × 5 = ☐, labeled 'product unknown'",
+          "tangible_type": "equation_builder",
+          "mode": "reading",
+          "expression": [
+            "4",
+            "x",
+            "5",
+            "=",
+            "__"
+          ]
+        },
+        {
+          "tangible_id": "equation_builder_factor2_unknown",
+          "description": "Second equation: 4 × ☐ = 20, labeled 'second factor unknown'",
+          "tangible_type": "equation_builder",
+          "mode": "reading",
+          "expression": [
+            "4",
+            "x",
+            "__",
+            "=",
+            "20"
+          ]
+        },
+        {
+          "tangible_id": "equation_builder_factor1_unknown",
+          "description": "Third equation: ☐ × 5 = 20, labeled 'first factor unknown'",
+          "tangible_type": "equation_builder",
+          "mode": "reading",
+          "expression": [
+            "__",
+            "x",
+            "5",
+            "=",
+            "20"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:52.529885+00:00"
+}

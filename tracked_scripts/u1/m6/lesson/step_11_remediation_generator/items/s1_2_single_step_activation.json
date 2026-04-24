@@ -1,0 +1,112 @@
+{
+  "id": "s1_2_single_step_activation",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 55
+        },
+        "description": "Student selected 55 (added instead of subtracting)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "highlight_categories": [
+                  "Pizza",
+                  "Salad"
+                ],
+                "description": "Pizza and Salad bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You added pizza and salad. How many more means compare. We need to subtract, not add. Find the difference between 45 and 10."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 30
+        },
+        "description": "Student selected 30 (incorrect calculation or misread values)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "highlight_categories": [
+                  "Pizza",
+                  "Salad"
+                ],
+                "description": "Pizza and Salad bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Check the bar heights. Pizza reaches 45, salad reaches 10. How many more means subtract. What is 45 minus 10?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 15
+        },
+        "description": "Student selected 15 (subtracted wrong values or misread scale)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "highlight_categories": [
+                  "Pizza",
+                  "Salad"
+                ],
+                "description": "Pizza and Salad bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at the numbers. Pizza is at 45, salad is at 10. Count by fives to check. How many more means subtract those two numbers."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_lunch",
+              "params": {
+                "event": "show_calculation",
+                "status": "confirmed",
+                "description": "Animation shows: Pizza bar (45) and Salad bar (10) highlight, then 45 - 10 = 35 displays"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. How many more tells us to compare. Pizza is 45 students. Salad is 10 students. To find how many more, we subtract: 45 minus 10 equals 35. The answer is 35 because that is the difference between pizza and salad."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:03:39.546898+00:00"
+}

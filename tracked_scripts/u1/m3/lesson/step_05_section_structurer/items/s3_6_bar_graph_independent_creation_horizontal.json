@@ -7,13 +7,13 @@
       "tangible_id": "data_table",
       "tangible_type": "data_table",
       "params": {
-        "description": "Data table appears. Weekend Screen Time (minutes). Saturday=35, Sunday=30, Monday=40, Tuesday=25."
+        "description": "Data table appears showing Weekend Screen Time (minutes) with four categories: Saturday 35, Sunday 30, Monday 40, Tuesday 25."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "bar_graph_screen_time",
+      "tangible_id": "bar_graph_screentime",
       "tangible_type": "bar_graph",
       "params": {
         "mode": "building",
@@ -28,8 +28,8 @@
           0,
           45
         ],
-        "scale_increment": 5,
-        "description": "Empty horizontal bar graph template appears. Weekend Screen Time. Scale marked 0, 5, 10... up to 45."
+        "axis_interval": 5,
+        "description": "Empty horizontal bar graph template appears. Weekend Screen Time (minutes). Four category rows: Saturday, Sunday, Monday, Tuesday. Horizontal axis runs along bottom, marked 0, 5, 10, 15, 20, 25, 30, 35, 40, 45."
       }
     },
     {
@@ -40,41 +40,32 @@
       "type": "prompt",
       "text": "Create the bar graph. Set all four bars.",
       "tool": "click_to_set_height",
-      "target": "bar_graph_screen_time",
+      "target": "bar_graph_screentime",
       "validator": [
         {
           "condition_id": "correct",
           "condition": {
-            "and": [
-              {
-                "bar_height": {
-                  "category": "Saturday",
-                  "value": 35
-                }
-              },
-              {
-                "bar_height": {
-                  "category": "Sunday",
-                  "value": 30
-                }
-              },
-              {
-                "bar_height": {
-                  "category": "Monday",
-                  "value": 40
-                }
-              },
-              {
-                "bar_height": {
-                  "category": "Tuesday",
-                  "value": 25
-                }
-              }
-            ]
+            "bars": {
+              "Saturday": 35,
+              "Sunday": 30,
+              "Monday": 40,
+              "Tuesday": 25
+            }
           },
-          "description": "All four bars correctly set to match data table values",
+          "description": "Student set all four bars correctly: Saturday 35, Sunday 30, Monday 40, Tuesday 25",
           "is_correct": true,
+          "variable_answer": false,
           "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_screentime",
+              "params": {
+                "event": "draw_bar_guidelines",
+                "status": "confirmed",
+                "description": "Horizontal guidelines draw from the end of each bar to the axis, confirming Saturday 35, Sunday 30, Monday 40, Tuesday 25."
+              }
+            },
             {
               "type": "dialogue",
               "text": "You created the bar graph independently. Horizontal or vertical—you've got this."
@@ -88,12 +79,12 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Data table showing Weekend Screen Time values.",
+          "description": "Data table showing Weekend Screen Time (minutes): Saturday 35, Sunday 30, Monday 40, Tuesday 25.",
           "tangible_type": "data_table"
         },
         {
-          "tangible_id": "bar_graph_screen_time",
-          "description": "Horizontal bar graph in building mode. Weekend Screen Time. All four bars set correctly: Saturday=35, Sunday=30, Monday=40, Tuesday=25.",
+          "tangible_id": "bar_graph_screentime",
+          "description": "Horizontal bar graph in building mode. Weekend Screen Time (minutes). Four bars filled: Saturday 35, Sunday 30, Monday 40, Tuesday 25. Horizontal axis 0–45 by 5s. Guidelines drawn confirming all bar lengths.",
           "tangible_type": "bar_graph",
           "mode": "building",
           "orientation": "horizontal",
@@ -107,10 +98,10 @@
             0,
             45
           ],
-          "scale_increment": 5
+          "axis_interval": 5
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:03:26.389333+00:00"
+  "_generated_at": "2026-04-23T17:27:21.526283+00:00"
 }

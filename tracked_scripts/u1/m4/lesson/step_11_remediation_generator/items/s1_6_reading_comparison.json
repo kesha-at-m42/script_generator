@@ -1,0 +1,116 @@
+{
+  "id": "s1_6_reading_comparison",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 20
+        },
+        "description": "Student selected 20, the value of Comics instead of the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Nonfiction",
+                  "Comics"
+                ],
+                "description": "Nonfiction and Comics bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The question asks how many MORE. Find the difference between Nonfiction and Comics. What are the two values?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 60
+        },
+        "description": "Student selected 60, the value of Nonfiction instead of the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Nonfiction",
+                  "Comics"
+                ],
+                "description": "Nonfiction and Comics bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found Nonfiction. But the question asks how many MORE than Comics. Subtract Comics from Nonfiction to find the difference."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 80
+        },
+        "description": "Student selected 80, the sum instead of the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Nonfiction",
+                  "Comics"
+                ],
+                "description": "Nonfiction and Comics bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You added Nonfiction and Comics. The question asks how many MORE, not the total. Find the difference by subtracting."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "event": "highlight_difference",
+                "status": "confirmed",
+                "description": "Visual shows Nonfiction at 60, Comics at 20, with the gap between them highlighted to show difference of 40.",
+                "categories": [
+                  "Nonfiction",
+                  "Comics"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. Nonfiction is at 60. Comics is at 20. To find how many MORE, I subtract: 60 minus 20 equals 40. The difference between the two bars is 40 books."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:04:54.606236+00:00"
+}

@@ -1,0 +1,718 @@
+[
+  {
+    "id": "s1_0_opening_frame",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You've practiced building expressions from equal groups pictures. You learned different ways to build them: choosing from options and using tiles. Now let's connect what you discovered.",
+        "id": "s1_0_opening_frame_b0",
+        "_notion_block_id": "3485917e-ac52-819a-9e75-f9786c8b0949"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_opening_frame_b1",
+        "_toml_key": "step_100_opening_frame"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:15.786657+00:00",
+    "_notion_block_id": "3485917e-ac52-81ff-b609-c33e99888299",
+    "_toml_key": "section_100_opening_frame"
+  },
+  {
+    "id": "s1_1_representation_transfer_same_expression_different",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_bags",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 2,
+          "items_per_container": 5,
+          "container_type": "bags",
+          "description": "2 bags with 5 items each appear on left."
+        },
+        "id": "s1_1_representation_transfer_same_expression_different_b0",
+        "_notion_block_id": "3485917e-ac52-8129-ab8d-dd9abe741308"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_boxes",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 2,
+          "items_per_container": 5,
+          "container_type": "boxes",
+          "description": "2 boxes with 5 items each appear in center."
+        },
+        "id": "s1_1_representation_transfer_same_expression_different_b1",
+        "_notion_block_id": "3485917e-ac52-81fe-b4cc-f06fbb3a3de9"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_circles",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 2,
+          "items_per_container": 5,
+          "container_type": "circles",
+          "description": "2 circles with 5 dots each appear on right."
+        },
+        "id": "s1_1_representation_transfer_same_expression_different_b2",
+        "_notion_block_id": "3485917e-ac52-81a7-b631-d082060e879a"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_shared",
+        "tangible_type": "equation",
+        "params": {
+          "expression": [
+            "2",
+            "×",
+            "5"
+          ],
+          "description": "Expression 2 × 5 appears below all three visualizations."
+        },
+        "id": "s1_1_representation_transfer_same_expression_different_b3",
+        "_notion_block_id": "3485917e-ac52-8131-bb04-ec2c68f0dab2"
+      },
+      {
+        "type": "dialogue",
+        "text": "These three pictures look different. Bags, boxes, circles. But they all show the same thing.",
+        "id": "s1_1_representation_transfer_same_expression_different_b4",
+        "_notion_block_id": "3485917e-ac52-8189-aa82-e09fb5ebef14"
+      },
+      {
+        "type": "prompt",
+        "text": "What stays the same across all three?",
+        "tool": "multiple_choice",
+        "options": [
+          "2 groups with 5 in each",
+          "The containers (bags/boxes/circles)",
+          "The items inside",
+          "The colors or shapes"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "2 groups with 5 in each"
+            },
+            "description": "Student selected 2 groups with 5 in each, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. The containers change. bags, boxes, circles. but the structure doesn't. 2 groups of 5 every time. That's what the expression 2 times 5 captures. the structure underneath.",
+                "id": "s1_1_representation_transfer_same_expression_different_b5_v0_b0",
+                "_notion_block_id": "3485917e-ac52-817f-a832-d6c7914c269d"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "The containers (bags/boxes/circles)"
+            },
+            "description": "Student selected 'The containers (bags/boxes/circles)': focused on what changes rather than what stays the same",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_shared",
+                "params": {
+                  "highlight": true,
+                  "description": "Expression 2 × 5 highlights."
+                },
+                "id": "s1_1_representation_transfer_same_expression_different_b5_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "The containers do change. bags, boxes, circles. But look at the expression below. What does 2 × 5 tell us about the groups?",
+                "id": "s1_1_representation_transfer_same_expression_different_b5_v1_b1",
+                "_notion_block_id": "3485917e-ac52-811c-ad09-c56576374ae6"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "The items inside"
+            },
+            "description": "Student selected 'The items inside': focused on visual details rather than mathematical structure",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "highlight_groups": true,
+                  "description": "Groups in bags highlight."
+                },
+                "id": "s1_1_representation_transfer_same_expression_different_b5_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "The items might look different. But count the groups in each picture. How many groups? How many in each group? That's what matters.",
+                "id": "s1_1_representation_transfer_same_expression_different_b5_v2_b1",
+                "_notion_block_id": "3485917e-ac52-8118-a628-c94dc8dec047"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "The colors or shapes"
+            },
+            "description": "Student selected 'The colors or shapes': focused on surface features rather than mathematical structure",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_shared",
+                "params": {
+                  "highlight": true,
+                  "description": "Expression 2 × 5 highlights."
+                },
+                "id": "s1_1_representation_transfer_same_expression_different_b5_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Colors and shapes can change, but the multiplication stays the same. Look at 2 × 5. Count the groups and what's in each group across all three pictures.",
+                "id": "s1_1_representation_transfer_same_expression_different_b5_v3_b1",
+                "_notion_block_id": "3485917e-ac52-81ef-a625-d4792c2dc6a5"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_bags",
+                "params": {
+                  "event": "highlight_structure",
+                  "status": "confirmed",
+                  "description": "System highlights 2 groups with 5 items in bags."
+                },
+                "id": "s1_1_representation_transfer_same_expression_different_b5_v4_b0"
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_boxes",
+                "params": {
+                  "event": "highlight_structure",
+                  "status": "confirmed",
+                  "description": "System highlights 2 groups with 5 items in boxes."
+                },
+                "id": "s1_1_representation_transfer_same_expression_different_b5_v4_b1"
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_circles",
+                "params": {
+                  "event": "highlight_structure",
+                  "status": "confirmed",
+                  "description": "System highlights 2 groups with 5 items in circles."
+                },
+                "id": "s1_1_representation_transfer_same_expression_different_b5_v4_b2"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. In the bags: 2 groups, 5 in each. In the boxes: 2 groups, 5 in each. In the circles: 2 groups, 5 in each. The containers change, but the structure stays the same. 2 groups with 5 in each. That's what 2 × 5 means.",
+                "id": "s1_1_representation_transfer_same_expression_different_b5_v4_b3",
+                "_notion_block_id": "3485917e-ac52-819b-8713-e2b9f1fa369e"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_representation_transfer_same_expression_different_b5",
+        "_notion_block_id": "3485917e-ac52-81f7-9660-f2e033936c05"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_bags",
+            "description": "2 bags with 5 items each on left.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 2,
+            "items_per_container": 5,
+            "container_type": "bags"
+          },
+          {
+            "tangible_id": "equal_groups_boxes",
+            "description": "2 boxes with 5 items each in center.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 2,
+            "items_per_container": 5,
+            "container_type": "boxes"
+          },
+          {
+            "tangible_id": "equal_groups_circles",
+            "description": "2 circles with 5 dots each on right.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 2,
+            "items_per_container": 5,
+            "container_type": "circles"
+          },
+          {
+            "tangible_id": "equation_shared",
+            "description": "Expression 2 × 5 below all three visualizations.",
+            "tangible_type": "equation",
+            "expression": [
+              "2",
+              "×",
+              "5"
+            ]
+          }
+        ],
+        "id": "s1_1_representation_transfer_same_expression_different_b6",
+        "_toml_key": "step_101_representation_transfer_same_expression_different"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:28.810110+00:00",
+    "_notion_block_id": "3485917e-ac52-81f7-aa0a-d91d22943c33",
+    "_toml_key": "section_101_representation_transfer_same_expression_different"
+  },
+  {
+    "id": "s1_2_real_world_bridge_where_do",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_scenarios",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "scenarios": [
+            {
+              "id": "scenario_a",
+              "label": "A",
+              "description": "Egg carton with 2 rows, 6 eggs each",
+              "container_count": 2,
+              "items_per_container": 6,
+              "visual_type": "egg_carton"
+            },
+            {
+              "id": "scenario_b",
+              "label": "B",
+              "description": "Parking lot with 3 rows, 4 cars each",
+              "container_count": 3,
+              "items_per_container": 4,
+              "visual_type": "parking_lot"
+            },
+            {
+              "id": "scenario_c",
+              "label": "C",
+              "description": "Bookshelf with 5 shelves, 3 books each",
+              "container_count": 5,
+              "items_per_container": 3,
+              "visual_type": "bookshelf"
+            },
+            {
+              "id": "scenario_d",
+              "label": "D",
+              "description": "Park benches with varying numbers of people, not equal groups",
+              "container_count": 4,
+              "items_per_container": "varying",
+              "visual_type": "park_benches"
+            }
+          ],
+          "description": "Four real-world scenario illustrations appear. A: Egg carton (2 rows, 6 eggs each). B: Parking lot (3 rows, 4 cars each). C: Bookshelf (5 shelves, 3 books each). D: Park benches (4 benches, varying people)."
+        },
+        "id": "s1_2_real_world_bridge_where_do_b0",
+        "_notion_block_id": "3485917e-ac52-8168-afc2-f8e7f8ff59fb"
+      },
+      {
+        "type": "dialogue",
+        "text": "Equal groups show up everywhere, not just in math problems. Which of these shows equal groups?",
+        "id": "s1_2_real_world_bridge_where_do_b1",
+        "_notion_block_id": "3485917e-ac52-81e6-a64d-ccbb709e6b6c"
+      },
+      {
+        "type": "prompt",
+        "text": "Which one shows equal groups?",
+        "tool": "multiple_choice",
+        "options": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "validator": [
+          {
+            "condition_id": "selected_a",
+            "condition": {
+              "selected": "A"
+            },
+            "description": "Student selected scenario A: egg carton, 2 rows of 6 eggs",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_scenarios",
+                "params": {
+                  "highlight_scenario": "scenario_a",
+                  "description": "Scenario A (egg carton) highlights."
+                },
+                "id": "s1_2_real_world_bridge_where_do_b2_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Right. The egg carton. 2 rows of 6 eggs. That's 2 times 6. Equal groups in the grocery store.",
+                "id": "s1_2_real_world_bridge_where_do_b2_v0_b1",
+                "_notion_block_id": "3485917e-ac52-8161-9ed3-de67051e558c"
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_b",
+            "condition": {
+              "selected": "B"
+            },
+            "description": "Student selected scenario B: parking lot, 3 rows of 4 cars",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_scenarios",
+                "params": {
+                  "highlight_scenario": "scenario_b",
+                  "description": "Scenario B (parking lot) highlights."
+                },
+                "id": "s1_2_real_world_bridge_where_do_b2_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Yes. The parking lot. 3 rows of 4 cars. That's 3 times 4. Equal groups at the mall.",
+                "id": "s1_2_real_world_bridge_where_do_b2_v1_b1",
+                "_notion_block_id": "3485917e-ac52-8160-93b8-d9b02133a2d6"
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_c",
+            "condition": {
+              "selected": "C"
+            },
+            "description": "Student selected scenario C: bookshelf, 5 shelves with 3 books each",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_scenarios",
+                "params": {
+                  "highlight_scenario": "scenario_c",
+                  "description": "Scenario C (bookshelf) highlights."
+                },
+                "id": "s1_2_real_world_bridge_where_do_b2_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Exactly. The bookshelf. 5 shelves with 3 books each. That's 5 times 3. Equal groups in your room.",
+                "id": "s1_2_real_world_bridge_where_do_b2_v2_b1",
+                "_notion_block_id": "3485917e-ac52-81f0-b221-fc0f23183bf3"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "D"
+            },
+            "description": "Student selected scenario D: park benches with varying numbers of people (not equal groups)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_scenarios",
+                "params": {
+                  "highlight_scenario": "scenario_d",
+                  "description": "Scenario D (park benches) highlights to show the unequal groups."
+                },
+                "id": "s1_2_real_world_bridge_where_do_b2_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at those benches. Some have 2 people, some have 3, some have 1. Equal groups need the same number in each. Which scenarios have the same number?",
+                "id": "s1_2_real_world_bridge_where_do_b2_v3_b1",
+                "_notion_block_id": "3485917e-ac52-8115-b114-cee12f663c71"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models correct answers.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_scenarios",
+                "params": {
+                  "event": "highlight_all_equal",
+                  "status": "confirmed",
+                  "description": "Scenarios A, B, and C all highlight to show they are valid equal groups."
+                },
+                "id": "s1_2_real_world_bridge_where_do_b2_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The egg carton has 2 rows of 6 eggs. The parking lot has 3 rows of 4 cars. The bookshelf has 5 shelves with 3 books each. All three show equal groups because each group has the same number. D doesn't work because the benches have different numbers of people.",
+                "id": "s1_2_real_world_bridge_where_do_b2_v4_b1",
+                "_notion_block_id": "3485917e-ac52-81d0-bc90-ee09dc632d9e"
+              }
+            ]
+          }
+        ],
+        "id": "s1_2_real_world_bridge_where_do_b2",
+        "_notion_block_id": "3485917e-ac52-8119-a2a0-eda9cae0c563"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_scenarios",
+            "description": "Four real-world scenario illustrations in reading mode. Multiple choice tool active. A: Egg carton (2 rows, 6 eggs each). B: Parking lot (3 rows, 4 cars each). C: Bookshelf (5 shelves, 3 books each). D: Park benches (varying people).",
+            "tangible_type": "equal_groups",
+            "mode": "reading"
+          }
+        ],
+        "id": "s1_2_real_world_bridge_where_do_b3",
+        "_toml_key": "step_102_real_world_bridge_where_do"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:44.095319+00:00",
+    "_notion_block_id": "3485917e-ac52-8140-985e-e70d0319180f",
+    "_toml_key": "section_102_real_world_bridge_where_do"
+  },
+  {
+    "id": "s1_3_metacognitive_reflection_which_direction_made",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_reminder_top",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 4,
+          "description": "Small equal groups visual appears at top. 3 bags, 4 items per bag. Non-interactive reminder."
+        },
+        "id": "s1_3_metacognitive_reflection_which_direction_made_b0",
+        "_notion_block_id": "3485917e-ac52-8166-a776-f11bf9db1c85"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_reminder_top",
+        "tangible_type": "equation_builder",
+        "params": {
+          "mode": "reading",
+          "description": "Small equation builder appears beside top visual. Shows 3 × 4 = 12. Non-interactive reminder."
+        },
+        "id": "s1_3_metacognitive_reflection_which_direction_made_b1",
+        "_notion_block_id": "3485917e-ac52-8184-ab87-c6aa4dd189c4"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_reminder_bottom",
+        "tangible_type": "equation_builder",
+        "params": {
+          "mode": "reading",
+          "description": "Small equation builder appears at bottom. Shows expression. Non-interactive reminder."
+        },
+        "id": "s1_3_metacognitive_reflection_which_direction_made_b2",
+        "_notion_block_id": "3485917e-ac52-8149-92a5-dcb6d5536ec0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_reminder_bottom",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "description": "Small equal groups visual appears beside bottom equation. Non-interactive reminder."
+        },
+        "id": "s1_3_metacognitive_reflection_which_direction_made_b3",
+        "_notion_block_id": "3485917e-ac52-8116-b4c7-d675065aa82b"
+      },
+      {
+        "type": "dialogue",
+        "text": "Today you built expressions from pictures, and you matched pictures to expressions. Which direction made more sense to you?",
+        "id": "s1_3_metacognitive_reflection_which_direction_made_b4",
+        "_notion_block_id": "3485917e-ac52-8129-b454-ea1d6c6cf3fe"
+      },
+      {
+        "type": "prompt",
+        "text": "Which helped you understand expressions better?",
+        "tool": "multiple_choice",
+        "options": [
+          "Building from pictures (Visual → Expression)",
+          "Matching pictures to expressions (Expression → Visual)",
+          "Both helped in different ways",
+          "I'm still figuring it out"
+        ],
+        "validator": [
+          {
+            "condition_id": "selected_a",
+            "condition": {
+              "selected": "Building from pictures (Visual → Expression)"
+            },
+            "description": "Student selected building from pictures",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Nice. Building from pictures lets you see where the numbers come from. That's a strong way to learn.",
+                "id": "s1_3_metacognitive_reflection_which_direction_made_b5_v0_b0",
+                "_notion_block_id": "3485917e-ac52-819d-b310-e3eb4b92415d"
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_b",
+            "condition": {
+              "selected": "Matching pictures to expressions (Expression → Visual)"
+            },
+            "description": "Student selected matching pictures to expressions",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Good. Working backwards, from expression to picture, shows you what expressions MEAN. That's powerful too.",
+                "id": "s1_3_metacognitive_reflection_which_direction_made_b5_v1_b0",
+                "_notion_block_id": "3485917e-ac52-81b9-9072-ee1be08fdd11"
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_c",
+            "condition": {
+              "selected": "Both helped in different ways"
+            },
+            "description": "Student selected both helped in different ways",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "I see. Different directions for different moments. That's flexible thinking.",
+                "id": "s1_3_metacognitive_reflection_which_direction_made_b5_v2_b0",
+                "_notion_block_id": "3485917e-ac52-812e-a8b9-dbaa2585f61a"
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_d",
+            "condition": {
+              "selected": "I'm still figuring it out"
+            },
+            "description": "Student selected still figuring it out",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's okay. Still figuring it out is totally fine. You'll notice what works as you keep practicing.",
+                "id": "s1_3_metacognitive_reflection_which_direction_made_b5_v3_b0",
+                "_notion_block_id": "3485917e-ac52-814a-8716-d6e85b2146ba"
+              }
+            ]
+          }
+        ],
+        "id": "s1_3_metacognitive_reflection_which_direction_made_b5",
+        "_notion_block_id": "3485917e-ac52-8130-9399-e40b74643eb6"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_reminder_top",
+            "description": "Small equal groups visual at top. 3 bags, 4 items per bag. Non-interactive.",
+            "tangible_type": "equal_groups",
+            "mode": "reading"
+          },
+          {
+            "tangible_id": "equation_builder_reminder_top",
+            "description": "Small equation builder beside top visual. Shows 3 × 4 = 12. Non-interactive.",
+            "tangible_type": "equation_builder",
+            "mode": "reading"
+          },
+          {
+            "tangible_id": "equation_builder_reminder_bottom",
+            "description": "Small equation builder at bottom. Shows expression. Non-interactive.",
+            "tangible_type": "equation_builder",
+            "mode": "reading"
+          },
+          {
+            "tangible_id": "equal_groups_reminder_bottom",
+            "description": "Small equal groups visual beside bottom equation. Non-interactive.",
+            "tangible_type": "equal_groups",
+            "mode": "reading"
+          }
+        ],
+        "id": "s1_3_metacognitive_reflection_which_direction_made_b6",
+        "_toml_key": "step_103_metacognitive_reflection_which_direction_made"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:01:00.858111+00:00",
+    "_notion_block_id": "3485917e-ac52-8136-b002-ccf94d91e5d3",
+    "_toml_key": "section_103_metacognitive_reflection_which_direction_made"
+  },
+  {
+    "id": "s1_4_identity_building_closure",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You built expressions from equal groups pictures. You learned that 4 times 3 means 4 groups with 3 in each. You know what the numbers represent: groups and items.",
+        "id": "s1_4_identity_building_closure_b0",
+        "_notion_block_id": "3485917e-ac52-812d-b2a7-e6c76d046400"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_4_identity_building_closure_b1",
+        "_notion_block_id": "3485917e-ac52-811d-9997-cb1f0a884ede",
+        "_toml_key": "step_104_identity_building_closure"
+      },
+      {
+        "type": "dialogue",
+        "text": "Next time, you'll find out what 4 times 3 equals. You'll learn to figure out the total. You're ready because you already know what the expression means.",
+        "id": "s1_4_identity_building_closure_b2",
+        "_notion_block_id": "3485917e-ac52-818f-beb7-ef74deb9069f"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_4_identity_building_closure_b3",
+        "_toml_key": "step_105_identity_building_closure"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:01:05.067714+00:00",
+    "_notion_block_id": "3485917e-ac52-8137-b1e1-d37c23ac2af5",
+    "_toml_key": "section_104_identity_building_closure"
+  }
+]

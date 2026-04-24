@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T11:59:02.157917
+# Generated: 2026-04-23T12:19:58.743699
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -811,14 +827,14 @@ Cacheable: Yes
 {
   "id": "s1_1_building_on_scale_comparison",
   "visual": "Picture Graphs (side-by-side comparison). Brief callback — same data as 1:2 and 1:5 picture graphs (both vertical). Key highlighted on 1:5 graph: \"Each ⭐ = 5.\" Data Table not visible.",
-  "guide": "In Warmup, you saw something important. Same data, but the scale-of-5 graph needed fewer symbols. That's because each symbol represents MORE.",
-  "guide_2": "Same data, fewer symbols. That's why scale of 5 is useful when numbers get bigger. What does each symbol represent when the scale is 5?",
-  "prompt": "What does each symbol represent when the scale is 5?",
+  "guide": "\"In Warmup, you saw something important. Same data, but the scale-of-5 graph needed fewer symbols. That's because each symbol represents MORE.\"",
+  "guide_2": "\"Same data, fewer symbols. That's why scale of 5 is useful when numbers get bigger. What does each symbol represent when the scale is 5?\"",
+  "prompt": "\"What does each symbol represent when the scale is 5?\"",
   "student_action": "[Multiple choice: 2, 5, 10, 1]",
   "correct_answer": "5",
-  "on_correct": "Each symbol represents 5 items. That's the scale.",
-  "remediation_light": "Check the key. It says 'Each symbol = 5.' That's the scale: 5.",
-  "_generated_at": "2026-04-20T16:56:05.146020+00:00",
+  "on_correct": "\"Each symbol represents 5 items. That's the scale.\"",
+  "remediation_light": "\"Check the key. It says 'Each symbol = 5.' That's the scale: 5.\"",
+  "_generated_at": "2026-04-23T17:17:08.086824+00:00",
   "workspace_specs": {
     "toys": [
       "data_table",

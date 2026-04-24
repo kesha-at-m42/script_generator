@@ -1,0 +1,73 @@
+{
+  "id": "s1_2_pattern_discovery_2s_are_always",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "products_strip",
+      "tangible_type": "image",
+      "params": {
+        "description": "Products Strip displays: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20. All products glow with visual emphasis.",
+        "content": "Products of 2 sequence with highlight treatment"
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Let me look at these. 2, 4, 6, 8, 10, 12, 14, 16, 18, 20. I notice something about ALL of these numbers."
+    },
+    {
+      "type": "prompt",
+      "text": "What do all the products of 2 have in common?",
+      "tool": "multiple_choice",
+      "options": [
+        "They are all even numbers",
+        "They are all odd numbers",
+        "They are all greater than 10",
+        "They all end in 5"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "They are all even numbers"
+          },
+          "description": "Student selected even numbers, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "They're ALL even. Remember from graphing — even numbers split perfectly into groups of 2. And that makes sense: multiplying BY 2 means making groups of 2, so the product always splits evenly."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "products_strip",
+          "description": "Products Strip showing 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 with glow emphasis.",
+          "tangible_type": "image",
+          "content": "Products of 2 sequence with highlight treatment"
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Here's the pattern: when you multiply by 2, the product is ALWAYS even. Every time. That's your first checking tool — if you multiply by 2 and get an odd number, something went wrong."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "products_strip",
+          "description": "Products Strip showing 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 with glow emphasis.",
+          "tangible_type": "image",
+          "content": "Products of 2 sequence with highlight treatment"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:01:48.112955+00:00"
+}

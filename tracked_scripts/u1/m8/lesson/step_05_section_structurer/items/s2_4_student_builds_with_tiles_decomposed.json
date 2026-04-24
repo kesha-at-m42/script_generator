@@ -1,0 +1,92 @@
+{
+  "id": "s2_4_student_builds_with_tiles_decomposed",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_bags",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 2,
+        "items_per_container": 4,
+        "container_style": "bags",
+        "description": "2 bags with 4 items each appear on screen."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_bags",
+      "tangible_type": "equation_builder",
+      "params": {
+        "template": [
+          "__",
+          "×",
+          "__"
+        ],
+        "palette_range": [
+          1,
+          10
+        ],
+        "description": "Equation builder appears below equal groups. Two blank slots with multiplication symbol between them. Tile palette shows numbers 1 through 10."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Build the expression for these bags using tiles. First number: how many groups? Second number: how many in each group?"
+    },
+    {
+      "type": "prompt",
+      "text": "Build the expression.",
+      "tool": "place_tile",
+      "target": "equation_builder_bags",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "groups": 2,
+            "items": 4
+          },
+          "description": "Student placed 2 × 4",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You built it—2 times 4 shows 2 groups of 4."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_bags",
+          "description": "2 bags with 4 items each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 2,
+          "items_per_container": 4,
+          "container_style": "bags"
+        },
+        {
+          "tangible_id": "equation_builder_bags",
+          "description": "Equation builder showing 2 × 4. Both slots filled.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "×",
+            "__"
+          ],
+          "palette_range": [
+            1,
+            10
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:03:21.591029+00:00"
+}

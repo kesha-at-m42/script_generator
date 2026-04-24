@@ -1,0 +1,69 @@
+{
+  "id": "s3_4_independent_equation_building_full_construction",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student placed incorrect tiles on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Look closely at the bags. Count how many bags, then count what's in each bag."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student placed incorrect tiles on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "description": "The 9 bags highlight. Then one bag highlights individually, showing the 5 items inside clearly."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. You have 9 bags. Each bag contains 5 items. That's 9 groups of 5. Skip count by 5s nine times to find the product. Place all three tiles."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student placed incorrect tiles three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder",
+              "params": {
+                "event": "model_tile_placement",
+                "status": "confirmed",
+                "description": "System places 9 in first slot, 5 in second slot, 45 in product slot. Each tile locks into position sequentially."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. I count the bags: 9 bags. That's my first factor. I count what's in each bag: 5 items. That's my second factor. Now I skip count by 5s, nine times: 5, 10, 15, 20, 25, 30, 35, 40, 45. The product is 45. The complete equation is 9 times 5 equals 45."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:06:42.582556+00:00"
+}

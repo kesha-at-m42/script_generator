@@ -1,0 +1,116 @@
+{
+  "id": "s1_4_comparison_problem_compare",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 55
+        },
+        "description": "Student selected 55: chose Glue Sticks value instead of finding difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_supplies",
+              "params": {
+                "highlight_categories": [
+                  "Glue Sticks",
+                  "Markers"
+                ],
+                "description": "Glue Sticks and Markers bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found Glue Sticks. When we ask how many MORE, we need the difference. How far apart are Glue Sticks and Markers?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 85
+        },
+        "description": "Student selected 85: added the two values instead of subtracting",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_supplies",
+              "params": {
+                "highlight_categories": [
+                  "Glue Sticks",
+                  "Markers"
+                ],
+                "description": "Glue Sticks and Markers bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You added them together. How many MORE means we subtract. Find the difference between Glue Sticks and Markers."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 15
+        },
+        "description": "Student selected 15: incorrect calculation, possibly subtracted wrong pair or miscounted",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_supplies",
+              "params": {
+                "highlight_categories": [
+                  "Glue Sticks",
+                  "Markers"
+                ],
+                "description": "Glue Sticks and Markers bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's look at the bars we need. Find Glue Sticks. Then find Markers. What is the difference between those two?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_supplies",
+              "params": {
+                "event": "show_difference",
+                "status": "confirmed",
+                "description": "System demonstrates difference between Glue Sticks (55) and Markers (30). Visual shows 55 minus 30 equals 25.",
+                "categories": [
+                  "Glue Sticks",
+                  "Markers"
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how to find how many more. First, I look at Glue Sticks: 55. Then I look at Markers: 30. To find how many more, I subtract. 55 minus 30 is 25. The difference is 25. That tells us Glue Sticks has 25 more than Markers."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T16:59:31.070600+00:00"
+}

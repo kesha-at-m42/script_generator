@@ -1,0 +1,137 @@
+{
+  "id": "s1_2_identify_visual_expression",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder",
+      "tangible_type": "equation_builder",
+      "params": {
+        "mode": "display",
+        "expression": [
+          "4",
+          "×",
+          "2"
+        ],
+        "description": "Equation builder displays static expression 4 × 2 in expression mode."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "visual_option_a",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 4,
+        "items_per_container": 2,
+        "description": "Visual option A: 4 bags with 2 items in each."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "visual_option_b",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 2,
+        "items_per_container": 4,
+        "description": "Visual option B: 2 bags with 4 items in each (factor reversal)."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "visual_option_c",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 1,
+        "items_per_container": 6,
+        "description": "Visual option C: 6 items scattered without equal group structure (sum of factors)."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Which picture matches this expression?"
+    },
+    {
+      "type": "prompt",
+      "text": "Select the picture that shows 4 times 2.",
+      "tool": "multiple_choice",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "A"
+          },
+          "description": "Student selected A: 4 bags of 2, correct match for 4 × 2",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "visual_option_a",
+              "params": {
+                "event": "highlight_selection",
+                "status": "confirmed",
+                "description": "Option A highlights to confirm selection."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's right—4 groups with 2 in each."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_builder",
+          "description": "Equation builder displays static expression 4 × 2.",
+          "tangible_type": "equation_builder",
+          "mode": "display",
+          "expression": [
+            "4",
+            "×",
+            "2"
+          ]
+        },
+        {
+          "tangible_id": "visual_option_a",
+          "description": "Visual option A: 4 bags with 2 items in each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 2
+        },
+        {
+          "tangible_id": "visual_option_b",
+          "description": "Visual option B: 2 bags with 4 items in each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 2,
+          "items_per_container": 4
+        },
+        {
+          "tangible_id": "visual_option_c",
+          "description": "Visual option C: 6 items scattered without equal group structure.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 1,
+          "items_per_container": 6
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:21.389451+00:00"
+}

@@ -1,0 +1,212 @@
+{
+  "id": "s3_4_final_two_step_independence_check",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_colors",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "scale": 5,
+        "categories": [
+          "Yellow",
+          "Red",
+          "Green",
+          "Purple",
+          "Blue"
+        ],
+        "values": {
+          "Yellow": 20,
+          "Red": 45,
+          "Green": 25,
+          "Purple": 15,
+          "Blue": 45
+        },
+        "title": "Favorite Colors",
+        "description": "Vertical bar graph appears. Favorite Colors data. Scale of 5. Yellow=20, Red=45, Green=25, Purple=15, Blue=45."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Last one before we check what you know."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_colors",
+          "description": "Vertical bar graph in reading mode. Favorite Colors data. Scale of 5. Five categories visible.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 5,
+          "categories": [
+            "Yellow",
+            "Red",
+            "Green",
+            "Purple",
+            "Blue"
+          ],
+          "values": {
+            "Yellow": 20,
+            "Red": 45,
+            "Green": 25,
+            "Purple": 15,
+            "Blue": 45
+          }
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_colors",
+      "params": {
+        "question_text": "How many more students chose red than chose green or yellow together?",
+        "description": "Question appears: How many more students chose red than chose green or yellow together?"
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "How many more students chose red than chose green or yellow together? What do you find first?"
+    },
+    {
+      "type": "prompt",
+      "text": "Select what to find first.",
+      "tool": "multiple_choice",
+      "options": [
+        "Add green and yellow",
+        "Compare red to green",
+        "Add all colors",
+        "Subtract yellow from green"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Add green and yellow"
+          },
+          "description": "Student selected add green and yellow, correct first step",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Total green and yellow first. That's how you start a two-step problem."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_colors",
+          "description": "Vertical bar graph. Favorite Colors data. Question displayed. multiple_choice tool active.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 5,
+          "categories": [
+            "Yellow",
+            "Red",
+            "Green",
+            "Purple",
+            "Blue"
+          ],
+          "values": {
+            "Yellow": 20,
+            "Red": 45,
+            "Green": 25,
+            "Purple": 15,
+            "Blue": 45
+          }
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_colors",
+      "params": {
+        "highlight_categories": [
+          "Green",
+          "Yellow"
+        ],
+        "description": "Green and Yellow bars highlight."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "bar_graph_colors",
+      "params": {
+        "event": "show_calculation",
+        "status": "confirmed",
+        "calculation": "25 + 20 = 45",
+        "description": "Calculation appears: 25 + 20 = 45"
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Green and yellow combined is 45. Now compare to red."
+    },
+    {
+      "type": "prompt",
+      "text": "How many more students chose red than green and yellow combined?",
+      "tool": "multiple_choice",
+      "options": [
+        90,
+        45,
+        10,
+        0
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 0
+          },
+          "description": "Student answered 0, correct, equal values",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Zero. Red is 45, combined is 45. They're equal. No difference."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_colors",
+          "description": "Vertical bar graph. Green and Yellow bars highlighted. Calculation 25 + 20 = 45 displayed. multiple_choice tool active for step 2.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 5,
+          "categories": [
+            "Yellow",
+            "Red",
+            "Green",
+            "Purple",
+            "Blue"
+          ],
+          "values": {
+            "Yellow": 20,
+            "Red": 45,
+            "Green": 25,
+            "Purple": 15,
+            "Blue": 45
+          }
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:48.019034+00:00"
+}

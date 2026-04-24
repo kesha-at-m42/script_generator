@@ -1,0 +1,173 @@
+{
+  "id": "s2_1_reversed_equation_judgment_task_curiosity",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_student_built",
+      "tangible_type": "equation",
+      "params": {
+        "expression": [
+          "5",
+          "x",
+          "2",
+          "=",
+          "10"
+        ],
+        "description": "Static equation appears: 5 × 2 = 10. Student's equation from previous section, now read-only."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_reversed",
+      "tangible_type": "equation",
+      "params": {
+        "expression": [
+          "10",
+          "=",
+          "5",
+          "x",
+          "2"
+        ],
+        "description": "Second equation appears alongside or below first: 10 = 5 × 2. Reversed orientation."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Now look at this equation. What do you think?"
+    },
+    {
+      "type": "prompt",
+      "text": "What do you think about 10 = 5 × 2?",
+      "tool": "multiple_choice",
+      "options": [
+        "It's true — both sides are 10",
+        "It's true — it's just written differently",
+        "It's wrong — the answer should come last",
+        "I'm not sure"
+      ],
+      "validator": [
+        {
+          "condition_id": "both_sides_10",
+          "condition": {
+            "selected": "It's true — both sides are 10"
+          },
+          "description": "Student chose option A — checked both sides",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You checked both sides. Smart thinking. Hold that thought."
+            }
+          ]
+        },
+        {
+          "condition_id": "just_flipped",
+          "condition": {
+            "selected": "It's true — it's just written differently"
+          },
+          "description": "Student chose option B — noticed it's the same equation flipped",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You noticed it's the same equation, just flipped. Hold that thought."
+            }
+          ]
+        },
+        {
+          "condition_id": "answer_last",
+          "condition": {
+            "selected": "It's wrong — the answer should come last"
+          },
+          "description": "Student chose option C — thinks answer must come last",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Interesting — something looks different about it. Hold that thought."
+            }
+          ]
+        },
+        {
+          "condition_id": "not_sure",
+          "condition": {
+            "selected": "I'm not sure"
+          },
+          "description": "Student chose option D — uncertain",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "That's honest — it does look different. Hold that thought."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_student_built",
+          "description": "Static equation: 5 × 2 = 10.",
+          "tangible_type": "equation",
+          "expression": [
+            "5",
+            "x",
+            "2",
+            "=",
+            "10"
+          ]
+        },
+        {
+          "tangible_id": "equation_reversed",
+          "description": "Static equation: 10 = 5 × 2.",
+          "tangible_type": "equation",
+          "expression": [
+            "10",
+            "=",
+            "5",
+            "x",
+            "2"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "You can build equations. But today, equations have some surprises. You'll see them in new ways and figure out missing numbers."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_student_built",
+          "description": "Static equation: 5 × 2 = 10. Remains visible through transition.",
+          "tangible_type": "equation",
+          "expression": [
+            "5",
+            "x",
+            "2",
+            "=",
+            "10"
+          ]
+        },
+        {
+          "tangible_id": "equation_reversed",
+          "description": "Static equation: 10 = 5 × 2. Remains visible through transition.",
+          "tangible_type": "equation",
+          "expression": [
+            "10",
+            "=",
+            "5",
+            "x",
+            "2"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:54.934441+00:00"
+}

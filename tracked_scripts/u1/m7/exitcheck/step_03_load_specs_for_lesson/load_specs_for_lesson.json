@@ -1,0 +1,78 @@
+[
+  {
+    "id": "s1_1_identify_groups_items_identify",
+    "visual": "Context Visualizations. 3 boxes, 5 markers in each box.",
+    "guide": "\"Look at these boxes. Tell me what you see.\"",
+    "prompt": "\"How many groups? How many in each group?\"",
+    "student_action": "Identify groups and items (independently or with light support).",
+    "correct_answer": "3 groups, 5 in each.",
+    "answer_rationale": "5 = Correct (5 markers in each box)\n\t- 3 = Error: Said number of groups instead of items per group (#10 confusion)\n\t- 8 = Error: Added groups + items\n\t- 15 = Error: Said total items instead of items per group",
+    "on_correct": "\"5 markers in each box. 3 groups of 5.\"",
+    "on_incorrect": "\"Look inside ONE box. Count the markers.\"",
+    "remediation": "Pipeline",
+    "alignment": "Tests same skill as Lesson 1.2 and 1.5 (identify groups and items per group from concrete visual using two-step routine). Uses boxes (Lesson context) with a new item (markers) and value combination.",
+    "_generated_at": "2026-04-20T16:59:17.151619+00:00",
+    "workspace_specs": {
+      "toys": [
+        "equal_groups"
+      ],
+      "tools": [
+        "multiple_choice"
+      ],
+      "tool_inferred_by_fallback": true
+    }
+  },
+  {
+    "id": "s1_2_build_equal_groups_create",
+    "visual": "Build Mode interface. Empty workspace.",
+    "guide": "\"Build this one.\"",
+    "guide_2": "\"Show me 2 groups of 3.\"",
+    "prompt_step_1": "\"How many groups? Set the bags.\"",
+    "student_action": "Student sets container count to 2.",
+    "correct_answer": "2 bags appear.",
+    "on_correct": "\"2 groups.\"",
+    "on_incorrect_3_reversed": "(3 — reversed) \"That's how many go inside. 2 GROUPS means 2 bags.\"",
+    "on_incorrect_other": "(other) \"The first number is the groups. Set 2 bags.\"",
+    "remediation": "Pipeline",
+    "prompt_step_2": "\"How many in each group? Add the items.\"",
+    "student_action_2": "Student sets items-per-container to 3.",
+    "correct_answer_2": "3 items appear in each bag.",
+    "on_correct_2": "\"2 bags, 3 in each. 2 groups of 3.\"",
+    "on_incorrect_2_reversed": "(2 — reversed) \"That's the number of bags. Each bag needs 3 inside.\"",
+    "on_incorrect_other_2": "(other) \"'2 groups of 3.' The 3 goes inside each bag.\"",
+    "remediation_2": "Pipeline",
+    "alignment": "Tests same skill as Lesson 1.3 and 1.4 (construct equal groups via Build Mode with two-step decomposition). Different values (2 × 3, not used as a Build Mode task in Lesson).",
+    "_generated_at": "2026-04-20T16:59:23.452245+00:00",
+    "workspace_specs": {
+      "toys": [],
+      "tools": [],
+      "unresolved": [
+        "Build Mode interface",
+        "Empty workspace"
+      ]
+    }
+  },
+  {
+    "id": "s1_3_select_expression_identify",
+    "visual": "Context Visualization: 4 circles, each containing 2 dots. Semi-abstract level.",
+    "guide": "\"Alright, circles. Figure out the groups, then pick the expression that matches.\"",
+    "prompt": "\"Which expression shows this?\"",
+    "student_action": "Select: A) 4 × 2, B) 2 × 4, C) 4 + 2, D) 2 + 4.",
+    "correct_answer": "A (4 × 2).",
+    "answer_rationale": "A) 4 × 2 = Correct (4 groups of 2)\n\tB) 2 × 4 = Error: Reversed groups and items (#10)\n\tC) 4 + 2 = Error: Used addition instead of multiplication (#11)\n\tD) 2 + 4 = Error: Addition AND reversed (#10 + #11)",
+    "on_correct": "\"4 × 2. Four circles, two dots each.\"",
+    "on_incorrect": "(B — reversed, #10) \"Count the circles first — that's 4. Groups go first: 4 × 2.\"",
+    "on_incorrect_2": "(C or D — addition, #11) \"4 + 2 is 6. But 4 groups of 2 is 8 items. Equal groups means multiplication: 4 × 2.\"",
+    "remediation": "Pipeline",
+    "alignment": "Tests same skill as Lesson 3.1-3.3 (select correct × expression from MC options with reversal and addition distractors). Uses circles (Lesson Section 2-3 context) with a value combination not used in any Lesson MC task (4 × 2).",
+    "_generated_at": "2026-04-20T16:59:28.860036+00:00",
+    "workspace_specs": {
+      "toys": [
+        "equal_groups"
+      ],
+      "tools": [
+        "multiple_choice"
+      ]
+    }
+  }
+]

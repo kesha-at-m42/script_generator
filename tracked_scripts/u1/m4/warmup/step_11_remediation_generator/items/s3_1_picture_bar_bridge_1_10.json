@@ -1,0 +1,140 @@
+{
+  "id": "s3_1_picture_bar_bridge_1_10",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student clicked a wrong category on picture graph, first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Check the key. How many symbols show 50?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student clicked a wrong category on picture graph, second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_w2",
+              "params": {
+                "highlight_categories": [
+                  "Birds"
+                ],
+                "description": "Birds column highlights on picture graph."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The key says each symbol equals 10. Count the Birds column: 5 symbols. How much is that?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student clicked a wrong category on picture graph three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_w2",
+              "params": {
+                "event": "highlight_category",
+                "status": "confirmed",
+                "category": "Birds",
+                "description": "Birds column highlights on picture graph."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. The key tells us each symbol equals 10. I count the Birds column: 1, 2, 3, 4, 5 symbols. That's 5 times 10, which equals 50. Birds shows 50."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student clicked a wrong category on bar graph, first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Look at the heights. Which bar reaches 50?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student clicked a wrong category on bar graph, second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_pets",
+              "params": {
+                "highlight_categories": [
+                  "Birds"
+                ],
+                "description": "Birds bar highlights on bar graph."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The axis shows 0, 10, 20, 30, 40, 50, 60. Follow the Birds bar up to the top. What number does it reach?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student clicked a wrong category on bar graph three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_pets",
+              "params": {
+                "event": "highlight_category",
+                "status": "confirmed",
+                "category": "Birds",
+                "description": "Birds bar highlights on bar graph."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how to read bar graphs. I look at the vertical axis: 0, 10, 20, 30, 40, 50, 60. Then I follow the Birds bar to its top. It stops at 50. That's how bar graphs show the count. Birds has 50."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T16:58:53.331552+00:00"
+}

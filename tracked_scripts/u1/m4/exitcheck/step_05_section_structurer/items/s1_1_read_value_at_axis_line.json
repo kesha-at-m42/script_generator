@@ -1,0 +1,99 @@
+{
+  "id": "s1_1_read_value_at_axis_line",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_books",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Nonfiction",
+          "Fiction",
+          "Comics",
+          "Poetry"
+        ],
+        "scale": 10,
+        "axis_range": [
+          0,
+          60
+        ],
+        "values": {
+          "Nonfiction": 30,
+          "Fiction": 40,
+          "Comics": 50,
+          "Poetry": 20
+        },
+        "description": "Vertical bar graph appears. Books Checked Out data. Nonfiction=30, Fiction=40, Comics=50, Poetry=20. Scale of 10, axis 0–60. All bars end at axis lines."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_books",
+      "params": {
+        "highlight_categories": [
+          "Fiction"
+        ],
+        "description": "Fiction bar highlights."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Look at the Fiction bar. What value does the Fiction bar show?"
+    },
+    {
+      "type": "prompt",
+      "text": "What value does the Fiction bar show?",
+      "tool": "multiple_choice",
+      "options": [
+        4,
+        35,
+        40,
+        45
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 40
+          },
+          "description": "Student selected 40, correct, bar ends at 40 line",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "40. The bar ends right at the 40 line on the axis."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_books",
+          "description": "Vertical bar graph. Books Checked Out data. Fiction bar highlighted. Scale of 10, axis 0–60.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Nonfiction",
+            "Fiction",
+            "Comics",
+            "Poetry"
+          ],
+          "scale": 10,
+          "axis_range": [
+            0,
+            60
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:57:54.552134+00:00"
+}

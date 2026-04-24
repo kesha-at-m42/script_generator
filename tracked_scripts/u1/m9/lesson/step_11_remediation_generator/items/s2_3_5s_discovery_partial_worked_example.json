@@ -1,0 +1,100 @@
+{
+  "id": "s2_3_5s_discovery_partial_worked_example",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 8
+        },
+        "description": "Student selected 8, represents whole-number addition error (3 + 5)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "products_strip_5s",
+              "params": {
+                "description": "Products strip highlights 5, 10, 15 to show the sequence."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You added 3 and 5. This problem asks you to multiply. Skip-count by 5s: start at 5, then 10, then 15. Place the third number."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 10
+        },
+        "description": "Student selected 10, stopped after second skip-count step",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "products_strip_5s",
+              "params": {
+                "description": "Products strip highlights 5, 10, 15 with emphasis on the third position."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "10 is the second multiple of 5. You need 3 groups of 5. Keep going: 5, 10... what comes next?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 20
+        },
+        "description": "Student selected 20, skip-counted four times instead of three",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "products_strip_5s",
+              "params": {
+                "description": "Products strip highlights 5, 10, 15 to isolate the first three multiples."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "20 is the fourth multiple of 5. You only need 3 groups. Count with me: 5, 10, 15. That's three. Place 15."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_3x5",
+              "params": {
+                "event": "model_skip_count_sequence",
+                "status": "confirmed",
+                "description": "Products strip highlights sequentially as system counts: 5 (first group), 10 (second group), 15 (third group). 15 tile animates into product slot."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. 3 times 5 means 3 groups of 5. I skip-count by 5s three times: 5, 10, 15. Three groups gets me to 15. That's the product. The answer is 15."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:05:48.328859+00:00"
+}

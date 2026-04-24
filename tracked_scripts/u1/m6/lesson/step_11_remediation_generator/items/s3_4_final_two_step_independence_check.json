@@ -1,0 +1,219 @@
+{
+  "id": "s3_4_final_two_step_independence_check",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "Compare red to green"
+        },
+        "description": "Student selected compare red to green, skipping the combined total step",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Green",
+                  "Yellow"
+                ],
+                "description": "Green and Yellow bars highlight together."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The question says green or yellow together. That word together tells us to add those first. What is green plus yellow?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Add all colors"
+        },
+        "description": "Student selected add all colors, not identifying the specific categories needed",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Green",
+                  "Yellow"
+                ],
+                "description": "Green and Yellow bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "We only need the categories the question asks about. It says green or yellow together. Add those two, not all five colors."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Subtract yellow from green"
+        },
+        "description": "Student selected subtract yellow from green, missing the combined total step",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Green",
+                  "Yellow"
+                ],
+                "description": "Green and Yellow bars highlight together."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "When a question says together or combined, that tells us to add, not subtract. Find the total of green and yellow first."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct first step.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "event": "highlight_categories",
+                "status": "confirmed",
+                "categories": [
+                  "Green",
+                  "Yellow"
+                ],
+                "description": "Green and Yellow bars highlight. System demonstrates adding them."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how to start a two-step problem. The question says green or yellow together. That word together means add those categories first. Green is 25, yellow is 20, so we add: 25 plus 20 equals 45. Now we have the combined total, and we can compare it to red. The first step is always: find the combined total."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": 90
+        },
+        "description": "Student selected 90, likely added instead of subtracting",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Red"
+                ],
+                "description": "Red bar highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "How many more means compare. We subtract, not add. Red is 45, combined is 45. What is 45 minus 45?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 45
+        },
+        "description": "Student selected 45, repeating one of the values without comparing",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Red"
+                ],
+                "description": "Red bar (45) highlights alongside the combined value 45."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You named one of the numbers, but we need the difference. Red is 45, the combined total is 45. How far apart are they?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 10
+        },
+        "description": "Student selected 10, incorrect comparison value",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "highlight_categories": [
+                  "Red"
+                ],
+                "description": "Red bar (45) highlights. Combined value 45 displayed."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at the two values we're comparing. Red is 45. Combined is 45. Those numbers are the same. What does that tell you about the difference?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct comparison.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_colors",
+              "params": {
+                "event": "show_comparison",
+                "status": "confirmed",
+                "description": "Red bar and combined value 45 display side by side. System demonstrates comparison."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. Green and yellow combined equals 45. Red equals 45. Now we compare: 45 minus 45 equals 0. When two values are equal, there is no difference. The answer is 0. Red is not more than green and yellow combined. They're the same."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:05:58.077290+00:00"
+}

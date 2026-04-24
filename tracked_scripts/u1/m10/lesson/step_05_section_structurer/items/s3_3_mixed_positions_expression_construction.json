@@ -1,0 +1,191 @@
+{
+  "id": "s3_3_mixed_positions_expression_construction",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_unknown_second",
+      "tangible_type": "equation_builder",
+      "params": {
+        "mode": "reading",
+        "template": "equation_style",
+        "expression": [
+          "5",
+          "x",
+          "__",
+          "=",
+          "30"
+        ],
+        "description": "Equation Builder displays: 5 × ☐ = 30. Unknown second factor position."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_construction",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "building",
+        "container_count": 5,
+        "items_per_container": 0,
+        "locked_container_count": true,
+        "show_running_total": true,
+        "current_total": 0,
+        "description": "Equal Groups with Pictures in Construction Mode. 5 empty groups displayed. Group count locked at 5. Per-group +/- controls. Running total: Total: 0."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Here's the equation. 5 groups of something equals 30. Build the groups — add items until you hit 30. Keep them equal!"
+    },
+    {
+      "type": "prompt",
+      "text": "5 × ☐ = 30. Build 5 equal groups that make 30 total.",
+      "tool": "set_items_per_container",
+      "target": "equal_groups_construction",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "items_per_container": 6
+          },
+          "description": "Student built 5 equal groups of 6, total = 30",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_construction",
+              "params": {
+                "event": "confirm_completion",
+                "status": "confirmed",
+                "description": "Equal groups construction completes. 5 groups of 6 items each confirmed."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder_unknown_second",
+              "params": {
+                "expression": [
+                  "5",
+                  "x",
+                  "6",
+                  "=",
+                  "30"
+                ],
+                "description": "Equation Builder updates: 5 × 6 = 30. Second factor filled."
+              }
+            }
+          ]
+        },
+        {
+          "condition_id": "total_30_unequal",
+          "condition": {
+            "current_total": 30
+          },
+          "description": "Total reached 30 but groups are unequal",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You hit 30! But check — are the groups equal? Multiplication needs equal groups. Adjust so each group has the same number."
+            }
+          ]
+        },
+        {
+          "condition_id": "equal_wrong_total",
+          "condition": {},
+          "description": "Groups are equal but total is not 30",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Equal groups — great! But the total isn't 30 yet. Add more to each group (or remove some) and watch the total."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_builder_unknown_second",
+          "description": "Equation Builder displays: 5 × ☐ = 30. Unknown second factor position.",
+          "tangible_type": "equation_builder",
+          "mode": "reading",
+          "template": "equation_style",
+          "expression": [
+            "5",
+            "x",
+            "__",
+            "=",
+            "30"
+          ]
+        },
+        {
+          "tangible_id": "equal_groups_construction",
+          "description": "Equal Groups Construction Mode. 5 empty groups. Group count locked at 5. Per-group +/- controls active. Running total: Total: 0.",
+          "tangible_type": "equal_groups",
+          "mode": "building",
+          "container_count": 5,
+          "items_per_container": 0,
+          "locked_container_count": true,
+          "show_running_total": true,
+          "current_total": 0
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "equation_builder_unknown_second",
+      "params": {
+        "expression": [
+          "30",
+          "=",
+          "5",
+          "x",
+          "6"
+        ],
+        "description": "Equation Builder updates to reversed form: 30 = 5 × 6."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "5 times 6 equals 30. You started with the equation and BUILT the answer. That's exactly what equations are for — they tell you how the numbers connect."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_builder_unknown_second",
+          "description": "Equation Builder displays reversed form: 30 = 5 × 6.",
+          "tangible_type": "equation_builder",
+          "mode": "reading",
+          "template": "equation_style",
+          "expression": [
+            "30",
+            "=",
+            "5",
+            "x",
+            "6"
+          ]
+        },
+        {
+          "tangible_id": "equal_groups_construction",
+          "description": "Equal Groups Construction Mode showing completed solution: 5 groups of 6 items each. Running total: Total: 30.",
+          "tangible_type": "equal_groups",
+          "mode": "building",
+          "container_count": 5,
+          "items_per_container": 6,
+          "locked_container_count": true,
+          "show_running_total": true,
+          "current_total": 30
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:06:12.958861+00:00"
+}

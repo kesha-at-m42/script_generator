@@ -1,0 +1,54 @@
+{
+  "id": "s2_4_digit_pattern_recognition_shortcut",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "Data Set A"
+        },
+        "description": "Student selected Data Set A (20, 35, 55, 80)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "dataset_a",
+              "params": {
+                "description": "Data Set A highlights. Ones digits (0, 5, 5, 0) emphasized."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at the ones place in Data Set A. Every number ends in 0 or 5. Those are multiples of 5."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "dataset_b",
+              "params": {
+                "event": "highlight_ones_digits",
+                "status": "confirmed",
+                "description": "Data Set B ones digits (7, 2, 9, 3) highlight in sequence."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. Look at Data Set B: 7, 12, 19, 23. The ones place shows 7, 2, 9, 3. None of those are 0 or 5, so these aren't multiples of 5. That pattern tells you Scale of 2 is the right tool. Data Set B is the answer."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:05:17.382539+00:00"
+}

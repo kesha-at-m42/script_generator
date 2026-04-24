@@ -1,0 +1,110 @@
+{
+  "id": "s3_2_reading_horizontal_between_lines",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 50
+        },
+        "description": "Student selected 50: read the closest grid line instead of the bar endpoint",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_field_trip",
+              "params": {
+                "highlight_categories": [
+                  "Park"
+                ],
+                "description": "Park bar remains highlighted, endpoint emphasized between 50 and 60."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The bar doesn't stop at 50. Look where the end of the bar actually is. Is it at a line or between two lines?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 60
+        },
+        "description": "Student selected 60: read the higher grid line instead of the bar endpoint",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_field_trip",
+              "params": {
+                "highlight_categories": [
+                  "Park"
+                ],
+                "description": "Park bar remains highlighted, endpoint emphasized between 50 and 60."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The bar doesn't reach all the way to 60. Look closely at where the bar ends. It stops between two lines."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 58
+        },
+        "description": "Student selected 58: attempted estimation but missed that halfway between 50 and 60 is 55",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_field_trip",
+              "params": {
+                "highlight_categories": [
+                  "Park"
+                ],
+                "description": "Park bar highlighted with gridlines at 50 and 60 emphasized."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You saw the bar is between the lines. When a bar is halfway between two lines, find the middle. What's halfway between 50 and 60?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_field_trip",
+              "params": {
+                "event": "show_midpoint_value",
+                "status": "confirmed",
+                "description": "Visual draws from bar endpoint to axis, highlighting position exactly halfway between 50 and 60, with 55 labeled at midpoint.",
+                "category": "Park"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. The Park bar ends between 50 and 60. When a bar is exactly in the middle, that's halfway. Half of 10 is 5, so 50 plus 5 equals 55. The bar shows 55 votes."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:06:24.005787+00:00"
+}

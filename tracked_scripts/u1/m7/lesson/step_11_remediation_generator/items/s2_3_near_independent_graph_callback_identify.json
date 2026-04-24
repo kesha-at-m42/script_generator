@@ -1,0 +1,103 @@
+{
+  "id": "s2_3_near_independent_graph_callback_identify",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "5 × 4"
+        },
+        "description": "Student selected 5 × 4, reversed the groups and items",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "highlight_containers": true,
+                "description": "All 4 circles highlight to show the groups."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You reversed it. Count the circles first. That number goes first in the expression. How many circles?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "4 + 5"
+        },
+        "description": "Student selected 4 + 5, used addition instead of multiplication",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "highlight_containers": true,
+                "description": "All 4 circles highlight briefly, then one circle opens to show its 5 dots."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You used plus. When we have equal groups, we use times, not plus. You have 4 circles with 5 in each. That's 4 times 5."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "5 + 4"
+        },
+        "description": "Student selected 5 + 4, used addition instead of multiplication",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "highlight_containers": true,
+                "description": "All 4 circles highlight briefly, then one circle opens to show its 5 dots."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You used plus. Equal groups need the times symbol. Count the groups, then count what's in each group. Which symbol connects them?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "event": "count_groups_then_items",
+                "status": "confirmed",
+                "description": "Circles highlight one by one as they are counted: 1, 2, 3, 4. Then one circle opens and its dots highlight: 1, 2, 3, 4, 5."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how to see it. First, I count the circles: 1, 2, 3, 4. That's 4 groups. Then I look inside one circle and count: 1, 2, 3, 4, 5. That's 5 in each group. When I have groups with the same amount in each, I use times. 4 groups times 5 in each equals 4 × 5. The answer is 4 × 5."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:05:49.614738+00:00"
+}

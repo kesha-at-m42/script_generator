@@ -1,0 +1,64 @@
+{
+  "id": "s3_1_first_expression_recognition_mc_recognition",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_bags",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 3,
+        "items_per_container": 2,
+        "container_type": "bags",
+        "description": "3 bags appear, each containing 2 items."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Figure out the groups. Then pick the expression."
+    },
+    {
+      "type": "prompt",
+      "text": "Which expression shows this?",
+      "tool": "multiple_choice",
+      "options": [
+        "3 × 2",
+        "2 × 3",
+        "3 + 2",
+        "2 + 3"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "3 × 2"
+          },
+          "description": "Student selected 3 × 2, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "3 times 2. Three bags, two in each. That's how you match groups to an expression."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_bags",
+          "description": "3 bags, each containing 2 items. Reading mode.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 2,
+          "container_type": "bags"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:41.747831+00:00"
+}

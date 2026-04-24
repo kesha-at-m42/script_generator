@@ -1,0 +1,1770 @@
+[
+  {
+    "id": "s1_1_transition_warmup",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_lunch",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 5,
+          "categories": [
+            "Pizza",
+            "Tacos",
+            "Salad",
+            "Burgers"
+          ],
+          "values": {
+            "Pizza": 45,
+            "Tacos": 25,
+            "Salad": 10,
+            "Burgers": 15
+          },
+          "title": "Favorite Lunch Foods",
+          "description": "Horizontal bar graph appears. Favorite Lunch Foods. Scale of 5. Pizza 45, Tacos 25, Salad 10, Burgers 15."
+        },
+        "id": "s1_1_transition_warmup_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "In Warmup, you read graphs with different scales. Now let's use graphs to solve problems. Here's data about students' favorite lunch foods.",
+        "id": "s1_1_transition_warmup_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "First, a quick check on something you learned before.",
+        "id": "s1_1_transition_warmup_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_lunch",
+            "description": "Horizontal bar graph. Favorite Lunch Foods. Scale of 5. Pizza 45, Tacos 25, Salad 10, Burgers 15.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 5,
+            "categories": [
+              "Pizza",
+              "Tacos",
+              "Salad",
+              "Burgers"
+            ]
+          }
+        ],
+        "id": "s1_1_transition_warmup_b3"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:00:50.436815+00:00"
+  },
+  {
+    "id": "s1_2_single_step_activation",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 55
+          },
+          "description": "Student selected 55 (added instead of subtracting)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_categories": [
+                    "Pizza",
+                    "Salad"
+                  ],
+                  "description": "Pizza and Salad bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You added pizza and salad. How many more means compare. We need to subtract, not add. Find the difference between 45 and 10."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 30
+          },
+          "description": "Student selected 30 (incorrect calculation or misread values)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_categories": [
+                    "Pizza",
+                    "Salad"
+                  ],
+                  "description": "Pizza and Salad bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Check the bar heights. Pizza reaches 45, salad reaches 10. How many more means subtract. What is 45 minus 10?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 15
+          },
+          "description": "Student selected 15 (subtracted wrong values or misread scale)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_categories": [
+                    "Pizza",
+                    "Salad"
+                  ],
+                  "description": "Pizza and Salad bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the numbers. Pizza is at 45, salad is at 10. Count by fives to check. How many more means subtract those two numbers."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "event": "show_calculation",
+                  "status": "confirmed",
+                  "description": "Animation shows: Pizza bar (45) and Salad bar (10) highlight, then 45 - 10 = 35 displays"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. How many more tells us to compare. Pizza is 45 students. Salad is 10 students. To find how many more, we subtract: 45 minus 10 equals 35. The answer is 35 because that is the difference between pizza and salad."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:03:39.546898+00:00"
+  },
+  {
+    "id": "s1_3_section_transition",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_colors",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Yellow",
+            "Red",
+            "Blue",
+            "Green"
+          ],
+          "description": "Vertical bar graph appears. Favorite Colors data. Yellow=6, Red=5, Blue=4, Green=4."
+        },
+        "id": "s1_3_section_transition_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "Good. How many more means compare, and compare means subtract. You've got that. Now here's something new: What if the problem asks about more than one category?",
+        "id": "s1_3_section_transition_b1"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_colors",
+            "description": "Vertical bar graph in reading mode. Favorite Colors data. Yellow=6, Red=5, Blue=4, Green=4.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Yellow",
+              "Red",
+              "Blue",
+              "Green"
+            ]
+          }
+        ],
+        "id": "s1_3_section_transition_b2"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:01:04.925449+00:00"
+  },
+  {
+    "id": "s2_1_return_warmup_question",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "and": [
+              {
+                "selected": "Pizza"
+              },
+              {
+                "selected": "Tacos"
+              },
+              {
+                "selected": "Salad"
+              },
+              {
+                "selected": "Burgers"
+              }
+            ]
+          },
+          "description": "Student selected all four categories including Burgers (over-selecting)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_categories": [
+                    "Pizza",
+                    "Tacos",
+                    "Salad"
+                  ],
+                  "description": "Pizza, Tacos, and Salad bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You picked Pizza, Tacos, and Salad correctly. But the question doesn't ask about Burgers. Look at which foods the question names."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "or": [
+                  {
+                    "selected": "Pizza"
+                  },
+                  {
+                    "selected": "Tacos"
+                  },
+                  {
+                    "selected": "Salad"
+                  }
+                ]
+              },
+              {
+                "not": {
+                  "and": [
+                    {
+                      "selected": "Pizza"
+                    },
+                    {
+                      "selected": "Tacos"
+                    },
+                    {
+                      "selected": "Salad"
+                    }
+                  ]
+                }
+              },
+              {
+                "not": {
+                  "selected": "Burgers"
+                }
+              }
+            ]
+          },
+          "description": "Student selected some but not all correct categories (under-selecting)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_categories": [
+                    "Pizza",
+                    "Tacos",
+                    "Salad"
+                  ],
+                  "description": "Pizza, Tacos, and Salad bars pulse."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You found some of them. Read the question again. Which foods does it name? Select all three."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "not": {
+              "or": [
+                {
+                  "selected": "Pizza"
+                },
+                {
+                  "selected": "Tacos"
+                },
+                {
+                  "selected": "Salad"
+                }
+              ]
+            }
+          },
+          "description": "Student selected none of the correct categories or only Burgers (all-wrong)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "highlight_categories": [
+                    "Pizza",
+                    "Tacos",
+                    "Salad"
+                  ],
+                  "description": "Pizza, Tacos, and Salad bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The question asks about pizza compared to tacos and salad together. Those are the three categories we need."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_lunch",
+                "params": {
+                  "event": "highlight_selections",
+                  "status": "confirmed",
+                  "description": "System selects Pizza, Tacos, and Salad in sequence."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The question says pizza compared to tacos and salad together. That names three foods: Pizza, Tacos, and Salad. We select those three because the question asks about them."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:03:53.357508+00:00"
+  },
+  {
+    "id": "s2_2_worked_example_with_think_aloud",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_lunch",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Pizza",
+            "Tacos",
+            "Salad",
+            "Burgers"
+          ],
+          "values": {
+            "Pizza": 45,
+            "Tacos": 25,
+            "Salad": 10,
+            "Burgers": 15
+          },
+          "description": "Vertical bar graph appears. Favorite Lunch data. Pizza=45, Tacos=25, Salad=10, Burgers=15."
+        },
+        "id": "s2_2_worked_example_with_think_aloud_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "Let me show you how I solve this. First, I ask myself: What should I find first?",
+        "id": "s2_2_worked_example_with_think_aloud_b1"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_lunch",
+            "description": "Vertical bar graph. Favorite Lunch data. Pizza=45, Tacos=25, Salad=10, Burgers=15.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Pizza",
+              "Tacos",
+              "Salad",
+              "Burgers"
+            ]
+          }
+        ],
+        "id": "s2_2_worked_example_with_think_aloud_b2"
+      },
+      {
+        "type": "dialogue",
+        "text": "The question says tacos and salad together. That word together tells me to add those first. Let me find that total.",
+        "id": "s2_2_worked_example_with_think_aloud_b3"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_lunch",
+        "params": {
+          "highlight_categories": [
+            "Tacos",
+            "Salad"
+          ],
+          "description": "Tacos bar (25) and Salad bar (10) highlight together."
+        },
+        "id": "s2_2_worked_example_with_think_aloud_b4"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "bar_graph_lunch",
+        "params": {
+          "event": "show_calculation",
+          "status": "confirmed",
+          "description": "Animation shows: 25 + 10 = 35"
+        },
+        "id": "s2_2_worked_example_with_think_aloud_b5"
+      },
+      {
+        "type": "dialogue",
+        "text": "Tacos is 25, salad is 10. Combined, that's 35.",
+        "id": "s2_2_worked_example_with_think_aloud_b6"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_lunch",
+            "description": "Vertical bar graph. Tacos (25) and Salad (10) highlighted. Calculation 25 + 10 = 35 displayed.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Pizza",
+              "Tacos",
+              "Salad",
+              "Burgers"
+            ]
+          }
+        ],
+        "id": "s2_2_worked_example_with_think_aloud_b7"
+      },
+      {
+        "type": "dialogue",
+        "text": "Now I can compare. How many more is pizza than that total of 35?",
+        "id": "s2_2_worked_example_with_think_aloud_b8"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_lunch",
+        "params": {
+          "highlight_categories": [
+            "Pizza"
+          ],
+          "description": "Pizza bar (45) highlights. Shows: 45 compared to 35."
+        },
+        "id": "s2_2_worked_example_with_think_aloud_b9"
+      },
+      {
+        "type": "dialogue",
+        "text": "Pizza is 45 while tacos and salad combined is 35. 45 minus 35 is 10. Pizza is 10 more than tacos and salad combined.",
+        "id": "s2_2_worked_example_with_think_aloud_b10"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_lunch",
+            "description": "Vertical bar graph. Pizza bar (45) highlighted. Comparison to 35 shown.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Pizza",
+              "Tacos",
+              "Salad",
+              "Burgers"
+            ]
+          }
+        ],
+        "id": "s2_2_worked_example_with_think_aloud_b11"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:01:27.657011+00:00"
+  },
+  {
+    "id": "s2_3_strategy_naming",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "The difference"
+          },
+          "description": "Student selected The difference (confusing compare step with first step)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "We do find the difference, but that's the second step. When we see combined, we add first. What do we find when we add?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "The largest number"
+          },
+          "description": "Student selected The largest number (focusing on comparison rather than combining)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "The largest number helps us compare, but that comes later. Combined means put together. What operation puts numbers together?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "When we see combined, together, or altogether, we add those categories first to find the total. That total becomes one number we can compare to the other category. The answer is the total."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:04:05.726425+00:00"
+  },
+  {
+    "id": "s2_4_guided_practice_full_scaffolding",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "Compare bikes to scooters"
+          },
+          "description": "Student selected compare bikes to scooters, skipping the addition step",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_rolling",
+                "params": {
+                  "highlight_categories": [
+                    "Scooters",
+                    "Skateboards"
+                  ],
+                  "description": "Scooters and Skateboards bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The question asks about scooters and skateboards together. That word together means find the total of those two first."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "Add all four categories"
+          },
+          "description": "Student selected add all four categories, including categories not needed",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_rolling",
+                "params": {
+                  "highlight_categories": [
+                    "Scooters",
+                    "Skateboards"
+                  ],
+                  "description": "Scooters and Skateboards bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The question only asks about scooters and skateboards together. We don't need rollerblades or bikes yet. Add just those two."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_rolling",
+                "params": {
+                  "event": "show_calculation",
+                  "status": "confirmed",
+                  "description": "Animation shows: Scooters (30) and Skateboards (15) bars pulse, then calculation 30 + 15 = 45 appears"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "When we see together, we add those categories first. Scooters is 30, skateboards is 15. Combined, that's 45. We find the total of the categories named together before we compare to anything else. The answer is add scooters and skateboards."
+              }
+            ]
+          ]
+        }
+      ],
+      [
+        {
+          "condition": {
+            "selected": 110
+          },
+          "description": "Student selected 110, added bikes (65) and combined total (45) instead of subtracting",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_rolling",
+                "params": {
+                  "highlight_categories": [
+                    "Bikes"
+                  ],
+                  "description": "Bikes bar highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "How many more means compare. Compare means subtract, not add. Bikes is 65. The combined total is 45. How many more?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 65
+          },
+          "description": "Student selected 65, which is the bikes value without comparing",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_rolling",
+                "params": {
+                  "highlight_categories": [
+                    "Bikes"
+                  ],
+                  "description": "Bikes bar (65) highlights. Combined total 45 displays."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Bikes is 65, but the question asks how many more bikes than the combined total. Subtract: bikes minus combined. What's 65 minus 45?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 45
+          },
+          "description": "Student selected 45, the combined total instead of the difference",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_rolling",
+                "params": {
+                  "highlight_categories": [
+                    "Bikes"
+                  ],
+                  "description": "Bikes bar (65) and combined value (45) both display."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the combined total of scooters and skateboards. Now we compare that total to bikes. How many more is 65 than 45?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_rolling",
+                "params": {
+                  "event": "show_comparison",
+                  "status": "confirmed",
+                  "description": "Animation shows: Bikes bar (65) pulses, then comparison to combined value (45) displays, then calculation 65 - 45 = 20 appears"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me walk you through this. We found the combined total: scooters and skateboards is 45. Now we compare. Bikes is 65. How many more means subtract: 65 minus 45 equals 20. Bikes is 20 more than scooters and skateboards combined. That's how we solve these problems: find the combined total first, then compare by subtracting."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:04:26.441501+00:00"
+  },
+  {
+    "id": "s2_5_section_transition",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You're getting it. Find the combined total first, then compare. Let's practice more, and I'll give you less help each time.",
+        "id": "s2_5_section_transition_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s2_5_section_transition_b1"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:01:50.907528+00:00"
+  },
+  {
+    "id": "s3_1_reduced_scaffolding_3_step_chain",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "Subtract grapes from oranges"
+          },
+          "description": "Student selected subtract grapes from oranges, wrong operation for finding combined total",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_fruit_stand",
+                "params": {
+                  "highlight_categories": [
+                    "Oranges",
+                    "Grapes"
+                  ],
+                  "description": "Oranges and Grapes bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The question asks about oranges and grapes together. Together means add, not subtract. What's the total of those two?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "Compare apples to oranges"
+          },
+          "description": "Student selected compare apples to oranges, skipping the combined step",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_fruit_stand",
+                "params": {
+                  "highlight_categories": [
+                    "Oranges",
+                    "Grapes"
+                  ],
+                  "description": "Oranges and Grapes bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The question says oranges and grapes combined. When you see combined, find that total first. What do oranges and grapes add up to?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_fruit_stand",
+                "params": {
+                  "event": "show_calculation",
+                  "status": "confirmed",
+                  "description": "Calculation appears: Oranges 25 + Grapes 15 = 40"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The question asks about oranges and grapes combined. Combined tells us to add first. Oranges is 25, grapes is 15, so 25 plus 15 equals 40. The first step is always to find the combined total when you see that word. The answer is add oranges and grapes."
+              }
+            ]
+          ]
+        }
+      ],
+      [
+        {
+          "condition": {
+            "selected": 10
+          },
+          "description": "Student selected 10, subtracted instead of added",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_fruit_stand",
+                "params": {
+                  "highlight_categories": [
+                    "Oranges",
+                    "Grapes"
+                  ],
+                  "description": "Oranges and Grapes bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You subtracted. We need to add when finding combined. Oranges is 25, grapes is 15. Add them."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 30
+          },
+          "description": "Student selected 30, miscounted or used wrong values",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_fruit_stand",
+                "params": {
+                  "highlight_categories": [
+                    "Oranges",
+                    "Grapes"
+                  ],
+                  "description": "Oranges and Grapes bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Check the values. Oranges is 25, grapes is 15. Count by fives along each bar, then add."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 45
+          },
+          "description": "Student selected 45, used apples value instead of adding oranges and grapes",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_fruit_stand",
+                "params": {
+                  "highlight_categories": [
+                    "Oranges",
+                    "Grapes"
+                  ],
+                  "description": "Oranges and Grapes bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the apples value. We need oranges and grapes combined. Look at those two bars. What do they add up to?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_fruit_stand",
+                "params": {
+                  "event": "show_calculation",
+                  "status": "confirmed",
+                  "description": "Calculation appears: 25 + 15 = 40"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's how to find it. I look at the oranges bar: 25. I look at the grapes bar: 15. Combined means add them together: 25 plus 15 equals 40. The combined total is 40."
+              }
+            ]
+          ]
+        }
+      ],
+      [
+        {
+          "condition": {
+            "selected": 85
+          },
+          "description": "Student selected 85, added instead of subtracted",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_fruit_stand",
+                "params": {
+                  "highlight_categories": [
+                    "Apples"
+                  ],
+                  "description": "Apples bar highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You added. How many fewer means compare, and compare means subtract. What's 45 minus 40?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 45
+          },
+          "description": "Student selected 45, chose apples value instead of finding difference",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_fruit_stand",
+                "params": {
+                  "highlight_categories": [
+                    "Apples"
+                  ],
+                  "display_value": 40,
+                  "description": "Apples bar highlights. Combined value 40 displayed."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That's just the apples amount. How many fewer asks for the difference. Apples is 45, combined is 40. Subtract to compare."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 40
+          },
+          "description": "Student selected 40, chose combined value instead of finding difference",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_fruit_stand",
+                "params": {
+                  "highlight_categories": [
+                    "Apples"
+                  ],
+                  "display_value": 40,
+                  "description": "Apples bar highlights. Combined value 40 displayed."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the combined total. We already found that. Now we need to compare. How much more is 45 than 40?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_fruit_stand",
+                "params": {
+                  "event": "show_calculation",
+                  "status": "confirmed",
+                  "description": "Calculation appears: 45 - 40 = 5"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me walk you through it. We found oranges and grapes combined: 40. Now we compare to apples. Apples is 45. How many fewer means subtract: 45 minus 40 equals 5. The combined total is 5 fewer than apples. The answer is 5."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:04:52.487327+00:00"
+  },
+  {
+    "id": "s3_2_minimal_scaffolding_3_step_chain",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "Compare dogs to fish"
+          },
+          "description": "Student selected Compare dogs to fish: jumps to comparison without finding combined total first",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Fish",
+                    "Birds"
+                  ],
+                  "description": "Fish and Birds bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The question says fish and birds combined. That word combined tells us to add those two first, before we compare to dogs."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "Subtract birds from dogs"
+          },
+          "description": "Student selected Subtract birds from dogs: attempts to subtract before finding the combined total",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Fish",
+                    "Birds"
+                  ],
+                  "description": "Fish and Birds bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Before we compare dogs to anything, we need the total of fish and birds combined. Look for the word combined in the question."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "Add all pets"
+          },
+          "description": "Student selected Add all pets: adds all categories instead of just the two mentioned as combined",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Fish",
+                    "Birds"
+                  ],
+                  "description": "Fish and Birds bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "We don't need all four categories. The question asks about fish and birds combined, so we only add those two."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct strategy.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "event": "show_calculation",
+                  "status": "confirmed",
+                  "description": "Fish (30) and Birds (25) bars highlight. Calculation appears: 30 + 25 = 55"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you the strategy. The question says fish and birds combined. That word combined tells me to add those first. Fish is 30, birds is 25, so 30 plus 25 is 55. Now I can compare: dogs is 65, combined is 55, so 65 minus 55 is 10 more. The answer is add fish and birds. We always find the combined total before we compare."
+              }
+            ]
+          ]
+        }
+      ],
+      [
+        {
+          "condition": {
+            "selected": 5
+          },
+          "description": "Student selected 5: subtracted values instead of adding them (30 - 25 = 5)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Fish",
+                    "Birds"
+                  ],
+                  "description": "Fish and Birds bars remain highlighted."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The question asks for combined. Combined means add, not subtract. Add the values for fish and birds."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 45
+          },
+          "description": "Student selected 45: calculation error or misread graph values",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Fish",
+                    "Birds"
+                  ],
+                  "description": "Fish and Birds bars remain highlighted."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Count carefully. Fish is at 30, birds is at 25. Count by tens on this scale, then add the extra marks."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 65
+          },
+          "description": "Student selected 65: chose the dogs value instead of finding fish and birds combined",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Fish",
+                    "Birds"
+                  ],
+                  "description": "Fish and Birds bars remain highlighted."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the dogs value. We need fish and birds combined. Look at the highlighted bars and add those two values."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "event": "show_calculation",
+                  "status": "confirmed",
+                  "description": "Calculation animates: 30 + 25 = 55"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Fish is at 30 on the scale. Birds is at 25. When we combine them, we add: 30 plus 25 equals 55. The combined total is 55. That's what combined means: add the values together."
+              }
+            ]
+          ]
+        }
+      ],
+      [
+        {
+          "condition": {
+            "selected": 120
+          },
+          "description": "Student selected 120: added instead of subtracting (65 + 55 = 120)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Dogs"
+                  ],
+                  "description": "Dogs bar remains highlighted."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "How many more means compare. Compare means subtract, not add. Dogs is 65, combined is 55. Subtract to find the difference."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 65
+          },
+          "description": "Student selected 65: gave the dogs value instead of finding the difference",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Dogs"
+                  ],
+                  "description": "Dogs bar remains highlighted."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That's how many dogs there are. The question asks how many more dogs than the combined total. We need the difference between 65 and 55."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 55
+          },
+          "description": "Student selected 55: gave the combined total instead of finding the difference",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Dogs"
+                  ],
+                  "description": "Dogs bar remains highlighted."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the combined total. Now we need to compare. Dogs is 65, combined is 55. How many more means subtract those two numbers."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "event": "show_calculation",
+                  "status": "confirmed",
+                  "description": "Comparison animation shows: 65 - 55 = 10"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's the comparison. Dogs is 65. Fish and birds combined is 55. How many more means we subtract: 65 minus 55 equals 10. There are 10 more dogs than fish and birds combined. This is a two-step problem: first we found the combined total of 55, then we compared it to dogs at 65. The answer is 10."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:05:22.201579+00:00"
+  },
+  {
+    "id": "s3_3_mixed_problem_single_step_check",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": 105
+          },
+          "description": "Student selected 105 (added dogs and cats instead of finding difference)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Dogs",
+                    "Cats"
+                  ],
+                  "description": "Dogs and Cats bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "How many more means compare. When we compare, we subtract. What's 65 minus 40?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 65
+          },
+          "description": "Student selected 65 (read only the Dogs value, didn't compare)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Dogs",
+                    "Cats"
+                  ],
+                  "description": "Dogs and Cats bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the total for Dogs. But the question asks how many more dogs than cats. Compare by subtracting. What's 65 minus 40?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 30
+          },
+          "description": "Student selected 30 (possibly confused Fish value or calculation error)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Dogs",
+                    "Cats"
+                  ],
+                  "description": "Dogs and Cats bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the bars for Dogs and Cats. Dogs is 65, Cats is 40. Subtract to find how many more. What's 65 minus 40?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "event": "show_calculation",
+                  "status": "confirmed",
+                  "description": "System demonstrates: Dogs bar (65) and Cats bar (40) highlight. Calculation shows 65 - 40 = 25."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. How many more means compare. Dogs is 65, Cats is 40. We subtract: 65 minus 40 equals 25. The answer is 25 because comparing means finding the difference between two values."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:05:34.574352+00:00"
+  },
+  {
+    "id": "s3_4_final_two_step_independence_check",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "Compare red to green"
+          },
+          "description": "Student selected compare red to green, skipping the combined total step",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Green",
+                    "Yellow"
+                  ],
+                  "description": "Green and Yellow bars highlight together."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The question says green or yellow together. That word together tells us to add those first. What is green plus yellow?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "Add all colors"
+          },
+          "description": "Student selected add all colors, not identifying the specific categories needed",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Green",
+                    "Yellow"
+                  ],
+                  "description": "Green and Yellow bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "We only need the categories the question asks about. It says green or yellow together. Add those two, not all five colors."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "Subtract yellow from green"
+          },
+          "description": "Student selected subtract yellow from green, missing the combined total step",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Green",
+                    "Yellow"
+                  ],
+                  "description": "Green and Yellow bars highlight together."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "When a question says together or combined, that tells us to add, not subtract. Find the total of green and yellow first."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct first step.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "event": "highlight_categories",
+                  "status": "confirmed",
+                  "categories": [
+                    "Green",
+                    "Yellow"
+                  ],
+                  "description": "Green and Yellow bars highlight. System demonstrates adding them."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's how to start a two-step problem. The question says green or yellow together. That word together means add those categories first. Green is 25, yellow is 20, so we add: 25 plus 20 equals 45. Now we have the combined total, and we can compare it to red. The first step is always: find the combined total."
+              }
+            ]
+          ]
+        }
+      ],
+      [
+        {
+          "condition": {
+            "selected": 90
+          },
+          "description": "Student selected 90, likely added instead of subtracting",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Red"
+                  ],
+                  "description": "Red bar highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "How many more means compare. We subtract, not add. Red is 45, combined is 45. What is 45 minus 45?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 45
+          },
+          "description": "Student selected 45, repeating one of the values without comparing",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Red"
+                  ],
+                  "description": "Red bar (45) highlights alongside the combined value 45."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You named one of the numbers, but we need the difference. Red is 45, the combined total is 45. How far apart are they?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 10
+          },
+          "description": "Student selected 10, incorrect comparison value",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "highlight_categories": [
+                    "Red"
+                  ],
+                  "description": "Red bar (45) highlights. Combined value 45 displayed."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the two values we're comparing. Red is 45. Combined is 45. Those numbers are the same. What does that tell you about the difference?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct comparison.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_colors",
+                "params": {
+                  "event": "show_comparison",
+                  "status": "confirmed",
+                  "description": "Red bar and combined value 45 display side by side. System demonstrates comparison."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Green and yellow combined equals 45. Red equals 45. Now we compare: 45 minus 45 equals 0. When two values are equal, there is no difference. The answer is 0. Red is not more than green and yellow combined. They're the same."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:05:58.077290+00:00"
+  },
+  {
+    "id": "s3_5_bridge_exit_check",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You've got the strategy: find the combined total first, then compare. Let's see what you know.",
+        "id": "s3_5_bridge_exit_check_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s3_5_bridge_exit_check_b1"
+      }
+    ],
+    "_generated_at": "2026-04-20T17:02:51.567167+00:00"
+  }
+]

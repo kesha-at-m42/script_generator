@@ -1,0 +1,321 @@
+{
+  "id": "s1_2_two_step_problem_identify_compare",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "Compare fiction to nonfiction"
+        },
+        "description": "Student selected compare fiction to nonfiction, skipping the combined step",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Nonfiction",
+                  "Poetry"
+                ],
+                "description": "Nonfiction and Poetry bars highlight together."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The question asks about nonfiction and poetry combined. When you see combined or together, add those first. What's the total of nonfiction and poetry?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Add all four categories"
+        },
+        "description": "Student selected add all four categories, including categories not needed",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Nonfiction",
+                  "Poetry"
+                ],
+                "description": "Nonfiction and Poetry bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "We only need nonfiction and poetry. The question doesn't ask about comics or fiction yet. Add the two categories the question names first."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "Subtract poetry from nonfiction"
+        },
+        "description": "Student selected subtract poetry from nonfiction, incorrect operation",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Nonfiction",
+                  "Poetry"
+                ],
+                "description": "Nonfiction and Poetry bars highlight together."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Combined means add, not subtract. When the question says nonfiction and poetry together, we find the total by adding. What do those two add up to?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "event": "show_equation_overlay",
+                "status": "confirmed",
+                "description": "Animation shows: Nonfiction (30) + Poetry (20) = 50"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how to think about this. The question says nonfiction and poetry combined. That word combined tells us to add those two first. Nonfiction is 30, poetry is 20. Together they make 50. We need to find that combined total first before we can compare anything. The answer is add nonfiction and poetry."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": 10
+        },
+        "description": "Student selected 10, the difference between nonfiction and poetry",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Nonfiction",
+                  "Poetry"
+                ],
+                "description": "Both Nonfiction and Poetry bars highlight together."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found the difference between nonfiction and poetry. But we need the total of both together. Combined means add. What's 30 plus 20?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 40
+        },
+        "description": "Student selected 40, the value for comics",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Nonfiction",
+                  "Poetry"
+                ],
+                "description": "Nonfiction and Poetry bars highlight, not Comics."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's the comics value. We need nonfiction and poetry. Nonfiction is 30, poetry is 20. Add those two."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 60
+        },
+        "description": "Student selected 60, possibly adding fiction instead of the correct categories",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Nonfiction",
+                  "Poetry"
+                ],
+                "description": "Nonfiction and Poetry bars pulse."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at the highlighted bars. Nonfiction is 30, poetry is 20. What do those two add up to?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "event": "show_equation_overlay",
+                "status": "confirmed",
+                "description": "Animation demonstrates: Nonfiction bar (30) + Poetry bar (20) = 50"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how this works. The question asks for nonfiction and poetry combined. I look at nonfiction: that bar reaches 30. I look at poetry: that bar reaches 20. Combined means I add them. 30 plus 20 equals 50. The combined total is 50."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": 100
+        },
+        "description": "Student selected 100, adding fiction to the combined total instead of comparing",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Fiction"
+                ],
+                "description": "Fiction bar highlights alone."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You added fiction to the combined total. The question asks how many more, so we compare. Fiction is 50, combined is 50. What's the difference between those?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 50
+        },
+        "description": "Student selected 50, giving one of the values instead of the difference",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Fiction"
+                ],
+                "description": "Fiction bar highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's how many fiction books there are. But we need to compare. Fiction is 50, the combined total is 50. They're equal. What's the difference when two numbers are equal?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 10
+        },
+        "description": "Student selected 10, possibly subtracting poetry from nonfiction instead of comparing fiction to combined",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Fiction"
+                ],
+                "description": "Fiction bar pulses."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Fiction is 50. The combined total of nonfiction and poetry is 50. When both amounts are the same, there is no difference. How many more is 50 than 50?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "event": "show_comparison_overlay",
+                "status": "confirmed",
+                "description": "Animation shows Fiction bar (50) compared to combined total (50), demonstrating they are equal"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me walk you through this. We found that nonfiction and poetry combined equals 50. Now I look at fiction: that bar reaches 50. The question asks how many more fiction than the combined total. I compare: 50 minus 50 equals 0. When two amounts are equal, the difference is zero. Fiction and the combined total are the same, so the answer is 0."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:01:46.454383+00:00"
+}

@@ -1,0 +1,124 @@
+{
+  "id": "s3_2_graph_scale_callback_10_application",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_scale10",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "categories": [
+          "Dogs",
+          "Cats",
+          "Birds",
+          "Fish"
+        ],
+        "scale": 10,
+        "description": "Simple horizontal picture graph appears on left side. Scale of 10. Dogs row has 3 symbols highlighted. Key shows each symbol = 10."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_3x10",
+      "tangible_type": "equation_builder",
+      "params": {
+        "expression": [
+          "3",
+          "x",
+          "10",
+          "=",
+          "__"
+        ],
+        "prefilled": {
+          "groups": 3,
+          "items": 10
+        },
+        "description": "Equation Builder appears on right side. 3 × 10 = [___]. Factors pre-filled, product blank awaits tile."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Check this out. Remember reading graphs with scales? Here's a graph with a scale of 10. That row has 3 symbols. 3 symbols, each worth 10. That's 3 groups of 10. You've been doing this all along. Reading graph scales WAS multiplication. Now find the product of 3 times 10. Place the tile."
+    },
+    {
+      "type": "prompt",
+      "text": "Find the product of 3 × 10.",
+      "tool": "place_tile",
+      "target": "equation_builder_3x10",
+      "options": [
+        13,
+        20,
+        25,
+        30,
+        40
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "placed": {
+              "total": 30
+            }
+          },
+          "description": "Student placed 30 in product slot, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_3x10",
+              "params": {
+                "event": "tile_snap_to_slot",
+                "status": "confirmed",
+                "description": "30 tile snaps into product slot, equation complete: 3 × 10 = 30."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "3 times 10 equals 30. Ends in zero so it matches the multiples of 10s pattern. The graph shows 30 items in that category. Same math you just learned."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_scale10",
+          "description": "Horizontal picture graph on left. Scale of 10. Dogs row with 3 symbols highlighted.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Dogs",
+            "Cats",
+            "Birds",
+            "Fish"
+          ],
+          "scale": 10
+        },
+        {
+          "tangible_id": "equation_builder_3x10",
+          "description": "Equation Builder on right. 3 × 10 = [___]. place_tile tool active, palette shows 13, 20, 25, 30, 40.",
+          "tangible_type": "equation_builder",
+          "expression": [
+            "3",
+            "x",
+            "10",
+            "=",
+            "__"
+          ],
+          "prefilled": {
+            "groups": 3,
+            "items": 10
+          }
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:03:54.422293+00:00"
+}

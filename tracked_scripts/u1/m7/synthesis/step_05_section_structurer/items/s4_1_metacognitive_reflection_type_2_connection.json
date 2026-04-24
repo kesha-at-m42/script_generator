@@ -1,0 +1,116 @@
+{
+  "id": "s4_1_metacognitive_reflection_type_2_connection",
+  "type": "transition",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_warmup",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "categories": [
+          "Category A"
+        ],
+        "scale": 5,
+        "description": "Small picture graph appears on left side of screen. Scale of 5. Not interactive — iconic display only."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_bags",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 4,
+        "items_per_container": 5,
+        "description": "Small equal groups visual appears on right side of screen. 4 bags with 5 items each. Not interactive — iconic display only."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Here's something to think about. Today's work connects to something you've been doing for a while. Did you notice a connection?"
+    },
+    {
+      "type": "prompt",
+      "text": "Did you notice a connection between graphs and equal groups?",
+      "tool": "multiple_choice",
+      "options": [
+        "Yes — reading graph scales was like finding equal groups",
+        "Kind of — some parts felt similar",
+        "Not really — this felt brand new"
+      ],
+      "validator": [
+        {
+          "condition_id": "selected_yes",
+          "condition": {
+            "selected": "Yes — reading graph scales was like finding equal groups"
+          },
+          "description": "Student selected Yes",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You spotted it. Every time you read a scale of 5 graph, you were counting groups of 5. Graph scales were equal groups the whole time."
+            }
+          ]
+        },
+        {
+          "condition_id": "selected_kind_of",
+          "condition": {
+            "selected": "Kind of — some parts felt similar"
+          },
+          "description": "Student selected Kind of",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Good noticing. The counting by 5s and counting by 2s from graphs — that was groups all along. The connection gets clearer over time."
+            }
+          ]
+        },
+        {
+          "condition_id": "selected_not_really",
+          "condition": {
+            "selected": "Not really — this felt brand new"
+          },
+          "description": "Student selected Not really",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "That makes sense — the multiplication symbol and equal groups are new. But remember the Warmup graph? Those symbols were holding groups inside. You'll see more connections as we keep going."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_warmup",
+          "description": "Small picture graph on left side. Scale of 5. Iconic display.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Category A"
+          ],
+          "scale": 5
+        },
+        {
+          "tangible_id": "equal_groups_bags",
+          "description": "Small equal groups visual on right side. 4 bags with 5 items each. Iconic display.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 5
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:46.770697+00:00"
+}

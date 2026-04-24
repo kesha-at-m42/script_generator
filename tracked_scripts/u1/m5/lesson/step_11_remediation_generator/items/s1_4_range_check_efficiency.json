@@ -1,0 +1,109 @@
+{
+  "id": "s1_4_range_check_efficiency",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 20
+        },
+        "description": "Student selected 20 instead of 80",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_values": [
+                  80
+                ],
+                "description": "80 highlighted in the data table."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "20 is in the data, but it's not the biggest. We need the largest value. Look at all the numbers. Which one is biggest?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 35
+        },
+        "description": "Student selected 35 instead of 80",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_values": [
+                  80
+                ],
+                "description": "80 highlighted in the data table."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "35 is in the data, but there's a bigger number. Look at all four values. Which one is the greatest?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 55
+        },
+        "description": "Student selected 55 instead of 80",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_values": [
+                  80
+                ],
+                "description": "80 highlighted in the data table."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "55 is close, but not the biggest. Compare all the numbers. Which value is larger than 55?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "data_table",
+              "params": {
+                "event": "highlight_progression",
+                "status": "confirmed",
+                "description": "Values highlight in order: 20, 35, 55, 80. 80 remains highlighted as the largest."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. We compare all the values: 20, 35, 55, 80. The biggest number is 80. When choosing a scale, always check the biggest number first. That tells you what scales can fit all your data without going past the graph boundary."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:04:45.523700+00:00"
+}

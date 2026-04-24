@@ -1,0 +1,78 @@
+{
+  "id": "s3_3_mixed_problem_single_step_check",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_pets",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Dogs",
+          "Cats",
+          "Birds",
+          "Fish"
+        ],
+        "values": {
+          "Dogs": 65,
+          "Cats": 40,
+          "Birds": 25,
+          "Fish": 30
+        },
+        "description": "Vertical bar graph appears. Pet Survey data. Dogs 65, Cats 40, Birds 25, Fish 30."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "How about this one? How many more dogs are there than cats?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many more dogs are there than cats?",
+      "tool": "multiple_choice",
+      "options": [
+        105,
+        65,
+        30,
+        25
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 25
+          },
+          "description": "Student answered 25, correct. 65 minus 40 equals 25.",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "25 more dogs than cats. This one was just one step—no combined, so straight to comparing."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_pets",
+          "description": "Vertical bar graph showing Pet Survey data. Dogs 65, Cats 40, Birds 25, Fish 30.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Dogs",
+            "Cats",
+            "Birds",
+            "Fish"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:30.600960+00:00"
+}

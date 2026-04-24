@@ -1,0 +1,147 @@
+{
+  "id": "s1_2_real_world_bridge_where_do",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_scenarios",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "scenarios": [
+          {
+            "id": "scenario_a",
+            "label": "A",
+            "description": "Egg carton with 2 rows, 6 eggs each",
+            "container_count": 2,
+            "items_per_container": 6,
+            "visual_type": "egg_carton"
+          },
+          {
+            "id": "scenario_b",
+            "label": "B",
+            "description": "Parking lot with 3 rows, 4 cars each",
+            "container_count": 3,
+            "items_per_container": 4,
+            "visual_type": "parking_lot"
+          },
+          {
+            "id": "scenario_c",
+            "label": "C",
+            "description": "Bookshelf with 5 shelves, 3 books each",
+            "container_count": 5,
+            "items_per_container": 3,
+            "visual_type": "bookshelf"
+          },
+          {
+            "id": "scenario_d",
+            "label": "D",
+            "description": "Park benches with varying numbers of people, not equal groups",
+            "container_count": 4,
+            "items_per_container": "varying",
+            "visual_type": "park_benches"
+          }
+        ],
+        "description": "Four real-world scenario illustrations appear. A: Egg carton (2 rows, 6 eggs each). B: Parking lot (3 rows, 4 cars each). C: Bookshelf (5 shelves, 3 books each). D: Park benches (4 benches, varying people)."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Equal groups show up everywhere, not just in math problems. Which of these shows equal groups?"
+    },
+    {
+      "type": "prompt",
+      "text": "Which one shows equal groups?",
+      "tool": "multiple_choice",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "validator": [
+        {
+          "condition_id": "selected_a",
+          "condition": {
+            "selected": "A"
+          },
+          "description": "Student selected scenario A: egg carton, 2 rows of 6 eggs",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_scenarios",
+              "params": {
+                "highlight_scenario": "scenario_a",
+                "description": "Scenario A (egg carton) highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The egg carton. 2 rows of 6 eggs. That's 2 times 6. Equal groups in the grocery store."
+            }
+          ]
+        },
+        {
+          "condition_id": "selected_b",
+          "condition": {
+            "selected": "B"
+          },
+          "description": "Student selected scenario B: parking lot, 3 rows of 4 cars",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_scenarios",
+              "params": {
+                "highlight_scenario": "scenario_b",
+                "description": "Scenario B (parking lot) highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The parking lot. 3 rows of 4 cars. That's 3 times 4. Equal groups at the mall."
+            }
+          ]
+        },
+        {
+          "condition_id": "selected_c",
+          "condition": {
+            "selected": "C"
+          },
+          "description": "Student selected scenario C: bookshelf, 5 shelves with 3 books each",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_scenarios",
+              "params": {
+                "highlight_scenario": "scenario_c",
+                "description": "Scenario C (bookshelf) highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The bookshelf. 5 shelves with 3 books each. That's 5 times 3. Equal groups in your room."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_scenarios",
+          "description": "Four real-world scenario illustrations in reading mode. Multiple choice tool active. A: Egg carton (2 rows, 6 eggs each). B: Parking lot (3 rows, 4 cars each). C: Bookshelf (5 shelves, 3 books each). D: Park benches (varying people).",
+          "tangible_type": "equal_groups",
+          "mode": "reading"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:44.095319+00:00"
+}

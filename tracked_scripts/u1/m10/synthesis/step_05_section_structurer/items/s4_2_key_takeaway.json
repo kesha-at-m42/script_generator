@@ -1,0 +1,69 @@
+{
+  "id": "s4_2_key_takeaway",
+  "type": "transition",
+  "beats": [
+    {
+      "type": "dialogue",
+      "text": "If you had to remember one thing from today, what would it be?"
+    },
+    {
+      "type": "prompt",
+      "text": "What's the one thing to remember?",
+      "tool": "multiple_choice",
+      "options": [
+        "Equals means same value as",
+        "The unknown can go anywhere",
+        "Different pictures can have the same equation"
+      ],
+      "validator": [
+        {
+          "condition_id": "option_a",
+          "condition": {
+            "selected": "Equals means same value as"
+          },
+          "description": "Student selected option A: equals means same value as",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Same value as — that's the equals sign's job. You'll use that in every equation from now on."
+            }
+          ]
+        },
+        {
+          "condition_id": "option_b",
+          "condition": {
+            "selected": "The unknown can go anywhere"
+          },
+          "description": "Student selected option B: unknowns can move",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Unknowns move, but the relationship stays. You can figure out any missing piece."
+            }
+          ]
+        },
+        {
+          "condition_id": "option_c",
+          "condition": {
+            "selected": "Different pictures can have the same equation"
+          },
+          "description": "Student selected option C: different pictures, same equation",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Rows, stacks, groups — different pictures, same math underneath."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": []
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:09.299615+00:00"
+}

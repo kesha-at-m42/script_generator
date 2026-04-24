@@ -1,0 +1,83 @@
+{
+  "id": "s1_3_select_appropriate_scale_compare",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Vertical data table appears. Steps Walked data. Ana: 30, Ben: 70, Cara: 90, Dan: 50."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "All these numbers end in 0. Think about the biggest number."
+    },
+    {
+      "type": "prompt",
+      "text": "Which scale is the best choice for this data?",
+      "tool": "multiple_choice",
+      "options": [
+        "Scale of 10 — it's easiest to read.",
+        "Scale of 5 — it shows more detail.",
+        "Scale of 2 — it works for any numbers."
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Scale of 10 — it's easiest to read."
+          },
+          "description": "Student selected Scale of 10, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Scale of 10. For data up to 90, Scale of 10 gives you a clean graph with only 10 lines on the axis."
+            }
+          ]
+        },
+        {
+          "condition_id": "selected_scale_5",
+          "condition": {
+            "selected": "Scale of 5 — it shows more detail."
+          },
+          "description": "Student selected Scale of 5, incorrect",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Scale of 5 could work, but the biggest number is 90. You'd need a lot of lines to reach 90. Scale of 10 only needs 10 — much cleaner for numbers this big."
+            }
+          ]
+        },
+        {
+          "condition_id": "selected_scale_2",
+          "condition": {
+            "selected": "Scale of 2 — it works for any numbers."
+          },
+          "description": "Student selected Scale of 2, incorrect",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Scale of 2 would need too many lines to reach 90! For big data like this, use a bigger scale."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Vertical data table showing Steps Walked data. Ana: 30, Ben: 70, Cara: 90, Dan: 50.",
+          "tangible_type": "data_table"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:59:19.305568+00:00"
+}

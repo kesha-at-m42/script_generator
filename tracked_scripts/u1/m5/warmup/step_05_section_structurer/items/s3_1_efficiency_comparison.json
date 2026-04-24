@@ -1,0 +1,136 @@
+{
+  "id": "s3_1_efficiency_comparison",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_scale_5",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "scale": 5,
+        "position": "left",
+        "description": "Vertical bar graph appears on left side. Student's data displayed at scale of 5. Categories and bars visible."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_scale_10",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "scale": 10,
+        "position": "right",
+        "description": "Vertical bar graph appears on right side. Same data displayed at scale of 10. Categories and bars visible."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Both of these work. Take a look at them side by side. Which graph is easier to read?"
+    },
+    {
+      "type": "prompt",
+      "text": "Which graph is easier to read?",
+      "tool": "multiple_choice",
+      "options": [
+        "Scale of 5",
+        "Scale of 10",
+        "They're the same"
+      ],
+      "validator": [
+        {
+          "condition_id": "selected_scale_10",
+          "condition": {
+            "selected": "Scale of 10"
+          },
+          "description": "Student picked Scale of 10",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You picked Scale of 10. Nice and clean!"
+            }
+          ]
+        },
+        {
+          "condition_id": "selected_scale_5",
+          "condition": {
+            "selected": "Scale of 5"
+          },
+          "description": "Student picked Scale of 5",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You picked Scale of 5. More detail!"
+            }
+          ]
+        },
+        {
+          "condition_id": "selected_same",
+          "condition": {
+            "selected": "They're the same"
+          },
+          "description": "Student picked they're the same",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You think they're both easy to read. Both do work!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_scale_5",
+          "description": "Vertical bar graph on left. Student's data at scale of 5.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 5
+        },
+        {
+          "tangible_id": "bar_graph_scale_10",
+          "description": "Vertical bar graph on right. Same data at scale of 10.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 10
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "When more than one scale works, you get to choose."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_scale_5",
+          "description": "Vertical bar graph on left. Student's data at scale of 5.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 5
+        },
+        {
+          "tangible_id": "bar_graph_scale_10",
+          "description": "Vertical bar graph on right. Same data at scale of 10.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "scale": 10
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:59:05.736599+00:00"
+}

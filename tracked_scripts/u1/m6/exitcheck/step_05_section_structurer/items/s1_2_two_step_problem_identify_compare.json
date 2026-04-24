@@ -1,0 +1,220 @@
+{
+  "id": "s1_2_two_step_problem_identify_compare",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_books",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "scale": 10,
+        "axis_range": [
+          0,
+          60
+        ],
+        "categories": [
+          "Fiction",
+          "Nonfiction",
+          "Comics",
+          "Poetry"
+        ],
+        "values": [
+          50,
+          30,
+          40,
+          20
+        ],
+        "title": "Books Read This Month",
+        "description": "Horizontal bar graph appears. Books Read This Month. Scale of 10, axis 0-60. Fiction 50, Nonfiction 30, Comics 40, Poetry 20."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "How many more fiction books were read than nonfiction and poetry combined?"
+    },
+    {
+      "type": "prompt",
+      "text": "What should we find first?",
+      "tool": "multiple_choice",
+      "options": [
+        "Add nonfiction and poetry",
+        "Compare fiction to nonfiction",
+        "Add all four categories",
+        "Subtract poetry from nonfiction"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Add nonfiction and poetry"
+          },
+          "description": "Student selected add nonfiction and poetry, correct first step",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Combine nonfiction and poetry first."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_books",
+          "description": "Horizontal bar graph. Books Read This Month. Scale of 10. Fiction 50, Nonfiction 30, Comics 40, Poetry 20.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 10,
+          "axis_range": [
+            0,
+            60
+          ],
+          "categories": [
+            "Fiction",
+            "Nonfiction",
+            "Comics",
+            "Poetry"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_books",
+      "params": {
+        "highlight_categories": [
+          "Nonfiction",
+          "Poetry"
+        ],
+        "description": "Nonfiction bar and Poetry bar highlight."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "What's the combined total of nonfiction and poetry?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many nonfiction and poetry books combined?",
+      "tool": "multiple_choice",
+      "options": [
+        10,
+        40,
+        50,
+        60
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 50
+          },
+          "description": "Student answered 50, correct, 30 plus 20",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "50 combined. That's nonfiction 30 plus poetry 20."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_books",
+          "description": "Horizontal bar graph. Books Read This Month. Nonfiction and Poetry bars highlighted. Scale of 10.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 10,
+          "axis_range": [
+            0,
+            60
+          ],
+          "categories": [
+            "Fiction",
+            "Nonfiction",
+            "Comics",
+            "Poetry"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_books",
+      "params": {
+        "highlight_categories": [
+          "Fiction"
+        ],
+        "description": "Fiction bar highlights."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Nonfiction and poetry combined is 50. How many fiction books were read? Find how many more."
+    },
+    {
+      "type": "prompt",
+      "text": "How many more fiction books than nonfiction and poetry combined?",
+      "tool": "multiple_choice",
+      "options": [
+        100,
+        50,
+        10,
+        0
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 0
+          },
+          "description": "Student answered 0, correct, fiction equals combined total, no difference",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Zero! Fiction is 50, combined is 50. Same amount. No difference."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_books",
+          "description": "Horizontal bar graph. Books Read This Month. Fiction bar highlighted. Scale of 10.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 10,
+          "axis_range": [
+            0,
+            60
+          ],
+          "categories": [
+            "Fiction",
+            "Nonfiction",
+            "Comics",
+            "Poetry"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:09.966415+00:00"
+}

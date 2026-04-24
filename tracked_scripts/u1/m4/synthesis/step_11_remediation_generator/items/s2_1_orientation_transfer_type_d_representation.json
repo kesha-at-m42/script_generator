@@ -1,0 +1,140 @@
+{
+  "id": "s2_1_orientation_transfer_type_d_representation",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student clicked a wrong category on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Look for the bar that reaches between the 30 and 40 lines."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student clicked a wrong category on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_vertical",
+              "params": {
+                "highlight_categories": [
+                  "Category B"
+                ],
+                "description": "Category B bar highlights in vertical graph."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: follow the gridlines to see where each bar stops. The bar showing 35 is between 30 and 40. Which category is that?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student clicked a wrong category three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_vertical",
+              "params": {
+                "event": "draw_bar_guideline",
+                "status": "confirmed",
+                "description": "Guideline draws from top of Category B bar to axis, showing it lands between 30 and 40.",
+                "category": "Category B"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. I follow the top of each bar to see where it lands on the axis. Category A reaches 20. Category C reaches 40. Category D reaches 15. Category B reaches between 30 and 40, so that's 35. Category B is the answer."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student clicked a wrong category on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Look at where the bar ends. Which bar reaches between the 30 and 40 lines?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student clicked a wrong category on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_horizontal",
+              "params": {
+                "highlight_categories": [
+                  "Category B"
+                ],
+                "description": "Category B bar highlights in horizontal graph."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. In a horizontal graph, bars go sideways instead of up. Find the bar that reaches between 30 and 40. Which one is it?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student clicked a wrong category three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_horizontal",
+              "params": {
+                "event": "draw_bar_guideline",
+                "status": "confirmed",
+                "description": "Guideline draws from end of Category B bar to axis, showing it lands between 30 and 40.",
+                "category": "Category B"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "This one takes a bit of thought, so let's work through it together. I check where each bar ends. Category A ends at 20. Category C ends at 40. Category D ends at 15. Category B ends between 30 and 40, which is 35. The bars go sideways, but the axis still shows the same values. Category B is the answer."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T16:59:10.165847+00:00"
+}

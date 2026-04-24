@@ -1,0 +1,341 @@
+[
+  {
+    "id": "s1_0_transition_into_exit_check",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You learned to choose scales. You checked if the biggest number fits. You checked the last digits. Let's see what you know.",
+        "id": "s1_0_transition_into_exit_check_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_transition_into_exit_check_b1"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:58:53.642742+00:00"
+  },
+  {
+    "id": "s1_1_scale_too_small_identify",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "Scale of 1"
+          },
+          "description": "Student selected Scale of 1",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_toys",
+                "params": {
+                  "highlight_scale": 1,
+                  "description": "Scale of 1 option pulses briefly to acknowledge selection."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Scale of 1 would take 70 tick marks to reach Ben's data. That's way too crowded. Look at the biggest number and think about how many lines you'd need."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "Scale of 2"
+          },
+          "description": "Student selected Scale of 2",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_toys",
+                "params": {
+                  "highlight_scale": 2,
+                  "description": "Scale of 2 option pulses briefly to acknowledge selection."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Scale of 2 would work if the numbers were small, but to reach 70, you'd need 35 tick marks. That's a lot. Try a bigger scale."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "Scale of 5"
+          },
+          "description": "Student selected Scale of 5",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_toys",
+                "params": {
+                  "highlight_scale": 5,
+                  "description": "Scale of 5 option pulses briefly to acknowledge selection."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Scale of 5 could fit the data, but to reach 70, you'd need 14 tick marks. There's a bigger scale that makes the graph even cleaner."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_toys",
+                "params": {
+                  "event": "demonstrate_scale_comparison",
+                  "status": "confirmed",
+                  "description": "Visual comparison shows all four scales side by side. Scale of 1 shows 70 marks crowded together. Scale of 2 shows 35 marks. Scale of 5 shows 14 marks. Scale of 10 shows 8 marks, cleanest and easiest to read."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you why Scale of 10 works best here. The biggest number is 70. Scale of 1 would need 70 tick marks. That's way too many. Scale of 2 needs 35. Still crowded. Scale of 5 needs 14. Better, but we can do even cleaner. Scale of 10 only needs 8 tick marks to reach 70. That's the clearest graph. When data goes up to 70 and all the numbers are multiples of 5, Scale of 10 is your best choice."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T16:59:55.646721+00:00"
+  },
+  {
+    "id": "s1_2_non_multiples_need_scale_2",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "Scale of 5"
+          },
+          "description": "Student selected Scale of 5",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table",
+                "params": {
+                  "highlight_values": [
+                    "23",
+                    "31",
+                    "9",
+                    "16"
+                  ],
+                  "description": "All four values highlighted in data table."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Scale of 5 works for multiples of 5. Check the ones place digits: 3, 1, 9, 6. Do any end in 0 or 5?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "Scale of 10"
+          },
+          "description": "Student selected Scale of 10",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table",
+                "params": {
+                  "highlight_values": [
+                    "23",
+                    "31"
+                  ],
+                  "description": "23 and 31 highlighted in data table."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Scale of 10 only shows exact values for multiples of 10. Look at 23 and 31. Neither ends in 0, so where would they land on the graph?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table",
+                "params": {
+                  "highlight_values": [
+                    "23",
+                    "31",
+                    "9",
+                    "16"
+                  ],
+                  "description": "All four values highlighted in data table."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "data_table",
+                "params": {
+                  "event": "highlight_ones_digits",
+                  "status": "confirmed",
+                  "description": "Ones place digits pulse: 3, 1, 9, 6."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's how to know. Look at the ones place: 3, 1, 9, 6. Not a single 0 or 5, so these numbers aren't multiples of 5. Scales of 5 and 10 won't show them exactly. But Scale of 2 can show any whole number exactly because half of 2 is 1. The answer is Scale of 2."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:00:07.213670+00:00"
+  },
+  {
+    "id": "s1_3_select_appropriate_scale_compare",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "Scale of 5 — it shows more detail."
+          },
+          "description": "Student selected Scale of 5",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table",
+                "params": {
+                  "highlight_values": [
+                    "90"
+                  ],
+                  "description": "90 (Cara) highlights in data table."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Scale of 5 works, but look at 90. Count by 5s: you need 19 tick marks to reach it. Scale of 10 only needs 10. Which is easier to read?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "Scale of 2 — it works for any numbers."
+          },
+          "description": "Student selected Scale of 2",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table",
+                "params": {
+                  "highlight_values": [
+                    "90"
+                  ],
+                  "description": "90 (Cara) highlights in data table."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The biggest number is 90. Scale of 2 means counting 0, 2, 4, 6, all the way to 90. That's 46 marks on the axis. Way too crowded. Try a bigger scale."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "add",
+                "tangible_id": "bar_graph_steps",
+                "tangible_type": "bar_graph",
+                "params": {
+                  "mode": "reading",
+                  "orientation": "vertical",
+                  "categories": [
+                    "Ana",
+                    "Ben",
+                    "Cara",
+                    "Dan"
+                  ],
+                  "scale": 10,
+                  "axis_range": [
+                    0,
+                    100
+                  ],
+                  "values": [
+                    30,
+                    70,
+                    90,
+                    50
+                  ],
+                  "description": "Vertical bar graph appears with Scale of 10. Steps Walked data displayed. Ana: 30, Ben: 70, Cara: 90, Dan: 50. Axis shows 0, 10, 20...100 with 11 tick marks."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The biggest number is 90. All values end in 0, so they're multiples of 10. With Scale of 10, every bar lands exactly on a line: 30 at 30, 50 at 50, 70 at 70, 90 at 90. The axis only needs 10 marks to reach 90. Clean and easy to read. For big numbers that are multiples of 10, Scale of 10 is the best choice."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T17:00:20.419915+00:00"
+  },
+  {
+    "id": "s1_4_exit_check_closure",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You're ready to practice.",
+        "id": "s1_4_exit_check_closure_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_4_exit_check_closure_b1"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:59:22.002737+00:00"
+  }
+]

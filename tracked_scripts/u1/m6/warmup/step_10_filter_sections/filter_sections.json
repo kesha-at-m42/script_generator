@@ -1,0 +1,434 @@
+{
+  "batch_only_items": [
+    "s1_1_graph_reading_with_scale_2",
+    "s2_1_comparison_question_single_step",
+    "s3_1_quick_scale_check_lesson_context"
+  ],
+  "data": [
+    {
+      "id": "s1_1_graph_reading_with_scale_2",
+      "beats": [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_activities",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Soccer",
+              "Basketball",
+              "Tennis",
+              "Swimming"
+            ],
+            "scale": 2,
+            "title": "After-School Activities",
+            "description": "Horizontal bar graph appears. After-School Activities data. Soccer=12, Basketball=7, Tennis=6, Swimming=11. Scale of 2."
+          },
+          "id": "s1_1_graph_reading_with_scale_2_b0"
+        },
+        {
+          "type": "dialogue",
+          "text": "Let's warm up your graph skills. Here's a bar graph. Check the scale.",
+          "id": "s1_1_graph_reading_with_scale_2_b1"
+        },
+        {
+          "type": "prompt",
+          "text": "How many students chose soccer?",
+          "tool": "multiple_choice",
+          "options": [
+            6,
+            10,
+            12,
+            24
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "selected": 12
+              },
+              "description": "Student answered 12, correct",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "bar_graph_activities",
+                  "params": {
+                    "event": "highlight_category",
+                    "status": "confirmed",
+                    "category": "Soccer",
+                    "description": "Soccer bar highlights to confirm selection."
+                  },
+                  "id": "s1_1_graph_reading_with_scale_2_b2_v0_b0"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Right. 12 students. The scale goes by 2s. Each mark on the axis shows 2 students.",
+                  "id": "s1_1_graph_reading_with_scale_2_b2_v0_b1"
+                }
+              ]
+            }
+          ],
+          "id": "s1_1_graph_reading_with_scale_2_b2"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_activities",
+              "description": "Horizontal bar graph in reading mode. After-School Activities data. Soccer bar highlighted. Scale of 2.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "horizontal",
+              "categories": [
+                "Soccer",
+                "Basketball",
+                "Tennis",
+                "Swimming"
+              ],
+              "scale": 2,
+              "title": "After-School Activities"
+            }
+          ],
+          "id": "s1_1_graph_reading_with_scale_2_b3"
+        }
+      ],
+      "_generated_at": "2026-04-20T16:59:28.795522+00:00"
+    },
+    {
+      "id": "s2_1_comparison_question_single_step",
+      "beats": [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_sports",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Soccer",
+              "Basketball",
+              "Tennis",
+              "Swimming"
+            ],
+            "values": {
+              "Soccer": 12,
+              "Basketball": 7,
+              "Tennis": 6,
+              "Swimming": 11
+            },
+            "description": "Vertical bar graph appears. Favorite Sports data. Soccer 12, Basketball 7, Tennis 6, Swimming 11."
+          },
+          "id": "s2_1_comparison_question_single_step_b0"
+        },
+        {
+          "type": "dialogue",
+          "text": "Now a question about this data. How many more students chose soccer than tennis?",
+          "id": "s2_1_comparison_question_single_step_b1"
+        },
+        {
+          "type": "prompt",
+          "text": "How many more students chose soccer than tennis?",
+          "tool": "multiple_choice",
+          "options": [
+            18,
+            12,
+            6,
+            3
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "selected": 6
+              },
+              "description": "Student selected 6, correct (12 - 6 = 6)",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "bar_graph_sports",
+                  "params": {
+                    "event": "highlight_comparison",
+                    "status": "confirmed",
+                    "description": "Soccer and Tennis bars highlight to confirm the comparison.",
+                    "categories": [
+                      "Soccer",
+                      "Tennis"
+                    ]
+                  },
+                  "id": "s2_1_comparison_question_single_step_b2_v0_b0"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Right. 6 more. How many more means compare. We subtract. Soccer is 12, tennis is 6, difference is 6.",
+                  "id": "s2_1_comparison_question_single_step_b2_v0_b1"
+                }
+              ]
+            }
+          ],
+          "id": "s2_1_comparison_question_single_step_b2"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_sports",
+              "description": "Vertical bar graph in reading mode. Favorite Sports data. Soccer 12, Basketball 7, Tennis 6, Swimming 11. Multiple choice tool active.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Soccer",
+                "Basketball",
+                "Tennis",
+                "Swimming"
+              ],
+              "values": {
+                "Soccer": 12,
+                "Basketball": 7,
+                "Tennis": 6,
+                "Swimming": 11
+              }
+            }
+          ],
+          "id": "s2_1_comparison_question_single_step_b3"
+        }
+      ],
+      "_generated_at": "2026-04-20T16:59:38.364387+00:00"
+    },
+    {
+      "id": "s3_1_quick_scale_check_lesson_context",
+      "beats": [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_lunch",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 5,
+            "categories": [
+              "Pizza",
+              "Tacos",
+              "Salad",
+              "Burgers"
+            ],
+            "values": {
+              "Pizza": 45,
+              "Tacos": 25,
+              "Salad": 10,
+              "Burgers": 15
+            },
+            "axis_range": [
+              0,
+              50
+            ],
+            "description": "Vertical bar graph appears. Favorite Lunch data. Scale of 5. Pizza=45, Tacos=25, Salad=10, Burgers=15."
+          },
+          "id": "s3_1_quick_scale_check_lesson_context_b0"
+        },
+        {
+          "type": "dialogue",
+          "text": "Different graph, different scale. Quick check.",
+          "id": "s3_1_quick_scale_check_lesson_context_b1"
+        },
+        {
+          "type": "prompt",
+          "text": "How many students chose pizza?",
+          "tool": "multiple_choice",
+          "options": [
+            9,
+            25,
+            45,
+            50
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "selected": 45
+              },
+              "description": "Student answered 45, correct, 9 marks × 5",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_lunch",
+                  "params": {
+                    "highlight_categories": [
+                      "Pizza"
+                    ],
+                    "description": "Pizza bar highlights to confirm selection."
+                  },
+                  "id": "s3_1_quick_scale_check_lesson_context_b2_v0_b0"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Right. 45 students. Scale of 5, you've got it.",
+                  "id": "s3_1_quick_scale_check_lesson_context_b2_v0_b1"
+                }
+              ]
+            }
+          ],
+          "id": "s3_1_quick_scale_check_lesson_context_b2"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_lunch",
+              "description": "Vertical bar graph. Favorite Lunch data. Scale of 5. Pizza=45, Tacos=25, Salad=10, Burgers=15. Pizza bar highlighted.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "scale": 5,
+              "categories": [
+                "Pizza",
+                "Tacos",
+                "Salad",
+                "Burgers"
+              ]
+            }
+          ],
+          "id": "s3_1_quick_scale_check_lesson_context_b3"
+        }
+      ],
+      "_generated_at": "2026-04-20T16:59:47.799035+00:00"
+    },
+    {
+      "id": "s4_1_bridge_lesson",
+      "type": "transition",
+      "beats": [
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_lunch",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Pizza",
+              "Tacos",
+              "Salad",
+              "Burgers"
+            ],
+            "axis_range": [
+              0,
+              50
+            ],
+            "description": "Vertical bar graph appears. Favorite Lunch data. Pizza=45, Tacos=25, Salad=10, Burgers=15."
+          },
+          "id": "s4_1_bridge_lesson_b0"
+        },
+        {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "word_problem_preview",
+          "tangible_type": "word_problem_area",
+          "params": {
+            "stem": "How many more students chose pizza than tacos and salad together?",
+            "description": "Word problem text appears: How many more students chose pizza than tacos and salad together?"
+          },
+          "id": "s4_1_bridge_lesson_b1"
+        },
+        {
+          "type": "dialogue",
+          "text": "You've got graph reading down. You've got comparison down. But look at THIS question.",
+          "id": "s4_1_bridge_lesson_b2"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_lunch",
+              "description": "Vertical bar graph. Favorite Lunch data. Pizza=45, Tacos=25, Salad=10, Burgers=15.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Pizza",
+                "Tacos",
+                "Salad",
+                "Burgers"
+              ]
+            },
+            {
+              "tangible_id": "word_problem_preview",
+              "description": "Word problem text: How many more students chose pizza than tacos and salad together?",
+              "tangible_type": "word_problem_area"
+            }
+          ],
+          "id": "s4_1_bridge_lesson_b3"
+        },
+        {
+          "type": "dialogue",
+          "text": "How many more students chose pizza than tacos and salad together?",
+          "id": "s4_1_bridge_lesson_b4"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_lunch",
+              "description": "Vertical bar graph. Favorite Lunch data. Pizza=45, Tacos=25, Salad=10, Burgers=15.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Pizza",
+                "Tacos",
+                "Salad",
+                "Burgers"
+              ]
+            },
+            {
+              "tangible_id": "word_problem_preview",
+              "description": "Word problem text: How many more students chose pizza than tacos and salad together?",
+              "tangible_type": "word_problem_area"
+            }
+          ],
+          "id": "s4_1_bridge_lesson_b5"
+        },
+        {
+          "type": "dialogue",
+          "text": "See that word 'together'? This question needs more than one step. We'll come back to this question in the lesson, and you'll be able to answer it.",
+          "id": "s4_1_bridge_lesson_b6"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "bar_graph_lunch",
+              "description": "Vertical bar graph. Favorite Lunch data. Pizza=45, Tacos=25, Salad=10, Burgers=15.",
+              "tangible_type": "bar_graph",
+              "mode": "reading",
+              "orientation": "vertical",
+              "categories": [
+                "Pizza",
+                "Tacos",
+                "Salad",
+                "Burgers"
+              ]
+            },
+            {
+              "tangible_id": "word_problem_preview",
+              "description": "Word problem text: How many more students chose pizza than tacos and salad together?",
+              "tangible_type": "word_problem_area"
+            }
+          ],
+          "id": "s4_1_bridge_lesson_b7"
+        }
+      ],
+      "_generated_at": "2026-04-20T16:59:58.812605+00:00"
+    }
+  ]
+}

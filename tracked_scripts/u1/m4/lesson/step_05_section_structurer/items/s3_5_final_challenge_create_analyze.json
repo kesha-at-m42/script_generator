@@ -1,0 +1,188 @@
+{
+  "id": "s3_5_final_challenge_create_analyze",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Data table appears. Plants in the Garden. Tomatoes=60, Peppers=35, Carrots=45, Beans=20. Vertical layout."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_plants",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "building",
+        "orientation": "horizontal",
+        "scale": 10,
+        "axis_range": [
+          0,
+          70
+        ],
+        "categories": [
+          "Tomatoes",
+          "Peppers",
+          "Carrots",
+          "Beans"
+        ],
+        "snap_to": 5,
+        "description": "Horizontal bar graph appears. Plants in the Garden. Scale of 10, axis 0 to 70. No bars pre-filled. Ghost gridlines at 5s visible. Snap-to-5 enabled."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Use the data table to complete the graph."
+    },
+    {
+      "type": "prompt",
+      "text": "Create the bar graph.",
+      "tool": "click_to_set_height",
+      "target": "bar_graph_plants",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "bar_height": {
+                  "Tomatoes": 60
+                }
+              },
+              {
+                "bar_height": {
+                  "Peppers": 35
+                }
+              },
+              {
+                "bar_height": {
+                  "Carrots": 45
+                }
+              },
+              {
+                "bar_height": {
+                  "Beans": 20
+                }
+              }
+            ]
+          },
+          "description": "Student set all four bars correctly: Tomatoes=60, Peppers=35, Carrots=45, Beans=20",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "All four bars match the data. You built the graph from the table."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Plants in the Garden values.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_plants",
+          "description": "Horizontal bar graph in building mode. Plants in the Garden. All four bars set: Tomatoes=60, Peppers=35, Carrots=45, Beans=20. Scale of 10, axis 0 to 70.",
+          "tangible_type": "bar_graph",
+          "mode": "building",
+          "orientation": "horizontal",
+          "scale": 10,
+          "axis_range": [
+            0,
+            70
+          ],
+          "categories": [
+            "Tomatoes",
+            "Peppers",
+            "Carrots",
+            "Beans"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "hide",
+      "tangible_id": "data_table",
+      "params": {
+        "description": "Data table hides. Problem-solving uses graph only."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_plants",
+      "params": {
+        "mode": "reading",
+        "highlight_categories": [
+          "Peppers",
+          "Carrots"
+        ],
+        "description": "Graph switches to reading mode. Peppers and Carrots bars highlight."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "How many plants in all for Peppers and Carrots?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many plants IN ALL for Peppers and Carrots?",
+      "tool": "multiple_choice",
+      "options": [
+        70,
+        75,
+        80,
+        90
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 80
+          },
+          "description": "Student answered 80, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "80 plants in all. 35 plus 45 is 80."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_plants",
+          "description": "Horizontal bar graph in reading mode. Plants in the Garden. Peppers and Carrots bars highlighted. All four bars displayed: Tomatoes=60, Peppers=35, Carrots=45, Beans=20. Scale of 10, axis 0 to 70.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 10,
+          "axis_range": [
+            0,
+            70
+          ],
+          "categories": [
+            "Tomatoes",
+            "Peppers",
+            "Carrots",
+            "Beans"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:02:54.812927+00:00"
+}

@@ -1,0 +1,184 @@
+{
+  "id": "s3_1_unknown_position_flexibility",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "The unknown is always the hardest number"
+        },
+        "description": "Student selected B: The unknown is always the hardest number",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder_product_unknown",
+              "params": {
+                "highlight_positions": [
+                  0,
+                  2,
+                  4
+                ],
+                "description": "First equation highlights 4, 5, and the blank to show the relationship."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The unknown isn't about difficulty. Look at the three equations. What stays constant: the numbers and their relationship. What do 4, 5, and 20 always mean together?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "The numbers are different each time"
+        },
+        "description": "Student selected C: The numbers are different each time",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder_product_unknown",
+              "params": {
+                "highlight_positions": [
+                  0,
+                  2
+                ],
+                "description": "First equation highlights 4 and 5."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder_factor2_unknown",
+              "params": {
+                "highlight_positions": [
+                  0,
+                  4
+                ],
+                "description": "Second equation highlights 4 and 20."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder_factor1_unknown",
+              "params": {
+                "highlight_positions": [
+                  2,
+                  4
+                ],
+                "description": "Third equation highlights 5 and 20."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at all three equations. The same three numbers appear: 4, 5, and 20. Only the position of the unknown changes. What relationship do these numbers always show?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "The equation changes meaning each time"
+        },
+        "description": "Student selected D: The equation changes meaning each time",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder_product_unknown",
+              "params": {
+                "highlight_positions": [
+                  0,
+                  1,
+                  2
+                ],
+                "description": "First equation highlights 4 × 5."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder_factor2_unknown",
+              "params": {
+                "highlight_positions": [
+                  0,
+                  1,
+                  2
+                ],
+                "description": "Second equation highlights 4 × blank."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder_factor1_unknown",
+              "params": {
+                "highlight_positions": [
+                  0,
+                  1,
+                  2
+                ],
+                "description": "Third equation highlights blank × 5."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The meaning doesn't change. Each equation shows the same relationship: 4 groups of 5 is 20. Read each one. What's the constant relationship among 4, 5, and 20?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_product_unknown",
+              "params": {
+                "event": "highlight_relationship",
+                "status": "confirmed",
+                "description": "First equation highlights the full relationship: 4 × 5 = 20."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_factor2_unknown",
+              "params": {
+                "event": "highlight_relationship",
+                "status": "confirmed",
+                "description": "Second equation highlights the same relationship: 4 × (5) = 20."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_factor1_unknown",
+              "params": {
+                "event": "highlight_relationship",
+                "status": "confirmed",
+                "description": "Third equation highlights the same relationship: (4) × 5 = 20."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you what stays constant. First equation: 4 groups of 5 equals 20. Second equation: 4 groups of something equals 20. That something is 5. Third equation: some number of groups of 5 equals 20. That number is 4. The relationship never changes: 4 groups of 5 equals 20. The unknown just tells you which piece you need to figure out."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:03:25.244832+00:00"
+}

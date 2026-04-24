@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:04:45.434512
+# Generated: 2026-04-23T12:29:02.701079
 ======================================================================
 
 ## API Parameters
@@ -960,7 +960,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "Scale of 5. Bigger scale, fewer symbols, same data.",
+      "text": "Scale of 5. Bigger scale, fewer symbols—same data.",
       "context": "on_correct"
     },
     {

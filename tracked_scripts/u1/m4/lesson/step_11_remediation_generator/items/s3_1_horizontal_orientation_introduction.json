@@ -1,0 +1,110 @@
+{
+  "id": "s3_1_horizontal_orientation_introduction",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 3
+        },
+        "description": "Student selected 3, counting symbols instead of reading the scale",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_field_trip",
+              "params": {
+                "highlight_categories": [
+                  "Museum"
+                ],
+                "description": "Museum bar highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted symbols. Bar graphs don't use symbols. Find where the Museum bar ends on the scale at the bottom."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 25
+        },
+        "description": "Student selected 25, estimating between 20 and 30 but choosing wrong midpoint",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_field_trip",
+              "params": {
+                "highlight_categories": [
+                  "Museum"
+                ],
+                "description": "Museum bar highlights with axis line at 30."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The Museum bar ends exactly at a line on the scale. Which number is right where the bar ends?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 35
+        },
+        "description": "Student selected 35, reading one interval too high",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_field_trip",
+              "params": {
+                "highlight_categories": [
+                  "Museum"
+                ],
+                "description": "Museum bar highlights with guideline to axis."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look closely at where the Museum bar ends. It's not at 35. Find the line where the bar stops."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_field_trip",
+              "params": {
+                "event": "draw_bar_guideline",
+                "status": "confirmed",
+                "description": "Horizontal line draws from end of Museum bar down to axis at 30.",
+                "category": "Museum"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. I draw a line from the end of the Museum bar straight down to the scale. It lands right at the 30 line. The Museum bar shows 30 votes."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:06:10.134512+00:00"
+}

@@ -1,0 +1,112 @@
+{
+  "id": "s3_3_mixed_problem_single_step_check",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 105
+        },
+        "description": "Student selected 105 (added dogs and cats instead of finding difference)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_pets",
+              "params": {
+                "highlight_categories": [
+                  "Dogs",
+                  "Cats"
+                ],
+                "description": "Dogs and Cats bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "How many more means compare. When we compare, we subtract. What's 65 minus 40?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 65
+        },
+        "description": "Student selected 65 (read only the Dogs value, didn't compare)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_pets",
+              "params": {
+                "highlight_categories": [
+                  "Dogs",
+                  "Cats"
+                ],
+                "description": "Dogs and Cats bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's the total for Dogs. But the question asks how many more dogs than cats. Compare by subtracting. What's 65 minus 40?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 30
+        },
+        "description": "Student selected 30 (possibly confused Fish value or calculation error)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_pets",
+              "params": {
+                "highlight_categories": [
+                  "Dogs",
+                  "Cats"
+                ],
+                "description": "Dogs and Cats bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at the bars for Dogs and Cats. Dogs is 65, Cats is 40. Subtract to find how many more. What's 65 minus 40?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_pets",
+              "params": {
+                "event": "show_calculation",
+                "status": "confirmed",
+                "description": "System demonstrates: Dogs bar (65) and Cats bar (40) highlight. Calculation shows 65 - 40 = 25."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. How many more means compare. Dogs is 65, Cats is 40. We subtract: 65 minus 40 equals 25. The answer is 25 because comparing means finding the difference between two values."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:05:34.574352+00:00"
+}

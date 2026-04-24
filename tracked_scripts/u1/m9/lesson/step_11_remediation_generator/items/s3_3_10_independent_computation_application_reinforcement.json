@@ -1,0 +1,100 @@
+{
+  "id": "s3_3_10_independent_computation_application_reinforcement",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 16
+        },
+        "description": "Student selected 16: added 6 + 10 instead of multiplying",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder_6x10",
+              "params": {
+                "description": "The multiplication symbol highlights between 6 and 10."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That times sign means multiply, not add. Skip-count by 10s: 10, 20, 30, 40, 50, 60. Which number did you land on after 6 jumps?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 70
+        },
+        "description": "Student selected 70: miscounted by one",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder_6x10",
+              "params": {
+                "description": "The factor 6 highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You skipped one too many times. Count carefully: 6 groups of 10. That means 6 jumps, not 7."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 50
+        },
+        "description": "Student selected 50: stopped one count short",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder_6x10",
+              "params": {
+                "description": "The factor 6 highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You stopped too soon. Count all 6 groups: 10, 20, 30, 40, 50, and one more. What comes after 50?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_6x10",
+              "params": {
+                "event": "demonstrate_skip_counting",
+                "status": "confirmed",
+                "description": "System demonstrates skip-counting by 10s six times: 10, 20, 30, 40, 50, 60. Each count pulses briefly as the number appears."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. 6 groups of 10. I skip-count by 10s, six times: 10, 20, 30, 40, 50, 60. After 6 jumps of 10, I land on 60. That's the product. 6 times 10 equals 60."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:06:31.837095+00:00"
+}

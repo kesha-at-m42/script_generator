@@ -1,0 +1,113 @@
+{
+  "id": "s4_2_circles_varied_values",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student placed incorrect tiles on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Look at the circles. How many groups do you see?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student placed incorrect tiles on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "event": "highlight_containers_sequentially",
+                "status": "confirmed",
+                "description": "Circles highlight one by one."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Count the circles. That's your first number. Then count the dots in ONE circle. That's your second number. Place those tiles."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student placed incorrect tiles three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "event": "highlight_containers_sequentially",
+                "status": "confirmed",
+                "description": "Circles highlight sequentially: 1, 2, 3, 4."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. I count the circles: 1, 2, 3, 4. Four circles, so 4 groups."
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "event": "highlight_items_in_one_container",
+                "status": "confirmed",
+                "description": "Dots in one circle highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Now I look inside one circle: 1, 2, 3, 4 dots. Four in each group. So the expression is 4 times 4. The first 4 tells me how many groups. The second 4 tells me how many in each group."
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder",
+              "params": {
+                "event": "demo_place_tile",
+                "status": "confirmed",
+                "description": "4 tile places in first slot, then 4 tile places in second slot.",
+                "tile_value": 4,
+                "slot_position": 1
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder",
+              "params": {
+                "event": "demo_place_tile",
+                "status": "confirmed",
+                "description": "Second 4 tile places in second slot.",
+                "tile_value": 4,
+                "slot_position": 2
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The answer is 4 times 4."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:07:33.208668+00:00"
+}

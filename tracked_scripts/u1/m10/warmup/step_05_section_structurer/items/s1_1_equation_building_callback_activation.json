@@ -1,0 +1,115 @@
+{
+  "id": "s1_1_equation_building_callback_activation",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_bags",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 5,
+        "items_per_container": 2,
+        "visual_style": "pictures",
+        "container_type": "bags",
+        "description": "Equal groups visual appears: 5 bags with 2 items each."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_warmup",
+      "tangible_type": "equation_builder",
+      "params": {
+        "template": [
+          "__",
+          "×",
+          "__",
+          "=",
+          "__"
+        ],
+        "palette": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "description": "Equation builder appears alongside with full equation template and tile palette 1 through 10."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Let's warm up. You've been building equations. Let's make sure you've still got it. Build the equation for this picture."
+    },
+    {
+      "type": "prompt",
+      "text": "Build the equation for this picture.",
+      "tool": "place_tile",
+      "target": "equation_builder_warmup",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "groups": 5,
+            "items": 2,
+            "total": 10
+          },
+          "description": "Student placed 5 × 2 = 10, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "5 groups of 2. 5 times 2 equals 10. You know how to build equations."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_bags",
+          "description": "Equal groups visual: 5 bags with 2 items each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 2,
+          "visual_style": "pictures",
+          "container_type": "bags"
+        },
+        {
+          "tangible_id": "equation_builder_warmup",
+          "description": "Equation builder with template [___] × [___] = [___] and tile palette 1-10. Place_tile tool active.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "×",
+            "__",
+            "=",
+            "__"
+          ],
+          "palette": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:30.488251+00:00"
+}

@@ -1,0 +1,92 @@
+{
+  "id": "s1_3_build_full_10_equation_create",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder",
+      "tangible_type": "equation_builder",
+      "params": {
+        "mode": "building",
+        "template": [
+          "__",
+          "x",
+          "__",
+          "=",
+          "__"
+        ],
+        "palette": [
+          4,
+          5,
+          10,
+          14,
+          20,
+          30,
+          40,
+          50
+        ],
+        "description": "Equation Builder appears. Three empty slots: [___] × [___] = [___]. Tile palette shows 4, 5, 10, 14, 20, 30, 40, 50."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "4 groups of 10. Build the equation."
+    },
+    {
+      "type": "prompt",
+      "text": "Build the equation for 4 groups of 10.",
+      "tool": "place_tile",
+      "target": "equation_builder",
+      "variable_answer": false,
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "placed": {
+              "groups": 4,
+              "items": 10,
+              "total": 40
+            }
+          },
+          "description": "Student placed 4 × 10 = 40, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder",
+              "params": {
+                "event": "confirm_equation",
+                "status": "confirmed",
+                "description": "Equation 4 × 10 = 40 confirms."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "4 times 10 equals 40. That ends in a 0 which is what we expect with multiples of 10."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_builder",
+          "description": "Equation Builder showing 4 × 10 = 40 confirmed. Tile palette: 4, 5, 10, 14, 20, 30, 40, 50.",
+          "tangible_type": "equation_builder",
+          "mode": "building",
+          "template": [
+            "__",
+            "x",
+            "__",
+            "=",
+            "__"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:00:41.132144+00:00"
+}

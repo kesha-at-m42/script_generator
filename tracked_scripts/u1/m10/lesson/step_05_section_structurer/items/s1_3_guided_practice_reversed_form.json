@@ -1,0 +1,113 @@
+{
+  "id": "s1_3_guided_practice_reversed_form",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_cookies",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 3,
+        "items_per_container": 8,
+        "item_type": "cookies",
+        "description": "Equal groups appear. 3 boxes, 8 cookies in each box."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_reversed",
+      "tangible_type": "equation_builder",
+      "params": {
+        "template": [
+          "__",
+          "=",
+          "__",
+          "×",
+          "__"
+        ],
+        "tile_palette": [
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          16,
+          20,
+          21,
+          24
+        ],
+        "description": "Equation builder appears with reversed template: product slot = groups slot × items slot. Tile palette shows 3, 4, 6, 7, 8, 11, 16, 20, 21, 24."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Here's something different. The template is flipped — product comes first this time. Remember, equals means same value as, so the product can go on either side. Build this equation with the product first."
+    },
+    {
+      "type": "prompt",
+      "text": "Build the equation: __ = __ × __",
+      "tool": "place_tile",
+      "target": "equation_builder_reversed",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "total": 24,
+            "groups": 3,
+            "items": 8
+          },
+          "description": "Student placed 24 = 3 × 8, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "24 equals 3 times 8. Product on the left, multiplication expression on the right. Same value on both sides."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_cookies",
+          "description": "Equal groups showing 3 boxes with 8 cookies in each box.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 8,
+          "item_type": "cookies"
+        },
+        {
+          "tangible_id": "equation_builder_reversed",
+          "description": "Equation builder with reversed template: __ = __ × __. Tile palette active with place_tile tool.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "=",
+            "__",
+            "×",
+            "__"
+          ],
+          "tile_palette": [
+            3,
+            4,
+            6,
+            7,
+            8,
+            11,
+            16,
+            20,
+            21,
+            24
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T17:03:16.124722+00:00"
+}

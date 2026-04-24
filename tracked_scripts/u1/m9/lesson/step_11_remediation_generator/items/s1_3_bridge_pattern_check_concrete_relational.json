@@ -1,0 +1,67 @@
+{
+  "id": "s1_3_bridge_pattern_check_concrete_relational",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "Odd"
+        },
+        "description": "Student selected Odd: believes multiplying by 2 produces odd products",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder",
+              "params": {
+                "expression": [
+                  "2",
+                  "+",
+                  "2",
+                  "+",
+                  "2",
+                  "+",
+                  "2",
+                  "+",
+                  "2",
+                  "=",
+                  "10"
+                ],
+                "description": "Equation Builder shows repeated addition: 2 + 2 + 2 + 2 + 2 = 10."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at what happens. When you add 2 plus 2, you get 4. Add another 2, you get 6. Every time you add 2 to an even number, you stay even. Are any of these totals odd?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder",
+              "params": {
+                "event": "show_vocabulary_labels",
+                "status": "confirmed",
+                "description": "Visual emphasis appears under the product 10 in 5 × 2 = 10."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. 5 times 2 equals 10. 10 is even. 3 times 2 equals 6. 6 is even. 7 times 2 equals 14. 14 is even. Every product of 2 is even because multiplying by 2 means making groups of 2, and groups of 2 always pair up perfectly with no items left over. The answer is always even."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:05:21.182866+00:00"
+}

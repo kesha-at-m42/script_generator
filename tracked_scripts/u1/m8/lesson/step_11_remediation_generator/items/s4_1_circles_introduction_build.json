@@ -1,0 +1,84 @@
+{
+  "id": "s4_1_circles_introduction_build",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student placed incorrect tiles on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Look at the circles. How many circles are there? How many dots in each circle?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student placed incorrect tiles on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "highlight_containers": true,
+                "description": "Circles highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The first number is how many groups. Count the circles. The second number is how many in each group. Count the dots inside one circle. Place those two numbers."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student placed incorrect tiles three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "event": "highlight_containers_sequentially",
+                "status": "confirmed",
+                "description": "Circles highlight one by one as Guide counts."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. First, I count the groups. That means count the circles: 1, 2. Two circles, so the first number is 2."
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "event": "highlight_items_in_one_container",
+                "status": "confirmed",
+                "description": "Dots in one circle highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Now I count how many in each group. I look inside one circle: 1, 2, 3. Three dots, so the second number is 3. The expression is 2 times 3. That's what these circles show, 2 groups of 3."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:07:19.700657+00:00"
+}

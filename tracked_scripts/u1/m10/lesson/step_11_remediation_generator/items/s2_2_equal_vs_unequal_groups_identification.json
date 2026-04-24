@@ -1,0 +1,183 @@
+{
+  "id": "s2_2_equal_vs_unequal_groups_identification",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "or": [
+                {
+                  "selected": "A"
+                },
+                {
+                  "selected": "C"
+                }
+              ]
+            },
+            {
+              "not": {
+                "and": [
+                  {
+                    "selected": "A"
+                  },
+                  {
+                    "selected": "C"
+                  }
+                ]
+              }
+            },
+            {
+              "not": {
+                "selected": "B"
+              }
+            },
+            {
+              "not": {
+                "selected": "D"
+              }
+            }
+          ]
+        },
+        "description": "Branch 2: Student selected only A or only C (correct options only, but incomplete)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "image_grid",
+              "params": {
+                "highlight_images": [
+                  "A",
+                  "C"
+                ],
+                "description": "Both A and C highlight to show they are the equal groups examples."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found one of them. Look at both A and C closely. They both show equal groups. Did you select both?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "not": {
+            "or": [
+              {
+                "selected": "A"
+              },
+              {
+                "selected": "C"
+              }
+            ]
+          }
+        },
+        "description": "Branch 3: Student selected only incorrect options (B and/or D), no correct answers",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "image_grid",
+              "params": {
+                "highlight_images": [
+                  "B",
+                  "D"
+                ],
+                "dim_images": [
+                  "A",
+                  "C"
+                ],
+                "description": "B and D highlight to draw attention to their unequal structure. A and C dim."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Equal groups means the same number in every group. Look at B: 5, 6, 5, 2. Those aren't equal. Look at D: 7, 4, 7. Those aren't equal either. Find the pictures where every group has exactly the same count."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "or": [
+                {
+                  "selected": "B"
+                },
+                {
+                  "selected": "D"
+                }
+              ]
+            },
+            {
+              "or": [
+                {
+                  "selected": "A"
+                },
+                {
+                  "selected": "C"
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Branch 4: Student selected a mix of correct (A or C) and incorrect (B or D)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "image_grid",
+              "params": {
+                "highlight_correct": [
+                  "A",
+                  "C"
+                ],
+                "highlight_incorrect": [
+                  "B",
+                  "D"
+                ],
+                "description": "A and C pulse green (equal groups). B and D pulse red (unequal groups)."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found at least one equal group picture. But check the others you selected. Count the items in each group. Are they all the same number?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Heavy: Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "image_grid",
+              "params": {
+                "event": "demonstrate_equal_groups",
+                "status": "confirmed",
+                "description": "System highlights A: arrows point to each shelf showing 6, 6, 6. Then highlights C: arrows point to each stack showing 9, 9. Then shows B: 5, 6, 5, 2 with X marks. Then D: 7, 4, 7 with X marks."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. Picture A has 3 shelves: 6 jars, 6 jars, 6 jars. Equal groups. Picture C has 2 stacks: 9 books, 9 books. Equal groups. Picture B has 4 plates: 5, 6, 5, 2. Not equal. Picture D has 3 groups: 7 ducks, 4 ducks, 7 ducks. Not equal. A and C are the answers because every group in those pictures has the same count. That is what equal groups means."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T17:08:19.402435+00:00"
+}
