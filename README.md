@@ -102,6 +102,70 @@ Pushes the completed sections JSON to the corresponding Notion lesson page.
 
 ---
 
+## Exporting to Lesson Lab (TOML)
+
+After generation and Notion push, a final optional step converts the finished script into a TOML file for consumption by Lesson Lab (LLP/LLL).
+
+**`toml_sequence_writer`** · `steps/formatting/toml_sequence_writer.py`
+
+Takes a `pull.json` (a Notion-pulled script with `_notion_block_id` stamps) and writes a `.toml` sequence file in the format Lesson Lab expects.
+
+**What it produces:**
+
+```toml
+title = "lesson"
+type = "sequence"
+
+[section_100_data_collection]
+template = "chart_template"
+
+[step_100_data_collection]
+dialogue = "Let's look at this data together."
+components = ["SceneComponent", "PromptComponent"]
+
+[step_101_data_collection]
+dialogue = "Which category has the most?"
+components = ["PromptComponent"]
+```
+
+**Key rules:**
+- Each section becomes a `[section_N_slug]` block with a `template` (auto-selected per module: `chart_template` for M1/M2, `array_template` for M11/M12, `PLACEHOLDER` otherwise)
+- Within a section, beats are grouped into steps by `current_scene` boundaries — everything before a `current_scene` beat is one TOML step
+- `dialogue` beats are joined into a single string per step; `prompt` beats add `"PromptComponent"` to `components`; `scene` beats are dropped
+- The first step in each section always gets `"SceneComponent"` prepended to `components`
+- Vocabulary terms wrapped in `{curly braces}` in dialogue are converted to `[vocab]word[/vocab]` tags
+- `_toml_key` stamps are written back into the source `pull.json` on each `current_scene` beat, linking TOML steps to Notion block IDs for round-trip traceability
+- Section and step counters start at 100 and increment independently
+
+**Running it as a pipeline step** (add to `pipelines.json`):
+```json
+{
+  "name": "toml_sequence_writer",
+  "type": "formatting",
+  "function": "toml_sequence_writer.write",
+  "function_args": {
+    "pull_json_path": "tracked_scripts/u1/m3/lesson/step_14_pull/pull.json",
+    "output_path": "tracked_scripts/u1/m3/lesson/step_15_toml/lesson-script.toml",
+    "unit_number": 1,
+    "module_number": 3,
+    "phase": "lesson"
+  }
+}
+```
+
+**Running it from the CLI** (auto-detects unit/module/phase from path, prompts before copying to `SEQUENCES_DIR`):
+```bash
+python steps/formatting/toml_sequence_writer.py tracked_scripts/u1/m3/lesson/step_14_pull/pull.json
+# or with explicit dest:
+python steps/formatting/toml_sequence_writer.py tracked_scripts/u1/m3/lesson/step_14_pull/pull.json --dest /path/to/sequences/
+```
+
+Set the `SEQUENCES_DIR` env variable to your local Lesson Lab sequences directory to have the CLI offer to copy the TOML there automatically.
+
+> **Note:** TOML output files must use LF line endings (enforced by `.gitattributes`). The writer opens output files with `newline="\n"` to guarantee this.
+
+---
+
 ## Running a Pipeline
 
 # Run a pipeline directly from CLI
