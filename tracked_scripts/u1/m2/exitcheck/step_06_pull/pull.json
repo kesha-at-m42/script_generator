@@ -1,0 +1,650 @@
+[
+  {
+    "id": "s1_1_scale_meaning",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Vertical picture graph appears showing Favorite Sports data. Soccer has 4 stars (8 votes), Basketball has 3 stars (6 votes), Baseball has 5 stars (10 votes), Tennis has 2 stars (4 votes). Key displays: Each ⭐ = 2 votes."
+        },
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-8125-a8c4-f62c6d696ce9"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Data table appears alongside graph showing Favorite Sports values: Soccer 8, Basketball 6, Baseball 10, Tennis 4."
+        },
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-81b5-bbcc-e19ddc58118b"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here is data showing students' favorite sports. Look at the key. This graph has a scale of 2. What does \"scale of 2\" mean?",
+        "_notion_block_id": "31e5917e-ac52-81e8-b601-d2176c41360d"
+      },
+      {
+        "type": "prompt",
+        "text": "What does “scale of 2” mean?",
+        "tool": "multiple_choice",
+        "options": [
+          "There are 2 categories",
+          "Each symbol shows 2 votes",
+          "Add 2 to find the total",
+          "There are 2 symbols"
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": "Each symbol shows 2 votes"
+            },
+            "description": "Student selected 'Each symbol shows 2 votes' — correct understanding of scale meaning",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Scale of 2 means each symbol shows 2 votes.",
+                "_notion_block_id": "31e5917e-ac52-8123-9e60-d2c3512df1d7"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "There are 2 categories"
+            },
+            "description": "Student selected 'There are 2 categories' — confused scale with number of categories",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_sports",
+                "params": {
+                  "highlight_component": "key",
+                  "description": "Highlight Soccer, Basketball, Baseball, Tennis on picture_graph_sports"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31e5917e-ac52-81b9-9c8e-f74ed4df72bd"
+              },
+              {
+                "type": "dialogue",
+                "text": "Count the categories. There are actually 4 sports, not 2. The scale tells us something different.",
+                "_notion_block_id": "31e5917e-ac52-81ea-9fe1-c9c390d68a49"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "Add 2 to find the total"
+            },
+            "description": "Student selected 'Add 2 to find the total' — misunderstood scale as an arithmetic operation",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_sports",
+                "params": {
+                  "highlight_component": "key",
+                  "description": "Key highlights."
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31e5917e-ac52-8173-b1b0-f442fa1556e3"
+              },
+              {
+                "type": "dialogue",
+                "text": "Scale isn't about adding. Look at the key: it tells us about the symbols. What does that mean?",
+                "_notion_block_id": "31e5917e-ac52-81e3-93d4-f6df5058927a"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "There are 2 symbols"
+            },
+            "description": "Student selected 'There are 2 symbols' — confused scale with symbol count",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_sports",
+                "params": {
+                  "highlight_categories": [
+                    "Soccer",
+                    "Basketball",
+                    "Baseball",
+                    "Tennis"
+                  ],
+                  "description": "Highlight Soccer, Basketball, Baseball, Tennis on picture_graph_sports"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31e5917e-ac52-8158-8853-d95660a8de2e"
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at each category. There are different numbers of symbols for each sport, but all show the same symbol. The key tells us about the scale for the symbols. What do you learn from the key?",
+                "_notion_block_id": "31e5917e-ac52-8181-9b5d-da96c2bfe67a"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_sports",
+                "params": {
+                  "event": "highlight_key_and_symbol",
+                  "status": "confirmed",
+                  "description": "Key pulses to show 'Each ⭐ = 2 votes', then one symbol in Soccer row highlights to demonstrate it represents 2 votes"
+                },
+                "_notion_block_id": "31e5917e-ac52-810f-a3c8-e719ad9e0fbc"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. The key says \"Each symbol = 2 votes.\" That means every symbol on this graph represents 2 votes, not 1. So if Soccer has 4 symbols, each is worth 2 votes: 2, 4, 6, 8. 8 total votes. Scale of 2 means each symbol shows 2 votes.",
+                "_notion_block_id": "31e5917e-ac52-8174-836a-fc063e898ef8"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31e5917e-ac52-8146-9537-ce394826c2b6"
+      }
+    ],
+    "_toml_key": "section_100_scale_meaning",
+    "_notion_block_id": "31e5917e-ac52-819f-af93-f8c3384da6a1"
+  },
+  {
+    "id": "s1_2_symbol_calculation_odd",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "picture_graph_sports",
+        "_notion_block_id": "31e5917e-ac52-8170-9304-f2dff969ae6d"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Data table updates showing Stickers Collected: Emma 9, Liam 12, Ava 7, Noah 10. Mix of even and odd values. Scale of 2."
+        },
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-815b-a613-c6d1335dcdb8"
+      },
+      {
+        "type": "dialogue",
+        "text": "This table shows us the stickers collected by 4 children. Emma collected 9 stickers. To make a picture graph, how many symbols does Emma need?",
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-812a-b7f6-d7795e3684b3"
+      },
+      {
+        "type": "prompt",
+        "text": "How many symbols does Emma need?",
+        "tool": "multiple_choice",
+        "options": [
+          "4 symbols (visual)",
+          "4.5 symbols (visual)",
+          "5 symbols (visual)",
+          "9 symbols (visual)"
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 4.5
+            },
+            "description": "Student selected 4.5 — correct, 9 requires 4 full symbols plus 1 half-symbol",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "4 and a half symbols. 9 is odd so 4 full symbols for 8, plus a half-symbol for 1 left.",
+                "_notion_block_id": "31e5917e-ac52-81de-a466-e1fc1360111e"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 4
+            },
+            "description": "Student selected 4 — counted only full symbols, missed that 9 is odd and needs a half-symbol",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table",
+                "params": {
+                  "highlight_categories": [
+                    "Emma"
+                  ],
+                  "description": "Highlight Emma on data_table"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31e5917e-ac52-81c8-b4b6-e523dd14dac7"
+              },
+              {
+                "type": "dialogue",
+                "text": "4 symbols would show 8 stickers. But Emma has 9, that's 1 more than 8. What can we use to show just 1 sticker?",
+                "_notion_block_id": "31e5917e-ac52-8137-b92d-ede946c6f1b5"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 5
+            },
+            "description": "Student selected 5 — counted symbols as if each represents 1 sticker instead of 2",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table",
+                "params": {
+                  "highlight_categories": [
+                    "Emma"
+                  ],
+                  "description": "Highlight Emma on data_table"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31e5917e-ac52-81c0-8775-f915d3dc938d"
+              },
+              {
+                "type": "dialogue",
+                "text": "Each symbol stands for 2 stickers. So 5 symbols would show 10 stickers total. Emma has 9. How many symbols for that?",
+                "_notion_block_id": "31e5917e-ac52-8101-8d80-f9cc2308027f"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 9
+            },
+            "description": "Student selected 9 — used the data value directly instead of calculating symbols needed",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table",
+                "params": {
+                  "highlight_categories": [
+                    "Emma"
+                  ],
+                  "description": "Highlight Emma on data_table and the key showing scale of 2"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31e5917e-ac52-81da-a4e6-e1b42579ea6f"
+              },
+              {
+                "type": "dialogue",
+                "text": "9 is how many stickers Emma has. But check the key. Each symbol stands for 2 stickers. How many symbols do we need to show 9?",
+                "_notion_block_id": "31e5917e-ac52-81b8-9df7-ce9a7613a089"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "data_table",
+                "params": {
+                  "event": "demonstrate_symbol_calculation",
+                  "status": "confirmed",
+                  "description": "System demonstrates calculating symbols for 9: 4 full symbols show 8, plus half-symbol shows 1 more"
+                },
+                "_notion_block_id": "31e5917e-ac52-81ff-bea3-e89da340dd58"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. Emma has 9 stickers which is an odd number. Each symbol stands for 2, so 4 full symbols show 2, 4, 6, 8 stickers. We need 1 more sticker to make 9, that's a half-symbol. So 4 and a half symbols total.",
+                "_notion_block_id": "31e5917e-ac52-81d2-b153-e673055d3e4b"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31e5917e-ac52-815b-b106-e1e922e4af94"
+      }
+    ],
+    "_toml_key": "section_101_symbol_calculation_odd",
+    "_notion_block_id": "31e5917e-ac52-81e6-ac16-eabde20e0743"
+  },
+  {
+    "id": "s1_3_create_half_symbol",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Data table showing Stickers Collected: Emma 9, Liam 12, Ava 7, Noah 10. Mix of even and odd values."
+        },
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-81a7-95c1-ec0d3af61d62"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Empty picture graph template appears for student creation. Scale of 2. Emma (4.5 symbols), Liam (6 symbols), and Noah (5 symbols) already placed. Ava row is empty, awaiting student placement."
+        },
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-814e-a924-e7cae5607459"
+      },
+      {
+        "type": "dialogue",
+        "text": "Place the symbols for Ava. She collected 7 stickers.",
+        "_notion_block_id": "31e5917e-ac52-8191-b20d-c0432a999b14"
+      },
+      {
+        "type": "prompt",
+        "text": "Place symbols for Ava.",
+        "tool": "click_place_symbols",
+        "target": "picture_graph_stickers_create",
+        "validator": [
+          {
+            "condition": {
+              "category": "Ava",
+              "symbols_placed": 3.5
+            },
+            "description": "Student placed 3 full symbols and 1 half-symbol for Ava (7 stickers) — correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_stickers_create",
+                "params": {
+                  "placed_counts": [
+                    4,
+                    3,
+                    3.5,
+                    5
+                  ],
+                  "description": "Ava row now shows 3 full symbols and 1 half-symbol. Graph complete."
+                },
+                "_notion_block_id": "31e5917e-ac52-812a-b585-fc211e8a2472"
+              },
+              {
+                "type": "dialogue",
+                "text": "3 and a half symbols for 7 stickers. Each full symbol is 2, the half is 1.",
+                "_notion_block_id": "31e5917e-ac52-81d1-a79c-c93e1866fbe6"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student placed wrong number of symbols for Ava on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Check how many stickers Ava collected and what the scale tells you.",
+                "_notion_block_id": "31e5917e-ac52-8100-89dd-c334cfbb0358"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student placed wrong number of symbols for Ava on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table",
+                "params": {
+                  "highlight_categories": [
+                    "Ava"
+                  ],
+                  "description": "Highlight Ava on data_table and the key showing scale of 2"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31e5917e-ac52-81ee-96bf-f46511b541e7"
+              },
+              {
+                "type": "dialogue",
+                "text": "Try again. Ava has 7 stickers. Each key shows each symbol equals 2 stickers. How many full symbols do you need? Do you need any half symbols?",
+                "_notion_block_id": "31e5917e-ac52-811f-8429-c8283051deb3"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student placed wrong number of symbols three or more times — system models the answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_stickers_create",
+                "params": {
+                  "event": "place_symbols_ava",
+                  "status": "confirmed",
+                  "description": "System places 3 full symbols and 1 half-symbol in Ava's row, demonstrating the correct placement for 7 stickers with a scale of 2"
+                },
+                "_notion_block_id": "31e5917e-ac52-810d-bb60-fa98356d782d"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think through this together. Each symbol represents 2 stickers. Ava collected 7 stickers which is an odd number and won't split perfectly into 2s. So we place 3 full symbols: that's 2, 4, 6 stickers. Then we add a half-symbol for the remaining 1 sticker. 3 and a half symbols total for 7 stickers.",
+                "_notion_block_id": "31e5917e-ac52-813b-bf6d-ca289287a440"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31e5917e-ac52-81b0-b453-e4bb96b3c839"
+      }
+    ],
+    "_toml_key": "section_102_create_half_symbol",
+    "_notion_block_id": "31e5917e-ac52-8112-a7b9-d98757371be3"
+  },
+  {
+    "id": "s1_4_read_total_value",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "data_table",
+        "_notion_block_id": "31e5917e-ac52-81a9-834a-fd2e54c13d05"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Completed picture graph appears showing How Students Get to School. Bus has 4 symbols (8 students), Walk has 4.5 symbols (9 students), Car has 3 symbols (6 students), Bike has 3.5 symbols (7 students). Key visible: Each 🚌 = 2 students."
+        },
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-81da-923a-df41e1963dbf"
+      },
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "picture_graph_stickers_create",
+        "_notion_block_id": "31e5917e-ac52-819d-94e3-d94470141cb5"
+      },
+      {
+        "type": "dialogue",
+        "text": "Look at the completed graph showing how students from one class get to school. How many students take the bus to school?",
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-81fa-bb27-fd80d3804b52"
+      },
+      {
+        "type": "prompt",
+        "text": "How many students take the bus to school?",
+        "tool": "multiple_choice",
+        "options": [
+          3,
+          4,
+          6,
+          8
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 8
+            },
+            "description": "Student selected 8 — correct, 4 symbols × 2 = 8 students",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "8 students take the bus to school. 4 symbols, each worth 2.",
+                "_notion_block_id": "31e5917e-ac52-815b-84f9-d9efebffd021"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 4
+            },
+            "description": "Student selected 4 — counted symbols instead of total value",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_bus",
+                "params": {
+                  "highlight_categories": [
+                    "Bus"
+                  ],
+                  "description": "Highlight Bus on picture_graph_bus"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31e5917e-ac52-8105-bb3f-cbcdb2075055"
+              },
+              {
+                "type": "dialogue",
+                "text": "You counted the symbols. But check the key. It tells us each symbol equals 2 students. So how many students take the bus?",
+                "_notion_block_id": "31e5917e-ac52-81b5-9ede-ea40e19e936d"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 3
+            },
+            "description": "Student selected 3 — miscounted symbols or misread another category",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_bus",
+                "params": {
+                  "highlight_categories": [
+                    "Bus"
+                  ],
+                  "description": "Highlight Bus on picture_graph_bus"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31e5917e-ac52-81fb-976c-c4dbe6f8e778"
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the Bus row and the key. Each symbol equals 2 students. How many symbols are there in the Bus row? How many students does that equal taking the bus?",
+                "_notion_block_id": "31e5917e-ac52-812f-b763-c4774e1224c3"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 6
+            },
+            "description": "Student selected 6 — read Walk category or made calculation error",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_bus",
+                "params": {
+                  "highlight_categories": [
+                    "Bus"
+                  ],
+                  "description": "Highlight Bus on picture_graph_bus"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31e5917e-ac52-810e-8929-dbd3c1fde6ff"
+              },
+              {
+                "type": "dialogue",
+                "text": "Check the Bus row and count carefully. Each symbol shows 2 students so count by 2s along the Bus row.",
+                "_notion_block_id": "31e5917e-ac52-8189-84c3-df3f2c3da348"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models the correct answer",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_bus",
+                "params": {
+                  "event": "count_and_multiply",
+                  "status": "confirmed",
+                  "description": "System highlights Bus row. System highlights key. Each symbol pulses as counted by 2s: 2, 4, 6, 8 students.",
+                  "category": "Bus"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31e5917e-ac52-81be-aa4a-ec817197c515"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. First, notice the key tells us each symbol is 2 students. Count by 2s along the symbols in the Bus row: 2, 4, 6, 8. So 8 students take the bus to school.",
+                "_notion_block_id": "31e5917e-ac52-81c9-9ed5-e204e0329ca1"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31e5917e-ac52-81f9-b0cb-e71ca9479e56"
+      }
+    ],
+    "_toml_key": "section_103_read_total_value",
+    "_notion_block_id": "31e5917e-ac52-81fe-a44c-c689985d92d8"
+  },
+  {
+    "id": "s1_closure",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You are connecting the scale to picture graphs. Let's practice.",
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-813e-9b4a-d299a76aa378"
+      },
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "picture_graph_bus",
+        "_notion_block_id": "31e5917e-ac52-81da-a45e-f0dd47ba1373"
+      }
+    ],
+    "_toml_key": "section_104_s1_closure",
+    "_notion_block_id": "31e5917e-ac52-816b-84ba-c09be6cfb6a9"
+  }
+]

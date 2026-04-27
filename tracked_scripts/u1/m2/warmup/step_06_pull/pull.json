@@ -1,0 +1,449 @@
+[
+  {
+    "id": "w1_data_collection",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Animated counting game with Minis characters. Three categories: Red Minis, Blue Minis, Yellow Minis. Items appear for student to count."
+        },
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-810e-bec4-f61f4c902b72"
+      },
+      {
+        "type": "dialogue",
+        "text": "The Minis need your help counting! Let's see what we find.",
+        "_notion_block_id": "31e5917e-ac52-8117-8a7b-e59b67afc843"
+      },
+      {
+        "type": "prompt",
+        "text": "Count the items in each category and confirm your count.",
+        "tool": "counting_game",
+        "target": "minis_counting_game",
+        "validator": [
+          {
+            "condition": {},
+            "description": "Student completes counting activity for all three categories",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Nice counting! You found them all.",
+                "_notion_block_id": "31e5917e-ac52-81d1-8a59-f4e3645d1c22"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31e5917e-ac52-8191-9142-f1e001c8e886"
+      }
+    ],
+    "_toml_key": "section_100_w1_data_collection",
+    "_notion_block_id": "31e5917e-ac52-817d-b0b1-fc58a6881f26"
+  },
+  {
+    "id": "w2_prediction",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Results screen showing student's counts. Red Minis: 8, Blue Minis: 10, Yellow Minis: 6."
+        },
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-81f5-a01a-d65f0e50a3f6"
+      },
+      {
+        "type": "dialogue",
+        "text": "You counted 8 Red Minis, 10 Blue Minis, and 6 Yellow Minis. That's your data. Let's make a picture graph with it.",
+        "_notion_block_id": "31e5917e-ac52-810a-9031-d3ffd515a652"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's something new though: what if each symbol showed 2 items instead of 1?",
+        "_notion_block_id": "31e5917e-ac52-81d0-a561-c862408991f3"
+      },
+      {
+        "type": "dialogue",
+        "text": "You have 8 Red Minis. If you group them into 2s...",
+        "_notion_block_id": "31e5917e-ac52-810c-baed-faf5c041bdc3"
+      },
+      {
+        "type": "prompt",
+        "text": "How many groups of 2 can you make from 8?",
+        "tool": "multiple_choice",
+        "options": [
+          4,
+          8,
+          10,
+          6
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 4
+            },
+            "description": "Student predicted 4 groups (correct)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You think 4 groups. Let's see if you're right...",
+                "_notion_block_id": "31e5917e-ac52-81df-8437-ec82bc7f66ba"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 8
+            },
+            "description": "Student predicted 8 groups (same as total)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You think 8 groups. Let's see if you're right...",
+                "_notion_block_id": "31e5917e-ac52-81c7-abda-c3e3713692c8"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 10
+            },
+            "description": "Student predicted 10 groups",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You think 10 groups. Let's see if you're right...",
+                "_notion_block_id": "31e5917e-ac52-8194-8f3d-c2e6ba347191"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 6
+            },
+            "description": "Student predicted 6 groups",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You think 6 groups. Let's see if you're right...",
+                "_notion_block_id": "31e5917e-ac52-81ce-a984-f0887f5ecd22"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31e5917e-ac52-8150-b02c-c53570953bc1"
+      }
+    ],
+    "_toml_key": "section_101_w2_prediction",
+    "_notion_block_id": "31e5917e-ac52-81b2-9764-cac13c954db4"
+  },
+  {
+    "id": "w3_grouping_animation",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Animation workspace appears showing picture graph structure ready for transformation."
+        },
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-814d-9f66-cd2f04349eba"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here are the 8 Red Minis. Watch what happens...",
+        "_notion_block_id": "31e5917e-ac52-8100-8fb5-e91d06d93e2f"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "8 Red Minis items appear in animation workspace"
+        },
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-8123-ae3d-e6f64b902c98"
+      },
+      {
+        "type": "dialogue",
+        "text": "8 items... watch them pair up into groups of 2...",
+        "_notion_block_id": "31e5917e-ac52-81fa-8841-e6ef7944ab55"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "8 Red Minis visually pair up: 2, 2, 2, 2. Four groups of 2 visible."
+        },
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-8196-b723-f1484e867b64"
+      },
+      {
+        "type": "dialogue",
+        "text": "Each group of 2 becomes ONE symbol.",
+        "_notion_block_id": "31e5917e-ac52-81ba-95e3-e176cfc5d3e8"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Each pair transforms into one symbol. 4 symbols now appear on the graph row for Red Minis."
+        },
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-8132-b8c4-db7ae7446400"
+      },
+      {
+        "type": "dialogue",
+        "text": "4 groups... 4 symbols.",
+        "_notion_block_id": "31e5917e-ac52-810e-9ddb-d48480167b69"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Key appears on graph: 'Each ⭐ = 2'"
+        },
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-8132-aacc-fbe64bf8f377"
+      },
+      {
+        "type": "dialogue",
+        "text": "Each symbol shows 2 items, not 1. That's different from before!",
+        "_notion_block_id": "31e5917e-ac52-81ae-9837-e0ac297dad25"
+      },
+      {
+        "type": "dialogue",
+        "text": "Let's transform the Blue Minis into symbols. 10 items... 5 groups of 2... 5 symbols.",
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-8132-b6b3-ec43600a6097"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Blue Minis category transforms: 10 items group into 5 pairs, become 5 symbols."
+        },
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-813b-be9c-f9edb8ba4181"
+      },
+      {
+        "type": "dialogue",
+        "text": "Now the Yellow Minis into symbols representing 2 each. 6 items... 3 groups of 2... 3 symbols.",
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-81a4-b0b9-f829f88d38c9"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Yellow Minis category transforms: 6 items group into 3 pairs, become 3 symbols."
+        },
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-81df-ad27-fa37fe724368"
+      },
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Full scaled picture graph visible with all 3 categories. Red Minis: 4 symbols, Blue Minis: 5 symbols, Yellow Minis: 3 symbols. Key shows 'Each ⭐ = 2'."
+        },
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-81c5-9899-eaab000ef2c6"
+      },
+      {
+        "type": "dialogue",
+        "text": "Your data is now a {scaled picture graph}! Each symbol represents 2 instead of 1.",
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-8199-9082-f6c572904c34"
+      }
+    ],
+    "_toml_key": "section_102_w3_grouping_animation",
+    "_notion_block_id": "31e5917e-ac52-81ad-ad39-cde21e4c8cff"
+  },
+  {
+    "id": "w4_verification_bridge",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "PLACEHOLDER",
+        "tangible_id": "PLACEHOLDER",
+        "params": {
+          "description": "Horizontal scaled picture graph with student's collected data. Red Minis: 4 symbols (8 total), Blue Minis: 5 symbols (10 total), Yellow Minis: 3 symbols (6 total). Key shows 'Each ⭐ = 2'."
+        },
+        "notion_flag": "suggested",
+        "_notion_block_id": "31e5917e-ac52-814b-a8e7-fbbe56dc3478"
+      },
+      {
+        "type": "scene",
+        "method": "hide",
+        "tangible_id": "animation_workspace",
+        "_notion_block_id": "31e5917e-ac52-81b6-ba4d-fb00267aa387"
+      },
+      {
+        "type": "dialogue",
+        "text": "Now you've seen how grouping works. Each group of 2 became one symbol.",
+        "_notion_block_id": "31e5917e-ac52-818a-bde5-c238f2d88fb1"
+      },
+      {
+        "type": "prompt",
+        "text": "Look at Blue Minis. How many symbols do you see?",
+        "tool": "multiple_choice",
+        "options": [
+          3,
+          4,
+          5,
+          10
+        ],
+        "validator": [
+          {
+            "condition": {
+              "selected": 5
+            },
+            "description": "Student correctly counted 5 symbols for Blue Minis",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "5 symbols. And each one shows 2 items. So that's 10 total!",
+                "_notion_block_id": "31e5917e-ac52-81bd-9534-fb594dda3d55"
+              },
+              {
+                "type": "dialogue",
+                "text": "You can already read a {scaled} graph. Now let's learn more about how they work.",
+                "_notion_block_id": "31e5917e-ac52-8149-99a7-ff8fbac2aac5"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 3
+            },
+            "description": "Student selected 3 — confused with Yellow Minis symbol count",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_student_data",
+                "params": {
+                  "highlight_categories": [
+                    "Blue Minis"
+                  ],
+                  "description": "Highlight Blue Minis on picture_graph_student_data"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31e5917e-ac52-81da-a336-e6e6b0fbb556"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's look at Blue Minis specifically. Count the symbols in just that row.",
+                "_notion_block_id": "31e5917e-ac52-8196-bbb0-fa11338adeeb"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 4
+            },
+            "description": "Student selected 4 — confused with Red Minis symbol count",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_student_data",
+                "params": {
+                  "highlight_categories": [
+                    "Blue Minis"
+                  ],
+                  "description": "Highlight Blue Minis on picture_graph_student_data"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31e5917e-ac52-81d3-a838-fd6dc346d136"
+              },
+              {
+                "type": "dialogue",
+                "text": "You're looking at the wrong row. Find Blue Minis and count those symbols.",
+                "_notion_block_id": "31e5917e-ac52-81d5-8896-c7cce0c04c2e"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": 10
+            },
+            "description": "Student selected 10 — counted total items instead of symbols",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_student_data",
+                "params": {
+                  "highlight_categories": [
+                    "Blue Minis"
+                  ],
+                  "description": "Highlight Blue Minis on picture_graph_student_data"
+                },
+                "notion_flag": "updated",
+                "_notion_block_id": "31e5917e-ac52-8143-a612-fd3121e564c9"
+              },
+              {
+                "type": "dialogue",
+                "text": "The question asks about symbols, not total items. Count just the symbols in Blue Minis.",
+                "_notion_block_id": "31e5917e-ac52-8163-bee4-c84809361778"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly — system models counting symbols",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_student_data",
+                "params": {
+                  "event": "count_symbols",
+                  "status": "confirmed",
+                  "description": "Each symbol in Blue Minis row pulses and counts: 1, 2, 3, 4, 5",
+                  "category": "Blue Minis"
+                },
+                "_notion_block_id": "31e5917e-ac52-8183-a6de-c77645b839ea"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Look at the Blue Minis row. Count each symbol: 1, 2, 3, 4, 5. There are 5 symbols.",
+                "_notion_block_id": "31e5917e-ac52-8169-acd5-de57421a3cba"
+              },
+              {
+                "type": "dialogue",
+                "text": "You are beginning to read a {scaled} graph. Let's learn more about how they work.",
+                "notion_flag": "suggested",
+                "_notion_block_id": "33d5917e-ac52-805b-9a24-e27aeff3fa89"
+              }
+            ]
+          }
+        ],
+        "_notion_block_id": "31e5917e-ac52-8115-a034-fedd55003aa7"
+      }
+    ],
+    "_toml_key": "section_103_w4_verification_bridge",
+    "_notion_block_id": "31e5917e-ac52-813e-b4e2-dd1fbbd39b5f"
+  }
+]
