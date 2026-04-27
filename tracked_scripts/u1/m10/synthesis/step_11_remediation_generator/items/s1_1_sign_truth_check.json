@@ -6,21 +6,22 @@
         "condition": {
           "selected": "A"
         },
-        "description": "Student selected A: 3 × 5 = 15, which is true",
+        "description": "Student selected A (3 × 5 = 15), which is a true equation",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "equation_A",
+              "tangible_id": "equation_a",
               "params": {
+                "highlight": true,
                 "description": "Equation A highlights."
               }
             },
             {
               "type": "dialogue",
-              "text": "3 times 5 is 15. Both sides have the same value. That means this equation is true. We're looking for the one that's false."
+              "text": "3 times 5 is 15. Both sides match, so this equation is true. We need the false one."
             }
           ]
         ]
@@ -29,21 +30,22 @@
         "condition": {
           "selected": "B"
         },
-        "description": "Student selected B: 15 = 3 × 5, which is true",
+        "description": "Student selected B (15 = 3 × 5), which is a true equation",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "equation_B",
+              "tangible_id": "equation_b",
               "params": {
+                "highlight": true,
                 "description": "Equation B highlights."
               }
             },
             {
               "type": "dialogue",
-              "text": "The total is on the left here, but 15 still equals 3 times 5. Both sides match. This equation is true. Look for the one where the sides don't match."
+              "text": "15 equals 3 times 5. Both sides have the same value, so this is true. Look for the equation where the sides don't match."
             }
           ]
         ]
@@ -52,21 +54,22 @@
         "condition": {
           "selected": "D"
         },
-        "description": "Student selected D: 15 = 5 × 3, which is true",
+        "description": "Student selected D (15 = 5 × 3), which is a true equation",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "equation_D",
+              "tangible_id": "equation_d",
               "params": {
+                "highlight": true,
                 "description": "Equation D highlights."
               }
             },
             {
               "type": "dialogue",
-              "text": "5 times 3 is 15. The order changed, but the value is the same on both sides. This equation is true. Which one has sides that don't match?"
+              "text": "5 times 3 is 15. The sides match. A false equation has sides that don't equal each other. Which one?"
             }
           ]
         ]
@@ -80,21 +83,21 @@
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equation_C",
+              "tangible_id": "equation_c",
               "params": {
                 "event": "highlight_mismatch",
                 "status": "confirmed",
-                "description": "Equation C highlights. Left side shows 15, right side shows 20 with mismatch indicator."
+                "description": "Equation C highlights, showing the mismatch between 3 × 5 (15) and 20."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you how to check. I solve the left side: 3 times 5 is 15. The right side says 20. 15 does not equal 20. The sides don't match, so this equation is false. The answer is C. The equals sign checks if both sides have the same value."
+              "text": "Let me show you. 3 times 5 is 15, not 20. The left side gives us 15, but the right side says 20. They don't match, so this equation is false. That's equation C."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:02:52.512623+00:00"
+  "_generated_at": "2026-04-27T15:56:01.618292+00:00"
 }

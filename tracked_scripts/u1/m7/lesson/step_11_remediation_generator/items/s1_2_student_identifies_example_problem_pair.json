@@ -6,7 +6,7 @@
         "condition": {
           "selected": 1
         },
-        "description": "Student selected 1 instead of 2 (miscounted groups or counted items instead)",
+        "description": "Student selected 1 (counted items instead of containers)",
         "is_correct": false,
         "steps": [
           [
@@ -16,12 +16,12 @@
               "tangible_id": "equal_groups_boxes",
               "params": {
                 "highlight_containers": true,
-                "description": "Both boxes highlight to show the groups."
+                "description": "Boxes themselves highlight to distinguish them from items inside."
               }
             },
             {
               "type": "dialogue",
-              "text": "Count the boxes. Each box is one group. How many boxes do you see?"
+              "text": "Count the BOXES, not what's inside them. How many boxes do you see?"
             }
           ]
         ]
@@ -30,22 +30,23 @@
         "condition": {
           "selected": 3
         },
-        "description": "Student selected 3 instead of 2 (miscounted groups)",
+        "description": "Student selected 3 (miscounted containers)",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
-              "method": "update",
+              "method": "animate",
               "tangible_id": "equal_groups_boxes",
               "params": {
-                "highlight_containers": true,
-                "description": "Both boxes highlight to show the groups."
+                "event": "count_containers",
+                "status": "proposed",
+                "description": "Boxes highlight sequentially: 1, 2."
               }
             },
             {
               "type": "dialogue",
-              "text": "Count carefully. Each box is one group. Point to each box as you count."
+              "text": "Let's count together. Watch the boxes light up: 1, 2. How many boxes?"
             }
           ]
         ]
@@ -54,7 +55,7 @@
         "condition": {
           "selected": 5
         },
-        "description": "Student selected 5 instead of 2 (counted items, not containers)",
+        "description": "Student selected 5 (counted items per container instead of containers)",
         "is_correct": false,
         "steps": [
           [
@@ -64,12 +65,12 @@
               "tangible_id": "equal_groups_boxes",
               "params": {
                 "highlight_containers": true,
-                "description": "Boxes highlight, not items inside."
+                "description": "Box outlines highlight to distinguish containers from contents."
               }
             },
             {
               "type": "dialogue",
-              "text": "You counted what's inside. The groups are the boxes. How many boxes?"
+              "text": "You're counting what's INSIDE. First, count just the boxes. The containers themselves."
             }
           ]
         ]
@@ -85,14 +86,14 @@
               "method": "animate",
               "tangible_id": "equal_groups_boxes",
               "params": {
-                "event": "highlight_containers_sequentially",
+                "event": "count_containers",
                 "status": "confirmed",
-                "description": "Boxes highlight one by one: 1, 2."
+                "description": "Boxes highlight sequentially: 1, 2. System demonstrates counting."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. When we count groups, we count the containers. Here's the first box. Here's the second box. Two boxes means two groups."
+              "text": "Here, let me show you. I count the boxes, not what's inside. 1, 2. Two boxes. Those are the groups. When we count groups, we count the containers first. The answer is 2."
             }
           ]
         ]
@@ -103,22 +104,23 @@
         "condition": {
           "selected": 2
         },
-        "description": "Student selected 2 instead of 5 (counted groups instead of items per group)",
+        "description": "Student selected 2 (counted groups instead of items per group)",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
-              "method": "update",
+              "method": "animate",
               "tangible_id": "equal_groups_boxes",
               "params": {
-                "open_one_container": true,
-                "description": "One box opens to show its contents. Items inside highlight."
+                "event": "zoom_container",
+                "status": "proposed",
+                "description": "First box zooms or highlights. Items inside become focal."
               }
             },
             {
               "type": "dialogue",
-              "text": "Look inside one box. Don't count the boxes now. Count what's inside one box."
+              "text": "Now look INSIDE one box. Count what you see in that one box, not the boxes themselves."
             }
           ]
         ]
@@ -127,22 +129,23 @@
         "condition": {
           "selected": 3
         },
-        "description": "Student selected 3 instead of 5 (miscounted items in one group)",
+        "description": "Student selected 3 (miscounted items in container)",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
-              "method": "update",
+              "method": "animate",
               "tangible_id": "equal_groups_boxes",
               "params": {
-                "open_one_container": true,
-                "description": "One box opens. Items inside highlight one by one."
+                "event": "count_items_in_container",
+                "status": "proposed",
+                "description": "Items in one box highlight sequentially: 1, 2, 3, 4, 5."
               }
             },
             {
               "type": "dialogue",
-              "text": "Count again, carefully. Point to each item in one box. How many are in that box?"
+              "text": "Let's count the items in one box together: 1, 2, 3, 4, 5. How many in each box?"
             }
           ]
         ]
@@ -151,22 +154,23 @@
         "condition": {
           "selected": 10
         },
-        "description": "Student selected 10 instead of 5 (counted all items, not items per group)",
+        "description": "Student selected 10 (counted all items across all groups)",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
-              "method": "update",
+              "method": "animate",
               "tangible_id": "equal_groups_boxes",
               "params": {
-                "open_one_container": true,
-                "description": "One box opens to show its contents."
+                "event": "zoom_container",
+                "status": "proposed",
+                "description": "First box zooms or highlights to focus on just one group."
               }
             },
             {
               "type": "dialogue",
-              "text": "You counted everything. We only need to count what's in ONE box. Look inside one box. How many?"
+              "text": "You counted everything. Look at just ONE box. How many items are in that single box?"
             }
           ]
         ]
@@ -182,14 +186,14 @@
               "method": "animate",
               "tangible_id": "equal_groups_boxes",
               "params": {
-                "event": "open_one_container_and_count",
+                "event": "count_items_in_container",
                 "status": "confirmed",
-                "description": "One box opens. Items inside highlight one by one: 1, 2, 3, 4, 5."
+                "description": "One box highlights. Items inside are counted sequentially: 1, 2, 3, 4, 5."
               }
             },
             {
               "type": "dialogue",
-              "text": "Here's how I figure it out. I look inside one box and count the items: 1, 2, 3, 4, 5. Five items in each box. That tells me how many are in each group."
+              "text": "Let me walk you through it. I pick one box and count what's inside: 1, 2, 3, 4, 5. Each box has 5 items. That's what we mean by 'in each group.' The answer is 5."
             }
           ]
         ]
@@ -200,22 +204,23 @@
         "condition": {
           "selected": "5 groups of 2"
         },
-        "description": "Student selected 5 groups of 2 instead of 2 groups of 5 (reversed groups and items)",
+        "description": "Student selected 5 groups of 2 (reversed groups and items per group)",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
-              "method": "update",
+              "method": "animate",
               "tangible_id": "equal_groups_boxes",
               "params": {
-                "highlight_containers": true,
-                "description": "Boxes highlight to emphasize the group count."
+                "event": "count_containers",
+                "status": "proposed",
+                "description": "Boxes highlight sequentially: 1, 2."
               }
             },
             {
               "type": "dialogue",
-              "text": "You switched them. The groups are the boxes. How many boxes? Then look inside one. How many in each?"
+              "text": "You switched them. First number is the GROUPS. How many boxes? Then look inside ONE box. How many in each?"
             }
           ]
         ]
@@ -224,31 +229,32 @@
         "condition": {
           "selected": "2 groups of 10"
         },
-        "description": "Student selected 2 groups of 10 instead of 2 groups of 5 (correct group count, wrong items per group)",
+        "description": "Student selected 2 groups of 10 (correct group count, but counted all items as items per group)",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
-              "method": "update",
+              "method": "animate",
               "tangible_id": "equal_groups_boxes",
               "params": {
-                "open_one_container": true,
-                "description": "One box opens. Items inside highlight."
+                "event": "zoom_container",
+                "status": "proposed",
+                "description": "One box zooms. Items inside that box highlight."
               }
             },
             {
               "type": "dialogue",
-              "text": "You got the groups right. But count what's in one box. Are there 10 in one box?"
+              "text": "You got the groups right: 2 boxes. But now count just ONE box. Don't count both boxes together."
             }
           ]
         ]
       },
       {
         "condition": {
-          "selected": "5 groups of 10"
+          "selected": "10 groups of 2"
         },
-        "description": "Student selected 5 groups of 10 instead of 2 groups of 5 (both values wrong)",
+        "description": "Student selected 10 groups of 2 (counted total items as groups)",
         "is_correct": false,
         "steps": [
           [
@@ -258,12 +264,12 @@
               "tangible_id": "equal_groups_boxes",
               "params": {
                 "highlight_containers": true,
-                "description": "Boxes highlight."
+                "description": "Box outlines highlight to distinguish containers from items."
               }
             },
             {
               "type": "dialogue",
-              "text": "Count the boxes for the groups. Then look inside one box and count. What do you get?"
+              "text": "Groups are the CONTAINERS. Count the boxes first, not the items. How many boxes?"
             }
           ]
         ]
@@ -279,19 +285,19 @@
               "method": "animate",
               "tangible_id": "equal_groups_boxes",
               "params": {
-                "event": "demonstrate_groups_and_items",
+                "event": "full_count_demonstration",
                 "status": "confirmed",
-                "description": "Boxes highlight one by one (1, 2), then one box opens and items inside highlight one by one (1, 2, 3, 4, 5)."
+                "description": "Boxes highlight sequentially (1, 2), then one box zooms and items inside count (1, 2, 3, 4, 5)."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me walk you through it. First, I count the boxes: 1, 2. Two groups. Then I look inside one box and count: 1, 2, 3, 4, 5. Five in each group. So the answer is 2 groups of 5. The first number is always the groups. The second number is how many in each."
+              "text": "Let me show you the whole process. First, I count the boxes: 1, 2. Two groups. Then I look inside one box and count: 1, 2, 3, 4, 5. Five in each. So I have 2 groups of 5. That's how we name equal groups: groups first, then how many in each. The answer is 2 groups of 5."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:03:59.482022+00:00"
+  "_generated_at": "2026-04-27T15:58:50.354138+00:00"
 }

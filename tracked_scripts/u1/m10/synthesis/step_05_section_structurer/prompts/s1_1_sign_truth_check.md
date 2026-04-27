@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:01:14.814225
+# Generated: 2026-04-27T10:53:37.847784
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -816,17 +832,19 @@ Cacheable: Yes
   "prompt": "\"Which equation is false?\"",
   "student_action": "MC (select one: A, B, C or D)",
   "correct_answer": "C",
-  "guide_2": "(selected C) \"3 times 5 is 15, not 20. The sides don't match.\" *(pause)* \"And notice — the other equations are all true. The total is on the right in A and on the left in B and D, but both sides have the same value either way. That's what the equals sign checks.\"",
+  "on_correct": "(selected C)",
+  "guide_2": "\"3 times 5 is 15, not 20. The sides don't match.\" *(pause)* \"And notice — the other equations are all true. The total is on the right in A and on the left in B and D, but both sides have the same value either way. That's what the equals sign checks.\"",
   "remediation": "Pipeline",
   "remediation_note": "Selected A (3×5=15 — true): redirect to finding the equation where the sides don't match, not a true equation. Selected B or D (#19 indicator — reversed true equation): name what the student observed (\"total is on the left\") and clarify that same value on both sides means true regardless of orientation. Selected wrong equation: prompt student to check if both sides equal the same number.",
   "design_note": "This task is explicitly diagnostic for residual #19. Students who select B or D reveal they still believe = requires the product on the right. The guide's response addresses this without re-teaching — it names what the student observed (\"the total is on the left\") and redirects to the principle (\"same value\"). Students who select C have consolidated the = sign meaning. The guide's follow-up explicitly names the A/B comparison, reinforcing that both orientations are valid. Using the SAME factors (3 × 5) across all three equations isolates the = sign check from computation — student already knows 3 × 5 = 15, so the only question is whether each equation is TRUE.",
-  "_generated_at": "2026-04-20T17:00:22.257179+00:00",
+  "_generated_at": "2026-04-27T15:52:42.978192+00:00",
   "workspace_specs": {
     "toys": [],
     "tools": [
       "multiple_choice"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_0_opening_frame\n# Section Summary: s1_0_opening_frame\n\n**VISUAL STATE:** No tangible visualizations or data displays are present on screen at section end. The screen shows only dialogue text against a blank background.\n\n**CONTENT:** This opening frame introduces a transition to connecting prior learning about equations with multiple groups and unknowns. No new vocabulary or formal concepts are introduced; instead, it serves as a bridge referencing previously practiced material.\n\n**STUDENT ACTION:** No interactive student action occurs in this section. The student receives dialogue prompting reflection on prior equation work but does not build, manipulate, or respond to any visual elements."
 }
 </input>
 

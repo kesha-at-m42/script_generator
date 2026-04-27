@@ -6,22 +6,26 @@
         "condition": {
           "selected": "Graph A"
         },
-        "description": "Student selected Graph A (scale of 1)",
+        "description": "Student selected Graph A (Scale of 1)",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "bar_graph_a",
+              "tangible_id": "bar_graph_scale_1",
               "params": {
-                "highlight": true,
-                "description": "Graph A highlights."
+                "highlight_categories": [
+                  "Apples",
+                  "Bananas",
+                  "Cherries"
+                ],
+                "description": "Graph A bars highlight."
               }
             },
             {
               "type": "dialogue",
-              "text": "Graph A shows every number, but count the lines. With so many tick marks, it's harder to find the value quickly. Look at Graph D. How many lines does it have?"
+              "text": "Graph A shows every single number, but count the tick marks. Too many lines make it harder to read quickly. When data is bigger, a larger scale is cleaner."
             }
           ]
         ]
@@ -30,22 +34,26 @@
         "condition": {
           "selected": "Graph B"
         },
-        "description": "Student selected Graph B (scale of 2)",
+        "description": "Student selected Graph B (Scale of 2)",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "bar_graph_b",
+              "tangible_id": "bar_graph_scale_2",
               "params": {
-                "highlight": true,
-                "description": "Graph B highlights."
+                "highlight_categories": [
+                  "Apples",
+                  "Bananas",
+                  "Cherries"
+                ],
+                "description": "Graph B bars highlight."
               }
             },
             {
               "type": "dialogue",
-              "text": "Graph B has fewer lines than A, but it's still crowded. When the data ends in 0 or 5, a bigger scale works better. Compare Graph B to Graph D."
+              "text": "Graph B has fewer lines than A, but still a lot to count. Look at the values: 20, 40, 60. They're all multiples of 10. Which scale matches that pattern best?"
             }
           ]
         ]
@@ -54,22 +62,26 @@
         "condition": {
           "selected": "Graph C"
         },
-        "description": "Student selected Graph C (scale of 5)",
+        "description": "Student selected Graph C (Scale of 5)",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "bar_graph_c",
+              "tangible_id": "bar_graph_scale_5",
               "params": {
-                "highlight": true,
-                "description": "Graph C highlights."
+                "highlight_categories": [
+                  "Apples",
+                  "Bananas",
+                  "Cherries"
+                ],
+                "description": "Graph C bars highlight."
               }
             },
             {
               "type": "dialogue",
-              "text": "Graph C is good, but when all the numbers are multiples of 10, scale of 10 is even cleaner. Look at Graph D. Notice how simple it is?"
+              "text": "Graph C is cleaner than A and B. But look at Graph D. When all your numbers end in 0, the scale of 10 has the fewest lines and is easiest to read."
             }
           ]
         ]
@@ -83,21 +95,21 @@
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "bar_graph_d",
+              "tangible_id": "bar_graph_scale_10",
               "params": {
-                "event": "highlight_scale_comparison",
+                "event": "highlight_scale_efficiency",
                 "status": "confirmed",
-                "description": "Graph D highlights. Scale of 10 tick marks pulse to show clean intervals."
+                "description": "Graph D highlights. Tick marks at 0, 10, 20, 30, 40, 50, 60 pulse to show clean spacing."
               }
             },
             {
               "type": "dialogue",
-              "text": "Here's how to think about it. All four graphs show the same data: 20, 40, and 60. Graph D uses scale of 10. That means only three tick marks between 0 and 60. Fewer lines means faster reading. When your data lands on multiples of 10, scale of 10 is the easiest to read."
+              "text": "Here's how to think about this. All the values are 20, 40, and 60. Those are multiples of 10. Graph D uses a scale of 10, so every bar lands exactly on a line. Fewer tick marks means less clutter. That makes Graph D the easiest to read. When your data fits a bigger scale, use it."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:00:37.405200+00:00"
+  "_generated_at": "2026-04-27T15:55:40.606980+00:00"
 }

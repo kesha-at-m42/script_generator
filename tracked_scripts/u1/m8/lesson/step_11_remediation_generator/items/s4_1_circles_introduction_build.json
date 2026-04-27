@@ -4,46 +4,26 @@
     [
       {
         "condition": {
-          "incorrect_count": 1
-        },
-        "description": "Student placed incorrect tiles on first attempt",
-        "is_correct": false,
-        "steps": [
-          [
+          "and": [
             {
-              "type": "dialogue",
-              "text": "Look at the circles. How many circles are there? How many dots in each circle?"
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "incorrect_count": 2
-        },
-        "description": "Student placed incorrect tiles on second attempt",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "equal_groups_circles",
-              "params": {
-                "highlight_containers": true,
-                "description": "Circles highlight."
+              "placed": {
+                "groups": 3,
+                "items": 2
               }
             },
             {
-              "type": "dialogue",
-              "text": "The first number is how many groups. Count the circles. The second number is how many in each group. Count the dots inside one circle. Place those two numbers."
+              "or": [
+                {
+                  "incorrect_count": 1
+                },
+                {
+                  "incorrect_count": 2
+                }
+              ]
             }
           ]
-        ]
-      },
-      {
-        "condition": {},
-        "description": "Student placed incorrect tiles three or more times. System models the answer.",
+        },
+        "description": "Student reversed the values: placed 3 in groups slot and 2 in items slot",
         "is_correct": false,
         "steps": [
           [
@@ -54,31 +34,118 @@
               "params": {
                 "event": "highlight_containers_sequentially",
                 "status": "confirmed",
-                "description": "Circles highlight one by one as Guide counts."
+                "description": "Circles highlight one by one."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. First, I count the groups. That means count the circles: 1, 2. Two circles, so the first number is 2."
+              "text": "You switched them. Count the circles first, that's your groups. Then count the dots inside one circle, that's in each group. Try again."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 1
             },
+            {
+              "not": {
+                "placed": {
+                  "groups": 3,
+                  "items": 2
+                }
+              }
+            }
+          ]
+        },
+        "description": "Student placed incorrect values on first attempt (not the reversed case)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Count the circles. That number goes first."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 2
+            },
+            {
+              "not": {
+                "placed": {
+                  "groups": 3,
+                  "items": 2
+                }
+              }
+            }
+          ]
+        },
+        "description": "Student placed incorrect values on second attempt (not the reversed case)",
+        "is_correct": false,
+        "steps": [
+          [
             {
               "type": "scene",
               "method": "animate",
               "tangible_id": "equal_groups_circles",
               "params": {
-                "event": "highlight_items_in_one_container",
+                "event": "highlight_containers_sequentially",
                 "status": "confirmed",
-                "description": "Dots in one circle highlight."
+                "description": "Circles highlight sequentially."
               }
             },
             {
               "type": "dialogue",
-              "text": "Now I count how many in each group. I look inside one circle: 1, 2, 3. Three dots, so the second number is 3. The expression is 2 times 3. That's what these circles show, 2 groups of 3."
+              "text": "Let's count together. First, the circles: 1, 2. That's 2 groups. Now look inside one circle: 1, 2, 3 dots. That's 3 in each. Place those numbers."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student placed incorrect values three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder",
+              "params": {
+                "event": "demonstrate_tile_placement",
+                "status": "confirmed",
+                "description": "System demonstrates placing 2 tile in first slot, then 3 tile in second slot.",
+                "slot_index": 0,
+                "value": 2
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder",
+              "params": {
+                "event": "demonstrate_tile_placement",
+                "status": "confirmed",
+                "description": "System demonstrates placing 3 tile in second slot.",
+                "slot_index": 2,
+                "value": 3
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how this works. I count the circles: 1, 2. Two circles means 2 groups, so I place 2 first. Then I look inside one circle and count the dots: 1, 2, 3. Three dots in each group, so I place 3 second. The expression is 2 times 3. It shows 2 groups with 3 in each group."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:07:19.700657+00:00"
+  "_generated_at": "2026-04-27T16:02:17.068692+00:00"
 }

@@ -10,21 +10,23 @@
         "mode": "reading",
         "container_count": 3,
         "items_per_container": 4,
-        "description": "3 boxes appear, each containing 4 items (cookies or markers). Equal groups visualization in reading mode."
+        "item_type": "cookies",
+        "container_type": "boxes",
+        "description": "3 boxes appear on screen, each containing 4 cookies arranged in a grid."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder_boxes",
+      "tangible_id": "equation_builder",
       "tangible_type": "equation_builder",
       "params": {
-        "expression_template": [
+        "template": [
           "__",
           "×",
           "__"
         ],
-        "tile_palette": [
+        "palette": [
           1,
           2,
           3,
@@ -47,7 +49,7 @@
       "type": "prompt",
       "text": "Build the expression.",
       "tool": "place_tile",
-      "target": "equation_builder_boxes",
+      "target": "equation_builder",
       "validator": [
         {
           "condition_id": "correct",
@@ -57,7 +59,7 @@
               "items": 4
             }
           },
-          "description": "Student placed 3 and 4, building 3 × 4",
+          "description": "Student placed 3 × 4, correct",
           "is_correct": true,
           "beats": [
             {
@@ -73,24 +75,38 @@
       "elements": [
         {
           "tangible_id": "equal_groups_boxes",
-          "description": "3 boxes with 4 items each. Equal groups visualization in reading mode.",
+          "description": "3 boxes displayed, each containing 4 cookies.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 3,
-          "items_per_container": 4
+          "items_per_container": 4,
+          "item_type": "cookies",
+          "container_type": "boxes"
         },
         {
-          "tangible_id": "equation_builder_boxes",
-          "description": "Equation builder showing 3 × 4. Expression complete.",
+          "tangible_id": "equation_builder",
+          "description": "Equation builder showing 3 × 4 after student placement.",
           "tangible_type": "equation_builder",
-          "expression_template": [
+          "template": [
             "__",
             "×",
             "__"
+          ],
+          "palette": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
           ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:00:03.947326+00:00"
+  "_generated_at": "2026-04-27T15:53:17.899708+00:00"
 }

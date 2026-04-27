@@ -7,18 +7,16 @@
         "type": "dialogue",
         "text": "You learned to choose scales. You checked if the biggest number fits. You checked the last digits. Let's see what you know.",
         "id": "s1_0_transition_into_exit_check_b0",
-        "_notion_block_id": "3485917e-ac52-81af-b94e-dad944239185"
+        "_notion_block_id": "34f5917e-ac52-81ef-9d80-c880b612fe69"
       },
       {
         "type": "current_scene",
         "elements": [],
-        "id": "s1_0_transition_into_exit_check_b1",
-        "_toml_key": "step_100_transition_into_exit_check"
+        "id": "s1_0_transition_into_exit_check_b1"
       }
     ],
-    "_generated_at": "2026-04-20T16:58:53.642742+00:00",
-    "_notion_block_id": "3485917e-ac52-81d7-8233-e8c0b938844c",
-    "_toml_key": "section_100_transition_into_exit_check"
+    "_generated_at": "2026-04-27T15:53:02.093149+00:00",
+    "_notion_block_id": "34f5917e-ac52-8126-8118-c6d273ccf24e"
   },
   {
     "id": "s1_1_scale_too_small_identify",
@@ -29,10 +27,10 @@
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
-          "description": "Vertical data table appears: Toys Collected. Amy: 45, Ben: 70, Cora: 15, Dan: 30."
+          "description": "Vertical data table appears showing Toys Collected data: Amy 45, Ben 70, Cora 15, Dan 30."
         },
         "id": "s1_1_scale_too_small_identify_b0",
-        "_notion_block_id": "3485917e-ac52-815a-ad03-c6738090f31f"
+        "_notion_block_id": "34f5917e-ac52-8178-8664-fb87c4ed508a"
       },
       {
         "type": "scene",
@@ -54,16 +52,22 @@
             5,
             10
           ],
-          "description": "Four scale options displayed below the data table. Scale of 1, 2, and 5 marked with ❌ and 'doesn't fit'. Scale of 10 marked with ✓."
+          "scale_feedback": {
+            "1": "70 doesn't fit",
+            "2": "70 doesn't fit",
+            "5": "70 doesn't fit",
+            "10": "works"
+          },
+          "description": "Four scale options displayed below data table with indicators: Scale of 1 marked with ❌ '70 doesn't fit', Scale of 2 marked with ❌ '70 doesn't fit', Scale of 5 marked with ❌ '70 doesn't fit', Scale of 10 marked with ✓."
         },
         "id": "s1_1_scale_too_small_identify_b1",
-        "_notion_block_id": "3485917e-ac52-8102-9607-cf15dcaf46f3"
+        "_notion_block_id": "34f5917e-ac52-811c-82df-d48d57315df1"
       },
       {
         "type": "dialogue",
         "text": "Four friends collected toys for a donation drive. Ben collected the most with 70 toys. Which scale works best for this data?",
         "id": "s1_1_scale_too_small_identify_b2",
-        "_notion_block_id": "3485917e-ac52-81eb-ae2e-fae8955ab26d"
+        "_notion_block_id": "34f5917e-ac52-8126-84fe-da6155725565"
       },
       {
         "type": "prompt",
@@ -81,14 +85,14 @@
             "condition": {
               "selected": "Scale of 10"
             },
-            "description": "Student selected Scale of 10, correct",
+            "description": "Student selected Scale of 10, correct answer for data up to 70",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "That's right. Scale of 10. For data up to 70, scale of 2 would need too many lines and scale of 5 would need fewer, but still many lines. Scale of 10 only needs 8, much easier to read.",
+                "text": "That's right. Scale of 10. For data up to 70, Scale of 2 would need too many lines and Scale of 5 would need fewer, but still many lines. Scale of 10 only needs 8. Much easier to read.",
                 "id": "s1_1_scale_too_small_identify_b3_v0_b0",
-                "_notion_block_id": "3485917e-ac52-81ab-95a2-e3ca51d2e514"
+                "_notion_block_id": "34f5917e-ac52-8129-925e-e940d954f9e3"
               }
             ]
           },
@@ -96,7 +100,7 @@
             "condition": {
               "selected": "Scale of 1"
             },
-            "description": "Student selected Scale of 1",
+            "description": "Student selected Scale of 1: would require 70 tick marks, far too many for readable graph",
             "is_correct": false,
             "beats": [
               {
@@ -105,15 +109,16 @@
                 "tangible_id": "bar_graph_toys",
                 "params": {
                   "highlight_scale": 1,
-                  "description": "Scale of 1 option pulses briefly to acknowledge selection."
+                  "highlight_feedback": "70 doesn't fit",
+                  "description": "Scale of 1 option highlights with '70 doesn't fit' warning indicator."
                 },
                 "id": "s1_1_scale_too_small_identify_b3_v1_b0"
               },
               {
                 "type": "dialogue",
-                "text": "Scale of 1 would take 70 tick marks to reach Ben's data. That's way too crowded. Look at the biggest number and think about how many lines you'd need.",
+                "text": "Scale of 1 would need 70 tick marks to reach Ben's total. That's way too many lines on the axis. Look at the biggest number: 70. Which scale reaches 70 without too many marks?",
                 "id": "s1_1_scale_too_small_identify_b3_v1_b1",
-                "_notion_block_id": "3485917e-ac52-816a-990c-cfc6dc826459"
+                "_notion_block_id": "34f5917e-ac52-812a-a365-e603362a6fd2"
               }
             ]
           },
@@ -121,7 +126,7 @@
             "condition": {
               "selected": "Scale of 2"
             },
-            "description": "Student selected Scale of 2",
+            "description": "Student selected Scale of 2: would require 35 tick marks, still too many for data up to 70",
             "is_correct": false,
             "beats": [
               {
@@ -130,15 +135,16 @@
                 "tangible_id": "bar_graph_toys",
                 "params": {
                   "highlight_scale": 2,
-                  "description": "Scale of 2 option pulses briefly to acknowledge selection."
+                  "highlight_feedback": "70 doesn't fit",
+                  "description": "Scale of 2 option highlights with '70 doesn't fit' warning indicator."
                 },
                 "id": "s1_1_scale_too_small_identify_b3_v2_b0"
               },
               {
                 "type": "dialogue",
-                "text": "Scale of 2 would work if the numbers were small, but to reach 70, you'd need 35 tick marks. That's a lot. Try a bigger scale.",
+                "text": "Scale of 2 would need 35 tick marks to reach 70. That's still too many. For bigger numbers, try a bigger scale. Which scale reaches 70 with fewer marks on the axis?",
                 "id": "s1_1_scale_too_small_identify_b3_v2_b1",
-                "_notion_block_id": "3485917e-ac52-8108-8941-ee083f542c63"
+                "_notion_block_id": "34f5917e-ac52-81f1-93f4-e3822efcc881"
               }
             ]
           },
@@ -146,7 +152,7 @@
             "condition": {
               "selected": "Scale of 5"
             },
-            "description": "Student selected Scale of 5",
+            "description": "Student selected Scale of 5: would require 14 tick marks, better but Scale of 10 more efficient for data this large",
             "is_correct": false,
             "beats": [
               {
@@ -155,15 +161,16 @@
                 "tangible_id": "bar_graph_toys",
                 "params": {
                   "highlight_scale": 5,
-                  "description": "Scale of 5 option pulses briefly to acknowledge selection."
+                  "highlight_feedback": "70 doesn't fit",
+                  "description": "Scale of 5 option highlights with '70 doesn't fit' warning indicator."
                 },
                 "id": "s1_1_scale_too_small_identify_b3_v3_b0"
               },
               {
                 "type": "dialogue",
-                "text": "Scale of 5 could fit the data, but to reach 70, you'd need 14 tick marks. There's a bigger scale that makes the graph even cleaner.",
+                "text": "Scale of 5 could work, but it needs 14 tick marks to reach 70. For data up to 70, there's an even cleaner choice. Which scale needs the fewest marks?",
                 "id": "s1_1_scale_too_small_identify_b3_v3_b1",
-                "_notion_block_id": "3485917e-ac52-8147-9527-dedb8097177f"
+                "_notion_block_id": "34f5917e-ac52-8118-bf8f-dfbe60fe3962"
               }
             ]
           },
@@ -177,35 +184,35 @@
                 "method": "animate",
                 "tangible_id": "bar_graph_toys",
                 "params": {
-                  "event": "demonstrate_scale_comparison",
+                  "event": "compare_scales",
                   "status": "confirmed",
-                  "description": "Visual comparison shows all four scales side by side. Scale of 1 shows 70 marks crowded together. Scale of 2 shows 35 marks. Scale of 5 shows 14 marks. Scale of 10 shows 8 marks, cleanest and easiest to read."
+                  "description": "System demonstrates tick mark counts: Scale of 1 shows 70 marks, Scale of 2 shows 35 marks, Scale of 5 shows 14 marks, Scale of 10 shows 8 marks. Scale of 10 highlighted as best choice."
                 },
                 "id": "s1_1_scale_too_small_identify_b3_v4_b0"
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you why Scale of 10 works best here. The biggest number is 70. Scale of 1 would need 70 tick marks. That's way too many. Scale of 2 needs 35. Still crowded. Scale of 5 needs 14. Better, but we can do even cleaner. Scale of 10 only needs 8 tick marks to reach 70. That's the clearest graph. When data goes up to 70 and all the numbers are multiples of 5, Scale of 10 is your best choice.",
+                "text": "Let me show you. The biggest number is 70. Scale of 1 needs 70 tick marks. Scale of 2 needs 35. Scale of 5 needs 14. But Scale of 10 only needs 8 tick marks to reach 70. That's the cleanest graph. The answer is Scale of 10.",
                 "id": "s1_1_scale_too_small_identify_b3_v4_b1",
-                "_notion_block_id": "3485917e-ac52-811b-bfe2-d871a94d0852"
+                "_notion_block_id": "34f5917e-ac52-81a2-9c94-c31d448b3b0b"
               }
             ]
           }
         ],
         "id": "s1_1_scale_too_small_identify_b3",
-        "_notion_block_id": "3485917e-ac52-8185-b63d-e5ddba486ca2"
+        "_notion_block_id": "34f5917e-ac52-81a5-bd0b-d376eaf8854b"
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Vertical data table showing Toys Collected values: Amy: 45, Ben: 70, Cora: 15, Dan: 30.",
+            "description": "Vertical data table showing Toys Collected data: Amy 45, Ben 70, Cora 15, Dan 30.",
             "tangible_type": "data_table"
           },
           {
             "tangible_id": "bar_graph_toys",
-            "description": "Bar graph with scale options displayed. Scale of 10 selected and confirmed.",
+            "description": "Four scale options displayed with validation indicators. Scale of 10 selected.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -214,22 +221,14 @@
               "Ben",
               "Cora",
               "Dan"
-            ],
-            "scale_options": [
-              1,
-              2,
-              5,
-              10
             ]
           }
         ],
-        "id": "s1_1_scale_too_small_identify_b4",
-        "_toml_key": "step_101_scale_too_small_identify"
+        "id": "s1_1_scale_too_small_identify_b4"
       }
     ],
-    "_generated_at": "2026-04-20T16:59:03.822445+00:00",
-    "_notion_block_id": "3485917e-ac52-814f-a3b3-c67635a2b99b",
-    "_toml_key": "section_101_scale_too_small_identify"
+    "_generated_at": "2026-04-27T15:53:17.000694+00:00",
+    "_notion_block_id": "34f5917e-ac52-81dc-8cd5-e37c7f0e19bf"
   },
   {
     "id": "s1_2_non_multiples_need_scale_2",
@@ -240,16 +239,30 @@
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
-          "description": "Horizontal data table appears. Minutes Reading data. Gus: 23, Hal: 31, Eli: 9, Fay: 16."
+          "orientation": "horizontal",
+          "categories": [
+            "Gus",
+            "Hal",
+            "Eli",
+            "Fay"
+          ],
+          "values": [
+            23,
+            31,
+            9,
+            16
+          ],
+          "title": "Minutes Reading",
+          "description": "Horizontal data table appears showing Minutes Reading data: Gus 23, Hal 31, Eli 9, Fay 16."
         },
         "id": "s1_2_non_multiples_need_scale_2_b0",
-        "_notion_block_id": "3485917e-ac52-8196-abad-e63ef5c8f575"
+        "_notion_block_id": "34f5917e-ac52-8140-934a-f31433ed0fb2"
       },
       {
         "type": "dialogue",
         "text": "These students tracked how many minutes they read this week. Check the numbers: 23, 31, 9, 16. Which scale will show ALL these values exactly?",
         "id": "s1_2_non_multiples_need_scale_2_b1",
-        "_notion_block_id": "3485917e-ac52-8193-9256-ea8b779de0dc"
+        "_notion_block_id": "34f5917e-ac52-8187-9d9e-f463bc34d858"
       },
       {
         "type": "prompt",
@@ -271,9 +284,9 @@
             "beats": [
               {
                 "type": "dialogue",
-                "text": "That's right. Scale of 2. The biggest value of 31 could work with Scale of 2 or Scale of 5. Then check those digits in the ones place: 3, 1, 9, 6. None are 0 or 5 so they aren't multiples of 5. That's your Scale of 2 signal to show the exact values on the graph.",
+                "text": "That's it. Scale of 2. The biggest value is 31, which could work with Scale of 2 or Scale of 5. But look at the ones place: 3, 1, 9, 6. None of those are 0 or 5, so they aren't multiples of 5. That tells you Scale of 2 is what you need to show the exact values.",
                 "id": "s1_2_non_multiples_need_scale_2_b2_v0_b0",
-                "_notion_block_id": "3485917e-ac52-811b-8e3a-ee0b206a9cb5"
+                "_notion_block_id": "34f5917e-ac52-8183-b17d-f2d7dae87d87"
               }
             ]
           },
@@ -281,7 +294,7 @@
             "condition": {
               "selected": "Scale of 5"
             },
-            "description": "Student selected Scale of 5",
+            "description": "Student selected Scale of 5 (incorrect - values don't all land exactly on multiples of 5)",
             "is_correct": false,
             "beats": [
               {
@@ -290,10 +303,10 @@
                 "tangible_id": "data_table",
                 "params": {
                   "highlight_values": [
-                    "23",
-                    "31",
-                    "9",
-                    "16"
+                    23,
+                    31,
+                    9,
+                    16
                   ],
                   "description": "All four values highlighted in data table."
                 },
@@ -301,9 +314,9 @@
               },
               {
                 "type": "dialogue",
-                "text": "Scale of 5 works for multiples of 5. Check the ones place digits: 3, 1, 9, 6. Do any end in 0 or 5?",
+                "text": "Look at the ones place digits: 3, 1, 9, 6. None are 0 or 5. Which numbers can Scale of 5 show exactly?",
                 "id": "s1_2_non_multiples_need_scale_2_b2_v1_b1",
-                "_notion_block_id": "3485917e-ac52-81fb-b8fb-f343905b02e6"
+                "_notion_block_id": "34f5917e-ac52-81cc-b42c-ec1f6c5023e1"
               }
             ]
           },
@@ -311,7 +324,7 @@
             "condition": {
               "selected": "Scale of 10"
             },
-            "description": "Student selected Scale of 10",
+            "description": "Student selected Scale of 10 (incorrect - values don't land on multiples of 10)",
             "is_correct": false,
             "beats": [
               {
@@ -320,8 +333,8 @@
                 "tangible_id": "data_table",
                 "params": {
                   "highlight_values": [
-                    "23",
-                    "31"
+                    23,
+                    31
                   ],
                   "description": "23 and 31 highlighted in data table."
                 },
@@ -329,9 +342,9 @@
               },
               {
                 "type": "dialogue",
-                "text": "Scale of 10 only shows exact values for multiples of 10. Look at 23 and 31. Neither ends in 0, so where would they land on the graph?",
+                "text": "Scale of 10 would put 23 between 20 and 30, 31 between 30 and 40. Check the ones digits. Are they 0 or 5?",
                 "id": "s1_2_non_multiples_need_scale_2_b2_v2_b1",
-                "_notion_block_id": "3485917e-ac52-81b2-bb09-f663f90fa5b2"
+                "_notion_block_id": "34f5917e-ac52-81ba-8e9e-e40bdca0671a"
               }
             ]
           },
@@ -342,58 +355,55 @@
             "beats": [
               {
                 "type": "scene",
-                "method": "update",
-                "tangible_id": "data_table",
-                "params": {
-                  "highlight_values": [
-                    "23",
-                    "31",
-                    "9",
-                    "16"
-                  ],
-                  "description": "All four values highlighted in data table."
-                },
-                "id": "s1_2_non_multiples_need_scale_2_b2_v3_b0"
-              },
-              {
-                "type": "scene",
                 "method": "animate",
                 "tangible_id": "data_table",
                 "params": {
                   "event": "highlight_ones_digits",
                   "status": "confirmed",
-                  "description": "Ones place digits pulse: 3, 1, 9, 6."
+                  "description": "Ones place digits pulse: 3, 1, 9, 6. None are 0 or 5."
                 },
-                "id": "s1_2_non_multiples_need_scale_2_b2_v3_b1"
+                "id": "s1_2_non_multiples_need_scale_2_b2_v3_b0"
               },
               {
                 "type": "dialogue",
-                "text": "Here's how to know. Look at the ones place: 3, 1, 9, 6. Not a single 0 or 5, so these numbers aren't multiples of 5. Scales of 5 and 10 won't show them exactly. But Scale of 2 can show any whole number exactly because half of 2 is 1. The answer is Scale of 2.",
-                "id": "s1_2_non_multiples_need_scale_2_b2_v3_b2",
-                "_notion_block_id": "3485917e-ac52-811d-80d5-d1f81c97cf77"
+                "text": "Look at the ones place: 3, 1, 9, 6. These aren't 0 or 5, so these numbers aren't multiples of 5. Scale of 5 and Scale of 10 can't show them exactly. Scale of 2 works for any whole number because halfway between each mark is 1. The answer is Scale of 2.",
+                "id": "s1_2_non_multiples_need_scale_2_b2_v3_b1",
+                "_notion_block_id": "34f5917e-ac52-8138-ab72-cb600a109446"
               }
             ]
           }
         ],
         "id": "s1_2_non_multiples_need_scale_2_b2",
-        "_notion_block_id": "3485917e-ac52-818f-9c42-c3e0282e5990"
+        "_notion_block_id": "34f5917e-ac52-81a5-b218-c40eb3132b7f"
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Horizontal data table. Minutes Reading data. Gus: 23, Hal: 31, Eli: 9, Fay: 16.",
-            "tangible_type": "data_table"
+            "description": "Horizontal data table showing Minutes Reading data: Gus 23, Hal 31, Eli 9, Fay 16.",
+            "tangible_type": "data_table",
+            "orientation": "horizontal",
+            "categories": [
+              "Gus",
+              "Hal",
+              "Eli",
+              "Fay"
+            ],
+            "values": [
+              23,
+              31,
+              9,
+              16
+            ],
+            "title": "Minutes Reading"
           }
         ],
-        "id": "s1_2_non_multiples_need_scale_2_b3",
-        "_toml_key": "step_102_non_multiples_need_scale_2"
+        "id": "s1_2_non_multiples_need_scale_2_b3"
       }
     ],
-    "_generated_at": "2026-04-20T16:59:10.583732+00:00",
-    "_notion_block_id": "3485917e-ac52-816f-aab2-d1defff2516a",
-    "_toml_key": "section_102_non_multiples_need_scale_2"
+    "_generated_at": "2026-04-27T15:53:29.796653+00:00",
+    "_notion_block_id": "34f5917e-ac52-81eb-bf55-fc618a51f09e"
   },
   {
     "id": "s1_3_select_appropriate_scale_compare",
@@ -404,16 +414,30 @@
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
-          "description": "Vertical data table appears. Steps Walked data. Ana: 30, Ben: 70, Cara: 90, Dan: 50."
+          "orientation": "vertical",
+          "title": "Steps Walked",
+          "categories": [
+            "Ana",
+            "Ben",
+            "Cara",
+            "Dan"
+          ],
+          "values": [
+            30,
+            70,
+            90,
+            50
+          ],
+          "description": "Vertical data table appears. Steps Walked. Ana: 30, Ben: 70, Cara: 90, Dan: 50."
         },
         "id": "s1_3_select_appropriate_scale_compare_b0",
-        "_notion_block_id": "3485917e-ac52-81f8-9cb1-c4a397182a8b"
+        "_notion_block_id": "34f5917e-ac52-81b4-824e-ed213e241244"
       },
       {
         "type": "dialogue",
         "text": "All these numbers end in 0. Think about the biggest number.",
         "id": "s1_3_select_appropriate_scale_compare_b1",
-        "_notion_block_id": "3485917e-ac52-8117-a6ea-d62758c4a914"
+        "_notion_block_id": "34f5917e-ac52-8191-98de-fee7599105f0"
       },
       {
         "type": "prompt",
@@ -437,7 +461,7 @@
                 "type": "dialogue",
                 "text": "Right. Scale of 10. For data up to 90, a scale of 10 gives you a clean graph with only 10 lines on the axis.",
                 "id": "s1_3_select_appropriate_scale_compare_b2_v0_b0",
-                "_notion_block_id": "3485917e-ac52-81ba-8879-f50b57c9ea27"
+                "_notion_block_id": "34f5917e-ac52-81f9-ba4d-cc2cd01fccbb"
               }
             ]
           },
@@ -445,26 +469,43 @@
             "condition": {
               "selected": "Scale of 5 — it shows more detail."
             },
-            "description": "Student selected Scale of 5",
+            "description": "Student selected Scale of 5 — addresses the notion that more detail is always better",
             "is_correct": false,
             "beats": [
               {
                 "type": "scene",
-                "method": "update",
-                "tangible_id": "data_table",
+                "method": "add",
+                "tangible_id": "bar_graph_steps_scale_5",
+                "tangible_type": "bar_graph",
                 "params": {
-                  "highlight_values": [
-                    "90"
+                  "mode": "reading",
+                  "orientation": "vertical",
+                  "categories": [
+                    "Ana",
+                    "Ben",
+                    "Cara",
+                    "Dan"
                   ],
-                  "description": "90 (Cara) highlights in data table."
+                  "values": [
+                    30,
+                    70,
+                    90,
+                    50
+                  ],
+                  "scale": 5,
+                  "axis_range": [
+                    0,
+                    90
+                  ],
+                  "description": "Vertical bar graph appears with Scale of 5. Steps Walked data. Axis shows 0, 5, 10, 15, 20... up to 90. That's 19 tick marks visible."
                 },
                 "id": "s1_3_select_appropriate_scale_compare_b2_v1_b0"
               },
               {
                 "type": "dialogue",
-                "text": "Scale of 5 works, but look at 90. Count by 5s: you need 19 tick marks to reach it. Scale of 10 only needs 10. Which is easier to read?",
+                "text": "Scale of 5 works, but count those tick marks. That's 19 lines to reach 90. When numbers are big, a bigger scale makes the graph easier to read.",
                 "id": "s1_3_select_appropriate_scale_compare_b2_v1_b1",
-                "_notion_block_id": "3485917e-ac52-8158-88ae-f2e827c7ca9a"
+                "_notion_block_id": "34f5917e-ac52-8150-8f5a-ce8f9b8471bb"
               }
             ]
           },
@@ -472,26 +513,43 @@
             "condition": {
               "selected": "Scale of 2 — it works for any numbers."
             },
-            "description": "Student selected Scale of 2",
+            "description": "Student selected Scale of 2 — addresses the default choice without considering efficiency",
             "is_correct": false,
             "beats": [
               {
                 "type": "scene",
-                "method": "update",
-                "tangible_id": "data_table",
+                "method": "add",
+                "tangible_id": "bar_graph_steps_scale_2",
+                "tangible_type": "bar_graph",
                 "params": {
-                  "highlight_values": [
-                    "90"
+                  "mode": "reading",
+                  "orientation": "vertical",
+                  "categories": [
+                    "Ana",
+                    "Ben",
+                    "Cara",
+                    "Dan"
                   ],
-                  "description": "90 (Cara) highlights in data table."
+                  "values": [
+                    30,
+                    70,
+                    90,
+                    50
+                  ],
+                  "scale": 2,
+                  "axis_range": [
+                    0,
+                    90
+                  ],
+                  "description": "Vertical bar graph appears with Scale of 2. Steps Walked data. Axis shows 0, 2, 4, 6, 8... up to 90. That's 46 tick marks crowding the axis."
                 },
                 "id": "s1_3_select_appropriate_scale_compare_b2_v2_b0"
               },
               {
                 "type": "dialogue",
-                "text": "The biggest number is 90. Scale of 2 means counting 0, 2, 4, 6, all the way to 90. That's 46 marks on the axis. Way too crowded. Try a bigger scale.",
+                "text": "Look at all those lines. That's 46 tick marks to reach 90. Scale of 2 works for any number, but for data this big, Scale of 10 is much cleaner. Pick the scale that's easiest to read.",
                 "id": "s1_3_select_appropriate_scale_compare_b2_v2_b1",
-                "_notion_block_id": "3485917e-ac52-81bb-855c-dd3053097f1c"
+                "_notion_block_id": "34f5917e-ac52-81e7-a179-dc5f05cbed38"
               }
             ]
           },
@@ -503,7 +561,7 @@
               {
                 "type": "scene",
                 "method": "add",
-                "tangible_id": "bar_graph_steps",
+                "tangible_id": "bar_graph_steps_scale_10",
                 "tangible_type": "bar_graph",
                 "params": {
                   "mode": "reading",
@@ -514,32 +572,43 @@
                     "Cara",
                     "Dan"
                   ],
-                  "scale": 10,
-                  "axis_range": [
-                    0,
-                    100
-                  ],
                   "values": [
                     30,
                     70,
                     90,
                     50
                   ],
-                  "description": "Vertical bar graph appears with Scale of 10. Steps Walked data displayed. Ana: 30, Ben: 70, Cara: 90, Dan: 50. Axis shows 0, 10, 20...100 with 11 tick marks."
+                  "scale": 10,
+                  "axis_range": [
+                    0,
+                    100
+                  ],
+                  "description": "Vertical bar graph appears with Scale of 10. Steps Walked data showing Ana: 30, Ben: 70, Cara: 90, Dan: 50. Axis shows 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100. Clean graph with only 11 tick marks."
                 },
                 "id": "s1_3_select_appropriate_scale_compare_b2_v3_b0"
               },
               {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_steps_scale_10",
+                "params": {
+                  "event": "highlight_axis_efficiency",
+                  "status": "confirmed",
+                  "description": "Axis tick marks pulse briefly to show the clean spacing. All bars are highlighted showing they land exactly on lines or halfway between."
+                },
+                "id": "s1_3_select_appropriate_scale_compare_b2_v3_b1"
+              },
+              {
                 "type": "dialogue",
-                "text": "Let me show you. The biggest number is 90. All values end in 0, so they're multiples of 10. With Scale of 10, every bar lands exactly on a line: 30 at 30, 50 at 50, 70 at 70, 90 at 90. The axis only needs 10 marks to reach 90. Clean and easy to read. For big numbers that are multiples of 10, Scale of 10 is the best choice.",
-                "id": "s1_3_select_appropriate_scale_compare_b2_v3_b1",
-                "_notion_block_id": "3485917e-ac52-81a4-ab8d-f7538edc89bc"
+                "text": "Let me show you. The biggest number is 90. With Scale of 10, I only need tick marks at 0, 10, 20, up to 100. That's 11 lines. Every value lands exactly where it should. 30 is right at 30. 70 is right at 70. 90 is right at 90. The graph is clean and easy to read. For big numbers like this, Scale of 10 is the best choice.",
+                "id": "s1_3_select_appropriate_scale_compare_b2_v3_b2",
+                "_notion_block_id": "34f5917e-ac52-8137-b2ee-d9d40094f243"
               }
             ]
           }
         ],
         "id": "s1_3_select_appropriate_scale_compare_b2",
-        "_notion_block_id": "3485917e-ac52-81a0-a922-dbce8058358c"
+        "_notion_block_id": "34f5917e-ac52-8135-9fe0-ff67692e8b5b"
       },
       {
         "type": "current_scene",
@@ -547,16 +616,28 @@
           {
             "tangible_id": "data_table",
             "description": "Vertical data table showing Steps Walked data. Ana: 30, Ben: 70, Cara: 90, Dan: 50.",
-            "tangible_type": "data_table"
+            "tangible_type": "data_table",
+            "orientation": "vertical",
+            "title": "Steps Walked",
+            "categories": [
+              "Ana",
+              "Ben",
+              "Cara",
+              "Dan"
+            ],
+            "values": [
+              30,
+              70,
+              90,
+              50
+            ]
           }
         ],
-        "id": "s1_3_select_appropriate_scale_compare_b3",
-        "_toml_key": "step_103_select_appropriate_scale_compare"
+        "id": "s1_3_select_appropriate_scale_compare_b3"
       }
     ],
-    "_generated_at": "2026-04-20T16:59:19.305568+00:00",
-    "_notion_block_id": "3485917e-ac52-8194-a732-c62053232c89",
-    "_toml_key": "section_103_select_appropriate_scale_compare"
+    "_generated_at": "2026-04-27T15:53:59.181335+00:00",
+    "_notion_block_id": "34f5917e-ac52-8149-8a2f-fc1f9369f468"
   },
   {
     "id": "s1_4_exit_check_closure",
@@ -566,17 +647,15 @@
         "type": "dialogue",
         "text": "You're ready to practice.",
         "id": "s1_4_exit_check_closure_b0",
-        "_notion_block_id": "3485917e-ac52-81fc-b2cd-f1e226fade7d"
+        "_notion_block_id": "34f5917e-ac52-81be-8b5e-c98efef39bc1"
       },
       {
         "type": "current_scene",
         "elements": [],
-        "id": "s1_4_exit_check_closure_b1",
-        "_toml_key": "step_104_exit_check_closure"
+        "id": "s1_4_exit_check_closure_b1"
       }
     ],
-    "_generated_at": "2026-04-20T16:59:22.002737+00:00",
-    "_notion_block_id": "3485917e-ac52-8141-847f-f1ac992373f5",
-    "_toml_key": "section_104_exit_check_closure"
+    "_generated_at": "2026-04-27T15:54:05.435367+00:00",
+    "_notion_block_id": "34f5917e-ac52-813e-81fd-f6a703f9e148"
   }
 ]

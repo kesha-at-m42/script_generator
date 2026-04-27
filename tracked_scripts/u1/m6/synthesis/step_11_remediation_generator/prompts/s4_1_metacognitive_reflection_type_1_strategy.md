@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:01:57.906859
+# Generated: 2026-04-27T10:55:43.368078
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1868,61 +1872,61 @@ Cacheable: Yes
       ],
       "validator": [
         {
-          "condition_id": "selected_a",
+          "condition_id": "selected_trigger_words",
           "condition": {
             "selected": "Looking for words like \"combined\" or \"altogether\""
           },
-          "description": "Student selected option A",
+          "description": "Student selected option about trigger words",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "Yes. Spotting those trigger words is huge. They tell you exactly what to do.",
+              "text": "Right. Spotting those trigger words is huge. They tell you exactly what to do.",
               "id": "s4_1_metacognitive_reflection_type_1_strategy_b1_v0_b0"
             }
           ]
         },
         {
-          "condition_id": "selected_b",
+          "condition_id": "selected_careful_reading",
           "condition": {
             "selected": "Reading the question carefully"
           },
-          "description": "Student selected option B",
+          "description": "Student selected careful reading",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "Right. Careful reading pays off. The question tells you what it needs.",
+              "text": "That's it. Careful reading pays off. The question tells you what it needs.",
               "id": "s4_1_metacognitive_reflection_type_1_strategy_b1_v1_b0"
             }
           ]
         },
         {
-          "condition_id": "selected_c",
+          "condition_id": "selected_reasoning",
           "condition": {
             "selected": "Thinking about what the question is really asking"
           },
-          "description": "Student selected option C",
+          "description": "Student selected mathematical reasoning",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "Nice. Thinking about what the question really asks, that's mathematical reasoning.",
+              "text": "Exactly. Thinking about what the question REALLY asks. That's mathematical reasoning.",
               "id": "s4_1_metacognitive_reflection_type_1_strategy_b1_v2_b0"
             }
           ]
         },
         {
-          "condition_id": "selected_d",
+          "condition_id": "selected_strategy",
           "condition": {
             "selected": "Remembering the strategy"
           },
-          "description": "Student selected option D",
+          "description": "Student selected remembering the strategy",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "That works. Having a strategy ready helps. Find combined total first, then compare works every time.",
+              "text": "Yes. Having a strategy ready helps. Find combined total first, then compare works every time.",
               "id": "s4_1_metacognitive_reflection_type_1_strategy_b1_v3_b0"
             }
           ]
@@ -1936,7 +1940,7 @@ Cacheable: Yes
       "id": "s4_1_metacognitive_reflection_type_1_strategy_b2"
     }
   ],
-  "_generated_at": "2026-04-20T17:00:47.135249+00:00"
+  "_generated_at": "2026-04-27T15:54:24.335331+00:00"
 }
 </input>
 

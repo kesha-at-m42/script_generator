@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:05:33.162425
+# Generated: 2026-04-27T11:03:28.805677
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1870,21 +1874,40 @@ Cacheable: Yes
             "Green",
             "Yellow"
           ],
-          "axis_range": [
-            0,
-            60
-          ],
-          "axis_interval": 10,
-          "bar_values": {
+          "values": {
             "Red": 40,
             "Blue": 30,
             "Green": 50,
             "Yellow": 20
           },
+          "axis_range": [
+            0,
+            60
+          ],
+          "axis_interval": 10,
+          "description": "Vertical bar graph appears. Favorite Colors data from Warmup. Red=40, Blue=30, Green=50, Yellow=20. Axis labeled 0 to 60 in intervals of 10. All 4 bars pre-filled."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_colors",
+        "params": {
           "highlight_categories": [
             "Red"
           ],
-          "description": "Vertical bar graph appears. Color data from warmup. Red=40, Blue=30, Green=50, Yellow=20. Axis labeled 0–60 in 10s. Red bar highlighted with axis line at 40 glowing."
+          "description": "Red bar highlights."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "bar_graph_colors",
+        "params": {
+          "event": "draw_bar_guideline",
+          "status": "confirmed",
+          "category": "Red",
+          "description": "Horizontal guideline draws from top of Red bar to vertical axis at 40. The 40 mark on the axis glows."
         }
       },
       {
@@ -1896,7 +1919,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_colors",
-            "description": "Vertical bar graph. Color data. Red bar highlighted with axis line at 40 glowing. Axis labeled 0–60 in 10s.",
+            "description": "Vertical bar graph. Favorite Colors data. Red bar highlighted with guideline to axis at 40. Axis labeled 0–60 in 10s.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -1905,7 +1928,13 @@ Cacheable: Yes
               "Blue",
               "Green",
               "Yellow"
-            ]
+            ],
+            "values": {
+              "Red": 40,
+              "Blue": 30,
+              "Green": 50,
+              "Yellow": 20
+            }
           }
         ]
       },
@@ -1916,19 +1945,19 @@ Cacheable: Yes
         "params": {
           "event": "highlight_axis_labels",
           "status": "confirmed",
-          "description": "Axis numbers 10, 20, 30, 40, 50, 60 highlight sequentially from bottom to top."
+          "description": "Axis labels 10, 20, 30, 40, 50, 60 highlight sequentially from bottom to top."
         }
       },
       {
         "type": "dialogue",
-        "text": "See these numbers along the side? They show the scale—10, 20, 30, 40... That's counting by 10s!"
+        "text": "See these numbers along the side? They show the scale. 10, 20, 30, 40. That's counting by 10s!"
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "bar_graph_colors",
-            "description": "Vertical bar graph. Color data. Red bar highlighted. Axis numbers highlighted, showing scale of 10.",
+            "description": "Vertical bar graph. Red bar highlighted with guideline to axis at 40. Axis labels highlighted showing scale of 10.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -1937,31 +1966,26 @@ Cacheable: Yes
               "Blue",
               "Green",
               "Yellow"
-            ]
+            ],
+            "values": {
+              "Red": 40,
+              "Blue": 30,
+              "Green": 50,
+              "Yellow": 20
+            }
           }
         ]
       },
       {
-        "type": "scene",
-        "method": "animate",
-        "tangible_id": "bar_graph_colors",
-        "params": {
-          "event": "draw_bar_guideline",
-          "status": "confirmed",
-          "description": "Horizontal line draws from top of Red bar to vertical axis at 40.",
-          "category": "Red"
-        }
-      },
-      {
         "type": "dialogue",
-        "text": "Red has 40. The HEIGHT OF THE BAR ends at the 40 line."
+        "text": "Red has 40. The height of the bar ends at the 40 line."
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "bar_graph_colors",
-            "description": "Vertical bar graph. Color data. Red bar highlighted. Guideline drawn from top of Red bar to axis at 40.",
+            "description": "Vertical bar graph. Red bar highlighted with guideline to axis at 40.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -1970,7 +1994,13 @@ Cacheable: Yes
               "Blue",
               "Green",
               "Yellow"
-            ]
+            ],
+            "values": {
+              "Red": 40,
+              "Blue": 30,
+              "Green": 50,
+              "Yellow": 20
+            }
           }
         ]
       },
@@ -1979,11 +2009,10 @@ Cacheable: Yes
         "method": "animate",
         "tangible_id": "bar_graph_colors",
         "params": {
-          "event": "count_by_intervals",
+          "event": "count_by_interval",
           "status": "confirmed",
-          "description": "Axis labels highlight sequentially: 10, 20, 30, 40 pulse in sequence to demonstrate counting by 10s.",
-          "interval": 10,
-          "end_value": 40
+          "category": "Red",
+          "description": "Axis labels 10, 20, 30, 40 pulse sequentially as counting animation plays."
         }
       },
       {
@@ -1995,7 +2024,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_colors",
-            "description": "Vertical bar graph. Color data. Red bar highlighted. Axis labels 10, 20, 30, 40 highlighted, showing counting sequence.",
+            "description": "Vertical bar graph. Red bar highlighted at 40. Counting animation complete.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -2004,12 +2033,18 @@ Cacheable: Yes
               "Blue",
               "Green",
               "Yellow"
-            ]
+            ],
+            "values": {
+              "Red": 40,
+              "Blue": 30,
+              "Green": 50,
+              "Yellow": 20
+            }
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T16:59:57.275178+00:00"
+    "_generated_at": "2026-04-27T15:55:16.197591+00:00"
   },
   {
     "id": "s1_2_reading_bar_height",
@@ -2025,14 +2060,33 @@ Cacheable: Yes
           "categories": [
             "Red",
             "Blue",
-            "Yellow",
-            "Green"
+            "Green",
+            "Yellow"
+          ],
+          "values": [
+            40,
+            30,
+            50,
+            20
           ],
           "axis_range": [
             0,
-            35
+            60
           ],
-          "description": "Vertical bar graph appears. Same data as previous picture graph: Red=20, Blue=30, Yellow=25, Green=15. Blue bar highlighted, height at 30 axis line."
+          "axis_interval": 10,
+          "title": "Favorite Colors",
+          "description": "Vertical bar graph appears. Favorite Colors data. Red=40, Blue=30, Green=50, Yellow=20. Axis 0-60, interval 10."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_colors",
+        "params": {
+          "highlight_categories": [
+            "Blue"
+          ],
+          "description": "Blue bar highlights (height 30, ends at 30 axis line)."
         }
       },
       {
@@ -2055,12 +2109,12 @@ Cacheable: Yes
             "condition": {
               "selected": 30
             },
-            "description": "Student selected 30, correct bar height",
+            "description": "Student selected 30, correct",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "30. The bar ends at the 30 line. Same as 3 symbols on the picture graph—each symbol shows 10."
+                "text": "30. The bar ends at the 30 line. Same as 3 symbols on the picture graph. Each symbol shows 10."
               }
             ]
           }
@@ -2071,25 +2125,33 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_colors",
-            "description": "Vertical bar graph. Blue bar highlighted at height 30. multiple_choice tool active.",
+            "description": "Vertical bar graph. Favorite Colors data. Blue bar highlighted at height 30.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
               "Red",
               "Blue",
-              "Yellow",
-              "Green"
+              "Green",
+              "Yellow"
+            ],
+            "values": [
+              40,
+              30,
+              50,
+              20
             ],
             "axis_range": [
               0,
-              35
-            ]
+              60
+            ],
+            "axis_interval": 10,
+            "title": "Favorite Colors"
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:00:07.005484+00:00"
+    "_generated_at": "2026-04-27T15:55:32.263366+00:00"
   },
   {
     "id": "s1_3_skip_counting_connection",
@@ -2103,23 +2165,24 @@ Cacheable: Yes
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Blue",
             "Red",
+            "Blue",
             "Green",
             "Yellow"
           ],
+          "values": [
+            40,
+            30,
+            50,
+            20
+          ],
           "axis_range": [
             0,
-            50
+            60
           ],
-          "scale": 10,
-          "category_values": {
-            "Blue": 40,
-            "Red": 30,
-            "Green": 50,
-            "Yellow": 20
-          },
-          "description": "Vertical bar graph appears. Four color categories. Scale of 10. Blue=40, Red=30, Green=50, Yellow=20."
+          "axis_interval": 10,
+          "title": "Favorite Colors",
+          "description": "Vertical bar graph appears. Favorite Colors data. Red=40, Blue=30, Green=50, Yellow=20. Y-axis 0-60 by 10s."
         }
       },
       {
@@ -2134,18 +2197,14 @@ Cacheable: Yes
         }
       },
       {
-        "type": "dialogue",
-        "text": "Green shows 50. Let's count by 10s to check: 10, 20, 30, 40, 50."
-      },
-      {
         "type": "scene",
         "method": "animate",
         "tangible_id": "bar_graph_colors",
         "params": {
-          "event": "highlight_axis_values_sequential",
+          "event": "highlight_axis_marks_sequential",
           "status": "confirmed",
           "description": "Axis lines glow sequentially: 10, 20, 30, 40, 50.",
-          "values": [
+          "marks": [
             10,
             20,
             30,
@@ -2155,31 +2214,35 @@ Cacheable: Yes
         }
       },
       {
+        "type": "dialogue",
+        "text": "Green shows 50. Let's count by 10s to check: 10, 20, 30, 40, 50."
+      },
+      {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "bar_graph_colors",
-            "description": "Vertical bar graph. Scale of 10. Green bar highlighted at 50. Axis values visible: 0, 10, 20, 30, 40, 50.",
+            "description": "Vertical bar graph. Favorite Colors data. Green bar highlighted, height 50. Axis marks 10-50 glowing after sequential animation.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Blue",
               "Red",
+              "Blue",
               "Green",
               "Yellow"
             ],
+            "values": [
+              40,
+              30,
+              50,
+              20
+            ],
             "axis_range": [
               0,
-              50
+              60
             ],
-            "scale": 10,
-            "category_values": {
-              "Blue": 40,
-              "Red": 30,
-              "Green": 50,
-              "Yellow": 20
-            }
+            "axis_interval": 10
           }
         ]
       },
@@ -2191,7 +2254,7 @@ Cacheable: Yes
           "highlight_categories": [
             "Yellow"
           ],
-          "description": "Yellow bar highlights, height 20."
+          "description": "Yellow bar highlights, height 20. Axis available for reference."
         }
       },
       {
@@ -2230,32 +2293,32 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_colors",
-            "description": "Vertical bar graph. Scale of 10. Yellow bar highlighted at 20. Multiple choice active.",
+            "description": "Vertical bar graph. Favorite Colors data. Yellow bar highlighted, height 20. Axis 0-60 by 10s visible for reference.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Blue",
               "Red",
+              "Blue",
               "Green",
               "Yellow"
             ],
+            "values": [
+              40,
+              30,
+              50,
+              20
+            ],
             "axis_range": [
               0,
-              50
+              60
             ],
-            "scale": 10,
-            "category_values": {
-              "Blue": 40,
-              "Red": 30,
-              "Green": 50,
-              "Yellow": 20
-            }
+            "axis_interval": 10
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:00:21.713995+00:00"
+    "_generated_at": "2026-04-27T15:55:49.993172+00:00"
   },
   {
     "id": "s1_4_your_turn_create_bar_guided",
@@ -2266,7 +2329,7 @@ Cacheable: Yes
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
-          "description": "Data table appears showing Favorite Recess Activities. Swings=30, Tag=50, Slides=40, Jump Rope=20."
+          "description": "Data table displays Favorite Recess Activities: Swings=30, Tag=50, Slides=40, Jump Rope=20."
         }
       },
       {
@@ -2288,14 +2351,13 @@ Cacheable: Yes
             0,
             60
           ],
-          "gridlines_visible": true,
-          "snap_to_scale": true,
-          "prefilled_bars": {
+          "bar_heights": {
+            "Swings": 0,
             "Tag": 50,
             "Slides": 40,
             "Jump Rope": 20
           },
-          "description": "Vertical bar graph appears in building mode. Scale of 10, axis 0–60. Ghost gridlines at 10s visible. Tag=50, Slides=40, Jump Rope=20 bars pre-filled. Swings bar empty, ready for student to set."
+          "description": "Vertical bar graph appears in building mode. Scale of 10, axis 0–60. Tag=50, Slides=40, Jump Rope=20 pre-filled. Swings bar empty. Ghost gridlines at 10s visible. Snap-to-10 enabled."
         }
       },
       {
@@ -2314,7 +2376,7 @@ Cacheable: Yes
               "bar_height": 30,
               "category": "Swings"
             },
-            "description": "Student set Swings bar to height 30, correct",
+            "description": "Student set Swings bar height to 30",
             "is_correct": true,
             "beats": [
               {
@@ -2346,7 +2408,7 @@ Cacheable: Yes
           },
           {
             "tangible_id": "bar_graph_recess",
-            "description": "Vertical bar graph in building mode. All four bars complete: Swings=30, Tag=50, Slides=40, Jump Rope=20. Scale of 10, axis 0–60.",
+            "description": "Vertical bar graph in building mode. All four bars now complete: Swings=30, Tag=50, Slides=40, Jump Rope=20. Scale of 10, axis 0–60.",
             "tangible_type": "bar_graph",
             "mode": "building",
             "orientation": "vertical",
@@ -2365,7 +2427,7 @@ Cacheable: Yes
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:00:33.965137+00:00"
+    "_generated_at": "2026-04-27T15:56:09.543587+00:00"
   },
   {
     "id": "s1_5_create_another_bar",
@@ -2376,7 +2438,7 @@ Cacheable: Yes
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
-          "description": "Data table appears. Books Read This Month. Fiction=40, Nonfiction=60, Comics=20, Poetry=30. Horizontal layout, numeric display."
+          "description": "Data table appears showing Books Read This Month. Fiction=40, Nonfiction=60, Comics=20, Poetry=30. Horizontal layout."
         }
       },
       {
@@ -2398,12 +2460,13 @@ Cacheable: Yes
             "Comics",
             "Poetry"
           ],
-          "prefilled_bars": {
+          "values": {
             "Fiction": 40,
+            "Nonfiction": 0,
             "Comics": 20,
             "Poetry": 30
           },
-          "description": "Vertical bar graph appears. Books Read This Month. Scale of 10, axis 0–70. Fiction bar at 40, Comics at 20, Poetry at 30. Nonfiction bar empty. Ghost gridlines at 10s visible. Snap-to-10 enabled."
+          "description": "Vertical bar graph in building mode. Books Read This Month. Scale of 10, axis 0–70. Three bars pre-filled: Fiction=40, Comics=20, Poetry=30. Nonfiction bar empty. Ghost gridlines at 10s visible. Snap-to-10 enabled."
         }
       },
       {
@@ -2433,7 +2496,7 @@ Cacheable: Yes
                   "event": "confirm_bar_height",
                   "status": "confirmed",
                   "category": "Nonfiction",
-                  "description": "Nonfiction bar confirms at 60."
+                  "description": "Nonfiction bar confirms at height 60."
                 }
               },
               {
@@ -2449,12 +2512,12 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Data table showing Books Read This Month values.",
+            "description": "Data table showing Books Read This Month. Fiction=40, Nonfiction=60, Comics=20, Poetry=30.",
             "tangible_type": "data_table"
           },
           {
             "tangible_id": "bar_graph_books",
-            "description": "Vertical bar graph in building mode. Books Read This Month. All four bars filled: Fiction=40, Nonfiction=60, Comics=20, Poetry=30.",
+            "description": "Vertical bar graph in building mode. Books Read This Month. All four bars complete: Fiction=40, Nonfiction=60, Comics=20, Poetry=30. Scale of 10, axis 0–70.",
             "tangible_type": "bar_graph",
             "mode": "building",
             "orientation": "vertical",
@@ -2473,7 +2536,7 @@ Cacheable: Yes
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:00:45.395755+00:00"
+    "_generated_at": "2026-04-27T15:56:28.233697+00:00"
   },
   {
     "id": "s1_6_reading_comparison",
@@ -2486,6 +2549,7 @@ Cacheable: Yes
         "params": {
           "mode": "reading",
           "orientation": "vertical",
+          "title": "Books Read This Month",
           "categories": [
             "Fiction",
             "Nonfiction",
@@ -2498,12 +2562,21 @@ Cacheable: Yes
             "Comics": 20,
             "Poetry": 30
           },
-          "description": "Vertical bar graph appears. Books Read This Month data. Fiction=40, Nonfiction=60, Comics=20, Poetry=30. All 4 bars visible."
+          "axis_range": [
+            0,
+            70
+          ],
+          "scale": 10,
+          "description": "Vertical bar graph appears. Books Read This Month. All four bars visible: Fiction=40, Nonfiction=60, Comics=20, Poetry=30. Y-axis 0-70, scale of 10."
         }
       },
       {
         "type": "dialogue",
-        "text": "Here's the completed graph. Use it to answer a question. How many MORE books were Nonfiction than Comics?"
+        "text": "Here's the completed graph. Use it to answer a question."
+      },
+      {
+        "type": "dialogue",
+        "text": "How many MORE books were Nonfiction than Comics?"
       },
       {
         "type": "prompt",
@@ -2521,9 +2594,21 @@ Cacheable: Yes
             "condition": {
               "selected": 40
             },
-            "description": "Student selected 40, correct difference between Nonfiction (60) and Comics (20)",
+            "description": "Student selected 40, correct. Nonfiction 60 minus Comics 20 equals 40.",
             "is_correct": true,
             "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Nonfiction",
+                    "Comics"
+                  ],
+                  "description": "Nonfiction and Comics bars highlight to confirm comparison."
+                }
+              },
               {
                 "type": "dialogue",
                 "text": "40 more. Nonfiction is 60, Comics is 20. The difference is 40."
@@ -2537,7 +2622,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_books",
-            "description": "Vertical bar graph in reading mode. Books Read This Month data. Fiction=40, Nonfiction=60, Comics=20, Poetry=30.",
+            "description": "Vertical bar graph. Books Read This Month. Nonfiction and Comics bars highlighted. Fiction=40, Nonfiction=60, Comics=20, Poetry=30.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -2551,7 +2636,7 @@ Cacheable: Yes
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:00:53.985682+00:00"
+    "_generated_at": "2026-04-27T15:56:44.477519+00:00"
   },
   {
     "id": "s1_7_section_transition",
@@ -2560,18 +2645,32 @@ Cacheable: Yes
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "bar_graph_colors",
+        "tangible_id": "bar_graph_weekly_steps",
         "tangible_type": "bar_graph",
         "params": {
           "mode": "reading",
           "orientation": "vertical",
+          "title": "Weekly Steps",
           "categories": [
-            "Blue",
-            "Red",
-            "Green",
-            "Yellow"
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thu",
+            "Fri"
           ],
-          "description": "Vertical bar graph appears. Favorite Colors data. Blue bar ends between grid lines."
+          "values": [
+            35,
+            45,
+            50,
+            25,
+            40
+          ],
+          "axis_range": [
+            0,
+            60
+          ],
+          "scale": 10,
+          "description": "Vertical bar graph appears. Weekly Steps data. Mon=35, Tue=45, Wed=50, Thu=25, Fri=40. Scale of 10, y-axis 0–60."
         }
       },
       {
@@ -2582,22 +2681,36 @@ Cacheable: Yes
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "bar_graph_colors",
-            "description": "Vertical bar graph. Favorite Colors data. Blue bar ends between grid lines.",
+            "tangible_id": "bar_graph_weekly_steps",
+            "description": "Vertical bar graph in reading mode. Weekly Steps data with five bars. Scale of 10, y-axis 0–60.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
+            "title": "Weekly Steps",
             "categories": [
-              "Blue",
-              "Red",
-              "Green",
-              "Yellow"
-            ]
+              "Mon",
+              "Tue",
+              "Wed",
+              "Thu",
+              "Fri"
+            ],
+            "values": [
+              35,
+              45,
+              50,
+              25,
+              40
+            ],
+            "axis_range": [
+              0,
+              60
+            ],
+            "scale": 10
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:00:58.653837+00:00"
+    "_generated_at": "2026-04-27T15:56:57.951010+00:00"
   },
   {
     "id": "s2_1_discovering_between_lines_worked_example",
@@ -2629,26 +2742,33 @@ Cacheable: Yes
             50
           ],
           "ghost_gridlines": true,
+          "description": "Vertical bar graph appears. Stickers Collected. Emma=30 at 30 line, Jake=25 between 20–30 lines, Mia=40 at 40 line, Leo=35 between 30–40 lines. Scale of 10, axis 0–50. Ghost gridlines at 5s visible (lighter than 10s lines)."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_stickers",
+        "params": {
           "highlight_categories": [
             "Jake"
           ],
-          "description": "Vertical bar graph appears. Stickers Collected. Emma=30 (at 30 line), Jake=25 (between 20-30 lines), Mia=40 (at 40 line), Leo=35 (between 30-40 lines). Scale of 10, axis 0-50. Ghost gridlines at 5s visible (lighter than 10s lines). Jake's bar highlighted."
+          "description": "Jake's bar highlights."
         }
       },
       {
         "type": "dialogue",
-        "text": "Look at Jake's bar. It doesn't end at a line—it ends between the lines."
+        "text": "Look at Jake's bar. It doesn't end at a line. It ends BETWEEN THE LINES."
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "bar_graph_stickers",
-            "description": "Vertical bar graph in reading mode. Stickers Collected. Jake's bar highlighted, ending between 20 and 30 lines. Ghost gridlines visible at 5s.",
+            "description": "Vertical bar graph. Stickers Collected. Emma=30, Jake=25, Mia=40, Leo=35. Jake's bar highlighted. Scale of 10, axis 0–50. Ghost gridlines at 5s visible.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
-            "title": "Stickers Collected",
             "categories": [
               "Emma",
               "Jake",
@@ -2665,28 +2785,23 @@ Cacheable: Yes
             "axis_range": [
               0,
               50
-            ],
-            "ghost_gridlines": true,
-            "highlight_categories": [
-              "Jake"
             ]
           }
         ]
       },
       {
         "type": "dialogue",
-        "text": "Remember half-symbols from scale of 2? Half of 2 was 1. Same idea here—half of 10 is 5."
+        "text": "Remember half-symbols from scale of 2? Half of 2 was 1. Same idea here. Half of 10 is 5."
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "bar_graph_stickers",
-            "description": "Vertical bar graph in reading mode. Stickers Collected. Jake's bar highlighted, ending between 20 and 30 lines. Ghost gridlines visible at 5s.",
+            "description": "Vertical bar graph. Stickers Collected. Emma=30, Jake=25, Mia=40, Leo=35. Jake's bar highlighted. Scale of 10, axis 0–50. Ghost gridlines at 5s visible.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
-            "title": "Stickers Collected",
             "categories": [
               "Emma",
               "Jake",
@@ -2703,28 +2818,23 @@ Cacheable: Yes
             "axis_range": [
               0,
               50
-            ],
-            "ghost_gridlines": true,
-            "highlight_categories": [
-              "Jake"
             ]
           }
         ]
       },
       {
         "type": "dialogue",
-        "text": "Half of 10 is 5. So between 20 and 30, that's 20 + 5 = 25. Jake has 25 stickers."
+        "text": "Half of 10 is 5. So between 20 and 30, that's 20 plus 5 equals 25. Jake has 25 stickers."
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "bar_graph_stickers",
-            "description": "Vertical bar graph in reading mode. Stickers Collected. Jake's bar highlighted, ending at 25 (between 20 and 30 lines). Ghost gridlines visible at 5s.",
+            "description": "Vertical bar graph. Stickers Collected. Emma=30, Jake=25, Mia=40, Leo=35. Jake's bar highlighted. Scale of 10, axis 0–50. Ghost gridlines at 5s visible.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
-            "title": "Stickers Collected",
             "categories": [
               "Emma",
               "Jake",
@@ -2741,16 +2851,12 @@ Cacheable: Yes
             "axis_range": [
               0,
               50
-            ],
-            "ghost_gridlines": true,
-            "highlight_categories": [
-              "Jake"
             ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:01:10.395323+00:00"
+    "_generated_at": "2026-04-27T15:57:20.199511+00:00"
   },
   {
     "id": "s2_2_reading_between_lines",
@@ -2764,16 +2870,37 @@ Cacheable: Yes
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Leo",
-            "Maya",
-            "Jordan"
+            "Emma",
+            "Jake",
+            "Mia",
+            "Leo"
           ],
+          "values": [
+            30,
+            25,
+            40,
+            35
+          ],
+          "title": "Stickers Collected",
+          "scale": 10,
           "axis_range": [
             0,
-            40
+            50
           ],
-          "scale": 5,
-          "description": "Vertical bar graph appears. Stickers Collected data. Leo's bar height = 35 (between 30 and 40 lines). Ghost gridlines at 5s visible. Leo's bar highlighted."
+          "ghost_gridlines": true,
+          "ghost_gridline_interval": 5,
+          "description": "Vertical bar graph titled Stickers Collected. Four bars: Emma=30, Jake=25, Mia=40, Leo=35. Scale of 10, axis 0-50. Ghost gridlines at 5s visible."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_stickers",
+        "params": {
+          "highlight_categories": [
+            "Leo"
+          ],
+          "description": "Leo's bar highlights. Height 35, between 30 and 40 gridlines."
         }
       },
       {
@@ -2796,7 +2923,7 @@ Cacheable: Yes
             "condition": {
               "selected": 35
             },
-            "description": "Student selected 35, correct, halfway between 30 and 40",
+            "description": "Student selected 35, correct—halfway between 30 and 40",
             "is_correct": true,
             "beats": [
               {
@@ -2812,25 +2939,32 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_stickers",
-            "description": "Vertical bar graph in reading mode. Stickers Collected data. Leo's bar highlighted, height = 35 (between 30 and 40 lines). Ghost gridlines at 5s visible.",
+            "description": "Vertical bar graph titled Stickers Collected. Leo's bar highlighted at height 35. Ghost gridlines at 5s visible.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Leo",
-              "Maya",
-              "Jordan"
+              "Emma",
+              "Jake",
+              "Mia",
+              "Leo"
             ],
+            "values": [
+              30,
+              25,
+              40,
+              35
+            ],
+            "scale": 10,
             "axis_range": [
               0,
-              40
-            ],
-            "scale": 5
+              50
+            ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:01:18.610917+00:00"
+    "_generated_at": "2026-04-27T15:57:35.848055+00:00"
   },
   {
     "id": "s2_3_creating_between_lines_bar_guided",
@@ -2841,7 +2975,7 @@ Cacheable: Yes
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
-          "description": "Data table appears. Points Scored data: Team A=45, Team B=30, Team C=25, Team D=50, Team E=15."
+          "description": "Data table appears showing Points Scored: Team A=45, Team B=30, Team C=25, Team D=50, Team E=15."
         }
       },
       {
@@ -2852,11 +2986,6 @@ Cacheable: Yes
         "params": {
           "mode": "building",
           "orientation": "vertical",
-          "scale": 10,
-          "axis_range": [
-            0,
-            60
-          ],
           "categories": [
             "Team A",
             "Team B",
@@ -2864,15 +2993,20 @@ Cacheable: Yes
             "Team D",
             "Team E"
           ],
+          "scale": 10,
+          "axis_range": [
+            0,
+            60
+          ],
+          "snap_to": 5,
+          "ghost_gridlines": true,
           "pre_filled_bars": {
             "Team B": 30,
             "Team C": 25,
             "Team D": 50,
             "Team E": 15
           },
-          "snap_to": 5,
-          "gridlines_visible": true,
-          "description": "Vertical bar graph appears. Scale of 10, axis 0–60. Four bars pre-filled: Team B=30, Team C=25, Team D=50, Team E=15. Team A bar empty. Ghost gridlines at 5s visible. Snap-to-5 enabled."
+          "description": "Vertical bar graph appears in building mode. Points Scored. Scale of 10, axis 0–60. Four bars pre-filled: Team B=30, Team C=25, Team D=50, Team E=15. Team A bar empty. Ghost gridlines at 5s visible. Snap-to-5 enabled."
         }
       },
       {
@@ -2888,10 +3022,9 @@ Cacheable: Yes
           {
             "condition_id": "correct",
             "condition": {
-              "bar_height": 45,
-              "category": "Team A"
+              "bar_height": 45
             },
-            "description": "Student set Team A bar to height 45",
+            "description": "Student set Team A bar to height 45, correct",
             "is_correct": true,
             "beats": [
               {
@@ -2899,11 +3032,10 @@ Cacheable: Yes
                 "method": "animate",
                 "tangible_id": "bar_graph_points",
                 "params": {
-                  "event": "confirm_bar_height",
+                  "event": "confirm_bar_placement",
                   "status": "confirmed",
-                  "category": "Team A",
-                  "height": 45,
-                  "description": "Team A bar confirms at height 45."
+                  "description": "Team A bar confirms at height 45.",
+                  "category": "Team A"
                 }
               },
               {
@@ -2919,32 +3051,32 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Data table showing Points Scored values.",
+            "description": "Data table showing Points Scored values: Team A=45, Team B=30, Team C=25, Team D=50, Team E=15.",
             "tangible_type": "data_table"
           },
           {
             "tangible_id": "bar_graph_points",
-            "description": "Vertical bar graph. Team A bar set at 45. All five bars now filled: Team A=45, Team B=30, Team C=25, Team D=50, Team E=15.",
+            "description": "Vertical bar graph in building mode. All five bars complete: Team A=45, Team B=30, Team C=25, Team D=50, Team E=15. Scale of 10, axis 0–60, ghost gridlines at 5s.",
             "tangible_type": "bar_graph",
             "mode": "building",
             "orientation": "vertical",
-            "scale": 10,
-            "axis_range": [
-              0,
-              60
-            ],
             "categories": [
               "Team A",
               "Team B",
               "Team C",
               "Team D",
               "Team E"
+            ],
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
             ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:01:31.371585+00:00"
+    "_generated_at": "2026-04-27T15:57:55.449188+00:00"
   },
   {
     "id": "s2_4_create_another_between_lines_bar",
@@ -2955,7 +3087,20 @@ Cacheable: Yes
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
-          "description": "Data table appears. Laps Completed data: Runner A=20, Runner B=50, Runner C=35, Runner D=45. Horizontal layout."
+          "categories": [
+            "Runner A",
+            "Runner B",
+            "Runner C",
+            "Runner D"
+          ],
+          "values": [
+            20,
+            50,
+            35,
+            45
+          ],
+          "orientation": "horizontal",
+          "description": "Data table appears. Laps Completed data. Runner A=20, Runner B=50, Runner C=35, Runner D=45. Horizontal layout."
         }
       },
       {
@@ -2966,16 +3111,16 @@ Cacheable: Yes
         "params": {
           "mode": "building",
           "orientation": "vertical",
-          "scale": 10,
-          "axis_range": [
-            0,
-            60
-          ],
           "categories": [
             "Runner A",
             "Runner B",
             "Runner C",
             "Runner D"
+          ],
+          "scale": 10,
+          "axis_range": [
+            0,
+            60
           ],
           "bars": {
             "Runner A": 20,
@@ -2983,9 +3128,10 @@ Cacheable: Yes
             "Runner C": 0,
             "Runner D": 45
           },
-          "snap_to": 5,
           "ghost_gridlines": true,
-          "description": "Vertical bar graph appears. Scale of 10, axis 0–60. Three bars pre-filled: Runner A at 20, Runner B at 50, Runner D at 45. Runner C bar empty. Ghost gridlines at 5s visible. Snap-to-5 enabled."
+          "gridline_interval": 5,
+          "snap_to": 5,
+          "description": "Vertical bar graph appears. Laps Completed. Scale of 10, axis 0–60. Three bars pre-filled: Runner A=20, Runner B=50, Runner D=45. Runner C bar empty. Ghost gridlines at 5s visible. Snap-to-5 enabled."
         }
       },
       {
@@ -3001,15 +3147,26 @@ Cacheable: Yes
           {
             "condition_id": "correct",
             "condition": {
-              "category": "Runner C",
-              "bar_height": 35
+              "bar": "Runner C",
+              "height": 35
             },
-            "description": "Student set Runner C bar to 35, correct, halfway between 30 and 40",
+            "description": "Student set Runner C bar to height 35, correct",
             "is_correct": true,
             "beats": [
               {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_laps",
+                "params": {
+                  "event": "confirm_bar_height",
+                  "status": "confirmed",
+                  "category": "Runner C",
+                  "description": "Runner C bar confirms at height 35."
+                }
+              },
+              {
                 "type": "dialogue",
-                "text": "35. Between 30 and 40, right in the middle."
+                "text": "35. Between 30 and 40—right in the middle."
               }
             ]
           }
@@ -3020,31 +3177,43 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Data table showing Laps Completed data: Runner A=20, Runner B=50, Runner C=35, Runner D=45.",
-            "tangible_type": "data_table"
-          },
-          {
-            "tangible_id": "bar_graph_laps",
-            "description": "Vertical bar graph in building mode. Scale of 10, axis 0–60. Runner C bar active for setting. Three other bars pre-filled.",
-            "tangible_type": "bar_graph",
-            "mode": "building",
-            "orientation": "vertical",
-            "scale": 10,
-            "axis_range": [
-              0,
-              60
-            ],
+            "description": "Data table showing Laps Completed values. Runner A=20, Runner B=50, Runner C=35, Runner D=45.",
+            "tangible_type": "data_table",
             "categories": [
               "Runner A",
               "Runner B",
               "Runner C",
               "Runner D"
+            ],
+            "values": [
+              20,
+              50,
+              35,
+              45
+            ]
+          },
+          {
+            "tangible_id": "bar_graph_laps",
+            "description": "Vertical bar graph in building mode. Laps Completed. All four bars complete: Runner A=20, Runner B=50, Runner C=35, Runner D=45. Scale of 10, axis 0–60. Ghost gridlines at 5s visible.",
+            "tangible_type": "bar_graph",
+            "mode": "building",
+            "orientation": "vertical",
+            "categories": [
+              "Runner A",
+              "Runner B",
+              "Runner C",
+              "Runner D"
+            ],
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
             ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:01:41.507357+00:00"
+    "_generated_at": "2026-04-27T15:58:16.754954+00:00"
   },
   {
     "id": "s2_5_mixed_values_at_lines_between",
@@ -3055,7 +3224,20 @@ Cacheable: Yes
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
-          "description": "Data table appears showing Minutes of Reading values: Monday=40, Tuesday=35, Wednesday=50, Thursday=25."
+          "orientation": "vertical",
+          "categories": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday"
+          ],
+          "values": [
+            40,
+            35,
+            50,
+            25
+          ],
+          "description": "Data table appears showing Minutes of Reading: Monday=40, Tuesday=35, Wednesday=50, Thursday=25."
         }
       },
       {
@@ -3066,20 +3248,20 @@ Cacheable: Yes
         "params": {
           "mode": "building",
           "orientation": "vertical",
+          "scale": 10,
+          "axis_range": [
+            0,
+            60
+          ],
           "categories": [
             "Monday",
             "Tuesday",
             "Wednesday",
             "Thursday"
           ],
-          "axis_range": [
-            0,
-            60
-          ],
-          "scale": 10,
           "snap_to": 5,
-          "gridlines_visible": true,
-          "description": "Vertical bar graph appears with scale of 10, axis 0 to 60. No bars pre-filled. Ghost gridlines at 5s visible. Snap-to-5 enabled."
+          "ghost_gridlines": true,
+          "description": "Vertical bar graph appears in building mode. Scale of 10, axis 0–60. No bars pre-filled. Ghost gridlines at 5s visible. Snap-to-5 enabled."
         }
       },
       {
@@ -3098,31 +3280,27 @@ Cacheable: Yes
               "and": [
                 {
                   "bar_height": {
-                    "category": "Monday",
-                    "value": 40
+                    "Monday": 40
                   }
                 },
                 {
                   "bar_height": {
-                    "category": "Tuesday",
-                    "value": 35
+                    "Tuesday": 35
                   }
                 },
                 {
                   "bar_height": {
-                    "category": "Wednesday",
-                    "value": 50
+                    "Wednesday": 50
                   }
                 },
                 {
                   "bar_height": {
-                    "category": "Thursday",
-                    "value": 25
+                    "Thursday": 25
                   }
                 }
               ]
             },
-            "description": "Student set all four bars correctly: Monday=40, Tuesday=35, Wednesday=50, Thursday=25",
+            "description": "All four bars correctly placed: Monday=40 (at line), Tuesday=35 (between), Wednesday=50 (at line), Thursday=25 (between)",
             "is_correct": true,
             "beats": [
               {
@@ -3138,14 +3316,8 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Data table showing Minutes of Reading values: Monday=40, Tuesday=35, Wednesday=50, Thursday=25.",
-            "tangible_type": "data_table"
-          },
-          {
-            "tangible_id": "bar_graph_reading",
-            "description": "Vertical bar graph in building mode. All four bars set correctly: Monday at 40, Tuesday at 35, Wednesday at 50, Thursday at 25.",
-            "tangible_type": "bar_graph",
-            "mode": "building",
+            "description": "Data table showing Minutes of Reading: Monday=40, Tuesday=35, Wednesday=50, Thursday=25.",
+            "tangible_type": "data_table",
             "orientation": "vertical",
             "categories": [
               "Monday",
@@ -3153,16 +3325,35 @@ Cacheable: Yes
               "Wednesday",
               "Thursday"
             ],
+            "values": [
+              40,
+              35,
+              50,
+              25
+            ]
+          },
+          {
+            "tangible_id": "bar_graph_reading",
+            "description": "Vertical bar graph in building mode, all four bars complete: Monday=40, Tuesday=35, Wednesday=50, Thursday=25. Scale 10, axis 0–60, ghost gridlines at 5s.",
+            "tangible_type": "bar_graph",
+            "mode": "building",
+            "orientation": "vertical",
+            "scale": 10,
             "axis_range": [
               0,
               60
             ],
-            "scale": 10
+            "categories": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday"
+            ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:01:51.614207+00:00"
+    "_generated_at": "2026-04-27T15:58:36.560296+00:00"
   },
   {
     "id": "s2_6_reading_mixed_values",
@@ -3175,20 +3366,25 @@ Cacheable: Yes
         "params": {
           "mode": "reading",
           "orientation": "vertical",
+          "title": "Minutes of Reading",
           "categories": [
             "Monday",
             "Tuesday",
             "Wednesday",
             "Thursday"
           ],
+          "values": [
+            40,
+            35,
+            50,
+            25
+          ],
           "scale": 10,
-          "values": {
-            "Monday": 40,
-            "Tuesday": 35,
-            "Wednesday": 50,
-            "Thursday": 25
-          },
-          "description": "Vertical bar graph appears. Minutes of Reading data. Scale of 10. Monday=40 (at line), Tuesday=35 (between lines), Wednesday=50 (at line), Thursday=25 (between lines)."
+          "axis_range": [
+            0,
+            60
+          ],
+          "description": "Vertical bar graph titled Minutes of Reading appears. Four bars: Monday=40 (at line), Tuesday=35 (between lines), Wednesday=50 (at line), Thursday=25 (between lines). Scale of 10, axis range 0-60."
         }
       },
       {
@@ -3211,9 +3407,21 @@ Cacheable: Yes
             "condition": {
               "selected": 75
             },
-            "description": "Student selected 75, correct total",
+            "description": "Student selected 75, correct total for Monday (40) plus Tuesday (35)",
             "is_correct": true,
             "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_reading",
+                "params": {
+                  "highlight_categories": [
+                    "Monday",
+                    "Tuesday"
+                  ],
+                  "description": "Monday and Tuesday bars highlight to confirm selection."
+                }
+              },
               {
                 "type": "dialogue",
                 "text": "75 minutes total. Monday is 40, Tuesday is 35. 40 plus 35 is 75."
@@ -3227,7 +3435,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_reading",
-            "description": "Vertical bar graph. Minutes of Reading data. Scale of 10. Monday=40, Tuesday=35, Wednesday=50, Thursday=25.",
+            "description": "Vertical bar graph titled Minutes of Reading. Monday and Tuesday bars highlighted. Four bars showing Monday=40, Tuesday=35, Wednesday=50, Thursday=25.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -3237,12 +3445,22 @@ Cacheable: Yes
               "Wednesday",
               "Thursday"
             ],
-            "scale": 10
+            "values": [
+              40,
+              35,
+              50,
+              25
+            ],
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
+            ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:01:59.708718+00:00"
+    "_generated_at": "2026-04-27T15:58:52.151883+00:00"
   },
   {
     "id": "s2_7_section_transition",
@@ -3251,33 +3469,68 @@ Cacheable: Yes
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "bar_graph_sideways",
+        "tangible_id": "bar_graph_minutes",
         "tangible_type": "bar_graph",
         "params": {
           "mode": "reading",
           "orientation": "horizontal",
-          "categories": [],
-          "description": "Horizontal bar graph appears on clean screen."
+          "categories": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday"
+          ],
+          "values": [
+            40,
+            35,
+            50,
+            25
+          ],
+          "scale": 10,
+          "axis_range": [
+            0,
+            60
+          ],
+          "title": "Minutes of Reading",
+          "description": "Horizontal bar graph appears. Minutes of Reading data. Monday=40, Tuesday=35, Wednesday=50, Thursday=25. X-axis labeled 0–60 in intervals of 10."
         }
       },
       {
         "type": "dialogue",
-        "text": "You've made vertical bar graphs. Now let's try one that goes sideways—HORIZONTAL."
+        "text": "You've made vertical bar graphs. Now let's try one that goes sideways. HORIZONTAL."
       },
       {
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "bar_graph_sideways",
-            "description": "Horizontal bar graph visible on screen.",
+            "tangible_id": "bar_graph_minutes",
+            "description": "Horizontal bar graph in reading mode. Minutes of Reading data. Four categories (Monday, Tuesday, Wednesday, Thursday) with values 40, 35, 50, 25. X-axis scaled 0–60 by 10s.",
             "tangible_type": "bar_graph",
             "mode": "reading",
-            "orientation": "horizontal"
+            "orientation": "horizontal",
+            "categories": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday"
+            ],
+            "values": [
+              40,
+              35,
+              50,
+              25
+            ],
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
+            ],
+            "title": "Minutes of Reading"
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:02:03.877952+00:00"
+    "_generated_at": "2026-04-27T15:59:02.880408+00:00"
   },
   {
     "id": "s3_1_horizontal_orientation_introduction",
@@ -3297,24 +3550,31 @@ Cacheable: Yes
             "Aquarium",
             "Theater"
           ],
+          "values": [
+            45,
+            30,
+            55,
+            40,
+            35
+          ],
+          "scale": 10,
           "axis_range": [
             0,
             60
           ],
-          "scale": 10,
-          "description": "Horizontal bar graph appears. Votes for Field Trip. Zoo=45, Museum=30, Park=55, Aquarium=40, Theater=35. Scale of 10, axis along bottom 0 to 60. Categories listed vertically on left. Ghost gridlines at 5s visible. All 5 bars complete."
+          "description": "Horizontal bar graph appears titled 'Votes for Field Trip'. Five categories listed vertically on left: Zoo, Museum, Park, Aquarium, Theater. Bars extend horizontally from left to right with values Zoo=45, Museum=30, Park=55, Aquarium=40, Theater=35. Scale of 10, axis along bottom 0–60. Ghost gridlines at 5s visible."
         }
       },
       {
         "type": "dialogue",
-        "text": "This bar graph is HORIZONTAL. The bars go sideways, but you read them the same way — finding where the bar ends on the scale."
+        "text": "This bar graph is HORIZONTAL. The bars go sideways, but you read them the same way—finding where the bar ends on the scale."
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "bar_graph_field_trip",
-            "description": "Horizontal bar graph. Votes for Field Trip. Zoo=45, Museum=30, Park=55, Aquarium=40, Theater=35. Scale of 10, axis 0 to 60. Ghost gridlines at 5s visible.",
+            "description": "Horizontal bar graph titled 'Votes for Field Trip' showing five categories with complete bars. Scale of 10, axis 0–60 along bottom.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "horizontal",
@@ -3325,17 +3585,30 @@ Cacheable: Yes
               "Aquarium",
               "Theater"
             ],
-            "axis_range": [
-              0,
-              60
-            ],
-            "scale": 10
+            "values": [
+              45,
+              30,
+              55,
+              40,
+              35
+            ]
           }
         ]
       },
       {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_field_trip",
+        "params": {
+          "highlight_categories": [
+            "Zoo"
+          ],
+          "description": "Zoo bar highlights to demonstrate reading strategy."
+        }
+      },
+      {
         "type": "dialogue",
-        "text": "Zoo's bar extends to 45. Between 40 and 50 — halfway. What value does the Museum bar show?"
+        "text": "Zoo's bar extends to 45. Between 40 and 50—halfway. What value does the Museum bar show?"
       },
       {
         "type": "prompt",
@@ -3353,9 +3626,20 @@ Cacheable: Yes
             "condition": {
               "selected": 30
             },
-            "description": "Student selected 30, correct",
+            "description": "Student selected 30, correct value for Museum bar",
             "is_correct": true,
             "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_field_trip",
+                "params": {
+                  "highlight_categories": [
+                    "Museum"
+                  ],
+                  "description": "Museum bar highlights to confirm selection."
+                }
+              },
               {
                 "type": "dialogue",
                 "text": "30. The bar ends right at the 30 line."
@@ -3369,7 +3653,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_field_trip",
-            "description": "Horizontal bar graph. Votes for Field Trip. Multiple choice tool active for Museum bar value.",
+            "description": "Horizontal bar graph titled 'Votes for Field Trip'. Museum bar highlighted at value 30. Five categories with complete bars, scale of 10, axis 0–60 along bottom.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "horizontal",
@@ -3380,16 +3664,18 @@ Cacheable: Yes
               "Aquarium",
               "Theater"
             ],
-            "axis_range": [
-              0,
-              60
-            ],
-            "scale": 10
+            "values": [
+              45,
+              30,
+              55,
+              40,
+              35
+            ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:02:13.649381+00:00"
+    "_generated_at": "2026-04-27T15:59:24.603386+00:00"
   },
   {
     "id": "s3_2_reading_horizontal_between_lines",
@@ -3402,13 +3688,39 @@ Cacheable: Yes
         "params": {
           "mode": "reading",
           "orientation": "horizontal",
+          "title": "Votes for Field Trip",
           "categories": [
             "Zoo",
             "Museum",
+            "Park",
             "Aquarium",
+            "Theater"
+          ],
+          "values": [
+            45,
+            30,
+            55,
+            40,
+            35
+          ],
+          "scale": 10,
+          "axis_range": [
+            0,
+            60
+          ],
+          "ghost_gridlines": 5,
+          "description": "Horizontal bar graph titled Votes for Field Trip. Five categories listed vertically: Zoo=45, Museum=30, Park=55, Aquarium=40, Theater=35. Horizontal axis scaled 0–60 by 10s. Ghost gridlines at 5-unit intervals."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_field_trip",
+        "params": {
+          "highlight_categories": [
             "Park"
           ],
-          "description": "Horizontal bar graph appears. Votes for Field Trip data. Park bar highlighted, extends to 55, between 50–60 axis lines."
+          "description": "Park bar highlights. Bar extends to 55, between 50 and 60 gridlines."
         }
       },
       {
@@ -3431,7 +3743,7 @@ Cacheable: Yes
             "condition": {
               "selected": 55
             },
-            "description": "Student selected 55, correct",
+            "description": "Student selected 55, correct answer, Park bar ends halfway between 50 and 60",
             "is_correct": true,
             "beats": [
               {
@@ -3447,21 +3759,34 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_field_trip",
-            "description": "Horizontal bar graph in reading mode. Votes for Field Trip data. Park bar highlighted, extends to 55, between 50–60 axis lines.",
+            "description": "Horizontal bar graph titled Votes for Field Trip. Park bar highlighted at 55, extending between 50 and 60 gridlines. Scale 10, axis range 0–60, ghost gridlines at 5-unit intervals.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "horizontal",
             "categories": [
               "Zoo",
               "Museum",
+              "Park",
               "Aquarium",
-              "Park"
+              "Theater"
+            ],
+            "values": [
+              45,
+              30,
+              55,
+              40,
+              35
+            ],
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
             ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:02:20.140617+00:00"
+    "_generated_at": "2026-04-27T15:59:39.411543+00:00"
   },
   {
     "id": "s3_3_create_horizontal_bar_graph_full",
@@ -3472,7 +3797,21 @@ Cacheable: Yes
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
-          "description": "Data table appears. Miles Walked This Week. Kai=35, Ava=50, Noah=25, Zoe=45."
+          "orientation": "horizontal",
+          "categories": [
+            "Kai",
+            "Ava",
+            "Noah",
+            "Zoe"
+          ],
+          "values": [
+            35,
+            50,
+            25,
+            45
+          ],
+          "title": "Miles Walked This Week",
+          "description": "Horizontal data table appears. Miles Walked This Week. Kai=35, Ava=50, Noah=25, Zoe=45."
         }
       },
       {
@@ -3494,8 +3833,11 @@ Cacheable: Yes
             0,
             60
           ],
+          "ghost_gridlines": true,
+          "gridline_interval": 5,
           "snap_to": 5,
-          "description": "Horizontal bar graph appears. Miles Walked This Week. Scale of 10. Axis 0 to 60. No bars filled. Ghost gridlines at 5s visible. Snap-to-5 enabled."
+          "title": "Miles Walked This Week",
+          "description": "Horizontal bar graph appears in building mode. Scale of 10, axis 0–60. No bars pre-filled. Ghost gridlines at 5-unit intervals visible. Snap-to-5 enabled."
         }
       },
       {
@@ -3514,26 +3856,22 @@ Cacheable: Yes
               "and": [
                 {
                   "bar_height": {
-                    "category": "Kai",
-                    "value": 35
+                    "Kai": 35
                   }
                 },
                 {
                   "bar_height": {
-                    "category": "Ava",
-                    "value": 50
+                    "Ava": 50
                   }
                 },
                 {
                   "bar_height": {
-                    "category": "Noah",
-                    "value": 25
+                    "Noah": 25
                   }
                 },
                 {
                   "bar_height": {
-                    "category": "Zoe",
-                    "value": 45
+                    "Zoe": 45
                   }
                 }
               ]
@@ -3543,7 +3881,7 @@ Cacheable: Yes
             "beats": [
               {
                 "type": "dialogue",
-                "text": "Ava at 50, right at the line. Kai, Noah, and Zoe all between the lines."
+                "text": "Ava at 50—right at the line. Kai, Noah, and Zoe—all between the lines."
               }
             ]
           }
@@ -3554,12 +3892,25 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Data table showing Miles Walked This Week values.",
-            "tangible_type": "data_table"
+            "description": "Horizontal data table showing Miles Walked This Week. Kai=35, Ava=50, Noah=25, Zoe=45.",
+            "tangible_type": "data_table",
+            "orientation": "horizontal",
+            "categories": [
+              "Kai",
+              "Ava",
+              "Noah",
+              "Zoe"
+            ],
+            "values": [
+              35,
+              50,
+              25,
+              45
+            ]
           },
           {
             "tangible_id": "bar_graph_miles",
-            "description": "Horizontal bar graph. Miles Walked This Week. All four bars set: Kai=35, Ava=50, Noah=25, Zoe=45.",
+            "description": "Horizontal bar graph in building mode. All four bars complete: Kai=35, Ava=50, Noah=25, Zoe=45. Scale of 10, axis 0–60, ghost gridlines at 5-unit intervals.",
             "tangible_type": "bar_graph",
             "mode": "building",
             "orientation": "horizontal",
@@ -3578,7 +3929,7 @@ Cacheable: Yes
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:02:31.362526+00:00"
+    "_generated_at": "2026-04-27T15:59:59.174226+00:00"
   },
   {
     "id": "s3_4_comparison_horizontal_graph",
@@ -3597,12 +3948,18 @@ Cacheable: Yes
             "Noah",
             "Zoe"
           ],
+          "values": [
+            35,
+            50,
+            25,
+            45
+          ],
+          "scale": 10,
           "axis_range": [
             0,
-            50
+            60
           ],
-          "scale": 5,
-          "description": "Horizontal bar graph appears. Miles Walked data. Kai=35, Ava=50, Noah=25, Zoe=45. Scale: each interval = 5 miles."
+          "description": "Horizontal bar graph titled Miles Walked This Week. Kai=35, Ava=50, Noah=25, Zoe=45. Scale of 10, axis range 0–60."
         }
       },
       {
@@ -3625,9 +3982,21 @@ Cacheable: Yes
             "condition": {
               "selected": 25
             },
-            "description": "Student selected 25, correct difference",
+            "description": "Student selected 25, correct difference (50 − 25 = 25)",
             "is_correct": true,
             "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_miles",
+                "params": {
+                  "highlight_categories": [
+                    "Ava",
+                    "Noah"
+                  ],
+                  "description": "Ava and Noah bars highlight to confirm the comparison."
+                }
+              },
               {
                 "type": "dialogue",
                 "text": "25 more miles. Ava walked 50, Noah walked 25. The difference is 25."
@@ -3641,7 +4010,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_miles",
-            "description": "Horizontal bar graph in reading mode. Miles Walked data. Kai=35, Ava=50, Noah=25, Zoe=45.",
+            "description": "Horizontal bar graph titled Miles Walked This Week showing Kai=35, Ava=50, Noah=25, Zoe=45. Ava and Noah bars highlighted.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "horizontal",
@@ -3651,16 +4020,22 @@ Cacheable: Yes
               "Noah",
               "Zoe"
             ],
+            "values": [
+              35,
+              50,
+              25,
+              45
+            ],
+            "scale": 10,
             "axis_range": [
               0,
-              50
-            ],
-            "scale": 5
+              60
+            ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:02:39.158602+00:00"
+    "_generated_at": "2026-04-27T16:00:13.190407+00:00"
   },
   {
     "id": "s3_5_final_challenge_create_analyze",
@@ -3671,7 +4046,20 @@ Cacheable: Yes
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
-          "description": "Data table appears. Plants in the Garden. Tomatoes=60, Peppers=35, Carrots=45, Beans=20. Vertical layout."
+          "orientation": "vertical",
+          "categories": [
+            "Tomatoes",
+            "Peppers",
+            "Carrots",
+            "Beans"
+          ],
+          "values": [
+            60,
+            35,
+            45,
+            20
+          ],
+          "description": "Vertical data table appears. Plants in the Garden data. Tomatoes=60, Peppers=35, Carrots=45, Beans=20."
         }
       },
       {
@@ -3694,7 +4082,8 @@ Cacheable: Yes
             "Beans"
           ],
           "snap_to": 5,
-          "description": "Horizontal bar graph appears. Plants in the Garden. Scale of 10, axis 0 to 70. No bars pre-filled. Ghost gridlines at 5s visible. Snap-to-5 enabled."
+          "ghost_gridlines": true,
+          "description": "Horizontal bar graph appears in building mode. Plants in the Garden title. Scale of 10, axis 0–70. No bars filled. Ghost gridlines at 5-unit intervals visible."
         }
       },
       {
@@ -3713,22 +4102,26 @@ Cacheable: Yes
               "and": [
                 {
                   "bar_height": {
-                    "Tomatoes": 60
+                    "category": "Tomatoes",
+                    "value": 60
                   }
                 },
                 {
                   "bar_height": {
-                    "Peppers": 35
+                    "category": "Peppers",
+                    "value": 35
                   }
                 },
                 {
                   "bar_height": {
-                    "Carrots": 45
+                    "category": "Carrots",
+                    "value": 45
                   }
                 },
                 {
                   "bar_height": {
-                    "Beans": 20
+                    "category": "Beans",
+                    "value": 20
                   }
                 }
               ]
@@ -3737,8 +4130,14 @@ Cacheable: Yes
             "is_correct": true,
             "beats": [
               {
-                "type": "dialogue",
-                "text": "All four bars match the data. You built the graph from the table."
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_plants",
+                "params": {
+                  "event": "confirm_all_bars",
+                  "status": "confirmed",
+                  "description": "All four bars confirm simultaneously."
+                }
               }
             ]
           }
@@ -3749,12 +4148,25 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Data table showing Plants in the Garden values.",
-            "tangible_type": "data_table"
+            "description": "Vertical data table. Plants in the Garden data. Tomatoes=60, Peppers=35, Carrots=45, Beans=20.",
+            "tangible_type": "data_table",
+            "orientation": "vertical",
+            "categories": [
+              "Tomatoes",
+              "Peppers",
+              "Carrots",
+              "Beans"
+            ],
+            "values": [
+              60,
+              35,
+              45,
+              20
+            ]
           },
           {
             "tangible_id": "bar_graph_plants",
-            "description": "Horizontal bar graph in building mode. Plants in the Garden. All four bars set: Tomatoes=60, Peppers=35, Carrots=45, Beans=20. Scale of 10, axis 0 to 70.",
+            "description": "Horizontal bar graph in building mode. All four bars complete: Tomatoes=60, Peppers=35, Carrots=45, Beans=20.",
             "tangible_type": "bar_graph",
             "mode": "building",
             "orientation": "horizontal",
@@ -3777,7 +4189,7 @@ Cacheable: Yes
         "method": "hide",
         "tangible_id": "data_table",
         "params": {
-          "description": "Data table hides. Problem-solving uses graph only."
+          "description": "Data table hides from screen."
         }
       },
       {
@@ -3790,7 +4202,7 @@ Cacheable: Yes
             "Peppers",
             "Carrots"
           ],
-          "description": "Graph switches to reading mode. Peppers and Carrots bars highlight."
+          "description": "Bar graph switches to reading mode. Peppers and Carrots bars highlight."
         }
       },
       {
@@ -3813,7 +4225,7 @@ Cacheable: Yes
             "condition": {
               "selected": 80
             },
-            "description": "Student answered 80, correct",
+            "description": "Student selected 80, correct total for Peppers + Carrots",
             "is_correct": true,
             "beats": [
               {
@@ -3829,7 +4241,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_plants",
-            "description": "Horizontal bar graph in reading mode. Plants in the Garden. Peppers and Carrots bars highlighted. All four bars displayed: Tomatoes=60, Peppers=35, Carrots=45, Beans=20. Scale of 10, axis 0 to 70.",
+            "description": "Horizontal bar graph in reading mode. Peppers and Carrots bars highlighted. All bars complete: Tomatoes=60, Peppers=35, Carrots=45, Beans=20.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "horizontal",
@@ -3848,32 +4260,39 @@ Cacheable: Yes
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:02:54.812927+00:00"
+    "_generated_at": "2026-04-27T16:00:40.686364+00:00"
   },
   {
-    "id": "s3_6_bridge_exit_check",
     "type": "transition",
+    "id": "s3_6_bridge_exit_check",
     "beats": [
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "bar_graph_animals",
+        "tangible_id": "bar_graph_plants",
         "tangible_type": "bar_graph",
         "params": {
           "mode": "reading",
-          "orientation": "vertical",
+          "orientation": "horizontal",
+          "title": "Plants in the Garden",
           "categories": [
-            "Lizards",
-            "Birds",
-            "Dogs",
-            "Cats"
+            "Tomatoes",
+            "Peppers",
+            "Carrots",
+            "Beans"
           ],
-          "axis_range": [
-            0,
-            40
+          "values": [
+            60,
+            35,
+            45,
+            20
           ],
           "scale": 10,
-          "description": "Vertical bar graph appears. Favorite Animals data. Scale of 10. Lizards=10, Birds=20, Dogs=30, Cats=25."
+          "axis_range": [
+            0,
+            70
+          ],
+          "description": "Horizontal bar graph titled Plants in the Garden. Four bars: Tomatoes=60, Peppers=35, Carrots=45, Beans=20. Scale of 10, axis range 0–70."
         }
       },
       {
@@ -3884,27 +4303,22 @@ Cacheable: Yes
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "bar_graph_animals",
-            "description": "Vertical bar graph. Favorite Animals data with scale of 10.",
+            "tangible_id": "bar_graph_plants",
+            "description": "Horizontal bar graph titled Plants in the Garden with four completed bars: Tomatoes=60, Peppers=35, Carrots=45, Beans=20. Scale of 10, axis range 0–70.",
             "tangible_type": "bar_graph",
             "mode": "reading",
-            "orientation": "vertical",
+            "orientation": "horizontal",
             "categories": [
-              "Lizards",
-              "Birds",
-              "Dogs",
-              "Cats"
-            ],
-            "axis_range": [
-              0,
-              40
-            ],
-            "scale": 10
+              "Tomatoes",
+              "Peppers",
+              "Carrots",
+              "Beans"
+            ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:03:00.367430+00:00"
+    "_generated_at": "2026-04-27T16:00:51.637163+00:00"
   }
 ]
 </lesson_sections>
@@ -3923,7 +4337,20 @@ Cacheable: Yes
       "tangible_id": "data_table",
       "tangible_type": "data_table",
       "params": {
-        "description": "Data table appears showing Minutes of Reading values: Monday=40, Tuesday=35, Wednesday=50, Thursday=25."
+        "orientation": "vertical",
+        "categories": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday"
+        ],
+        "values": [
+          40,
+          35,
+          50,
+          25
+        ],
+        "description": "Data table appears showing Minutes of Reading: Monday=40, Tuesday=35, Wednesday=50, Thursday=25."
       },
       "id": "s2_5_mixed_values_at_lines_between_b0"
     },
@@ -3935,20 +4362,20 @@ Cacheable: Yes
       "params": {
         "mode": "building",
         "orientation": "vertical",
+        "scale": 10,
+        "axis_range": [
+          0,
+          60
+        ],
         "categories": [
           "Monday",
           "Tuesday",
           "Wednesday",
           "Thursday"
         ],
-        "axis_range": [
-          0,
-          60
-        ],
-        "scale": 10,
         "snap_to": 5,
-        "gridlines_visible": true,
-        "description": "Vertical bar graph appears with scale of 10, axis 0 to 60. No bars pre-filled. Ghost gridlines at 5s visible. Snap-to-5 enabled."
+        "ghost_gridlines": true,
+        "description": "Vertical bar graph appears in building mode. Scale of 10, axis 0–60. No bars pre-filled. Ghost gridlines at 5s visible. Snap-to-5 enabled."
       },
       "id": "s2_5_mixed_values_at_lines_between_b1"
     },
@@ -3969,31 +4396,27 @@ Cacheable: Yes
             "and": [
               {
                 "bar_height": {
-                  "category": "Monday",
-                  "value": 40
+                  "Monday": 40
                 }
               },
               {
                 "bar_height": {
-                  "category": "Tuesday",
-                  "value": 35
+                  "Tuesday": 35
                 }
               },
               {
                 "bar_height": {
-                  "category": "Wednesday",
-                  "value": 50
+                  "Wednesday": 50
                 }
               },
               {
                 "bar_height": {
-                  "category": "Thursday",
-                  "value": 25
+                  "Thursday": 25
                 }
               }
             ]
           },
-          "description": "Student set all four bars correctly: Monday=40, Tuesday=35, Wednesday=50, Thursday=25",
+          "description": "All four bars correctly placed: Monday=40 (at line), Tuesday=35 (between), Wednesday=50 (at line), Thursday=25 (between)",
           "is_correct": true,
           "beats": [
             {
@@ -4011,14 +4434,8 @@ Cacheable: Yes
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Data table showing Minutes of Reading values: Monday=40, Tuesday=35, Wednesday=50, Thursday=25.",
-          "tangible_type": "data_table"
-        },
-        {
-          "tangible_id": "bar_graph_reading",
-          "description": "Vertical bar graph in building mode. All four bars set correctly: Monday at 40, Tuesday at 35, Wednesday at 50, Thursday at 25.",
-          "tangible_type": "bar_graph",
-          "mode": "building",
+          "description": "Data table showing Minutes of Reading: Monday=40, Tuesday=35, Wednesday=50, Thursday=25.",
+          "tangible_type": "data_table",
           "orientation": "vertical",
           "categories": [
             "Monday",
@@ -4026,17 +4443,36 @@ Cacheable: Yes
             "Wednesday",
             "Thursday"
           ],
+          "values": [
+            40,
+            35,
+            50,
+            25
+          ]
+        },
+        {
+          "tangible_id": "bar_graph_reading",
+          "description": "Vertical bar graph in building mode, all four bars complete: Monday=40, Tuesday=35, Wednesday=50, Thursday=25. Scale 10, axis 0–60, ghost gridlines at 5s.",
+          "tangible_type": "bar_graph",
+          "mode": "building",
+          "orientation": "vertical",
+          "scale": 10,
           "axis_range": [
             0,
             60
           ],
-          "scale": 10
+          "categories": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday"
+          ]
         }
       ],
       "id": "s2_5_mixed_values_at_lines_between_b4"
     }
   ],
-  "_generated_at": "2026-04-20T17:01:51.614207+00:00"
+  "_generated_at": "2026-04-27T15:58:36.560296+00:00"
 }
 </input>
 

@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:00:31.233575
+# Generated: 2026-04-27T10:54:22.388372
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1854,24 +1858,26 @@ Cacheable: Yes
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "bar_graph_sports",
+      "tangible_id": "bar_graph_activities",
       "tangible_type": "bar_graph",
       "params": {
         "mode": "reading",
-        "orientation": "vertical",
+        "orientation": "horizontal",
+        "title": "After-School Activities",
         "categories": [
           "Soccer",
           "Basketball",
           "Tennis",
           "Swimming"
         ],
-        "values": {
-          "Soccer": 12,
-          "Basketball": 7,
-          "Tennis": 6,
-          "Swimming": 11
-        },
-        "description": "Vertical bar graph appears. Favorite Sports data. Soccer 12, Basketball 7, Tennis 6, Swimming 11."
+        "values": [
+          12,
+          7,
+          6,
+          11
+        ],
+        "scale": 2,
+        "description": "Horizontal bar graph. After-School Activities data. Soccer 12, Basketball 7, Tennis 6, Swimming 11. Scale 2."
       },
       "id": "s2_1_comparison_question_single_step_b0"
     },
@@ -1896,17 +1902,17 @@ Cacheable: Yes
           "condition": {
             "selected": 6
           },
-          "description": "Student selected 6, correct (12 - 6 = 6)",
+          "description": "Student selected 6, correct",
           "is_correct": true,
           "beats": [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "bar_graph_sports",
+              "tangible_id": "bar_graph_activities",
               "params": {
-                "event": "highlight_comparison",
+                "event": "highlight_categories",
                 "status": "confirmed",
-                "description": "Soccer and Tennis bars highlight to confirm the comparison.",
+                "description": "Soccer and Tennis bars highlight to confirm selection.",
                 "categories": [
                   "Soccer",
                   "Tennis"
@@ -1928,29 +1934,31 @@ Cacheable: Yes
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "bar_graph_sports",
-          "description": "Vertical bar graph in reading mode. Favorite Sports data. Soccer 12, Basketball 7, Tennis 6, Swimming 11. Multiple choice tool active.",
+          "tangible_id": "bar_graph_activities",
+          "description": "Horizontal bar graph in reading mode. After-School Activities data. Soccer 12, Basketball 7, Tennis 6, Swimming 11. Scale 2. Multiple choice tool active.",
           "tangible_type": "bar_graph",
           "mode": "reading",
-          "orientation": "vertical",
+          "orientation": "horizontal",
+          "title": "After-School Activities",
           "categories": [
             "Soccer",
             "Basketball",
             "Tennis",
             "Swimming"
           ],
-          "values": {
-            "Soccer": 12,
-            "Basketball": 7,
-            "Tennis": 6,
-            "Swimming": 11
-          }
+          "values": [
+            12,
+            7,
+            6,
+            11
+          ],
+          "scale": 2
         }
       ],
       "id": "s2_1_comparison_question_single_step_b3"
     }
   ],
-  "_generated_at": "2026-04-20T16:59:38.364387+00:00"
+  "_generated_at": "2026-04-27T15:53:15.597704+00:00"
 }
 </input>
 

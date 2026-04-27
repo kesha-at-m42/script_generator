@@ -6,7 +6,7 @@
         "condition": {
           "selected": "B"
         },
-        "description": "Student selected B: 2 bags of 4, factor reversal error",
+        "description": "Student selected option B: 2 bags with 4 items each, reversed the groups and items",
         "is_correct": false,
         "steps": [
           [
@@ -15,13 +15,13 @@
               "method": "update",
               "tangible_id": "equation_builder",
               "params": {
-                "highlight_first_number": true,
+                "highlight_slot": 0,
                 "description": "First number in expression highlights."
               }
             },
             {
               "type": "dialogue",
-              "text": "The first number tells you how many groups. Look at the first number in 4 times 2. How many groups do you need?"
+              "text": "Look at the first number in the expression. That tells you how many groups. How many groups do you need?"
             }
           ]
         ]
@@ -30,22 +30,22 @@
         "condition": {
           "selected": "C"
         },
-        "description": "Student selected C: 6 scattered items, not equal groups",
+        "description": "Student selected option C: scattered items with no grouping structure",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "visual_option_a",
+              "tangible_id": "visual_a",
               "params": {
                 "highlight_containers": true,
-                "description": "Bags in option A highlight."
+                "description": "Option A bags highlight to show grouping structure."
               }
             },
             {
               "type": "dialogue",
-              "text": "Multiplication shows equal groups. The expression tells you how many groups and how many in each. Which picture shows groups?"
+              "text": "Multiplication shows equal groups. You need to see groups with items inside them. Which picture shows that?"
             }
           ]
         ]
@@ -59,21 +59,21 @@
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "visual_option_a",
+              "tangible_id": "visual_a",
               "params": {
-                "event": "highlight_groups_sequentially",
+                "event": "highlight_containers_sequentially",
                 "status": "confirmed",
-                "description": "Option A bags highlight one at a time, then items in one bag highlight."
+                "description": "Option A bags highlight one by one while Guide counts."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. The expression 4 times 2 means 4 groups with 2 in each group. I count the groups: 1, 2, 3, 4 bags. Then I check inside one bag: 2 items. Option A shows 4 groups of 2. That's what the expression means."
+              "text": "Let me show you. The first number is groups. 4 times 2 means 4 groups. Count the bags in Option A: 1, 2, 3, 4. Four bags, four groups. The second number is in each group. Look inside one bag: 2 items. Every bag has 2. Option A shows 4 groups with 2 in each, exactly what 4 times 2 means."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:01:13.908432+00:00"
+  "_generated_at": "2026-04-27T15:54:35.330260+00:00"
 }

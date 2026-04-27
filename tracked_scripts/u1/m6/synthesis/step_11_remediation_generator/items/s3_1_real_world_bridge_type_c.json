@@ -6,21 +6,21 @@
         "condition": {
           "selected": "Count everything"
         },
-        "description": "Student selected 'Count everything': misses that comparison requires combining first",
+        "description": "Student selected 'Count everything': doesn't recognize the need to combine before comparing",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "word_problem_area_scenarios",
+              "tangible_id": "word_problem_scenarios",
               "params": {
                 "description": "Second scenario highlights: Which team scored more—the Red team alone, or the Blue and Green teams combined?"
               }
             },
             {
               "type": "dialogue",
-              "text": "Look at the second one. You need the Blue and Green totals together before you can compare to Red. What's the key step?"
+              "text": "Look at the second question. Red team is alone. Blue and Green need to be put together first. What do we do before we compare?"
             }
           ]
         ]
@@ -29,21 +29,21 @@
         "condition": {
           "selected": "Find the biggest number"
         },
-        "description": "Student selected 'Find the biggest number': misses that you must combine values before comparing",
+        "description": "Student selected 'Find the biggest number': focused on individual values rather than the combining pattern",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "word_problem_area_scenarios",
+              "tangible_id": "word_problem_scenarios",
               "params": {
                 "description": "First scenario highlights: Who has more stickers—just Maya, or Ben and Carlos put together?"
               }
             },
             {
               "type": "dialogue",
-              "text": "Read the first one carefully. You're comparing Maya alone to Ben and Carlos together. What do you need to do with Ben and Carlos first?"
+              "text": "The first question compares Maya alone to Ben and Carlos put together. We can't just find the biggest number. What do we do with Ben and Carlos first?"
             }
           ]
         ]
@@ -52,21 +52,21 @@
         "condition": {
           "selected": "Subtract twice"
         },
-        "description": "Student selected 'Subtract twice': confuses the operation needed",
+        "description": "Student selected 'Subtract twice': confused operation with the structure of combining then comparing",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "word_problem_area_scenarios",
+              "tangible_id": "word_problem_scenarios",
               "params": {
                 "description": "Third scenario highlights: Did I spend more on only snacks, or on drinks and dessert altogether?"
               }
             },
             {
               "type": "dialogue",
-              "text": "Look at the third one. You need drinks and dessert as one amount before comparing to snacks. That's adding, not subtracting. What's the pattern?"
+              "text": "Look at the third question. Drinks and dessert need to be put together. That's adding, not subtracting. Then we compare that total to snacks."
             }
           ]
         ]
@@ -80,21 +80,21 @@
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "word_problem_area_scenarios",
+              "tangible_id": "word_problem_scenarios",
               "params": {
-                "event": "demonstrate_pattern",
+                "event": "highlight_pattern",
                 "status": "confirmed",
-                "description": "Scenarios animate to show: combine the paired values first (Ben+Carlos, Blue+Green, drinks+dessert), then compare each sum to the single value."
+                "description": "All three scenarios highlight the shared pattern: one thing alone versus two things combined"
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. In each one, you combine two amounts into one total first. Then you compare that total to the other amount. The answer is: combine some things first, then compare. That's the pattern in all three."
+              "text": "Let me show you the pattern. In every question, one side stands alone and the other side has two things that need combining. You combine first, then you compare the two sides. The answer is combine some things first, then compare."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:01:57.498280+00:00"
+  "_generated_at": "2026-04-27T15:55:43.035050+00:00"
 }

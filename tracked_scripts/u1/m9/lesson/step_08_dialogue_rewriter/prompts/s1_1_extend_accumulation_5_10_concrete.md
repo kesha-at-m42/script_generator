@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:04:20.366933
+# Generated: 2026-04-27T10:59:08.239881
 ======================================================================
 
 ## API Parameters
@@ -968,7 +968,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "These are the multiples of 2 — all the products you get when you multiply by 2. Look at them together.",
+      "text": "These are the multiples of 2. All the products you get when you multiply by 2. Look at them together.",
       "context": "lesson"
     }
   ]

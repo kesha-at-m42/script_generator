@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:06:55.806067
+# Generated: 2026-04-27T11:01:29.521304
 ======================================================================
 
 ## API Parameters
@@ -948,8 +948,8 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "5 times 6 equals 30. You started with the equation and BUILT the answer. That's exactly what equations are for — they tell you how the numbers connect.",
-      "context": "lesson"
+      "text": "5 times 6 equals 30. You started with the equation and built the answer. That's exactly what equations are for — they tell you how the numbers connect.",
+      "context": "on_correct"
     }
   ]
 }

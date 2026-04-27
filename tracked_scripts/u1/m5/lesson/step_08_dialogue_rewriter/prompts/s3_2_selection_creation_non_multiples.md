@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:04:21.699556
+# Generated: 2026-04-27T11:01:11.195570
 ======================================================================
 
 ## API Parameters
@@ -961,7 +961,7 @@ Cacheable: Yes
     },
     {
       "text": "You chose the right scale and created the graph. Every bar lands exactly where it should.",
-      "context": "on_correct"
+      "context": "lesson"
     }
   ]
 }

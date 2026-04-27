@@ -4,18 +4,18 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder",
+      "tangible_id": "equation_builder_4x10",
       "tangible_type": "equation_builder",
       "params": {
         "mode": "building",
         "template": [
           "__",
-          "x",
+          "×",
           "__",
           "=",
           "__"
         ],
-        "palette": [
+        "tile_palette": [
           4,
           5,
           10,
@@ -25,7 +25,7 @@
           40,
           50
         ],
-        "description": "Equation Builder appears. Three empty slots: [___] × [___] = [___]. Tile palette shows 4, 5, 10, 14, 20, 30, 40, 50."
+        "description": "Equation Builder appears with three empty slots. Template: [__] × [__] = [__]. Tile palette shows: 4, 5, 10, 14, 20, 30, 40, 50."
       }
     },
     {
@@ -36,29 +36,26 @@
       "type": "prompt",
       "text": "Build the equation for 4 groups of 10.",
       "tool": "place_tile",
-      "target": "equation_builder",
-      "variable_answer": false,
+      "target": "equation_builder_4x10",
       "validator": [
         {
           "condition_id": "correct",
           "condition": {
-            "placed": {
-              "groups": 4,
-              "items": 10,
-              "total": 40
-            }
+            "groups": 4,
+            "items": 10,
+            "total": 40
           },
-          "description": "Student placed 4 × 10 = 40, correct",
+          "description": "Student placed 4, 10, 40 correctly",
           "is_correct": true,
           "beats": [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equation_builder",
+              "tangible_id": "equation_builder_4x10",
               "params": {
                 "event": "confirm_equation",
                 "status": "confirmed",
-                "description": "Equation 4 × 10 = 40 confirms."
+                "description": "Equation confirms: 4 × 10 = 40."
               }
             },
             {
@@ -73,13 +70,13 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equation_builder",
-          "description": "Equation Builder showing 4 × 10 = 40 confirmed. Tile palette: 4, 5, 10, 14, 20, 30, 40, 50.",
+          "tangible_id": "equation_builder_4x10",
+          "description": "Equation Builder showing confirmed equation: 4 × 10 = 40. All three slots filled.",
           "tangible_type": "equation_builder",
           "mode": "building",
           "template": [
             "__",
-            "x",
+            "×",
             "__",
             "=",
             "__"
@@ -88,5 +85,5 @@
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:00:41.132144+00:00"
+  "_generated_at": "2026-04-27T15:54:03.521518+00:00"
 }

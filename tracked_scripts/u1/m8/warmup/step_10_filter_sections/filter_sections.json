@@ -16,9 +16,10 @@
             "mode": "reading",
             "container_count": 3,
             "items_per_container": 5,
-            "context": "bags",
+            "container_type": "bags",
+            "item_type": "items",
             "position": "left",
-            "description": "Left visual: 3 bags, 5 items in each bag. Equal groups arrangement."
+            "description": "Left side: 3 bags, 5 items in each bag. Equal groups visual appears."
           },
           "id": "s1_1_judgment_noticing_task_b0"
         },
@@ -31,9 +32,10 @@
             "mode": "reading",
             "container_count": 5,
             "items_per_container": 3,
-            "context": "bags",
+            "container_type": "bags",
+            "item_type": "items",
             "position": "right",
-            "description": "Right visual: 5 bags, 3 items in each bag. Equal groups arrangement."
+            "description": "Right side: 5 bags, 3 items in each bag. Equal groups visual appears."
           },
           "id": "s1_1_judgment_noticing_task_b1"
         },
@@ -63,7 +65,7 @@
               "beats": [
                 {
                   "type": "dialogue",
-                  "text": "Right. The left has 3 bags. The right has 5 bags.",
+                  "text": "Right. Different number of bags. The left has 3 bags. The right has 5 bags.",
                   "id": "s1_1_judgment_noticing_task_b3_v0_b0"
                 }
               ]
@@ -76,29 +78,25 @@
           "elements": [
             {
               "tangible_id": "equal_groups_left",
-              "description": "Left visual: 3 bags, 5 items in each bag.",
+              "description": "Left side: 3 bags, 5 items in each bag.",
               "tangible_type": "equal_groups",
               "mode": "reading",
               "container_count": 3,
-              "items_per_container": 5,
-              "context": "bags",
-              "position": "left"
+              "items_per_container": 5
             },
             {
               "tangible_id": "equal_groups_right",
-              "description": "Right visual: 5 bags, 3 items in each bag.",
+              "description": "Right side: 5 bags, 3 items in each bag.",
               "tangible_type": "equal_groups",
               "mode": "reading",
               "container_count": 5,
-              "items_per_container": 3,
-              "context": "bags",
-              "position": "right"
+              "items_per_container": 3
             }
           ],
           "id": "s1_1_judgment_noticing_task_b4"
         }
       ],
-      "_generated_at": "2026-04-20T16:59:54.885712+00:00"
+      "_generated_at": "2026-04-27T15:53:06.179714+00:00"
     },
     {
       "id": "s2_1_personalization_recognition",
@@ -112,18 +110,18 @@
             "mode": "reading",
             "container_count": 4,
             "items_per_container": 2,
-            "context": "boxes_with_items",
-            "description": "4 boxes appear, each containing 2 items. Concrete context visualization."
+            "container_type": "box",
+            "description": "Equal groups display appears. 4 boxes, 2 items per box. Reading mode."
           },
           "id": "s2_1_personalization_recognition_b0"
         },
         {
           "type": "scene",
           "method": "add",
-          "tangible_id": "mc_options",
+          "tangible_id": "multiple_choice_expressions",
           "tangible_type": "multiple_choice",
           "params": {
-            "description": "Multiple choice options panel appears with four equation choices."
+            "description": "Multiple choice options panel appears below equal groups: 4 × 2, 2 × 4, 4 + 2, 2 + 4."
           },
           "id": "s2_1_personalization_recognition_b1"
         },
@@ -166,16 +164,16 @@
           "elements": [
             {
               "tangible_id": "equal_groups_boxes",
-              "description": "4 boxes, each containing 2 items. Concrete context visualization.",
+              "description": "Equal groups display. 4 boxes, 2 items per box. Reading mode.",
               "tangible_type": "equal_groups",
               "mode": "reading",
               "container_count": 4,
               "items_per_container": 2,
-              "context": "boxes_with_items"
+              "container_type": "box"
             },
             {
-              "tangible_id": "mc_options",
-              "description": "Multiple choice options panel with four equation choices.",
+              "tangible_id": "multiple_choice_expressions",
+              "description": "Multiple choice options: 4 × 2, 2 × 4, 4 + 2, 2 + 4.",
               "tangible_type": "multiple_choice"
             }
           ],
@@ -183,10 +181,10 @@
         },
         {
           "type": "scene",
-          "method": "update",
-          "tangible_id": "mc_options",
+          "method": "hide",
+          "tangible_id": "multiple_choice_expressions",
           "params": {
-            "description": "Multiple choice options panel clears. Expression 4 × 2 remains visible."
+            "description": "Multiple choice panel hides, expression 4 × 2 remains visible."
           },
           "id": "s2_1_personalization_recognition_b5"
         },
@@ -200,18 +198,18 @@
           "elements": [
             {
               "tangible_id": "equal_groups_boxes",
-              "description": "4 boxes, each containing 2 items. Expression 4 × 2 visible from previous step.",
+              "description": "Equal groups display remains. 4 boxes, 2 items per box. Expression 4 × 2 visible.",
               "tangible_type": "equal_groups",
               "mode": "reading",
               "container_count": 4,
               "items_per_container": 2,
-              "context": "boxes_with_items"
+              "container_type": "box"
             }
           ],
           "id": "s2_1_personalization_recognition_b7"
         }
       ],
-      "_generated_at": "2026-04-20T17:00:06.941176+00:00"
+      "_generated_at": "2026-04-27T15:53:22.048212+00:00"
     }
   ]
 }

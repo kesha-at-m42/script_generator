@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:04:24.470233
+# Generated: 2026-04-27T11:01:14.337836
 ======================================================================
 
 ## API Parameters
@@ -960,7 +960,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "Right at 25, halfway between 20 and 30.",
+      "text": "Right at 25—halfway between 20 and 30.",
       "context": "on_correct"
     },
     {
@@ -968,7 +968,7 @@ Cacheable: Yes
       "context": "on_correct"
     },
     {
-      "text": "55, halfway between 50 and 60.",
+      "text": "55—halfway between 50 and 60.",
       "context": "on_correct"
     },
     {

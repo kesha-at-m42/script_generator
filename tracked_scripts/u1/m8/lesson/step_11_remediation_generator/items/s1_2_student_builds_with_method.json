@@ -4,9 +4,33 @@
     [
       {
         "condition": {
-          "selected": "6 × 3"
+          "selected": 6
         },
-        "description": "Student selected 6 × 3: reversed the numbers",
+        "description": "Student selected 6, confusing items per group with number of groups",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "highlight_containers": true,
+                "description": "Bags highlight to draw attention to containers as groups."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The first number tells us how many groups. Each bag is one group. Count the bags."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 9
+        },
+        "description": "Student selected 9, possibly adding 3 + 6 instead of identifying groups",
         "is_correct": false,
         "steps": [
           [
@@ -22,16 +46,16 @@
             },
             {
               "type": "dialogue",
-              "text": "Count the bags first. How many bags do you see? That number goes in the first slot."
+              "text": "We're not adding yet. Count how many bags you see. Each bag is one group."
             }
           ]
         ]
       },
       {
         "condition": {
-          "selected": "3 + 6"
+          "selected": 18
         },
-        "description": "Student selected 3 + 6: used addition instead of multiplication",
+        "description": "Student selected 18, the total count of items instead of groups",
         "is_correct": false,
         "steps": [
           [
@@ -40,39 +64,13 @@
               "method": "update",
               "tangible_id": "equal_groups_bags",
               "params": {
-                "highlight_structure": true,
-                "description": "Equal groups structure highlights: bags and items within."
+                "highlight_containers": true,
+                "description": "Bags highlight to emphasize groups."
               }
             },
             {
               "type": "dialogue",
-              "text": "These are equal groups. We use multiplication, not addition. Look for the times symbol between the numbers."
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "selected": "6 × 6"
-        },
-        "description": "Student selected 6 × 6: counted items instead of recognizing group structure",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "equal_groups_bags",
-              "params": {
-                "event": "focus_container",
-                "status": "confirmed",
-                "container_index": 0,
-                "description": "First bag highlights to show it is one group."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "Each bag is one group. Count how many bags there are. Then count how many items are in one bag."
+              "text": "You counted all the items. The question asks for groups. Count the bags, not the items inside."
             }
           ]
         ]
@@ -90,17 +88,219 @@
               "params": {
                 "event": "highlight_containers_sequentially",
                 "status": "confirmed",
-                "description": "Bags highlight sequentially as Guide counts."
+                "description": "Bags highlight one by one as guide counts."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. I count the bags: 1, 2, 3. Three bags. That is 3 groups, so the first number is 3. Now I look inside one bag and count: 1, 2, 3, 4, 5, 6. Six items in each bag. That is 6 in each group, so the second number is 6. The expression is 3 times 6."
+              "text": "Let me show you. I count the bags: 1, 2, 3. Three bags means 3 groups. The number of groups is always how many containers you see."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": 3
+        },
+        "description": "Student selected 3, confusing number of groups with items per group",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "event": "highlight_items_in_one_container",
+                "status": "confirmed",
+                "description": "Items in one bag highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look inside one bag. Count the items you see in that bag. How many are there?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 9
+        },
+        "description": "Student selected 9, possibly adding 3 + 6 instead of counting items per group",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "event": "focus_container",
+                "status": "confirmed",
+                "container_index": 0,
+                "description": "First bag focuses with items inside highlighted."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "We're asking about one group. Pick any bag and count just the items inside that bag."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 18
+        },
+        "description": "Student selected 18, counting all items instead of items in one group",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "event": "focus_container",
+                "status": "confirmed",
+                "container_index": 0,
+                "description": "One bag highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted everything. The question asks how many in each group. Look at just one bag and count what's inside."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "event": "focus_container",
+                "status": "confirmed",
+                "container_index": 0,
+                "description": "First bag highlights, items inside pulse one by one."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how to find it. I look inside one bag and count: 1, 2, 3, 4, 5, 6. Six items in this bag. Every bag has the same amount, so each group has 6."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": "6 × 3"
+        },
+        "description": "Student selected 6 × 3, reversing the order of groups and items per group",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "event": "highlight_containers_sequentially",
+                "status": "confirmed",
+                "description": "Bags highlight one by one."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The first number is groups. Count the bags. The second number is in each group. Count inside one bag."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "3 + 6"
+        },
+        "description": "Student selected 3 + 6, using addition instead of multiplication",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder",
+              "params": {
+                "highlight_symbol": true,
+                "description": "Multiplication symbol highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "We need multiplication, not addition. Equal groups use the times symbol. How many groups times how many in each?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "6 × 6"
+        },
+        "description": "Student selected 6 × 6, repeating one value instead of using both distinct values",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "event": "highlight_containers_then_items",
+                "status": "confirmed",
+                "description": "Bags highlight, then items in one bag highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The two numbers are different. Count the bags for the first number. Count inside one bag for the second number."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "event": "demonstrate_counting_sequence",
+                "status": "confirmed",
+                "description": "Bags highlight sequentially, then items in one bag highlight sequentially."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me walk through it. I count the bags: 1, 2, 3. That's my first number. Then I count inside one bag: 1, 2, 3, 4, 5, 6. That's my second number. The expression is 3 times 6."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:05:47.950158+00:00"
+  "_generated_at": "2026-04-27T16:00:46.100313+00:00"
 }

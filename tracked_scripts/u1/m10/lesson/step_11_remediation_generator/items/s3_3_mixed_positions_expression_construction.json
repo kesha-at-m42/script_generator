@@ -1,0 +1,75 @@
+{
+  "id": "s3_3_mixed_positions_expression_construction",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "total": 30
+            },
+            {
+              "items_per_container_unequal": true
+            }
+          ]
+        },
+        "description": "Student reached total 30 but groups are not equal",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "You hit 30! But check: are the groups equal? Multiplication needs equal groups. Adjust so each group has the same number."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "items_per_container_equal": true
+            },
+            {
+              "total_not": 30
+            }
+          ]
+        },
+        "description": "Student built equal groups but total is not 30",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Equal groups, great! But the total isn't 30 yet. Add more to each group (or remove some) and watch the total."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups",
+              "params": {
+                "event": "model_construction",
+                "status": "confirmed",
+                "description": "System demonstrates adding items to each group sequentially. Each group gets 6 items. Running total increments: 6, 12, 18, 24, 30. All groups highlight to show equality."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. 5 groups need to make 30 total. I add 6 to each group: 6, 12, 18, 24, 30. Each group has the same amount, 6, and the total is 30. 5 times 6 equals 30."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-27T16:03:48.063799+00:00"
+}

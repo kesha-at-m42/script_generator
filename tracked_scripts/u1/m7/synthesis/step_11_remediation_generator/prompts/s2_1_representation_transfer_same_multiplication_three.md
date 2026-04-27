@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:01:14.439229
+# Generated: 2026-04-27T10:54:59.355087
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1860,9 +1864,9 @@ Cacheable: Yes
         "mode": "reading",
         "container_count": 3,
         "items_per_container": 5,
-        "container_style": "bags",
+        "container_style": "bag",
         "label": "Bags",
-        "description": "3 bags appear on the left. Each bag contains 5 items. Label: Bags."
+        "description": "Left panel: 3 bags, each containing 5 items. Label: Bags"
       },
       "id": "s2_1_representation_transfer_same_multiplication_three_b0"
     },
@@ -1875,9 +1879,9 @@ Cacheable: Yes
         "mode": "reading",
         "container_count": 3,
         "items_per_container": 5,
-        "container_style": "circles",
+        "container_style": "circle",
         "label": "Circles",
-        "description": "3 circles appear in the center. Each circle contains 5 dots. Label: Circles."
+        "description": "Center panel: 3 circles, each containing 5 dots. Label: Circles"
       },
       "id": "s2_1_representation_transfer_same_multiplication_three_b1"
     },
@@ -1890,12 +1894,14 @@ Cacheable: Yes
         "mode": "reading",
         "orientation": "vertical",
         "categories": [
-          "Graph"
+          "Symbol1",
+          "Symbol2",
+          "Symbol3"
         ],
         "scale": 5,
         "symbol_count": 3,
         "label": "Graph",
-        "description": "Picture graph appears on the right showing 3 symbols at scale of 5. Key: Each symbol = 5. Label: Graph."
+        "description": "Right panel: Picture graph with 3 symbols at scale of 5. Key: Each symbol = 5. Label: Graph"
       },
       "id": "s2_1_representation_transfer_same_multiplication_three_b2"
     },
@@ -1925,8 +1931,13 @@ Cacheable: Yes
           "beats": [
             {
               "type": "dialogue",
-              "text": "That's right. All three show 3 groups of 5. Bags, circles, graph symbols, different containers, same structure inside. That's what multiplication is. It describes the same pattern no matter how the groups look. 3 groups of 5 is always 3 × 5, whether it's bags on a shelf, dots in circles, or symbols on a graph.",
+              "text": "Right. All three show 3 groups of 5. Bags, circles, graph symbols. Different containers, same structure inside.",
               "id": "s2_1_representation_transfer_same_multiplication_three_b4_v0_b0"
+            },
+            {
+              "type": "dialogue",
+              "text": "That's what multiplication IS. It describes the same pattern no matter how the groups look. 3 groups of 5 is always 3 × 5. Whether it's bags on a shelf, dots in circles, or symbols on a graph.",
+              "id": "s2_1_representation_transfer_same_multiplication_three_b4_v0_b1"
             }
           ]
         }
@@ -1938,38 +1949,36 @@ Cacheable: Yes
       "elements": [
         {
           "tangible_id": "equal_groups_bags",
-          "description": "3 bags on the left, each containing 5 items. Label: Bags.",
+          "description": "Left panel: 3 bags, each containing 5 items. Label: Bags",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 3,
           "items_per_container": 5,
-          "container_style": "bags"
+          "container_style": "bag"
         },
         {
           "tangible_id": "equal_groups_circles",
-          "description": "3 circles in the center, each containing 5 dots. Label: Circles.",
+          "description": "Center panel: 3 circles, each containing 5 dots. Label: Circles",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 3,
           "items_per_container": 5,
-          "container_style": "circles"
+          "container_style": "circle"
         },
         {
           "tangible_id": "picture_graph_symbols",
-          "description": "Picture graph on the right showing 3 symbols at scale of 5. Key: Each symbol = 5. Label: Graph.",
+          "description": "Right panel: Picture graph with 3 symbols at scale of 5. Key: Each symbol = 5. Label: Graph",
           "tangible_type": "picture_graph",
           "mode": "reading",
           "orientation": "vertical",
-          "categories": [
-            "Graph"
-          ],
-          "scale": 5
+          "scale": 5,
+          "symbol_count": 3
         }
       ],
       "id": "s2_1_representation_transfer_same_multiplication_three_b5"
     }
   ],
-  "_generated_at": "2026-04-20T17:00:16.555139+00:00"
+  "_generated_at": "2026-04-27T15:53:48.029245+00:00"
 }
 </input>
 

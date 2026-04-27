@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:00:58.014197
+# Generated: 2026-04-27T10:54:06.294141
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -820,16 +836,17 @@ Cacheable: Yes
   "options": "☐ 13 ☐ 35 ☐ 40 ☐ 42",
   "correct_answer": "13 and 42",
   "on_correct": "\"13 ends in 3 and 42 ends in 2 — neither fits the 5s pattern, so they can't be right. That leaves 35 and 40. Both end in 0 or 5, so the pattern alone can't tell you which one. That's where skip-counting finishes the job.\"",
-  "on_incorrect": "(missed one) \"Check each ending digit. 5s products always end in 0 or 5. Which answers DON'T end in 0 or 5?\"",
-  "on_incorrect_2": "(selected 35 or 40) \"35 ends in 5 and 40 ends in 0 — both fit the 5s pattern. You can't eliminate those. Look for answers that DON'T end in 0 or 5.\"",
+  "on_incorrect_missed_one": "\"Check each ending digit. 5s products always end in 0 or 5. Which answers DON'T end in 0 or 5?\"",
+  "on_incorrect_selected_35_or_40": "\"35 ends in 5 and 40 ends in 0 — both fit the 5s pattern. You can't eliminate those. Look for answers that DON'T end in 0 or 5.\"",
   "design_note": "This is the generalization moment — patterns as a self-monitoring tool, not just recognition. The \"does 42 fit?\" question is NOT computation (student doesn't need to find 8×5). It's PATTERN APPLICATION to error-checking. This is synthesis-level cognitive work: applying a discovered principle to a new purpose (quality control). The three strips displayed together let students see the patterns as a unified toolkit.",
-  "_generated_at": "2026-04-20T16:59:54.550226+00:00",
+  "_generated_at": "2026-04-27T15:52:50.278361+00:00",
   "workspace_specs": {
     "toys": [],
     "tools": [
       "multi_select"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_0_opening_frame\n# Section Summary: s1_0_opening_frame\n\n**VISUAL STATE:** No tangible visuals or data displays are present on screen at section end—this is a transition frame with no graphs, charts, or interactive elements.\n\n**CONTENT:** The section introduces a bridging concept, referencing prior practice with multiplication equations involving factors 2, 5, and 10, and signals an upcoming connection between these previously learned skills and new material.\n\n**STUDENT ACTION:** No interaction required; this is a dialogue-driven transition frame that sets context for subsequent instruction.\n\n---\n\n## s1_1_graph_scale_connection_type_c\n# Section Summary: s1_1_graph_scale_connection_type_c\n\n**VISUAL STATE:** Three horizontal picture graphs are displayed side-by-side, each in reading mode with a single category labeled \"Category\" and 3 symbols. Graph 1 has scale 2 (key: each symbol = 2 votes); Graph 2 has scale 5 (key: each symbol = 5 votes); Graph 3 has scale 10 (key: each symbol = 10 votes). Below each graph is a corresponding equation: 3 × 2 = 6, 3 × 5 = 15, and 3 × 10 = 30.\n\n**CONTENT:** Students learned the connection between picture graph scales and multiplication. The lesson demonstrated that identical graph shapes with the same number of symbols (3) produce different products when the scale changes, because the scale value becomes the multiplier. Vocabulary introduced: \"scale\" as the value each symbol represents.\n\n**STUDENT ACTION:** Students observed and read three picture graphs with different scales, then analyzed how changing the scale (2, 5, 10) while keeping symbol count constant (3) changes the multiplication equation and product (6, 15, 30). No interactive input was required; this was a guided observation and explanation section."
 }
 </input>
 

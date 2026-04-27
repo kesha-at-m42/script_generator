@@ -1,6 +1,6 @@
 # UX/Script Terminology Drift Report
 
-Generated: 2026-04-20 12:00  
+Generated: 2026-04-27 10:53  
 Source: `check_glossary_drift.json`  
 Scope: Unit 1, Module 10
 
@@ -14,7 +14,9 @@ This does not block generation.
 Phrases in `visual` fields that `toy_spec_loader` couldn't match to any spec file.
 These likely represent concepts not yet in the glossary or toy_specs directory.
 
-_None found._
+| Phrase | Section | Snippet |
+| ---|---|--- |
+| `Construction area starts empty` | `s1_3_solve_1st_factor_unknown` | ...5 equals 15 total." Construction area starts empty. \+/- group control availa |
 
 ---
 
@@ -66,5 +68,7 @@ _None found._
 
 ### `s1_3_solve_1st_factor_unknown`
 
+- **Unresolved:** `Construction area starts empty` in `visual`
+  > ...5 equals 15 total." Construction area starts empty. \+/- group control available (each new group pre-set to 5 items per the equati...
 - **Deprecated alias:** `template` → `Toys` (in `visual`)
   > ...der with pre-filled template: `☐ × 5 = 15`. Language prompt: "\*\*\_ stacks of 5 equals 15 total." Construct...

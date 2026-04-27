@@ -10,15 +10,17 @@
         "mode": "reading",
         "container_count": 9,
         "items_per_container": 5,
-        "description": "9 bags appear on screen, each containing 5 items."
+        "item_style": "circles",
+        "description": "Equal groups visualization showing 9 bags, each containing 5 circles."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder",
+      "tangible_id": "equation_builder_9x5",
       "tangible_type": "equation_builder",
       "params": {
+        "mode": "building",
         "template": [
           "__",
           "×",
@@ -26,7 +28,16 @@
           "=",
           "__"
         ],
-        "tile_palette": [
+        "description": "Equation builder with three empty slots: [__] × [__] = [__]. All slots are blank."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "tile_palette_9x5",
+      "tangible_type": "tile_palette",
+      "params": {
+        "tiles": [
           5,
           9,
           10,
@@ -36,7 +47,7 @@
           90,
           95
         ],
-        "description": "Equation builder appears with three empty slots: blank times blank equals blank. Tile palette shows 5, 9, 10, 14, 45, 50, 90, 95."
+        "description": "Tile palette displays eight number options: 5, 9, 10, 14, 45, 50, 90, 95."
       }
     },
     {
@@ -44,70 +55,37 @@
       "text": "Last one. Look at the bags and build the whole equation."
     },
     {
-      "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "equal_groups_bags",
-          "description": "9 bags, each with 5 items inside.",
-          "tangible_type": "equal_groups",
-          "mode": "reading",
-          "container_count": 9,
-          "items_per_container": 5
-        },
-        {
-          "tangible_id": "equation_builder",
-          "description": "Equation builder with three empty slots and tile palette available.",
-          "tangible_type": "equation_builder",
-          "template": [
-            "__",
-            "×",
-            "__",
-            "=",
-            "__"
-          ],
-          "tile_palette": [
-            5,
-            9,
-            10,
-            14,
-            45,
-            50,
-            90,
-            95
-          ]
-        }
-      ]
-    },
-    {
       "type": "prompt",
       "text": "Build the equation for this picture.",
       "tool": "place_tile",
-      "target": "equation_builder",
+      "target": "equation_builder_9x5",
       "variable_answer": false,
       "validator": [
         {
           "condition_id": "correct",
           "condition": {
-            "groups": 9,
-            "items": 5,
-            "total": 45
+            "placed": {
+              "groups": 9,
+              "items": 5,
+              "total": 45
+            }
           },
-          "description": "Student placed 9, 5, and 45 in correct slots",
+          "description": "Student correctly placed 9 × 5 = 45",
           "is_correct": true,
           "beats": [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equation_builder",
+              "tangible_id": "equation_builder_9x5",
               "params": {
-                "event": "confirm_placement",
+                "event": "pulse_equation",
                 "status": "confirmed",
-                "description": "Placed tiles lock into slots confirming the complete equation."
+                "description": "Equation 9 × 5 = 45 pulses to confirm correctness."
               }
             },
             {
               "type": "dialogue",
-              "text": "9 times 5 equals 45. Ends in 5, matches the 5s pattern. You built the complete equation."
+              "text": "9 times 5 equals 45. Ends in 5 — matches the 5s pattern. You built the complete equation."
             }
           ]
         }
@@ -118,36 +96,32 @@
       "elements": [
         {
           "tangible_id": "equal_groups_bags",
-          "description": "9 bags, each with 5 items inside.",
+          "description": "Equal groups visualization: 9 bags, each with 5 circles.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 9,
           "items_per_container": 5
         },
         {
-          "tangible_id": "equation_builder",
-          "description": "Equation builder showing 9 × 5 = 45 with all slots filled.",
+          "tangible_id": "equation_builder_9x5",
+          "description": "Equation builder showing completed equation 9 × 5 = 45 with all three slots filled.",
           "tangible_type": "equation_builder",
+          "mode": "building",
           "template": [
             "9",
             "×",
             "5",
             "=",
             "45"
-          ],
-          "tile_palette": [
-            5,
-            9,
-            10,
-            14,
-            45,
-            50,
-            90,
-            95
           ]
+        },
+        {
+          "tangible_id": "tile_palette_9x5",
+          "description": "Tile palette with options 5, 9, 10, 14, 45, 50, 90, 95 (now inactive).",
+          "tangible_type": "tile_palette"
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:04:19.980476+00:00"
+  "_generated_at": "2026-04-27T15:59:07.796658+00:00"
 }

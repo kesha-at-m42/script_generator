@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:04:36.452170
+# Generated: 2026-04-27T10:59:29.251125
 ======================================================================
 
 ## API Parameters
@@ -952,15 +952,15 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "15...",
+      "text": "15.",
       "context": "lesson"
     },
     {
-      "text": "20...",
+      "text": "20.",
       "context": "lesson"
     },
     {
-      "text": "25...",
+      "text": "25.",
       "context": "lesson"
     },
     {

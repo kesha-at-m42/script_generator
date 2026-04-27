@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:04:42.686865
+# Generated: 2026-04-27T10:59:39.105135
 ======================================================================
 
 ## API Parameters
@@ -944,15 +944,11 @@ Cacheable: Yes
   "id": "s3_1_10s_discovery_computation_application_new",
   "dialogues": [
     {
-      "text": "One more family — 10s. Here are the multiples of 10: 10, 20, 30, 40, 50... all the way to 100. See the pattern?",
+      "text": "One more family. 10s. Here are the multiples of 10: 10, 20, 30, 40, 50 all the way to 100. See the pattern?",
       "context": "lesson"
     },
     {
-      "text": "The products ALL end in zero.",
-      "context": "lesson"
-    },
-    {
-      "text": "See the factor multiplied by 10 with the product? Multiplying by 10 just puts a zero at the end of the other factor. 4 times 10? 4 with a zero — 40.",
+      "text": "The products ALL end in zero. See the factor multiplied by 10 with the product? Multiplying by 10 just puts a zero at the end of the other factor. 4 times 10? 4 with a zero. 40.",
       "context": "lesson"
     },
     {
@@ -960,7 +956,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "7 times 10 equals 70. 7 with a zero — the pattern works.",
+      "text": "7 times 10 equals 70. 7 with a zero. The pattern works.",
       "context": "on_correct"
     }
   ]

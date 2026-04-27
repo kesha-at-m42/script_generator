@@ -9,69 +9,22 @@
               "selected": "A"
             },
             {
-              "not": {
-                "selected": "B"
-              }
-            },
-            {
-              "not": {
-                "selected": "C"
-              }
-            }
-          ]
-        },
-        "description": "Branch 2: Student selected only A (under-selecting, correct but incomplete)",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "scenario_images",
-              "params": {
-                "description": "Image A pulses to confirm selection."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "Money does use 10s. Look at the other images. Are there any others that group things by 10?"
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "and": [
-            {
               "selected": "B"
             },
             {
               "not": {
-                "selected": "A"
-              }
-            },
-            {
-              "not": {
                 "selected": "C"
               }
             }
           ]
         },
-        "description": "Branch 2: Student selected only B (under-selecting, correct but incomplete)",
+        "description": "Branch 2: Student selected only A and B (correct answers, but checking completeness)",
         "is_correct": false,
         "steps": [
           [
             {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "scenario_images",
-              "params": {
-                "description": "Image B pulses to confirm selection."
-              }
-            },
-            {
               "type": "dialogue",
-              "text": "Measuring does use 10s. Look at the other images. Are there any others that group things by 10?"
+              "text": "You selected situations that use 10s. Look at all three images again. Are there any others that fit?"
             }
           ]
         ]
@@ -91,21 +44,29 @@
             }
           ]
         },
-        "description": "Branch 3: Student selected only C or nothing (all-wrong)",
+        "description": "Branch 3: Student selected only C or nothing (no correct answers)",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "scenario_images",
+              "tangible_id": "image_money",
               "params": {
-                "description": "Images A and B dim slightly to draw attention."
+                "description": "Image A highlights slightly."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "image_ruler",
+              "params": {
+                "description": "Image B highlights slightly."
               }
             },
             {
               "type": "dialogue",
-              "text": "Scale of 10 means counting in groups of 10. Look at the money and the ruler. What pattern do you see on both?"
+              "text": "Think about where you count by 10s in real life. Money comes in tens. Rulers have marks at 10, 20, 30. Which images show that?"
             }
           ]
         ]
@@ -128,21 +89,21 @@
             }
           ]
         },
-        "description": "Branch 4: Student selected C plus at least one correct answer (mixed correct and incorrect)",
+        "description": "Branch 4: Student selected C plus one or both correct answers (mixed correct and incorrect)",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "scenario_images",
+              "tangible_id": "image_counting_ones",
               "params": {
-                "description": "Images A and B highlight, C dims."
+                "description": "Image C dims slightly."
               }
             },
             {
               "type": "dialogue",
-              "text": "You found situations that use 10s. But counting one by one doesn't use groups of 10. Which images show counting by 10s?"
+              "text": "You found situations with 10s. But counting one by one is not using a scale of 10. Look at C again. Does it show groups of 10?"
             }
           ]
         ]
@@ -156,21 +117,31 @@
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "scenario_images",
+              "tangible_id": "image_money",
               "params": {
-                "event": "highlight_answers",
+                "event": "highlight_answer",
                 "status": "confirmed",
-                "description": "Images A and B highlight. Annotation appears: '10, 20, 30...' over both."
+                "description": "Image A highlights and pulses to confirm."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "image_ruler",
+              "params": {
+                "event": "highlight_answer",
+                "status": "confirmed",
+                "description": "Image B highlights and pulses to confirm."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. Look at image A: dollar bills in stacks of 10. Look at image B: the ruler has marks at 10, 20, 30. Both count by 10s. Image C counts one by one, not in groups of 10. The answers are A and B. When you see bigger numbers organized in groups of 10, scale of 10 makes counting faster."
+              "text": "Let me show you. Image A shows money. Bills come in tens, so we count by 10s. Image B shows a ruler. Rulers have marks at 10, 20, 30. Both use a scale of 10. Image C counts one by one, not by 10s. The answers are A and B."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T16:59:27.346158+00:00"
+  "_generated_at": "2026-04-27T15:55:18.437174+00:00"
 }

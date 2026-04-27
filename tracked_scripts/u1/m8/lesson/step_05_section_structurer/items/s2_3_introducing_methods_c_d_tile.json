@@ -1,6 +1,5 @@
 {
   "id": "s2_3_introducing_methods_c_d_tile",
-  "type": "transition",
   "beats": [
     {
       "type": "scene",
@@ -9,16 +8,17 @@
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
+        "separation": "full",
+        "context": "boxes_items",
         "container_count": 5,
         "items_per_container": 2,
-        "container_type": "boxes",
-        "description": "5 boxes with 2 items each appear on screen."
+        "description": "Equal groups visualization appears. 5 boxes with 2 items each. Concrete context showing boxes containing items."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder_demo",
+      "tangible_id": "equation_builder",
       "tangible_type": "equation_builder",
       "params": {
         "template": [
@@ -26,19 +26,11 @@
           "×",
           "__"
         ],
-        "tile_palette": [
+        "tile_palette_range": [
           1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
           10
         ],
-        "description": "Equation builder appears with two blank slots and multiplication symbol. Tile palette shows tiles 1 through 10."
+        "description": "Equation builder appears with two blank slots and multiplication symbol. Tile palette showing tiles 1 through 10 visible below."
       }
     },
     {
@@ -50,32 +42,25 @@
       "elements": [
         {
           "tangible_id": "equal_groups_boxes",
-          "description": "5 boxes with 2 items each.",
+          "description": "Equal groups visualization. 5 boxes with 2 items each. Reading mode, full separation, boxes_items context.",
           "tangible_type": "equal_groups",
           "mode": "reading",
+          "separation": "full",
+          "context": "boxes_items",
           "container_count": 5,
-          "items_per_container": 2,
-          "container_type": "boxes"
+          "items_per_container": 2
         },
         {
-          "tangible_id": "equation_builder_demo",
-          "description": "Equation builder with two blank slots and tile palette showing tiles 1 through 10.",
+          "tangible_id": "equation_builder",
+          "description": "Equation builder with two blank slots. Tile palette 1-10 visible.",
           "tangible_type": "equation_builder",
           "template": [
             "__",
             "×",
             "__"
           ],
-          "tile_palette": [
+          "tile_palette_range": [
             1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
             10
           ]
         }
@@ -90,32 +75,25 @@
       "elements": [
         {
           "tangible_id": "equal_groups_boxes",
-          "description": "5 boxes with 2 items each.",
+          "description": "Equal groups visualization. 5 boxes with 2 items each. Reading mode, full separation, boxes_items context.",
           "tangible_type": "equal_groups",
           "mode": "reading",
+          "separation": "full",
+          "context": "boxes_items",
           "container_count": 5,
-          "items_per_container": 2,
-          "container_type": "boxes"
+          "items_per_container": 2
         },
         {
-          "tangible_id": "equation_builder_demo",
-          "description": "Equation builder with two blank slots and tile palette.",
+          "tangible_id": "equation_builder",
+          "description": "Equation builder with two blank slots. Tile palette 1-10 visible.",
           "tangible_type": "equation_builder",
           "template": [
             "__",
             "×",
             "__"
           ],
-          "tile_palette": [
+          "tile_palette_range": [
             1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
             10
           ]
         }
@@ -128,7 +106,7 @@
       "params": {
         "event": "highlight_containers_sequentially",
         "status": "confirmed",
-        "description": "Boxes highlight sequentially."
+        "description": "Boxes highlight one by one in sequence."
       }
     },
     {
@@ -142,24 +120,26 @@
     {
       "type": "scene",
       "method": "animate",
-      "tangible_id": "equation_builder_demo",
+      "tangible_id": "equation_builder",
       "params": {
-        "event": "demo_place_tile",
+        "event": "demonstrate_tile_placement",
         "status": "confirmed",
-        "description": "Guide demonstrates picking up 5 tile and placing it in first slot.",
-        "tile_value": 5,
-        "slot_position": 1
+        "description": "Guide demonstrates dragging 5 tile from palette to first slot. Tile snaps into position.",
+        "slot_index": 0,
+        "value": 5
       }
     },
     {
       "type": "scene",
       "method": "update",
-      "tangible_id": "equation_builder_demo",
+      "tangible_id": "equation_builder",
       "params": {
-        "placed_values": {
-          "groups": 5
-        },
-        "description": "Tile 5 snaps into first slot. Expression now shows 5 × __."
+        "template": [
+          "5",
+          "×",
+          "__"
+        ],
+        "description": "First slot now filled with 5. Expression shows: 5 × [blank]."
       }
     },
     {
@@ -167,37 +147,27 @@
       "elements": [
         {
           "tangible_id": "equal_groups_boxes",
-          "description": "5 boxes with 2 items each.",
+          "description": "Equal groups visualization. 5 boxes with 2 items each. Reading mode, full separation, boxes_items context.",
           "tangible_type": "equal_groups",
           "mode": "reading",
+          "separation": "full",
+          "context": "boxes_items",
           "container_count": 5,
-          "items_per_container": 2,
-          "container_type": "boxes"
+          "items_per_container": 2
         },
         {
-          "tangible_id": "equation_builder_demo",
-          "description": "Equation builder showing 5 × __ with second slot still blank.",
+          "tangible_id": "equation_builder",
+          "description": "Equation builder showing 5 × [blank]. First slot filled with 5, second slot empty. Tile palette 1-10 visible.",
           "tangible_type": "equation_builder",
           "template": [
-            "__",
+            "5",
             "×",
             "__"
           ],
-          "tile_palette": [
+          "tile_palette_range": [
             1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
             10
-          ],
-          "placed_values": {
-            "groups": 5
-          }
+          ]
         }
       ]
     },
@@ -222,25 +192,26 @@
     {
       "type": "scene",
       "method": "animate",
-      "tangible_id": "equation_builder_demo",
+      "tangible_id": "equation_builder",
       "params": {
-        "event": "demo_place_tile",
+        "event": "demonstrate_tile_placement",
         "status": "confirmed",
-        "description": "Guide demonstrates placing 2 tile in second slot.",
-        "tile_value": 2,
-        "slot_position": 2
+        "description": "Guide demonstrates placing 2 tile into second slot. Tile snaps into position.",
+        "slot_index": 2,
+        "value": 2
       }
     },
     {
       "type": "scene",
       "method": "update",
-      "tangible_id": "equation_builder_demo",
+      "tangible_id": "equation_builder",
       "params": {
-        "placed_values": {
-          "groups": 5,
-          "items": 2
-        },
-        "description": "Tile 2 snaps into second slot. Complete expression now shows 5 × 2."
+        "template": [
+          "5",
+          "×",
+          "2"
+        ],
+        "description": "Complete expression now visible: 5 × 2. Both slots filled."
       }
     },
     {
@@ -252,41 +223,30 @@
       "elements": [
         {
           "tangible_id": "equal_groups_boxes",
-          "description": "5 boxes with 2 items each.",
+          "description": "Equal groups visualization. 5 boxes with 2 items each. Reading mode, full separation, boxes_items context.",
           "tangible_type": "equal_groups",
           "mode": "reading",
+          "separation": "full",
+          "context": "boxes_items",
           "container_count": 5,
-          "items_per_container": 2,
-          "container_type": "boxes"
+          "items_per_container": 2
         },
         {
-          "tangible_id": "equation_builder_demo",
-          "description": "Equation builder showing complete expression 5 × 2.",
+          "tangible_id": "equation_builder",
+          "description": "Equation builder showing completed expression 5 × 2. Both slots filled. Tile palette 1-10 visible.",
           "tangible_type": "equation_builder",
           "template": [
-            "__",
+            "5",
             "×",
-            "__"
+            "2"
           ],
-          "tile_palette": [
+          "tile_palette_range": [
             1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
             10
-          ],
-          "placed_values": {
-            "groups": 5,
-            "items": 2
-          }
+          ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:03:11.297805+00:00"
+  "_generated_at": "2026-04-27T15:56:52.131393+00:00"
 }

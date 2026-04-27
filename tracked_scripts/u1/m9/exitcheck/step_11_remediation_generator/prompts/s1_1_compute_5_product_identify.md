@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:00:52.891704
+# Generated: 2026-04-27T10:54:15.426148
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1853,7 +1857,7 @@ Cacheable: Yes
 <lesson_sections>
 [
   {
-    "id": "s1_1_extend_accumulation_5_to_10",
+    "id": "s1_1_extend_accumulation_5_10_concrete",
     "beats": [
       {
         "type": "scene",
@@ -1864,7 +1868,7 @@ Cacheable: Yes
           "mode": "reading",
           "container_count": 5,
           "items_per_container": 2,
-          "description": "5 circles from Warmup visible. Each circle contains 2 dots."
+          "description": "5 equal groups visible, each containing 2 circles. Groups from Warmup re-displayed."
         }
       },
       {
@@ -1873,15 +1877,16 @@ Cacheable: Yes
         "tangible_id": "products_strip",
         "tangible_type": "image",
         "params": {
-          "description": "Products Strip shows: [2] [4] [6] [8] [10]."
+          "description": "Products Strip displays first 5 products: 2, 4, 6, 8, 10."
         }
       },
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "equation_builder_main",
+        "tangible_id": "equation_builder_multiples",
         "tangible_type": "equation_builder",
         "params": {
+          "mode": "reading",
           "expression": [
             "5",
             "×",
@@ -1889,7 +1894,7 @@ Cacheable: Yes
             "=",
             "10"
           ],
-          "description": "Equation Builder shows: 5 × 2 = 10."
+          "description": "Equation Builder shows: 5 × 2 = 10"
         }
       },
       {
@@ -1901,7 +1906,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_circles",
-            "description": "5 circles visible. Each circle contains 2 dots.",
+            "description": "5 equal groups visible, each containing 2 circles.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 5,
@@ -1909,13 +1914,14 @@ Cacheable: Yes
           },
           {
             "tangible_id": "products_strip",
-            "description": "Products Strip shows: [2] [4] [6] [8] [10].",
+            "description": "Products Strip displays: 2, 4, 6, 8, 10.",
             "tangible_type": "image"
           },
           {
-            "tangible_id": "equation_builder_main",
-            "description": "Equation Builder shows: 5 × 2 = 10.",
+            "tangible_id": "equation_builder_multiples",
+            "description": "Equation Builder shows: 5 × 2 = 10",
             "tangible_type": "equation_builder",
+            "mode": "reading",
             "expression": [
               "5",
               "×",
@@ -1931,15 +1937,15 @@ Cacheable: Yes
         "method": "animate",
         "tangible_id": "equal_groups_circles",
         "params": {
-          "event": "add_container",
+          "event": "add_group_sequential",
           "status": "confirmed",
-          "description": "Circle 6 appears. Now 6 circles total, each with 2 dots."
+          "description": "Circle 6 appears. Equal groups now shows 6 groups of 2."
         }
       },
       {
         "type": "scene",
         "method": "update",
-        "tangible_id": "equation_builder_main",
+        "tangible_id": "equation_builder_multiples",
         "params": {
           "expression": [
             "6",
@@ -1948,7 +1954,7 @@ Cacheable: Yes
             "=",
             "12"
           ],
-          "description": "Equation Builder updates to: 6 × 2 = 12."
+          "description": "Equation Builder updates to: 6 × 2 = 12"
         }
       },
       {
@@ -1960,15 +1966,15 @@ Cacheable: Yes
         "method": "animate",
         "tangible_id": "equal_groups_circles",
         "params": {
-          "event": "add_container",
+          "event": "add_group_sequential",
           "status": "confirmed",
-          "description": "Circle 7 appears. Now 7 circles total, each with 2 dots."
+          "description": "Circle 7 appears. Equal groups now shows 7 groups of 2."
         }
       },
       {
         "type": "scene",
         "method": "update",
-        "tangible_id": "equation_builder_main",
+        "tangible_id": "equation_builder_multiples",
         "params": {
           "expression": [
             "7",
@@ -1977,7 +1983,7 @@ Cacheable: Yes
             "=",
             "14"
           ],
-          "description": "Equation Builder updates to: 7 × 2 = 14."
+          "description": "Equation Builder updates to: 7 × 2 = 14"
         }
       },
       {
@@ -1989,15 +1995,15 @@ Cacheable: Yes
         "method": "animate",
         "tangible_id": "equal_groups_circles",
         "params": {
-          "event": "add_container",
+          "event": "add_group_sequential",
           "status": "confirmed",
-          "description": "Circle 8 appears. Now 8 circles total, each with 2 dots."
+          "description": "Circle 8 appears. Equal groups now shows 8 groups of 2."
         }
       },
       {
         "type": "scene",
         "method": "update",
-        "tangible_id": "equation_builder_main",
+        "tangible_id": "equation_builder_multiples",
         "params": {
           "expression": [
             "8",
@@ -2006,7 +2012,7 @@ Cacheable: Yes
             "=",
             "16"
           ],
-          "description": "Equation Builder updates to: 8 × 2 = 16."
+          "description": "Equation Builder updates to: 8 × 2 = 16"
         }
       },
       {
@@ -2018,15 +2024,15 @@ Cacheable: Yes
         "method": "animate",
         "tangible_id": "equal_groups_circles",
         "params": {
-          "event": "add_container",
+          "event": "add_group_sequential",
           "status": "confirmed",
-          "description": "Circle 9 appears. Now 9 circles total, each with 2 dots."
+          "description": "Circle 9 appears. Equal groups now shows 9 groups of 2."
         }
       },
       {
         "type": "scene",
         "method": "update",
-        "tangible_id": "equation_builder_main",
+        "tangible_id": "equation_builder_multiples",
         "params": {
           "expression": [
             "9",
@@ -2035,7 +2041,7 @@ Cacheable: Yes
             "=",
             "18"
           ],
-          "description": "Equation Builder updates to: 9 × 2 = 18."
+          "description": "Equation Builder updates to: 9 × 2 = 18"
         }
       },
       {
@@ -2047,15 +2053,15 @@ Cacheable: Yes
         "method": "animate",
         "tangible_id": "equal_groups_circles",
         "params": {
-          "event": "add_container",
+          "event": "add_group_sequential",
           "status": "confirmed",
-          "description": "Circle 10 appears. Now 10 circles total, each with 2 dots."
+          "description": "Circle 10 appears. Equal groups now shows 10 groups of 2."
         }
       },
       {
         "type": "scene",
         "method": "update",
-        "tangible_id": "equation_builder_main",
+        "tangible_id": "equation_builder_multiples",
         "params": {
           "expression": [
             "10",
@@ -2064,7 +2070,7 @@ Cacheable: Yes
             "=",
             "20"
           ],
-          "description": "Equation Builder updates to: 10 × 2 = 20."
+          "description": "Equation Builder updates to: 10 × 2 = 20"
         }
       },
       {
@@ -2076,7 +2082,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_circles",
-            "description": "10 circles visible. Each circle contains 2 dots.",
+            "description": "10 equal groups visible, each containing 2 circles.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 10,
@@ -2084,13 +2090,14 @@ Cacheable: Yes
           },
           {
             "tangible_id": "products_strip",
-            "description": "Products Strip shows: [2] [4] [6] [8] [10].",
+            "description": "Products Strip displays: 2, 4, 6, 8, 10.",
             "tangible_type": "image"
           },
           {
-            "tangible_id": "equation_builder_main",
-            "description": "Equation Builder shows: 10 × 2 = 20.",
+            "tangible_id": "equation_builder_multiples",
+            "description": "Equation Builder shows: 10 × 2 = 20",
             "tangible_type": "equation_builder",
+            "mode": "reading",
             "expression": [
               "10",
               "×",
@@ -2106,7 +2113,7 @@ Cacheable: Yes
         "method": "update",
         "tangible_id": "products_strip",
         "params": {
-          "description": "Products Strip extends to show all 10 products: [2] [4] [6] [8] [10] [12] [14] [16] [18] [20]. All products glow or highlight. Label appears: Multiples of 2."
+          "description": "Products Strip extends to show all 10 products: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20. All products glow or highlight. Label appears: Multiples of 2."
         }
       },
       {
@@ -2118,7 +2125,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_circles",
-            "description": "10 circles visible. Each circle contains 2 dots.",
+            "description": "10 equal groups visible, each containing 2 circles.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 10,
@@ -2126,13 +2133,14 @@ Cacheable: Yes
           },
           {
             "tangible_id": "products_strip",
-            "description": "Products Strip shows all 10 products: [2] [4] [6] [8] [10] [12] [14] [16] [18] [20]. All products highlighted. Label: Multiples of 2.",
+            "description": "Products Strip displays all 10 products: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20. All products highlighted. Label: Multiples of 2.",
             "tangible_type": "image"
           },
           {
-            "tangible_id": "equation_builder_main",
-            "description": "Equation Builder shows: 10 × 2 = 20.",
+            "tangible_id": "equation_builder_multiples",
+            "description": "Equation Builder shows: 10 × 2 = 20",
             "tangible_type": "equation_builder",
+            "mode": "reading",
             "expression": [
               "10",
               "×",
@@ -2144,10 +2152,10 @@ Cacheable: Yes
         ]
       }
     ],
-    "_generated_at": "2026-04-15T01:26:24.973709+00:00"
+    "_generated_at": "2026-04-20T17:01:37.473090+00:00"
   },
   {
-    "id": "s1_2_pattern_discovery_twos_always_even",
+    "id": "s1_2_pattern_discovery_2s_are_always",
     "beats": [
       {
         "type": "scene",
@@ -2155,7 +2163,8 @@ Cacheable: Yes
         "tangible_id": "products_strip",
         "tangible_type": "image",
         "params": {
-          "description": "Products Strip appears showing 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 with visual emphasis (glow/highlight)."
+          "description": "Products Strip displays: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20. All products glow with visual emphasis.",
+          "content": "Products of 2 sequence with highlight treatment"
         }
       },
       {
@@ -2178,7 +2187,7 @@ Cacheable: Yes
             "condition": {
               "selected": "They are all even numbers"
             },
-            "description": "Student selected 'They are all even numbers', correct",
+            "description": "Student selected even numbers, correct",
             "is_correct": true,
             "beats": [
               {
@@ -2194,8 +2203,9 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "products_strip",
-            "description": "Products Strip showing 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 with visual emphasis.",
-            "tangible_type": "image"
+            "description": "Products Strip showing 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 with glow emphasis.",
+            "tangible_type": "image",
+            "content": "Products of 2 sequence with highlight treatment"
           }
         ]
       },
@@ -2208,26 +2218,18 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "products_strip",
-            "description": "Products Strip showing 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 with visual emphasis.",
-            "tangible_type": "image"
+            "description": "Products Strip showing 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 with glow emphasis.",
+            "tangible_type": "image",
+            "content": "Products of 2 sequence with highlight treatment"
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-15T01:26:33.632353+00:00"
+    "_generated_at": "2026-04-20T17:01:48.112955+00:00"
   },
   {
-    "id": "s1_3_bridge_pattern_check",
+    "id": "s1_3_bridge_pattern_check_concrete_relational",
     "beats": [
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "products_strip",
-        "tangible_type": "image",
-        "params": {
-          "description": "Products Strip displays: 2, 4, 6, 8, 10. Shows multiples of 2 from Warmup."
-        }
-      },
       {
         "type": "scene",
         "method": "add",
@@ -2241,16 +2243,8 @@ Cacheable: Yes
             "=",
             "10"
           ],
+          "mode": "static",
           "description": "Equation Builder shows 5 × 2 = 10."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "context_visualization",
-        "tangible_type": "image",
-        "params": {
-          "description": "Context Visualization shows 5 circles from the accumulation, re-highlighted."
         }
       },
       {
@@ -2261,86 +2255,103 @@ Cacheable: Yes
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "products_strip",
-            "description": "Products Strip displays: 2, 4, 6, 8, 10.",
-            "tangible_type": "image"
-          },
-          {
             "tangible_id": "equation_builder",
             "description": "Equation Builder shows 5 × 2 = 10.",
-            "tangible_type": "equation_builder"
-          },
-          {
-            "tangible_id": "context_visualization",
-            "description": "Context Visualization shows 5 circles from the accumulation, re-highlighted.",
-            "tangible_type": "image"
+            "tangible_type": "equation_builder",
+            "expression": [
+              "5",
+              "×",
+              "2",
+              "=",
+              "10"
+            ],
+            "mode": "static"
           }
         ]
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "equation_builder",
+        "params": {
+          "expression": [
+            "2",
+            "+",
+            "2",
+            "+",
+            "2",
+            "+",
+            "2",
+            "+",
+            "2",
+            "=",
+            "10"
+          ],
+          "description": "Repeated addition appears: 2 + 2 + 2 + 2 + 2 = 10."
+        }
       },
       {
         "type": "dialogue",
         "text": "There's another way to see it. Instead of skip-counting, you could add: 2 plus 2 plus 2 plus 2 plus 2."
       },
       {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "repeated_addition",
-        "tangible_type": "image",
-        "params": {
-          "description": "Repeated addition appears below circles: 2 + 2 + 2 + 2 + 2 = 10. Alongside: 5 × 2 = 10."
-        }
-      },
-      {
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "products_strip",
-            "description": "Products Strip displays: 2, 4, 6, 8, 10.",
-            "tangible_type": "image"
-          },
-          {
             "tangible_id": "equation_builder",
-            "description": "Equation Builder shows 5 × 2 = 10.",
-            "tangible_type": "equation_builder"
-          },
-          {
-            "tangible_id": "context_visualization",
-            "description": "Context Visualization shows 5 circles from the accumulation, re-highlighted.",
-            "tangible_type": "image"
-          },
-          {
-            "tangible_id": "repeated_addition",
-            "description": "Repeated addition shows: 2 + 2 + 2 + 2 + 2 = 10. Alongside: 5 × 2 = 10.",
-            "tangible_type": "image"
+            "description": "Equation Builder shows repeated addition: 2 + 2 + 2 + 2 + 2 = 10.",
+            "tangible_type": "equation_builder",
+            "expression": [
+              "2",
+              "+",
+              "2",
+              "+",
+              "2",
+              "+",
+              "2",
+              "+",
+              "2",
+              "=",
+              "10"
+            ],
+            "mode": "static"
           }
         ]
       },
       {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "equation_builder",
+        "params": {
+          "expression": [
+            "5",
+            "×",
+            "2",
+            "=",
+            "10"
+          ],
+          "description": "Equation Builder returns to 5 × 2 = 10."
+        }
+      },
+      {
         "type": "dialogue",
-        "text": "Same answer. Both work, but skip-counting is usually faster and multiplication is a shorter way to write it."
+        "text": "Same answer. Both work — but skip-counting is usually faster and multiplication is a shorter way to write it."
       },
       {
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "products_strip",
-            "description": "Products Strip displays: 2, 4, 6, 8, 10.",
-            "tangible_type": "image"
-          },
-          {
             "tangible_id": "equation_builder",
             "description": "Equation Builder shows 5 × 2 = 10.",
-            "tangible_type": "equation_builder"
-          },
-          {
-            "tangible_id": "context_visualization",
-            "description": "Context Visualization shows 5 circles from the accumulation, re-highlighted.",
-            "tangible_type": "image"
-          },
-          {
-            "tangible_id": "repeated_addition",
-            "description": "Repeated addition shows: 2 + 2 + 2 + 2 + 2 = 10. Alongside: 5 × 2 = 10.",
-            "tangible_type": "image"
+            "tangible_type": "equation_builder",
+            "expression": [
+              "5",
+              "×",
+              "2",
+              "=",
+              "10"
+            ],
+            "mode": "static"
           }
         ]
       },
@@ -2362,12 +2373,12 @@ Cacheable: Yes
             "condition": {
               "selected": "Even"
             },
-            "description": "Student selected Even, correct",
+            "description": "Student answered Even, correct",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "Always even. The pattern works every time. In groups of 2, every item always has a pair with no items left."
+                "text": "Always even. The pattern works every time — in groups of 2, every item always has a pair with no items left."
               }
             ]
           }
@@ -2377,32 +2388,25 @@ Cacheable: Yes
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "products_strip",
-            "description": "Products Strip displays: 2, 4, 6, 8, 10. Multiple choice tool active.",
-            "tangible_type": "image"
-          },
-          {
             "tangible_id": "equation_builder",
             "description": "Equation Builder shows 5 × 2 = 10.",
-            "tangible_type": "equation_builder"
-          },
-          {
-            "tangible_id": "context_visualization",
-            "description": "Context Visualization shows 5 circles from the accumulation, re-highlighted.",
-            "tangible_type": "image"
-          },
-          {
-            "tangible_id": "repeated_addition",
-            "description": "Repeated addition shows: 2 + 2 + 2 + 2 + 2 = 10. Alongside: 5 × 2 = 10.",
-            "tangible_type": "image"
+            "tangible_type": "equation_builder",
+            "expression": [
+              "5",
+              "×",
+              "2",
+              "=",
+              "10"
+            ],
+            "mode": "static"
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-15T01:26:52.136869+00:00"
+    "_generated_at": "2026-04-20T17:02:01.251871+00:00"
   },
   {
-    "id": "s2_1_worked_example_first_equation",
+    "id": "s2_1_worked_example_first_full_equation",
     "beats": [
       {
         "type": "scene",
@@ -2413,13 +2417,13 @@ Cacheable: Yes
           "mode": "reading",
           "container_count": 7,
           "items_per_container": 2,
-          "description": "7 bags appear, each containing 2 items. Visual context continuity from warmup (bags) maintained."
+          "description": "7 bags appear, each containing 2 items. Context visualization showing equal groups."
         }
       },
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "equation_builder",
+        "tangible_id": "equation_builder_main",
         "tangible_type": "equation_builder",
         "params": {
           "template": [
@@ -2429,31 +2433,31 @@ Cacheable: Yes
             "=",
             "__"
           ],
-          "prefilled": {
-            "0": 7,
-            "2": 2
+          "pre_filled": {
+            "groups": 7,
+            "items": 2
           },
-          "description": "Equation Builder appears with three slots. Template: [___] × [___] = [___]. First two slots pre-filled: 7 and 2. Third slot empty. = sign is fixed."
+          "description": "Equation builder appears with three slots visible. Template: [___] × [___] = [___]. First two slots pre-filled with 7 and 2. Equals sign is fixed. Product slot empty."
         }
       },
       {
         "type": "dialogue",
-        "text": "You discovered that multiples of 2 are always even. Now let me show you something new. I already know the expression: 7 times 2. But now I want to find what it EQUALS — the total."
+        "text": "You discovered that multiples of 2 are always even. Now let me show you something new. I already know the expression: 7 times 2. But now I want to find what it equals — the total."
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "equal_groups_bags",
-            "description": "7 bags with 2 items each. Context visualization for 7 × 2.",
+            "description": "7 bags, each containing 2 items. Context visualization.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 7,
             "items_per_container": 2
           },
           {
-            "tangible_id": "equation_builder",
-            "description": "Equation Builder showing 7 × 2 = [___]. First two slots filled, product slot empty.",
+            "tangible_id": "equation_builder_main",
+            "description": "Equation builder showing 7 × 2 = [___]. First two slots filled, product slot empty.",
             "tangible_type": "equation_builder",
             "template": [
               "__",
@@ -2462,9 +2466,9 @@ Cacheable: Yes
               "=",
               "__"
             ],
-            "prefilled": {
-              "0": 7,
-              "2": 2
+            "pre_filled": {
+              "groups": 7,
+              "items": 2
             }
           }
         ]
@@ -2478,15 +2482,15 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_bags",
-            "description": "7 bags with 2 items each.",
+            "description": "7 bags, each containing 2 items.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 7,
             "items_per_container": 2
           },
           {
-            "tangible_id": "equation_builder",
-            "description": "Equation Builder showing 7 × 2 = [___].",
+            "tangible_id": "equation_builder_main",
+            "description": "Equation builder showing 7 × 2 = [___].",
             "tangible_type": "equation_builder",
             "template": [
               "__",
@@ -2495,41 +2499,41 @@ Cacheable: Yes
               "=",
               "__"
             ],
-            "prefilled": {
-              "0": 7,
-              "2": 2
+            "pre_filled": {
+              "groups": 7,
+              "items": 2
             }
           }
         ]
-      },
-      {
-        "type": "dialogue",
-        "text": "Now I skip-count by 2s, seven times: 2... 4... 6... 8... 10... 12... 14."
       },
       {
         "type": "scene",
         "method": "animate",
         "tangible_id": "equal_groups_bags",
         "params": {
-          "event": "sequential_highlight_with_count",
+          "event": "highlight_skip_count_sequence",
           "status": "confirmed",
-          "description": "Bags highlight sequentially as Guide counts. Skip-count numbers (2, 4, 6, 8, 10, 12, 14) appear briefly above each bag in sequence."
+          "description": "Bags highlight sequentially as Guide counts. Skip-count numbers appear briefly above each bag: 2, 4, 6, 8, 10, 12, 14."
         }
+      },
+      {
+        "type": "dialogue",
+        "text": "Now I skip-count by 2s, seven times: 2... 4... 6... 8... 10... 12... 14."
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "equal_groups_bags",
-            "description": "7 bags with 2 items each. All highlighted after sequential skip-count animation.",
+            "description": "7 bags, each containing 2 items. All bags highlighted after skip-count sequence.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 7,
             "items_per_container": 2
           },
           {
-            "tangible_id": "equation_builder",
-            "description": "Equation Builder showing 7 × 2 = [___].",
+            "tangible_id": "equation_builder_main",
+            "description": "Equation builder showing 7 × 2 = [___].",
             "tangible_type": "equation_builder",
             "template": [
               "__",
@@ -2538,43 +2542,43 @@ Cacheable: Yes
               "=",
               "__"
             ],
-            "prefilled": {
-              "0": 7,
-              "2": 2
+            "pre_filled": {
+              "groups": 7,
+              "items": 2
             }
           }
         ]
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "equation_builder_main",
+        "params": {
+          "pre_filled": {
+            "groups": 7,
+            "items": 2,
+            "total": 14
+          },
+          "description": "14 placed in product slot. Complete equation now shows: 7 × 2 = 14."
+        }
       },
       {
         "type": "dialogue",
         "text": "14. So 7 times 2 equals 14."
       },
       {
-        "type": "scene",
-        "method": "update",
-        "tangible_id": "equation_builder",
-        "params": {
-          "prefilled": {
-            "0": 7,
-            "2": 2,
-            "4": 14
-          },
-          "description": "14 places into product slot. Complete equation: 7 × 2 = 14."
-        }
-      },
-      {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "equal_groups_bags",
-            "description": "7 bags with 2 items each.",
+            "description": "7 bags, each containing 2 items.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 7,
             "items_per_container": 2
           },
           {
-            "tangible_id": "equation_builder",
+            "tangible_id": "equation_builder_main",
             "description": "Complete equation: 7 × 2 = 14. All three slots filled.",
             "tangible_type": "equation_builder",
             "template": [
@@ -2584,10 +2588,10 @@ Cacheable: Yes
               "=",
               "__"
             ],
-            "prefilled": {
-              "0": 7,
-              "2": 2,
-              "4": 14
+            "pre_filled": {
+              "groups": 7,
+              "items": 2,
+              "total": 14
             }
           }
         ]
@@ -2601,14 +2605,14 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_bags",
-            "description": "7 bags with 2 items each.",
+            "description": "7 bags, each containing 2 items.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 7,
             "items_per_container": 2
           },
           {
-            "tangible_id": "equation_builder",
+            "tangible_id": "equation_builder_main",
             "description": "Complete equation: 7 × 2 = 14.",
             "tangible_type": "equation_builder",
             "template": [
@@ -2618,42 +2622,42 @@ Cacheable: Yes
               "=",
               "__"
             ],
-            "prefilled": {
-              "0": 7,
-              "2": 2,
-              "4": 14
+            "pre_filled": {
+              "groups": 7,
+              "items": 2,
+              "total": 14
             }
           }
         ]
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equation_builder_main",
+        "params": {
+          "event": "show_vocabulary_labels",
+          "status": "confirmed",
+          "description": "Labels appear briefly: 'factor' under 7, 'factor' under 2, 'product' under 14."
+        }
       },
       {
         "type": "dialogue",
         "text": "That answer — 14 — is the PRODUCT. You learned that word before: the product is the answer to a multiplication problem. And the numbers being multiplied — 7 and 2 — those are called FACTORS. Factor times factor equals product."
       },
       {
-        "type": "scene",
-        "method": "animate",
-        "tangible_id": "equation_builder",
-        "params": {
-          "event": "show_vocabulary_labels",
-          "status": "confirmed",
-          "description": "Labels appear briefly: \"factor\" under 7, \"factor\" under 2, \"product\" under 14."
-        }
-      },
-      {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "equal_groups_bags",
-            "description": "7 bags with 2 items each.",
+            "description": "7 bags, each containing 2 items.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 7,
             "items_per_container": 2
           },
           {
-            "tangible_id": "equation_builder",
-            "description": "Complete equation: 7 × 2 = 14. Vocabulary labels shown.",
+            "tangible_id": "equation_builder_main",
+            "description": "Complete equation: 7 × 2 = 14. Vocabulary labels visible: 'factor' under 7 and 2, 'product' under 14.",
             "tangible_type": "equation_builder",
             "template": [
               "__",
@@ -2662,19 +2666,19 @@ Cacheable: Yes
               "=",
               "__"
             ],
-            "prefilled": {
-              "0": 7,
-              "2": 2,
-              "4": 14
+            "pre_filled": {
+              "groups": 7,
+              "items": 2,
+              "total": 14
             }
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-15T01:27:15.261448+00:00"
+    "_generated_at": "2026-04-20T17:02:24.395742+00:00"
   },
   {
-    "id": "s2_2_student_computes_product_method_a",
+    "id": "s2_2_student_computes_product_method_relational",
     "beats": [
       {
         "type": "scene",
@@ -2685,13 +2689,13 @@ Cacheable: Yes
           "mode": "reading",
           "container_count": 8,
           "items_per_container": 2,
-          "description": "8 bags appear, each containing 2 items."
+          "description": "8 bags appear, each containing 2 items. Context visualization for 8 × 2."
         }
       },
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "equation_builder",
+        "tangible_id": "equation_builder_8x2",
         "tangible_type": "equation_builder",
         "params": {
           "expression": [
@@ -2701,8 +2705,7 @@ Cacheable: Yes
             "=",
             "__"
           ],
-          "mode": "mc_product",
-          "description": "Equation Builder appears: 8 × 2 = [___]. Product slot empty, ready for MC selection."
+          "description": "Equation Builder appears: 8 × 2 = [___]. Product slot empty, awaiting student answer."
         }
       },
       {
@@ -2730,18 +2733,47 @@ Cacheable: Yes
             "beats": [
               {
                 "type": "scene",
-                "method": "animate",
-                "tangible_id": "equation_builder",
+                "method": "update",
+                "tangible_id": "equation_builder_8x2",
                 "params": {
-                  "event": "fill_product_slot",
-                  "status": "confirmed",
-                  "value": 16,
-                  "description": "16 fills the product slot: 8 × 2 = 16."
+                  "expression": [
+                    "8",
+                    "×",
+                    "2",
+                    "=",
+                    "16"
+                  ],
+                  "description": "16 fills the product slot in the equation."
                 }
               },
               {
                 "type": "dialogue",
                 "text": "8 times 2 equals 16. Notice that it's even — fits the 2s pattern. You built the equation."
+              },
+              {
+                "type": "current_scene",
+                "elements": [
+                  {
+                    "tangible_id": "equal_groups_bags",
+                    "description": "8 bags with 2 items each. Context visualization for 8 × 2.",
+                    "tangible_type": "equal_groups",
+                    "mode": "reading",
+                    "container_count": 8,
+                    "items_per_container": 2
+                  },
+                  {
+                    "tangible_id": "equation_builder_8x2",
+                    "description": "Equation Builder showing completed equation: 8 × 2 = 16.",
+                    "tangible_type": "equation_builder",
+                    "expression": [
+                      "8",
+                      "×",
+                      "2",
+                      "=",
+                      "16"
+                    ]
+                  }
+                ]
               }
             ]
           }
@@ -2752,32 +2784,31 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_bags",
-            "description": "8 bags, each containing 2 items.",
+            "description": "8 bags with 2 items each. Context visualization for 8 × 2.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 8,
             "items_per_container": 2
           },
           {
-            "tangible_id": "equation_builder",
-            "description": "Equation Builder: 8 × 2 = 16 (product filled). MC tool active on product slot.",
+            "tangible_id": "equation_builder_8x2",
+            "description": "Equation Builder: 8 × 2 = [___]. Product slot has MC options 10, 14, 16, 18.",
             "tangible_type": "equation_builder",
             "expression": [
               "8",
               "×",
               "2",
               "=",
-              "16"
-            ],
-            "mode": "mc_product"
+              "__"
+            ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-15T01:27:26.403877+00:00"
+    "_generated_at": "2026-04-20T17:02:37.556155+00:00"
   },
   {
-    "id": "s2_3_5s_discovery_partial_worked",
+    "id": "s2_3_5s_discovery_partial_worked_example",
     "beats": [
       {
         "type": "scene",
@@ -2786,25 +2817,35 @@ Cacheable: Yes
         "tangible_type": "equal_groups",
         "params": {
           "mode": "reading",
-          "container_count": 1,
+          "container_count": 0,
           "items_per_container": 5,
-          "description": "First circle with 5 dots appears."
+          "description": "Empty canvas. Circles with 5 dots each will appear one at a time."
         }
       },
       {
         "type": "scene",
         "method": "add",
         "tangible_id": "equation_builder_5s",
-        "tangible_type": "equation_builder",
+        "tangible_type": "equation",
         "params": {
           "expression": [
             "1",
-            "x",
+            "×",
             "5",
             "=",
             "5"
           ],
-          "description": "Equation Builder shows 1 × 5 = 5."
+          "description": "Equation displays 1 × 5 = 5."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_5s",
+        "params": {
+          "event": "add_container",
+          "status": "confirmed",
+          "description": "First circle with 5 dots appears."
         }
       },
       {
@@ -2816,23 +2857,16 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_5s",
+            "description": "1 circle with 5 dots visible.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 1,
-            "items_per_container": 5,
-            "description": "One circle with 5 dots visible."
+            "items_per_container": 5
           },
           {
             "tangible_id": "equation_builder_5s",
-            "tangible_type": "equation_builder",
-            "description": "Equation Builder shows 1 × 5 = 5.",
-            "expression": [
-              "1",
-              "x",
-              "5",
-              "=",
-              "5"
-            ]
+            "description": "Equation shows 1 × 5 = 5.",
+            "tangible_type": "equation"
           }
         ]
       },
@@ -2841,18 +2875,9 @@ Cacheable: Yes
         "method": "animate",
         "tangible_id": "equal_groups_5s",
         "params": {
-          "event": "add_circle",
+          "event": "add_container",
           "status": "confirmed",
           "description": "Second circle with 5 dots appears."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "update",
-        "tangible_id": "equal_groups_5s",
-        "params": {
-          "container_count": 2,
-          "description": "Now showing 2 circles with 5 dots each."
         }
       },
       {
@@ -2862,12 +2887,12 @@ Cacheable: Yes
         "params": {
           "expression": [
             "2",
-            "x",
+            "×",
             "5",
             "=",
             "10"
           ],
-          "description": "Equation Builder updates to 2 × 5 = 10."
+          "description": "Equation updates to 2 × 5 = 10."
         }
       },
       {
@@ -2879,23 +2904,16 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_5s",
+            "description": "2 circles with 5 dots each visible.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 2,
-            "items_per_container": 5,
-            "description": "Two circles with 5 dots each visible."
+            "items_per_container": 5
           },
           {
             "tangible_id": "equation_builder_5s",
-            "tangible_type": "equation_builder",
-            "description": "Equation Builder shows 2 × 5 = 10.",
-            "expression": [
-              "2",
-              "x",
-              "5",
-              "=",
-              "10"
-            ]
+            "description": "Equation shows 2 × 5 = 10.",
+            "tangible_type": "equation"
           }
         ]
       },
@@ -2904,18 +2922,9 @@ Cacheable: Yes
         "method": "animate",
         "tangible_id": "equal_groups_5s",
         "params": {
-          "event": "add_circle",
+          "event": "add_container",
           "status": "confirmed",
           "description": "Third circle with 5 dots appears."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "update",
-        "tangible_id": "equal_groups_5s",
-        "params": {
-          "container_count": 3,
-          "description": "Now showing 3 circles with 5 dots each."
         }
       },
       {
@@ -2925,12 +2934,12 @@ Cacheable: Yes
         "params": {
           "expression": [
             "3",
-            "x",
+            "×",
             "5",
             "=",
             "15"
           ],
-          "description": "Equation Builder updates to 3 × 5 = 15."
+          "description": "Equation updates to 3 × 5 = 15."
         }
       },
       {
@@ -2942,23 +2951,16 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_5s",
+            "description": "3 circles with 5 dots each visible.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 3,
-            "items_per_container": 5,
-            "description": "Three circles with 5 dots each visible."
+            "items_per_container": 5
           },
           {
             "tangible_id": "equation_builder_5s",
-            "tangible_type": "equation_builder",
-            "description": "Equation Builder shows 3 × 5 = 15.",
-            "expression": [
-              "3",
-              "x",
-              "5",
-              "=",
-              "15"
-            ]
+            "description": "Equation shows 3 × 5 = 15.",
+            "tangible_type": "equation"
           }
         ]
       },
@@ -2967,18 +2969,9 @@ Cacheable: Yes
         "method": "animate",
         "tangible_id": "equal_groups_5s",
         "params": {
-          "event": "add_circle",
+          "event": "add_container",
           "status": "confirmed",
           "description": "Fourth circle with 5 dots appears."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "update",
-        "tangible_id": "equal_groups_5s",
-        "params": {
-          "container_count": 4,
-          "description": "Now showing 4 circles with 5 dots each."
         }
       },
       {
@@ -2988,12 +2981,12 @@ Cacheable: Yes
         "params": {
           "expression": [
             "4",
-            "x",
+            "×",
             "5",
             "=",
             "20"
           ],
-          "description": "Equation Builder updates to 4 × 5 = 20."
+          "description": "Equation updates to 4 × 5 = 20."
         }
       },
       {
@@ -3005,23 +2998,16 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_5s",
+            "description": "4 circles with 5 dots each visible.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 4,
-            "items_per_container": 5,
-            "description": "Four circles with 5 dots each visible."
+            "items_per_container": 5
           },
           {
             "tangible_id": "equation_builder_5s",
-            "tangible_type": "equation_builder",
-            "description": "Equation Builder shows 4 × 5 = 20.",
-            "expression": [
-              "4",
-              "x",
-              "5",
-              "=",
-              "20"
-            ]
+            "description": "Equation shows 4 × 5 = 20.",
+            "tangible_type": "equation"
           }
         ]
       },
@@ -3030,18 +3016,9 @@ Cacheable: Yes
         "method": "animate",
         "tangible_id": "equal_groups_5s",
         "params": {
-          "event": "add_circle",
+          "event": "add_container",
           "status": "confirmed",
           "description": "Fifth circle with 5 dots appears."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "update",
-        "tangible_id": "equal_groups_5s",
-        "params": {
-          "container_count": 5,
-          "description": "Now showing 5 circles with 5 dots each."
         }
       },
       {
@@ -3051,12 +3028,12 @@ Cacheable: Yes
         "params": {
           "expression": [
             "5",
-            "x",
+            "×",
             "5",
             "=",
             "25"
           ],
-          "description": "Equation Builder updates to 5 × 5 = 25."
+          "description": "Equation updates to 5 × 5 = 25."
         }
       },
       {
@@ -3068,23 +3045,16 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_5s",
+            "description": "5 circles with 5 dots each visible.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 5,
-            "items_per_container": 5,
-            "description": "Five circles with 5 dots each visible."
+            "items_per_container": 5
           },
           {
             "tangible_id": "equation_builder_5s",
-            "tangible_type": "equation_builder",
-            "description": "Equation Builder shows 5 × 5 = 25.",
-            "expression": [
-              "5",
-              "x",
-              "5",
-              "=",
-              "25"
-            ]
+            "description": "Equation shows 5 × 5 = 25.",
+            "tangible_type": "equation"
           }
         ]
       },
@@ -3093,18 +3063,9 @@ Cacheable: Yes
         "method": "animate",
         "tangible_id": "equal_groups_5s",
         "params": {
-          "event": "add_circle",
+          "event": "add_container",
           "status": "confirmed",
           "description": "Sixth circle with 5 dots appears."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "update",
-        "tangible_id": "equal_groups_5s",
-        "params": {
-          "container_count": 6,
-          "description": "Now showing 6 circles with 5 dots each."
         }
       },
       {
@@ -3114,12 +3075,12 @@ Cacheable: Yes
         "params": {
           "expression": [
             "6",
-            "x",
+            "×",
             "5",
             "=",
             "30"
           ],
-          "description": "Equation Builder updates to 6 × 5 = 30."
+          "description": "Equation updates to 6 × 5 = 30."
         }
       },
       {
@@ -3131,23 +3092,16 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_5s",
+            "description": "6 circles with 5 dots each visible.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 6,
-            "items_per_container": 5,
-            "description": "Six circles with 5 dots each visible."
+            "items_per_container": 5
           },
           {
             "tangible_id": "equation_builder_5s",
-            "tangible_type": "equation_builder",
-            "description": "Equation Builder shows 6 × 5 = 30.",
-            "expression": [
-              "6",
-              "x",
-              "5",
-              "=",
-              "30"
-            ]
+            "description": "Equation shows 6 × 5 = 30.",
+            "tangible_type": "equation"
           }
         ]
       },
@@ -3156,15 +3110,10 @@ Cacheable: Yes
         "method": "animate",
         "tangible_id": "equal_groups_5s",
         "params": {
-          "event": "compress_circles",
+          "event": "compress_to_strip",
           "status": "confirmed",
-          "description": "Circles compress and fade."
+          "description": "Circles compress. Products strip appears showing [ 5 ] [ 10 ] [ 15 ] [ 20 ] [ 25 ] [ 30 ]."
         }
-      },
-      {
-        "type": "scene",
-        "method": "hide",
-        "tangible_id": "equal_groups_5s"
       },
       {
         "type": "scene",
@@ -3177,7 +3126,7 @@ Cacheable: Yes
         "tangible_id": "products_strip_5s",
         "tangible_type": "image",
         "params": {
-          "description": "Products strip appears showing: [ 5 ] [ 10 ] [ 15 ] [ 20 ] [ 25 ] [ 30 ]"
+          "description": "Products strip displays [ 5 ] [ 10 ] [ 15 ] [ 20 ] [ 25 ] [ 30 ]."
         }
       },
       {
@@ -3189,8 +3138,8 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "products_strip_5s",
-            "tangible_type": "image",
-            "description": "Products strip showing: [ 5 ] [ 10 ] [ 15 ] [ 20 ] [ 25 ] [ 30 ]"
+            "description": "Products strip showing [ 5 ] [ 10 ] [ 15 ] [ 20 ] [ 25 ] [ 30 ].",
+            "tangible_type": "image"
           }
         ]
       },
@@ -3201,7 +3150,7 @@ Cacheable: Yes
         "params": {
           "event": "highlight_ones_digits",
           "status": "confirmed",
-          "description": "Ones digits of all numbers on the Products Strip highlight."
+          "description": "Ones digit of each number on products strip highlights: 5, 0, 5, 0, 5, 0."
         }
       },
       {
@@ -3213,8 +3162,8 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "products_strip_5s",
-            "tangible_type": "image",
-            "description": "Products strip showing [ 5 ] [ 10 ] [ 15 ] [ 20 ] [ 25 ] [ 30 ] with ones digits highlighted."
+            "description": "Products strip with ones digits highlighted. [ 5 ] [ 10 ] [ 15 ] [ 20 ] [ 25 ] [ 30 ].",
+            "tangible_type": "image"
           }
         ]
       },
@@ -3226,12 +3175,12 @@ Cacheable: Yes
         "params": {
           "expression": [
             "3",
-            "x",
+            "×",
             "5",
             "=",
             "__"
           ],
-          "description": "Equation Builder appears showing 3 × 5 = [___] with factors pre-filled. Tile palette: 8, 10, 15, 20."
+          "description": "Equation builder appears: 3 × 5 = [blank]. Factors pre-filled. Product blank active."
         }
       },
       {
@@ -3243,15 +3192,31 @@ Cacheable: Yes
         "text": "Find the product of 3 × 5. Place the tile.",
         "tool": "place_tile",
         "target": "equation_builder_3x5",
+        "options": [
+          8,
+          10,
+          15,
+          20
+        ],
         "validator": [
           {
             "condition_id": "correct",
             "condition": {
               "total": 15
             },
-            "description": "Student placed 15 tile in product slot, correct",
+            "description": "Student placed 15 in product slot, correct",
             "is_correct": true,
             "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_3x5",
+                "params": {
+                  "event": "confirm_tile_placement",
+                  "status": "confirmed",
+                  "description": "15 tile locks into product slot."
+                }
+              },
               {
                 "type": "dialogue",
                 "text": "3 times 5 equals 15. Ends in 5. Fits the pattern."
@@ -3265,43 +3230,38 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "products_strip_5s",
-            "tangible_type": "image",
-            "description": "Products strip remains visible: [ 5 ] [ 10 ] [ 15 ] [ 20 ] [ 25 ] [ 30 ] with ones digits highlighted."
+            "description": "Products strip visible as reference. [ 5 ] [ 10 ] [ 15 ] [ 20 ] [ 25 ] [ 30 ].",
+            "tangible_type": "image"
           },
           {
             "tangible_id": "equation_builder_3x5",
-            "tangible_type": "equation_builder",
-            "description": "Equation Builder shows 3 × 5 = [___] with factors pre-filled. Tile palette: 8, 10, 15, 20. place_tile tool active.",
-            "expression": [
-              "3",
-              "x",
-              "5",
-              "=",
-              "__"
-            ]
+            "description": "Equation builder: 3 × 5 = [blank]. Product slot active. Tile palette: 8, 10, 15, 20.",
+            "tangible_type": "equation_builder"
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-15T01:28:04.766149+00:00"
+    "_generated_at": "2026-04-20T17:03:14.143129+00:00"
   },
   {
-    "id": "s2_4_student_builds_full_equation",
+    "id": "s2_4_student_builds_full_equation_5s",
     "beats": [
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "equation_builder",
+        "tangible_id": "equation_builder_6x5",
         "tangible_type": "equation_builder",
         "params": {
-          "template": [
+          "mode": "building",
+          "template": "equation",
+          "structure": [
             "__",
-            "x",
+            "×",
             "__",
             "=",
             "__"
           ],
-          "tile_palette": [
+          "palette": [
             4,
             5,
             6,
@@ -3311,7 +3271,7 @@ Cacheable: Yes
             30,
             35
           ],
-          "description": "Equation Builder appears: three blank slots with tile palette containing 4, 5, 6, 11, 20, 25, 30, 35. No context visualization."
+          "description": "Equation builder appears with three blank slots and multiplication template. Tile palette shows 4, 5, 6, 11, 20, 25, 30, 35."
         }
       },
       {
@@ -3322,7 +3282,8 @@ Cacheable: Yes
         "type": "prompt",
         "text": "Build the equation for 6 groups of 5.",
         "tool": "place_tile",
-        "target": "equation_builder",
+        "target": "equation_builder_6x5",
+        "variable_answer": true,
         "validator": [
           {
             "condition_id": "correct",
@@ -3348,17 +3309,19 @@ Cacheable: Yes
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "equation_builder",
-            "description": "Equation Builder with three blank slots. Tile palette: 4, 5, 6, 11, 20, 25, 30, 35. place_tile tool active.",
+            "tangible_id": "equation_builder_6x5",
+            "description": "Equation builder showing 6 × 5 = 30 with all three slots filled.",
             "tangible_type": "equation_builder",
-            "template": [
+            "mode": "building",
+            "template": "equation",
+            "structure": [
               "__",
-              "x",
+              "×",
               "__",
               "=",
               "__"
             ],
-            "tile_palette": [
+            "palette": [
               4,
               5,
               6,
@@ -3372,18 +3335,18 @@ Cacheable: Yes
         ]
       }
     ],
-    "_generated_at": "2026-04-15T01:28:12.749099+00:00"
+    "_generated_at": "2026-04-20T17:03:23.257784+00:00"
   },
   {
-    "id": "s3_1_tens_discovery_computation",
+    "id": "s3_1_10s_discovery_computation_application_new",
     "beats": [
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "products_strip_tens",
+        "tangible_id": "products_strip_10s",
         "tangible_type": "image",
         "params": {
-          "description": "Products Strip appears showing multiples of 10: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100. Label reads 'Multiples of 10'."
+          "description": "Products Strip appears showing multiples of 10: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100. Label: Multiples of 10."
         }
       },
       {
@@ -3391,44 +3354,84 @@ Cacheable: Yes
         "text": "One more family — 10s. Here are the multiples of 10: 10, 20, 30, 40, 50... all the way to 100. See the pattern?"
       },
       {
-        "type": "scene",
-        "method": "animate",
-        "tangible_id": "products_strip_tens",
-        "params": {
-          "event": "highlight_ones_digit",
-          "status": "confirmed",
-          "description": "The 0 in the ones digit of all numbers on the Products Strip highlights sequentially."
-        }
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "products_strip_10s",
+            "tangible_type": "image",
+            "description": "Products Strip showing multiples of 10 from 10 to 100. Label: Multiples of 10."
+          }
+        ]
       },
       {
         "type": "scene",
         "method": "animate",
-        "tangible_id": "products_strip_tens",
+        "tangible_id": "products_strip_10s",
         "params": {
-          "event": "show_factors",
+          "event": "highlight_ones_digit",
           "status": "confirmed",
-          "description": "Factors appear above each product on the strip: 1 × 10, 2 × 10, 3 × 10, etc."
+          "description": "The 0 in the ones digit highlights across all products on the strip: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100."
         }
       },
       {
         "type": "dialogue",
-        "text": "The products ALL end in zero. See the factor multiplied by 10 with the product? Multiplying by 10 just puts a zero at the end of the other factor. 4 times 10? 4 with a zero — 40."
+        "text": "The products ALL end in zero."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "products_strip_10s",
+            "tangible_type": "image",
+            "description": "Products Strip with ones digit 0 highlighted across all multiples of 10."
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "products_strip_10s",
+        "params": {
+          "description": "Factors appear above each product on the strip: 1 × 10, 2 × 10, 3 × 10, 4 × 10, 5 × 10, 6 × 10, 7 × 10, 8 × 10, 9 × 10, 10 × 10."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "See the factor multiplied by 10 with the product? Multiplying by 10 just puts a zero at the end of the other factor. 4 times 10? 4 with a zero — 40."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "products_strip_10s",
+            "tangible_type": "image",
+            "description": "Products Strip showing multiples of 10 with factors displayed above: 1 × 10 = 10, 2 × 10 = 20, etc."
+          }
+        ]
       },
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "equation_builder",
+        "tangible_id": "equation_builder_7x10",
         "tangible_type": "equation_builder",
         "params": {
-          "template": "equation",
-          "expression": [
+          "template": [
             "__",
-            "×",
+            "x",
             "__",
             "=",
             "__"
           ],
-          "description": "Equation Builder appears below the Products Strip with three blanks. Tile palette: 4, 7, 10, 40, 50, 60, 70."
+          "palette": [
+            4,
+            7,
+            10,
+            40,
+            50,
+            60,
+            70
+          ],
+          "description": "Equation Builder appears below Products Strip. Three blanks with multiplication and equals symbols. Palette contains tiles: 4, 7, 10, 40, 50, 60, 70."
         }
       },
       {
@@ -3439,18 +3442,16 @@ Cacheable: Yes
         "type": "prompt",
         "text": "Build the equation for 7 × 10.",
         "tool": "place_tile",
-        "target": "equation_builder",
+        "target": "equation_builder_7x10",
         "validator": [
           {
             "condition_id": "correct",
             "condition": {
-              "placed": {
-                "groups": 7,
-                "items": 10,
-                "total": 70
-              }
+              "groups": 7,
+              "items": 10,
+              "total": 70
             },
-            "description": "Student placed 7, 10, and 70 correctly",
+            "description": "Student placed 7 × 10 = 70, correct",
             "is_correct": true,
             "beats": [
               {
@@ -3465,30 +3466,38 @@ Cacheable: Yes
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "products_strip_tens",
-            "description": "Products Strip showing multiples of 10 with factors visible above each product.",
-            "tangible_type": "image"
+            "tangible_id": "products_strip_10s",
+            "tangible_type": "image",
+            "description": "Products Strip showing multiples of 10 with factors above each product."
           },
           {
-            "tangible_id": "equation_builder",
-            "description": "Equation Builder showing 7 × 10 = 70.",
+            "tangible_id": "equation_builder_7x10",
             "tangible_type": "equation_builder",
-            "template": "equation",
-            "expression": [
-              "7",
-              "×",
-              "10",
+            "description": "Equation Builder with three blanks. Palette: 4, 7, 10, 40, 50, 60, 70. place_tile tool active.",
+            "template": [
+              "__",
+              "x",
+              "__",
               "=",
-              "70"
+              "__"
+            ],
+            "palette": [
+              4,
+              7,
+              10,
+              40,
+              50,
+              60,
+              70
             ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-15T01:28:25.243323+00:00"
+    "_generated_at": "2026-04-20T17:03:40.457302+00:00"
   },
   {
-    "id": "s3_2_graph_scale_callback_x10",
+    "id": "s3_2_graph_scale_callback_10_application",
     "beats": [
       {
         "type": "scene",
@@ -3499,12 +3508,13 @@ Cacheable: Yes
           "mode": "reading",
           "orientation": "horizontal",
           "categories": [
-            "Category A",
-            "Category B",
-            "Category C"
+            "Dogs",
+            "Cats",
+            "Birds",
+            "Fish"
           ],
           "scale": 10,
-          "description": "Left side: horizontal picture graph with scale of 10. Category A has 3 symbols highlighted. Key shows each symbol = 10 items."
+          "description": "Simple horizontal picture graph appears on left side. Scale of 10. Dogs row has 3 symbols highlighted. Key shows each symbol = 10."
         }
       },
       {
@@ -3513,25 +3523,36 @@ Cacheable: Yes
         "tangible_id": "equation_builder_3x10",
         "tangible_type": "equation_builder",
         "params": {
-          "template": [
+          "expression": [
             "3",
             "x",
             "10",
             "=",
             "__"
           ],
-          "description": "Right side: equation builder showing 3 × 10 = [blank]. Factors pre-filled. Tile palette shows 13, 20, 25, 30, 40."
+          "prefilled": {
+            "groups": 3,
+            "items": 10
+          },
+          "description": "Equation Builder appears on right side. 3 × 10 = [___]. Factors pre-filled, product blank awaits tile."
         }
       },
       {
         "type": "dialogue",
-        "text": "Check this out. Remember reading graphs with scales? Here's a graph with a scale of 10. That row has 3 symbols. 3 symbols, each worth 10. That's 3 groups of 10. You've been doing this all along — reading graph scales WAS multiplication. Now find the product of 3 times 10. Place the tile."
+        "text": "Check this out. Remember reading graphs with scales? Here's a graph with a scale of 10. That row has 3 symbols. 3 symbols, each worth 10. That's 3 groups of 10. You've been doing this all along. Reading graph scales WAS multiplication. Now find the product of 3 times 10. Place the tile."
       },
       {
         "type": "prompt",
         "text": "Find the product of 3 × 10.",
         "tool": "place_tile",
         "target": "equation_builder_3x10",
+        "options": [
+          13,
+          20,
+          25,
+          30,
+          40
+        ],
         "validator": [
           {
             "condition_id": "correct",
@@ -3540,7 +3561,7 @@ Cacheable: Yes
                 "total": 30
               }
             },
-            "description": "Student placed 30, correct",
+            "description": "Student placed 30 in product slot, correct",
             "is_correct": true,
             "beats": [
               {
@@ -3548,9 +3569,9 @@ Cacheable: Yes
                 "method": "animate",
                 "tangible_id": "equation_builder_3x10",
                 "params": {
-                  "event": "tile_place_confirm",
+                  "event": "tile_snap_to_slot",
                   "status": "confirmed",
-                  "description": "30 tile locks into product slot."
+                  "description": "30 tile snaps into product slot, equation complete: 3 × 10 = 30."
                 }
               },
               {
@@ -3566,51 +3587,59 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "picture_graph_scale10",
-            "description": "Horizontal picture graph with scale of 10. Category A row with 3 symbols highlighted.",
+            "description": "Horizontal picture graph on left. Scale of 10. Dogs row with 3 symbols highlighted.",
             "tangible_type": "picture_graph",
             "mode": "reading",
             "orientation": "horizontal",
             "categories": [
-              "Category A",
-              "Category B",
-              "Category C"
+              "Dogs",
+              "Cats",
+              "Birds",
+              "Fish"
             ],
             "scale": 10
           },
           {
             "tangible_id": "equation_builder_3x10",
-            "description": "Equation builder: 3 × 10 = [blank]. Tile palette: 13, 20, 25, 30, 40. place_tile tool active.",
+            "description": "Equation Builder on right. 3 × 10 = [___]. place_tile tool active, palette shows 13, 20, 25, 30, 40.",
             "tangible_type": "equation_builder",
-            "template": [
+            "expression": [
               "3",
               "x",
               "10",
               "=",
               "__"
-            ]
+            ],
+            "prefilled": {
+              "groups": 3,
+              "items": 10
+            }
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-15T01:28:37.483991+00:00"
+    "_generated_at": "2026-04-20T17:03:54.422293+00:00"
   },
   {
-    "id": "s3_3_times_ten_independent_computation",
+    "id": "s3_3_10_independent_computation_application_reinforcement",
     "beats": [
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "equation_builder",
+        "tangible_id": "equation_builder_6x10",
         "tangible_type": "equation_builder",
         "params": {
-          "mode": "equation",
           "expression": [
             "6",
-            "×",
+            "x",
             "10",
             "=",
             "__"
           ],
+          "pre_filled": {
+            "groups": 6,
+            "items": 10
+          },
           "palette": [
             10,
             16,
@@ -3619,7 +3648,7 @@ Cacheable: Yes
             60,
             70
           ],
-          "description": "Equation Builder appears. 6 × 10 = [___]. Factors pre-filled. Product slot blank. Tile palette shows 10, 16, 30, 50, 60, 70."
+          "description": "Equation Builder appears. 6 × 10 = [blank]. Factors pre-filled. Palette shows 10, 16, 30, 50, 60, 70. Methods C/D active."
         }
       },
       {
@@ -3630,18 +3659,26 @@ Cacheable: Yes
         "type": "prompt",
         "text": "Find the product of 6 × 10. Place the tile.",
         "tool": "place_tile",
-        "target": "equation_builder",
+        "target": "equation_builder_6x10",
         "validator": [
           {
             "condition_id": "correct",
             "condition": {
-              "placed": {
-                "total": 60
-              }
+              "total": 60
             },
-            "description": "Student placed 60, correct",
+            "description": "Student placed 60, correct product",
             "is_correct": true,
             "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_6x10",
+                "params": {
+                  "event": "tile_locks_in_slot",
+                  "status": "confirmed",
+                  "description": "60 tile locks into product slot."
+                }
+              },
               {
                 "type": "dialogue",
                 "text": "6 times 10 equals 60. Ends in zero so it shows the 10s pattern."
@@ -3654,33 +3691,24 @@ Cacheable: Yes
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "equation_builder",
-            "description": "Equation Builder. 6 × 10 = [___]. Product slot blank. Tile palette visible. place_tile tool active.",
+            "tangible_id": "equation_builder_6x10",
+            "description": "Equation Builder showing 6 × 10 = 60. All slots filled. Palette showing 10, 16, 30, 50, 60, 70.",
             "tangible_type": "equation_builder",
-            "mode": "equation",
             "expression": [
               "6",
-              "×",
+              "x",
               "10",
               "=",
-              "__"
-            ],
-            "palette": [
-              10,
-              16,
-              30,
-              50,
-              60,
-              70
+              "60"
             ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-15T01:28:45.048202+00:00"
+    "_generated_at": "2026-04-20T17:04:04.115148+00:00"
   },
   {
-    "id": "s3_4_independent_equation_building",
+    "id": "s3_4_independent_equation_building_full_construction",
     "beats": [
       {
         "type": "scene",
@@ -3691,7 +3719,7 @@ Cacheable: Yes
           "mode": "reading",
           "container_count": 9,
           "items_per_container": 5,
-          "description": "9 bags appear, each containing 5 items. Context visualization for building equation."
+          "description": "9 bags appear on screen, each containing 5 items."
         }
       },
       {
@@ -3707,7 +3735,17 @@ Cacheable: Yes
             "=",
             "__"
           ],
-          "description": "Equation builder appears with three empty slots: [___] × [___] = [___]. Tile palette shows: 5, 9, 10, 14, 45, 50, 90, 95."
+          "tile_palette": [
+            5,
+            9,
+            10,
+            14,
+            45,
+            50,
+            90,
+            95
+          ],
+          "description": "Equation builder appears with three empty slots: blank times blank equals blank. Tile palette shows 5, 9, 10, 14, 45, 50, 90, 95."
         }
       },
       {
@@ -3715,10 +3753,46 @@ Cacheable: Yes
         "text": "Last one. Look at the bags and build the whole equation."
       },
       {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_bags",
+            "description": "9 bags, each with 5 items inside.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 9,
+            "items_per_container": 5
+          },
+          {
+            "tangible_id": "equation_builder",
+            "description": "Equation builder with three empty slots and tile palette available.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "__",
+              "×",
+              "__",
+              "=",
+              "__"
+            ],
+            "tile_palette": [
+              5,
+              9,
+              10,
+              14,
+              45,
+              50,
+              90,
+              95
+            ]
+          }
+        ]
+      },
+      {
         "type": "prompt",
         "text": "Build the equation for this picture.",
         "tool": "place_tile",
         "target": "equation_builder",
+        "variable_answer": false,
         "validator": [
           {
             "condition_id": "correct",
@@ -3727,12 +3801,22 @@ Cacheable: Yes
               "items": 5,
               "total": 45
             },
-            "description": "Student placed 9 × 5 = 45, correct",
+            "description": "Student placed 9, 5, and 45 in correct slots",
             "is_correct": true,
             "beats": [
               {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder",
+                "params": {
+                  "event": "confirm_placement",
+                  "status": "confirmed",
+                  "description": "Placed tiles lock into slots confirming the complete equation."
+                }
+              },
+              {
                 "type": "dialogue",
-                "text": "9 times 5 equals 45. Ends in 5 — matches the 5s pattern. You built the complete equation."
+                "text": "9 times 5 equals 45. Ends in 5, matches the 5s pattern. You built the complete equation."
               }
             ]
           }
@@ -3743,7 +3827,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_bags",
-            "description": "9 bags with 5 items each. Context visualization in reading mode.",
+            "description": "9 bags, each with 5 items inside.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 9,
@@ -3751,20 +3835,30 @@ Cacheable: Yes
           },
           {
             "tangible_id": "equation_builder",
-            "description": "Equation builder with three empty slots. Tile palette: 5, 9, 10, 14, 45, 50, 90, 95. place_tile tool active.",
+            "description": "Equation builder showing 9 × 5 = 45 with all slots filled.",
             "tangible_type": "equation_builder",
             "template": [
-              "__",
+              "9",
               "×",
-              "__",
+              "5",
               "=",
-              "__"
+              "45"
+            ],
+            "tile_palette": [
+              5,
+              9,
+              10,
+              14,
+              45,
+              50,
+              90,
+              95
             ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-15T01:28:54.741663+00:00"
+    "_generated_at": "2026-04-20T17:04:19.980476+00:00"
   }
 ]
 </lesson_sections>
@@ -3783,7 +3877,7 @@ Cacheable: Yes
       "tangible_id": "equation_builder_7x5",
       "tangible_type": "equation_builder",
       "params": {
-        "template": "equation",
+        "mode": "reading",
         "expression": [
           "7",
           "×",
@@ -3791,7 +3885,18 @@ Cacheable: Yes
           "=",
           "__"
         ],
-        "description": "Equation Builder appears. 7 × 5 = [___]. Factors 7 and 5 are pre-filled. Product slot is blank with multiple choice options below: 12, 30, 35, 40."
+        "prefilled_slots": {
+          "groups": 7,
+          "items": 5
+        },
+        "response_type": "multiple_choice",
+        "options": [
+          12,
+          30,
+          35,
+          40
+        ],
+        "description": "Equation builder appears showing 7 × 5 = ___. Factors 7 and 5 are pre-filled. Product slot is blank with multiple choice options: 12, 30, 35, 40."
       },
       "id": "s1_1_compute_5_product_identify_b0"
     },
@@ -3821,7 +3926,7 @@ Cacheable: Yes
           "beats": [
             {
               "type": "dialogue",
-              "text": "Right. 35. It ends in a 5 so we know it's a multiple of 5. 7 times 5 equals 35.",
+              "text": "That's it. 35. It ends in a 5 so we know it's a multiple of 5. 7 times 5 equals 35.",
               "id": "s1_1_compute_5_product_identify_b2_v0_b0"
             }
           ]
@@ -3834,22 +3939,33 @@ Cacheable: Yes
       "elements": [
         {
           "tangible_id": "equation_builder_7x5",
-          "description": "Equation Builder showing 7 × 5 = [___]. Multiple choice tool active on product slot with options 12, 30, 35, 40.",
+          "description": "Equation builder showing 7 × 5 = ___ with multiple choice options 12, 30, 35, 40 available for product slot.",
           "tangible_type": "equation_builder",
-          "template": "equation",
+          "mode": "reading",
           "expression": [
             "7",
             "×",
             "5",
             "=",
             "__"
+          ],
+          "prefilled_slots": {
+            "groups": 7,
+            "items": 5
+          },
+          "response_type": "multiple_choice",
+          "options": [
+            12,
+            30,
+            35,
+            40
           ]
         }
       ],
       "id": "s1_1_compute_5_product_identify_b3"
     }
   ],
-  "_generated_at": "2026-04-20T17:00:19.242812+00:00"
+  "_generated_at": "2026-04-27T15:53:30.498995+00:00"
 }
 </input>
 

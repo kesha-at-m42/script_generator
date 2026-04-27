@@ -6,13 +6,21 @@
         "condition": {
           "selected": "The difference"
         },
-        "description": "Student selected The difference (confusing compare step with first step)",
+        "description": "Student selected 'The difference': confusing the second step (comparing) with the first step (finding the combined total)",
         "is_correct": false,
         "steps": [
           [
             {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "strategy_statement",
+              "params": {
+                "description": "Strategy statement pulses to draw attention to the first step."
+              }
+            },
+            {
               "type": "dialogue",
-              "text": "We do find the difference, but that's the second step. When we see combined, we add first. What do we find when we add?"
+              "text": "The difference comes later. When we see 'combined,' we add first. Look at the strategy: what's the first thing we do?"
             }
           ]
         ]
@@ -21,13 +29,21 @@
         "condition": {
           "selected": "The largest number"
         },
-        "description": "Student selected The largest number (focusing on comparison rather than combining)",
+        "description": "Student selected 'The largest number': misunderstanding that 'combined' signals addition, not identifying an extreme value",
         "is_correct": false,
         "steps": [
           [
             {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "strategy_statement",
+              "params": {
+                "description": "The word 'combined' highlights on the strategy statement."
+              }
+            },
+            {
               "type": "dialogue",
-              "text": "The largest number helps us compare, but that comes later. Combined means put together. What operation puts numbers together?"
+              "text": "Combined means put together, not pick the biggest. When we see 'combined,' we add the categories. What do we get when we add?"
             }
           ]
         ]
@@ -39,13 +55,23 @@
         "steps": [
           [
             {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "strategy_statement",
+              "params": {
+                "event": "highlight_first_step",
+                "status": "confirmed",
+                "description": "Animation highlights 'Find the combined total first' on the strategy statement."
+              }
+            },
+            {
               "type": "dialogue",
-              "text": "When we see combined, together, or altogether, we add those categories first to find the total. That total becomes one number we can compare to the other category. The answer is the total."
+              "text": "Let me show you. Combined means add. When we see 'combined' or 'together,' we find the total by adding those categories. That's always the first step. The answer is the total."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:04:05.726425+00:00"
+  "_generated_at": "2026-04-27T15:59:07.325415+00:00"
 }

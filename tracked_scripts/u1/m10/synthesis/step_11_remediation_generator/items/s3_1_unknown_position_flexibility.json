@@ -6,26 +6,26 @@
         "condition": {
           "selected": "The unknown is always the hardest number"
         },
-        "description": "Student selected B: The unknown is always the hardest number",
+        "description": "Student selected option B: The unknown is always the hardest number",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "equation_builder_product_unknown",
+              "tangible_id": "equation_product_unknown",
               "params": {
-                "highlight_positions": [
-                  0,
-                  2,
-                  4
+                "highlight_elements": [
+                  "4",
+                  "5",
+                  "20"
                 ],
-                "description": "First equation highlights 4, 5, and the blank to show the relationship."
+                "description": "All three numbers highlight across the equations"
               }
             },
             {
               "type": "dialogue",
-              "text": "The unknown isn't about difficulty. Look at the three equations. What stays constant: the numbers and their relationship. What do 4, 5, and 20 always mean together?"
+              "text": "The unknown changes position, but that does not change the numbers themselves. Look at what the numbers mean together. What relationship do 4, 5, and 20 show?"
             }
           ]
         ]
@@ -34,49 +34,26 @@
         "condition": {
           "selected": "The numbers are different each time"
         },
-        "description": "Student selected C: The numbers are different each time",
+        "description": "Student selected option C: The numbers are different each time",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "equation_builder_product_unknown",
+              "tangible_id": "equation_product_unknown",
               "params": {
-                "highlight_positions": [
-                  0,
-                  2
+                "highlight_elements": [
+                  "4",
+                  "5",
+                  "20"
                 ],
-                "description": "First equation highlights 4 and 5."
-              }
-            },
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "equation_builder_factor2_unknown",
-              "params": {
-                "highlight_positions": [
-                  0,
-                  4
-                ],
-                "description": "Second equation highlights 4 and 20."
-              }
-            },
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "equation_builder_factor1_unknown",
-              "params": {
-                "highlight_positions": [
-                  2,
-                  4
-                ],
-                "description": "Third equation highlights 5 and 20."
+                "description": "The numbers 4, 5, and 20 highlight across all three equations"
               }
             },
             {
               "type": "dialogue",
-              "text": "Look at all three equations. The same three numbers appear: 4, 5, and 20. Only the position of the unknown changes. What relationship do these numbers always show?"
+              "text": "Look closely at the numbers. Each equation uses 4, 5, and 20. The unknown moves, but the numbers stay the same. What do those three numbers mean together?"
             }
           ]
         ]
@@ -85,52 +62,26 @@
         "condition": {
           "selected": "The equation changes meaning each time"
         },
-        "description": "Student selected D: The equation changes meaning each time",
+        "description": "Student selected option D: The equation changes meaning each time",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "equation_builder_product_unknown",
+              "tangible_id": "equation_product_unknown",
               "params": {
-                "highlight_positions": [
-                  0,
-                  1,
-                  2
+                "highlight_elements": [
+                  "4",
+                  "5",
+                  "20"
                 ],
-                "description": "First equation highlights 4 × 5."
-              }
-            },
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "equation_builder_factor2_unknown",
-              "params": {
-                "highlight_positions": [
-                  0,
-                  1,
-                  2
-                ],
-                "description": "Second equation highlights 4 × blank."
-              }
-            },
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "equation_builder_factor1_unknown",
-              "params": {
-                "highlight_positions": [
-                  0,
-                  1,
-                  2
-                ],
-                "description": "Third equation highlights blank × 5."
+                "description": "The numbers 4, 5, and 20 highlight across all three equations"
               }
             },
             {
               "type": "dialogue",
-              "text": "The meaning doesn't change. Each equation shows the same relationship: 4 groups of 5 is 20. Read each one. What's the constant relationship among 4, 5, and 20?"
+              "text": "The position of the unknown changes, but the meaning does not. All three equations show the same relationship. Read what 4, 5, and 20 mean together."
             }
           ]
         ]
@@ -144,41 +95,21 @@
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equation_builder_product_unknown",
+              "tangible_id": "equation_product_unknown",
               "params": {
                 "event": "highlight_relationship",
                 "status": "confirmed",
-                "description": "First equation highlights the full relationship: 4 × 5 = 20."
-              }
-            },
-            {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "equation_builder_factor2_unknown",
-              "params": {
-                "event": "highlight_relationship",
-                "status": "confirmed",
-                "description": "Second equation highlights the same relationship: 4 × (5) = 20."
-              }
-            },
-            {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "equation_builder_factor1_unknown",
-              "params": {
-                "event": "highlight_relationship",
-                "status": "confirmed",
-                "description": "Third equation highlights the same relationship: (4) × 5 = 20."
+                "description": "The numbers 4, 5, and 20 pulse in sequence across all three equations, showing the consistent relationship"
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you what stays constant. First equation: 4 groups of 5 equals 20. Second equation: 4 groups of something equals 20. That something is 5. Third equation: some number of groups of 5 equals 20. That number is 4. The relationship never changes: 4 groups of 5 equals 20. The unknown just tells you which piece you need to figure out."
+              "text": "Let me show you what stays the same. In every equation, 4 groups of 5 equals 20. That relationship does not change. The unknown moves to different positions, but the fact that 4 groups of 5 makes 20 is always true. The answer is: 4 groups of 5 equals 20."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:03:25.244832+00:00"
+  "_generated_at": "2026-04-27T15:56:33.848935+00:00"
 }

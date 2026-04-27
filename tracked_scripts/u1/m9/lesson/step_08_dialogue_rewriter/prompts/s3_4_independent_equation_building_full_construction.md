@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:04:52.284347
+# Generated: 2026-04-27T10:59:56.014828
 ======================================================================
 
 ## API Parameters
@@ -948,7 +948,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "9 times 5 equals 45. Ends in 5, matches the 5s pattern. You built the complete equation.",
+      "text": "9 times 5 equals 45. Ends in 5 — matches the 5s pattern. You built the complete equation.",
       "context": "on_correct"
     }
   ]

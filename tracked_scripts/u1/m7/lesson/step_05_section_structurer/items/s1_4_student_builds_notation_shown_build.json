@@ -8,14 +8,20 @@
       "tangible_type": "equal_groups",
       "params": {
         "mode": "building",
+        "container_type": "bags",
         "container_count": 0,
         "items_per_container": 0,
-        "description": "Empty equal groups workspace in building mode. Container count and items per container controls visible."
+        "orientation": "horizontal",
+        "description": "Empty equal groups workspace in building mode. No containers or items yet."
       }
     },
     {
       "type": "dialogue",
       "text": "Build one more. This time, I'll show you how to write it with the × symbol."
+    },
+    {
+      "type": "dialogue",
+      "text": "How many groups?"
     },
     {
       "type": "prompt",
@@ -37,7 +43,7 @@
               "tangible_id": "equal_groups_build",
               "params": {
                 "container_count": 4,
-                "description": "4 empty containers appear on screen."
+                "description": "4 empty bags appear in the workspace."
               }
             },
             {
@@ -53,13 +59,19 @@
       "elements": [
         {
           "tangible_id": "equal_groups_build",
-          "description": "Equal groups workspace showing 4 empty containers. Items per container control active.",
+          "description": "Equal groups workspace in building mode. 4 empty bags visible. Container count set, awaiting items per container.",
           "tangible_type": "equal_groups",
           "mode": "building",
+          "container_type": "bags",
           "container_count": 4,
-          "items_per_container": 0
+          "items_per_container": 0,
+          "orientation": "horizontal"
         }
       ]
+    },
+    {
+      "type": "dialogue",
+      "text": "How many in each?"
     },
     {
       "type": "prompt",
@@ -81,7 +93,7 @@
               "tangible_id": "equal_groups_build",
               "params": {
                 "items_per_container": 3,
-                "description": "3 items appear in each of the 4 containers."
+                "description": "3 items appear in each of the 4 bags."
               }
             },
             {
@@ -97,11 +109,13 @@
       "elements": [
         {
           "tangible_id": "equal_groups_build",
-          "description": "Equal groups workspace showing 4 containers with 3 items in each.",
+          "description": "Equal groups workspace showing 4 bags, each containing 3 items. Complete equal groups model.",
           "tangible_type": "equal_groups",
           "mode": "building",
+          "container_type": "bags",
           "container_count": 4,
-          "items_per_container": 3
+          "items_per_container": 3,
+          "orientation": "horizontal"
         }
       ]
     },
@@ -113,10 +127,10 @@
       "params": {
         "expression": [
           "4",
-          "×",
+          "x",
           "3"
         ],
-        "description": "Static equation 4 × 3 appears below the equal groups."
+        "description": "Equation 4 × 3 appears below the equal groups model."
       }
     },
     {
@@ -128,24 +142,26 @@
       "elements": [
         {
           "tangible_id": "equal_groups_build",
-          "description": "Equal groups workspace showing 4 containers with 3 items in each.",
+          "description": "Equal groups workspace showing 4 bags, each containing 3 items.",
           "tangible_type": "equal_groups",
           "mode": "building",
+          "container_type": "bags",
           "container_count": 4,
-          "items_per_container": 3
+          "items_per_container": 3,
+          "orientation": "horizontal"
         },
         {
           "tangible_id": "equation_display",
-          "description": "Static equation 4 × 3 displayed below the equal groups.",
+          "description": "Static equation showing 4 × 3 positioned below the equal groups model.",
           "tangible_type": "equation",
           "expression": [
             "4",
-            "×",
+            "x",
             "3"
           ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:01:53.519711+00:00"
+  "_generated_at": "2026-04-27T15:55:41.306585+00:00"
 }

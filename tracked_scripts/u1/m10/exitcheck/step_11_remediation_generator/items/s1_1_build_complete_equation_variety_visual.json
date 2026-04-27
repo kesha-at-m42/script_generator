@@ -4,36 +4,24 @@
     [
       {
         "condition": {
-          "and": [
+          "incorrect_count": 1
+        },
+        "description": "Student placed incorrect equation on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
             {
-              "or": [
-                {
-                  "groups": 6,
-                  "items": 3
-                },
-                {
-                  "groups": 6,
-                  "total": 18
-                },
-                {
-                  "items": 3,
-                  "total": 18
-                }
-              ]
-            },
-            {
-              "or": [
-                {
-                  "incorrect_count": 1
-                },
-                {
-                  "incorrect_count": 2
-                }
-              ]
+              "type": "dialogue",
+              "text": "Not quite. Count the rows, then count how many in each row."
             }
           ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
         },
-        "description": "Student reversed groups and items (placed 6 × 3 or partial reversal) on first or second attempt",
+        "description": "Student placed incorrect equation on second attempt",
         "is_correct": false,
         "steps": [
           [
@@ -42,96 +30,17 @@
               "method": "update",
               "tangible_id": "equal_groups_pencils",
               "params": {
-                "highlight_containers": true,
-                "description": "The 3 rows highlight."
+                "highlight_containers": [
+                  0,
+                  1,
+                  2
+                ],
+                "description": "All 3 rows highlight."
               }
             },
             {
               "type": "dialogue",
-              "text": "You're right that there are 3 and 6. But count how many rows there are. Is it 6?"
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "and": [
-            {
-              "incorrect_count": 1
-            },
-            {
-              "not": {
-                "or": [
-                  {
-                    "groups": 6,
-                    "items": 3
-                  },
-                  {
-                    "groups": 6,
-                    "total": 18
-                  },
-                  {
-                    "items": 3,
-                    "total": 18
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "description": "Student placed incorrect equation on first attempt (not a reversal)",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "dialogue",
-              "text": "Not quite. Count the rows. Then count how many pencils are in each row."
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "and": [
-            {
-              "incorrect_count": 2
-            },
-            {
-              "not": {
-                "or": [
-                  {
-                    "groups": 6,
-                    "items": 3
-                  },
-                  {
-                    "groups": 6,
-                    "total": 18
-                  },
-                  {
-                    "items": 3,
-                    "total": 18
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "description": "Student placed incorrect equation on second attempt (not a reversal)",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "equal_groups_pencils",
-              "params": {
-                "highlight_containers": true,
-                "description": "The 3 rows highlight."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "Here's what helps: count the rows first. That number goes in the first slot. Then count the pencils in one row. How many are in each row?"
+              "text": "Look at the rows. There are 3 rows. Each row has the same number. Count one row: how many pencils?"
             }
           ]
         ]
@@ -145,21 +54,31 @@
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equation_builder_pencils",
+              "tangible_id": "equal_groups_pencils",
               "params": {
-                "event": "place_tiles",
+                "event": "highlight_containers_sequential",
                 "status": "confirmed",
-                "description": "System places tiles into equation: 3 in first slot, 6 in second slot, 18 in third slot. Equation becomes 3 × 6 = 18."
+                "description": "Rows highlight one at a time as guide counts: 1, 2, 3."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you how this works. I count the rows. There are 3 rows. That's my first number. Then I count the pencils in one row. There are 6 pencils. That's my second number. 3 times 6 equals 18. The equation is 3 times 6 equals 18."
+              "text": "Let me show you. I count the rows: 1, 2, 3. Three rows. Now I count one row: 1, 2, 3, 4, 5, 6. Six pencils. So it's 3 groups of 6. The product? 3 times 6 equals 18. That's the equation: 3 times 6 equals 18."
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_pencils",
+              "params": {
+                "event": "tiles_place_sequentially",
+                "status": "confirmed",
+                "description": "Tiles place into equation: 3 × 6 = 18 appears."
+              }
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:01:49.481186+00:00"
+  "_generated_at": "2026-04-27T15:54:56.164563+00:00"
 }

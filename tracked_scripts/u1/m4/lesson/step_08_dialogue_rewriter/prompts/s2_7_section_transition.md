@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:35.403471
+# Generated: 2026-04-27T11:01:29.577352
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,7 @@ Cacheable: Yes
   "id": "s2_7_section_transition",
   "dialogues": [
     {
-      "text": "You've made vertical bar graphs. Now let's try one that goes sideways—HORIZONTAL.",
+      "text": "You've made vertical bar graphs. Now let's try one that goes sideways. HORIZONTAL.",
       "context": "lesson"
     }
   ]

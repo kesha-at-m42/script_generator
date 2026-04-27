@@ -4,26 +4,38 @@
     {
       "type": "scene",
       "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Horizontal data table appears. Marbles in Jars data. Jar A: 7, Jar B: 12, Jar C: 19, Jar D: 23."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
       "tangible_id": "bar_graph_marbles",
       "tangible_type": "bar_graph",
       "params": {
         "mode": "reading",
-        "orientation": "vertical",
+        "orientation": "horizontal",
         "categories": [
-          "Red",
-          "Blue",
-          "Green",
-          "Yellow"
+          "Jar A",
+          "Jar B",
+          "Jar C",
+          "Jar D"
         ],
         "values": [
           7,
           12,
-          9,
-          5
+          19,
+          23
         ],
-        "current_scale": 10,
-        "scale_selector_active": true,
-        "description": "Vertical bar graph appears. Marbles data. Red=7, Blue=12, Green=9, Yellow=5. Currently showing Scale of 10. Scale selector interactive."
+        "axis_range": [
+          0,
+          30
+        ],
+        "scale": 10,
+        "description": "Horizontal bar graph appears. Marbles in Jars data. Scale of 10 currently applied. Warning indicators visible on Jar A and Jar C bars."
       }
     },
     {
@@ -32,7 +44,7 @@
     },
     {
       "type": "prompt",
-      "text": "Click 'Scale of 2' to preview.",
+      "text": "Click Scale of 2 to preview.",
       "tool": "click_scale_button",
       "target": "bar_graph_marbles",
       "validator": [
@@ -46,13 +58,11 @@
           "beats": [
             {
               "type": "scene",
-              "method": "animate",
+              "method": "update",
               "tangible_id": "bar_graph_marbles",
               "params": {
-                "event": "preview_scale_transition",
-                "status": "confirmed",
-                "new_scale": 2,
-                "description": "Scale transitions to 2. All bars land exactly on tick marks. Green checkmark indicator appears. No warnings."
+                "scale": 2,
+                "description": "Graph updates to Scale of 2. All bars land exactly on tick marks. Checkmark indicator appears. No warnings visible."
               }
             },
             {
@@ -63,24 +73,29 @@
               "type": "current_scene",
               "elements": [
                 {
+                  "tangible_id": "data_table",
+                  "description": "Horizontal data table showing Marbles in Jars values.",
+                  "tangible_type": "data_table"
+                },
+                {
                   "tangible_id": "bar_graph_marbles",
-                  "description": "Vertical bar graph showing Scale of 2. Marbles data. All bars land exactly on tick marks. Green checkmark visible.",
+                  "description": "Horizontal bar graph. Marbles in Jars data. Scale of 2 applied. All bars aligned exactly to tick marks. Checkmark indicator visible. No warnings.",
                   "tangible_type": "bar_graph",
                   "mode": "reading",
-                  "orientation": "vertical",
+                  "orientation": "horizontal",
                   "categories": [
-                    "Red",
-                    "Blue",
-                    "Green",
-                    "Yellow"
+                    "Jar A",
+                    "Jar B",
+                    "Jar C",
+                    "Jar D"
                   ],
                   "values": [
                     7,
                     12,
-                    9,
-                    5
+                    19,
+                    23
                   ],
-                  "current_scale": 2
+                  "scale": 2
                 }
               ]
             }
@@ -92,25 +107,33 @@
       "type": "current_scene",
       "elements": [
         {
+          "tangible_id": "data_table",
+          "description": "Horizontal data table showing Marbles in Jars values.",
+          "tangible_type": "data_table"
+        },
+        {
           "tangible_id": "bar_graph_marbles",
-          "description": "Vertical bar graph in reading mode. Marbles data showing Scale of 10. Scale selector active with Scale of 2 option available.",
+          "description": "Horizontal bar graph. Marbles in Jars data. Scale of 10 currently applied. Warning indicators visible. click_scale_button tool active.",
           "tangible_type": "bar_graph",
           "mode": "reading",
-          "orientation": "vertical",
+          "orientation": "horizontal",
           "categories": [
-            "Red",
-            "Blue",
-            "Green",
-            "Yellow"
+            "Jar A",
+            "Jar B",
+            "Jar C",
+            "Jar D"
           ],
           "values": [
             7,
             12,
-            9,
-            5
+            19,
+            23
           ],
-          "current_scale": 10,
-          "scale_selector_active": true
+          "axis_range": [
+            0,
+            30
+          ],
+          "scale": 10
         }
       ]
     },
@@ -126,27 +149,32 @@
       "type": "current_scene",
       "elements": [
         {
+          "tangible_id": "data_table",
+          "description": "Horizontal data table showing Marbles in Jars values.",
+          "tangible_type": "data_table"
+        },
+        {
           "tangible_id": "bar_graph_marbles",
-          "description": "Vertical bar graph showing Scale of 2. Marbles data. All bars land exactly on tick marks.",
+          "description": "Horizontal bar graph. Marbles in Jars data. Scale of 2 applied. All bars aligned exactly. Checkmark indicator visible.",
           "tangible_type": "bar_graph",
           "mode": "reading",
-          "orientation": "vertical",
+          "orientation": "horizontal",
           "categories": [
-            "Red",
-            "Blue",
-            "Green",
-            "Yellow"
+            "Jar A",
+            "Jar B",
+            "Jar C",
+            "Jar D"
           ],
           "values": [
             7,
             12,
-            9,
-            5
+            19,
+            23
           ],
-          "current_scale": 2
+          "scale": 2
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:01:38.476125+00:00"
+  "_generated_at": "2026-04-27T15:57:09.803707+00:00"
 }

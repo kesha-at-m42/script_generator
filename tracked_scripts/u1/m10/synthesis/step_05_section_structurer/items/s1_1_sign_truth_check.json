@@ -4,7 +4,7 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_A",
+      "tangible_id": "equation_a",
       "tangible_type": "equation",
       "params": {
         "expression": [
@@ -14,13 +14,13 @@
           "=",
           "15"
         ],
-        "description": "Equation A: 3 × 5 = 15"
+        "description": "Equation A displays: 3 × 5 = 15"
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_B",
+      "tangible_id": "equation_b",
       "tangible_type": "equation",
       "params": {
         "expression": [
@@ -30,13 +30,13 @@
           "x",
           "5"
         ],
-        "description": "Equation B: 15 = 3 × 5"
+        "description": "Equation B displays: 15 = 3 × 5"
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_C",
+      "tangible_id": "equation_c",
       "tangible_type": "equation",
       "params": {
         "expression": [
@@ -46,13 +46,13 @@
           "=",
           "20"
         ],
-        "description": "Equation C: 3 × 5 = 20"
+        "description": "Equation C displays: 3 × 5 = 20"
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_D",
+      "tangible_id": "equation_d",
       "tangible_type": "equation",
       "params": {
         "expression": [
@@ -62,7 +62,7 @@
           "x",
           "3"
         ],
-        "description": "Equation D: 15 = 5 × 3"
+        "description": "Equation D displays: 15 = 5 × 3"
       }
     },
     {
@@ -85,12 +85,21 @@
           "condition": {
             "selected": "C"
           },
-          "description": "Student selected C, correct — 3 × 5 = 20 is false",
+          "description": "Student selected C (3 × 5 = 20), the false equation",
           "is_correct": true,
           "beats": [
             {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_c",
+              "params": {
+                "highlight": true,
+                "description": "Equation C highlights to confirm selection."
+              }
+            },
+            {
               "type": "dialogue",
-              "text": "3 times 5 is 15, not 20. The sides don't match. And notice — the other equations are all true. The total is on the right in A and on the left in B and D, but both sides have the same value either way. That's what the equals sign checks."
+              "text": "3 times 5 is 15, not 20. The sides don't match."
             }
           ]
         }
@@ -100,55 +109,56 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equation_A",
+          "tangible_id": "equation_a",
           "description": "Equation A: 3 × 5 = 15",
-          "tangible_type": "equation",
-          "expression": [
-            "3",
-            "x",
-            "5",
-            "=",
-            "15"
-          ]
+          "tangible_type": "equation"
         },
         {
-          "tangible_id": "equation_B",
+          "tangible_id": "equation_b",
           "description": "Equation B: 15 = 3 × 5",
-          "tangible_type": "equation",
-          "expression": [
-            "15",
-            "=",
-            "3",
-            "x",
-            "5"
-          ]
+          "tangible_type": "equation"
         },
         {
-          "tangible_id": "equation_C",
-          "description": "Equation C: 3 × 5 = 20",
-          "tangible_type": "equation",
-          "expression": [
-            "3",
-            "x",
-            "5",
-            "=",
-            "20"
-          ]
+          "tangible_id": "equation_c",
+          "description": "Equation C: 3 × 5 = 20, highlighted",
+          "tangible_type": "equation"
         },
         {
-          "tangible_id": "equation_D",
+          "tangible_id": "equation_d",
           "description": "Equation D: 15 = 5 × 3",
-          "tangible_type": "equation",
-          "expression": [
-            "15",
-            "=",
-            "5",
-            "x",
-            "3"
-          ]
+          "tangible_type": "equation"
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "And notice — the other equations are all true. The total is on the right in A and on the left in B and D, but both sides have the same value either way. That's what the equals sign checks."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_a",
+          "description": "Equation A: 3 × 5 = 15",
+          "tangible_type": "equation"
+        },
+        {
+          "tangible_id": "equation_b",
+          "description": "Equation B: 15 = 3 × 5",
+          "tangible_type": "equation"
+        },
+        {
+          "tangible_id": "equation_c",
+          "description": "Equation C: 3 × 5 = 20, highlighted as the false equation",
+          "tangible_type": "equation"
+        },
+        {
+          "tangible_id": "equation_d",
+          "description": "Equation D: 15 = 5 × 3",
+          "tangible_type": "equation"
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:01:25.939630+00:00"
+  "_generated_at": "2026-04-27T15:53:57.581619+00:00"
 }

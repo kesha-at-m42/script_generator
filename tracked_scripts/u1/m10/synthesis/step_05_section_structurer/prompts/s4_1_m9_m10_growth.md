@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:01:52.897592
+# Generated: 2026-04-27T10:54:38.953696
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -817,17 +833,19 @@ Cacheable: Yes
   "student_action": "MC",
   "options": "- A: \"The total moved to the other side\"\n\t- B: \"There's an unknown number\"\n\t- C: \"The picture uses stacks, not bags\"\n\t- D: \"All of these are different today\"",
   "correct_answer": "D",
-  "guide_2": "(selected D) \"Three new things, all in one equation. The equals sign works both ways. Unknowns can go anywhere. And equations work for stacks, rows, groups — not just bags.\"",
+  "on_correct": "(selected D)",
+  "guide_2": "\"Three new things, all in one equation. The equals sign works both ways. Unknowns can go anywhere. And equations work for stacks, rows, groups — not just bags.\"",
   "remediation": "Pipeline",
   "remediation_note": "Each of A, B, C names one real M10 change but misses the others. Redirect student to compare both equations again and count how many things changed — the goal is to recognize all three changes together (= sign flexibility, unknown position, context variety).",
   "design_note": "This task is the consolidation moment. Each individual option (A, B, C) names one M10 demand; option D names all three. Students who select A, B, or C aren't wrong — they noticed a real change — but haven't yet seen the FULL scope of what M10 added. The guide redirects them to compare more carefully, and the correct answer (\"All of these are new\") provides the consolidation: M10 was a three-layered upgrade to their equation toolkit.",
-  "_generated_at": "2026-04-20T17:00:48.036789+00:00",
+  "_generated_at": "2026-04-27T15:53:05.242824+00:00",
   "workspace_specs": {
     "toys": [],
     "tools": [
       "multiple_choice"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_0_opening_frame\n# Section Summary: s1_0_opening_frame\n\n**VISUAL STATE:** No tangible visualizations or data displays are present on screen at section end. The screen shows only dialogue text against a blank background.\n\n**CONTENT:** This opening frame introduces a transition to connecting prior learning about equations with multiple groups and unknowns. No new vocabulary or formal concepts are introduced; instead, it serves as a bridge referencing previously practiced material.\n\n**STUDENT ACTION:** No interactive student action occurs in this section. The student receives dialogue prompting reflection on prior equation work but does not build, manipulate, or respond to any visual elements.\n\n---\n\n## s1_1_sign_truth_check\n# Section Summary: s1_1_sign_truth_check\n\n**VISUAL STATE:** Four equation tangibles displayed on screen at section end:\n- Equation A: \"3 × 5 = 15\" (standard form, left-to-right)\n- Equation B: \"15 = 3 × 5\" (reversed form, total on left)\n- Equation C: \"3 × 5 = 20\" (highlighted in red/accent color to indicate false statement)\n- Equation D: \"15 = 5 × 3\" (commutative form, total on left)\n\n**CONTENT:** Students were introduced to the concept of **equation truth-checking**—understanding that the equals sign verifies both sides have the same value. The vocabulary term **\"equals sign\"** was formally introduced as a checker of mathematical equivalence. The lesson emphasized that equations remain true regardless of whether the total appears on the left or right side, as long as both sides match.\n\n**STUDENT ACTION:** Student selected multiple-choice option \"C\" to identify the false equation (3 × 5 = 20). Upon correct selection, Equation C was highlighted and the system provided corrective feedback explaining that 3 × 5 equals 15, not 20, confirming the sides don't match.\n\n---\n\n## s2_1_context_variety_same_structure\n# Section Summary: s2_1_context_variety_same_structure\n\n**VISUAL STATE:** Three images are displayed on screen: Image 1 shows 4 rows of 2 books on shelves; Image 2 shows 4 stacks of 2 cups; Image 3 shows 4 groups of 2 butterflies arranged in circled clusters. Below all three images is an equation displaying \"4 × 2 = 8\" in standard mathematical notation.\n\n**CONTENT:** This section introduces the concept that different real-world contexts (books, cups, butterflies) can share the same underlying mathematical structure. Students learned that the equation 4 × 2 = 8 captures the common structure across all three images—not the visual appearance or object type, but the abstract relationship of \"4 groups of 2.\" The vocabulary \"groups\" and \"structure\" were emphasized as the key to understanding why one equation fits multiple contexts.\n\n**STUDENT ACTION:** Students answered a multi-select question identifying what all three pictures have in common, selecting both \"All have 4 groups of 2\" and \"All have 8 things\" as correct answers. This reinforced that both the structural organization (4 groups of 2) and the total count (8) are equivalent ways of describing the same mathematical relationship.\n\n---\n\n## s3_1_unknown_position_flexibility\n# Section Summary: Unknown Position Flexibility\n\n**VISUAL STATE:**\nThree equations are displayed vertically on screen, all using multiplication with the numbers 4, 5, and 20:\n1. Equation type: \"4 × 5 = ☐\" labeled \"product unknown\"\n2. Equation type: \"4 × ☐ = 20\" labeled \"second factor unknown\"\n3. Equation type: \"☐ × 5 = 20\" labeled \"first factor unknown\"\n\n**CONTENT:**\nThis section introduced the concept that the same multiplicative relationship (4 groups of 5 equals 20) remains constant even when the unknown shifts position within the equation. Students learned that multiplication equations can have unknowns in different locations—product, second factor, or first factor—while the underlying relationship stays the same. Vocabulary formally introduced: \"product unknown,\" \"second factor unknown,\" \"first factor unknown.\"\n\n**STUDENT ACTION:**\nThe student answered a multiple-choice question asking \"What stays the same in all three equations?\" and selected the correct option: \"4 groups of 5 equals 20,\" demonstrating understanding that the multiplicative relationship persists regardless of unknown position."
 }
 </input>
 

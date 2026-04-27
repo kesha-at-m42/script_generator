@@ -13,17 +13,18 @@
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "bar_graph_fruits",
+              "tangible_id": "scale_preview_system",
               "params": {
-                "highlight_categories": [
-                  "Dates"
+                "highlight_scales": [
+                  2,
+                  10
                 ],
-                "description": "Dates value (60) highlighted in data table."
+                "description": "Scale of 2 and Scale of 10 highlighted for comparison."
               }
             },
             {
               "type": "dialogue",
-              "text": "Scale of 2 works, but look at the biggest number: 60. That means 30 tick marks on the axis. With Scale of 10, you only need 6 tick marks. Which is easier to read?"
+              "text": "Scale of 2 works, but look at how many marks that takes to reach 60. Count by 2s: that's 30 tick marks! Scale of 10 gives us the same information with only 6 marks."
             }
           ]
         ]
@@ -39,14 +40,18 @@
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "bar_graph_fruits",
+              "tangible_id": "scale_preview_system",
               "params": {
-                "description": "Scale of 5 and Scale of 10 options highlighted side by side."
+                "highlight_scales": [
+                  5,
+                  10
+                ],
+                "description": "Scale of 5 and Scale of 10 highlighted for comparison."
               }
             },
             {
               "type": "dialogue",
-              "text": "Scale of 5 fits all the data. But look: to reach 60, you need 12 tick marks. Scale of 10 only needs 6. Both work, but which graph is cleaner?"
+              "text": "Scale of 5 fits the data and shows exact values. But for numbers up to 60, Scale of 10 keeps the axis cleaner. Count: Scale of 5 needs 12 marks, Scale of 10 needs only 6."
             }
           ]
         ]
@@ -60,16 +65,16 @@
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "bar_graph_fruits",
+              "tangible_id": "scale_preview_system",
               "params": {
-                "event": "preview_scale_comparison",
+                "event": "highlight_scale_10",
                 "status": "confirmed",
-                "description": "System demonstrates Scale of 10. Axis shows 0, 10, 20, 30, 40, 50, 60. All bars fit cleanly: Dates at 60, Cherries at 45, Bananas at 30, Apples at 15."
+                "description": "Scale of 10 highlights with checkmark."
               }
             },
             {
               "type": "dialogue",
-              "text": "Here's how I think about it. The biggest number is 60. All values end in 0 or 5, so Scale of 5 and Scale of 10 both show exact values. But Scale of 10 only needs 6 tick marks while Scale of 5 needs 12. Fewer marks make the graph easier to read. The answer is Scale of 10 because it balances precision with clarity."
+              "text": "Let me show you. The biggest number is 60. All the values end in 0 or 5, so Scale of 10 shows every value exactly. Count the marks: 0, 10, 20, 30, 40, 50, 60. Only 6 marks. That's what makes it easiest to read. The answer is Scale of 10."
             }
           ]
         ]
@@ -101,7 +106,7 @@
             }
           ]
         },
-        "description": "Branch 3: Student selected all incorrect answers, none correct",
+        "description": "Branch 3: Student selected only incorrect options, no correct answers",
         "is_correct": false,
         "steps": [
           [
@@ -110,12 +115,18 @@
               "method": "update",
               "tangible_id": "data_table",
               "params": {
-                "description": "Data values highlighted with ones place digits shown: 60 (0), 45 (5), 30 (0), 15 (5)."
+                "highlight_values": [
+                  60,
+                  45,
+                  30,
+                  15
+                ],
+                "description": "All four values highlight in data table."
               }
             },
             {
               "type": "dialogue",
-              "text": "Look at what the question asks: why is Scale of 10 a good choice? Check the ones place digits. What do you notice about 60, 45, 30, 15?"
+              "text": "Let's go back to what makes a good scale. Look at the values: 60, 45, 30, 15. Check the ones place digits. What pattern do you see?"
             }
           ]
         ]
@@ -156,50 +167,24 @@
                   }
                 ]
               }
-            },
-            {
-              "not": {
-                "or": [
-                  {
-                    "not": {
-                      "selected": "All values end in 0 or 5 so they can be graphed precisely."
-                    }
-                  },
-                  {
-                    "not": {
-                      "selected": "The graph is easy to read."
-                    }
-                  },
-                  {
-                    "not": {
-                      "selected": "The biggest number is 60 so the bars fit on the graph."
-                    }
-                  },
-                  {
-                    "not": {
-                      "selected": "Scale of 2 takes too many marks to reach the biggest number."
-                    }
-                  }
-                ]
-              }
             }
           ]
         },
-        "description": "Branch 2: Student selected only correct answers, but not all of them",
+        "description": "Branch 2: Student selected some correct reasons but not all",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "bar_graph_fruits",
+              "tangible_id": "scale_preview_system",
               "params": {
-                "description": "Scale preview system showing comparison: Scale of 2 (30 marks), Scale of 10 (6 marks)."
+                "description": "Scale Preview System highlights all three scales with comparison indicators."
               }
             },
             {
               "type": "dialogue",
-              "text": "You found some correct reasons. Look at all four statements again. Each one explains something important about why Scale of 10 works well. Are there any others that also fit?"
+              "text": "You found some reasons. There are more. Think about the ones place digits AND how many marks each scale needs to reach 60."
             }
           ]
         ]
@@ -249,7 +234,7 @@
             }
           ]
         },
-        "description": "Branch 4: Student selected mix of correct and incorrect answers",
+        "description": "Branch 4: Student selected mix of correct and incorrect options",
         "is_correct": false,
         "steps": [
           [
@@ -258,12 +243,13 @@
               "method": "update",
               "tangible_id": "data_table",
               "params": {
-                "description": "Correct selections highlighted in green."
+                "highlight_ones_digits": true,
+                "description": "Ones place digits (0, 5, 0, 5) pulse in data table."
               }
             },
             {
               "type": "dialogue",
-              "text": "Some of your choices are right. But check the others carefully. Do they all explain why Scale of 10 is a good choice for this specific data?"
+              "text": "Some of your choices are right. But check which statements are actually true. Look at the ones digits and count how many marks each scale needs."
             }
           ]
         ]
@@ -277,21 +263,21 @@
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "bar_graph_fruits",
+              "tangible_id": "scale_preview_system",
               "params": {
-                "event": "demonstrate_all_reasons",
+                "event": "compare_all_scales",
                 "status": "confirmed",
-                "description": "System highlights each reason in sequence: ones place digits showing 0 or 5, axis with only 6 clean tick marks, all bars fitting within range, comparison showing Scale of 2 would need 30 marks."
+                "description": "Scale Preview System animates comparison showing tick mark counts for each scale reaching 60."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me walk through why Scale of 10 works. First, all values end in 0 or 5, so they land exactly on tick marks or halfway between. Second, the graph is easy to read with only 6 marks on the axis. Third, the biggest number is 60, so all bars fit well. Fourth, Scale of 2 would need 30 marks to reach 60, which is too many. All four reasons explain why Scale of 10 is the best choice here."
+              "text": "Here's why all four are true. First: 60, 45, 30, 15 all end in 0 or 5. That means Scale of 10 shows them precisely. Second: fewer marks means easier to read. Third: 60 fits on all three scales shown. Fourth: Scale of 2 needs 30 marks to reach 60, but Scale of 10 needs only 6. All four reasons support choosing Scale of 10."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:06:06.122290+00:00"
+  "_generated_at": "2026-04-27T16:03:17.017680+00:00"
 }

@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:05:08.370738
+# Generated: 2026-04-27T10:59:42.847507
 ======================================================================
 
 ## API Parameters
@@ -944,11 +944,7 @@ Cacheable: Yes
   "id": "s2_2_equal_vs_unequal_groups_can",
   "dialogues": [
     {
-      "text": "All of these show bags with items inside. But can I write a multiplication expression for all of them? Remember — multiplication shows EQUAL groups.",
-      "context": "lesson"
-    },
-    {
-      "text": "Select the pictures where every bag has the SAME number inside.",
+      "text": "All of these show bags with items inside. But can I write a multiplication expression for all of them? Remember, multiplication shows EQUAL groups. Select the pictures where every bag has the SAME number inside.",
       "context": "lesson"
     },
     {

@@ -6,7 +6,7 @@
         "condition": {
           "selected": "Scale of 5"
         },
-        "description": "Student selected Scale of 5",
+        "description": "Student selected Scale of 5 (incorrect - values don't all land exactly on multiples of 5)",
         "is_correct": false,
         "steps": [
           [
@@ -16,17 +16,17 @@
               "tangible_id": "data_table",
               "params": {
                 "highlight_values": [
-                  "23",
-                  "31",
-                  "9",
-                  "16"
+                  23,
+                  31,
+                  9,
+                  16
                 ],
                 "description": "All four values highlighted in data table."
               }
             },
             {
               "type": "dialogue",
-              "text": "Scale of 5 works for multiples of 5. Check the ones place digits: 3, 1, 9, 6. Do any end in 0 or 5?"
+              "text": "Look at the ones place digits: 3, 1, 9, 6. None are 0 or 5. Which numbers can Scale of 5 show exactly?"
             }
           ]
         ]
@@ -35,7 +35,7 @@
         "condition": {
           "selected": "Scale of 10"
         },
-        "description": "Student selected Scale of 10",
+        "description": "Student selected Scale of 10 (incorrect - values don't land on multiples of 10)",
         "is_correct": false,
         "steps": [
           [
@@ -45,15 +45,15 @@
               "tangible_id": "data_table",
               "params": {
                 "highlight_values": [
-                  "23",
-                  "31"
+                  23,
+                  31
                 ],
                 "description": "23 and 31 highlighted in data table."
               }
             },
             {
               "type": "dialogue",
-              "text": "Scale of 10 only shows exact values for multiples of 10. Look at 23 and 31. Neither ends in 0, so where would they land on the graph?"
+              "text": "Scale of 10 would put 23 between 20 and 30, 31 between 30 and 40. Check the ones digits. Are they 0 or 5?"
             }
           ]
         ]
@@ -66,36 +66,22 @@
           [
             {
               "type": "scene",
-              "method": "update",
-              "tangible_id": "data_table",
-              "params": {
-                "highlight_values": [
-                  "23",
-                  "31",
-                  "9",
-                  "16"
-                ],
-                "description": "All four values highlighted in data table."
-              }
-            },
-            {
-              "type": "scene",
               "method": "animate",
               "tangible_id": "data_table",
               "params": {
                 "event": "highlight_ones_digits",
                 "status": "confirmed",
-                "description": "Ones place digits pulse: 3, 1, 9, 6."
+                "description": "Ones place digits pulse: 3, 1, 9, 6. None are 0 or 5."
               }
             },
             {
               "type": "dialogue",
-              "text": "Here's how to know. Look at the ones place: 3, 1, 9, 6. Not a single 0 or 5, so these numbers aren't multiples of 5. Scales of 5 and 10 won't show them exactly. But Scale of 2 can show any whole number exactly because half of 2 is 1. The answer is Scale of 2."
+              "text": "Look at the ones place: 3, 1, 9, 6. These aren't 0 or 5, so these numbers aren't multiples of 5. Scale of 5 and Scale of 10 can't show them exactly. Scale of 2 works for any whole number because halfway between each mark is 1. The answer is Scale of 2."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:00:07.213670+00:00"
+  "_generated_at": "2026-04-27T15:54:48.266362+00:00"
 }

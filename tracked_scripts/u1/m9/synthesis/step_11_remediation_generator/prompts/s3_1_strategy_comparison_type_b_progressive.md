@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:02:44.534542
+# Generated: 2026-04-27T10:56:43.890196
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1854,13 +1858,13 @@ Cacheable: Yes
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equal_groups_six_groups",
+      "tangible_id": "equal_groups_6x5",
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
         "container_count": 6,
         "items_per_container": 5,
-        "description": "Left panel: 6 groups of 5 dots appear."
+        "description": "Left panel: 6 groups of 5 dots displayed as context visualization for 6 × 5."
       },
       "id": "s3_1_strategy_comparison_type_b_progressive_b0"
     },
@@ -1870,34 +1874,49 @@ Cacheable: Yes
       "tangible_id": "skip_count_display",
       "tangible_type": "image",
       "params": {
-        "description": "Center panel: Skip-counting sequence displays: 5, 10, 15, 20, 25, 30 with six counts highlighted."
+        "description": "Center panel: Skip-counting sequence 5, 10, 15, 20, 25, 30 displayed with six counts highlighted."
       },
       "id": "s3_1_strategy_comparison_type_b_progressive_b1"
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "repeated_addition_display",
-      "tangible_type": "image",
+      "tangible_id": "repeated_addition",
+      "tangible_type": "equation",
       "params": {
-        "description": "Right panel: Repeated addition expression displays: 5 + 5 + 5 + 5 + 5 + 5 = 30."
+        "expression": [
+          "5",
+          "+",
+          "5",
+          "+",
+          "5",
+          "+",
+          "5",
+          "+",
+          "5",
+          "+",
+          "5",
+          "=",
+          "30"
+        ],
+        "description": "Right panel: Repeated addition equation 5 + 5 + 5 + 5 + 5 + 5 = 30."
       },
       "id": "s3_1_strategy_comparison_type_b_progressive_b2"
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_display",
+      "tangible_id": "equation_6x5",
       "tangible_type": "equation",
       "params": {
         "expression": [
           "6",
-          "x",
+          "×",
           "5",
           "=",
           "30"
         ],
-        "description": "Below all three panels: The equation 6 × 5 = 30 displays."
+        "description": "Below all three panels: equation 6 × 5 = 30."
       },
       "id": "s3_1_strategy_comparison_type_b_progressive_b3"
     },
@@ -1920,20 +1939,18 @@ Cacheable: Yes
         "Skip-counting",
         "Repeated addition"
       ],
-      "branching": true,
       "validator": [
         {
           "condition_id": "selected_groups",
           "condition": {
             "selected": "Looking at the groups"
           },
-          "description": "Student selected Looking at the groups",
+          "description": "Student selected looking at the groups",
           "is_correct": true,
-          "branch": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "You're right. Seeing the groups makes it real. You can count each one. And notice: counting those groups by 5s IS skip-counting. The picture and the counting go together.",
+              "text": "Right. Seeing the groups makes it real. You can count each one. And notice: counting those groups by 5s IS skip-counting. The picture and the counting go together.",
               "id": "s3_1_strategy_comparison_type_b_progressive_b6_v0_b0"
             }
           ]
@@ -1943,13 +1960,12 @@ Cacheable: Yes
           "condition": {
             "selected": "Skip-counting"
           },
-          "description": "Student selected Skip-counting",
+          "description": "Student selected skip-counting",
           "is_correct": true,
-          "branch": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "You've got it. Skip-counting is fast when you know the counts. That'll keep being useful.",
+              "text": "That's right. Skip-counting is fast when you know the counts. That'll keep being useful.",
               "id": "s3_1_strategy_comparison_type_b_progressive_b6_v1_b0"
             }
           ]
@@ -1959,13 +1975,12 @@ Cacheable: Yes
           "condition": {
             "selected": "Repeated addition"
           },
-          "description": "Student selected Repeated addition",
+          "description": "Student selected repeated addition",
           "is_correct": true,
-          "branch": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "Nice. Adding lets you see each group. As you add, you're also counting by 5s. That's a solid strategy too.",
+              "text": "You got it. Adding lets you see each group. As you add, you're also counting by 5s. That's a solid strategy too.",
               "id": "s3_1_strategy_comparison_type_b_progressive_b6_v2_b0"
             }
           ]
@@ -1977,8 +1992,8 @@ Cacheable: Yes
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equal_groups_six_groups",
-          "description": "Left panel: 6 groups of 5 dots.",
+          "tangible_id": "equal_groups_6x5",
+          "description": "Left panel: 6 groups of 5 dots in reading mode.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 6,
@@ -1986,31 +2001,24 @@ Cacheable: Yes
         },
         {
           "tangible_id": "skip_count_display",
-          "description": "Center panel: Skip-counting sequence: 5, 10, 15, 20, 25, 30 with six counts highlighted.",
+          "description": "Center panel: Skip-counting sequence 5, 10, 15, 20, 25, 30.",
           "tangible_type": "image"
         },
         {
-          "tangible_id": "repeated_addition_display",
-          "description": "Right panel: Repeated addition: 5 + 5 + 5 + 5 + 5 + 5 = 30.",
-          "tangible_type": "image"
+          "tangible_id": "repeated_addition",
+          "description": "Right panel: Repeated addition 5 + 5 + 5 + 5 + 5 + 5 = 30.",
+          "tangible_type": "equation"
         },
         {
-          "tangible_id": "equation_display",
+          "tangible_id": "equation_6x5",
           "description": "Below panels: 6 × 5 = 30.",
-          "tangible_type": "equation",
-          "expression": [
-            "6",
-            "x",
-            "5",
-            "=",
-            "30"
-          ]
+          "tangible_type": "equation"
         }
       ],
       "id": "s3_1_strategy_comparison_type_b_progressive_b7"
     }
   ],
-  "_generated_at": "2026-04-20T17:01:32.063185+00:00"
+  "_generated_at": "2026-04-27T15:55:00.675206+00:00"
 }
 </input>
 

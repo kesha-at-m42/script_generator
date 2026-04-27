@@ -6,7 +6,7 @@
         "condition": {
           "selected": 30
         },
-        "description": "Student selected 30, the lower bound instead of the halfway point",
+        "description": "Student selected 30, which is the gridline below where Leo's bar ends",
         "is_correct": false,
         "steps": [
           [
@@ -18,38 +18,12 @@
                 "highlight_categories": [
                   "Leo"
                 ],
-                "description": "Leo's bar highlighted with ghost gridline at 35 pulsing."
+                "description": "Leo's bar remains highlighted. The 30 and 40 gridlines pulse to show the range."
               }
             },
             {
               "type": "dialogue",
-              "text": "Leo's bar doesn't stop at 30. It goes past that line. Look where the bar ends."
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "selected": 34
-        },
-        "description": "Student selected 34, close but not aligned with scale of 5",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "bar_graph_stickers",
-              "params": {
-                "highlight_categories": [
-                  "Leo"
-                ],
-                "description": "Leo's bar highlighted. Ghost gridlines at 30 and 40 pulse, then 35 gridline pulses."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "This graph counts by 5s. Between 30 and 40, halfway is 35, not 34."
+              "text": "Leo's bar goes higher than 30. It ends between 30 and 40. Where exactly does it stop?"
             }
           ]
         ]
@@ -58,7 +32,7 @@
         "condition": {
           "selected": 40
         },
-        "description": "Student selected 40, the upper bound instead of the halfway point",
+        "description": "Student selected 40, which is the gridline above where Leo's bar ends",
         "is_correct": false,
         "steps": [
           [
@@ -70,12 +44,38 @@
                 "highlight_categories": [
                   "Leo"
                 ],
-                "description": "Leo's bar highlighted. Gridline at 40 highlighted separately to show gap."
+                "description": "Leo's bar remains highlighted. The 40 gridline pulses, then the bar's endpoint highlights to show it stops below 40."
               }
             },
             {
               "type": "dialogue",
-              "text": "Leo's bar doesn't reach 40. It stops between 30 and 40. Where is halfway?"
+              "text": "Leo's bar doesn't reach all the way to 40. It stops between the lines. Look at where the bar ends."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 34
+        },
+        "description": "Student selected 34, close but not the halfway point between 30 and 40",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_stickers",
+              "params": {
+                "highlight_categories": [
+                  "Leo"
+                ],
+                "description": "Leo's bar remains highlighted. A ghost gridline appears at 35, showing the halfway point."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Leo's bar ends right in the middle. Half of 10 is 5. So halfway between 30 and 40 is 30 plus 5."
             }
           ]
         ]
@@ -91,23 +91,20 @@
               "method": "animate",
               "tangible_id": "bar_graph_stickers",
               "params": {
-                "event": "highlight_axis_values_sequential",
+                "event": "demonstrate_halfway_reading",
                 "status": "confirmed",
-                "description": "Axis lines glow sequentially: 30 pulses, then 35 pulses at the top of Leo's bar, showing it ends halfway to 40.",
-                "values": [
-                  30,
-                  35
-                ]
+                "category": "Leo",
+                "description": "Animation shows counting from 30: the 30 line glows, then a ghost gridline appears at 35 (halfway), then the 40 line glows. Leo's bar endpoint aligns with the 35 mark."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. Leo's bar is between 30 and 40. Halfway between those two lines is 35. Half of 10 is 5, so 30 plus 5 equals 35. That's where Leo's bar ends."
+              "text": "Leo's bar ends halfway between 30 and 40. Half of 10 is 5. So 30 plus 5 equals 35. When a bar ends between the lines, we find the halfway point. That's how we read values between the gridlines."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:05:10.527360+00:00"
+  "_generated_at": "2026-04-27T16:03:05.941478+00:00"
 }

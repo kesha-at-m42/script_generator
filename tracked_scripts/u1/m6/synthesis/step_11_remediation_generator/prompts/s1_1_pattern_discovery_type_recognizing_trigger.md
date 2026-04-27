@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:01:14.588112
+# Generated: 2026-04-27T10:54:55.113936
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1852,47 +1856,63 @@ Cacheable: Yes
   "id": "s1_1_pattern_discovery_type_recognizing_trigger",
   "beats": [
     {
-      "type": "dialogue",
-      "text": "Look at these three questions. Two of them need two steps. One needs just one step. Which one?",
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "problem_text_display",
+      "tangible_type": "image",
+      "params": {
+        "description": "Three problem questions displayed as text only: 1. How many more dogs are there than cats? 2. How many more dogs are there than cats and birds combined? 3. How many students chose red or blue altogether?"
+      },
       "id": "s1_1_pattern_discovery_type_recognizing_trigger_b0"
+    },
+    {
+      "type": "dialogue",
+      "text": "Look at these three questions. Two of them need two steps. One needs just one step.",
+      "id": "s1_1_pattern_discovery_type_recognizing_trigger_b1"
     },
     {
       "type": "prompt",
       "text": "Which question needs just ONE step?",
       "tool": "multiple_choice",
       "options": [
-        "Question 1: How many more dogs are there than cats?",
-        "Question 2: How many more dogs are there than cats and birds combined?",
-        "Question 3: How many students chose red or blue altogether?"
+        "Question 1",
+        "Question 2",
+        "Question 3"
       ],
       "validator": [
         {
           "condition_id": "correct",
           "condition": {
-            "selected": "Question 1: How many more dogs are there than cats?"
+            "selected": "Question 1"
           },
-          "description": "Student selected Question 1, correct answer",
+          "description": "Student selected Question 1, which has no combining words",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "That's it. Question 1 just compares dogs to cats, no combining first.",
-              "id": "s1_1_pattern_discovery_type_recognizing_trigger_b1_v0_b0"
+              "text": "Right. Question 1 just compares dogs to cats. No combining first.",
+              "id": "s1_1_pattern_discovery_type_recognizing_trigger_b2_v0_b0"
             }
           ]
         }
       ],
-      "id": "s1_1_pattern_discovery_type_recognizing_trigger_b1"
+      "id": "s1_1_pattern_discovery_type_recognizing_trigger_b2"
     },
     {
       "type": "current_scene",
-      "elements": [],
-      "id": "s1_1_pattern_discovery_type_recognizing_trigger_b2"
+      "elements": [
+        {
+          "tangible_id": "problem_text_display",
+          "description": "Three problem questions displayed as text. Student has identified Question 1 as the one-step problem.",
+          "tangible_type": "image"
+        }
+      ],
+      "id": "s1_1_pattern_discovery_type_recognizing_trigger_b3"
     },
     {
       "type": "dialogue",
       "text": "What's the clue that tells you a problem needs two steps?",
-      "id": "s1_1_pattern_discovery_type_recognizing_trigger_b3"
+      "id": "s1_1_pattern_discovery_type_recognizing_trigger_b4"
     },
     {
       "type": "prompt",
@@ -1910,26 +1930,32 @@ Cacheable: Yes
           "condition": {
             "selected": "Words like \"combined\" or \"altogether\""
           },
-          "description": "Student selected words like combined or altogether, correct answer",
+          "description": "Student identified combining words as the signal for two-step problems",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "Right. Words like combined, together, and altogether are your signal. When you see them, you know: find that total first, then compare.",
-              "id": "s1_1_pattern_discovery_type_recognizing_trigger_b4_v0_b0"
+              "text": "Words like combined, together, and altogether are your signal. When you see them, you know: find that total first, then compare.",
+              "id": "s1_1_pattern_discovery_type_recognizing_trigger_b5_v0_b0"
             }
           ]
         }
       ],
-      "id": "s1_1_pattern_discovery_type_recognizing_trigger_b4"
+      "id": "s1_1_pattern_discovery_type_recognizing_trigger_b5"
     },
     {
       "type": "current_scene",
-      "elements": [],
-      "id": "s1_1_pattern_discovery_type_recognizing_trigger_b5"
+      "elements": [
+        {
+          "tangible_id": "problem_text_display",
+          "description": "Three problem questions displayed. Student has identified the linguistic pattern that signals two-step problems.",
+          "tangible_type": "image"
+        }
+      ],
+      "id": "s1_1_pattern_discovery_type_recognizing_trigger_b6"
     }
   ],
-  "_generated_at": "2026-04-20T17:00:00.437400+00:00"
+  "_generated_at": "2026-04-27T15:53:30.768153+00:00"
 }
 </input>
 

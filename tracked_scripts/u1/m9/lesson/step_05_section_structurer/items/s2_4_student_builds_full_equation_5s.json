@@ -8,15 +8,14 @@
       "tangible_type": "equation_builder",
       "params": {
         "mode": "building",
-        "template": "equation",
-        "structure": [
+        "template": [
           "__",
           "×",
           "__",
           "=",
           "__"
         ],
-        "palette": [
+        "tile_palette": [
           4,
           5,
           6,
@@ -26,7 +25,7 @@
           30,
           35
         ],
-        "description": "Equation builder appears with three blank slots and multiplication template. Tile palette shows 4, 5, 6, 11, 20, 25, 30, 35."
+        "description": "Equation Builder appears with three blank slots and active tile palette containing 4, 5, 6, 11, 20, 25, 30, 35. No context visualization present."
       }
     },
     {
@@ -38,7 +37,7 @@
       "text": "Build the equation for 6 groups of 5.",
       "tool": "place_tile",
       "target": "equation_builder_6x5",
-      "variable_answer": true,
+      "variable_answer": false,
       "validator": [
         {
           "condition_id": "correct",
@@ -53,6 +52,16 @@
           "is_correct": true,
           "beats": [
             {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_6x5",
+              "params": {
+                "event": "confirm_equation",
+                "status": "confirmed",
+                "description": "Equation 6 × 5 = 30 confirms with brief pulse."
+              }
+            },
+            {
               "type": "dialogue",
               "text": "6 times 5 equals 30. Ends in 0 which matches the 5s pattern. You built the complete equation with the factors and product."
             }
@@ -65,30 +74,24 @@
       "elements": [
         {
           "tangible_id": "equation_builder_6x5",
-          "description": "Equation builder showing 6 × 5 = 30 with all three slots filled.",
+          "description": "Equation Builder showing completed equation 6 × 5 = 30 with all three slots filled.",
           "tangible_type": "equation_builder",
           "mode": "building",
-          "template": "equation",
-          "structure": [
+          "template": [
             "__",
             "×",
             "__",
             "=",
             "__"
           ],
-          "palette": [
-            4,
-            5,
-            6,
-            11,
-            20,
-            25,
-            30,
-            35
-          ]
+          "placed_values": {
+            "slot_0": 6,
+            "slot_2": 5,
+            "slot_4": 30
+          }
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:03:23.257784+00:00"
+  "_generated_at": "2026-04-27T15:57:31.970887+00:00"
 }

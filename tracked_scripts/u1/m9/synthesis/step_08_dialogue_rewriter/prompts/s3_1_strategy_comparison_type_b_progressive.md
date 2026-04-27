@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:02:13.671352
+# Generated: 2026-04-27T10:56:08.481744
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,7 @@ Cacheable: Yes
   "id": "s3_1_strategy_comparison_type_b_progressive",
   "dialogues": [
     {
-      "text": "Three ways to find 6 times 5 equals 30. You can look at the groups and count. You can skip-count: 5, 10, 15, 20, 25, 30. Or you can add: 5 plus 5 plus 5 plus 5 plus 5 plus 30. Same answer — all three work.",
+      "text": "Three ways to find 6 times 5 equals 30. You can look at the groups and count. You can skip-count: 5, 10, 15, 20, 25, 30. Or you can add: 5 plus 5 plus 5 plus 5 plus 5 plus 5 equals 30. Same answer. All three work.",
       "context": "lesson"
     },
     {
@@ -952,7 +952,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "Seeing the groups makes it real — you can count each one. And notice: counting those groups by 5s IS skip-counting. The picture and the counting go together.",
+      "text": "Seeing the groups makes it real. You can count each one. And notice: counting those groups by 5s IS skip-counting. The picture and the counting go together.",
       "context": "on_correct"
     },
     {

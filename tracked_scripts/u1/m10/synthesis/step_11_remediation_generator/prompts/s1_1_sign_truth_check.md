@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:02:40.621668
+# Generated: 2026-04-27T10:55:49.467414
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1854,7 +1858,7 @@ Cacheable: Yes
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_A",
+      "tangible_id": "equation_a",
       "tangible_type": "equation",
       "params": {
         "expression": [
@@ -1864,14 +1868,14 @@ Cacheable: Yes
           "=",
           "15"
         ],
-        "description": "Equation A: 3 × 5 = 15"
+        "description": "Equation A displays: 3 × 5 = 15"
       },
       "id": "s1_1_sign_truth_check_b0"
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_B",
+      "tangible_id": "equation_b",
       "tangible_type": "equation",
       "params": {
         "expression": [
@@ -1881,14 +1885,14 @@ Cacheable: Yes
           "x",
           "5"
         ],
-        "description": "Equation B: 15 = 3 × 5"
+        "description": "Equation B displays: 15 = 3 × 5"
       },
       "id": "s1_1_sign_truth_check_b1"
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_C",
+      "tangible_id": "equation_c",
       "tangible_type": "equation",
       "params": {
         "expression": [
@@ -1898,14 +1902,14 @@ Cacheable: Yes
           "=",
           "20"
         ],
-        "description": "Equation C: 3 × 5 = 20"
+        "description": "Equation C displays: 3 × 5 = 20"
       },
       "id": "s1_1_sign_truth_check_b2"
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_D",
+      "tangible_id": "equation_d",
       "tangible_type": "equation",
       "params": {
         "expression": [
@@ -1915,13 +1919,13 @@ Cacheable: Yes
           "x",
           "3"
         ],
-        "description": "Equation D: 15 = 5 × 3"
+        "description": "Equation D displays: 15 = 5 × 3"
       },
       "id": "s1_1_sign_truth_check_b3"
     },
     {
       "type": "dialogue",
-      "text": "Four equations. Three are true — both sides have the same value. One is false. Which one is false?",
+      "text": "Four equations. Three are true, both sides have the same value. One is false. Which one is false?",
       "id": "s1_1_sign_truth_check_b4"
     },
     {
@@ -1940,13 +1944,23 @@ Cacheable: Yes
           "condition": {
             "selected": "C"
           },
-          "description": "Student selected C, correct — 3 × 5 = 20 is false",
+          "description": "Student selected C (3 × 5 = 20), the false equation",
           "is_correct": true,
           "beats": [
             {
-              "type": "dialogue",
-              "text": "Right. 3 times 5 is 15, not 20. The sides don't match. And notice, the other equations are all true. The total is on the right in some and on the left in others, but both sides have the same value either way. That's what the equals sign checks.",
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_c",
+              "params": {
+                "highlight": true,
+                "description": "Equation C highlights to confirm selection."
+              },
               "id": "s1_1_sign_truth_check_b5_v0_b0"
+            },
+            {
+              "type": "dialogue",
+              "text": "Right. 3 times 5 is 15, not 20. The sides don't match.",
+              "id": "s1_1_sign_truth_check_b5_v0_b1"
             }
           ]
         }
@@ -1957,58 +1971,61 @@ Cacheable: Yes
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equation_A",
+          "tangible_id": "equation_a",
           "description": "Equation A: 3 × 5 = 15",
-          "tangible_type": "equation",
-          "expression": [
-            "3",
-            "x",
-            "5",
-            "=",
-            "15"
-          ]
+          "tangible_type": "equation"
         },
         {
-          "tangible_id": "equation_B",
+          "tangible_id": "equation_b",
           "description": "Equation B: 15 = 3 × 5",
-          "tangible_type": "equation",
-          "expression": [
-            "15",
-            "=",
-            "3",
-            "x",
-            "5"
-          ]
+          "tangible_type": "equation"
         },
         {
-          "tangible_id": "equation_C",
-          "description": "Equation C: 3 × 5 = 20",
-          "tangible_type": "equation",
-          "expression": [
-            "3",
-            "x",
-            "5",
-            "=",
-            "20"
-          ]
+          "tangible_id": "equation_c",
+          "description": "Equation C: 3 × 5 = 20, highlighted",
+          "tangible_type": "equation"
         },
         {
-          "tangible_id": "equation_D",
+          "tangible_id": "equation_d",
           "description": "Equation D: 15 = 5 × 3",
-          "tangible_type": "equation",
-          "expression": [
-            "15",
-            "=",
-            "5",
-            "x",
-            "3"
-          ]
+          "tangible_type": "equation"
         }
       ],
       "id": "s1_1_sign_truth_check_b6"
+    },
+    {
+      "type": "dialogue",
+      "text": "And notice, the other equations are all true. The total is on the right in one and on the left in others, but both sides have the same value either way. That's what the equals sign checks.",
+      "id": "s1_1_sign_truth_check_b7"
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_a",
+          "description": "Equation A: 3 × 5 = 15",
+          "tangible_type": "equation"
+        },
+        {
+          "tangible_id": "equation_b",
+          "description": "Equation B: 15 = 3 × 5",
+          "tangible_type": "equation"
+        },
+        {
+          "tangible_id": "equation_c",
+          "description": "Equation C: 3 × 5 = 20, highlighted as the false equation",
+          "tangible_type": "equation"
+        },
+        {
+          "tangible_id": "equation_d",
+          "description": "Equation D: 15 = 5 × 3",
+          "tangible_type": "equation"
+        }
+      ],
+      "id": "s1_1_sign_truth_check_b8"
     }
   ],
-  "_generated_at": "2026-04-20T17:01:25.939630+00:00"
+  "_generated_at": "2026-04-27T15:53:57.581619+00:00"
 }
 </input>
 

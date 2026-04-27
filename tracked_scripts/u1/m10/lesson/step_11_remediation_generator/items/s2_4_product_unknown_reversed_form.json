@@ -6,13 +6,13 @@
         "condition": {
           "incorrect_count": 1
         },
-        "description": "Student placed wrong product tile on first attempt",
+        "description": "Student placed a wrong tile on first attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "dialogue",
-              "text": "Not quite. Count the sheep in one cluster, then skip count by that number for all 5 clusters."
+              "text": "Not quite. Skip-count by 7s: 7, 14, 21, 28, 35. How many times did you count?"
             }
           ]
         ]
@@ -21,7 +21,7 @@
         "condition": {
           "incorrect_count": 2
         },
-        "description": "Student placed wrong product tile on second attempt",
+        "description": "Student placed a wrong tile on second attempt",
         "is_correct": false,
         "steps": [
           [
@@ -30,22 +30,20 @@
               "method": "update",
               "tangible_id": "equal_groups_sheep",
               "params": {
-                "highlight_clusters": [
-                  0
-                ],
-                "description": "First cluster of 7 sheep highlights."
+                "highlight_clusters_sequential": true,
+                "description": "Clusters highlight one at a time while skip-counting: 7, 14, 21, 28, 35."
               }
             },
             {
               "type": "dialogue",
-              "text": "Here's what helps: one cluster has 7 sheep. Now skip count by 7s for the 5 clusters: 7, 14, 21, 28, 35. What's the product?"
+              "text": "Watch the clusters highlight as we skip-count by 7. First cluster: 7. Second: 14. Third: 21. Fourth: 28. Fifth: 35. Five groups of 7 equals what total?"
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student answered incorrectly three or more times. System models the answer.",
+        "description": "Student placed a wrong tile on third attempt. System models the correct answer.",
         "is_correct": false,
         "steps": [
           [
@@ -56,17 +54,27 @@
               "params": {
                 "event": "highlight_clusters_sequential",
                 "status": "confirmed",
-                "description": "Clusters highlight one at a time as guide skip counts: 7, 14, 21, 28, 35."
+                "description": "All 5 clusters highlight sequentially while counting: 7, 14, 21, 28, 35."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder",
+              "params": {
+                "event": "place_correct_tile",
+                "status": "confirmed",
+                "description": "Tile 35 moves into the product slot. Equation completes: 35 = 5 × 7."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. One cluster has 7 sheep. I skip count by 7s: first cluster, 7. Second cluster, 14. Third, 21. Fourth, 28. Fifth, 35. Five groups of 7 equals 35. The product is 35 because 5 times 7 has the same value as 35."
+              "text": "Let me show you. I skip-count by 7 five times: 7, 14, 21, 28, 35. Five groups of 7 is 35 total. The unknown is 35. That is the product, and it is the same value as 5 times 7."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:08:44.063927+00:00"
+  "_generated_at": "2026-04-27T16:03:08.516704+00:00"
 }

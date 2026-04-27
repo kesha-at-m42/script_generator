@@ -4,17 +4,45 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_3x4_12",
-      "tangible_type": "equation",
+      "tangible_id": "equal_groups_apples",
+      "tangible_type": "equal_groups",
       "params": {
-        "expression": [
-          "3",
-          "x",
-          "4",
+        "mode": "reading",
+        "container_count": 3,
+        "items_per_container": 4,
+        "item_type": "apples",
+        "containers_visible": true,
+        "description": "Equal Groups visualization showing 3 containers with 4 apples each."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_main",
+      "tangible_type": "equation_builder",
+      "params": {
+        "template": [
+          "__",
+          "×",
+          "__",
           "=",
-          "12"
+          "__"
         ],
-        "description": "Static equation appears: 3 × 4 = 12."
+        "placed_values": {
+          "groups": 3,
+          "items": 4,
+          "total": 12
+        },
+        "description": "Equation Builder displaying 3 × 4 = 12, equation complete from prior section."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "equation_builder_main",
+      "params": {
+        "highlight_component": "equals_sign",
+        "description": "Equals sign highlights in the equation 3 × 4 = 12."
       }
     },
     {
@@ -25,27 +53,41 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equation_3x4_12",
-          "description": "Static equation: 3 × 4 = 12.",
-          "tangible_type": "equation",
-          "expression": [
-            "3",
-            "x",
-            "4",
+          "tangible_id": "equal_groups_apples",
+          "description": "Equal Groups visualization showing 3 containers with 4 apples each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 4
+        },
+        {
+          "tangible_id": "equation_builder_main",
+          "description": "Equation Builder showing 3 × 4 = 12, equals sign highlighted.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "×",
+            "__",
             "=",
-            "12"
-          ]
+            "__"
+          ],
+          "placed_values": {
+            "groups": 3,
+            "items": 4,
+            "total": 12
+          }
         }
       ]
     },
     {
       "type": "scene",
       "method": "animate",
-      "tangible_id": "equation_3x4_12",
+      "tangible_id": "equation_builder_main",
       "params": {
-        "event": "highlight_equals_sign",
+        "event": "pulse_component",
         "status": "confirmed",
-        "description": "Equals sign glows and pulses."
+        "component": "equals_sign",
+        "description": "Equals sign glows and pulses in the equation."
       }
     },
     {
@@ -56,16 +98,29 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equation_3x4_12",
-          "description": "Equation: 3 × 4 = 12. Equals sign highlighted.",
-          "tangible_type": "equation",
-          "expression": [
-            "3",
-            "x",
-            "4",
+          "tangible_id": "equal_groups_apples",
+          "description": "Equal Groups visualization showing 3 containers with 4 apples each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 4
+        },
+        {
+          "tangible_id": "equation_builder_main",
+          "description": "Equation Builder showing 3 × 4 = 12, equals sign pulsing.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "×",
+            "__",
             "=",
-            "12"
-          ]
+            "__"
+          ],
+          "placed_values": {
+            "groups": 3,
+            "items": 4,
+            "total": 12
+          }
         }
       ]
     },
@@ -76,11 +131,11 @@
     {
       "type": "scene",
       "method": "animate",
-      "tangible_id": "equation_3x4_12",
+      "tangible_id": "equation_builder_main",
       "params": {
         "event": "rearrange_to_reversed",
         "status": "confirmed",
-        "description": "Equation rearranges to 12 = 3 × 4. Original fades, reversed stays."
+        "description": "Equation rearranges from 3 × 4 = 12 to 12 = 3 × 4. Original fades, reversed orientation stays."
       }
     },
     {
@@ -91,121 +146,153 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equation_3x4_12",
-          "description": "Equation now shows: 12 = 3 × 4.",
-          "tangible_type": "equation",
-          "expression": [
-            "12",
+          "tangible_id": "equal_groups_apples",
+          "description": "Equal Groups visualization showing 3 containers with 4 apples each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 4
+        },
+        {
+          "tangible_id": "equation_builder_main",
+          "description": "Equation Builder showing 12 = 3 × 4, reversed orientation.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
             "=",
-            "3",
-            "x",
-            "4"
-          ]
+            "__",
+            "×",
+            "__"
+          ],
+          "placed_values": {
+            "total": 12,
+            "groups": 3,
+            "items": 4
+          }
         }
       ]
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_12_3x4",
+      "tangible_id": "equation_original",
       "tangible_type": "equation",
       "params": {
-        "expression": [
-          "12",
-          "=",
+        "template": [
           "3",
-          "x",
-          "4"
+          "×",
+          "4",
+          "=",
+          "12"
         ],
-        "description": "Reversed equation appears: 12 = 3 × 4."
+        "description": "Static equation 3 × 4 = 12 appears above the reversed form."
       }
     },
     {
       "type": "scene",
       "method": "update",
-      "tangible_id": "equation_3x4_12",
+      "tangible_id": "equation_builder_main",
       "params": {
-        "expression": [
-          "3",
-          "x",
-          "4",
+        "template": [
+          "12",
           "=",
-          "12"
+          "3",
+          "×",
+          "4"
         ],
-        "description": "Original equation reappears: 3 × 4 = 12. Both equations now visible side by side."
+        "description": "Equation Builder shows 12 = 3 × 4, reversed orientation, below the original."
       }
     },
     {
       "type": "dialogue",
-      "text": "Both of these are correct. The equals sign works both ways, because it means same value as."
+      "text": "Both of these are correct. The equals sign works both ways because it means same value as."
     },
     {
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equation_3x4_12",
-          "description": "Equation: 3 × 4 = 12.",
+          "tangible_id": "equal_groups_apples",
+          "description": "Equal Groups visualization showing 3 containers with 4 apples each.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 4
+        },
+        {
+          "tangible_id": "equation_original",
+          "description": "Static equation 3 × 4 = 12 displayed above.",
           "tangible_type": "equation",
-          "expression": [
+          "template": [
             "3",
-            "x",
+            "×",
             "4",
             "=",
             "12"
           ]
         },
         {
-          "tangible_id": "equation_12_3x4",
-          "description": "Equation: 12 = 3 × 4. Both equations visible side by side.",
-          "tangible_type": "equation",
-          "expression": [
+          "tangible_id": "equation_builder_main",
+          "description": "Equation Builder showing 12 = 3 × 4, reversed orientation, below the original.",
+          "tangible_type": "equation_builder",
+          "template": [
             "12",
             "=",
             "3",
-            "x",
+            "×",
             "4"
-          ]
+          ],
+          "placed_values": {
+            "total": 12,
+            "groups": 3,
+            "items": 4
+          }
         }
       ]
     },
     {
       "type": "scene",
       "method": "remove",
-      "tangible_id": "equation_3x4_12"
+      "tangible_id": "equal_groups_apples",
+      "params": {
+        "description": "Equal Groups apples visualization clears."
+      }
     },
     {
       "type": "scene",
       "method": "remove",
-      "tangible_id": "equation_12_3x4"
+      "tangible_id": "equation_original",
+      "params": {
+        "description": "Static equation 3 × 4 = 12 clears."
+      }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equal_groups_boxes_crayons",
+      "tangible_id": "equal_groups_crayons",
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
         "container_count": 6,
         "items_per_container": 7,
         "item_type": "crayons",
-        "container_type": "boxes",
-        "description": "Equal groups visual appears: 6 boxes, 7 crayons in each."
+        "containers_visible": true,
+        "description": "Equal Groups visualization appears showing 6 boxes with 7 crayons in each."
       }
     },
     {
       "type": "scene",
-      "method": "add",
-      "tangible_id": "equation_builder_boxes",
-      "tangible_type": "equation_builder",
+      "method": "update",
+      "tangible_id": "equation_builder_main",
       "params": {
         "template": [
           "__",
-          "x",
+          "×",
           "__",
           "=",
           "__"
         ],
-        "palette": [
+        "placed_values": {},
+        "tile_palette": [
           5,
           6,
           7,
@@ -217,7 +304,7 @@
           48,
           49
         ],
-        "description": "Equation builder appears with template: blank × blank = blank. Tile palette: 5, 6, 7, 8, 13, 36, 40, 42, 48, 49."
+        "description": "Equation Builder resets with empty template, tile palette available."
       }
     },
     {
@@ -228,7 +315,7 @@
       "type": "prompt",
       "text": "Build the equation for these boxes.",
       "tool": "place_tile",
-      "target": "equation_builder_boxes",
+      "target": "equation_builder_main",
       "validator": [
         {
           "condition_id": "correct",
@@ -254,25 +341,25 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equal_groups_boxes_crayons",
-          "description": "Equal groups visual: 6 boxes, 7 crayons in each.",
+          "tangible_id": "equal_groups_crayons",
+          "description": "Equal Groups visualization showing 6 boxes with 7 crayons in each.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 6,
           "items_per_container": 7
         },
         {
-          "tangible_id": "equation_builder_boxes",
-          "description": "Equation builder with template: blank × blank = blank. Tile palette active.",
+          "tangible_id": "equation_builder_main",
+          "description": "Equation Builder with template, place_tile tool active, tile palette visible.",
           "tangible_type": "equation_builder",
           "template": [
             "__",
-            "x",
+            "×",
             "__",
             "=",
             "__"
           ],
-          "palette": [
+          "tile_palette": [
             5,
             6,
             7,
@@ -290,17 +377,17 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_reversed_6x7",
+      "tangible_id": "equation_reversed_crayons",
       "tangible_type": "equation",
       "params": {
-        "expression": [
+        "template": [
           "42",
           "=",
           "6",
-          "x",
+          "×",
           "7"
         ],
-        "description": "Reversed equation appears below: 42 = 6 × 7."
+        "description": "Reversed equation 42 = 6 × 7 appears below the student's built equation."
       }
     },
     {
@@ -311,46 +398,39 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equal_groups_boxes_crayons",
-          "description": "Equal groups visual: 6 boxes, 7 crayons in each.",
+          "tangible_id": "equal_groups_crayons",
+          "description": "Equal Groups visualization showing 6 boxes with 7 crayons in each.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 6,
           "items_per_container": 7
         },
         {
-          "tangible_id": "equation_builder_boxes",
-          "description": "Equation builder showing placed equation: 6 × 7 = 42.",
+          "tangible_id": "equation_builder_main",
+          "description": "Equation Builder showing student's completed equation 6 × 7 = 42.",
           "tangible_type": "equation_builder",
           "template": [
-            "6",
-            "x",
-            "7",
+            "__",
+            "×",
+            "__",
             "=",
-            "42"
+            "__"
           ],
-          "palette": [
-            5,
-            6,
-            7,
-            8,
-            13,
-            36,
-            40,
-            42,
-            48,
-            49
-          ]
+          "placed_values": {
+            "groups": 6,
+            "items": 7,
+            "total": 42
+          }
         },
         {
-          "tangible_id": "equation_reversed_6x7",
-          "description": "Reversed equation: 42 = 6 × 7.",
+          "tangible_id": "equation_reversed_crayons",
+          "description": "Reversed equation 42 = 6 × 7 displayed below.",
           "tangible_type": "equation",
-          "expression": [
+          "template": [
             "42",
             "=",
             "6",
-            "x",
+            "×",
             "7"
           ]
         }
@@ -359,46 +439,47 @@
     {
       "type": "scene",
       "method": "remove",
-      "tangible_id": "equal_groups_boxes_crayons"
+      "tangible_id": "equal_groups_crayons",
+      "params": {
+        "description": "Equal Groups crayons visualization clears."
+      }
     },
     {
       "type": "scene",
       "method": "remove",
-      "tangible_id": "equation_builder_boxes"
-    },
-    {
-      "type": "scene",
-      "method": "remove",
-      "tangible_id": "equation_reversed_6x7"
+      "tangible_id": "equation_reversed_crayons",
+      "params": {
+        "description": "Reversed equation 42 = 6 × 7 clears."
+      }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equal_groups_bags_stars",
+      "tangible_id": "equal_groups_stars",
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
         "container_count": 5,
         "items_per_container": 9,
         "item_type": "stars",
-        "container_type": "bags",
-        "description": "Equal groups visual appears: 5 bags, 9 stars in each."
+        "containers_visible": true,
+        "description": "Equal Groups visualization appears showing 5 bags with 9 stars in each."
       }
     },
     {
       "type": "scene",
-      "method": "add",
-      "tangible_id": "equation_builder_bags",
-      "tangible_type": "equation_builder",
+      "method": "update",
+      "tangible_id": "equation_builder_main",
       "params": {
         "template": [
           "__",
-          "x",
+          "×",
           "__",
           "=",
           "__"
         ],
-        "palette": [
+        "placed_values": {},
+        "tile_palette": [
           3,
           5,
           9,
@@ -410,7 +491,7 @@
           54,
           63
         ],
-        "description": "Equation builder appears with template: blank × blank = blank. Tile palette: 3, 5, 9, 14, 36, 40, 45, 50, 54, 63."
+        "description": "Equation Builder resets with empty template, new tile palette available."
       }
     },
     {
@@ -419,9 +500,9 @@
     },
     {
       "type": "prompt",
-      "text": "Build the equation: blank × blank = blank",
+      "text": "Build the equation.",
       "tool": "place_tile",
-      "target": "equation_builder_bags",
+      "target": "equation_builder_main",
       "validator": [
         {
           "condition_id": "correct",
@@ -447,25 +528,25 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equal_groups_bags_stars",
-          "description": "Equal groups visual: 5 bags, 9 stars in each.",
+          "tangible_id": "equal_groups_stars",
+          "description": "Equal Groups visualization showing 5 bags with 9 stars in each.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 5,
           "items_per_container": 9
         },
         {
-          "tangible_id": "equation_builder_bags",
-          "description": "Equation builder with template: blank × blank = blank. Tile palette active.",
+          "tangible_id": "equation_builder_main",
+          "description": "Equation Builder with template, place_tile tool active, tile palette visible.",
           "tangible_type": "equation_builder",
           "template": [
             "__",
-            "x",
+            "×",
             "__",
             "=",
             "__"
           ],
-          "palette": [
+          "tile_palette": [
             3,
             5,
             9,
@@ -483,17 +564,17 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_reversed_5x9",
+      "tangible_id": "equation_reversed_stars",
       "tangible_type": "equation",
       "params": {
-        "expression": [
+        "template": [
           "45",
           "=",
           "5",
-          "x",
+          "×",
           "9"
         ],
-        "description": "Reversed equation appears: 45 = 5 × 9."
+        "description": "Reversed equation 45 = 5 × 9 appears below the student's built equation."
       }
     },
     {
@@ -504,51 +585,44 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equal_groups_bags_stars",
-          "description": "Equal groups visual: 5 bags, 9 stars in each.",
+          "tangible_id": "equal_groups_stars",
+          "description": "Equal Groups visualization showing 5 bags with 9 stars in each.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 5,
           "items_per_container": 9
         },
         {
-          "tangible_id": "equation_builder_bags",
-          "description": "Equation builder showing placed equation: 5 × 9 = 45.",
+          "tangible_id": "equation_builder_main",
+          "description": "Equation Builder showing student's completed equation 5 × 9 = 45.",
           "tangible_type": "equation_builder",
           "template": [
-            "5",
-            "x",
-            "9",
+            "__",
+            "×",
+            "__",
             "=",
-            "45"
+            "__"
           ],
-          "palette": [
-            3,
-            5,
-            9,
-            14,
-            36,
-            40,
-            45,
-            50,
-            54,
-            63
-          ]
+          "placed_values": {
+            "groups": 5,
+            "items": 9,
+            "total": 45
+          }
         },
         {
-          "tangible_id": "equation_reversed_5x9",
-          "description": "Reversed equation: 45 = 5 × 9.",
+          "tangible_id": "equation_reversed_stars",
+          "description": "Reversed equation 45 = 5 × 9 displayed below.",
           "tangible_type": "equation",
-          "expression": [
+          "template": [
             "45",
             "=",
             "5",
-            "x",
+            "×",
             "9"
           ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:03:04.712044+00:00"
+  "_generated_at": "2026-04-27T15:55:54.743130+00:00"
 }

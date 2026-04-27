@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:05:02.959486
+# Generated: 2026-04-27T10:59:36.496278
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,23 @@ Cacheable: Yes
   "id": "s1_2_student_builds_with_method",
   "dialogues": [
     {
-      "text": "Your turn to build an expression. First question: how many groups do you see? Second question: how many in each group? Now build the expression.",
+      "text": "Your turn to build an expression. First question: how many groups do you see?",
+      "context": "lesson"
+    },
+    {
+      "text": "3 groups.",
+      "context": "on_correct"
+    },
+    {
+      "text": "Second question: how many in each group?",
+      "context": "lesson"
+    },
+    {
+      "text": "6 in each.",
+      "context": "on_correct"
+    },
+    {
+      "text": "Now build the expression.",
       "context": "lesson"
     },
     {

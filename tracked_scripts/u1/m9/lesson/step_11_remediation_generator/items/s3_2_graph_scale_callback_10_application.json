@@ -6,13 +6,13 @@
         "condition": {
           "incorrect_count": 1
         },
-        "description": "Student placed wrong tile on first attempt",
+        "description": "Student placed wrong product tile on first attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "dialogue",
-              "text": "Not quite. Skip-count by 10s: 10, 20, 30. Three times."
+              "text": "Not quite. Skip-count by 10s: 10, 20, 30. How many times did you count?"
             }
           ]
         ]
@@ -21,61 +21,52 @@
         "condition": {
           "incorrect_count": 2
         },
-        "description": "Student placed wrong tile on second attempt",
+        "description": "Student placed wrong product tile on second attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
-              "method": "animate",
+              "method": "update",
               "tangible_id": "picture_graph_scale10",
               "params": {
-                "event": "highlight_symbols_sequential",
-                "status": "confirmed",
-                "description": "Dogs row symbols highlight one at a time while Guide counts: 10, 20, 30."
+                "highlight_categories": [
+                  "Category A"
+                ],
+                "description": "Category A row highlights. 3 symbols pulse sequentially."
               }
             },
             {
               "type": "dialogue",
-              "text": "Watch the symbols. Each one is worth 10. Count them: 10, 20, 30. That's 3 groups of 10. Which tile shows 30?"
+              "text": "Count the symbols in the highlighted row. 3 symbols. Each symbol stands for 10. That means 3 groups of 10. Skip-count: 10, 20, 30. Place that product."
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student placed wrong tile three or more times. System models the answer.",
+        "description": "Student placed wrong product tile three or more times. System models the answer.",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "picture_graph_scale10",
-              "params": {
-                "event": "highlight_symbols_sequential",
-                "status": "confirmed",
-                "description": "Dogs row symbols highlight sequentially: 10, 20, 30."
-              }
-            },
-            {
-              "type": "scene",
-              "method": "animate",
               "tangible_id": "equation_builder_3x10",
               "params": {
-                "event": "tile_snap_to_slot",
+                "event": "place_product_tile",
                 "status": "confirmed",
-                "description": "System places 30 tile into product slot."
+                "description": "30 tile moves into product slot. Equation builder shows 3 × 10 = 30."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. First symbol is 10. Second is 20. Third is 30. So 3 times 10 equals 30. The answer is 30 because we counted 3 groups of 10."
+              "text": "Let me show you. The row has 3 symbols. Each symbol is worth 10. So we skip-count by 10s three times: 10, 20, 30. 3 times 10 equals 30. That is the product."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:06:19.558030+00:00"
+  "_generated_at": "2026-04-27T16:01:39.746389+00:00"
 }

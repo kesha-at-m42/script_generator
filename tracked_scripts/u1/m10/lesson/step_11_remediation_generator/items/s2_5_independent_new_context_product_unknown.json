@@ -12,7 +12,7 @@
           [
             {
               "type": "dialogue",
-              "text": "Not quite. Count all the jars. How many total?"
+              "text": "Not quite. Count the jars on each shelf."
             }
           ]
         ]
@@ -28,7 +28,7 @@
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "equal_groups_shelves",
+              "tangible_id": "equal_groups_jars",
               "params": {
                 "highlight_containers": [
                   0,
@@ -39,35 +39,46 @@
             },
             {
               "type": "dialogue",
-              "text": "Let's count together. First shelf has 8 jars. Second shelf has 8 jars. 8 plus 8. What's the total?"
+              "text": "Let's count together. First shelf: 8 jars. Second shelf: 8 jars. 2 groups of 8. Skip-count: 8, 16. What's the product?"
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student placed a wrong tile three or more times. System models the answer.",
+        "description": "Student placed a wrong tile on third attempt. System models the answer.",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equation_builder_shelves",
+              "tangible_id": "equal_groups_jars",
               "params": {
-                "event": "tile_locks_in_slot",
+                "event": "count_items_sequentially",
                 "status": "confirmed",
-                "description": "16 tile slides into the product slot, completing 2 × 8 = 16."
+                "description": "First shelf items count sequentially 1-8, then second shelf items count 9-16."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder",
+              "params": {
+                "placed_values": {
+                  "total": 16
+                },
+                "description": "Tile 16 places into product slot."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. First shelf, 8 jars. Second shelf, 8 jars. 8 plus 8 equals 16. Or we can skip count by 8s: 8, 16. Either way, 2 times 8 equals 16. That's the product."
+              "text": "Let me show you. First shelf has 8 jars. Second shelf has 8 jars. 8 plus 8 equals 16. Or skip-count by 8s: 8, 16. 2 times 8 equals 16. The product is 16."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:08:53.654247+00:00"
+  "_generated_at": "2026-04-27T16:03:19.016224+00:00"
 }

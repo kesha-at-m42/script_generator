@@ -1,6 +1,6 @@
 # UX/Script Terminology Drift Report
 
-Generated: 2026-04-20 11:59  
+Generated: 2026-04-27 10:52  
 Source: `check_glossary_drift.json`  
 Scope: Unit 1, Module 8
 
@@ -18,6 +18,7 @@ These likely represent concepts not yet in the glossary or toy_specs directory.
 | ---|---|--- |
 | `Side-by-side arrangement` | `s1_1_judgment_noticing_task` | ...lizations (Mode 2). Side-by-side arrangement. Concrete context (bags with ite |
 | `Single visualization` | `s2_1_personalization_recognition` | ...lizations (Mode 2). Single visualization. Concrete context (boxes with items) |
+| `Method A` | `s2_1_personalization_recognition` | ...Choice interaction. Method A. |
 
 ---
 
@@ -72,4 +73,6 @@ _None found._
 
 - **Unresolved:** `Single visualization` in `visual`
   > ...lizations (Mode 2). Single visualization. Concrete context (boxes with items). [NEW] initialization. Multiple Choice int...
+- **Unresolved:** `Method A` in `visual`
+  > ...Choice interaction. Method A.
 - **Toy not in glossary:** `multiple_choice`

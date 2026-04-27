@@ -9,12 +9,14 @@
       "tangible_type": "picture_graph",
       "params": {
         "mode": "reading",
-        "orientation": "horizontal",
+        "orientation": "vertical",
         "categories": [
-          "Category A"
+          "Symbol1",
+          "Symbol2",
+          "Symbol3"
         ],
         "scale": 5,
-        "description": "Small picture graph appears on left side of screen. Scale of 5. Not interactive — iconic display only."
+        "description": "Small vertical picture graph appears on left side of screen. Scale of 5. Three categories shown as iconic visual reminder."
       }
     },
     {
@@ -24,9 +26,9 @@
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
-        "container_count": 4,
+        "container_count": 3,
         "items_per_container": 5,
-        "description": "Small equal groups visual appears on right side of screen. 4 bags with 5 items each. Not interactive — iconic display only."
+        "description": "Small equal groups visual appears on right side of screen. 3 bags with 5 items each shown as iconic visual reminder."
       }
     },
     {
@@ -35,53 +37,57 @@
     },
     {
       "type": "prompt",
-      "text": "Did you notice a connection between graphs and equal groups?",
+      "text": "Did you notice a connection?",
       "tool": "multiple_choice",
       "options": [
         "Yes — reading graph scales was like finding equal groups",
         "Kind of — some parts felt similar",
         "Not really — this felt brand new"
       ],
+      "branching": true,
       "validator": [
         {
-          "condition_id": "selected_yes",
+          "condition_id": "selection_a",
+          "branch": true,
           "condition": {
             "selected": "Yes — reading graph scales was like finding equal groups"
           },
-          "description": "Student selected Yes",
+          "description": "Student selected option A: recognized the connection between graph scales and equal groups",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "You spotted it. Every time you read a scale of 5 graph, you were counting groups of 5. Graph scales were equal groups the whole time."
+              "text": "You spotted it. Every time you read a scale-of-5 graph, you were counting groups of 5. Graph scales were equal groups the whole time."
             }
           ]
         },
         {
-          "condition_id": "selected_kind_of",
+          "condition_id": "selection_b",
+          "branch": true,
           "condition": {
             "selected": "Kind of — some parts felt similar"
           },
-          "description": "Student selected Kind of",
+          "description": "Student selected option B: partially recognized connection",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "Good noticing. The counting by 5s and counting by 2s from graphs — that was groups all along. The connection gets clearer over time."
+              "text": "Good noticing. The counting-by-5s and counting-by-2s from graphs — that was groups all along. The connection gets clearer over time."
             }
           ]
         },
         {
-          "condition_id": "selected_not_really",
+          "condition_id": "selection_c",
+          "branch": true,
           "condition": {
             "selected": "Not really — this felt brand new"
           },
-          "description": "Student selected Not really",
+          "description": "Student selected option C: did not recognize connection",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "That makes sense — the multiplication symbol and equal groups are new. But remember the Warmup graph? Those symbols were holding groups inside. You'll see more connections as we keep going."
+              "text": "That makes sense — the × symbol and 'equal groups' are new. But remember the Warmup graph? Those symbols were holding groups inside. You'll see more connections as we keep going."
             }
           ]
         }
@@ -92,25 +98,27 @@
       "elements": [
         {
           "tangible_id": "picture_graph_warmup",
-          "description": "Small picture graph on left side. Scale of 5. Iconic display.",
+          "description": "Small vertical picture graph on left side. Scale of 5. Three categories. Iconic reminder of graph work.",
           "tangible_type": "picture_graph",
           "mode": "reading",
-          "orientation": "horizontal",
+          "orientation": "vertical",
           "categories": [
-            "Category A"
+            "Symbol1",
+            "Symbol2",
+            "Symbol3"
           ],
           "scale": 5
         },
         {
           "tangible_id": "equal_groups_bags",
-          "description": "Small equal groups visual on right side. 4 bags with 5 items each. Iconic display.",
+          "description": "Small equal groups visual on right side. 3 bags with 5 items each. Iconic reminder of equal groups work.",
           "tangible_type": "equal_groups",
           "mode": "reading",
-          "container_count": 4,
+          "container_count": 3,
           "items_per_container": 5
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:00:46.770697+00:00"
+  "_generated_at": "2026-04-27T15:54:35.438219+00:00"
 }

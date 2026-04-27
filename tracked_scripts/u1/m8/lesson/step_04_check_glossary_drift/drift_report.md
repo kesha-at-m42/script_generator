@@ -1,6 +1,6 @@
 # UX/Script Terminology Drift Report
 
-Generated: 2026-04-20 12:01  
+Generated: 2026-04-27 10:54  
 Source: `check_glossary_drift.json`  
 Scope: Unit 1, Module 8
 

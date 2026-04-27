@@ -7,22 +7,26 @@
       "tangible_id": "data_table",
       "tangible_type": "data_table",
       "params": {
-        "description": "Vertical data table appears. Minutes of Practice data: Guitar 27, Piano 14, Violin 41, Drums 33."
+        "orientation": "vertical",
+        "categories": [
+          "Guitar",
+          "Piano",
+          "Violin",
+          "Drums"
+        ],
+        "values": [
+          27,
+          14,
+          41,
+          33
+        ],
+        "title": "Minutes of Practice",
+        "description": "Vertical data table appears showing Minutes of Practice. Guitar: 27, Piano: 14, Violin: 41, Drums: 33."
       }
     },
     {
       "type": "dialogue",
       "text": "Here's data about how many minutes students practiced their instruments."
-    },
-    {
-      "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "data_table",
-          "description": "Vertical data table showing Minutes of Practice: Guitar 27, Piano 14, Violin 41, Drums 33.",
-          "tangible_type": "data_table"
-        }
-      ]
     },
     {
       "type": "dialogue",
@@ -60,8 +64,21 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Vertical data table showing Minutes of Practice: Guitar 27, Piano 14, Violin 41, Drums 33.",
-          "tangible_type": "data_table"
+          "description": "Vertical data table showing Minutes of Practice. Guitar: 27, Piano: 14, Violin: 41, Drums: 33.",
+          "tangible_type": "data_table",
+          "orientation": "vertical",
+          "categories": [
+            "Guitar",
+            "Piano",
+            "Violin",
+            "Drums"
+          ],
+          "values": [
+            27,
+            14,
+            41,
+            33
+          ]
         }
       ]
     },
@@ -84,7 +101,7 @@
           0,
           42
         ],
-        "description": "Vertical bar graph creation tool appears with Scale of 2 active. Minutes of Practice context. Gridlines visible at each tick mark. All bars at 0, ready for student to set heights."
+        "description": "Vertical bar graph creation tool appears with Scale of 2 active. Gridlines visible at each tick mark. Minutes of Practice categories on x-axis."
       }
     },
     {
@@ -100,17 +117,25 @@
         {
           "condition_id": "correct",
           "condition": {
-            "Guitar": 27,
-            "Piano": 14,
-            "Violin": 41,
-            "Drums": 33
+            "bars_set": {
+              "Guitar": 27,
+              "Piano": 14,
+              "Violin": 41,
+              "Drums": 33
+            }
           },
-          "description": "Student set all 4 bars to correct heights: Guitar 27, Piano 14, Violin 41, Drums 33",
+          "description": "Student set all 4 bar heights correctly",
           "is_correct": true,
           "beats": [
             {
-              "type": "dialogue",
-              "text": "You chose the right scale and created the graph. Every bar lands exactly where it should."
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_practice",
+              "params": {
+                "event": "confirm_all_bars",
+                "status": "confirmed",
+                "description": "All four bars confirm placement with checkmarks."
+              }
             }
           ]
         }
@@ -121,12 +146,25 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Vertical data table showing Minutes of Practice: Guitar 27, Piano 14, Violin 41, Drums 33.",
-          "tangible_type": "data_table"
+          "description": "Vertical data table showing Minutes of Practice. Guitar: 27, Piano: 14, Violin: 41, Drums: 33.",
+          "tangible_type": "data_table",
+          "orientation": "vertical",
+          "categories": [
+            "Guitar",
+            "Piano",
+            "Violin",
+            "Drums"
+          ],
+          "values": [
+            27,
+            14,
+            41,
+            33
+          ]
         },
         {
           "tangible_id": "bar_graph_practice",
-          "description": "Vertical bar graph with all 4 bars correctly placed: Guitar 27, Piano 14, Violin 41, Drums 33. Scale of 2. Gridlines visible.",
+          "description": "Vertical bar graph in building mode. Scale of 2. All 4 bars correctly placed: Guitar 27, Piano 14, Violin 41, Drums 33. Checkmarks visible on all bars.",
           "tangible_type": "bar_graph",
           "mode": "building",
           "orientation": "vertical",
@@ -136,10 +174,59 @@
             "Violin",
             "Drums"
           ],
-          "scale": 2
+          "scale": 2,
+          "axis_range": [
+            0,
+            42
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "You chose the right scale and created the graph. Every bar lands exactly where it should."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Vertical data table showing Minutes of Practice. Guitar: 27, Piano: 14, Violin: 41, Drums: 33.",
+          "tangible_type": "data_table",
+          "orientation": "vertical",
+          "categories": [
+            "Guitar",
+            "Piano",
+            "Violin",
+            "Drums"
+          ],
+          "values": [
+            27,
+            14,
+            41,
+            33
+          ]
+        },
+        {
+          "tangible_id": "bar_graph_practice",
+          "description": "Vertical bar graph displaying Minutes of Practice data with all bars correctly placed at scale of 2.",
+          "tangible_type": "bar_graph",
+          "mode": "building",
+          "orientation": "vertical",
+          "categories": [
+            "Guitar",
+            "Piano",
+            "Violin",
+            "Drums"
+          ],
+          "scale": 2,
+          "axis_range": [
+            0,
+            42
+          ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:03:06.756299+00:00"
+  "_generated_at": "2026-04-27T15:59:38.486710+00:00"
 }

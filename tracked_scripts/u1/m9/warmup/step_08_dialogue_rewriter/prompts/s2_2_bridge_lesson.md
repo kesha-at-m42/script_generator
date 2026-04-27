@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:00:43.216191
+# Generated: 2026-04-27T10:53:57.366743
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,7 @@ Cacheable: Yes
   "id": "s2_2_bridge_lesson",
   "dialogues": [
     {
-      "text": "Interesting, right? You've been building expressions — now you're going to find out what they EQUAL. And there are some cool patterns hiding in the answers. Let's keep going.",
+      "text": "Interesting, right? You've been building expressions. Now you're going to find out what they EQUAL. And there are some cool patterns hiding in the answers. Let's keep going.",
       "context": "lesson"
     }
   ]

@@ -4,166 +4,110 @@
     [
       {
         "condition": {
-          "placed": {
-            "groups": 5,
-            "items": 3
-          }
+          "incorrect_count": 1
         },
-        "description": "Student reversed the numbers, placing 5 × 3 instead of 3 × 5",
+        "description": "Student placed incorrect tiles on first attempt",
         "is_correct": false,
         "steps": [
           [
             {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "equal_groups_boxes",
-              "params": {
-                "event": "highlight_containers_sequentially",
-                "status": "confirmed",
-                "description": "Boxes highlight one by one to emphasize counting groups."
-              }
-            },
-            {
               "type": "dialogue",
-              "text": "You placed 5 times 3, but look at the groups. Count the boxes: 1, 2, 3. That's 3 groups. Now count inside one box: 1, 2, 3, 4, 5. That's 5 in each group. What expression shows 3 groups of 5?"
+              "text": "Not quite. Count the boxes, then count what's inside one box."
             }
           ]
         ]
       },
       {
         "condition": {
-          "and": [
-            {
-              "incorrect_count": 1
-            },
-            {
-              "not": {
-                "placed": {
-                  "groups": 5,
-                  "items": 3
-                }
-              }
-            }
-          ]
+          "incorrect_count": 2
         },
-        "description": "Student placed an incorrect expression on first attempt",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "dialogue",
-              "text": "Not quite. Count the boxes first. That's how many groups you have."
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "and": [
-            {
-              "incorrect_count": 2
-            },
-            {
-              "not": {
-                "placed": {
-                  "groups": 5,
-                  "items": 3
-                }
-              }
-            }
-          ]
-        },
-        "description": "Student placed an incorrect expression on second attempt",
+        "description": "Student placed incorrect tiles on second attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equal_groups_boxes",
+              "tangible_id": "equal_groups_boxes_items",
               "params": {
                 "event": "highlight_containers_sequentially",
                 "status": "confirmed",
-                "description": "Boxes highlight one by one as system counts."
+                "description": "Boxes highlight one at a time: 1, 2, 3."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let's think about this together. Count the boxes: 1, 2, 3. The first number is how many groups, so that's 3. Now look inside one box. Count those items. How many do you see in each?"
+              "text": "First number: how many groups do you see? Count the boxes. Second number: look inside one box and count."
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student placed an incorrect expression three or more times. System models the answer.",
+        "description": "Student placed incorrect tiles on third attempt. System models the correct answer.",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equal_groups_boxes",
+              "tangible_id": "equal_groups_boxes_items",
               "params": {
                 "event": "highlight_containers_sequentially",
                 "status": "confirmed",
-                "description": "Boxes highlight sequentially as system counts."
+                "description": "Boxes highlight sequentially as guide counts."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you how this works. First, I count the groups. That's the boxes: 1, 2, 3. Three groups. That number goes first, so I place the 3 tile."
-            }
-          ],
-          [
-            {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "equation_builder_expression",
-              "params": {
-                "event": "demo_place_tile",
-                "status": "confirmed",
-                "description": "System places 3 tile in first slot.",
-                "tile_value": 3,
-                "slot_position": 1
-              }
+              "text": "Let me show you. I count the boxes: 1, 2, 3. Three boxes, that's 3 groups."
             },
             {
-              "type": "dialogue",
-              "text": "Next, I count how many in each group. I look inside one box: 1, 2, 3, 4, 5. Five items. That number goes second, so I place the 5 tile."
-            }
-          ],
-          [
-            {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equal_groups_boxes",
+              "tangible_id": "equal_groups_boxes_items",
               "params": {
                 "event": "highlight_items_in_one_container",
                 "status": "confirmed",
-                "description": "Items in one box highlight as system counts them."
+                "description": "Items in one box highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Now I look inside one box: 1, 2, 3, 4, 5. Five items in each group."
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder",
+              "params": {
+                "event": "demonstrate_tile_placement",
+                "status": "confirmed",
+                "description": "System places 3 tile in first slot, then 5 tile in second slot.",
+                "slot_index": 0,
+                "value": 3
               }
             },
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equation_builder_expression",
+              "tangible_id": "equation_builder",
               "params": {
-                "event": "demo_place_tile",
+                "event": "demonstrate_tile_placement",
                 "status": "confirmed",
-                "description": "System places 5 tile in second slot, completing 3 × 5.",
-                "tile_value": 5,
-                "slot_position": 2
+                "description": "System places 5 tile in second slot.",
+                "slot_index": 2,
+                "value": 5
               }
             },
             {
               "type": "dialogue",
-              "text": "The expression is 3 times 5. That's what the picture shows: 3 groups of 5. The first number always tells you how many groups, and the second number tells you how many in each group."
+              "text": "The expression is 3 times 5. That shows 3 groups with 5 in each group."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:06:43.044136+00:00"
+  "_generated_at": "2026-04-27T16:01:33.361596+00:00"
 }

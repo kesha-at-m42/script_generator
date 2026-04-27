@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:00:47.219044
+# Generated: 2026-04-27T10:54:36.007185
 ======================================================================
 
 ## API Parameters
@@ -948,7 +948,11 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "Those two boxes have different amounts: 3 in one, 5 in the other. That's not equal. For groups to be EQUAL, every container needs the same number inside. The other three all have the same number in each group. That's what makes them equal groups.",
+      "text": "Those two boxes have different amounts. 3 in one, 5 in the other. That's not equal.",
+      "context": "on_correct"
+    },
+    {
+      "text": "For groups to be EQUAL, every container needs the same number inside. The other three all have the same number in each group. That's what makes them equal groups.",
       "context": "on_correct"
     }
   ]

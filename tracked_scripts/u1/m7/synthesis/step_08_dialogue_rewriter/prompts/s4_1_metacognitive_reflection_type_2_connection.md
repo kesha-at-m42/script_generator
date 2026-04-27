@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:00:57.868244
+# Generated: 2026-04-27T10:54:46.535145
 ======================================================================
 
 ## API Parameters
@@ -948,15 +948,15 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "You spotted it. Every time you read a scale of 5 graph, you were counting groups of 5. Graph scales were equal groups the whole time.",
+      "text": "You spotted it. Every time you read a scale-of-5 graph, you were counting groups of 5. Graph scales were equal groups the whole time.",
       "context": "on_correct"
     },
     {
-      "text": "Good noticing. The counting by 5s and counting by 2s from graphs — that was groups all along. The connection gets clearer over time.",
+      "text": "Good noticing. The counting-by-5s and counting-by-2s from graphs — that was groups all along. The connection gets clearer over time.",
       "context": "on_correct"
     },
     {
-      "text": "That makes sense — the multiplication symbol and equal groups are new. But remember the Warmup graph? Those symbols were holding groups inside. You'll see more connections as we keep going.",
+      "text": "That makes sense — the × symbol and 'equal groups' are new. But remember the Warmup graph? Those symbols were holding groups inside. You'll see more connections as we keep going.",
       "context": "on_correct"
     }
   ]

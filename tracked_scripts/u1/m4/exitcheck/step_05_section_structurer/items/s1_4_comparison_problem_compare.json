@@ -4,7 +4,7 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "bar_graph_supplies",
+      "tangible_id": "bar_graph_art_supplies",
       "tangible_type": "bar_graph",
       "params": {
         "mode": "reading",
@@ -15,13 +15,19 @@
           "Paintbrushes",
           "Glue Sticks"
         ],
-        "values": {
-          "Markers": 30,
-          "Crayons": 45,
-          "Paintbrushes": 20,
-          "Glue Sticks": 55
-        },
-        "description": "Vertical bar graph appears. Art supplies data. Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55."
+        "values": [
+          30,
+          45,
+          20,
+          55
+        ],
+        "scale": 10,
+        "axis_range": [
+          0,
+          60
+        ],
+        "title": "Art Supplies Collected",
+        "description": "Vertical bar graph appears showing Art Supplies Collected data. Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55. Scale of 10, axis range 0–60."
       }
     },
     {
@@ -44,9 +50,23 @@
           "condition": {
             "selected": 25
           },
-          "description": "Student selected 25, correct difference between Glue Sticks and Markers",
+          "description": "Student selected 25, correct (55 − 30 = 25)",
           "is_correct": true,
           "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_art_supplies",
+              "params": {
+                "event": "highlight_categories",
+                "status": "confirmed",
+                "description": "Glue Sticks and Markers bars highlight to confirm comparison.",
+                "categories": [
+                  "Glue Sticks",
+                  "Markers"
+                ]
+              }
+            },
             {
               "type": "dialogue",
               "text": "25 more. Glue Sticks has 55, Markers has 30. The difference is 25."
@@ -59,8 +79,8 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "bar_graph_supplies",
-          "description": "Vertical bar graph in reading mode. Art supplies data. Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55.",
+          "tangible_id": "bar_graph_art_supplies",
+          "description": "Vertical bar graph showing Art Supplies Collected. Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55. Scale of 10, axis range 0–60.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -69,10 +89,21 @@
             "Crayons",
             "Paintbrushes",
             "Glue Sticks"
+          ],
+          "values": [
+            30,
+            45,
+            20,
+            55
+          ],
+          "scale": 10,
+          "axis_range": [
+            0,
+            60
           ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T16:58:22.876995+00:00"
+  "_generated_at": "2026-04-27T15:54:04.644064+00:00"
 }

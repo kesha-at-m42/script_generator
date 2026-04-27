@@ -12,14 +12,33 @@
         "categories": [
           "Red",
           "Blue",
-          "Yellow",
-          "Green"
+          "Green",
+          "Yellow"
+        ],
+        "values": [
+          40,
+          30,
+          50,
+          20
         ],
         "axis_range": [
           0,
-          35
+          60
         ],
-        "description": "Vertical bar graph appears. Same data as previous picture graph: Red=20, Blue=30, Yellow=25, Green=15. Blue bar highlighted, height at 30 axis line."
+        "axis_interval": 10,
+        "title": "Favorite Colors",
+        "description": "Vertical bar graph appears. Favorite Colors data. Red=40, Blue=30, Green=50, Yellow=20. Axis 0-60, interval 10."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_colors",
+      "params": {
+        "highlight_categories": [
+          "Blue"
+        ],
+        "description": "Blue bar highlights (height 30, ends at 30 axis line)."
       }
     },
     {
@@ -42,12 +61,12 @@
           "condition": {
             "selected": 30
           },
-          "description": "Student selected 30, correct bar height",
+          "description": "Student selected 30, correct",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "30. The bar ends at the 30 line. Same as 3 symbols on the picture graph—each symbol shows 10."
+              "text": "30. The bar ends at the 30 line. Same as 3 symbols on the picture graph. Each symbol shows 10."
             }
           ]
         }
@@ -58,23 +77,31 @@
       "elements": [
         {
           "tangible_id": "bar_graph_colors",
-          "description": "Vertical bar graph. Blue bar highlighted at height 30. multiple_choice tool active.",
+          "description": "Vertical bar graph. Favorite Colors data. Blue bar highlighted at height 30.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
             "Red",
             "Blue",
-            "Yellow",
-            "Green"
+            "Green",
+            "Yellow"
+          ],
+          "values": [
+            40,
+            30,
+            50,
+            20
           ],
           "axis_range": [
             0,
-            35
-          ]
+            60
+          ],
+          "axis_interval": 10,
+          "title": "Favorite Colors"
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:00:07.005484+00:00"
+  "_generated_at": "2026-04-27T15:55:32.263366+00:00"
 }

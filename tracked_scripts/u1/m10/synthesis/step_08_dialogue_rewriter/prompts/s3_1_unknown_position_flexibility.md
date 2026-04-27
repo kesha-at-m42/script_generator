@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:02:29.367055
+# Generated: 2026-04-27T10:55:38.631581
 ======================================================================
 
 ## API Parameters
@@ -948,11 +948,11 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "4 groups of 5 equals 20. The unknown moves, but the relationship stays constant.",
+      "text": "4 groups of 5 equals 20. That relationship stays the same no matter where the unknown is.",
       "context": "on_correct"
     },
     {
-      "text": "The unknown moves, but the relationship stays: 4 groups of 5 is always 20. You figure out whichever piece is missing.",
+      "text": "The unknown moves, but the relationship stays — 4 groups of 5 is always 20. You figure out whichever piece is missing.",
       "context": "lesson"
     }
   ]

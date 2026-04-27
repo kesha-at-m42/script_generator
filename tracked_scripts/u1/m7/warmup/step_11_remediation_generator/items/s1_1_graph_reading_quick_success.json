@@ -6,7 +6,7 @@
         "condition": {
           "selected": 16
         },
-        "description": "Student selected 16: counted the symbols (4) times 4 instead of using the scale (5)",
+        "description": "Student selected 16: counted symbols instead of skip-counting by scale",
         "is_correct": false,
         "steps": [
           [
@@ -15,13 +15,58 @@
               "method": "update",
               "tangible_id": "picture_graph_books",
               "params": {
-                "highlight_key": true,
-                "description": "Key highlights showing each symbol = 5 books"
+                "description": "Key pulses to draw attention to scale."
               }
             },
             {
               "type": "dialogue",
-              "text": "The key tells us what each symbol means. Each one stands for 5 books, not 1. Skip-count by 5s, not by 1s."
+              "text": "You counted the symbols. But each symbol stands for 5 books, not 1. Look at the key. Skip-count by 5s."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 25
+        },
+        "description": "Student selected 25: miscounted or added an extra skip-count",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "description": "Symbols pulse one at a time to support counting."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Count the symbols first. There are 4. Now skip-count by 5s: 5, 10, 15... What comes next?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 15
+        },
+        "description": "Student selected 15: stopped one skip-count short",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_books",
+              "params": {
+                "description": "All 4 symbols highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You skip-counted 5, 10, 15. But there are 4 symbols. Count all 4: 5, 10, 15, and one more."
             }
           ]
         ]
@@ -37,19 +82,19 @@
               "method": "animate",
               "tangible_id": "picture_graph_books",
               "params": {
-                "event": "highlight_symbols_sequence",
+                "event": "highlight_symbols_sequentially",
                 "status": "confirmed",
-                "description": "System highlights each symbol in sequence while counting by 5s: 5, 10, 15, 20"
+                "description": "Symbols highlight one at a time as guide counts: 5, 10, 15, 20."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. The key says each symbol means 5 books. So we count by 5s. First symbol: 5. Second: 10. Third: 15. Fourth: 20. The answer is 20 books."
+              "text": "Let me show you. I count the symbols: 1, 2, 3, 4. Each symbol means 5 books. So I skip-count: 5, 10, 15, 20. The answer is 20 books. That's how we use the key to read scaled picture graphs."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:00:43.869498+00:00"
+  "_generated_at": "2026-04-27T15:54:21.094712+00:00"
 }

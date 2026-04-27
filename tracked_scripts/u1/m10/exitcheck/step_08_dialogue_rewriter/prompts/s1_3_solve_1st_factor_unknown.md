@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:01:29.556079
+# Generated: 2026-04-27T10:54:39.573281
 ======================================================================
 
 ## API Parameters
@@ -948,7 +948,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "3 stacks of 5 equals 15. That's how you find the missing factor by skip counting.",
+      "text": "3 stacks of 5 equals 15.",
       "context": "on_correct"
     }
   ]

@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:00:41.660157
+# Generated: 2026-04-27T10:54:40.961982
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -813,11 +829,12 @@ Cacheable: Yes
   "visual": "Final graph clears.",
   "guide": "\"You're ready to practice.\"",
   "voice_note": "Brief, confident. No overpraise. Student demonstrated understanding.",
-  "_generated_at": "2026-04-20T16:59:28.322407+00:00",
+  "_generated_at": "2026-04-27T15:52:54.555577+00:00",
   "workspace_specs": {
     "toys": [],
     "tools": []
-  }
+  },
+  "prior_section_summaries": "## s1_0_transition_into_exit_check\n# Section Summary: s1_0_transition_into_exit_check\n\n**VISUAL STATE:** Blank screen with no tangible elements displayed.\n\n**CONTENT:** This transition section reviews the two-step problem-solving strategy taught in the lesson: (1) finding a combined total, then (2) comparing quantities. No new vocabulary was formally introduced; the section reinforces previously learned concepts.\n\n**STUDENT ACTION:** No interactive action required. The student listened to a dialogue statement that summarized the lesson objective and signaled the transition to an assessment (\"Let's see what you know\").\n\n---\n\n## s1_1_single_step_comparison_compare\n# Section Summary: s1_1_single_step_comparison_compare\n\n**VISUAL STATE:** A vertical bar graph titled \"School Supplies Sold\" is displayed in reading mode with a scale of 5 and axis range 0–50. Four categories are shown with their exact values: Pencils (40), Erasers (25), Notebooks (35), and Markers (20). A multiple-choice tool is active on screen.\n\n**CONTENT:** Students practiced single-step comparison—reading two values from a bar graph and finding the difference. The concept introduced is direct subtraction between two categories without combining values first.\n\n**STUDENT ACTION:** The student answered a multiple-choice question asking \"How many more pencils were sold than markers?\" by selecting the correct answer of 20 (calculated as 40 − 20).\n\n---\n\n## s1_2_two_step_problem_identify_compare\n# Section Summary: Two-Step Problem—Identify and Compare\n\n**VISUAL STATE:** A horizontal bar graph titled \"Books Read This Month\" is displayed throughout. The graph uses a scale of 10 with axis range 0–60. Four categories are shown with exact values: Fiction (50), Nonfiction (30), Comics (40), and Poetry (20). The graph operates in reading mode. By section end, the Fiction bar is highlighted.\n\n**CONTENT:** Students practiced solving a two-step comparison problem: \"How many more fiction books were read than nonfiction and poetry combined?\" The lesson introduced the strategy of breaking multi-step problems into sequential parts—first identifying what to calculate (combine nonfiction and poetry), then performing the calculation (30 + 20 = 50), and finally comparing (50 − 50 = 0). The concept that equal quantities have \"no difference\" was reinforced.\n\n**STUDENT ACTION:** Students answered two multiple-choice prompts: (1) selecting \"Add nonfiction and poetry\" as the correct first step, and (2) calculating the combined total as 50, then determining the difference as 0 books.\n\n---\n\n## s1_3_two_step_problem_identify_compare\n# Section Summary: s1_3_two_step_problem_identify_compare\n\n**VISUAL STATE:** A vertical bar graph titled \"Votes for Field Trip\" is displayed in reading mode with a scale of 5 and axis range 0–60. Five categories are shown with their exact values: Aquarium (35), Museum (25), Zoo (45), Park (30), and Farm (15). By section end, the Zoo bar (45) is highlighted.\n\n**CONTENT:** Students practiced solving a two-step comparison problem using bar graph data. The lesson introduced the strategy of breaking a complex question into sequential steps: first combining two values (addition), then comparing the result to a third value (subtraction). Vocabulary reinforced includes \"combined total\" and \"fewer.\"\n\n**STUDENT ACTION:** Students answered two multiple-choice prompts: (1) identifying the correct first step (\"Add museum and farm\"), and (2) calculating intermediate and final answers (museum + farm = 40; zoo − combined = 5). They read values directly from the bar graph to support their reasoning.\n\n---\n\n## s1_4_two_step_with_scale_2\n# Section Summary: s1_4_two_step_with_scale_2\n\n**VISUAL STATE:** A vertical bar graph titled \"Books Read This Week\" is displayed in reading mode with a scale of 2 and axis range 0–16. The graph contains four categories (Maya, Ben, Carla, David) with values 14, 9, 11, and 6 books respectively. By section end, the Carla bar is highlighted to support the second comparison question. A multiple-choice tool remains active.\n\n**CONTENT:** Students practiced two-step problem-solving using bar graph data: first combining two values (Maya + Ben = 23 books), then comparing that sum to a third value (23 − 11 = 12 more than Carla). The lesson reinforced reading scaled bar graphs and performing multi-step arithmetic operations in sequence.\n\n**STUDENT ACTION:** The student answered two multiple-choice questions: selecting 23 for the combined total of Maya and Ben's books, then selecting 12 for the difference between that total and Carla's books."
 }
 </input>
 

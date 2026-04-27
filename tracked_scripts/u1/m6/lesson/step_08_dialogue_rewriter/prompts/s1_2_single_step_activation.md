@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:02:54.671297
+# Generated: 2026-04-27T10:57:59.658381
 ======================================================================
 
 ## API Parameters
@@ -948,7 +948,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "35 more. How many more means compare—we subtract. Pizza is 45, salad is 10, so 45 minus 10 is 35.",
+      "text": "35 more. How many more means compare. We subtract. Pizza is 45, salad is 10, so 45 minus 10 is 35.",
       "context": "on_correct"
     }
   ]

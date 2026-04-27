@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:00:01.137171
+# Generated: 2026-04-27T10:53:31.424544
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -819,22 +835,17 @@ Cacheable: Yes
   "correct_sorting": "- JUST COMPARE: Question 1 (direct comparison)\n  - COMBINE FIRST, THEN COMPARE: Questions 2 and 3 (both have \"combined/together\")",
   "on_all_correct": "\"You sorted them all. Words like 'combined' and 'together' tell you to find a total first.\"",
   "on_partial_incorrect": "\"Look for the words 'combined' or 'together.' Those tell you there's an extra step.\"",
-  "divider": "Follow-up (after sorting):",
-  "guide_2": "\"What question do you ask yourself to decide?\"",
-  "prompt_2": "Select the key question.",
-  "options": "[A) \"What's the biggest number?\", B) \"Does it say 'combined' or 'together'?\", C) \"How many categories are there?\", D) \"Should I add or subtract?\"]",
-  "correct_answer": "B",
-  "on_correct": "\"That's the key question. The answer tells you whether it's one step or two.\"",
-  "on_incorrect_c": "\"The number of categories can be something to look at, but it doesn't guarantee that it is one step or two step.\"",
+  "follow_up_after_sorting": "- **Guide:** \"What question do you ask yourself to decide?\"\n  - **Prompt:** Select the key question.\n  - **Options:** [A) \"What's the biggest number?\", B) \"Does it say 'combined' or 'together'?\", C) \"How many categories are there?\", D) \"Should I add or subtract?\"]\n  - **Correct Answer:** B\n  - **On Correct:** \"That's the key question. The answer tells you whether it's one step or two.\"\n  - **On Incorrect (C):** \"The number of categories can be something to look at, but it doesn't guarantee that it is one step or two step.\"",
   "connection_guide_states": "\"This is strategic thinking. You're not just doing math—you're PLANNING your approach based on what the problem says.\"",
   "design_note": "Active sorting task ensures students demonstrate discrimination physically, not just through selection. The follow-up MC consolidates the metacognitive rule. Per Synthesis Playbook: \"At least one task requires placement, matching, or creation (not all multiple-choice).\"",
-  "_generated_at": "2026-04-20T16:59:20.061271+00:00",
+  "_generated_at": "2026-04-27T15:52:35.967815+00:00",
   "workspace_specs": {
     "toys": [],
     "tools": [
       "drag_to_sort"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_0_opening_frame\n# Section Summary: s1_0_opening_frame\n\n**VISUAL STATE:** No tangible visualizations or data displays are present on screen at section end. The screen shows only dialogue text against a blank background.\n\n**CONTENT:** This opening frame introduces metacognitive reflection as the lesson's focus. Students are prompted to think about their problem-solving process and decision-making strategies across one-step and two-step problems they have previously encountered. No new vocabulary is formally introduced in this transition.\n\n**STUDENT ACTION:** No interactive student action occurs in this section. This is a framing dialogue that sets up the cognitive work to follow.\n\n---\n\n## s1_1_pattern_discovery_type_recognizing_trigger\n# Section Summary: s1_1_pattern_discovery_type_recognizing_trigger\n\n**VISUAL STATE:** A text-based image display showing three problem questions: (1) \"How many more dogs are there than cats?\", (2) \"How many more dogs are there than cats and birds combined?\", and (3) \"How many students chose red or blue altogether?\" remains on screen throughout.\n\n**CONTENT:** Students learned to distinguish one-step comparison problems from two-step problems by identifying linguistic triggers. The key vocabulary introduced was \"combining words\"—specifically \"combined,\" \"together,\" and \"altogether\"—which signal that students must first find a total before performing a comparison operation.\n\n**STUDENT ACTION:** Students answered two multiple-choice questions: (1) identifying Question 1 as the one-step problem (correct answer), and (2) identifying \"Words like 'combined' or 'altogether'\" as the clue that signals a two-step problem (correct answer). Through these selections, students practiced pattern recognition in problem structure."
 }
 </input>
 

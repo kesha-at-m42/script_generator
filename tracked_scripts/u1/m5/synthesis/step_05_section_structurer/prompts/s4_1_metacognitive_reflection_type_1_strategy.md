@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T11:59:43.009078
+# Generated: 2026-04-27T10:54:19.248815
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -816,7 +832,7 @@ Cacheable: Yes
   "prompt": "\"What helped you most when deciding which scale to use?\"",
   "student_action": "[Multiple choice:\n  - \"Checking the biggest number first\"\n  - \"Looking at the last digits\"\n  - \"Trying the preview to see what happens\"\n  - \"Thinking about which graph would be easiest to read\"]",
   "on_selection": "Guide validates, then coaches toward key strategies:\n  - (Biggest number): \"That's one of the two key questions. Checking the biggest number tells you right away which scales can even work.\"\n  - (Last digits): \"That's one of the key checks. Spotting those last digits tells you whether you have multiples of 5 or need a smaller scale like 1 or 2.\"\n  - (Preview): \"The preview is helpful! And here's a shortcut: ask yourself the two key questions first—Does the biggest number fit without too many lines? Are the numbers multiples of 5? Those two checks guide you every time.\"\n  - (Easiest to read): \"That matters once you know your options. Start with the two key questions: Does the biggest number fit? Are the numbers multiples of 5? Then pick what's easiest to read without too many lines.\"",
-  "_generated_at": "2026-04-20T16:58:33.988941+00:00",
+  "_generated_at": "2026-04-27T15:52:46.006013+00:00",
   "workspace_specs": {
     "toys": [],
     "tools": [
@@ -825,7 +841,8 @@ Cacheable: Yes
     "unresolved": [
       "Scale Preview System shown with all four scale buttons"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_0_opening_frame\n# Section Summary: s1_0_opening_frame\n\n**VISUAL STATE:** No tangible visualizations or data displays are present on screen at section end. The screen shows only dialogue text against a blank background.\n\n**CONTENT:** This transition section reviews prior learning about scale selection for graphs. Students previously learned to: (1) choose appropriate scales by checking if the largest data value fits, and (2) examine last digits of data to inform scale decisions. The section now signals a shift toward synthesizing these discoveries into a connected concept.\n\n**STUDENT ACTION:** No interactive student action occurs in this section. This is a dialogue-only transition frame that sets up the next learning activity.\n\n---\n\n## s1_1_decision_checklist_consolidation_type_b\n# Section Summary: s1_1_decision_checklist_consolidation_type_b\n\n**VISUAL STATE:** No persistent visual elements remain on screen at section end—only dialogue and a multiple-choice prompt were displayed (no graphs, charts, or data visualizations).\n\n**CONTENT:** This section consolidated a two-step decision checklist for selecting appropriate scales when graphing data. Two questions were formally introduced: (1) \"Does the biggest number fit?\" (checked first to determine which scales are mathematically possible), and (2) \"Do all the numbers end in 0 or 5?\" (checked second to determine which scale aligns with the data's digit patterns). The example used data values 7, 12, 19, 23 with Scale of 2 and Scale of 5 as reference scales; Dan's score of 80 was cited as too large for Scale of 5.\n\n**STUDENT ACTION:** The student answered a multiple-choice question selecting the correct first step: \"Does the biggest number fit?\" The correct response triggered confirmatory dialogue reinforcing that checking fit first narrows possible scales before examining digit patterns.\n\n---\n\n## s2_1_scale_strengths_type_pattern_discovery\n# Section Summary: Scale Strengths & Type Pattern Discovery\n\n**VISUAL STATE:** Four vertical bar graphs remain on screen displaying identical data (Apples: 20, Bananas: 40, Cherries: 60) with categories on horizontal axis and values 0–60 on vertical axis. Graph A uses scale 1 (many tick marks), Graph B uses scale 2 (many tick marks), Graph C uses scale 5 (medium tick marks), and Graph D uses scale 10 (fewest tick marks, cleanest appearance). All graphs are in reading mode.\n\n**CONTENT:** Students learned how scale choice affects graph readability and visual clarity. The section introduced the concept that smaller scales (1, 2) show every number exactly and suit smaller datasets, while larger scales (5, 10) produce cleaner, easier-to-read graphs for larger datasets. Vocabulary formally introduced: \"scale\" as the interval between tick marks on an axis.\n\n**STUDENT ACTION:** Student answered a multiple-choice question identifying Graph D (scale 10) as the easiest to read, demonstrating understanding that larger scales reduce visual clutter when data values align with scale intervals (multiples of 5 or 10).\n\n---\n\n## s3_1_real_world_connection_type_c\n# Section Summary: Real-World Connection Type C\n\n**VISUAL STATE:** Three data tables are displayed on screen at section end:\n- **Data Table A** (\"Daily Steps\"): categories Mon/Tue/Wed/Thu with values 4,500/3,200/5,100/2,800\n- **Data Table B** (\"Coins Collected\"): categories Jar 1/Jar 2/Jar 3/Jar 4 with values 7/12/19/23 (highlighted)\n- **Data Table C** (\"Books Read\"): categories Room A/Room B/Room C/Room D with values 25/30/35/40\n\n**CONTENT:** Students learned a decision rule for selecting graph scales: when data values do not all end in 0 or 5 and are small in magnitude, Scale of 2 is the appropriate choice. The vocabulary \"Scale of 2\" was formally introduced as a graphing convention tied to data characteristics.\n\n**STUDENT ACTION:** The student answered a multiple-choice question identifying which dataset \"HAVE to use Scale of 2,\" correctly selecting Table B (Coins Collected). The system confirmed the answer by highlighting Table B and explaining that values 7, 12, 19, 23 lack 0/5 endings, making Scale of 2 the only exact representation method."
 }
 </input>
 

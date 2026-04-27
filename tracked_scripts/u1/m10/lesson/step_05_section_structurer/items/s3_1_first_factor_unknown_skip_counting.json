@@ -1,6 +1,5 @@
 {
   "id": "s3_1_first_factor_unknown_skip_counting",
-  "type": "transition",
   "beats": [
     {
       "type": "scene",
@@ -13,14 +12,15 @@
         "items_per_container": 5,
         "item_type": "birds",
         "containers_visible": false,
-        "total_label": "20 birds total",
-        "description": "4 clusters of 5 birds each, all clusters faded. Total shown: 20 birds total."
+        "all_items_faded": true,
+        "total_display": "20 birds total",
+        "description": "Equal groups visualization appears showing 4 faded clusters of 5 birds each. Total label displays '20 birds total.' Clusters are not yet revealed."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder_groups",
+      "tangible_id": "equation_builder",
       "tangible_type": "equation_builder",
       "params": {
         "template": [
@@ -30,7 +30,7 @@
           "=",
           "20"
         ],
-        "description": "Equation Builder with pre-filled template: blank × 5 = 20. Language prompt above: blank groups of 5 equals 20 total."
+        "description": "Equation Builder appears with template showing ☐ × 5 = 20. First factor slot is blank; second factor (5) and product (20) are pre-filled."
       }
     },
     {
@@ -43,16 +43,18 @@
         {
           "tangible_id": "equal_groups_birds",
           "tangible_type": "equal_groups",
-          "description": "4 clusters of 5 birds each, all clusters faded. Total label: 20 birds total.",
+          "description": "Equal groups showing 4 faded clusters of 5 birds. Total label: '20 birds total.'",
           "mode": "reading",
           "container_count": 4,
           "items_per_container": 5,
-          "item_type": "birds"
+          "item_type": "birds",
+          "containers_visible": false,
+          "all_items_faded": true
         },
         {
-          "tangible_id": "equation_builder_groups",
+          "tangible_id": "equation_builder",
           "tangible_type": "equation_builder",
-          "description": "Equation Builder: blank × 5 = 20. Language prompt: blank groups of 5 equals 20 total.",
+          "description": "Equation Builder showing template ☐ × 5 = 20. First factor unknown.",
           "template": [
             "__",
             "×",
@@ -73,16 +75,18 @@
         {
           "tangible_id": "equal_groups_birds",
           "tangible_type": "equal_groups",
-          "description": "4 clusters of 5 birds each, all clusters faded. Total label: 20 birds total.",
+          "description": "Equal groups showing 4 faded clusters of 5 birds. Total label: '20 birds total.'",
           "mode": "reading",
           "container_count": 4,
           "items_per_container": 5,
-          "item_type": "birds"
+          "item_type": "birds",
+          "containers_visible": false,
+          "all_items_faded": true
         },
         {
-          "tangible_id": "equation_builder_groups",
+          "tangible_id": "equation_builder",
           "tangible_type": "equation_builder",
-          "description": "Equation Builder: blank × 5 = 20. Language prompt: blank groups of 5 equals 20 total.",
+          "description": "Equation Builder showing template ☐ × 5 = 20.",
           "template": [
             "__",
             "×",
@@ -102,10 +106,11 @@
       "method": "animate",
       "tangible_id": "equal_groups_birds",
       "params": {
-        "event": "reveal_container",
-        "container_index": 0,
+        "event": "reveal_cluster",
         "status": "confirmed",
-        "description": "First cluster of 5 birds reveals and highlights. Running count: 5"
+        "cluster_index": 1,
+        "running_count_display": "5",
+        "description": "First cluster of 5 birds reveals and highlights. Running count displays '5'."
       }
     },
     {
@@ -114,16 +119,17 @@
         {
           "tangible_id": "equal_groups_birds",
           "tangible_type": "equal_groups",
-          "description": "First cluster of 5 birds visible and highlighted. Remaining 3 clusters faded. Running count: 5. Total label: 20 birds total.",
+          "description": "Equal groups showing 4 clusters. First cluster (5 birds) revealed and highlighted. Running count: '5'. Remaining 3 clusters still faded.",
           "mode": "reading",
           "container_count": 4,
           "items_per_container": 5,
-          "item_type": "birds"
+          "item_type": "birds",
+          "containers_visible": false
         },
         {
-          "tangible_id": "equation_builder_groups",
+          "tangible_id": "equation_builder",
           "tangible_type": "equation_builder",
-          "description": "Equation Builder: blank × 5 = 20.",
+          "description": "Equation Builder showing template ☐ × 5 = 20.",
           "template": [
             "__",
             "×",
@@ -143,10 +149,11 @@
       "method": "animate",
       "tangible_id": "equal_groups_birds",
       "params": {
-        "event": "reveal_container",
-        "container_index": 1,
+        "event": "reveal_cluster",
         "status": "confirmed",
-        "description": "Second cluster of 5 birds reveals and highlights. Running count: 10"
+        "cluster_index": 2,
+        "running_count_display": "10",
+        "description": "Second cluster of 5 birds reveals and highlights. Running count updates to '10'."
       }
     },
     {
@@ -155,16 +162,17 @@
         {
           "tangible_id": "equal_groups_birds",
           "tangible_type": "equal_groups",
-          "description": "First two clusters of 5 birds visible, second cluster highlighted. Remaining 2 clusters faded. Running count: 10. Total label: 20 birds total.",
+          "description": "Equal groups showing 4 clusters. First two clusters (10 birds total) revealed and highlighted. Running count: '10'. Remaining 2 clusters still faded.",
           "mode": "reading",
           "container_count": 4,
           "items_per_container": 5,
-          "item_type": "birds"
+          "item_type": "birds",
+          "containers_visible": false
         },
         {
-          "tangible_id": "equation_builder_groups",
+          "tangible_id": "equation_builder",
           "tangible_type": "equation_builder",
-          "description": "Equation Builder: blank × 5 = 20.",
+          "description": "Equation Builder showing template ☐ × 5 = 20.",
           "template": [
             "__",
             "×",
@@ -184,10 +192,11 @@
       "method": "animate",
       "tangible_id": "equal_groups_birds",
       "params": {
-        "event": "reveal_container",
-        "container_index": 2,
+        "event": "reveal_cluster",
         "status": "confirmed",
-        "description": "Third cluster of 5 birds reveals and highlights. Running count: 15"
+        "cluster_index": 3,
+        "running_count_display": "15",
+        "description": "Third cluster of 5 birds reveals and highlights. Running count updates to '15'."
       }
     },
     {
@@ -196,16 +205,17 @@
         {
           "tangible_id": "equal_groups_birds",
           "tangible_type": "equal_groups",
-          "description": "First three clusters of 5 birds visible, third cluster highlighted. Last cluster faded. Running count: 15. Total label: 20 birds total.",
+          "description": "Equal groups showing 4 clusters. First three clusters (15 birds total) revealed and highlighted. Running count: '15'. One cluster remains faded.",
           "mode": "reading",
           "container_count": 4,
           "items_per_container": 5,
-          "item_type": "birds"
+          "item_type": "birds",
+          "containers_visible": false
         },
         {
-          "tangible_id": "equation_builder_groups",
+          "tangible_id": "equation_builder",
           "tangible_type": "equation_builder",
-          "description": "Equation Builder: blank × 5 = 20.",
+          "description": "Equation Builder showing template ☐ × 5 = 20.",
           "template": [
             "__",
             "×",
@@ -225,10 +235,11 @@
       "method": "animate",
       "tangible_id": "equal_groups_birds",
       "params": {
-        "event": "reveal_container",
-        "container_index": 3,
+        "event": "reveal_cluster",
         "status": "confirmed",
-        "description": "Fourth cluster of 5 birds reveals and highlights. Running count: 20"
+        "cluster_index": 4,
+        "running_count_display": "20",
+        "description": "Fourth cluster of 5 birds reveals and highlights. Running count updates to '20'."
       }
     },
     {
@@ -237,16 +248,17 @@
         {
           "tangible_id": "equal_groups_birds",
           "tangible_type": "equal_groups",
-          "description": "All 4 clusters of 5 birds visible, fourth cluster highlighted. Running count: 20. Total label: 20 birds total.",
+          "description": "Equal groups showing all 4 clusters (20 birds total) fully revealed and highlighted. Running count: '20'.",
           "mode": "reading",
           "container_count": 4,
           "items_per_container": 5,
-          "item_type": "birds"
+          "item_type": "birds",
+          "containers_visible": false
         },
         {
-          "tangible_id": "equation_builder_groups",
+          "tangible_id": "equation_builder",
           "tangible_type": "equation_builder",
-          "description": "Equation Builder: blank × 5 = 20.",
+          "description": "Equation Builder showing template ☐ × 5 = 20.",
           "template": [
             "__",
             "×",
@@ -264,25 +276,12 @@
     {
       "type": "scene",
       "method": "update",
-      "tangible_id": "equation_builder_groups",
+      "tangible_id": "equation_builder",
       "params": {
-        "template": [
-          "4",
-          "×",
-          "5",
-          "=",
-          "20"
-        ],
-        "description": "Equation updates: 4 × 5 = 20. First blank now filled with 4."
-      }
-    },
-    {
-      "type": "scene",
-      "method": "update",
-      "tangible_id": "equal_groups_birds",
-      "params": {
-        "containers_visible": true,
-        "description": "All 4 clusters fully visible, no longer highlighted."
+        "placed_values": {
+          "groups": 4
+        },
+        "description": "Equation Builder updates to show completed equation: 4 × 5 = 20."
       }
     },
     {
@@ -291,16 +290,17 @@
         {
           "tangible_id": "equal_groups_birds",
           "tangible_type": "equal_groups",
-          "description": "All 4 clusters of 5 birds fully visible. Total label: 20 birds total.",
+          "description": "Equal groups showing all 4 clusters of 5 birds fully revealed. Total: 20 birds.",
           "mode": "reading",
           "container_count": 4,
           "items_per_container": 5,
-          "item_type": "birds"
+          "item_type": "birds",
+          "containers_visible": false
         },
         {
-          "tangible_id": "equation_builder_groups",
+          "tangible_id": "equation_builder",
           "tangible_type": "equation_builder",
-          "description": "Equation Builder: 4 × 5 = 20.",
+          "description": "Equation Builder displaying completed equation 4 × 5 = 20.",
           "template": [
             "4",
             "×",
@@ -321,16 +321,17 @@
         {
           "tangible_id": "equal_groups_birds",
           "tangible_type": "equal_groups",
-          "description": "All 4 clusters of 5 birds fully visible. Total label: 20 birds total.",
+          "description": "Equal groups showing all 4 clusters of 5 birds fully revealed. Total: 20 birds.",
           "mode": "reading",
           "container_count": 4,
           "items_per_container": 5,
-          "item_type": "birds"
+          "item_type": "birds",
+          "containers_visible": false
         },
         {
-          "tangible_id": "equation_builder_groups",
+          "tangible_id": "equation_builder",
           "tangible_type": "equation_builder",
-          "description": "Equation Builder: 4 × 5 = 20.",
+          "description": "Equation Builder displaying completed equation 4 × 5 = 20.",
           "template": [
             "4",
             "×",
@@ -342,5 +343,5 @@
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:05:06.798648+00:00"
+  "_generated_at": "2026-04-27T15:59:21.076194+00:00"
 }

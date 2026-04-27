@@ -8,10 +8,11 @@
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
+        "context": "circles_dots",
         "container_count": 4,
         "items_per_container": 4,
-        "context": "circles",
-        "description": "4 circles appear, each containing 4 dots."
+        "separation": "full",
+        "description": "Four circles appear, each containing 4 dots. Semi-abstract equal groups representation using circles as containers."
       }
     },
     {
@@ -20,13 +21,13 @@
       "tangible_id": "equation_builder",
       "tangible_type": "equation_builder",
       "params": {
+        "mode": "building",
         "template": [
           "__",
           "×",
           "__"
         ],
-        "style": "equation",
-        "palette": [
+        "tile_palette": [
           3,
           4,
           5,
@@ -38,7 +39,7 @@
           14,
           16
         ],
-        "description": "Equation builder appears below the circles. Two blank slots with multiplication symbol between. Tile palette shows numbers 3, 4, 5, 7, 8, 9, 10, 12, 14, 16."
+        "description": "Equation builder appears with two empty slots and multiplication symbol. Tile palette below shows numbers 3, 4, 5, 7, 8, 9, 10, 12, 14, 16."
       }
     },
     {
@@ -54,24 +55,12 @@
         {
           "condition_id": "correct",
           "condition": {
-            "placed": {
-              "groups": 4,
-              "items": 4
-            }
+            "groups": 4,
+            "items": 4
           },
-          "description": "Student placed 4 × 4",
+          "description": "Student placed 4 in groups slot and 4 in items slot, forming 4 × 4",
           "is_correct": true,
           "beats": [
-            {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "equation_builder",
-              "params": {
-                "event": "confirm_placement",
-                "status": "confirmed",
-                "description": "Placed tiles confirm: 4 × 4."
-              }
-            },
             {
               "type": "dialogue",
               "text": "4 times 4—both numbers are the same."
@@ -85,38 +74,26 @@
       "elements": [
         {
           "tangible_id": "equal_groups_circles",
-          "description": "4 circles, each containing 4 dots.",
+          "description": "Four circles, each containing 4 dots, in reading mode with full separation.",
           "tangible_type": "equal_groups",
           "mode": "reading",
+          "context": "circles_dots",
           "container_count": 4,
-          "items_per_container": 4,
-          "context": "circles"
+          "items_per_container": 4
         },
         {
           "tangible_id": "equation_builder",
-          "description": "Equation builder showing 4 × 4.",
+          "description": "Equation builder showing completed expression 4 × 4 with both slots filled. Tile palette visible below.",
           "tangible_type": "equation_builder",
+          "mode": "building",
           "template": [
-            "__",
+            "4",
             "×",
-            "__"
-          ],
-          "style": "equation",
-          "palette": [
-            3,
-            4,
-            5,
-            7,
-            8,
-            9,
-            10,
-            12,
-            14,
-            16
+            "4"
           ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:04:45.118027+00:00"
+  "_generated_at": "2026-04-27T15:59:11.312296+00:00"
 }

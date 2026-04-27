@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T11:59:27.953199
+# Generated: 2026-04-27T10:55:18.829918
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1850,7 +1854,6 @@ Cacheable: Yes
 <input>
 {
   "id": "s4_1_metacognitive_reflection_strategy_identification",
-  "type": "transition",
   "beats": [
     {
       "type": "scene",
@@ -1861,17 +1864,21 @@ Cacheable: Yes
         "mode": "reading",
         "orientation": "vertical",
         "categories": [
-          "Example"
+          "Data"
         ],
         "scale": 10,
         "axis_range": [
           0,
           50
         ],
+        "values": {
+          "Data": 45
+        },
         "highlight_categories": [
-          "Example"
+          "Data"
         ],
-        "description": "Vertical bar graph appears. Single bar highlighted, ending at 45 between 40 and 50 gridlines. Ghost gridlines at 5s visible."
+        "ghost_gridlines_visible": true,
+        "description": "Vertical bar graph appears. Single bar labeled Data ends at 45, between 40 and 50 gridlines. Bar highlighted. Ghost gridlines at 5s visible, showing halfway marks between each pair of labeled gridlines."
       },
       "id": "s4_1_metacognitive_reflection_strategy_identification_b0"
     },
@@ -1896,7 +1903,7 @@ Cacheable: Yes
           "condition": {
             "selected": "I found halfway—that's always 5 more"
           },
-          "description": "Student selected the halfway pattern strategy",
+          "description": "Student selected the halfway strategy, recognizing the pattern that halfway between lines on scale 10 is always 5 more",
           "is_correct": true,
           "beats": [
             {
@@ -1914,12 +1921,12 @@ Cacheable: Yes
       "elements": [
         {
           "tangible_id": "bar_graph_reflection",
-          "description": "Vertical bar graph. Single bar highlighted at 45. Ghost gridlines at 5s visible.",
+          "description": "Vertical bar graph in reading mode. Single Data bar at value 45, highlighted. Ghost gridlines visible at 5s between labeled gridlines at 10s.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Example"
+            "Data"
           ],
           "scale": 10,
           "axis_range": [
@@ -1940,12 +1947,12 @@ Cacheable: Yes
       "elements": [
         {
           "tangible_id": "bar_graph_reflection",
-          "description": "Vertical bar graph. Single bar highlighted at 45. Ghost gridlines at 5s visible.",
+          "description": "Vertical bar graph in reading mode. Single Data bar at value 45, highlighted. Ghost gridlines visible at 5s.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Example"
+            "Data"
           ],
           "scale": 10,
           "axis_range": [
@@ -1958,46 +1965,25 @@ Cacheable: Yes
     },
     {
       "type": "dialogue",
-      "text": "You learned to read values at the lines and between the lines. You used 'half of 10 is 5' to figure out tricky values.",
+      "text": "You learned to read values at the lines and between the lines. You used half of 10 is 5 to figure out tricky values.",
       "id": "s4_1_metacognitive_reflection_strategy_identification_b6"
-    },
-    {
-      "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "bar_graph_reflection",
-          "description": "Vertical bar graph. Single bar highlighted at 45. Ghost gridlines at 5s visible.",
-          "tangible_type": "bar_graph",
-          "mode": "reading",
-          "orientation": "vertical",
-          "categories": [
-            "Example"
-          ],
-          "scale": 10,
-          "axis_range": [
-            0,
-            50
-          ]
-        }
-      ],
-      "id": "s4_1_metacognitive_reflection_strategy_identification_b7"
     },
     {
       "type": "dialogue",
       "text": "That pattern-finding will help you when we look at all the scales together next time. You'll be able to pick the best one for any data.",
-      "id": "s4_1_metacognitive_reflection_strategy_identification_b8"
+      "id": "s4_1_metacognitive_reflection_strategy_identification_b7"
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "bar_graph_reflection",
-          "description": "Vertical bar graph. Single bar highlighted at 45. Ghost gridlines at 5s visible.",
+          "description": "Vertical bar graph in reading mode. Single Data bar at value 45, highlighted. Ghost gridlines visible at 5s.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Example"
+            "Data"
           ],
           "scale": 10,
           "axis_range": [
@@ -2006,10 +1992,10 @@ Cacheable: Yes
           ]
         }
       ],
-      "id": "s4_1_metacognitive_reflection_strategy_identification_b9"
+      "id": "s4_1_metacognitive_reflection_strategy_identification_b8"
     }
   ],
-  "_generated_at": "2026-04-20T16:58:31.192099+00:00"
+  "_generated_at": "2026-04-27T15:54:26.505920+00:00"
 }
 </input>
 

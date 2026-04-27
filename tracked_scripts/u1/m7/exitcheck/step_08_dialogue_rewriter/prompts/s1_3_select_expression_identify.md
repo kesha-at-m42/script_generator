@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:00:24.446273
+# Generated: 2026-04-27T10:53:58.029805
 ======================================================================
 
 ## API Parameters
@@ -948,7 +948,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "4 × 2. Four circles, two dots each. That's how you match groups to the expression.",
+      "text": "4 × 2. Four circles, two dots each.",
       "context": "on_correct"
     }
   ]

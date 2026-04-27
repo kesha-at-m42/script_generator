@@ -4,20 +4,21 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equal_groups_boxes",
+      "tangible_id": "equal_groups_boxes_items",
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
         "container_count": 3,
         "items_per_container": 5,
-        "visual_style": "boxes_with_items",
-        "description": "3 boxes appear, each containing 5 items."
+        "separation": "full",
+        "context": "boxes_items",
+        "description": "Three boxes appear, each containing 5 items. Equal groups visualization in reading mode."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder_expression",
+      "tangible_id": "equation_builder",
       "tangible_type": "equation_builder",
       "params": {
         "template": [
@@ -34,7 +35,7 @@
           12,
           15
         ],
-        "description": "Equation builder appears with two blank slots and multiplication symbol. Tile palette shows 2, 3, 5, 8, 9, 12, 15."
+        "description": "Equation builder appears below with two empty slots and times symbol. Tile palette shows 2, 3, 5, 8, 9, 12, 15."
       }
     },
     {
@@ -45,17 +46,15 @@
       "type": "prompt",
       "text": "Build the expression.",
       "tool": "place_tile",
-      "target": "equation_builder_expression",
+      "target": "equation_builder",
       "validator": [
         {
           "condition_id": "correct",
           "condition": {
-            "placed": {
-              "groups": 3,
-              "items": 5
-            }
+            "groups": 3,
+            "items": 5
           },
-          "description": "Student placed 3 × 5",
+          "description": "Student placed 3 in first slot and 5 in second slot, forming 3 × 5",
           "is_correct": true,
           "beats": [
             {
@@ -70,25 +69,36 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equal_groups_boxes",
-          "description": "3 boxes, each containing 5 items.",
+          "tangible_id": "equal_groups_boxes_items",
+          "description": "Three boxes with 5 items each. Equal groups visualization in reading mode.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 3,
-          "items_per_container": 5
+          "items_per_container": 5,
+          "separation": "full",
+          "context": "boxes_items"
         },
         {
-          "tangible_id": "equation_builder_expression",
-          "description": "Equation builder showing 3 × 5. Tile palette: 2, 3, 5, 8, 9, 12, 15.",
+          "tangible_id": "equation_builder",
+          "description": "Equation builder showing completed expression 3 × 5 with both slots filled. Tile palette visible.",
           "tangible_type": "equation_builder",
           "template": [
             "3",
             "×",
             "5"
+          ],
+          "tile_palette": [
+            2,
+            3,
+            5,
+            8,
+            9,
+            12,
+            15
           ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:03:31.219196+00:00"
+  "_generated_at": "2026-04-27T15:57:24.470606+00:00"
 }

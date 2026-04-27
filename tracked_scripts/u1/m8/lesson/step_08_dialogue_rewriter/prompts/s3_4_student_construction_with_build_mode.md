@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:05:24.645959
+# Generated: 2026-04-27T11:00:00.436185
 ======================================================================
 
 ## API Parameters
@@ -946,6 +946,14 @@ Cacheable: Yes
     {
       "text": "Now you build the picture. Show me: what does 4 times 5 mean?",
       "context": "lesson"
+    },
+    {
+      "text": "Set the number of boxes. Then set how many in each box.",
+      "context": "lesson"
+    },
+    {
+      "text": "4 boxes.",
+      "context": "on_correct"
     },
     {
       "text": "You built it. All of the groups are equal. 4 boxes with 5 items in each. 4 groups of 5.",

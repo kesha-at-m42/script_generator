@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:02:28.017211
+# Generated: 2026-04-27T10:56:23.918437
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1854,8 +1858,8 @@ Cacheable: Yes
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "product_strip_twos",
-      "tangible_type": "product_strip",
+      "tangible_id": "products_strip_2s",
+      "tangible_type": "products_strip",
       "params": {
         "factor": 2,
         "products": [
@@ -1870,15 +1874,15 @@ Cacheable: Yes
           18,
           20
         ],
-        "description": "Multiples of 2 strip appears: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20."
+        "description": "Multiples of 2 strip displays at top: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20."
       },
       "id": "s2_1_pattern_summary_as_checking_toolkit_b0"
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "product_strip_fives",
-      "tangible_type": "product_strip",
+      "tangible_id": "products_strip_5s",
+      "tangible_type": "products_strip",
       "params": {
         "factor": 5,
         "products": [
@@ -1893,15 +1897,15 @@ Cacheable: Yes
           45,
           50
         ],
-        "description": "Multiples of 5 strip appears: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50."
+        "description": "Multiples of 5 strip displays below 2s: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50."
       },
       "id": "s2_1_pattern_summary_as_checking_toolkit_b1"
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "product_strip_tens",
-      "tangible_type": "product_strip",
+      "tangible_id": "products_strip_10s",
+      "tangible_type": "products_strip",
       "params": {
         "factor": 10,
         "products": [
@@ -1916,7 +1920,7 @@ Cacheable: Yes
           90,
           100
         ],
-        "description": "Multiples of 10 strip appears: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100."
+        "description": "Multiples of 10 strip displays at bottom: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100."
       },
       "id": "s2_1_pattern_summary_as_checking_toolkit_b2"
     },
@@ -1929,9 +1933,9 @@ Cacheable: Yes
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "product_strip_twos",
-          "description": "Multiples of 2 strip: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20.",
-          "tangible_type": "product_strip",
+          "tangible_id": "products_strip_2s",
+          "tangible_type": "products_strip",
+          "description": "Multiples of 2 strip at top: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20.",
           "factor": 2,
           "products": [
             2,
@@ -1947,9 +1951,9 @@ Cacheable: Yes
           ]
         },
         {
-          "tangible_id": "product_strip_fives",
-          "description": "Multiples of 5 strip: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50.",
-          "tangible_type": "product_strip",
+          "tangible_id": "products_strip_5s",
+          "tangible_type": "products_strip",
+          "description": "Multiples of 5 strip in middle: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50.",
           "factor": 5,
           "products": [
             5,
@@ -1965,9 +1969,9 @@ Cacheable: Yes
           ]
         },
         {
-          "tangible_id": "product_strip_tens",
-          "description": "Multiples of 10 strip: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100.",
-          "tangible_type": "product_strip",
+          "tangible_id": "products_strip_10s",
+          "tangible_type": "products_strip",
+          "description": "Multiples of 10 strip at bottom: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100.",
           "factor": 10,
           "products": [
             10,
@@ -1998,7 +2002,7 @@ Cacheable: Yes
           "=",
           "?"
         ],
-        "description": "Equation appears: 8 × 5 = ?"
+        "description": "Equation displays: 8 × 5 = ?"
       },
       "id": "s2_1_pattern_summary_as_checking_toolkit_b5"
     },
@@ -2047,9 +2051,9 @@ Cacheable: Yes
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "product_strip_twos",
-          "description": "Multiples of 2 strip: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20.",
-          "tangible_type": "product_strip",
+          "tangible_id": "products_strip_2s",
+          "tangible_type": "products_strip",
+          "description": "Multiples of 2 strip at top: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20.",
           "factor": 2,
           "products": [
             2,
@@ -2065,9 +2069,9 @@ Cacheable: Yes
           ]
         },
         {
-          "tangible_id": "product_strip_fives",
-          "description": "Multiples of 5 strip: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50.",
-          "tangible_type": "product_strip",
+          "tangible_id": "products_strip_5s",
+          "tangible_type": "products_strip",
+          "description": "Multiples of 5 strip in middle: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50.",
           "factor": 5,
           "products": [
             5,
@@ -2083,9 +2087,9 @@ Cacheable: Yes
           ]
         },
         {
-          "tangible_id": "product_strip_tens",
-          "description": "Multiples of 10 strip: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100.",
-          "tangible_type": "product_strip",
+          "tangible_id": "products_strip_10s",
+          "tangible_type": "products_strip",
+          "description": "Multiples of 10 strip at bottom: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100.",
           "factor": 10,
           "products": [
             10,
@@ -2102,8 +2106,8 @@ Cacheable: Yes
         },
         {
           "tangible_id": "equation_8x5",
-          "description": "Equation: 8 × 5 = ? with multi-select options 13, 35, 40, 42.",
           "tangible_type": "equation",
+          "description": "Equation showing 8 × 5 = ? with multi-select answer options 13, 35, 40, 42.",
           "expression": [
             "8",
             "×",
@@ -2116,7 +2120,7 @@ Cacheable: Yes
       "id": "s2_1_pattern_summary_as_checking_toolkit_b8"
     }
   ],
-  "_generated_at": "2026-04-20T17:01:15.966121+00:00"
+  "_generated_at": "2026-04-27T15:54:30.398145+00:00"
 }
 </input>
 

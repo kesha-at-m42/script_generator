@@ -6,7 +6,7 @@
         "condition": {
           "selected": "The total moved to the other side"
         },
-        "description": "Student selected A: noticed the reversed structure but missed the other changes",
+        "description": "Student selected A: focused only on the reversed equation structure",
         "is_correct": false,
         "steps": [
           [
@@ -15,15 +15,15 @@
               "method": "update",
               "tangible_id": "equation_m10",
               "params": {
-                "highlight_elements": [
-                  "__"
+                "highlight_parts": [
+                  "☐"
                 ],
-                "description": "The unknown box on the left side of today's equation highlights."
+                "description": "Unknown box highlights in today's equation."
               }
             },
             {
               "type": "dialogue",
-              "text": "Yes, the total moved. But look at what else changed. What symbol is on the left side now? That's new too."
+              "text": "The total did move, but look closer. What's in the box? That's an unknown. And what picture do you see? That's a stack, not a bag. All three things changed."
             }
           ]
         ]
@@ -32,7 +32,7 @@
         "condition": {
           "selected": "There's an unknown number"
         },
-        "description": "Student selected B: noticed the unknown but missed the other changes",
+        "description": "Student selected B: focused only on the unknown box",
         "is_correct": false,
         "steps": [
           [
@@ -41,16 +41,26 @@
               "method": "update",
               "tangible_id": "equation_m9",
               "params": {
-                "highlight_elements": [
-                  "=",
-                  "30"
+                "highlight_parts": [
+                  "="
                 ],
-                "description": "The equals sign and 30 in last time's equation highlight."
+                "description": "Equals sign highlights in last time's equation."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_m10",
+              "params": {
+                "highlight_parts": [
+                  "="
+                ],
+                "description": "Equals sign highlights in today's equation."
               }
             },
             {
               "type": "dialogue",
-              "text": "Right, there's an unknown. But that's not the only change. Look where the total appears in each equation. What moved?"
+              "text": "There is an unknown, but that's not the only change. Notice where the equals sign is. The total is on a different side. And the picture changed from bags to stacks."
             }
           ]
         ]
@@ -59,7 +69,7 @@
         "condition": {
           "selected": "The picture uses stacks, not bags"
         },
-        "description": "Student selected C: noticed the context change but missed the equation structure changes",
+        "description": "Student selected C: focused only on the context image change",
         "is_correct": false,
         "steps": [
           [
@@ -68,16 +78,16 @@
               "method": "update",
               "tangible_id": "equation_m10",
               "params": {
-                "highlight_elements": [
-                  "__",
+                "highlight_parts": [
+                  "☐",
                   "="
                 ],
-                "description": "The unknown box and equals sign in today's equation highlight."
+                "description": "Unknown box and equals sign highlight in today's equation."
               }
             },
             {
               "type": "dialogue",
-              "text": "The picture did change. But look at the equation itself. What's on the left side today that wasn't there before?"
+              "text": "The picture did change from bags to stacks. But look at the equation itself. Where's the total now? And what's in that box? Three things are different today."
             }
           ]
         ]
@@ -93,19 +103,19 @@
               "method": "animate",
               "tangible_id": "equation_m10",
               "params": {
-                "event": "highlight_all_changes",
+                "event": "highlight_all_differences",
                 "status": "confirmed",
-                "description": "Today's equation highlights: the unknown on the left, the reversed structure with multiplication on the right, and the stacks context image."
+                "description": "Today's equation highlights all three changes: unknown box, reversed structure with total on left, and stacks context image."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. Three things changed. The total moved from right to left. An unknown replaced a known number. And the context switched from bags to stacks. All three are new in Module 10. All of these are different today."
+              "text": "Let me show you all three changes. Last time, the total was on the right. Today it's on the left. Last time, every number was known. Today there's a box for an unknown. Last time we had bags. Today we have stacks. All of these are different today."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:03:38.301371+00:00"
+  "_generated_at": "2026-04-27T15:56:47.835272+00:00"
 }

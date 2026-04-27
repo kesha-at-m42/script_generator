@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T11:59:14.642685
+# Generated: 2026-04-27T10:53:54.136988
 ======================================================================
 
 ## API Parameters
@@ -948,11 +948,11 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "You picked Scale of 10. Nice and clean!",
+      "text": "You picked Scale of 5. More detail!",
       "context": "on_correct"
     },
     {
-      "text": "You picked Scale of 5. More detail!",
+      "text": "You picked Scale of 10. Nice and clean!",
       "context": "on_correct"
     },
     {

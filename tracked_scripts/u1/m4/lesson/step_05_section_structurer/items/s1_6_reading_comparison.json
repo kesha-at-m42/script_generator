@@ -9,6 +9,7 @@
       "params": {
         "mode": "reading",
         "orientation": "vertical",
+        "title": "Books Read This Month",
         "categories": [
           "Fiction",
           "Nonfiction",
@@ -21,12 +22,21 @@
           "Comics": 20,
           "Poetry": 30
         },
-        "description": "Vertical bar graph appears. Books Read This Month data. Fiction=40, Nonfiction=60, Comics=20, Poetry=30. All 4 bars visible."
+        "axis_range": [
+          0,
+          70
+        ],
+        "scale": 10,
+        "description": "Vertical bar graph appears. Books Read This Month. All four bars visible: Fiction=40, Nonfiction=60, Comics=20, Poetry=30. Y-axis 0-70, scale of 10."
       }
     },
     {
       "type": "dialogue",
-      "text": "Here's the completed graph. Use it to answer a question. How many MORE books were Nonfiction than Comics?"
+      "text": "Here's the completed graph. Use it to answer a question."
+    },
+    {
+      "type": "dialogue",
+      "text": "How many MORE books were Nonfiction than Comics?"
     },
     {
       "type": "prompt",
@@ -44,9 +54,21 @@
           "condition": {
             "selected": 40
           },
-          "description": "Student selected 40, correct difference between Nonfiction (60) and Comics (20)",
+          "description": "Student selected 40, correct. Nonfiction 60 minus Comics 20 equals 40.",
           "is_correct": true,
           "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Nonfiction",
+                  "Comics"
+                ],
+                "description": "Nonfiction and Comics bars highlight to confirm comparison."
+              }
+            },
             {
               "type": "dialogue",
               "text": "40 more. Nonfiction is 60, Comics is 20. The difference is 40."
@@ -60,7 +82,7 @@
       "elements": [
         {
           "tangible_id": "bar_graph_books",
-          "description": "Vertical bar graph in reading mode. Books Read This Month data. Fiction=40, Nonfiction=60, Comics=20, Poetry=30.",
+          "description": "Vertical bar graph. Books Read This Month. Nonfiction and Comics bars highlighted. Fiction=40, Nonfiction=60, Comics=20, Poetry=30.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -74,5 +96,5 @@
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:00:53.985682+00:00"
+  "_generated_at": "2026-04-27T15:56:44.477519+00:00"
 }

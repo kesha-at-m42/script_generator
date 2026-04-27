@@ -6,13 +6,13 @@
         "condition": {
           "incorrect_count": 1
         },
-        "description": "Student set container count to incorrect value on first attempt",
+        "description": "Student set wrong container count on first attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "dialogue",
-              "text": "Not quite. Look at the first number in the expression. How many groups?"
+              "text": "Look at the first number in the expression. That tells you how many groups."
             }
           ]
         ]
@@ -21,46 +21,57 @@
         "condition": {
           "incorrect_count": 2
         },
-        "description": "Student set container count to incorrect value on second attempt",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "equation_builder_4x5",
-              "params": {
-                "highlight_first_number": true,
-                "description": "First number 4 highlights in the expression."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "The first number tells you how many groups. 4 times 5 means 4 groups. Set the container count to 4."
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {},
-        "description": "Student set container count to incorrect value three or more times. System models the answer.",
+        "description": "Student set wrong container count on second attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equal_groups_build",
+              "tangible_id": "equation_builder",
               "params": {
-                "event": "demo_set_container_count",
+                "event": "highlight_first_number",
                 "status": "confirmed",
-                "description": "System demonstrates setting container count to 4. Four empty containers appear.",
-                "value": 4
+                "description": "First number 4 in expression highlights."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. The first number in a multiplication expression is the number of groups. 4 times 5 means 4 groups. I set the container count to 4, and now we have 4 empty containers. That matches the first number in the expression."
+              "text": "The first number is 4. That means 4 groups. Set the boxes to 4."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student set wrong container count three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder",
+              "params": {
+                "event": "highlight_first_number",
+                "status": "confirmed",
+                "description": "First number 4 in expression highlights."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "event": "set_container_count",
+                "status": "confirmed",
+                "description": "System sets container count to 4. Four empty boxes appear.",
+                "container_count": 4
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. The first number in a multiplication expression tells us how many groups. 4 times 5 means 4 groups. I set the boxes to 4. That is how we read the first number in the expression."
             }
           ]
         ]
@@ -71,13 +82,13 @@
         "condition": {
           "incorrect_count": 1
         },
-        "description": "Student set items per container to incorrect value on first attempt",
+        "description": "Student set wrong items-per-container on first attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "dialogue",
-              "text": "Let's take another look. The second number tells you how many in each group."
+              "text": "Check the second number in the expression. That tells you how many in each group."
             }
           ]
         ]
@@ -86,51 +97,62 @@
         "condition": {
           "incorrect_count": 2
         },
-        "description": "Student set items per container to incorrect value on second attempt",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "equation_builder_4x5",
-              "params": {
-                "highlight_second_number": true,
-                "description": "Second number 5 highlights in the expression."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "The second number tells you how many in each group. 4 times 5 means 5 in each. Set the items per container to 5."
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {},
-        "description": "Student set items per container to incorrect value three or more times. System models the answer.",
+        "description": "Student set wrong items-per-container on second attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equal_groups_build",
+              "tangible_id": "equation_builder",
               "params": {
-                "event": "demo_set_items_per_container",
+                "event": "highlight_second_number",
                 "status": "confirmed",
-                "description": "System demonstrates setting items per container to 5. Five items populate each of the four containers.",
-                "value": 5
+                "description": "Second number 5 in expression highlights."
               }
             },
             {
               "type": "dialogue",
-              "text": "Here's how it works. The second number in a multiplication expression is how many in each group. 4 times 5 means 5 in each group. I set items per container to 5. Now each of the 4 containers has exactly 5 items. That's what 4 times 5 means: 4 groups with 5 in each."
+              "text": "The second number is 5. That means 5 in each group. Set the items to 5."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student set wrong items-per-container three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder",
+              "params": {
+                "event": "highlight_second_number",
+                "status": "confirmed",
+                "description": "Second number 5 in expression highlights."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_build",
+              "params": {
+                "event": "set_items_per_container",
+                "status": "confirmed",
+                "description": "System sets items per container to 5. Each box fills with 5 items.",
+                "items_per_container": 5
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here is how it works. The second number in the expression tells us how many in each group. 4 times 5 means 5 in each group. I set the items to 5. Now the picture matches the expression. 4 boxes with 5 in each."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:07:08.484626+00:00"
+  "_generated_at": "2026-04-27T16:02:00.601583+00:00"
 }

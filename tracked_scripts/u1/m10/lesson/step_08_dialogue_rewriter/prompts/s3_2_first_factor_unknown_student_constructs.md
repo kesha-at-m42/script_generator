@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:06:51.677468
+# Generated: 2026-04-27T11:01:25.397687
 ======================================================================
 
 ## API Parameters
@@ -948,7 +948,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "4 groups of 10 equals 40. You skip counted, 10, 20, 30, 40, and it took 4 groups.",
+      "text": "4 groups of 10 equals 40. You skip-counted — 10, 20, 30, 40 — and it took 4 groups.",
       "context": "lesson"
     },
     {
@@ -956,8 +956,8 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "2 times 5 equals 10. You started with the equation and BUILT the answer. Now we can skip count by 5s two times: 5, 10. That's the total of 10. Each side of the equation has the same value.",
-      "context": "lesson"
+      "text": "2 times 5 equals 10. You started with the equation and built the answer. Now we can skip count by 5s two times: 5, 10. That's the total of 10. Each side of the equation has the same value.",
+      "context": "on_correct"
     },
     {
       "text": "Your turn with a different one. 2 groups, 14 total. 2 times what equals 14?",
@@ -965,7 +965,7 @@ Cacheable: Yes
     },
     {
       "text": "2 times 7 equals 14. 2 groups of 7 is 14. You built the answer.",
-      "context": "lesson"
+      "context": "on_correct"
     }
   ]
 }

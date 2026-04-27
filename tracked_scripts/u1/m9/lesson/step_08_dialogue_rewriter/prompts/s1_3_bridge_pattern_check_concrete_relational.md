@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:04:26.141608
+# Generated: 2026-04-27T10:59:14.888035
 ======================================================================
 
 ## API Parameters
@@ -952,7 +952,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "Same answer. Both work — but skip-counting is usually faster and multiplication is a shorter way to write it.",
+      "text": "Same answer. Both work, but skip-counting is usually faster and multiplication is a shorter way to write it.",
       "context": "lesson"
     },
     {
@@ -960,7 +960,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "Always even. The pattern works every time — in groups of 2, every item always has a pair with no items left.",
+      "text": "Always even. The pattern works every time. In groups of 2, every item always has a pair with no items left.",
       "context": "on_correct"
     }
   ]

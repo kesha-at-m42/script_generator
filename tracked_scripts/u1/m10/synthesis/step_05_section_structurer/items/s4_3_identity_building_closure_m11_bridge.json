@@ -5,25 +5,43 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_m9",
+      "tangible_id": "equation_m9_recap",
       "tangible_type": "equation",
       "params": {
-        "description": "M9 equation appears briefly: 3 × 4 = 12"
+        "expression": [
+          "6",
+          "×",
+          "5",
+          "=",
+          "30"
+        ],
+        "description": "Equation from M9 appears: 6 × 5 = 30"
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_m10",
+      "tangible_id": "equation_m10_recap",
       "tangible_type": "equation",
       "params": {
-        "description": "M10 equation appears briefly: 4 × 3 = 12"
+        "expression": [
+          "__",
+          "=",
+          "3",
+          "×",
+          "10"
+        ],
+        "description": "Equation from M10 appears: ☐ = 3 × 10"
       }
+    },
+    {
+      "type": "dialogue",
+      "text": "You came in knowing expressions and products. Now you write complete equations. You know the equals sign means same value as. You find unknowns in any position. And you see equal groups everywhere: bags, rows, stacks, groups."
     },
     {
       "type": "scene",
       "method": "animate",
-      "tangible_id": "equation_m9",
+      "tangible_id": "equation_m9_recap",
       "params": {
         "event": "fade_out",
         "status": "confirmed",
@@ -33,7 +51,7 @@
     {
       "type": "scene",
       "method": "animate",
-      "tangible_id": "equation_m10",
+      "tangible_id": "equation_m10_recap",
       "params": {
         "event": "fade_out",
         "status": "confirmed",
@@ -42,45 +60,25 @@
     },
     {
       "type": "scene",
-      "method": "add",
-      "tangible_id": "dot_arrangement",
-      "tangible_type": "image",
-      "params": {
-        "description": "Simple rectangular arrangement of dots appears: 3 rows of 4 dots"
-      }
+      "method": "remove",
+      "tangible_id": "equation_m9_recap"
     },
     {
-      "type": "dialogue",
-      "text": "You came in knowing expressions and products. Now you write complete equations. You know the equals sign means same value as. You find unknowns in any position. And you see equal groups everywhere: bags, rows, stacks, groups."
+      "type": "scene",
+      "method": "remove",
+      "tangible_id": "equation_m10_recap"
     },
     {
       "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "dot_arrangement",
-          "description": "Rectangular arrangement of dots visible: 3 rows of 4 dots",
-          "tangible_type": "image"
-        }
-      ]
+      "elements": []
     },
     {
       "type": "scene",
-      "method": "animate",
-      "tangible_id": "dot_arrangement",
+      "method": "add",
+      "tangible_id": "dot_arrangement_preview",
+      "tangible_type": "image",
       "params": {
-        "event": "highlight_rows",
-        "status": "confirmed",
-        "description": "Rows highlight briefly"
-      }
-    },
-    {
-      "type": "scene",
-      "method": "animate",
-      "tangible_id": "dot_arrangement",
-      "params": {
-        "event": "highlight_columns",
-        "status": "confirmed",
-        "description": "Columns highlight briefly"
+        "description": "Simple rectangular arrangement of dots appears: 3 rows of 4 dots, not labeled as array"
       }
     },
     {
@@ -88,14 +86,24 @@
       "text": "Next time, you'll see equal groups arranged in a new way."
     },
     {
-      "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "dot_arrangement",
-          "description": "Rectangular arrangement of dots: 3 rows of 4 dots, columns highlighted",
-          "tangible_type": "image"
-        }
-      ]
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "dot_arrangement_preview",
+      "params": {
+        "event": "highlight_rows",
+        "status": "confirmed",
+        "description": "Rows highlight briefly, then fade"
+      }
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "dot_arrangement_preview",
+      "params": {
+        "event": "highlight_columns",
+        "status": "confirmed",
+        "description": "Columns highlight briefly"
+      }
     },
     {
       "type": "dialogue",
@@ -105,12 +113,12 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "dot_arrangement",
-          "description": "Rectangular arrangement of dots: 3 rows of 4 dots",
+          "tangible_id": "dot_arrangement_preview",
+          "description": "Rectangular arrangement of dots (3 rows of 4), columns highlighted",
           "tangible_type": "image"
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:02:21.043295+00:00"
+  "_generated_at": "2026-04-27T15:55:31.098481+00:00"
 }

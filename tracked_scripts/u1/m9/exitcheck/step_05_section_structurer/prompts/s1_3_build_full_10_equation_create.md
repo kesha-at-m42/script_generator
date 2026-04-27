@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:00:30.850574
+# Generated: 2026-04-27T10:53:48.638567
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -821,7 +837,7 @@ Cacheable: Yes
   "remediation": "Pipeline",
   "remediation_note": "Prompt factor identification from verbal description: 4 groups (first factor = 4), each group of 10 (second factor = 10). Skip-count by 10s four times to find product (40).",
   "design_note": "Moderate difficulty — no visual reference, all three slots empty, student builds the entire equation. Tests factor identification + computation + construction. Uses ×10 (simplest pattern, but full construction raises interaction demand). Same interaction method used in Lesson 3.1 and 3.4. Tile palette includes 5 as distractor (plausible second-factor error).",
-  "_generated_at": "2026-04-20T16:59:58.448944+00:00",
+  "_generated_at": "2026-04-27T15:52:55.768924+00:00",
   "workspace_specs": {
     "toys": [
       "equation_builder"
@@ -829,7 +845,8 @@ Cacheable: Yes
     "tools": [
       "place_tile"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_0_transition_into_exit_check\n# Section Summary: s1_0_transition_into_exit_check\n\n**VISUAL STATE:** No tangible visuals or data displays remain on screen at section end; the scene is blank/cleared.\n\n**CONTENT:** This transition section bridges the prior work on building equations for multiplication patterns (specifically the 2s, 5s, and 10s times tables) into an assessment phase. No new vocabulary or concepts are formally introduced; instead, the section signals a shift from guided practice to knowledge verification.\n\n**STUDENT ACTION:** The student did not perform an interactive action in this section. This is a dialogue-only transition that sets expectations for the upcoming exit check assessment.\n\n---\n\n## s1_1_compute_5_product_identify\n# Section Summary: s1_1_compute_5_product_identify\n\n**VISUAL STATE:** An equation builder tangible (equation_builder_7x5) displays the multiplication expression \"7 × 5 = __\" in reading mode. The factors 7 and 5 are pre-filled in their respective slots. The product slot is blank with four multiple-choice options displayed: 12, 30, 35, 40.\n\n**CONTENT:** Students practiced identifying the product of a multiplication expression (7 × 5). The vocabulary term \"product\" was formally introduced as the result of multiplication. The lesson reinforced that multiples of 5 end in 5, supporting the correct answer identification.\n\n**STUDENT ACTION:** The student selected the correct multiple-choice answer (35) from the four available options (12, 30, 35, 40) to complete the equation 7 × 5 = 35.\n\n---\n\n## s1_2_build_full_visual_2_create\n# Section Summary: s1_2_build_full_visual_2_create\n\n**VISUAL STATE:** Two tangibles are on screen at section end: (1) Equal Groups visualization (tangible_id: equal_groups_6x2) in reading mode displaying 6 containers with 2 dots each; (2) Equation Builder (tangible_id: equation_builder_6x2) in building mode with template [__, ×, __, =, __] showing the confirmed equation 6 × 2 = 12, with tile palette containing values 2, 4, 5, 6, 8, 10, 12, 14.\n\n**CONTENT:** Students practiced translating a visual representation of equal groups into a multiplication equation. The concept reinforced is that \"6 groups of 2\" translates to the multiplication expression \"6 × 2 = 12.\" Vocabulary formally introduced: \"groups of\" and the relationship between repeated grouping and multiplication.\n\n**STUDENT ACTION:** The student built a multiplication equation by placing tiles into the three empty slots of the Equation Builder to match the picture, correctly placing 6 in the first slot, 2 in the second slot, and 12 in the third slot, which triggered a confirmation animation and reinforcing dialogue."
 }
 </input>
 

@@ -6,7 +6,7 @@
         "condition": {
           "selected": 2
         },
-        "description": "Student selected 2: counted items per container instead of containers",
+        "description": "Student selected 2, confusing items per container with container count",
         "is_correct": false,
         "steps": [
           [
@@ -16,36 +16,12 @@
               "tangible_id": "equal_groups_circles",
               "params": {
                 "highlight_containers": true,
-                "description": "All 4 circles highlight in sequence."
+                "description": "All 4 circles highlight to show they are the groups."
               }
             },
             {
               "type": "dialogue",
-              "text": "You counted the dots in one circle. Count the circles themselves. How many circles do you see?"
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "selected": 3
-        },
-        "description": "Student selected 3: miscounted the number of containers",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "equal_groups_circles",
-              "params": {
-                "highlight_containers": true,
-                "description": "All 4 circles highlight in sequence."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "Look at the circles. Count them one by one. How many circles are there?"
+              "text": "You counted what's inside. Count the circles themselves. Each circle is a group."
             }
           ]
         ]
@@ -54,7 +30,7 @@
         "condition": {
           "selected": 6
         },
-        "description": "Student selected 6: counted total items instead of containers",
+        "description": "Student selected 6, possibly counting containers plus items",
         "is_correct": false,
         "steps": [
           [
@@ -64,19 +40,21 @@
               "tangible_id": "equal_groups_circles",
               "params": {
                 "highlight_containers": true,
-                "description": "Circles highlight, not the dots inside."
+                "description": "All 4 circles highlight to show they are the groups."
               }
             },
             {
               "type": "dialogue",
-              "text": "You counted all the dots. The question asks for groups. Each circle is one group. Count the circles."
+              "text": "Don't count the dots yet. Just the circles. How many circles do you see?"
             }
           ]
         ]
       },
       {
-        "condition": {},
-        "description": "Student answered incorrectly. System models the correct answer.",
+        "condition": {
+          "selected": 3
+        },
+        "description": "Student selected 3, miscounted containers",
         "is_correct": false,
         "steps": [
           [
@@ -85,14 +63,14 @@
               "method": "animate",
               "tangible_id": "equal_groups_circles",
               "params": {
-                "event": "highlight_containers_sequentially",
+                "event": "count_containers",
                 "status": "confirmed",
-                "description": "Circles highlight one by one: 1, 2, 3, 4."
+                "description": "Circles highlight sequentially as they are counted: 1, 2, 3, 4."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. I count the circles: 1, 2, 3, 4. Four circles. Each circle is one group. The answer is 4 groups."
+              "text": "Let me show you. Count the circles with me: 1, 2, 3, 4. Four circles means four groups."
             }
           ]
         ]
@@ -103,7 +81,7 @@
         "condition": {
           "selected": 1
         },
-        "description": "Student selected 1: undercounted items per container",
+        "description": "Student selected 1, significant undercount",
         "is_correct": false,
         "steps": [
           [
@@ -112,13 +90,13 @@
               "method": "update",
               "tangible_id": "equal_groups_circles",
               "params": {
-                "highlight_one_container": true,
-                "description": "One circle highlights. Dots inside pulse."
+                "highlight_single_container": 0,
+                "description": "First circle highlights to focus attention on counting its contents."
               }
             },
             {
               "type": "dialogue",
-              "text": "Look inside one circle. Count the dots. How many dots are in that circle?"
+              "text": "Look at one circle. Count the dots inside. How many dots are in this one circle?"
             }
           ]
         ]
@@ -127,7 +105,7 @@
         "condition": {
           "selected": 3
         },
-        "description": "Student selected 3: overcounted items per container",
+        "description": "Student selected 3, miscounted items in container",
         "is_correct": false,
         "steps": [
           [
@@ -136,13 +114,13 @@
               "method": "update",
               "tangible_id": "equal_groups_circles",
               "params": {
-                "highlight_one_container": true,
-                "description": "One circle highlights. Dots inside pulse."
+                "highlight_single_container": 0,
+                "description": "First circle highlights to focus attention on counting its contents."
               }
             },
             {
               "type": "dialogue",
-              "text": "Count carefully. Look at just ONE circle. How many dots are inside it?"
+              "text": "Pick one circle and count carefully. Are there 2 dots or more?"
             }
           ]
         ]
@@ -151,29 +129,7 @@
         "condition": {
           "selected": 4
         },
-        "description": "Student selected 4: counted total groups instead of items per group",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "equal_groups_circles",
-              "params": {
-                "highlight_one_container": true,
-                "description": "One circle highlights. Dots inside pulse."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "You counted all the circles. Look inside ONE circle. Count the dots in that one circle."
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {},
-        "description": "Student answered incorrectly. System models the correct answer.",
+        "description": "Student selected 4, confusing container count with items per container",
         "is_correct": false,
         "steps": [
           [
@@ -182,14 +138,14 @@
               "method": "animate",
               "tangible_id": "equal_groups_circles",
               "params": {
-                "event": "open_one_container",
+                "event": "zoom_container",
                 "status": "confirmed",
-                "description": "One circle highlights. Dots inside highlight one by one: 1, 2."
+                "description": "First circle zooms in. Dots inside are counted: 1, 2."
               }
             },
             {
               "type": "dialogue",
-              "text": "Here's how. I pick one circle and count the dots inside: 1, 2. Two dots in each circle. That's how many are in each group. The answer is 2."
+              "text": "You're counting the circles. Look inside ONE circle. Count just the dots in that circle: 1, 2. Two dots in each circle."
             }
           ]
         ]
@@ -200,7 +156,7 @@
         "condition": {
           "selected": "2 groups of 4"
         },
-        "description": "Student selected 2 groups of 4: reversed the group count and items per group",
+        "description": "Student reversed groups and items per group",
         "is_correct": false,
         "steps": [
           [
@@ -210,21 +166,21 @@
               "tangible_id": "equal_groups_circles",
               "params": {
                 "highlight_containers": true,
-                "description": "All circles highlight briefly, then one circle highlights with dots inside pulsing."
+                "description": "All circles highlight to reinforce container count."
               }
             },
             {
               "type": "dialogue",
-              "text": "You flipped the numbers. Count the circles first. That's your groups. Then count inside one circle. That's how many in each."
+              "text": "You flipped them. How many circles? That's your groups. How many dots in one circle? That's in each group."
             }
           ]
         ]
       },
       {
         "condition": {
-          "selected": "8 groups"
+          "selected": "4 groups of 4"
         },
-        "description": "Student selected 8 groups: calculated total items and called it groups",
+        "description": "Student counted groups correctly but stated wrong items per group",
         "is_correct": false,
         "steps": [
           [
@@ -233,44 +189,22 @@
               "method": "update",
               "tangible_id": "equal_groups_circles",
               "params": {
-                "highlight_containers": true,
-                "description": "Circles highlight, not the dots."
+                "highlight_single_container": 0,
+                "description": "First circle highlights. Dots inside pulse to draw attention."
               }
             },
             {
               "type": "dialogue",
-              "text": "That's all the dots. But the question asks for groups. Each circle is one group. How many circles? How many dots in each?"
+              "text": "You have the groups right. Look inside one circle. Count the dots. Are there 4?"
             }
           ]
         ]
       },
       {
         "condition": {
-          "selected": "4 dots"
+          "selected": "2 groups of 2"
         },
-        "description": "Student selected 4 dots: stated group count but missed the structure entirely",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "equal_groups_circles",
-              "params": {
-                "highlight_containers": true,
-                "description": "All circles highlight, then one circle opens to show contents."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "The question asks for groups. Say it this way: how many circles, and how many dots in each circle. Try again."
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {},
-        "description": "Student answered incorrectly. System models the correct answer.",
+        "description": "Student miscounted both groups and items per group",
         "is_correct": false,
         "steps": [
           [
@@ -279,19 +213,19 @@
               "method": "animate",
               "tangible_id": "equal_groups_circles",
               "params": {
-                "event": "demonstrate_equal_groups",
+                "event": "count_containers",
                 "status": "confirmed",
-                "description": "Circles highlight one by one: 1, 2, 3, 4. Then one circle opens and dots highlight: 1, 2."
+                "description": "Circles highlight sequentially: 1, 2, 3, 4. Then first circle zooms. Dots counted: 1, 2."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me walk you through it. First, I count the circles: 1, 2, 3, 4. Four circles, those are my groups. Then I look inside one circle and count: 1, 2. Two dots in each. So I have 4 groups of 2. That's the structure we're looking for."
+              "text": "Let's count together. Circles: 1, 2, 3, 4. Four groups. Now one circle: 1, 2 dots. Two in each. So you have 4 groups of 2."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:05:17.443909+00:00"
+  "_generated_at": "2026-04-27T16:00:09.396904+00:00"
 }

@@ -1,6 +1,6 @@
 # UX/Script Terminology Drift Report
 
-Generated: 2026-04-20 12:02  
+Generated: 2026-04-27 10:54  
 Source: `check_glossary_drift.json`  
 Scope: Unit 1, Module 10
 
@@ -97,7 +97,7 @@ _None found._
 ### `s3_1_first_factor_unknown_skip_counting`
 
 - **Deprecated alias:** `template` → `Toys` (in `visual`)
-  > ...der with pre-filled template: `☐ × 5 = 20`. Language prompt displayed above Equation Builder: "**_ groups of...
+  > ...der with pre-filled template: `☐ × 5 = 20`. Language prompt displayed above Equation Builder: "\*\*\_ groups...
 
 ### `s3_2_first_factor_unknown_student_constructs`
 

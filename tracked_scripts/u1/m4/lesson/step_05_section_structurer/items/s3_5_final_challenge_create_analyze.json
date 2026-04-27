@@ -7,7 +7,20 @@
       "tangible_id": "data_table",
       "tangible_type": "data_table",
       "params": {
-        "description": "Data table appears. Plants in the Garden. Tomatoes=60, Peppers=35, Carrots=45, Beans=20. Vertical layout."
+        "orientation": "vertical",
+        "categories": [
+          "Tomatoes",
+          "Peppers",
+          "Carrots",
+          "Beans"
+        ],
+        "values": [
+          60,
+          35,
+          45,
+          20
+        ],
+        "description": "Vertical data table appears. Plants in the Garden data. Tomatoes=60, Peppers=35, Carrots=45, Beans=20."
       }
     },
     {
@@ -30,7 +43,8 @@
           "Beans"
         ],
         "snap_to": 5,
-        "description": "Horizontal bar graph appears. Plants in the Garden. Scale of 10, axis 0 to 70. No bars pre-filled. Ghost gridlines at 5s visible. Snap-to-5 enabled."
+        "ghost_gridlines": true,
+        "description": "Horizontal bar graph appears in building mode. Plants in the Garden title. Scale of 10, axis 0–70. No bars filled. Ghost gridlines at 5-unit intervals visible."
       }
     },
     {
@@ -49,22 +63,26 @@
             "and": [
               {
                 "bar_height": {
-                  "Tomatoes": 60
+                  "category": "Tomatoes",
+                  "value": 60
                 }
               },
               {
                 "bar_height": {
-                  "Peppers": 35
+                  "category": "Peppers",
+                  "value": 35
                 }
               },
               {
                 "bar_height": {
-                  "Carrots": 45
+                  "category": "Carrots",
+                  "value": 45
                 }
               },
               {
                 "bar_height": {
-                  "Beans": 20
+                  "category": "Beans",
+                  "value": 20
                 }
               }
             ]
@@ -73,8 +91,14 @@
           "is_correct": true,
           "beats": [
             {
-              "type": "dialogue",
-              "text": "All four bars match the data. You built the graph from the table."
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_plants",
+              "params": {
+                "event": "confirm_all_bars",
+                "status": "confirmed",
+                "description": "All four bars confirm simultaneously."
+              }
             }
           ]
         }
@@ -85,12 +109,25 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Data table showing Plants in the Garden values.",
-          "tangible_type": "data_table"
+          "description": "Vertical data table. Plants in the Garden data. Tomatoes=60, Peppers=35, Carrots=45, Beans=20.",
+          "tangible_type": "data_table",
+          "orientation": "vertical",
+          "categories": [
+            "Tomatoes",
+            "Peppers",
+            "Carrots",
+            "Beans"
+          ],
+          "values": [
+            60,
+            35,
+            45,
+            20
+          ]
         },
         {
           "tangible_id": "bar_graph_plants",
-          "description": "Horizontal bar graph in building mode. Plants in the Garden. All four bars set: Tomatoes=60, Peppers=35, Carrots=45, Beans=20. Scale of 10, axis 0 to 70.",
+          "description": "Horizontal bar graph in building mode. All four bars complete: Tomatoes=60, Peppers=35, Carrots=45, Beans=20.",
           "tangible_type": "bar_graph",
           "mode": "building",
           "orientation": "horizontal",
@@ -113,7 +150,7 @@
       "method": "hide",
       "tangible_id": "data_table",
       "params": {
-        "description": "Data table hides. Problem-solving uses graph only."
+        "description": "Data table hides from screen."
       }
     },
     {
@@ -126,7 +163,7 @@
           "Peppers",
           "Carrots"
         ],
-        "description": "Graph switches to reading mode. Peppers and Carrots bars highlight."
+        "description": "Bar graph switches to reading mode. Peppers and Carrots bars highlight."
       }
     },
     {
@@ -149,7 +186,7 @@
           "condition": {
             "selected": 80
           },
-          "description": "Student answered 80, correct",
+          "description": "Student selected 80, correct total for Peppers + Carrots",
           "is_correct": true,
           "beats": [
             {
@@ -165,7 +202,7 @@
       "elements": [
         {
           "tangible_id": "bar_graph_plants",
-          "description": "Horizontal bar graph in reading mode. Plants in the Garden. Peppers and Carrots bars highlighted. All four bars displayed: Tomatoes=60, Peppers=35, Carrots=45, Beans=20. Scale of 10, axis 0 to 70.",
+          "description": "Horizontal bar graph in reading mode. Peppers and Carrots bars highlighted. All bars complete: Tomatoes=60, Peppers=35, Carrots=45, Beans=20.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "horizontal",
@@ -184,5 +221,5 @@
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:02:54.812927+00:00"
+  "_generated_at": "2026-04-27T16:00:40.686364+00:00"
 }

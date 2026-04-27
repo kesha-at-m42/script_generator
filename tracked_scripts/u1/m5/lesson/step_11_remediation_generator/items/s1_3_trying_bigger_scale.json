@@ -1,7 +1,71 @@
 {
   "id": "s1_3_trying_bigger_scale",
   "incorrects": [
-    []
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student clicked a wrong scale button on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. The guide said to try Scale of 10."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student clicked a wrong scale button on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_scale_button": 10,
+                "description": "Scale of 10 button highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's what to do: click the button that says Scale of 10. That's the one we're testing now."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student clicked a wrong scale button three or more times. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "event": "click_scale_button",
+                "status": "confirmed",
+                "description": "System clicks Scale of 10 button. Graph updates to scale of 10 showing 9 tick marks.",
+                "scale_selected": 10
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. I click Scale of 10, right here. The graph changes to show tick marks at 0, 10, 20, all the way to 80. That's 9 marks total, much fewer than the 17 we had with Scale of 5. The answer is Scale of 10 because it makes the graph cleaner and easier to read."
+            }
+          ]
+        ]
+      }
+    ]
   ],
-  "_generated_at": "2026-04-20T17:04:32.630168+00:00"
+  "_generated_at": "2026-04-27T16:01:31.033323+00:00"
 }

@@ -6,13 +6,13 @@
         "condition": {
           "incorrect_count": 1
         },
-        "description": "Student clicked wrong scale button on first attempt",
+        "description": "Student clicked a wrong scale button on first attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "dialogue",
-              "text": "Not quite. Look for the Scale of 2 button and click it."
+              "text": "Not quite. Look at the ones place digits: 7, 2, 9, 3. Which scale shows any whole number exactly?"
             }
           ]
         ]
@@ -21,29 +21,33 @@
         "condition": {
           "incorrect_count": 2
         },
-        "description": "Student clicked wrong scale button on second attempt",
+        "description": "Student clicked a wrong scale button on second attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "bar_graph_marbles",
+              "tangible_id": "data_table",
               "params": {
-                "highlight_scale_button": 2,
-                "description": "Scale of 2 button highlights."
+                "highlight_values": [
+                  7,
+                  19,
+                  23
+                ],
+                "description": "Values 7, 19, 23 highlight in data table."
               }
             },
             {
               "type": "dialogue",
-              "text": "Here's what to try: click the button that says 'Scale of 2'. It's part of the scale selector."
+              "text": "Check 7, 19, and 23. They don't end in 0 or 5, so they aren't multiples of 5. Scale of 2 lets you place any whole number exactly. Which button shows Scale of 2?"
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student clicked wrong scale button three or more times. System models the correct action.",
+        "description": "Student clicked a wrong scale button three or more times. System models the answer.",
         "is_correct": false,
         "steps": [
           [
@@ -52,20 +56,20 @@
               "method": "animate",
               "tangible_id": "bar_graph_marbles",
               "params": {
-                "event": "preview_scale_transition",
+                "event": "apply_scale_with_demonstration",
                 "status": "confirmed",
-                "new_scale": 2,
-                "description": "System demonstrates: Scale transitions to 2. All bars land exactly on tick marks. Green checkmark indicator appears."
+                "scale": 2,
+                "description": "Graph updates to Scale of 2. System demonstrates how each bar lands exactly on a tick mark or halfway between: 7 is halfway between 6 and 8, 12 is on the line at 12, 19 is halfway between 18 and 20, 23 is halfway between 22 and 24."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. I click the Scale of 2 button. The scale changes and now all the bars land exactly on tick marks. With Scale of 2, half of 2 is 1, so every whole number lands right on a line or exactly halfway between two lines."
+              "text": "Let me show you. Scale of 2 works because half of 2 is 1. That means every whole number lands exactly on a line or halfway between two lines. Look: 7 lands halfway between 6 and 8, 12 is right on 12, 19 is halfway between 18 and 20, and 23 is halfway between 22 and 24. The correct answer is Scale of 2, the scale that shows any whole number exactly."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:05:09.637930+00:00"
+  "_generated_at": "2026-04-27T16:02:21.852780+00:00"
 }

@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:04:06.105591
+# Generated: 2026-04-27T10:59:07.695606
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1864,26 +1868,45 @@ Cacheable: Yes
         "params": {
           "mode": "reading",
           "orientation": "horizontal",
-          "scale": 5,
           "categories": [
             "Pizza",
             "Tacos",
             "Salad",
             "Burgers"
           ],
-          "values": {
-            "Pizza": 45,
-            "Tacos": 25,
-            "Salad": 10,
-            "Burgers": 15
-          },
+          "values": [
+            45,
+            25,
+            10,
+            15
+          ],
+          "scale": 5,
           "title": "Favorite Lunch Foods",
-          "description": "Horizontal bar graph appears. Favorite Lunch Foods. Scale of 5. Pizza 45, Tacos 25, Salad 10, Burgers 15."
+          "description": "Horizontal bar graph appears. Title: Favorite Lunch Foods. Scale of 5. Pizza=45, Tacos=25, Salad=10, Burgers=15."
         }
       },
       {
         "type": "dialogue",
         "text": "In Warmup, you read graphs with different scales. Now let's use graphs to solve problems. Here's data about students' favorite lunch foods."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_lunch",
+            "description": "Horizontal bar graph showing Favorite Lunch Foods data. Scale of 5. Pizza=45, Tacos=25, Salad=10, Burgers=15.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Pizza",
+              "Tacos",
+              "Salad",
+              "Burgers"
+            ],
+            "scale": 5
+          }
+        ]
       },
       {
         "type": "dialogue",
@@ -1894,22 +1917,22 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_lunch",
-            "description": "Horizontal bar graph. Favorite Lunch Foods. Scale of 5. Pizza 45, Tacos 25, Salad 10, Burgers 15.",
+            "description": "Horizontal bar graph showing Favorite Lunch Foods data. Scale of 5. Pizza=45, Tacos=25, Salad=10, Burgers=15.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "horizontal",
-            "scale": 5,
             "categories": [
               "Pizza",
               "Tacos",
               "Salad",
               "Burgers"
-            ]
+            ],
+            "scale": 5
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:00:50.436815+00:00"
+    "_generated_at": "2026-04-27T15:54:18.479583+00:00"
   },
   {
     "id": "s1_2_single_step_activation",
@@ -1921,19 +1944,22 @@ Cacheable: Yes
         "tangible_type": "bar_graph",
         "params": {
           "mode": "reading",
-          "orientation": "vertical",
+          "orientation": "horizontal",
+          "scale": 5,
           "categories": [
             "Pizza",
+            "Tacos",
             "Salad",
-            "Sandwich",
-            "Pasta"
+            "Burgers"
           ],
-          "axis_range": [
-            0,
-            50
+          "values": [
+            45,
+            25,
+            10,
+            15
           ],
-          "scale": 5,
-          "description": "Vertical bar graph appears. Favorite Lunch data. Pizza=45, Salad=10, Sandwich=25, Pasta=30. Scale: 5."
+          "title": "Favorite Lunch Foods",
+          "description": "Horizontal bar graph appears. Favorite Lunch Foods data. Pizza=45, Tacos=25, Salad=10, Burgers=15. Scale of 5."
         }
       },
       {
@@ -1956,12 +1982,12 @@ Cacheable: Yes
             "condition": {
               "selected": 35
             },
-            "description": "Student selected 35, correct (45 - 10 = 35)",
+            "description": "Student selected 35, correct answer from subtraction 45 minus 10",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "35 more. How many more means compare—we subtract. Pizza is 45, salad is 10, so 45 minus 10 is 35."
+                "text": "35 more. How many more means compare. We subtract. Pizza is 45, salad is 10, so 45 minus 10 is 35."
               }
             ]
           }
@@ -1972,72 +1998,59 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_lunch",
-            "description": "Vertical bar graph. Favorite Lunch data. Pizza=45, Salad=10, Sandwich=25, Pasta=30. Scale: 5.",
+            "description": "Horizontal bar graph in reading mode. Favorite Lunch Foods data. Pizza=45, Tacos=25, Salad=10, Burgers=15. Scale of 5. Multiple choice tool active.",
             "tangible_type": "bar_graph",
             "mode": "reading",
-            "orientation": "vertical",
+            "orientation": "horizontal",
+            "scale": 5,
             "categories": [
               "Pizza",
+              "Tacos",
               "Salad",
-              "Sandwich",
-              "Pasta"
+              "Burgers"
             ],
-            "axis_range": [
-              0,
-              50
+            "values": [
+              45,
+              25,
+              10,
+              15
             ],
-            "scale": 5
+            "title": "Favorite Lunch Foods"
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:00:59.661637+00:00"
+    "_generated_at": "2026-04-27T15:54:33.417778+00:00"
   },
   {
     "id": "s1_3_section_transition",
     "type": "transition",
     "beats": [
       {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "bar_graph_colors",
-        "tangible_type": "bar_graph",
-        "params": {
-          "mode": "reading",
-          "orientation": "vertical",
-          "categories": [
-            "Yellow",
-            "Red",
-            "Blue",
-            "Green"
-          ],
-          "description": "Vertical bar graph appears. Favorite Colors data. Yellow=6, Red=5, Blue=4, Green=4."
-        }
-      },
-      {
         "type": "dialogue",
-        "text": "Good. How many more means compare, and compare means subtract. You've got that. Now here's something new: What if the problem asks about MORE than one category?"
+        "text": "Good. How many more means compare, and compare means subtract. You've got that. Now here's something new: What if the problem asks about more than one category?"
       },
       {
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "bar_graph_colors",
-            "description": "Vertical bar graph in reading mode. Favorite Colors data. Yellow=6, Red=5, Blue=4, Green=4.",
+            "tangible_id": "bar_graph_lunch",
+            "description": "Horizontal bar graph titled Favorite Lunch Foods in reading mode. Scale 5. Pizza=45, Tacos=25, Salad=10, Burgers=15.",
             "tangible_type": "bar_graph",
             "mode": "reading",
-            "orientation": "vertical",
+            "orientation": "horizontal",
+            "scale": 5,
             "categories": [
-              "Yellow",
-              "Red",
-              "Blue",
-              "Green"
+              "Pizza",
+              "Tacos",
+              "Salad",
+              "Burgers"
             ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:01:04.925449+00:00"
+    "_generated_at": "2026-04-27T15:54:41.415733+00:00"
   },
   {
     "id": "s2_1_return_warmup_question",
@@ -2049,7 +2062,8 @@ Cacheable: Yes
         "tangible_type": "bar_graph",
         "params": {
           "mode": "reading",
-          "orientation": "vertical",
+          "orientation": "horizontal",
+          "scale": 5,
           "categories": [
             "Pizza",
             "Tacos",
@@ -2062,7 +2076,8 @@ Cacheable: Yes
             "Salad": 10,
             "Burgers": 15
           },
-          "description": "Vertical bar graph appears. Favorite Lunch data. Pizza 45, Tacos 25, Salad 10, Burgers 15. Question displayed: How many more students chose pizza than tacos and salad together?"
+          "title": "Favorite Lunch Foods",
+          "description": "Horizontal bar graph appears. Favorite Lunch Foods. Scale 5. Pizza=45, Tacos=25, Salad=10, Burgers=15. Question displayed: How many more students chose pizza than tacos and salad together?"
         }
       },
       {
@@ -2074,10 +2089,11 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_lunch",
-            "description": "Vertical bar graph. Favorite Lunch data. Pizza 45, Tacos 25, Salad 10, Burgers 15. Question displayed.",
+            "description": "Horizontal bar graph. Favorite Lunch Foods. Scale 5. Pizza=45, Tacos=25, Salad=10, Burgers=15. Question displayed on screen.",
             "tangible_type": "bar_graph",
             "mode": "reading",
-            "orientation": "vertical",
+            "orientation": "horizontal",
+            "scale": 5,
             "categories": [
               "Pizza",
               "Tacos",
@@ -2117,12 +2133,12 @@ Cacheable: Yes
                 }
               ]
             },
-            "description": "Student selected Pizza, Tacos, and Salad (all three correct categories)",
+            "description": "Student selected Pizza, Tacos, and Salad (3 correct categories)",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "Those three. Notice we DON'T need burgers. The question doesn't ask about burgers."
+                "text": "Those three. Notice we DON'T need burgers—the question doesn't ask about burgers."
               }
             ]
           }
@@ -2133,30 +2149,25 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_lunch",
-            "description": "Vertical bar graph. Favorite Lunch data. Pizza, Tacos, and Salad bars highlighted to indicate needed categories.",
+            "description": "Horizontal bar graph. Favorite Lunch Foods. Scale 5. Pizza=45, Tacos=25, Salad=10, Burgers=15. Multi-select tool active with all four categories as options.",
             "tangible_type": "bar_graph",
             "mode": "reading",
-            "orientation": "vertical",
+            "orientation": "horizontal",
+            "scale": 5,
             "categories": [
               "Pizza",
               "Tacos",
               "Salad",
               "Burgers"
-            ],
-            "highlight_categories": [
-              "Pizza",
-              "Tacos",
-              "Salad"
             ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:01:15.231463+00:00"
+    "_generated_at": "2026-04-27T15:54:57.175734+00:00"
   },
   {
     "id": "s2_2_worked_example_with_think_aloud",
-    "type": "transition",
     "beats": [
       {
         "type": "scene",
@@ -2165,7 +2176,9 @@ Cacheable: Yes
         "tangible_type": "bar_graph",
         "params": {
           "mode": "reading",
-          "orientation": "vertical",
+          "orientation": "horizontal",
+          "scale": 5,
+          "title": "Favorite Lunch Foods",
           "categories": [
             "Pizza",
             "Tacos",
@@ -2178,7 +2191,7 @@ Cacheable: Yes
             "Salad": 10,
             "Burgers": 15
           },
-          "description": "Vertical bar graph appears. Favorite Lunch data. Pizza=45, Tacos=25, Salad=10, Burgers=15."
+          "description": "Horizontal bar graph appears. Favorite Lunch Foods data. Pizza 45, Tacos 25, Salad 10, Burgers 15. Scale of 5."
         }
       },
       {
@@ -2190,10 +2203,12 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_lunch",
-            "description": "Vertical bar graph. Favorite Lunch data. Pizza=45, Tacos=25, Salad=10, Burgers=15.",
+            "description": "Horizontal bar graph. Favorite Lunch Foods. Pizza 45, Tacos 25, Salad 10, Burgers 15. Scale 5. Reading mode.",
             "tangible_type": "bar_graph",
             "mode": "reading",
-            "orientation": "vertical",
+            "orientation": "horizontal",
+            "scale": 5,
+            "title": "Favorite Lunch Foods",
             "categories": [
               "Pizza",
               "Tacos",
@@ -2216,7 +2231,7 @@ Cacheable: Yes
             "Tacos",
             "Salad"
           ],
-          "description": "Tacos bar (25) and Salad bar (10) highlight together."
+          "description": "Tacos and Salad bars highlight together."
         }
       },
       {
@@ -2226,7 +2241,7 @@ Cacheable: Yes
         "params": {
           "event": "show_calculation",
           "status": "confirmed",
-          "description": "Animation shows: 25 + 10 = 35"
+          "description": "Animation displays equation: 25 + 10 = 35"
         }
       },
       {
@@ -2238,10 +2253,12 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_lunch",
-            "description": "Vertical bar graph. Tacos (25) and Salad (10) highlighted. Calculation 25 + 10 = 35 displayed.",
+            "description": "Horizontal bar graph. Favorite Lunch Foods. Tacos and Salad bars highlighted. Calculation 25 + 10 = 35 visible.",
             "tangible_type": "bar_graph",
             "mode": "reading",
-            "orientation": "vertical",
+            "orientation": "horizontal",
+            "scale": 5,
+            "title": "Favorite Lunch Foods",
             "categories": [
               "Pizza",
               "Tacos",
@@ -2263,7 +2280,17 @@ Cacheable: Yes
           "highlight_categories": [
             "Pizza"
           ],
-          "description": "Pizza bar (45) highlights. Shows: 45 compared to 35."
+          "description": "Pizza bar highlights."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "bar_graph_lunch",
+        "params": {
+          "event": "show_comparison",
+          "status": "confirmed",
+          "description": "Animation displays: 45 compared to 35."
         }
       },
       {
@@ -2275,10 +2302,12 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_lunch",
-            "description": "Vertical bar graph. Pizza bar (45) highlighted. Comparison to 35 shown.",
+            "description": "Horizontal bar graph. Favorite Lunch Foods. Pizza bar highlighted. Comparison shown: 45 vs 35.",
             "tangible_type": "bar_graph",
             "mode": "reading",
-            "orientation": "vertical",
+            "orientation": "horizontal",
+            "scale": 5,
+            "title": "Favorite Lunch Foods",
             "categories": [
               "Pizza",
               "Tacos",
@@ -2289,27 +2318,41 @@ Cacheable: Yes
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:01:27.657011+00:00"
+    "_generated_at": "2026-04-27T15:55:20.168388+00:00"
   },
   {
     "id": "s2_3_strategy_naming",
-    "type": "transition",
     "beats": [
       {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "strategy_statement",
+        "tangible_type": "image",
+        "params": {
+          "description": "Strategy statement appears on screen: 'Find the combined total first, then compare.'"
+        }
+      },
+      {
         "type": "dialogue",
-        "text": "Here's the strategy: When you see combined or together or altogether, find the total of those categories first. Then compare to the other given category."
+        "text": "Here's the strategy: When you see 'combined' or 'together' or 'altogether,' find the total of those categories FIRST. Then compare to the other given category."
       },
       {
         "type": "current_scene",
-        "elements": []
+        "elements": [
+          {
+            "tangible_id": "strategy_statement",
+            "description": "Strategy statement displayed on screen: 'Find the combined total first, then compare.'",
+            "tangible_type": "image"
+          }
+        ]
       },
       {
         "type": "dialogue",
-        "text": "Find the combined total first, then compare. That's the key to these problems."
+        "text": "Find the combined total first, then compare. That's the key to these problems. What do we find first when we see 'combined'?"
       },
       {
         "type": "prompt",
-        "text": "What do we find first when we see combined?",
+        "text": "What do we find first when we see 'combined'?",
         "tool": "multiple_choice",
         "options": [
           "The total",
@@ -2322,12 +2365,12 @@ Cacheable: Yes
             "condition": {
               "selected": "The total"
             },
-            "description": "Student selected The total, correct",
+            "description": "Student selected 'The total', correct answer",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "Find the total by adding. That's always our first step when we see combined."
+                "text": "Find the total by adding. That's always our first step when we see 'combined.'"
               }
             ]
           }
@@ -2335,10 +2378,16 @@ Cacheable: Yes
       },
       {
         "type": "current_scene",
-        "elements": []
+        "elements": [
+          {
+            "tangible_id": "strategy_statement",
+            "description": "Strategy statement displayed on screen: 'Find the combined total first, then compare.'",
+            "tangible_type": "image"
+          }
+        ]
       }
     ],
-    "_generated_at": "2026-04-20T17:01:32.975986+00:00"
+    "_generated_at": "2026-04-27T15:55:34.896348+00:00"
   },
   {
     "id": "s2_4_guided_practice_full_scaffolding",
@@ -2358,14 +2407,14 @@ Cacheable: Yes
             "Bikes",
             "Scooters"
           ],
-          "values": {
-            "Skateboards": 15,
-            "Rollerblades": 10,
-            "Bikes": 65,
-            "Scooters": 30
-          },
+          "values": [
+            15,
+            10,
+            65,
+            30
+          ],
           "title": "Favorite Ways to Roll",
-          "description": "Vertical bar graph appears. Favorite Ways to Roll. Scale of 10. Skateboards 15, Rollerblades 10, Bikes 65, Scooters 30."
+          "description": "Vertical bar graph appears. Scale of 10. Title: Favorite Ways to Roll. Skateboards=15, Rollerblades=10, Bikes=65, Scooters=30."
         }
       },
       {
@@ -2377,7 +2426,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_rolling",
-            "description": "Vertical bar graph. Favorite Ways to Roll. Scale of 10. Skateboards 15, Rollerblades 10, Bikes 65, Scooters 30.",
+            "description": "Vertical bar graph. Favorite Ways to Roll. Scale 10. Skateboards=15, Rollerblades=10, Bikes=65, Scooters=30.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -2390,6 +2439,14 @@ Cacheable: Yes
             ]
           }
         ]
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_rolling",
+        "params": {
+          "description": "Question text appears: How many more students chose bikes than scooters and skateboards together?"
+        }
       },
       {
         "type": "dialogue",
@@ -2410,12 +2467,12 @@ Cacheable: Yes
             "condition": {
               "selected": "Add scooters and skateboards"
             },
-            "description": "Student selected add scooters and skateboards, correct first step",
+            "description": "Student selected to add scooters and skateboards, correct first step",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "Right—scooters and skateboards combined. Let's find that total."
+                "text": "Right. Scooters and skateboards combined. Let's find that total."
               }
             ]
           }
@@ -2426,7 +2483,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_rolling",
-            "description": "Vertical bar graph. Favorite Ways to Roll. Scale of 10. Skateboards 15, Rollerblades 10, Bikes 65, Scooters 30. Question visible: How many more students chose bikes than scooters and skateboards together?",
+            "description": "Vertical bar graph. Favorite Ways to Roll. Scale 10. Question displayed. Multiple choice active.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -2449,7 +2506,17 @@ Cacheable: Yes
             "Scooters",
             "Skateboards"
           ],
-          "description": "Scooters and Skateboards bars highlight. Shows 30 + 15 = 45."
+          "description": "Scooters bar (30) and Skateboards bar (15) highlight."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "bar_graph_rolling",
+        "params": {
+          "event": "show_calculation",
+          "status": "confirmed",
+          "description": "Calculation shows: 30 + 15 = 45"
         }
       },
       {
@@ -2472,7 +2539,7 @@ Cacheable: Yes
             "condition": {
               "selected": 20
             },
-            "description": "Student answered 20, correct",
+            "description": "Student selected 20, correct answer (65 − 45 = 20)",
             "is_correct": true,
             "beats": [
               {
@@ -2488,7 +2555,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_rolling",
-            "description": "Vertical bar graph. Favorite Ways to Roll. Scale of 10. Scooters and Skateboards bars highlighted. Shows 30 + 15 = 45.",
+            "description": "Vertical bar graph. Favorite Ways to Roll. Scale 10. Scooters and Skateboards bars highlighted. Calculation 30 + 15 = 45 shown. Multiple choice active for second step.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -2503,22 +2570,30 @@ Cacheable: Yes
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:01:48.073858+00:00"
+    "_generated_at": "2026-04-27T15:56:01.965742+00:00"
   },
   {
     "id": "s2_5_section_transition",
     "type": "transition",
     "beats": [
       {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "bar_graph_ways_to_roll",
+        "params": {
+          "description": "Bar graph fades from screen."
+        }
+      },
+      {
         "type": "dialogue",
-        "text": "You're getting it. Find the combined total first, then compare. Let's practice more—and I'll give you less help each time."
+        "text": "You're getting it. Find the combined total first, then compare. Let's practice more, and I'll give you less help each time."
       },
       {
         "type": "current_scene",
         "elements": []
       }
     ],
-    "_generated_at": "2026-04-20T17:01:50.907528+00:00"
+    "_generated_at": "2026-04-27T15:56:10.786995+00:00"
   },
   {
     "id": "s3_1_reduced_scaffolding_3_step_chain",
@@ -2538,14 +2613,14 @@ Cacheable: Yes
             "Bananas",
             "Oranges"
           ],
-          "values": {
-            "Grapes": 15,
-            "Apples": 45,
-            "Bananas": 30,
-            "Oranges": 25
-          },
+          "values": [
+            15,
+            45,
+            30,
+            25
+          ],
           "title": "Fruit Stand Sales",
-          "description": "Horizontal bar graph appears. Title: Fruit Stand Sales. Scale of 5. Grapes 15, Apples 45, Bananas 30, Oranges 25."
+          "description": "Horizontal bar graph appears. Fruit Stand Sales. Scale of 5. Grapes=15, Apples=45, Bananas=30, Oranges=25."
         }
       },
       {
@@ -2567,12 +2642,12 @@ Cacheable: Yes
             "condition": {
               "selected": "Add oranges and grapes"
             },
-            "description": "Student selected add oranges and grapes, correct",
+            "description": "Student selected add oranges and grapes, correct strategy",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "Right—oranges and grapes combined. Find that total."
+                "text": "Right. Oranges and grapes combined. Find that total."
               }
             ]
           }
@@ -2583,7 +2658,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_fruit_stand",
-            "description": "Horizontal bar graph. Fruit Stand Sales. Scale of 5. Grapes 15, Apples 45, Bananas 30, Oranges 25.",
+            "description": "Horizontal bar graph in reading mode. Fruit Stand Sales. Scale 5. Grapes=15, Apples=45, Bananas=30, Oranges=25. Multiple choice tool active.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "horizontal",
@@ -2593,7 +2668,14 @@ Cacheable: Yes
               "Apples",
               "Bananas",
               "Oranges"
-            ]
+            ],
+            "values": [
+              15,
+              45,
+              30,
+              25
+            ],
+            "title": "Fruit Stand Sales"
           }
         ]
       },
@@ -2629,7 +2711,7 @@ Cacheable: Yes
             "condition": {
               "selected": 40
             },
-            "description": "Student selected 40, correct (25 + 15 = 40)",
+            "description": "Student answered 40, correct (25 + 15)",
             "is_correct": true,
             "beats": [
               {
@@ -2645,7 +2727,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_fruit_stand",
-            "description": "Horizontal bar graph. Fruit Stand Sales. Oranges (25) and Grapes (15) bars highlighted.",
+            "description": "Horizontal bar graph. Fruit Stand Sales. Scale 5. Oranges and Grapes bars highlighted. Values: Grapes=15, Apples=45, Bananas=30, Oranges=25. Multiple choice tool active.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "horizontal",
@@ -2656,6 +2738,13 @@ Cacheable: Yes
               "Bananas",
               "Oranges"
             ],
+            "values": [
+              15,
+              45,
+              30,
+              25
+            ],
+            "title": "Fruit Stand Sales",
             "highlight_categories": [
               "Oranges",
               "Grapes"
@@ -2671,8 +2760,7 @@ Cacheable: Yes
           "highlight_categories": [
             "Apples"
           ],
-          "display_value": 40,
-          "description": "Combined value 40 displayed. Apples bar (45) highlights."
+          "description": "Apples bar (45) highlights."
         }
       },
       {
@@ -2695,7 +2783,7 @@ Cacheable: Yes
             "condition": {
               "selected": 5
             },
-            "description": "Student selected 5, correct (45 - 40 = 5)",
+            "description": "Student answered 5, correct (45 - 40)",
             "is_correct": true,
             "beats": [
               {
@@ -2711,7 +2799,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_fruit_stand",
-            "description": "Horizontal bar graph. Fruit Stand Sales. Combined value 40 displayed. Apples bar (45) highlighted.",
+            "description": "Horizontal bar graph. Fruit Stand Sales. Scale 5. Apples bar highlighted. Values: Grapes=15, Apples=45, Bananas=30, Oranges=25. Multiple choice tool active.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "horizontal",
@@ -2722,6 +2810,13 @@ Cacheable: Yes
               "Bananas",
               "Oranges"
             ],
+            "values": [
+              15,
+              45,
+              30,
+              25
+            ],
+            "title": "Fruit Stand Sales",
             "highlight_categories": [
               "Apples"
             ]
@@ -2729,7 +2824,7 @@ Cacheable: Yes
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:02:07.603425+00:00"
+    "_generated_at": "2026-04-27T15:56:36.472912+00:00"
   },
   {
     "id": "s3_2_minimal_scaffolding_3_step_chain",
@@ -2756,12 +2851,35 @@ Cacheable: Yes
             "Fish": 30
           },
           "title": "Pets at the Shelter",
-          "description": "Horizontal bar graph appears. Pets at the Shelter. Dogs 65, Cats 40, Birds 25, Fish 30. Scale of 10."
+          "description": "Horizontal bar graph appears. Pets at the Shelter. Scale of 10. Dogs=65, Cats=40, Birds=25, Fish=30."
         }
       },
       {
         "type": "dialogue",
         "text": "One more. Think about what to do first."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_pets",
+            "description": "Horizontal bar graph titled Pets at the Shelter. Scale 10. Dogs=65, Cats=40, Birds=25, Fish=30. Reading mode.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 10,
+            "categories": [
+              "Dogs",
+              "Cats",
+              "Birds",
+              "Fish"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "How many more dogs are there than fish and birds combined?"
       },
       {
         "type": "prompt",
@@ -2779,7 +2897,7 @@ Cacheable: Yes
             "condition": {
               "selected": "Add fish and birds"
             },
-            "description": "Student selected add fish and birds, correct",
+            "description": "Student selected Add fish and birds, correct first step",
             "is_correct": true,
             "beats": [
               {
@@ -2795,7 +2913,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_pets",
-            "description": "Horizontal bar graph. Pets at the Shelter. Dogs 65, Cats 40, Birds 25, Fish 30. Scale of 10.",
+            "description": "Horizontal bar graph titled Pets at the Shelter. Scale 10. Dogs=65, Cats=40, Birds=25, Fish=30. Reading mode. Multiple choice tool active.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "horizontal",
@@ -2841,7 +2959,7 @@ Cacheable: Yes
             "condition": {
               "selected": 55
             },
-            "description": "Student selected 55, correct (30 + 25)",
+            "description": "Student selected 55, correct sum of 30 + 25",
             "is_correct": true,
             "beats": [
               {
@@ -2857,7 +2975,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_pets",
-            "description": "Horizontal bar graph. Fish bar (30) and Birds bar (25) highlighted. Pets at the Shelter.",
+            "description": "Horizontal bar graph titled Pets at the Shelter. Scale 10. Fish and Birds bars highlighted. Dogs=65, Cats=40, Birds=25, Fish=30. Reading mode. Multiple choice tool active.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "horizontal",
@@ -2870,6 +2988,17 @@ Cacheable: Yes
             ]
           }
         ]
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "bar_graph_pets",
+        "params": {
+          "event": "display_calculation",
+          "status": "confirmed",
+          "description": "Combined value 55 displays on screen.",
+          "calculation": "30 + 25 = 55"
+        }
       },
       {
         "type": "scene",
@@ -2902,7 +3031,7 @@ Cacheable: Yes
             "condition": {
               "selected": 10
             },
-            "description": "Student selected 10, correct (65 - 55)",
+            "description": "Student selected 10, correct difference of 65 minus 55",
             "is_correct": true,
             "beats": [
               {
@@ -2918,7 +3047,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_pets",
-            "description": "Horizontal bar graph. Dogs bar (65) highlighted. Pets at the Shelter.",
+            "description": "Horizontal bar graph titled Pets at the Shelter. Scale 10. Dogs bar highlighted. Combined value 55 displayed. Dogs=65, Cats=40, Birds=25, Fish=30. Reading mode. Multiple choice tool active.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "horizontal",
@@ -2933,7 +3062,7 @@ Cacheable: Yes
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:02:23.023864+00:00"
+    "_generated_at": "2026-04-27T15:57:10.478767+00:00"
   },
   {
     "id": "s3_3_mixed_problem_single_step_check",
@@ -2945,20 +3074,22 @@ Cacheable: Yes
         "tangible_type": "bar_graph",
         "params": {
           "mode": "reading",
-          "orientation": "vertical",
+          "orientation": "horizontal",
+          "scale": 10,
           "categories": [
             "Dogs",
             "Cats",
             "Birds",
             "Fish"
           ],
-          "values": {
-            "Dogs": 65,
-            "Cats": 40,
-            "Birds": 25,
-            "Fish": 30
-          },
-          "description": "Vertical bar graph appears. Pet Survey data. Dogs 65, Cats 40, Birds 25, Fish 30."
+          "values": [
+            65,
+            40,
+            25,
+            30
+          ],
+          "title": "Pets at the Shelter",
+          "description": "Horizontal bar graph appears. Pets at the Shelter data. Dogs=65, Cats=40, Birds=25, Fish=30. Scale of 10."
         }
       },
       {
@@ -2981,9 +3112,21 @@ Cacheable: Yes
             "condition": {
               "selected": 25
             },
-            "description": "Student answered 25, correct. 65 minus 40 equals 25.",
+            "description": "Student selected 25, correct answer (65 - 40 = 25)",
             "is_correct": true,
             "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_pets",
+                "params": {
+                  "highlight_categories": [
+                    "Dogs",
+                    "Cats"
+                  ],
+                  "description": "Dogs and Cats bars highlight to confirm selection."
+                }
+              },
               {
                 "type": "dialogue",
                 "text": "25 more dogs than cats. This one was just one step—no combined, so straight to comparing."
@@ -2997,10 +3140,11 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_pets",
-            "description": "Vertical bar graph showing Pet Survey data. Dogs 65, Cats 40, Birds 25, Fish 30.",
+            "description": "Horizontal bar graph. Pets at the Shelter. Dogs and Cats bars highlighted. Dogs=65, Cats=40, Birds=25, Fish=30. Scale of 10.",
             "tangible_type": "bar_graph",
             "mode": "reading",
-            "orientation": "vertical",
+            "orientation": "horizontal",
+            "scale": 10,
             "categories": [
               "Dogs",
               "Cats",
@@ -3011,7 +3155,7 @@ Cacheable: Yes
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:02:30.600960+00:00"
+    "_generated_at": "2026-04-27T15:57:24.238246+00:00"
   },
   {
     "id": "s3_4_final_two_step_independence_check",
@@ -3052,7 +3196,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_colors",
-            "description": "Vertical bar graph in reading mode. Favorite Colors data. Scale of 5. Five categories visible.",
+            "description": "Vertical bar graph titled Favorite Colors in reading mode. Scale 5. Yellow=20, Red=45, Green=25, Purple=15, Blue=45.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -3063,25 +3207,9 @@ Cacheable: Yes
               "Green",
               "Purple",
               "Blue"
-            ],
-            "values": {
-              "Yellow": 20,
-              "Red": 45,
-              "Green": 25,
-              "Purple": 15,
-              "Blue": 45
-            }
+            ]
           }
         ]
-      },
-      {
-        "type": "scene",
-        "method": "update",
-        "tangible_id": "bar_graph_colors",
-        "params": {
-          "question_text": "How many more students chose red than chose green or yellow together?",
-          "description": "Question appears: How many more students chose red than chose green or yellow together?"
-        }
       },
       {
         "type": "dialogue",
@@ -3108,7 +3236,7 @@ Cacheable: Yes
             "beats": [
               {
                 "type": "dialogue",
-                "text": "Total green and yellow first. That's how you start a two-step problem."
+                "text": "Total green and yellow first."
               }
             ]
           }
@@ -3119,7 +3247,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_colors",
-            "description": "Vertical bar graph. Favorite Colors data. Question displayed. multiple_choice tool active.",
+            "description": "Vertical bar graph titled Favorite Colors in reading mode. Scale 5. Multiple choice tool active.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -3130,14 +3258,7 @@ Cacheable: Yes
               "Green",
               "Purple",
               "Blue"
-            ],
-            "values": {
-              "Yellow": 20,
-              "Red": 45,
-              "Green": 25,
-              "Purple": 15,
-              "Blue": 45
-            }
+            ]
           }
         ]
       },
@@ -3160,8 +3281,7 @@ Cacheable: Yes
         "params": {
           "event": "show_calculation",
           "status": "confirmed",
-          "calculation": "25 + 20 = 45",
-          "description": "Calculation appears: 25 + 20 = 45"
+          "description": "Calculation displays: 25 + 20 = 45"
         }
       },
       {
@@ -3184,7 +3304,7 @@ Cacheable: Yes
             "condition": {
               "selected": 0
             },
-            "description": "Student answered 0, correct, equal values",
+            "description": "Student selected 0, correct, equal values",
             "is_correct": true,
             "beats": [
               {
@@ -3200,7 +3320,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_colors",
-            "description": "Vertical bar graph. Green and Yellow bars highlighted. Calculation 25 + 20 = 45 displayed. multiple_choice tool active for step 2.",
+            "description": "Vertical bar graph titled Favorite Colors in reading mode. Scale 5. Green and Yellow bars highlighted. Calculation 25 + 20 = 45 displayed. Multiple choice tool active.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -3211,34 +3331,42 @@ Cacheable: Yes
               "Green",
               "Purple",
               "Blue"
-            ],
-            "values": {
-              "Yellow": 20,
-              "Red": 45,
-              "Green": 25,
-              "Purple": 15,
-              "Blue": 45
-            }
+            ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:02:48.019034+00:00"
+    "_generated_at": "2026-04-27T15:57:48.182831+00:00"
   },
   {
     "id": "s3_5_bridge_exit_check",
     "type": "transition",
     "beats": [
       {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "strategy_statement",
+        "tangible_type": "image",
+        "params": {
+          "description": "Strategy statement appears on screen: \"Find the combined total first, then compare.\""
+        }
+      },
+      {
         "type": "dialogue",
         "text": "You've got the strategy: find the combined total first, then compare. Let's see what you know."
       },
       {
         "type": "current_scene",
-        "elements": []
+        "elements": [
+          {
+            "tangible_id": "strategy_statement",
+            "description": "Strategy statement displayed: \"Find the combined total first, then compare.\"",
+            "tangible_type": "image"
+          }
+        ]
       }
     ],
-    "_generated_at": "2026-04-20T17:02:51.567167+00:00"
+    "_generated_at": "2026-04-27T15:57:56.787203+00:00"
   }
 ]
 </lesson_sections>
@@ -3266,14 +3394,14 @@ Cacheable: Yes
           "Bikes",
           "Scooters"
         ],
-        "values": {
-          "Skateboards": 15,
-          "Rollerblades": 10,
-          "Bikes": 65,
-          "Scooters": 30
-        },
+        "values": [
+          15,
+          10,
+          65,
+          30
+        ],
         "title": "Favorite Ways to Roll",
-        "description": "Vertical bar graph appears. Favorite Ways to Roll. Scale of 10. Skateboards 15, Rollerblades 10, Bikes 65, Scooters 30."
+        "description": "Vertical bar graph appears. Scale of 10. Title: Favorite Ways to Roll. Skateboards=15, Rollerblades=10, Bikes=65, Scooters=30."
       },
       "id": "s2_4_guided_practice_full_scaffolding_b0"
     },
@@ -3287,7 +3415,7 @@ Cacheable: Yes
       "elements": [
         {
           "tangible_id": "bar_graph_rolling",
-          "description": "Vertical bar graph. Favorite Ways to Roll. Scale of 10. Skateboards 15, Rollerblades 10, Bikes 65, Scooters 30.",
+          "description": "Vertical bar graph. Favorite Ways to Roll. Scale 10. Skateboards=15, Rollerblades=10, Bikes=65, Scooters=30.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -3303,9 +3431,18 @@ Cacheable: Yes
       "id": "s2_4_guided_practice_full_scaffolding_b2"
     },
     {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_rolling",
+      "params": {
+        "description": "Question text appears: How many more students chose bikes than scooters and skateboards together?"
+      },
+      "id": "s2_4_guided_practice_full_scaffolding_b3"
+    },
+    {
       "type": "dialogue",
       "text": "This problem needs two steps. What should we find first?",
-      "id": "s2_4_guided_practice_full_scaffolding_b3"
+      "id": "s2_4_guided_practice_full_scaffolding_b4"
     },
     {
       "type": "prompt",
@@ -3322,25 +3459,25 @@ Cacheable: Yes
           "condition": {
             "selected": "Add scooters and skateboards"
           },
-          "description": "Student selected add scooters and skateboards, correct first step",
+          "description": "Student selected to add scooters and skateboards, correct first step",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "Right. Scooters and skateboards combined. Let's find that total.",
-              "id": "s2_4_guided_practice_full_scaffolding_b4_v0_b0"
+              "text": "That's it. Scooters and skateboards combined. Let's find that total.",
+              "id": "s2_4_guided_practice_full_scaffolding_b5_v0_b0"
             }
           ]
         }
       ],
-      "id": "s2_4_guided_practice_full_scaffolding_b4"
+      "id": "s2_4_guided_practice_full_scaffolding_b5"
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "bar_graph_rolling",
-          "description": "Vertical bar graph. Favorite Ways to Roll. Scale of 10. Skateboards 15, Rollerblades 10, Bikes 65, Scooters 30. Question visible: How many more students chose bikes than scooters and skateboards together?",
+          "description": "Vertical bar graph. Favorite Ways to Roll. Scale 10. Question displayed. Multiple choice active.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -3353,7 +3490,7 @@ Cacheable: Yes
           ]
         }
       ],
-      "id": "s2_4_guided_practice_full_scaffolding_b5"
+      "id": "s2_4_guided_practice_full_scaffolding_b6"
     },
     {
       "type": "scene",
@@ -3364,14 +3501,25 @@ Cacheable: Yes
           "Scooters",
           "Skateboards"
         ],
-        "description": "Scooters and Skateboards bars highlight. Shows 30 + 15 = 45."
+        "description": "Scooters bar (30) and Skateboards bar (15) highlight."
       },
-      "id": "s2_4_guided_practice_full_scaffolding_b6"
+      "id": "s2_4_guided_practice_full_scaffolding_b7"
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "bar_graph_rolling",
+      "params": {
+        "event": "show_calculation",
+        "status": "confirmed",
+        "description": "Calculation shows: 30 + 15 = 45"
+      },
+      "id": "s2_4_guided_practice_full_scaffolding_b8"
     },
     {
       "type": "dialogue",
       "text": "Scooters and skateboards combined is 45. Now we compare. How many more is bikes than 45?",
-      "id": "s2_4_guided_practice_full_scaffolding_b7"
+      "id": "s2_4_guided_practice_full_scaffolding_b9"
     },
     {
       "type": "prompt",
@@ -3389,25 +3537,25 @@ Cacheable: Yes
           "condition": {
             "selected": 20
           },
-          "description": "Student answered 20, correct",
+          "description": "Student selected 20, correct answer (65 − 45 = 20)",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "That's it. Bikes is 65, combined is 45, so 65 minus 45 is 20. You used the strategy: find the combined total first, then compare.",
-              "id": "s2_4_guided_practice_full_scaffolding_b8_v0_b0"
+              "text": "Right. 20 more. Bikes is 65, combined is 45, so 65 minus 45 is 20. You used the strategy: find the combined total first, then compare.",
+              "id": "s2_4_guided_practice_full_scaffolding_b10_v0_b0"
             }
           ]
         }
       ],
-      "id": "s2_4_guided_practice_full_scaffolding_b8"
+      "id": "s2_4_guided_practice_full_scaffolding_b10"
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "bar_graph_rolling",
-          "description": "Vertical bar graph. Favorite Ways to Roll. Scale of 10. Scooters and Skateboards bars highlighted. Shows 30 + 15 = 45.",
+          "description": "Vertical bar graph. Favorite Ways to Roll. Scale 10. Scooters and Skateboards bars highlighted. Calculation 30 + 15 = 45 shown. Multiple choice active for second step.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -3420,10 +3568,10 @@ Cacheable: Yes
           ]
         }
       ],
-      "id": "s2_4_guided_practice_full_scaffolding_b9"
+      "id": "s2_4_guided_practice_full_scaffolding_b11"
     }
   ],
-  "_generated_at": "2026-04-20T17:01:48.073858+00:00"
+  "_generated_at": "2026-04-27T15:56:01.965742+00:00"
 }
 </input>
 

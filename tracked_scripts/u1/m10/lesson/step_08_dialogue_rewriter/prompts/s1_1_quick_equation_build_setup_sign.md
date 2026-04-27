@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:06:16.156916
+# Generated: 2026-04-27T11:00:52.956720
 ======================================================================
 
 ## API Parameters
@@ -952,7 +952,7 @@ Cacheable: Yes
       "context": "on_correct"
     },
     {
-      "text": "But now, let's look more closely at that equals sign.",
+      "text": "But now — let's look more closely at that equals sign.",
       "context": "on_correct"
     }
   ]

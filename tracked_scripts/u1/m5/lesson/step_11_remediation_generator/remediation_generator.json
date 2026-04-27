@@ -9,7 +9,7 @@
         "tangible_id": "scale_preview_warmup",
         "tangible_type": "image",
         "params": {
-          "description": "Scale Preview System from Warmup appears. Student's data visible. All four scale options (1, 2, 5, 10) showing checkmarks."
+          "description": "Scale Preview System from Warmup appears. Shows student's data with all four scale options (1, 2, 5, 10). Each scale displays a checkmark indicating it worked for that data."
         },
         "id": "s1_1_transition_warmup_b0"
       },
@@ -23,7 +23,7 @@
         "elements": [
           {
             "tangible_id": "scale_preview_warmup",
-            "description": "Scale Preview System from Warmup. Student's data with all four scales showing checkmarks.",
+            "description": "Scale Preview System showing student's warmup data with all four scales marked as working.",
             "tangible_type": "image"
           }
         ],
@@ -39,17 +39,18 @@
         "elements": [
           {
             "tangible_id": "scale_preview_warmup",
-            "description": "Scale Preview System from Warmup. Student's data with all four scales showing checkmarks.",
+            "description": "Scale Preview System showing student's warmup data with all four scales marked as working.",
             "tangible_type": "image"
           }
         ],
         "id": "s1_1_transition_warmup_b4"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:06.557511+00:00"
+    "_generated_at": "2026-04-27T15:54:34.478718+00:00"
   },
   {
     "id": "s1_2_when_scale_needs_too_many",
+    "type": "transition",
     "beats": [
       {
         "type": "scene",
@@ -57,7 +58,7 @@
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
-          "description": "Data table appears. Books Read This Month. Aisha: 20, Ben: 35, Carlos: 55, Dana: 80."
+          "description": "Data table appears showing Books Read This Month. Aisha: 20, Ben: 35, Carlos: 55, Dana: 80."
         },
         "id": "s1_2_when_scale_needs_too_many_b0"
       },
@@ -67,7 +68,7 @@
         "tangible_id": "bar_graph_books",
         "tangible_type": "bar_graph",
         "params": {
-          "mode": "building",
+          "mode": "reading",
           "orientation": "vertical",
           "categories": [
             "Aisha",
@@ -80,13 +81,13 @@
             50
           ],
           "scale": 5,
-          "description": "Vertical bar graph appears. Books Read This Month. Axis 0-50. Scale of 5 pre-selected. Graph initially empty."
+          "description": "Vertical bar graph appears. Books Read This Month. Axis shows 0 to 50 with scale of 5. Graph is currently empty."
         },
         "id": "s1_2_when_scale_needs_too_many_b1"
       },
       {
         "type": "dialogue",
-        "text": "Here's data about how many books four students read this month. Dana read the most—80 books!",
+        "text": "Here's data about how many books four students read this month. Dana read the most: 80 books!",
         "id": "s1_2_when_scale_needs_too_many_b2"
       },
       {
@@ -94,14 +95,14 @@
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Data table showing Books Read This Month values.",
+            "description": "Data table showing Books Read This Month. Aisha: 20, Ben: 35, Carlos: 55, Dana: 80.",
             "tangible_type": "data_table"
           },
           {
             "tangible_id": "bar_graph_books",
-            "description": "Vertical bar graph. Books Read This Month. Axis 0-50. Scale of 5 selected. Graph empty.",
+            "description": "Vertical bar graph. Books Read This Month. Axis 0 to 50, scale of 5. Empty graph.",
             "tangible_type": "bar_graph",
-            "mode": "building",
+            "mode": "reading",
             "orientation": "vertical",
             "categories": [
               "Aisha",
@@ -120,7 +121,7 @@
       },
       {
         "type": "dialogue",
-        "text": "Let me try a scale of 5 and see what happens.",
+        "text": "Let me try Scale of 5 and see what happens.",
         "id": "s1_2_when_scale_needs_too_many_b4"
       },
       {
@@ -128,39 +129,21 @@
         "method": "animate",
         "tangible_id": "bar_graph_books",
         "params": {
-          "event": "generate_preview",
-          "status": "confirmed",
-          "description": "Preview generates. Aisha (20), Ben (35), Carlos (55) bars appear normally. Dana's bar (80) extends past the graph boundary. Warning indicator appears."
+          "event": "populate_bars_with_overflow",
+          "status": "proposed",
+          "description": "Aisha (20), Ben (35), Carlos (55) bars draw normally. Dana's bar (80) extends past the top boundary at 50. Warning indicator appears."
         },
         "id": "s1_2_when_scale_needs_too_many_b5"
       },
       {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing Books Read This Month values.",
-            "tangible_type": "data_table"
-          },
-          {
-            "tangible_id": "bar_graph_books",
-            "description": "Vertical bar graph. Aisha, Ben, Carlos bars visible. Dana's bar extends past top. Warning indicator showing.",
-            "tangible_type": "bar_graph",
-            "mode": "building",
-            "orientation": "vertical",
-            "categories": [
-              "Aisha",
-              "Ben",
-              "Carlos",
-              "Dana"
-            ],
-            "axis_range": [
-              0,
-              50
-            ],
-            "scale": 5
-          }
-        ],
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "bar_graph_books",
+        "params": {
+          "event": "populate_bars_with_overflow",
+          "status": "confirmed",
+          "description": "Aisha (20), Ben (35), Carlos (55) bars visible. Dana's bar extends past top. Warning indicator visible."
+        },
         "id": "s1_2_when_scale_needs_too_many_b6"
       },
       {
@@ -178,9 +161,9 @@
           },
           {
             "tangible_id": "bar_graph_books",
-            "description": "Vertical bar graph. Aisha, Ben, Carlos bars visible. Dana's bar extends past top. Warning indicator showing.",
+            "description": "Vertical bar graph. Aisha (20), Ben (35), Carlos (55) bars visible. Dana's bar extends past axis top at 50. Warning indicator visible.",
             "tangible_type": "bar_graph",
-            "mode": "building",
+            "mode": "reading",
             "orientation": "vertical",
             "categories": [
               "Aisha",
@@ -199,7 +182,7 @@
       },
       {
         "type": "dialogue",
-        "text": "I could make the graph taller to fit 80. Let's see... I'd need 55, 60, 65, 70, 75, 80...",
+        "text": "I could make the graph taller to fit 80. Let's see. I'd need 55, 60, 65, 70, 75, 80.",
         "id": "s1_2_when_scale_needs_too_many_b9"
       },
       {
@@ -207,9 +190,9 @@
         "method": "animate",
         "tangible_id": "bar_graph_books",
         "params": {
-          "event": "extend_axis",
-          "status": "confirmed",
-          "description": "Axis extends upward. Tick marks appear: 55, 60, 65, 70, 75, 80. Axis now crowded with many tick marks."
+          "event": "extend_axis_upward",
+          "status": "proposed",
+          "description": "Axis extends upward. Tick marks appear sequentially: 55, 60, 65, 70, 75, 80. Axis now shows 0 to 80."
         },
         "id": "s1_2_when_scale_needs_too_many_b10"
       },
@@ -222,79 +205,37 @@
             0,
             80
           ],
-          "description": "Graph axis now extends to 80. All bars visible. Dana's bar reaches 80."
+          "description": "Axis extended to 80. All tick marks visible: 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80. Dana's bar now fits within the graph."
         },
         "id": "s1_2_when_scale_needs_too_many_b11"
       },
       {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing Books Read This Month values.",
-            "tangible_type": "data_table"
-          },
-          {
-            "tangible_id": "bar_graph_books",
-            "description": "Vertical bar graph. Axis 0-80 with 17 tick marks visible (0, 5, 10, 15... 75, 80). All bars visible. Dana's bar at 80.",
-            "tangible_type": "bar_graph",
-            "mode": "building",
-            "orientation": "vertical",
-            "categories": [
-              "Aisha",
-              "Ben",
-              "Carlos",
-              "Dana"
-            ],
-            "axis_range": [
-              0,
-              80
-            ],
-            "scale": 5
-          }
-        ],
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "bar_graph_books",
+        "params": {
+          "event": "extend_axis_upward",
+          "status": "confirmed",
+          "description": "Axis extension complete. Dana's bar (80) now fully visible within graph boundary."
+        },
         "id": "s1_2_when_scale_needs_too_many_b12"
       },
       {
         "type": "dialogue",
-        "text": "That's a lot of numbers on the axis. 0, 5, 10, 15, 20... all the way up to 80. That's 17 tick marks.",
+        "text": "That's a lot of numbers on the axis. 0, 5, 10, 15, 20, all the way up to 80. That's 17 tick marks.",
         "id": "s1_2_when_scale_needs_too_many_b13"
       },
       {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing Books Read This Month values.",
-            "tangible_type": "data_table"
-          },
-          {
-            "tangible_id": "bar_graph_books",
-            "description": "Vertical bar graph. Axis 0-80. All 17 tick marks highlighted. All bars visible.",
-            "tangible_type": "bar_graph",
-            "mode": "building",
-            "orientation": "vertical",
-            "categories": [
-              "Aisha",
-              "Ben",
-              "Carlos",
-              "Dana"
-            ],
-            "axis_range": [
-              0,
-              80
-            ],
-            "scale": 5
-          }
-        ],
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_books",
+        "params": {
+          "highlight_axis": true,
+          "description": "Axis highlighted showing all 17 tick marks: 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80."
+        },
         "id": "s1_2_when_scale_needs_too_many_b14"
       },
       {
-        "type": "dialogue",
-        "text": "It works, but is there a better way? When one scale needs too many tick marks, try a bigger scale.",
-        "id": "s1_2_when_scale_needs_too_many_b15"
-      },
-      {
         "type": "current_scene",
         "elements": [
           {
@@ -304,9 +245,9 @@
           },
           {
             "tangible_id": "bar_graph_books",
-            "description": "Vertical bar graph. Axis 0-80 with 17 tick marks. All bars visible.",
+            "description": "Vertical bar graph with axis 0 to 80, scale of 5. All 17 tick marks visible and highlighted. Aisha (20), Ben (35), Carlos (55), Dana (80) bars fully visible.",
             "tangible_type": "bar_graph",
-            "mode": "building",
+            "mode": "reading",
             "orientation": "vertical",
             "categories": [
               "Aisha",
@@ -321,17 +262,120 @@
             "scale": 5
           }
         ],
+        "id": "s1_2_when_scale_needs_too_many_b15"
+      },
+      {
+        "type": "dialogue",
+        "text": "It works, but is there a better way?",
         "id": "s1_2_when_scale_needs_too_many_b16"
+      },
+      {
+        "type": "dialogue",
+        "text": "When one scale needs too many tick marks, try a bigger scale.",
+        "id": "s1_2_when_scale_needs_too_many_b17"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing Books Read This Month values.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "bar_graph_books",
+            "description": "Vertical bar graph with axis 0 to 80, scale of 5. All 17 tick marks visible. Aisha (20), Ben (35), Carlos (55), Dana (80) bars fully visible.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Aisha",
+              "Ben",
+              "Carlos",
+              "Dana"
+            ],
+            "axis_range": [
+              0,
+              80
+            ],
+            "scale": 5
+          }
+        ],
+        "id": "s1_2_when_scale_needs_too_many_b18"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:28.286959+00:00"
+    "_generated_at": "2026-04-27T15:55:02.450966+00:00"
   },
   {
     "id": "s1_3_trying_bigger_scale",
     "incorrects": [
-      []
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student clicked a wrong scale button on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. The guide said to try Scale of 10."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student clicked a wrong scale button on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "highlight_scale_button": 10,
+                  "description": "Scale of 10 button highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's what to do: click the button that says Scale of 10. That's the one we're testing now."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student clicked a wrong scale button three or more times. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "event": "click_scale_button",
+                  "status": "confirmed",
+                  "description": "System clicks Scale of 10 button. Graph updates to scale of 10 showing 9 tick marks.",
+                  "scale_selected": 10
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. I click Scale of 10, right here. The graph changes to show tick marks at 0, 10, 20, all the way to 80. That's 9 marks total, much fewer than the 17 we had with Scale of 5. The answer is Scale of 10 because it makes the graph cleaner and easier to read."
+              }
+            ]
+          ]
+        }
+      ]
     ],
-    "_generated_at": "2026-04-20T17:04:32.630168+00:00"
+    "_generated_at": "2026-04-27T16:01:31.033323+00:00"
   },
   {
     "id": "s1_4_range_check_efficiency",
@@ -341,7 +385,7 @@
           "condition": {
             "selected": 20
           },
-          "description": "Student selected 20 instead of 80",
+          "description": "Student selected 20: confused smallest with biggest",
           "is_correct": false,
           "steps": [
             [
@@ -351,14 +395,15 @@
                 "tangible_id": "data_table",
                 "params": {
                   "highlight_values": [
+                    20,
                     80
                   ],
-                  "description": "80 highlighted in the data table."
+                  "description": "Values 20 and 80 both highlight for comparison."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "20 is in the data, but it's not the biggest. We need the largest value. Look at all the numbers. Which one is biggest?"
+                "text": "20 is the smallest number. We need the biggest. Which value is larger, 20 or 80?"
               }
             ]
           ]
@@ -367,7 +412,7 @@
           "condition": {
             "selected": 35
           },
-          "description": "Student selected 35 instead of 80",
+          "description": "Student selected 35: middle value confusion",
           "is_correct": false,
           "steps": [
             [
@@ -377,14 +422,16 @@
                 "tangible_id": "data_table",
                 "params": {
                   "highlight_values": [
+                    35,
+                    55,
                     80
                   ],
-                  "description": "80 highlighted in the data table."
+                  "description": "Values 35, 55, and 80 highlight to show comparison."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "35 is in the data, but there's a bigger number. Look at all four values. Which one is the greatest?"
+                "text": "35 is one of the middle values. Look at all four numbers. Which one is greatest?"
               }
             ]
           ]
@@ -393,7 +440,7 @@
           "condition": {
             "selected": 55
           },
-          "description": "Student selected 55 instead of 80",
+          "description": "Student selected 55: close but not the largest",
           "is_correct": false,
           "steps": [
             [
@@ -403,14 +450,15 @@
                 "tangible_id": "data_table",
                 "params": {
                   "highlight_values": [
+                    55,
                     80
                   ],
-                  "description": "80 highlighted in the data table."
+                  "description": "Values 55 and 80 both highlight for direct comparison."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "55 is close, but not the biggest. Compare all the numbers. Which value is larger than 55?"
+                "text": "55 is close, but there's one value bigger. Compare 55 and 80. Which is greater?"
               }
             ]
           ]
@@ -426,32 +474,92 @@
                 "method": "animate",
                 "tangible_id": "data_table",
                 "params": {
-                  "event": "highlight_progression",
+                  "event": "highlight_maximum_value",
                   "status": "confirmed",
-                  "description": "Values highlight in order: 20, 35, 55, 80. 80 remains highlighted as the largest."
+                  "description": "Value 80 highlights and pulses to indicate it is the maximum."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. We compare all the values: 20, 35, 55, 80. The biggest number is 80. When choosing a scale, always check the biggest number first. That tells you what scales can fit all your data without going past the graph boundary."
+                "text": "Let me show you. I look at each number: 20, 35, 55, 80. I compare them. 80 is greater than all the others. The biggest number is 80. That is what we check first when choosing a scale."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:04:45.523700+00:00"
+    "_generated_at": "2026-04-27T16:01:43.510407+00:00"
   },
   {
     "id": "s2_1_all_scales_fit_small_data",
     "incorrects": [
-      [],
       [
         {
           "condition": {
-            "not": {
-              "selected": 1
-            },
+            "incorrect_count": 1
+          },
+          "description": "Student has not yet clicked all four scale buttons on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Keep going. Try all the scale buttons to see which ones work."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student has not yet clicked all four scale buttons on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_marbles",
+                "params": {
+                  "highlight_scale_buttons": true,
+                  "description": "All four scale buttons highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Click each of the four scale buttons. We need to check if 23 fits on each one."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student has not clicked all four scale buttons after three attempts. System models the exploration.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_marbles",
+                "params": {
+                  "event": "demonstrate_scale_exploration",
+                  "status": "confirmed",
+                  "description": "System demonstrates clicking each scale button in sequence: 1, 2, 5, 10. Each displays briefly with checkmark."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. I click each scale button to see if 23 fits. Scale of 1 works. Scale of 2 works. Scale of 5 works. Scale of 10 works. All four scales can show 23. That's the answer."
+              }
+            ]
+          ]
+        }
+      ],
+      [
+        {
+          "condition": {
             "incorrect_count": 1
           },
           "description": "Student clicked a scale other than 1 on first attempt",
@@ -460,16 +568,13 @@
             [
               {
                 "type": "dialogue",
-                "text": "That one works too. Now click Scale of 1."
+                "text": "Not quite. Which scale shows every single number from 0 to 23?"
               }
             ]
           ]
         },
         {
           "condition": {
-            "not": {
-              "selected": 1
-            },
             "incorrect_count": 2
           },
           "description": "Student clicked a scale other than 1 on second attempt",
@@ -487,14 +592,14 @@
               },
               {
                 "type": "dialogue",
-                "text": "We want to see what Scale of 1 looks like. It's the button on the left. Click it."
+                "text": "Think about which scale counts by 1. That scale will have a mark for every number. Which button is that?"
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Student clicked a scale other than 1 three or more times. System models the action.",
+          "description": "Student clicked a scale other than 1 after three attempts. System models the correct answer.",
           "is_correct": false,
           "steps": [
             [
@@ -503,29 +608,92 @@
                 "method": "animate",
                 "tangible_id": "bar_graph_marbles",
                 "params": {
-                  "event": "click_scale_button",
+                  "event": "select_scale",
                   "status": "confirmed",
-                  "scale": 1,
-                  "description": "System clicks Scale of 1 button. Graph updates to show Scale of 1."
+                  "description": "System clicks Scale of 1 button. Graph updates to show scale of 1 with 24 tick marks."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me click Scale of 1 for us. The button on the left selects Scale of 1. When I click it, the graph updates to show what the data looks like with that scale. The axis now shows tick marks at every whole number from 0 to 23. That's 24 tick marks total. Scale of 1 shows every value exactly, but it creates a lot of marks on the axis for this data."
+                "text": "Here's how to think about it. Scale of 1 counts by 1, so every whole number from 0 to 23 gets its own tick mark. That's 24 marks total. The answer is Scale of 1."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:04:57.198242+00:00"
+    "_generated_at": "2026-04-27T16:01:59.381557+00:00"
   },
   {
     "id": "s2_2_but_which_is_best_efficiency",
     "incorrects": [
-      []
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student clicked a wrong scale button on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. We want to compare Scale of 10 to Scale of 1."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student clicked a wrong scale button on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_marbles",
+                "params": {
+                  "highlight_scale_button": 10,
+                  "description": "Scale of 10 button highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's see what happens with Scale of 10. Look for the button that shows 10."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student clicked a wrong scale button three or more times. System demonstrates the correct action.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_marbles",
+                "params": {
+                  "event": "select_scale",
+                  "status": "confirmed",
+                  "scale": 10,
+                  "description": "System clicks Scale of 10 button. Graph updates to show scale of 10 with axis marks at 0, 10, 20, 30."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "I'll click Scale of 10 for us. Now you can see the axis shows 0, 10, 20, 30. That's what we wanted to compare."
+              }
+            ]
+          ]
+        }
+      ]
     ],
-    "_generated_at": "2026-04-20T17:05:00.743519+00:00"
+    "_generated_at": "2026-04-27T16:02:09.010079+00:00"
   },
   {
     "id": "s2_3_scale_2_works_non_multiples",
@@ -535,13 +703,13 @@
           "condition": {
             "incorrect_count": 1
           },
-          "description": "Student clicked wrong scale button on first attempt",
+          "description": "Student clicked a wrong scale button on first attempt",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "dialogue",
-                "text": "Not quite. Look for the Scale of 2 button and click it."
+                "text": "Not quite. Look at the ones place digits: 7, 2, 9, 3. Which scale shows any whole number exactly?"
               }
             ]
           ]
@@ -550,29 +718,33 @@
           "condition": {
             "incorrect_count": 2
           },
-          "description": "Student clicked wrong scale button on second attempt",
+          "description": "Student clicked a wrong scale button on second attempt",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "bar_graph_marbles",
+                "tangible_id": "data_table",
                 "params": {
-                  "highlight_scale_button": 2,
-                  "description": "Scale of 2 button highlights."
+                  "highlight_values": [
+                    7,
+                    19,
+                    23
+                  ],
+                  "description": "Values 7, 19, 23 highlight in data table."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Here's what to try: click the button that says 'Scale of 2'. It's part of the scale selector."
+                "text": "Check 7, 19, and 23. They don't end in 0 or 5, so they aren't multiples of 5. Scale of 2 lets you place any whole number exactly. Which button shows Scale of 2?"
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Student clicked wrong scale button three or more times. System models the correct action.",
+          "description": "Student clicked a wrong scale button three or more times. System models the answer.",
           "is_correct": false,
           "steps": [
             [
@@ -581,22 +753,22 @@
                 "method": "animate",
                 "tangible_id": "bar_graph_marbles",
                 "params": {
-                  "event": "preview_scale_transition",
+                  "event": "apply_scale_with_demonstration",
                   "status": "confirmed",
-                  "new_scale": 2,
-                  "description": "System demonstrates: Scale transitions to 2. All bars land exactly on tick marks. Green checkmark indicator appears."
+                  "scale": 2,
+                  "description": "Graph updates to Scale of 2. System demonstrates how each bar lands exactly on a tick mark or halfway between: 7 is halfway between 6 and 8, 12 is on the line at 12, 19 is halfway between 18 and 20, 23 is halfway between 22 and 24."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. I click the Scale of 2 button. The scale changes and now all the bars land exactly on tick marks. With Scale of 2, half of 2 is 1, so every whole number lands right on a line or exactly halfway between two lines."
+                "text": "Let me show you. Scale of 2 works because half of 2 is 1. That means every whole number lands exactly on a line or halfway between two lines. Look: 7 lands halfway between 6 and 8, 12 is right on 12, 19 is halfway between 18 and 20, and 23 is halfway between 22 and 24. The correct answer is Scale of 2, the scale that shows any whole number exactly."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:05:09.637930+00:00"
+    "_generated_at": "2026-04-27T16:02:21.852780+00:00"
   },
   {
     "id": "s2_4_digit_pattern_recognition_shortcut",
@@ -604,53 +776,71 @@
       [
         {
           "condition": {
-            "selected": "Data Set A"
+            "selected": "image_dataset_a",
+            "incorrect_count": 1
           },
-          "description": "Student selected Data Set A (20, 35, 55, 80)",
+          "description": "Student clicked Data Set A on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Check those ones place digits again. Do they include digits that aren't 0 or 5?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "image_dataset_a",
+            "incorrect_count": 2
+          },
+          "description": "Student clicked Data Set A on second attempt",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "dataset_a",
+                "tangible_id": "image_dataset_b",
                 "params": {
-                  "description": "Data Set A highlights. Ones digits (0, 5, 5, 0) emphasized."
+                  "highlight_ones_digits": true,
+                  "description": "Ones place digits 7, 2, 9, 3 highlight on Data Set B panel."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Look at the ones place in Data Set A. Every number ends in 0 or 5. Those are multiples of 5."
+                "text": "Let's look at Data Set B. The ones digits are 7, 2, 9, 3. Notice none of those are 0 or 5. Which set has that pattern?"
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Student answered incorrectly. System models the correct answer.",
+          "description": "Student clicked Data Set A three or more times. System models the answer.",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "dataset_b",
+                "tangible_id": "image_dataset_b",
                 "params": {
-                  "event": "highlight_ones_digits",
+                  "event": "highlight_and_explain",
                   "status": "confirmed",
-                  "description": "Data Set B ones digits (7, 2, 9, 3) highlight in sequence."
+                  "description": "Data Set B panel highlights. Ones place digits 7, 2, 9, 3 pulse in sequence."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. Look at Data Set B: 7, 12, 19, 23. The ones place shows 7, 2, 9, 3. None of those are 0 or 5, so these aren't multiples of 5. That pattern tells you Scale of 2 is the right tool. Data Set B is the answer."
+                "text": "Data Set B is the answer. Look at the ones place: 7, 2, 9, 3. None of those digits are 0 or 5, so these numbers aren't multiples of 5. That's the signal that Scale of 2 will show all values exactly. When you see ones digits that aren't 0 or 5, think Scale of 2."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:05:17.382539+00:00"
+    "_generated_at": "2026-04-27T16:02:33.480648+00:00"
   },
   {
     "id": "s2_5_practice_with_non_multiples",
@@ -665,24 +855,8 @@
           "steps": [
             [
               {
-                "type": "scene",
-                "method": "add",
-                "tangible_id": "bar_graph_points_preview",
-                "tangible_type": "bar_graph",
-                "params": {
-                  "mode": "reading",
-                  "orientation": "vertical",
-                  "scale": 1,
-                  "axis_range": [
-                    0,
-                    31
-                  ],
-                  "description": "Preview of Scale of 1 appears showing 32 tick marks from 0 to 31."
-                }
-              },
-              {
                 "type": "dialogue",
-                "text": "Scale of 1 works for showing exact values. But count those marks: 32 lines to reach 31. That's a lot. Is there a cleaner way?"
+                "text": "Scale of 1 shows exact values, but count how many marks you'd need to reach 31."
               }
             ]
           ]
@@ -710,7 +884,7 @@
               },
               {
                 "type": "dialogue",
-                "text": "Look at 22, 8, 31. Their ones place digits are 2, 8, 1. None are 0 or 5, so they won't land exactly on Scale of 5. Which scale shows any whole number exactly?"
+                "text": "Look at 22, 8, and 31. Do they end in 0 or 5? Those numbers won't land exactly on a line with Scale of 5."
               }
             ]
           ]
@@ -730,15 +904,16 @@
                 "params": {
                   "highlight_values": [
                     22,
+                    15,
                     8,
                     31
                   ],
-                  "description": "Values 22, 8, and 31 highlight in the data table."
+                  "description": "All four values highlight in the data table."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Scale of 10 is clean, but look at 22, 8, 31. None end in 0 or 5, so they won't land exactly on the tick marks. We need a scale that shows any whole number exactly."
+                "text": "Check the ones place: 2, 5, 8, 1. Only 15 ends in 0 or 5. Scale of 10 won't show the others exactly."
               }
             ]
           ]
@@ -751,57 +926,29 @@
             [
               {
                 "type": "scene",
-                "method": "add",
-                "tangible_id": "bar_graph_points",
-                "tangible_type": "bar_graph",
-                "params": {
-                  "mode": "reading",
-                  "orientation": "vertical",
-                  "categories": [
-                    "Round 1",
-                    "Round 2",
-                    "Round 3",
-                    "Round 4"
-                  ],
-                  "values": [
-                    22,
-                    15,
-                    8,
-                    31
-                  ],
-                  "scale": 2,
-                  "description": "Bar graph with Scale of 2 appears. All four bars displayed at correct heights."
-                }
-              },
-              {
-                "type": "scene",
                 "method": "animate",
-                "tangible_id": "bar_graph_points",
+                "tangible_id": "data_table",
                 "params": {
-                  "event": "highlight_exact_placements",
+                  "event": "highlight_ones_digits",
                   "status": "confirmed",
-                  "description": "Each bar pulses to show it lands exactly on a line or halfway between lines. 22 is at 22 (on the line), 15 is halfway between 14 and 16, 8 is at 8 (on the line), 31 is halfway between 30 and 32."
+                  "description": "The ones place digits 2, 5, 8, 1 highlight sequentially in the data table."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "The answer is Scale of 2. Here's why: when values don't end in 0 or 5, Scale of 2 shows them exactly. Half of 2 is 1, so every whole number lands either on a line or exactly halfway between. 22 is on the line at 22. 15 is exactly halfway between 14 and 16. 8 is on the line at 8. 31 is exactly halfway between 30 and 32. Scale of 2 works for any whole number."
+                "text": "Let me show you. Check each ones place digit: 2, 5, 8, 1. Three of them aren't 0 or 5, so they aren't multiples of 5. Scale of 2 lets us show any whole number exactly because half of 2 is 1. The answer is Scale of 2."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:05:34.031054+00:00"
+    "_generated_at": "2026-04-27T16:02:46.786332+00:00"
   },
   {
     "id": "s2_6_very_small_data_scale_1",
-    "incorrects": [
-      [],
-      [],
-      []
-    ],
-    "_generated_at": "2026-04-20T17:05:36.645041+00:00"
+    "incorrects": [],
+    "_generated_at": "2026-04-27T16:02:50.148497+00:00"
   },
   {
     "id": "s3_1_independent_selection_multiples_5",
@@ -818,17 +965,18 @@
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "bar_graph_fruits",
+                "tangible_id": "scale_preview_system",
                 "params": {
-                  "highlight_categories": [
-                    "Dates"
+                  "highlight_scales": [
+                    2,
+                    10
                   ],
-                  "description": "Dates value (60) highlighted in data table."
+                  "description": "Scale of 2 and Scale of 10 highlighted for comparison."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Scale of 2 works, but look at the biggest number: 60. That means 30 tick marks on the axis. With Scale of 10, you only need 6 tick marks. Which is easier to read?"
+                "text": "Scale of 2 works, but look at how many marks that takes to reach 60. Count by 2s: that's 30 tick marks! Scale of 10 gives us the same information with only 6 marks."
               }
             ]
           ]
@@ -844,14 +992,18 @@
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "bar_graph_fruits",
+                "tangible_id": "scale_preview_system",
                 "params": {
-                  "description": "Scale of 5 and Scale of 10 options highlighted side by side."
+                  "highlight_scales": [
+                    5,
+                    10
+                  ],
+                  "description": "Scale of 5 and Scale of 10 highlighted for comparison."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Scale of 5 fits all the data. But look: to reach 60, you need 12 tick marks. Scale of 10 only needs 6. Both work, but which graph is cleaner?"
+                "text": "Scale of 5 fits the data and shows exact values. But for numbers up to 60, Scale of 10 keeps the axis cleaner. Count: Scale of 5 needs 12 marks, Scale of 10 needs only 6."
               }
             ]
           ]
@@ -865,16 +1017,16 @@
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "bar_graph_fruits",
+                "tangible_id": "scale_preview_system",
                 "params": {
-                  "event": "preview_scale_comparison",
+                  "event": "highlight_scale_10",
                   "status": "confirmed",
-                  "description": "System demonstrates Scale of 10. Axis shows 0, 10, 20, 30, 40, 50, 60. All bars fit cleanly: Dates at 60, Cherries at 45, Bananas at 30, Apples at 15."
+                  "description": "Scale of 10 highlights with checkmark."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Here's how I think about it. The biggest number is 60. All values end in 0 or 5, so Scale of 5 and Scale of 10 both show exact values. But Scale of 10 only needs 6 tick marks while Scale of 5 needs 12. Fewer marks make the graph easier to read. The answer is Scale of 10 because it balances precision with clarity."
+                "text": "Let me show you. The biggest number is 60. All the values end in 0 or 5, so Scale of 10 shows every value exactly. Count the marks: 0, 10, 20, 30, 40, 50, 60. Only 6 marks. That's what makes it easiest to read. The answer is Scale of 10."
               }
             ]
           ]
@@ -906,7 +1058,7 @@
               }
             ]
           },
-          "description": "Branch 3: Student selected all incorrect answers, none correct",
+          "description": "Branch 3: Student selected only incorrect options, no correct answers",
           "is_correct": false,
           "steps": [
             [
@@ -915,12 +1067,18 @@
                 "method": "update",
                 "tangible_id": "data_table",
                 "params": {
-                  "description": "Data values highlighted with ones place digits shown: 60 (0), 45 (5), 30 (0), 15 (5)."
+                  "highlight_values": [
+                    60,
+                    45,
+                    30,
+                    15
+                  ],
+                  "description": "All four values highlight in data table."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Look at what the question asks: why is Scale of 10 a good choice? Check the ones place digits. What do you notice about 60, 45, 30, 15?"
+                "text": "Let's go back to what makes a good scale. Look at the values: 60, 45, 30, 15. Check the ones place digits. What pattern do you see?"
               }
             ]
           ]
@@ -961,50 +1119,24 @@
                     }
                   ]
                 }
-              },
-              {
-                "not": {
-                  "or": [
-                    {
-                      "not": {
-                        "selected": "All values end in 0 or 5 so they can be graphed precisely."
-                      }
-                    },
-                    {
-                      "not": {
-                        "selected": "The graph is easy to read."
-                      }
-                    },
-                    {
-                      "not": {
-                        "selected": "The biggest number is 60 so the bars fit on the graph."
-                      }
-                    },
-                    {
-                      "not": {
-                        "selected": "Scale of 2 takes too many marks to reach the biggest number."
-                      }
-                    }
-                  ]
-                }
               }
             ]
           },
-          "description": "Branch 2: Student selected only correct answers, but not all of them",
+          "description": "Branch 2: Student selected some correct reasons but not all",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "bar_graph_fruits",
+                "tangible_id": "scale_preview_system",
                 "params": {
-                  "description": "Scale preview system showing comparison: Scale of 2 (30 marks), Scale of 10 (6 marks)."
+                  "description": "Scale Preview System highlights all three scales with comparison indicators."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "You found some correct reasons. Look at all four statements again. Each one explains something important about why Scale of 10 works well. Are there any others that also fit?"
+                "text": "You found some reasons. There are more. Think about the ones place digits AND how many marks each scale needs to reach 60."
               }
             ]
           ]
@@ -1054,7 +1186,7 @@
               }
             ]
           },
-          "description": "Branch 4: Student selected mix of correct and incorrect answers",
+          "description": "Branch 4: Student selected mix of correct and incorrect options",
           "is_correct": false,
           "steps": [
             [
@@ -1063,12 +1195,13 @@
                 "method": "update",
                 "tangible_id": "data_table",
                 "params": {
-                  "description": "Correct selections highlighted in green."
+                  "highlight_ones_digits": true,
+                  "description": "Ones place digits (0, 5, 0, 5) pulse in data table."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Some of your choices are right. But check the others carefully. Do they all explain why Scale of 10 is a good choice for this specific data?"
+                "text": "Some of your choices are right. But check which statements are actually true. Look at the ones digits and count how many marks each scale needs."
               }
             ]
           ]
@@ -1082,23 +1215,23 @@
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "bar_graph_fruits",
+                "tangible_id": "scale_preview_system",
                 "params": {
-                  "event": "demonstrate_all_reasons",
+                  "event": "compare_all_scales",
                   "status": "confirmed",
-                  "description": "System highlights each reason in sequence: ones place digits showing 0 or 5, axis with only 6 clean tick marks, all bars fitting within range, comparison showing Scale of 2 would need 30 marks."
+                  "description": "Scale Preview System animates comparison showing tick mark counts for each scale reaching 60."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me walk through why Scale of 10 works. First, all values end in 0 or 5, so they land exactly on tick marks or halfway between. Second, the graph is easy to read with only 6 marks on the axis. Third, the biggest number is 60, so all bars fit well. Fourth, Scale of 2 would need 30 marks to reach 60, which is too many. All four reasons explain why Scale of 10 is the best choice here."
+                "text": "Here's why all four are true. First: 60, 45, 30, 15 all end in 0 or 5. That means Scale of 10 shows them precisely. Second: fewer marks means easier to read. Third: 60 fits on all three scales shown. Fourth: Scale of 2 needs 30 marks to reach 60, but Scale of 10 needs only 6. All four reasons support choosing Scale of 10."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:06:06.122290+00:00"
+    "_generated_at": "2026-04-27T16:03:17.017680+00:00"
   },
   {
     "id": "s3_2_selection_creation_non_multiples",
@@ -1106,9 +1239,9 @@
       [
         {
           "condition": {
-            "selected": "Scale of 10"
+            "selected": "Scale of 1"
           },
-          "description": "Student selected Scale of 10 for data with non-multiples of 5",
+          "description": "Student selected Scale of 1",
           "is_correct": false,
           "steps": [
             [
@@ -1119,15 +1252,16 @@
                 "params": {
                   "highlight_values": [
                     27,
-                    33,
-                    41
+                    14,
+                    41,
+                    33
                   ],
-                  "description": "Values 27, 33, and 41 highlight in the table."
+                  "description": "All four values highlight in the data table."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Look at 27, 33, and 41. Those numbers don't end in 0 or 5. Scale of 10 won't show them exactly. Which scale shows any whole number?"
+                "text": "Scale of 1 would need 41 tick marks to reach the biggest number. That's a lot of lines. Look at the ones place digits: 7, 4, 1, 3. Which scale shows any whole number exactly without too many marks?"
               }
             ]
           ]
@@ -1136,7 +1270,7 @@
           "condition": {
             "selected": "Scale of 5"
           },
-          "description": "Student selected Scale of 5 for data with non-multiples of 5",
+          "description": "Student selected Scale of 5",
           "is_correct": false,
           "steps": [
             [
@@ -1147,24 +1281,25 @@
                 "params": {
                   "highlight_values": [
                     27,
-                    33,
-                    41
+                    14,
+                    41,
+                    33
                   ],
-                  "description": "Values 27, 33, and 41 highlight in the table."
+                  "description": "All four values highlight in the data table."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Check those ones place digits: 7, 3, 1. None are 0 or 5, so Scale of 5 won't show them exactly. Which scale can show every whole number?"
+                "text": "Look at the ones place: 7, 4, 1, 3. None are 0 or 5. Scale of 5 won't land exactly for these numbers. Which scale shows any whole number clearly?"
               }
             ]
           ]
         },
         {
           "condition": {
-            "selected": "Scale of 1"
+            "selected": "Scale of 10"
           },
-          "description": "Student selected Scale of 1 when the largest value is 41",
+          "description": "Student selected Scale of 10",
           "is_correct": false,
           "steps": [
             [
@@ -1174,14 +1309,17 @@
                 "tangible_id": "data_table",
                 "params": {
                   "highlight_values": [
-                    41
+                    27,
+                    14,
+                    41,
+                    33
                   ],
-                  "description": "Value 41 highlights in the table."
+                  "description": "All four values highlight in the data table."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Scale of 1 works, but count to 41. That's over 40 tick marks on the axis. For numbers this big, which scale shows them exactly without too many marks?"
+                "text": "Check the ones place digits: 7, 4, 1, 3. None end in 0 or 5, so Scale of 10 won't show exact values. Which scale works for any whole number?"
               }
             ]
           ]
@@ -1197,69 +1335,20 @@
                 "method": "animate",
                 "tangible_id": "data_table",
                 "params": {
-                  "event": "check_ones_digits",
+                  "event": "highlight_ones_digits",
                   "status": "confirmed",
-                  "description": "System highlights ones place digits: 7, 4, 1, 3. None are 0 or 5."
+                  "description": "Ones place digits (7, 4, 1, 3) highlight in sequence."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. Look at the ones place: 7, 4, 1, 3. None are 0 or 5, so these aren't multiples of 5. Scale of 2 works because half of 2 is 1. That means we can show any whole number exactly. The answer is Scale of 2."
+                "text": "Let me show you. First, I check the ones place digits: 7, 4, 1, 3. None are 0 or 5, so these aren't multiples of 5. Scale of 2 works for any whole number. Half of 2 is 1, so every number lands exactly on a line or halfway between. The answer is Scale of 2."
               }
             ]
           ]
         }
       ],
       [
-        {
-          "condition": {
-            "and": [
-              {
-                "Guitar": 27
-              },
-              {
-                "or": [
-                  {
-                    "Piano": {
-                      "not": 14
-                    }
-                  },
-                  {
-                    "Violin": {
-                      "not": 41
-                    }
-                  },
-                  {
-                    "Drums": {
-                      "not": 33
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          "description": "Student set Guitar correctly but one or more other bars incorrectly",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_practice",
-                "params": {
-                  "highlight_categories": [
-                    "Guitar"
-                  ],
-                  "description": "Guitar bar highlights at 27."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "Guitar is right at 27. Check the data table for the other instruments. Where should each bar end?"
-              }
-            ]
-          ]
-        },
         {
           "condition": {
             "incorrect_count": 1
@@ -1270,7 +1359,7 @@
             [
               {
                 "type": "dialogue",
-                "text": "Check the data table. Look at the gridlines. Where should each bar end?"
+                "text": "Not quite. Look at the data table. Count up by 2s from zero to match each value."
               }
             ]
           ]
@@ -1288,14 +1377,13 @@
                 "method": "update",
                 "tangible_id": "bar_graph_practice",
                 "params": {
-                  "show_target_heights": true,
                   "highlight_gridlines": true,
-                  "description": "Target heights appear as dashed lines. Gridlines highlight at each tick mark."
+                  "description": "Gridlines at each tick mark highlight to show counting points."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "With Scale of 2, each gridline is 2 apart. Guitar is 27, halfway between 26 and 28. Piano is 14, right on the line. Find where each value lands on the grid."
+                "text": "Here's what helps: each line on the axis goes up by 2. Find your value in the table, then count by 2s on the graph. Guitar is 27, so count 0, 2, 4, 6... up to 26, then one more to the halfway mark."
               }
             ]
           ]
@@ -1313,19 +1401,19 @@
                 "params": {
                   "event": "demonstrate_bar_placement",
                   "status": "confirmed",
-                  "description": "System demonstrates placing each bar. Piano: 14, right on the line. Guitar: 27, halfway between 26 and 28. Drums: 33, halfway between 32 and 34. Violin: 41, halfway between 40 and 42."
+                  "description": "System demonstrates placing each bar in sequence: Piano at 14, Guitar at 27 (halfway between 26 and 28), Drums at 33 (halfway between 32 and 34), Violin at 41 (halfway between 40 and 42)."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. Piano is 14, right on a line. Guitar is 27, halfway between 26 and 28. Drums is 33, halfway between 32 and 34. Violin is 41, halfway between 40 and 42. With Scale of 2, half of 2 is 1, so every whole number lands exactly on a line or halfway between. The bars are: Guitar 27, Piano 14, Violin 41, Drums 33."
+                "text": "Let me walk you through this. Piano is 14, right on the line. Guitar is 27, halfway between 26 and 28. Drums is 33, halfway between 32 and 34. Violin is 41, halfway between 40 and 42. With Scale of 2, odd numbers land halfway and even numbers land exactly on lines. That's how the bar graph shows Minutes of Practice correctly."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:06:29.358720+00:00"
+    "_generated_at": "2026-04-27T16:03:39.947461+00:00"
   },
   {
     "id": "s3_3_final_application",
@@ -1333,58 +1421,35 @@
       [
         {
           "condition": {
-            "selected": 5,
-            "incorrect_count": 1
+            "selected": "Scale of 1"
           },
-          "description": "Student selected Scale of 5 on first attempt",
+          "description": "Student selected Scale of 1",
           "is_correct": false,
           "steps": [
             [
               {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "data_table",
+                "params": {
+                  "highlight_categories": [
+                    "Yellow Team"
+                  ],
+                  "description": "Yellow Team row highlights showing value 70."
+                }
+              },
+              {
                 "type": "dialogue",
-                "text": "Scale of 5 works for these numbers. But check if there's a bigger scale that's even easier to read."
+                "text": "Scale of 1 would need 70 tick marks to reach the biggest number. That's too many lines on the axis. Think bigger."
               }
             ]
           ]
         },
         {
           "condition": {
-            "selected": 2,
-            "incorrect_count": 1
+            "selected": "Scale of 2"
           },
-          "description": "Student selected Scale of 2 on first attempt",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "dialogue",
-                "text": "Scale of 2 fits. But 70 is a big number. Try a bigger scale to keep the axis cleaner."
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "selected": 1,
-            "incorrect_count": 1
-          },
-          "description": "Student selected Scale of 1 on first attempt",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "dialogue",
-                "text": "Not quite. Count to 70 by ones. That's a lot of marks on the axis. Try a bigger scale."
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "selected": 5,
-            "incorrect_count": 2
-          },
-          "description": "Student selected Scale of 5 on second attempt",
+          "description": "Student selected Scale of 2",
           "is_correct": false,
           "steps": [
             [
@@ -1399,22 +1464,21 @@
                     70,
                     40
                   ],
-                  "description": "Data values highlighted showing ones place digits: 5, 5, 0, 0."
+                  "description": "All values highlight. Ones place digits visible: 5, 5, 0, 0."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Look at the last digits: all 0 or 5. These are multiples of 5. Both scales of 5 and 10 work. Which gives fewer marks on the axis to reach 70?"
+                "text": "Look at the last digit in each number. 25, 55, 70, 40. All end in 0 or 5. That tells you a bigger scale will work."
               }
             ]
           ]
         },
         {
           "condition": {
-            "selected": 2,
-            "incorrect_count": 2
+            "selected": "Scale of 5"
           },
-          "description": "Student selected Scale of 2 on second attempt",
+          "description": "Student selected Scale of 5",
           "is_correct": false,
           "steps": [
             [
@@ -1423,52 +1487,22 @@
                 "method": "update",
                 "tangible_id": "data_table",
                 "params": {
-                  "highlight_values": [
-                    25,
-                    55,
-                    70,
-                    40
+                  "highlight_categories": [
+                    "Yellow Team"
                   ],
-                  "description": "Data values highlighted showing ones place digits: 5, 5, 0, 0."
+                  "description": "Yellow Team row highlights showing value 70."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Check the ones place: 5, 5, 0, 0. They're all 0 or 5, so these are multiples of 5. What's the biggest scale where all these numbers land exactly?"
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "selected": 1,
-            "incorrect_count": 2
-          },
-          "description": "Student selected Scale of 1 on second attempt",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "data_table",
-                "params": {
-                  "highlight_values": [
-                    70
-                  ],
-                  "description": "Largest value (70) highlighted."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "The biggest number is 70. Count by ones to 70: that's 70 tick marks. For bigger data, a bigger scale makes the graph easier to read. Which scale reaches 70 with the fewest marks?"
+                "text": "Scale of 5 would work, but you'd need 14 tick marks from 0 to 70. There's a cleaner choice."
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Student answered incorrectly three or more times. System models the answer.",
+          "description": "Student answered incorrectly. System models the correct answer.",
           "is_correct": false,
           "steps": [
             [
@@ -1477,14 +1511,14 @@
                 "method": "animate",
                 "tangible_id": "data_table",
                 "params": {
-                  "event": "highlight_analysis",
+                  "event": "highlight_pattern",
                   "status": "confirmed",
-                  "description": "System highlights ones place digits: 5, 5, 0, 0. Then shows comparison: Scale of 5 needs 14 marks (0, 5, 10...70), Scale of 10 needs 8 marks (0, 10, 20...70)."
+                  "description": "System highlights ones place digits in sequence: 5, 5, 0, 0. All end in 0 or 5."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. All values end in 0 or 5, so both scales of 5 and 10 work. But look: Scale of 5 needs 14 tick marks to reach 70. Scale of 10 only needs 8. Same data, cleaner graph. For big data that's multiples of 5, Scale of 10 is best."
+                "text": "Let me show you. Check the ones place: 25, 55, 70, 40. All end in 0 or 5, so Scales of 5 and 10 both work. The biggest number is 70. Scale of 5 needs 14 tick marks. Scale of 10 only needs 7. Scale of 10 is the cleanest choice because it shows all values exactly with the fewest marks on the axis."
               }
             ]
           ]
@@ -1493,60 +1527,48 @@
       [
         {
           "condition": {
-            "bar_height": 20,
-            "category": "Red Team",
-            "incorrect_count": 1
+            "and": [
+              {
+                "bar_height": {
+                  "not": 25
+                }
+              },
+              {
+                "category": "Red Team"
+              },
+              {
+                "incorrect_count": 1
+              }
+            ]
           },
-          "description": "Student set Red Team bar to 20 on first attempt",
+          "description": "Student set Red Team bar to wrong height on first attempt",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "dialogue",
-                "text": "Check the data table. How many points did Red Team score?"
+                "text": "Not quite. Look at the data table. How many points did Red Team score?"
               }
             ]
           ]
         },
         {
           "condition": {
-            "bar_height": 30,
-            "category": "Red Team",
-            "incorrect_count": 1
-          },
-          "description": "Student set Red Team bar to 30 on first attempt",
-          "is_correct": false,
-          "steps": [
-            [
+            "and": [
               {
-                "type": "dialogue",
-                "text": "Close. Red Team scored 25, not 30. Where does 25 land?"
+                "bar_height": {
+                  "not": 25
+                }
+              },
+              {
+                "category": "Red Team"
+              },
+              {
+                "incorrect_count": 2
               }
             ]
-          ]
-        },
-        {
-          "condition": {
-            "incorrect_count": 1
           },
-          "description": "Student set Red Team bar to any other wrong height on first attempt",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "dialogue",
-                "text": "Not quite. Find 25 on the axis. It's halfway between two marks."
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "bar_height": 20,
-            "category": "Red Team",
-            "incorrect_count": 2
-          },
-          "description": "Student set Red Team bar to 20 on second attempt",
+          "description": "Student set Red Team bar to wrong height on second attempt",
           "is_correct": false,
           "steps": [
             [
@@ -1558,93 +1580,37 @@
                   "highlight_categories": [
                     "Red Team"
                   ],
-                  "description": "Red Team row highlighted showing value 25."
+                  "description": "Red Team row highlights showing value 25."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Look at the data table. Red Team scored 25 points, not 20. Find the mark for 20, then go halfway to 30."
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "bar_height": 30,
-            "category": "Red Team",
-            "incorrect_count": 2
-          },
-          "description": "Student set Red Team bar to 30 on second attempt",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_team_scores",
-                "params": {
-                  "highlight_axis_marks": [
-                    20,
-                    30
-                  ],
-                  "description": "Axis marks at 20 and 30 highlighted."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "Red Team scored 25, not 30. Look at the axis marks: 20 and 30. Where does 25 go? Exactly halfway between those two marks."
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "incorrect_count": 2
-          },
-          "description": "Student set Red Team bar to any other wrong height on second attempt",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_team_scores",
-                "params": {
-                  "highlight_axis_marks": [
-                    20,
-                    30
-                  ],
-                  "description": "Axis marks at 20 and 30 highlighted with midpoint indicator."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "Red Team scored 25. The axis goes by tens: 0, 10, 20, 30. Find 20 and 30. 25 is exactly halfway between them. Place the bar there."
+                "text": "Red Team scored 25 points. On this scale, 25 is halfway between 20 and 30. Where does that bar need to end?"
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Student answered incorrectly three or more times. System models the answer.",
+          "description": "Student set Red Team bar incorrectly three or more times. System models the answer.",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "bar_graph_team_scores",
+                "tangible_id": "bar_graph_teams",
                 "params": {
-                  "event": "model_bar_placement",
+                  "event": "demonstrate_bar_placement",
                   "status": "confirmed",
                   "category": "Red Team",
                   "height": 25,
-                  "description": "System demonstrates: highlights axis marks at 20 and 30, shows midpoint indicator at 25, then draws bar to that height. Bar locks at 25."
+                  "description": "System demonstrates Red Team bar placement. Bar extends from Red Team category to 25, landing halfway between tick marks at 20 and 30."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Watch. Red Team scored 25. I find 20 and 30 on the axis. 25 is halfway between them. With Scale of 10, any number ending in 5 lands exactly at the midpoint. The bar for Red Team goes to 25."
+                "text": "Let me show you. Red Team scored 25 points. I find 20 on the axis, then 30. 25 is halfway between those two marks. The bar ends exactly there. That's where 25 lands on a scale of 10."
               }
             ]
           ]
@@ -1653,11 +1619,21 @@
       [
         {
           "condition": {
-            "bar_height": 30,
-            "category": "Blue Team",
-            "incorrect_count": 1
+            "and": [
+              {
+                "bar_height": {
+                  "not": 40
+                }
+              },
+              {
+                "category": "Blue Team"
+              },
+              {
+                "incorrect_count": 1
+              }
+            ]
           },
-          "description": "Student set Blue Team bar to 30 on first attempt",
+          "description": "Student set Blue Team bar to wrong height on first attempt",
           "is_correct": false,
           "steps": [
             [
@@ -1670,43 +1646,21 @@
         },
         {
           "condition": {
-            "bar_height": 50,
-            "category": "Blue Team",
-            "incorrect_count": 1
-          },
-          "description": "Student set Blue Team bar to 50 on first attempt",
-          "is_correct": false,
-          "steps": [
-            [
+            "and": [
               {
-                "type": "dialogue",
-                "text": "Not quite. Blue Team scored 40, not 50. Find 40 on the axis."
+                "bar_height": {
+                  "not": 40
+                }
+              },
+              {
+                "category": "Blue Team"
+              },
+              {
+                "incorrect_count": 2
               }
             ]
-          ]
-        },
-        {
-          "condition": {
-            "incorrect_count": 1
           },
-          "description": "Student set Blue Team bar to any other wrong height on first attempt",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "dialogue",
-                "text": "Look at the data table. Blue Team scored 40. That's right on a mark."
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "bar_height": 30,
-            "category": "Blue Team",
-            "incorrect_count": 2
-          },
-          "description": "Student set Blue Team bar to 30 on second attempt",
+          "description": "Student set Blue Team bar to wrong height on second attempt",
           "is_correct": false,
           "steps": [
             [
@@ -1718,91 +1672,37 @@
                   "highlight_categories": [
                     "Blue Team"
                   ],
-                  "description": "Blue Team row highlighted showing value 40."
+                  "description": "Blue Team row highlights showing value 40."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Check the data table. Blue Team scored 40, not 30. Find the mark labeled 40 on the axis."
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "bar_height": 50,
-            "category": "Blue Team",
-            "incorrect_count": 2
-          },
-          "description": "Student set Blue Team bar to 50 on second attempt",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_team_scores",
-                "params": {
-                  "highlight_axis_marks": [
-                    40
-                  ],
-                  "description": "Axis mark at 40 highlighted."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "Blue Team scored 40, not 50. The number ends in 0, so it lands exactly on a mark. Find the mark labeled 40."
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "incorrect_count": 2
-          },
-          "description": "Student set Blue Team bar to any other wrong height on second attempt",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_team_scores",
-                "params": {
-                  "highlight_axis_marks": [
-                    40
-                  ],
-                  "description": "Axis mark at 40 highlighted."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "Blue Team scored 40. That ends in 0, so it lands right on a mark. Look at the axis: 0, 10, 20, 30, 40. Place the bar at 40."
+                "text": "Blue Team scored 40 points. Find 40 on the axis. Where does that bar need to end?"
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Student answered incorrectly three or more times. System models the answer.",
+          "description": "Student set Blue Team bar incorrectly three or more times. System models the answer.",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "bar_graph_team_scores",
+                "tangible_id": "bar_graph_teams",
                 "params": {
-                  "event": "model_bar_placement",
+                  "event": "demonstrate_bar_placement",
                   "status": "confirmed",
                   "category": "Blue Team",
                   "height": 40,
-                  "description": "System demonstrates: highlights axis mark at 40, then draws bar directly to that mark. Bar locks at 40."
+                  "description": "System demonstrates Blue Team bar placement. Bar extends from Blue Team category to 40, landing exactly on the 40 tick mark."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Watch. Blue Team scored 40. The number ends in 0, so with Scale of 10, it lands exactly on a tick mark. I find 40 on the axis and place the bar right there. The bar for Blue Team goes to 40."
+                "text": "Let me show you. Blue Team scored 40 points. I find 40 on the axis. It's right on a tick mark. The bar ends exactly there. That's 40 on a scale of 10."
               }
             ]
           ]
@@ -1811,28 +1711,21 @@
       [
         {
           "condition": {
-            "bar_height": 50,
-            "category": "Green Team",
-            "incorrect_count": 1
-          },
-          "description": "Student set Green Team bar to 50 on first attempt",
-          "is_correct": false,
-          "steps": [
-            [
+            "and": [
               {
-                "type": "dialogue",
-                "text": "Not quite. Green Team scored 55, not 50. Where does 55 land?"
+                "bar_height": {
+                  "not": 55
+                }
+              },
+              {
+                "category": "Green Team"
+              },
+              {
+                "incorrect_count": 1
               }
             ]
-          ]
-        },
-        {
-          "condition": {
-            "bar_height": 60,
-            "category": "Green Team",
-            "incorrect_count": 1
           },
-          "description": "Student set Green Team bar to 60 on first attempt",
+          "description": "Student set Green Team bar to wrong height on first attempt",
           "is_correct": false,
           "steps": [
             [
@@ -1845,26 +1738,21 @@
         },
         {
           "condition": {
-            "incorrect_count": 1
-          },
-          "description": "Student set Green Team bar to any other wrong height on first attempt",
-          "is_correct": false,
-          "steps": [
-            [
+            "and": [
               {
-                "type": "dialogue",
-                "text": "Look at the data table. Green Team scored 55. That's halfway between two marks."
+                "bar_height": {
+                  "not": 55
+                }
+              },
+              {
+                "category": "Green Team"
+              },
+              {
+                "incorrect_count": 2
               }
             ]
-          ]
-        },
-        {
-          "condition": {
-            "bar_height": 50,
-            "category": "Green Team",
-            "incorrect_count": 2
           },
-          "description": "Student set Green Team bar to 50 on second attempt",
+          "description": "Student set Green Team bar to wrong height on second attempt",
           "is_correct": false,
           "steps": [
             [
@@ -1876,93 +1764,37 @@
                   "highlight_categories": [
                     "Green Team"
                   ],
-                  "description": "Green Team row highlighted showing value 55."
+                  "description": "Green Team row highlights showing value 55."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Green Team scored 55, not 50. Look at the axis: find 50 and 60. Where does 55 go between them?"
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "bar_height": 60,
-            "category": "Green Team",
-            "incorrect_count": 2
-          },
-          "description": "Student set Green Team bar to 60 on second attempt",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_team_scores",
-                "params": {
-                  "highlight_axis_marks": [
-                    50,
-                    60
-                  ],
-                  "description": "Axis marks at 50 and 60 highlighted."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "Green Team scored 55, not 60. Look at the marks for 50 and 60. 55 is exactly halfway between those two marks."
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "incorrect_count": 2
-          },
-          "description": "Student set Green Team bar to any other wrong height on second attempt",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_team_scores",
-                "params": {
-                  "highlight_axis_marks": [
-                    50,
-                    60
-                  ],
-                  "description": "Axis marks at 50 and 60 highlighted with midpoint indicator."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "Green Team scored 55. Find 50 and 60 on the axis. 55 is exactly halfway between them. Place the bar at that midpoint."
+                "text": "Green Team scored 55 points. On this scale, 55 is halfway between 50 and 60. Where does that bar need to end?"
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Student answered incorrectly three or more times. System models the answer.",
+          "description": "Student set Green Team bar incorrectly three or more times. System models the answer.",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "bar_graph_team_scores",
+                "tangible_id": "bar_graph_teams",
                 "params": {
-                  "event": "model_bar_placement",
+                  "event": "demonstrate_bar_placement",
                   "status": "confirmed",
                   "category": "Green Team",
                   "height": 55,
-                  "description": "System demonstrates: highlights axis marks at 50 and 60, shows midpoint indicator at 55, then draws bar to that height. Bar locks at 55."
+                  "description": "System demonstrates Green Team bar placement. Bar extends from Green Team category to 55, landing halfway between tick marks at 50 and 60."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Watch. Green Team scored 55. I find 50 and 60 on the axis. 55 is halfway between them. With Scale of 10, numbers ending in 5 land at the midpoint. The bar for Green Team goes to 55."
+                "text": "Let me show you. Green Team scored 55 points. I find 50 on the axis, then 60. 55 is halfway between those two marks. The bar ends exactly there. That's where 55 lands on a scale of 10."
               }
             ]
           ]
@@ -1971,28 +1803,21 @@
       [
         {
           "condition": {
-            "bar_height": 60,
-            "category": "Yellow Team",
-            "incorrect_count": 1
-          },
-          "description": "Student set Yellow Team bar to 60 on first attempt",
-          "is_correct": false,
-          "steps": [
-            [
+            "and": [
               {
-                "type": "dialogue",
-                "text": "Not quite. Yellow Team scored 70, not 60. Find 70 on the axis."
+                "bar_height": {
+                  "not": 70
+                }
+              },
+              {
+                "category": "Yellow Team"
+              },
+              {
+                "incorrect_count": 1
               }
             ]
-          ]
-        },
-        {
-          "condition": {
-            "bar_height": 80,
-            "category": "Yellow Team",
-            "incorrect_count": 1
           },
-          "description": "Student set Yellow Team bar to 80 on first attempt",
+          "description": "Student set Yellow Team bar to wrong height on first attempt",
           "is_correct": false,
           "steps": [
             [
@@ -2005,26 +1830,21 @@
         },
         {
           "condition": {
-            "incorrect_count": 1
-          },
-          "description": "Student set Yellow Team bar to any other wrong height on first attempt",
-          "is_correct": false,
-          "steps": [
-            [
+            "and": [
               {
-                "type": "dialogue",
-                "text": "Look at the data table. Yellow Team scored 70. That's right on a mark."
+                "bar_height": {
+                  "not": 70
+                }
+              },
+              {
+                "category": "Yellow Team"
+              },
+              {
+                "incorrect_count": 2
               }
             ]
-          ]
-        },
-        {
-          "condition": {
-            "bar_height": 60,
-            "category": "Yellow Team",
-            "incorrect_count": 2
           },
-          "description": "Student set Yellow Team bar to 60 on second attempt",
+          "description": "Student set Yellow Team bar to wrong height on second attempt",
           "is_correct": false,
           "steps": [
             [
@@ -2036,98 +1856,44 @@
                   "highlight_categories": [
                     "Yellow Team"
                   ],
-                  "description": "Yellow Team row highlighted showing value 70."
+                  "description": "Yellow Team row highlights showing value 70."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Yellow Team scored 70, not 60. The number ends in 0, so it lands exactly on a mark. Find the mark labeled 70."
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "bar_height": 80,
-            "category": "Yellow Team",
-            "incorrect_count": 2
-          },
-          "description": "Student set Yellow Team bar to 80 on second attempt",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_team_scores",
-                "params": {
-                  "highlight_axis_marks": [
-                    70
-                  ],
-                  "description": "Axis mark at 70 highlighted."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "Yellow Team scored 70, not 80. Find the mark labeled 70 on the axis. That's where the bar should end."
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "incorrect_count": 2
-          },
-          "description": "Student set Yellow Team bar to any other wrong height on second attempt",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_team_scores",
-                "params": {
-                  "highlight_axis_marks": [
-                    70
-                  ],
-                  "description": "Axis mark at 70 highlighted."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "Yellow Team scored 70. That ends in 0, so it lands right on a mark. Look at the axis: 0, 10, 20, 30, 40, 50, 60, 70. Place the bar at 70."
+                "text": "Yellow Team scored 70 points. Find 70 on the axis. Where does that bar need to end?"
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Student answered incorrectly three or more times. System models the answer.",
+          "description": "Student set Yellow Team bar incorrectly three or more times. System models the answer.",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "bar_graph_team_scores",
+                "tangible_id": "bar_graph_teams",
                 "params": {
-                  "event": "model_bar_placement",
+                  "event": "demonstrate_bar_placement",
                   "status": "confirmed",
                   "category": "Yellow Team",
                   "height": 70,
-                  "description": "System demonstrates: highlights axis mark at 70, then draws bar directly to that mark. Bar locks at 70."
+                  "description": "System demonstrates Yellow Team bar placement. Bar extends from Yellow Team category to 70, landing exactly on the 70 tick mark."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Watch. Yellow Team scored 70. The number ends in 0, so with Scale of 10, it lands exactly on a tick mark. I find 70 on the axis and place the bar right there. The bar for Yellow Team goes to 70."
+                "text": "Let me show you. Yellow Team scored 70 points. I find 70 on the axis. It's right on a tick mark. The bar ends exactly there. That's 70 on a scale of 10."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:07:29.411172+00:00"
+    "_generated_at": "2026-04-27T16:04:15.481161+00:00"
   },
   {
     "id": "s3_4_bridge_exit_check",
@@ -2136,65 +1902,107 @@
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "bar_graph_colors",
-        "tangible_type": "bar_graph",
+        "tangible_id": "data_table",
+        "tangible_type": "data_table",
         "params": {
-          "mode": "reading",
-          "orientation": "vertical",
-          "categories": [
-            "Red",
-            "Blue",
-            "Green",
-            "Yellow"
-          ],
-          "description": "Vertical bar graph appears. Favorite Colors data from previous sections."
+          "description": "Vertical data table displays Team Scores with categories Red Team, Green Team, Yellow Team, Blue Team and values 25, 55, 70, 40."
         },
         "id": "s3_4_bridge_exit_check_b0"
       },
       {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_teams",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Red Team",
+            "Green Team",
+            "Yellow Team",
+            "Blue Team"
+          ],
+          "values": [
+            25,
+            55,
+            70,
+            40
+          ],
+          "scale": 10,
+          "axis_range": [
+            0,
+            80
+          ],
+          "description": "Horizontal bar graph showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40. Scale of 10, axis range 0–80."
+        },
+        "id": "s3_4_bridge_exit_check_b1"
+      },
+      {
         "type": "dialogue",
         "text": "You learned to choose scales. Check the biggest number. Does it fit without too many marks on the axis? Check the ones place digits. Are they 0 or 5 to find the exact place for the bar? For very small data, scale of 1 could work. Then pick the easiest to read.",
-        "id": "s3_4_bridge_exit_check_b1"
+        "id": "s3_4_bridge_exit_check_b2"
       },
       {
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "bar_graph_colors",
-            "description": "Vertical bar graph showing Favorite Colors data.",
+            "tangible_id": "data_table",
+            "description": "Vertical data table showing Team Scores: Red Team 25, Green Team 55, Yellow Team 70, Blue Team 40.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "bar_graph_teams",
+            "description": "Horizontal bar graph in reading mode. Team Scores data. Scale of 10, axis range 0–80.",
             "tangible_type": "bar_graph",
             "mode": "reading",
-            "orientation": "vertical",
+            "orientation": "horizontal",
             "categories": [
-              "Red",
-              "Blue",
-              "Green",
-              "Yellow"
-            ]
+              "Red Team",
+              "Green Team",
+              "Yellow Team",
+              "Blue Team"
+            ],
+            "values": [
+              25,
+              55,
+              70,
+              40
+            ],
+            "scale": 10
           }
         ],
-        "id": "s3_4_bridge_exit_check_b2"
+        "id": "s3_4_bridge_exit_check_b3"
       },
       {
         "type": "scene",
         "method": "remove",
-        "tangible_id": "bar_graph_colors",
+        "tangible_id": "data_table",
         "params": {
-          "description": "Bar graph clears from screen."
+          "description": "Data table fades from screen."
         },
-        "id": "s3_4_bridge_exit_check_b3"
+        "id": "s3_4_bridge_exit_check_b4"
+      },
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "bar_graph_teams",
+        "params": {
+          "description": "Bar graph fades from screen."
+        },
+        "id": "s3_4_bridge_exit_check_b5"
       },
       {
         "type": "dialogue",
         "text": "Let's see what you know.",
-        "id": "s3_4_bridge_exit_check_b4"
+        "id": "s3_4_bridge_exit_check_b6"
       },
       {
         "type": "current_scene",
         "elements": [],
-        "id": "s3_4_bridge_exit_check_b5"
+        "id": "s3_4_bridge_exit_check_b7"
       }
     ],
-    "_generated_at": "2026-04-20T17:03:43.985718+00:00"
+    "_generated_at": "2026-04-27T16:00:32.632257+00:00"
   }
 ]

@@ -4,23 +4,24 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equal_groups_shelves",
+      "tangible_id": "equal_groups_jars",
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
         "container_count": 2,
         "items_per_container": 8,
-        "visual_context": "shelves_with_jars",
-        "description": "Equal groups visual appears: 2 shelves with 8 jars each."
+        "item_type": "jars",
+        "containers_visible": true,
+        "description": "Equal groups visualization appears: 2 shelves with 8 jars on each shelf, containers visible and clearly separated."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder_shelves",
+      "tangible_id": "equation_builder",
       "tangible_type": "equation_builder",
       "params": {
-        "expression": [
+        "template": [
           "2",
           "×",
           "8",
@@ -33,7 +34,7 @@
           16,
           18
         ],
-        "description": "Equation builder appears with pre-filled equation: 2 × 8 = ☐. Palette shows tiles: 10, 14, 16, 18."
+        "description": "Equation Builder appears with pre-filled equation: 2 × 8 = ☐. Palette contains tiles 10, 14, 16, 18."
       }
     },
     {
@@ -44,38 +45,19 @@
       "type": "prompt",
       "text": "2 × 8 = ☐. Find the product.",
       "tool": "place_tile",
-      "target": "equation_builder_shelves",
+      "target": "equation_builder",
       "validator": [
         {
           "condition_id": "correct",
           "condition": {
             "total": 16
           },
-          "description": "Student placed 16 in the product slot, correct",
+          "description": "Student placed tile 16 in product slot, correct",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
               "text": "2 times 8 equals 16. Two shelves, 8 in each, 16 total."
-            },
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "equation_builder_shelves",
-              "params": {
-                "expression": [
-                  "16",
-                  "=",
-                  "2",
-                  "×",
-                  "8"
-                ],
-                "description": "Equation builder updates to show reversed version: 16 = 2 × 8."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "Same value — both ways."
             }
           ]
         }
@@ -85,33 +67,86 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equal_groups_shelves",
-          "description": "Equal groups visual showing 2 shelves with 8 jars each.",
+          "tangible_id": "equal_groups_jars",
+          "description": "Equal groups: 2 shelves with 8 jars per shelf, containers visible, reading mode.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 2,
-          "items_per_container": 8
+          "items_per_container": 8,
+          "item_type": "jars"
         },
         {
-          "tangible_id": "equation_builder_shelves",
-          "description": "Equation builder showing 2 × 8 = ☐ with palette tiles 10, 14, 16, 18. Place_tile tool active.",
+          "tangible_id": "equation_builder",
+          "description": "Equation Builder displaying completed equation 2 × 8 = 16.",
           "tangible_type": "equation_builder",
-          "expression": [
+          "template": [
             "2",
             "×",
             "8",
             "=",
-            "__"
-          ],
-          "palette": [
-            10,
-            14,
-            16,
-            18
+            "16"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "static_equation_reversed",
+      "tangible_type": "equation",
+      "params": {
+        "template": [
+          "16",
+          "=",
+          "2",
+          "×",
+          "8"
+        ],
+        "description": "Reversed equation appears below: 16 = 2 × 8."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Same value — both ways."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_jars",
+          "description": "Equal groups: 2 shelves with 8 jars per shelf, containers visible, reading mode.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 2,
+          "items_per_container": 8,
+          "item_type": "jars"
+        },
+        {
+          "tangible_id": "equation_builder",
+          "description": "Equation Builder displaying completed equation 2 × 8 = 16.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "2",
+            "×",
+            "8",
+            "=",
+            "16"
+          ]
+        },
+        {
+          "tangible_id": "static_equation_reversed",
+          "description": "Static equation displaying reversed form: 16 = 2 × 8.",
+          "tangible_type": "equation",
+          "template": [
+            "16",
+            "=",
+            "2",
+            "×",
+            "8"
           ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:04:39.506925+00:00"
+  "_generated_at": "2026-04-27T15:58:42.257667+00:00"
 }

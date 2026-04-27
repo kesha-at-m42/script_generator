@@ -6,34 +6,22 @@
         "condition": {
           "selected": "Odd"
         },
-        "description": "Student selected Odd: believes multiplying by 2 produces odd products",
+        "description": "Student selected Odd, incorrect distractor",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "equation_builder",
+              "tangible_id": "products_strip",
               "params": {
-                "expression": [
-                  "2",
-                  "+",
-                  "2",
-                  "+",
-                  "2",
-                  "+",
-                  "2",
-                  "+",
-                  "2",
-                  "=",
-                  "10"
-                ],
-                "description": "Equation Builder shows repeated addition: 2 + 2 + 2 + 2 + 2 = 10."
+                "highlight_all": true,
+                "description": "Products Strip values re-highlight: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20."
               }
             },
             {
               "type": "dialogue",
-              "text": "Look at what happens. When you add 2 plus 2, you get 4. Add another 2, you get 6. Every time you add 2 to an even number, you stay even. Are any of these totals odd?"
+              "text": "Look at every product on the strip. 2, 4, 6, 8, 10. Every one of those is even. When you multiply by 2, you're always making groups of 2, so every item has a pair."
             }
           ]
         ]
@@ -47,21 +35,21 @@
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equation_builder",
+              "tangible_id": "equal_groups_circles",
               "params": {
-                "event": "show_vocabulary_labels",
+                "event": "pair_highlight_sequence",
                 "status": "confirmed",
-                "description": "Visual emphasis appears under the product 10 in 5 × 2 = 10."
+                "description": "Each pair of circles highlights sequentially across all 5 groups, showing every item has a partner."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. 5 times 2 equals 10. 10 is even. 3 times 2 equals 6. 6 is even. 7 times 2 equals 14. 14 is even. Every product of 2 is even because multiplying by 2 means making groups of 2, and groups of 2 always pair up perfectly with no items left over. The answer is always even."
+              "text": "Let me show you. In groups of 2, every single item has a partner. That's what makes it even. So the product is always even. The answer is Even."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:05:21.182866+00:00"
+  "_generated_at": "2026-04-27T16:00:21.280483+00:00"
 }

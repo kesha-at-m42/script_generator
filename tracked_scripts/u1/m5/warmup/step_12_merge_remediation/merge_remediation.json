@@ -6,44 +6,44 @@
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "data_collection_game",
+        "tangible_id": "data_collection_game_blocks",
         "tangible_type": "data_collection_game",
         "params": {
-          "style": "counting_sorting",
           "categories": [
             "Red blocks",
             "Blue blocks",
             "Green blocks",
             "Yellow blocks"
           ],
-          "value_constraints": {
-            "type": "multiples_of",
-            "base": 5,
-            "range": [
-              10,
-              45
-            ]
-          },
+          "valid_values": [
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45
+          ],
           "duration_seconds": 60,
-          "description": "Minis characters appear in animated counting scenario. Four categories of colored blocks to count and sort."
+          "description": "Animated counting game appears. Minis characters with colored blocks. Four categories: Red, Blue, Green, Yellow. Student counts items in each category. All values are multiples of 5 between 10 and 45."
         },
         "id": "s1_1_data_collection_game_b0",
-        "_notion_block_id": "3485917e-ac52-81d6-ac14-ce31a817f16c"
+        "_notion_block_id": "34f5917e-ac52-815c-b019-f889003efa88"
       },
       {
         "type": "dialogue",
         "text": "The Minis are organizing their collections! Let's help them count.",
         "id": "s1_1_data_collection_game_b1",
-        "_notion_block_id": "3485917e-ac52-816a-90c5-f775248d24ac"
+        "_notion_block_id": "34f5917e-ac52-8107-922d-fb908335c6f9"
       },
       {
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "data_collection_game",
+            "tangible_id": "data_collection_game_blocks",
+            "description": "Animated counting game active. Minis characters with blocks in four colors. Student counts and confirms values for each category.",
             "tangible_type": "data_collection_game",
-            "description": "Data collection game active. Minis characters visible. Four block categories ready for counting.",
-            "style": "counting_sorting",
             "categories": [
               "Red blocks",
               "Blue blocks",
@@ -53,55 +53,49 @@
           }
         ],
         "id": "s1_1_data_collection_game_b2",
-        "_notion_block_id": "3485917e-ac52-8141-aa92-c975073d1233",
-        "_toml_key": "step_100_data_collection_game"
+        "_notion_block_id": "34f5917e-ac52-8110-80ae-f6799eb2c84f"
       },
       {
         "type": "scene",
         "method": "animate",
-        "tangible_id": "data_collection_game",
+        "tangible_id": "data_collection_game_blocks",
         "params": {
           "event": "game_complete",
           "status": "confirmed",
-          "description": "Counting game completes. Final counts recorded for all four categories."
+          "description": "Counting game completes. Counts recorded for all four categories."
         },
         "id": "s1_1_data_collection_game_b3",
-        "_notion_block_id": "3485917e-ac52-8162-a77c-dab521ed3b7e"
+        "_notion_block_id": "34f5917e-ac52-8171-b4e2-f84dc80f681c"
       },
       {
         "type": "dialogue",
-        "text": "You counted all the blocks. Now let's make a graph with your data.",
+        "text": "You counted the blocks. Now let's make a graph with your data.",
         "id": "s1_1_data_collection_game_b4",
-        "_notion_block_id": "3485917e-ac52-81c3-ba94-f9b347897b12"
+        "_notion_block_id": "34f5917e-ac52-81aa-86ee-cf94ecbe03d4"
       },
       {
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "data_collection_game",
+            "tangible_id": "data_collection_game_blocks",
+            "description": "Counting game complete. Final counts recorded for Red, Blue, Green, and Yellow blocks.",
             "tangible_type": "data_collection_game",
-            "description": "Data collection game complete. Counts recorded and visible for Red blocks, Blue blocks, Green blocks, Yellow blocks.",
-            "style": "counting_sorting",
             "categories": [
               "Red blocks",
               "Blue blocks",
               "Green blocks",
               "Yellow blocks"
-            ],
-            "status": "complete"
+            ]
           }
         ],
-        "id": "s1_1_data_collection_game_b5",
-        "_toml_key": "step_101_data_collection_game"
+        "id": "s1_1_data_collection_game_b5"
       }
     ],
-    "_generated_at": "2026-04-20T16:58:41.072947+00:00",
-    "_notion_block_id": "3485917e-ac52-8172-b60a-e16071d6cc6f",
-    "_toml_key": "section_100_data_collection_game"
+    "_generated_at": "2026-04-27T15:52:51.598007+00:00",
+    "_notion_block_id": "34f5917e-ac52-81cf-9fe9-eb4f449297f1"
   },
   {
     "id": "s2_1_scale_preview_exploration",
-    "type": "transition",
     "beats": [
       {
         "type": "scene",
@@ -109,131 +103,121 @@
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
-          "description": "Data table appears showing student's collected data from warmup."
+          "description": "Data table appears showing student's collected data from the counting game. Four categories: Red blocks, Blue blocks, Green blocks, Yellow blocks. Values are multiples of 5 between 10 and 45."
         },
         "id": "s2_1_scale_preview_exploration_b0",
-        "_notion_block_id": "3485917e-ac52-81b2-9343-dcda62383c55"
+        "_notion_block_id": "34f5917e-ac52-8182-853a-d83866a30443"
       },
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "bar_graph_student_data",
+        "tangible_id": "bar_graph_blocks",
         "tangible_type": "bar_graph",
         "params": {
           "mode": "reading",
           "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
           "scale_selector_visible": true,
-          "scale_options": [
+          "available_scales": [
             1,
             2,
             5,
             10
           ],
-          "description": "Vertical bar graph appears with Scale Preview System. Four clickable scale buttons visible: Scale of 1, Scale of 2, Scale of 5, Scale of 10. Graph displays student's data using currently selected scale."
+          "description": "Vertical bar graph appears ready to display student data. Scale Preview System visible with four clickable scale buttons: Scale of 1, Scale of 2, Scale of 5, Scale of 10. Graph updates when a scale button is clicked."
         },
         "id": "s2_1_scale_preview_exploration_b1",
-        "_notion_block_id": "3485917e-ac52-8169-9a65-e65a8d32f8b5"
+        "_notion_block_id": "34f5917e-ac52-815c-8b24-f4f25b39b5c7"
       },
       {
         "type": "dialogue",
         "text": "You know how to use different scales. But which one should you use for YOUR data?",
         "id": "s2_1_scale_preview_exploration_b2",
-        "_notion_block_id": "3485917e-ac52-8181-8c45-d361917fdedd"
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing student's collected data.",
-            "tangible_type": "data_table"
-          },
-          {
-            "tangible_id": "bar_graph_student_data",
-            "description": "Vertical bar graph with Scale Preview System. Four scale buttons visible: 1, 2, 5, 10.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "scale_selector_visible": true,
-            "scale_options": [
-              1,
-              2,
-              5,
-              10
-            ]
-          }
-        ],
-        "id": "s2_1_scale_preview_exploration_b3",
-        "_notion_block_id": "3485917e-ac52-81a3-96ed-f443e1ab846c",
-        "_toml_key": "step_102_scale_preview_exploration"
+        "_notion_block_id": "34f5917e-ac52-813a-b944-fffe69157f42"
       },
       {
         "type": "dialogue",
         "text": "Let's find out. Click each scale to see what the graph would look like.",
+        "id": "s2_1_scale_preview_exploration_b3",
+        "_notion_block_id": "34f5917e-ac52-81ee-b59b-e84aa8c2c35b"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing student's collected block data. Four categories with values that are multiples of 5 between 10 and 45.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "bar_graph_blocks",
+            "description": "Vertical bar graph with Scale Preview System. Four scale buttons visible: Scale of 1, Scale of 2, Scale of 5, Scale of 10. Graph ready to display data when scale is selected.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Red blocks",
+              "Blue blocks",
+              "Green blocks",
+              "Yellow blocks"
+            ],
+            "scale_selector_visible": true,
+            "available_scales": [
+              1,
+              2,
+              5,
+              10
+            ]
+          }
+        ],
         "id": "s2_1_scale_preview_exploration_b4",
-        "_notion_block_id": "3485917e-ac52-818e-b933-d6167f010703"
+        "_notion_block_id": "34f5917e-ac52-8151-9c66-c774bc4b0a8f"
       },
       {
         "type": "scene",
         "method": "animate",
-        "tangible_id": "bar_graph_student_data",
+        "tangible_id": "bar_graph_blocks",
         "params": {
-          "event": "enable_scale_exploration",
+          "event": "explore_all_scales",
           "status": "confirmed",
-          "description": "All four scale buttons become active and clickable. Student can freely click between scales to preview how the graph looks with each option."
+          "description": "Student clicks through all four scale options. Scale of 1 shows many tick marks. Scale of 2 displays data clearly. Scale of 5 fits all values. Scale of 10 also fits all values. All four scales successfully display the data."
         },
         "id": "s2_1_scale_preview_exploration_b5",
-        "_notion_block_id": "3485917e-ac52-8121-94c0-f2c8993b75b7"
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing student's collected data.",
-            "tangible_type": "data_table"
-          },
-          {
-            "tangible_id": "bar_graph_student_data",
-            "description": "Vertical bar graph with Scale Preview System active. All four scale buttons clickable for exploration.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "scale_selector_visible": true,
-            "scale_options": [
-              1,
-              2,
-              5,
-              10
-            ]
-          }
-        ],
-        "id": "s2_1_scale_preview_exploration_b6",
-        "_notion_block_id": "3485917e-ac52-818f-b192-c3472eb53d4a",
-        "_toml_key": "step_103_scale_preview_exploration"
+        "_notion_block_id": "34f5917e-ac52-813a-8847-c55e9765d8e9"
       },
       {
         "type": "dialogue",
         "text": "All four scales work for this data! You have choices.",
-        "id": "s2_1_scale_preview_exploration_b7",
-        "_notion_block_id": "3485917e-ac52-8134-8051-cad79bf3fefe"
+        "id": "s2_1_scale_preview_exploration_b6",
+        "_notion_block_id": "34f5917e-ac52-8122-8b88-e9caefa6c6cc"
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Data table showing student's collected data.",
+            "description": "Data table showing student's collected block data.",
             "tangible_type": "data_table"
           },
           {
-            "tangible_id": "bar_graph_student_data",
-            "description": "Vertical bar graph displaying student's data with whichever scale was last selected during exploration.",
+            "tangible_id": "bar_graph_blocks",
+            "description": "Vertical bar graph displaying student data. Scale Preview System showing all four scale options explored. All scales confirmed as working for this dataset.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
+            "categories": [
+              "Red blocks",
+              "Blue blocks",
+              "Green blocks",
+              "Yellow blocks"
+            ],
             "scale_selector_visible": true,
-            "scale_options": [
+            "available_scales": [
               1,
               2,
               5,
@@ -241,13 +225,11 @@
             ]
           }
         ],
-        "id": "s2_1_scale_preview_exploration_b8",
-        "_toml_key": "step_104_scale_preview_exploration"
+        "id": "s2_1_scale_preview_exploration_b7"
       }
     ],
-    "_generated_at": "2026-04-20T16:58:54.142362+00:00",
-    "_notion_block_id": "3485917e-ac52-81ef-9fa3-c83266e692c9",
-    "_toml_key": "section_101_scale_preview_exploration"
+    "_generated_at": "2026-04-27T15:53:09.989893+00:00",
+    "_notion_block_id": "34f5917e-ac52-819b-a805-cfff9140827f"
   },
   {
     "id": "s3_1_efficiency_comparison",
@@ -255,38 +237,59 @@
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "bar_graph_scale_5",
-        "tangible_type": "bar_graph",
+        "tangible_id": "data_table",
+        "tangible_type": "data_table",
         "params": {
-          "mode": "reading",
-          "orientation": "vertical",
-          "scale": 5,
-          "position": "left",
-          "description": "Vertical bar graph appears on left side. Student's data displayed at scale of 5. Categories and bars visible."
+          "description": "Data table showing student-collected block data. Red blocks, Blue blocks, Green blocks, Yellow blocks. Values are multiples of 5 between 10 and 45."
         },
         "id": "s3_1_efficiency_comparison_b0",
-        "_notion_block_id": "3485917e-ac52-818a-b30f-f78139423e31"
+        "_notion_block_id": "34f5917e-ac52-81bc-96b4-fa37fdcf48fd"
       },
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "bar_graph_scale_10",
+        "tangible_id": "bar_graph_scale5",
         "tangible_type": "bar_graph",
         "params": {
           "mode": "reading",
           "orientation": "vertical",
-          "scale": 10,
-          "position": "right",
-          "description": "Vertical bar graph appears on right side. Same data displayed at scale of 10. Categories and bars visible."
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
+          "scale": 5,
+          "description": "Vertical bar graph at Scale of 5 showing student's block data. Positioned on left side of screen."
         },
         "id": "s3_1_efficiency_comparison_b1",
-        "_notion_block_id": "3485917e-ac52-819c-83e9-d6483fe042c7"
+        "_notion_block_id": "34f5917e-ac52-8127-bc48-d715098ffe48"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_scale10",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
+          "scale": 10,
+          "description": "Vertical bar graph at Scale of 10 showing student's block data. Positioned on right side of screen."
+        },
+        "id": "s3_1_efficiency_comparison_b2",
+        "_notion_block_id": "34f5917e-ac52-81c2-963f-fbb621f35f1f"
       },
       {
         "type": "dialogue",
         "text": "Both of these work. Take a look at them side by side. Which graph is easier to read?",
-        "id": "s3_1_efficiency_comparison_b2",
-        "_notion_block_id": "3485917e-ac52-81e1-ae7a-c2c970d3e983"
+        "id": "s3_1_efficiency_comparison_b3",
+        "_notion_block_id": "34f5917e-ac52-8155-9681-c3e242e0942a"
       },
       {
         "type": "prompt",
@@ -299,34 +302,34 @@
         ],
         "validator": [
           {
-            "condition_id": "selected_scale_10",
+            "condition_id": "selected_scale5",
             "condition": {
-              "selected": "Scale of 10"
+              "selected": "Scale of 5"
             },
-            "description": "Student picked Scale of 10",
+            "description": "Student selected Scale of 5",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "You picked the scale of 10. Nice and clean.",
-                "id": "s3_1_efficiency_comparison_b3_v0_b0",
-                "_notion_block_id": "3485917e-ac52-81dc-9cb8-c33f3080c763"
+                "text": "Right. Scale of 5. More detail!",
+                "id": "s3_1_efficiency_comparison_b4_v0_b0",
+                "_notion_block_id": "34f5917e-ac52-8129-84ef-e13df249effd"
               }
             ]
           },
           {
-            "condition_id": "selected_scale_5",
+            "condition_id": "selected_scale10",
             "condition": {
-              "selected": "Scale of 5"
+              "selected": "Scale of 10"
             },
-            "description": "Student picked Scale of 5",
+            "description": "Student selected Scale of 10",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "You picked the scale of 5. More detail.",
-                "id": "s3_1_efficiency_comparison_b3_v1_b0",
-                "_notion_block_id": "3485917e-ac52-8144-88e8-cb2d22eb286c"
+                "text": "Right. Scale of 10. Nice and clean!",
+                "id": "s3_1_efficiency_comparison_b4_v1_b0",
+                "_notion_block_id": "34f5917e-ac52-818d-a815-d77cb4e6bcba"
               }
             ]
           },
@@ -335,110 +338,242 @@
             "condition": {
               "selected": "They're the same"
             },
-            "description": "Student picked they're the same",
+            "description": "Student selected they're the same",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "You think they're both easy to read. Both do work.",
-                "id": "s3_1_efficiency_comparison_b3_v2_b0",
-                "_notion_block_id": "3485917e-ac52-816b-b475-ffa9d5039e38"
+                "text": "Right. They're both easy to read. Both do work!",
+                "id": "s3_1_efficiency_comparison_b4_v2_b0",
+                "_notion_block_id": "34f5917e-ac52-81f4-9962-ea807b4fc3f0"
               }
             ]
           }
         ],
-        "id": "s3_1_efficiency_comparison_b3",
-        "_notion_block_id": "3485917e-ac52-817c-b274-fb420d2d4a99"
+        "id": "s3_1_efficiency_comparison_b4",
+        "_notion_block_id": "34f5917e-ac52-81ea-8138-ff4a6809ee9d"
       },
       {
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "bar_graph_scale_5",
-            "description": "Vertical bar graph on left. Student's data at scale of 5.",
+            "tangible_id": "data_table",
+            "description": "Data table showing student-collected block data. Red blocks, Blue blocks, Green blocks, Yellow blocks.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "bar_graph_scale5",
+            "description": "Vertical bar graph at Scale of 5 showing student's block data. Left side.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
+            "categories": [
+              "Red blocks",
+              "Blue blocks",
+              "Green blocks",
+              "Yellow blocks"
+            ],
             "scale": 5
           },
           {
-            "tangible_id": "bar_graph_scale_10",
-            "description": "Vertical bar graph on right. Same data at scale of 10.",
+            "tangible_id": "bar_graph_scale10",
+            "description": "Vertical bar graph at Scale of 10 showing student's block data. Right side.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
+            "categories": [
+              "Red blocks",
+              "Blue blocks",
+              "Green blocks",
+              "Yellow blocks"
+            ],
             "scale": 10
           }
         ],
-        "id": "s3_1_efficiency_comparison_b4",
-        "_notion_block_id": "3485917e-ac52-810a-97a4-dfe78fd60488",
-        "_toml_key": "step_105_efficiency_comparison"
+        "id": "s3_1_efficiency_comparison_b5",
+        "_notion_block_id": "34f5917e-ac52-8178-bf17-e8fa2c43248b"
       },
       {
         "type": "dialogue",
         "text": "When more than one scale works, you get to choose.",
-        "id": "s3_1_efficiency_comparison_b5",
-        "_notion_block_id": "3485917e-ac52-81f2-8743-c8c8c12d3188"
+        "id": "s3_1_efficiency_comparison_b6",
+        "_notion_block_id": "34f5917e-ac52-81ce-b6ba-d148cb951c4c"
       },
       {
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "bar_graph_scale_5",
-            "description": "Vertical bar graph on left. Student's data at scale of 5.",
+            "tangible_id": "data_table",
+            "description": "Data table showing student-collected block data. Red blocks, Blue blocks, Green blocks, Yellow blocks.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "bar_graph_scale5",
+            "description": "Vertical bar graph at Scale of 5 showing student's block data. Left side.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
+            "categories": [
+              "Red blocks",
+              "Blue blocks",
+              "Green blocks",
+              "Yellow blocks"
+            ],
             "scale": 5
           },
           {
-            "tangible_id": "bar_graph_scale_10",
-            "description": "Vertical bar graph on right. Same data at scale of 10.",
+            "tangible_id": "bar_graph_scale10",
+            "description": "Vertical bar graph at Scale of 10 showing student's block data. Right side.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
+            "categories": [
+              "Red blocks",
+              "Blue blocks",
+              "Green blocks",
+              "Yellow blocks"
+            ],
             "scale": 10
           }
         ],
-        "id": "s3_1_efficiency_comparison_b6",
-        "_toml_key": "step_106_efficiency_comparison"
+        "id": "s3_1_efficiency_comparison_b7"
       }
     ],
-    "_generated_at": "2026-04-20T16:59:05.736599+00:00",
-    "_notion_block_id": "3485917e-ac52-8193-9dd4-fb26ff13bbb1",
-    "_toml_key": "section_102_efficiency_comparison"
+    "_generated_at": "2026-04-27T15:53:31.430709+00:00",
+    "_notion_block_id": "34f5917e-ac52-8105-a3fd-e1436fad529c"
   },
   {
     "id": "s4_1_bridge_lesson",
     "type": "transition",
     "beats": [
       {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "data_table",
+        "tangible_type": "data_table",
+        "params": {
+          "description": "Data table displays student-collected block counts. Red blocks, Blue blocks, Green blocks, Yellow blocks. Values are multiples of 5 between 10 and 45."
+        },
+        "id": "s4_1_bridge_lesson_b0",
+        "_notion_block_id": "34f5917e-ac52-8192-ae02-d82af70fccdc"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_blocks",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
+          "scale_selector_visible": true,
+          "description": "Vertical bar graph appears with Scale Preview System visible. Four scale buttons available: Scale of 1, Scale of 2, Scale of 5, Scale of 10."
+        },
+        "id": "s4_1_bridge_lesson_b1",
+        "_notion_block_id": "34f5917e-ac52-8103-abc8-c79b9ac15548"
+      },
+      {
         "type": "dialogue",
         "text": "You just saw that all four scales worked for your data. Nice to have options!",
-        "id": "s4_1_bridge_lesson_b0",
-        "_notion_block_id": "3485917e-ac52-8148-8fd2-f35264b96c8b"
+        "id": "s4_1_bridge_lesson_b2",
+        "_notion_block_id": "34f5917e-ac52-8115-aa76-e384206369ff"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing student block counts for Red blocks, Blue blocks, Green blocks, Yellow blocks.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "bar_graph_blocks",
+            "description": "Vertical bar graph in reading mode with Scale Preview System visible showing four scale button options.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Red blocks",
+              "Blue blocks",
+              "Green blocks",
+              "Yellow blocks"
+            ],
+            "scale_selector_visible": true
+          }
+        ],
+        "id": "s4_1_bridge_lesson_b3",
+        "_notion_block_id": "34f5917e-ac52-813c-8772-d03fe601147b"
       },
       {
         "type": "dialogue",
         "text": "But what if the numbers are bigger? Or what if you need to figure out which scale is best?",
-        "id": "s4_1_bridge_lesson_b1",
-        "_notion_block_id": "3485917e-ac52-81cf-bbd4-d2466143c22d"
-      },
-      {
-        "type": "dialogue",
-        "text": "Let's learn how to figure out which scale to choose, and what tells us that a scale won't work for the data we have.",
-        "id": "s4_1_bridge_lesson_b2",
-        "_notion_block_id": "3485917e-ac52-81ea-9b5c-ec43146c90c5"
+        "id": "s4_1_bridge_lesson_b4",
+        "_notion_block_id": "34f5917e-ac52-81fd-9885-ebc8fedaf1f6"
       },
       {
         "type": "current_scene",
-        "elements": [],
-        "id": "s4_1_bridge_lesson_b3",
-        "_toml_key": "step_107_bridge_lesson"
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing student block counts.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "bar_graph_blocks",
+            "description": "Vertical bar graph with Scale Preview System visible.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Red blocks",
+              "Blue blocks",
+              "Green blocks",
+              "Yellow blocks"
+            ],
+            "scale_selector_visible": true
+          }
+        ],
+        "id": "s4_1_bridge_lesson_b5",
+        "_notion_block_id": "34f5917e-ac52-81b1-a1da-e962577e0a0d"
+      },
+      {
+        "type": "dialogue",
+        "text": "Let's learn how to figure out which scale to choose and what tells us that a scale won't work for the data we have.",
+        "id": "s4_1_bridge_lesson_b6",
+        "_notion_block_id": "34f5917e-ac52-812d-98b4-f44cd19a4a2a"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing student block counts.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "bar_graph_blocks",
+            "description": "Vertical bar graph with Scale Preview System visible.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Red blocks",
+              "Blue blocks",
+              "Green blocks",
+              "Yellow blocks"
+            ],
+            "scale_selector_visible": true
+          }
+        ],
+        "id": "s4_1_bridge_lesson_b7"
       }
     ],
-    "_generated_at": "2026-04-20T16:59:09.453320+00:00",
-    "_notion_block_id": "3485917e-ac52-81eb-9f17-ce4b96e70371",
-    "_toml_key": "section_103_bridge_lesson"
+    "_generated_at": "2026-04-27T15:53:48.204884+00:00",
+    "_notion_block_id": "34f5917e-ac52-8134-a068-dacaba93cb11"
   }
 ]

@@ -3,21 +3,116 @@
   "type": "transition",
   "beats": [
     {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Data table displays student-collected block counts. Red blocks, Blue blocks, Green blocks, Yellow blocks. Values are multiples of 5 between 10 and 45."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_blocks",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Red blocks",
+          "Blue blocks",
+          "Green blocks",
+          "Yellow blocks"
+        ],
+        "scale_selector_visible": true,
+        "description": "Vertical bar graph appears with Scale Preview System visible. Four scale buttons available: Scale of 1, Scale of 2, Scale of 5, Scale of 10."
+      }
+    },
+    {
       "type": "dialogue",
       "text": "You just saw that all four scales worked for your data. Nice to have options!"
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing student block counts for Red blocks, Blue blocks, Green blocks, Yellow blocks.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_blocks",
+          "description": "Vertical bar graph in reading mode with Scale Preview System visible showing four scale button options.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
+          "scale_selector_visible": true
+        }
+      ]
     },
     {
       "type": "dialogue",
       "text": "But what if the numbers are bigger? Or what if you need to figure out which scale is BEST?"
     },
     {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing student block counts.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_blocks",
+          "description": "Vertical bar graph with Scale Preview System visible.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
+          "scale_selector_visible": true
+        }
+      ]
+    },
+    {
       "type": "dialogue",
-      "text": "Let's learn how to figure out which scale to choose—and what tells us that a scale won't work for the data we have."
+      "text": "Let's learn how to figure out which scale to choose and what tells us that a scale won't work for the data we have."
     },
     {
       "type": "current_scene",
-      "elements": []
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing student block counts.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_blocks",
+          "description": "Vertical bar graph with Scale Preview System visible.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
+          "scale_selector_visible": true
+        }
+      ]
     }
   ],
-  "_generated_at": "2026-04-20T16:59:09.453320+00:00"
+  "_generated_at": "2026-04-27T15:53:48.204884+00:00"
 }

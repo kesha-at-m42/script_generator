@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:00:26.028198
+# Generated: 2026-04-27T10:55:25.763096
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1854,7 +1858,7 @@ Cacheable: Yes
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "bar_graph_a",
+      "tangible_id": "bar_graph_scale_1",
       "tangible_type": "bar_graph",
       "params": {
         "mode": "reading",
@@ -1863,20 +1867,26 @@ Cacheable: Yes
           "Apples",
           "Bananas",
           "Cherries"
+        ],
+        "values": [
+          20,
+          40,
+          60
         ],
         "scale": 1,
         "axis_range": [
           0,
           60
         ],
-        "description": "Graph A: vertical bar graph with scale of 1. Apples=20, Bananas=40, Cherries=60. Most tick marks, very detailed."
+        "title": "Graph A",
+        "description": "Vertical bar graph with Scale of 1. Apples: 20, Bananas: 40, Cherries: 60. Many tick marks along vertical axis."
       },
       "id": "s2_1_scale_strengths_type_pattern_discovery_b0"
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "bar_graph_b",
+      "tangible_id": "bar_graph_scale_2",
       "tangible_type": "bar_graph",
       "params": {
         "mode": "reading",
@@ -1885,20 +1895,26 @@ Cacheable: Yes
           "Apples",
           "Bananas",
           "Cherries"
+        ],
+        "values": [
+          20,
+          40,
+          60
         ],
         "scale": 2,
         "axis_range": [
           0,
           60
         ],
-        "description": "Graph B: vertical bar graph with scale of 2. Apples=20, Bananas=40, Cherries=60. Many tick marks."
+        "title": "Graph B",
+        "description": "Vertical bar graph with Scale of 2. Apples: 20, Bananas: 40, Cherries: 60. Many tick marks along vertical axis."
       },
       "id": "s2_1_scale_strengths_type_pattern_discovery_b1"
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "bar_graph_c",
+      "tangible_id": "bar_graph_scale_5",
       "tangible_type": "bar_graph",
       "params": {
         "mode": "reading",
@@ -1907,20 +1923,26 @@ Cacheable: Yes
           "Apples",
           "Bananas",
           "Cherries"
+        ],
+        "values": [
+          20,
+          40,
+          60
         ],
         "scale": 5,
         "axis_range": [
           0,
           60
         ],
-        "description": "Graph C: vertical bar graph with scale of 5. Apples=20, Bananas=40, Cherries=60. Medium tick marks."
+        "title": "Graph C",
+        "description": "Vertical bar graph with Scale of 5. Apples: 20, Bananas: 40, Cherries: 60. Medium number of tick marks along vertical axis."
       },
       "id": "s2_1_scale_strengths_type_pattern_discovery_b2"
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "bar_graph_d",
+      "tangible_id": "bar_graph_scale_10",
       "tangible_type": "bar_graph",
       "params": {
         "mode": "reading",
@@ -1930,12 +1952,18 @@ Cacheable: Yes
           "Bananas",
           "Cherries"
         ],
+        "values": [
+          20,
+          40,
+          60
+        ],
         "scale": 10,
         "axis_range": [
           0,
           60
         ],
-        "description": "Graph D: vertical bar graph with scale of 10. Apples=20, Bananas=40, Cherries=60. Fewest tick marks, clean."
+        "title": "Graph D",
+        "description": "Vertical bar graph with Scale of 10. Apples: 20, Bananas: 40, Cherries: 60. Fewest tick marks along vertical axis, clean appearance."
       },
       "id": "s2_1_scale_strengths_type_pattern_discovery_b3"
     },
@@ -1948,8 +1976,8 @@ Cacheable: Yes
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "bar_graph_a",
-          "description": "Graph A: vertical bar graph with scale of 1. Apples=20, Bananas=40, Cherries=60. Most tick marks.",
+          "tangible_id": "bar_graph_scale_1",
+          "description": "Vertical bar graph with Scale of 1. Graph A. Apples: 20, Bananas: 40, Cherries: 60. Many tick marks.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -1961,8 +1989,8 @@ Cacheable: Yes
           "scale": 1
         },
         {
-          "tangible_id": "bar_graph_b",
-          "description": "Graph B: vertical bar graph with scale of 2. Apples=20, Bananas=40, Cherries=60. Many tick marks.",
+          "tangible_id": "bar_graph_scale_2",
+          "description": "Vertical bar graph with Scale of 2. Graph B. Apples: 20, Bananas: 40, Cherries: 60. Many tick marks.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -1974,8 +2002,8 @@ Cacheable: Yes
           "scale": 2
         },
         {
-          "tangible_id": "bar_graph_c",
-          "description": "Graph C: vertical bar graph with scale of 5. Apples=20, Bananas=40, Cherries=60. Medium tick marks.",
+          "tangible_id": "bar_graph_scale_5",
+          "description": "Vertical bar graph with Scale of 5. Graph C. Apples: 20, Bananas: 40, Cherries: 60. Medium tick marks.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -1987,8 +2015,8 @@ Cacheable: Yes
           "scale": 5
         },
         {
-          "tangible_id": "bar_graph_d",
-          "description": "Graph D: vertical bar graph with scale of 10. Apples=20, Bananas=40, Cherries=60. Fewest tick marks.",
+          "tangible_id": "bar_graph_scale_10",
+          "description": "Vertical bar graph with Scale of 10. Graph D. Apples: 20, Bananas: 40, Cherries: 60. Fewest tick marks, clean.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -2023,23 +2051,13 @@ Cacheable: Yes
           "condition": {
             "selected": "Graph D"
           },
-          "description": "Student selected Graph D (scale of 10), correct",
+          "description": "Student selected Graph D (Scale of 10), correct",
           "is_correct": true,
           "beats": [
             {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "bar_graph_d",
-              "params": {
-                "highlight": true,
-                "description": "Graph D highlights to confirm selection."
-              },
-              "id": "s2_1_scale_strengths_type_pattern_discovery_b7_v0_b0"
-            },
-            {
               "type": "dialogue",
               "text": "Right. Scale of 10 is easiest to read here. Fewer lines to count. When all your numbers end in 0 or 5, the bigger scale is usually cleaner.",
-              "id": "s2_1_scale_strengths_type_pattern_discovery_b7_v0_b1"
+              "id": "s2_1_scale_strengths_type_pattern_discovery_b7_v0_b0"
             }
           ]
         }
@@ -2050,8 +2068,8 @@ Cacheable: Yes
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "bar_graph_a",
-          "description": "Graph A: vertical bar graph with scale of 1. Apples=20, Bananas=40, Cherries=60.",
+          "tangible_id": "bar_graph_scale_1",
+          "description": "Vertical bar graph with Scale of 1. Graph A. Apples: 20, Bananas: 40, Cherries: 60. Many tick marks.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -2063,8 +2081,8 @@ Cacheable: Yes
           "scale": 1
         },
         {
-          "tangible_id": "bar_graph_b",
-          "description": "Graph B: vertical bar graph with scale of 2. Apples=20, Bananas=40, Cherries=60.",
+          "tangible_id": "bar_graph_scale_2",
+          "description": "Vertical bar graph with Scale of 2. Graph B. Apples: 20, Bananas: 40, Cherries: 60. Many tick marks.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -2076,8 +2094,8 @@ Cacheable: Yes
           "scale": 2
         },
         {
-          "tangible_id": "bar_graph_c",
-          "description": "Graph C: vertical bar graph with scale of 5. Apples=20, Bananas=40, Cherries=60.",
+          "tangible_id": "bar_graph_scale_5",
+          "description": "Vertical bar graph with Scale of 5. Graph C. Apples: 20, Bananas: 40, Cherries: 60. Medium tick marks.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -2089,8 +2107,8 @@ Cacheable: Yes
           "scale": 5
         },
         {
-          "tangible_id": "bar_graph_d",
-          "description": "Graph D: vertical bar graph with scale of 10. Apples=20, Bananas=40, Cherries=60. Multiple choice tool active.",
+          "tangible_id": "bar_graph_scale_10",
+          "description": "Vertical bar graph with Scale of 10. Graph D. Apples: 20, Bananas: 40, Cherries: 60. Fewest tick marks, clean.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -2113,8 +2131,8 @@ Cacheable: Yes
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "bar_graph_a",
-          "description": "Graph A: vertical bar graph with scale of 1. Apples=20, Bananas=40, Cherries=60.",
+          "tangible_id": "bar_graph_scale_1",
+          "description": "Vertical bar graph with Scale of 1. Graph A. Apples: 20, Bananas: 40, Cherries: 60. Many tick marks.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -2126,8 +2144,8 @@ Cacheable: Yes
           "scale": 1
         },
         {
-          "tangible_id": "bar_graph_b",
-          "description": "Graph B: vertical bar graph with scale of 2. Apples=20, Bananas=40, Cherries=60.",
+          "tangible_id": "bar_graph_scale_2",
+          "description": "Vertical bar graph with Scale of 2. Graph B. Apples: 20, Bananas: 40, Cherries: 60. Many tick marks.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -2139,8 +2157,8 @@ Cacheable: Yes
           "scale": 2
         },
         {
-          "tangible_id": "bar_graph_c",
-          "description": "Graph C: vertical bar graph with scale of 5. Apples=20, Bananas=40, Cherries=60.",
+          "tangible_id": "bar_graph_scale_5",
+          "description": "Vertical bar graph with Scale of 5. Graph C. Apples: 20, Bananas: 40, Cherries: 60. Medium tick marks.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -2152,8 +2170,8 @@ Cacheable: Yes
           "scale": 5
         },
         {
-          "tangible_id": "bar_graph_d",
-          "description": "Graph D: vertical bar graph with scale of 10. Apples=20, Bananas=40, Cherries=60.",
+          "tangible_id": "bar_graph_scale_10",
+          "description": "Vertical bar graph with Scale of 10. Graph D. Apples: 20, Bananas: 40, Cherries: 60. Fewest tick marks, clean.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -2168,7 +2186,7 @@ Cacheable: Yes
       "id": "s2_1_scale_strengths_type_pattern_discovery_b10"
     }
   ],
-  "_generated_at": "2026-04-20T16:59:25.399739+00:00"
+  "_generated_at": "2026-04-27T15:53:54.341825+00:00"
 }
 </input>
 

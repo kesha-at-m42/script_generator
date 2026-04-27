@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:04:14.466659
+# Generated: 2026-04-27T11:01:03.198296
 ======================================================================
 
 ## API Parameters
@@ -952,36 +952,28 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "Click Scale of 10.",
-      "context": "lesson"
-    },
-    {
       "text": "The bars fit, but we don't know the exact value for any of the bars.",
-      "context": "on_correct"
-    },
-    {
-      "text": "Think about the numbers: 9, 5, 7, 3. They don't end in 0 or 5 so we know Scale of 2 is clearer to show any number. Click Scale of 2.",
       "context": "lesson"
     },
     {
-      "text": "That's better! We can see the bars end at lines or exactly halfway. Scale of 2 could work.",
-      "context": "on_correct"
-    },
-    {
-      "text": "But when numbers are this small, you have another option. Try Scale of 1. What do you notice?",
+      "text": "Think about the numbers: 9, 5, 7, 3. They don't end in 0 or 5 so we know Scale of 2 is clearer to show any number. Click 'Scale of 2.'",
       "context": "lesson"
     },
     {
-      "text": "Click Scale of 1.",
+      "text": "That's better! We can see the bars end at lines or exactly halfway. Scale of 2 could work. But when numbers are this small, you have another option. Try Scale of 1. What do you notice?",
       "context": "lesson"
     },
     {
       "text": "Every number lands right on a line. No halfway bars needed. We can read the graph accurately without having the data table.",
-      "context": "on_correct"
+      "context": "lesson"
     },
     {
-      "text": "For very small numbers, Scale of 1 can be a great choice: simple and exact.",
-      "context": "on_correct"
+      "text": "For very small numbers, Scale of 1 can be a great choice. Simple and exact.",
+      "context": "lesson"
+    },
+    {
+      "text": "You know how to check if numbers fit, AND when smaller scales are the best choice. Now you'll choose scales on your own.",
+      "context": "lesson"
     }
   ]
 }

@@ -4,18 +4,58 @@
     {
       "type": "scene",
       "method": "add",
+      "tangible_id": "products_strip",
+      "tangible_type": "products_strip",
+      "params": {
+        "mode": "reading",
+        "values": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          18,
+          20
+        ],
+        "label": "Multiples of 2",
+        "highlight_all": true,
+        "description": "Products Strip displays 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 with all values highlighted and labeled Multiples of 2."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equal_groups_circles",
+      "tangible_type": "equal_groups",
+      "params": {
+        "mode": "reading",
+        "container_count": 5,
+        "items_per_container": 2,
+        "visual_style": "circles",
+        "description": "Equal groups visualization shows 5 containers with 2 items per container."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
       "tangible_id": "equation_builder",
       "tangible_type": "equation_builder",
       "params": {
-        "expression": [
-          "5",
-          "×",
-          "2",
-          "=",
-          "10"
-        ],
-        "mode": "static",
-        "description": "Equation Builder shows 5 × 2 = 10."
+        "mode": "reading",
+        "expression": "5 × 2 = 10",
+        "description": "Equation Builder displays 5 × 2 = 10."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "equal_groups_circles",
+      "params": {
+        "highlight_all": true,
+        "description": "5 circles from the accumulation re-highlight."
       }
     },
     {
@@ -26,39 +66,47 @@
       "type": "current_scene",
       "elements": [
         {
+          "tangible_id": "products_strip",
+          "description": "Products Strip displays 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 with all values highlighted and labeled Multiples of 2.",
+          "tangible_type": "products_strip",
+          "mode": "reading",
+          "values": [
+            2,
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18,
+            20
+          ]
+        },
+        {
+          "tangible_id": "equal_groups_circles",
+          "description": "Equal groups visualization shows 5 containers with 2 items per container, all highlighted.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 2
+        },
+        {
           "tangible_id": "equation_builder",
-          "description": "Equation Builder shows 5 × 2 = 10.",
+          "description": "Equation Builder displays 5 × 2 = 10.",
           "tangible_type": "equation_builder",
-          "expression": [
-            "5",
-            "×",
-            "2",
-            "=",
-            "10"
-          ],
-          "mode": "static"
+          "mode": "reading"
         }
       ]
     },
     {
       "type": "scene",
-      "method": "update",
-      "tangible_id": "equation_builder",
+      "method": "add",
+      "tangible_id": "repeated_addition",
+      "tangible_type": "equation",
       "params": {
-        "expression": [
-          "2",
-          "+",
-          "2",
-          "+",
-          "2",
-          "+",
-          "2",
-          "+",
-          "2",
-          "=",
-          "10"
-        ],
-        "description": "Repeated addition appears: 2 + 2 + 2 + 2 + 2 = 10."
+        "expression": "2 + 2 + 2 + 2 + 2 = 10",
+        "description": "Repeated addition appears below circles: 2 + 2 + 2 + 2 + 2 = 10."
       }
     },
     {
@@ -66,63 +114,48 @@
       "text": "There's another way to see it. Instead of skip-counting, you could add: 2 plus 2 plus 2 plus 2 plus 2."
     },
     {
-      "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "equation_builder",
-          "description": "Equation Builder shows repeated addition: 2 + 2 + 2 + 2 + 2 = 10.",
-          "tangible_type": "equation_builder",
-          "expression": [
-            "2",
-            "+",
-            "2",
-            "+",
-            "2",
-            "+",
-            "2",
-            "+",
-            "2",
-            "=",
-            "10"
-          ],
-          "mode": "static"
-        }
-      ]
-    },
-    {
-      "type": "scene",
-      "method": "update",
-      "tangible_id": "equation_builder",
-      "params": {
-        "expression": [
-          "5",
-          "×",
-          "2",
-          "=",
-          "10"
-        ],
-        "description": "Equation Builder returns to 5 × 2 = 10."
-      }
-    },
-    {
       "type": "dialogue",
-      "text": "Same answer. Both work — but skip-counting is usually faster and multiplication is a shorter way to write it."
+      "text": "Same answer. Both work, but skip-counting is usually faster and multiplication is a shorter way to write it."
     },
     {
       "type": "current_scene",
       "elements": [
         {
+          "tangible_id": "products_strip",
+          "description": "Products Strip displays 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 with all values highlighted and labeled Multiples of 2.",
+          "tangible_type": "products_strip",
+          "mode": "reading",
+          "values": [
+            2,
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18,
+            20
+          ]
+        },
+        {
+          "tangible_id": "equal_groups_circles",
+          "description": "Equal groups visualization shows 5 containers with 2 items per container, all highlighted.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 2
+        },
+        {
           "tangible_id": "equation_builder",
-          "description": "Equation Builder shows 5 × 2 = 10.",
+          "description": "Equation Builder displays 5 × 2 = 10.",
           "tangible_type": "equation_builder",
-          "expression": [
-            "5",
-            "×",
-            "2",
-            "=",
-            "10"
-          ],
-          "mode": "static"
+          "mode": "reading"
+        },
+        {
+          "tangible_id": "repeated_addition",
+          "description": "Repeated addition equation 2 + 2 + 2 + 2 + 2 = 10 visible below circles.",
+          "tangible_type": "equation"
         }
       ]
     },
@@ -144,12 +177,12 @@
           "condition": {
             "selected": "Even"
           },
-          "description": "Student answered Even, correct",
+          "description": "Student selected Even, correct answer",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "Always even. The pattern works every time — in groups of 2, every item always has a pair with no items left."
+              "text": "Always even. The pattern works every time. In groups of 2, every item always has a pair with no items left."
             }
           ]
         }
@@ -159,20 +192,44 @@
       "type": "current_scene",
       "elements": [
         {
+          "tangible_id": "products_strip",
+          "description": "Products Strip displays 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 with all values highlighted and labeled Multiples of 2.",
+          "tangible_type": "products_strip",
+          "mode": "reading",
+          "values": [
+            2,
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18,
+            20
+          ]
+        },
+        {
+          "tangible_id": "equal_groups_circles",
+          "description": "Equal groups visualization shows 5 containers with 2 items per container, all highlighted.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 2
+        },
+        {
           "tangible_id": "equation_builder",
-          "description": "Equation Builder shows 5 × 2 = 10.",
+          "description": "Equation Builder displays 5 × 2 = 10.",
           "tangible_type": "equation_builder",
-          "expression": [
-            "5",
-            "×",
-            "2",
-            "=",
-            "10"
-          ],
-          "mode": "static"
+          "mode": "reading"
+        },
+        {
+          "tangible_id": "repeated_addition",
+          "description": "Repeated addition equation 2 + 2 + 2 + 2 + 2 = 10 visible below circles.",
+          "tangible_type": "equation"
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:02:01.251871+00:00"
+  "_generated_at": "2026-04-27T15:55:30.299768+00:00"
 }

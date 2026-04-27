@@ -7,18 +7,19 @@
       "tangible_id": "equation_builder_6x10",
       "tangible_type": "equation_builder",
       "params": {
-        "expression": [
-          "6",
-          "x",
-          "10",
+        "mode": "building",
+        "template": [
+          "__",
+          "×",
+          "__",
           "=",
           "__"
         ],
-        "pre_filled": {
-          "groups": 6,
-          "items": 10
+        "prefilled_slots": {
+          "slot_0": 6,
+          "slot_2": 10
         },
-        "palette": [
+        "tile_palette": [
           10,
           16,
           30,
@@ -26,7 +27,7 @@
           60,
           70
         ],
-        "description": "Equation Builder appears. 6 × 10 = [blank]. Factors pre-filled. Palette shows 10, 16, 30, 50, 60, 70. Methods C/D active."
+        "description": "Equation Builder appears showing 6 × 10 = __ with factors pre-filled. Tile palette displays six product options: 10, 16, 30, 50, 60, 70."
       }
     },
     {
@@ -38,13 +39,14 @@
       "text": "Find the product of 6 × 10. Place the tile.",
       "tool": "place_tile",
       "target": "equation_builder_6x10",
+      "variable_answer": false,
       "validator": [
         {
           "condition_id": "correct",
           "condition": {
-            "total": 60
+            "product_equals": 60
           },
-          "description": "Student placed 60, correct product",
+          "description": "Student placed 60 in product slot, correct",
           "is_correct": true,
           "beats": [
             {
@@ -52,9 +54,9 @@
               "method": "animate",
               "tangible_id": "equation_builder_6x10",
               "params": {
-                "event": "tile_locks_in_slot",
+                "event": "pulse_equation",
                 "status": "confirmed",
-                "description": "60 tile locks into product slot."
+                "description": "Completed equation 6 × 10 = 60 pulses to confirm correctness."
               }
             },
             {
@@ -70,18 +72,24 @@
       "elements": [
         {
           "tangible_id": "equation_builder_6x10",
-          "description": "Equation Builder showing 6 × 10 = 60. All slots filled. Palette showing 10, 16, 30, 50, 60, 70.",
+          "description": "Equation Builder showing completed equation 6 × 10 = 60 with all three slots filled. Tile palette inactive.",
           "tangible_type": "equation_builder",
-          "expression": [
-            "6",
-            "x",
-            "10",
+          "mode": "building",
+          "template": [
+            "__",
+            "×",
+            "__",
             "=",
-            "60"
-          ]
+            "__"
+          ],
+          "filled_slots": {
+            "slot_0": 6,
+            "slot_2": 10,
+            "slot_4": 60
+          }
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:04:04.115148+00:00"
+  "_generated_at": "2026-04-27T15:58:46.965706+00:00"
 }

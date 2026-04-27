@@ -12,7 +12,7 @@
         "elements": []
       }
     ],
-    "_generated_at": "2026-04-20T16:59:54.405474+00:00"
+    "_generated_at": "2026-04-27T15:53:02.849311+00:00"
   },
   {
     "id": "s1_1_build_expression_boxes",
@@ -26,21 +26,23 @@
           "mode": "reading",
           "container_count": 3,
           "items_per_container": 4,
-          "description": "3 boxes appear, each containing 4 items (cookies or markers). Equal groups visualization in reading mode."
+          "item_type": "cookies",
+          "container_type": "boxes",
+          "description": "3 boxes appear on screen, each containing 4 cookies arranged in a grid."
         }
       },
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "equation_builder_boxes",
+        "tangible_id": "equation_builder",
         "tangible_type": "equation_builder",
         "params": {
-          "expression_template": [
+          "template": [
             "__",
             "×",
             "__"
           ],
-          "tile_palette": [
+          "palette": [
             1,
             2,
             3,
@@ -63,7 +65,7 @@
         "type": "prompt",
         "text": "Build the expression.",
         "tool": "place_tile",
-        "target": "equation_builder_boxes",
+        "target": "equation_builder",
         "validator": [
           {
             "condition_id": "correct",
@@ -73,7 +75,7 @@
                 "items": 4
               }
             },
-            "description": "Student placed 3 and 4, building 3 × 4",
+            "description": "Student placed 3 × 4, correct",
             "is_correct": true,
             "beats": [
               {
@@ -89,26 +91,40 @@
         "elements": [
           {
             "tangible_id": "equal_groups_boxes",
-            "description": "3 boxes with 4 items each. Equal groups visualization in reading mode.",
+            "description": "3 boxes displayed, each containing 4 cookies.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 3,
-            "items_per_container": 4
+            "items_per_container": 4,
+            "item_type": "cookies",
+            "container_type": "boxes"
           },
           {
-            "tangible_id": "equation_builder_boxes",
-            "description": "Equation builder showing 3 × 4. Expression complete.",
+            "tangible_id": "equation_builder",
+            "description": "Equation builder showing 3 × 4 after student placement.",
             "tangible_type": "equation_builder",
-            "expression_template": [
+            "template": [
               "__",
               "×",
               "__"
+            ],
+            "palette": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
             ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:00:03.947326+00:00"
+    "_generated_at": "2026-04-27T15:53:17.899708+00:00"
   },
   {
     "id": "s1_2_identify_visual_expression",
@@ -119,49 +135,58 @@
         "tangible_id": "equation_builder",
         "tangible_type": "equation_builder",
         "params": {
-          "mode": "display",
-          "expression": [
+          "mode": "reading",
+          "template": [
             "4",
             "×",
             "2"
           ],
-          "description": "Equation builder displays static expression 4 × 2 in expression mode."
+          "description": "Equation builder displays completed expression 4 × 2 in reading mode. No blanks to fill."
         }
       },
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "visual_option_a",
+        "tangible_id": "visual_a",
         "tangible_type": "equal_groups",
         "params": {
           "mode": "reading",
+          "container_type": "bags",
+          "item_type": "items",
           "container_count": 4,
           "items_per_container": 2,
-          "description": "Visual option A: 4 bags with 2 items in each."
+          "layout": "grid",
+          "description": "Option A: 4 bags, each containing 2 items, arranged in grid layout."
         }
       },
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "visual_option_b",
+        "tangible_id": "visual_b",
         "tangible_type": "equal_groups",
         "params": {
           "mode": "reading",
+          "container_type": "bags",
+          "item_type": "items",
           "container_count": 2,
           "items_per_container": 4,
-          "description": "Visual option B: 2 bags with 4 items in each (factor reversal)."
+          "layout": "grid",
+          "description": "Option B: 2 bags, each containing 4 items, arranged in grid layout."
         }
       },
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "visual_option_c",
+        "tangible_id": "visual_c",
         "tangible_type": "equal_groups",
         "params": {
           "mode": "reading",
+          "container_type": "none",
+          "item_type": "items",
           "container_count": 1,
           "items_per_container": 6,
-          "description": "Visual option C: 6 items scattered without equal group structure (sum of factors)."
+          "layout": "scattered",
+          "description": "Option C: 6 items scattered with no grouping structure."
         }
       },
       {
@@ -183,13 +208,13 @@
             "condition": {
               "selected": "A"
             },
-            "description": "Student selected A: 4 bags of 2, correct match for 4 × 2",
+            "description": "Student selected option A, correct: 4 bags with 2 in each matches 4 × 2",
             "is_correct": true,
             "beats": [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "visual_option_a",
+                "tangible_id": "visual_a",
                 "params": {
                   "event": "highlight_selection",
                   "status": "confirmed",
@@ -198,7 +223,7 @@
               },
               {
                 "type": "dialogue",
-                "text": "That's right—4 groups with 2 in each."
+                "text": "That's right—4 groups with 2 in each. That's what 4 times 2 shows."
               }
             ]
           }
@@ -209,43 +234,46 @@
         "elements": [
           {
             "tangible_id": "equation_builder",
-            "description": "Equation builder displays static expression 4 × 2.",
+            "description": "Equation builder displays 4 × 2 in reading mode.",
             "tangible_type": "equation_builder",
-            "mode": "display",
-            "expression": [
+            "mode": "reading",
+            "template": [
               "4",
               "×",
               "2"
             ]
           },
           {
-            "tangible_id": "visual_option_a",
-            "description": "Visual option A: 4 bags with 2 items in each.",
+            "tangible_id": "visual_a",
+            "description": "Option A: 4 bags with 2 items each, grid layout.",
             "tangible_type": "equal_groups",
             "mode": "reading",
+            "container_type": "bags",
             "container_count": 4,
             "items_per_container": 2
           },
           {
-            "tangible_id": "visual_option_b",
-            "description": "Visual option B: 2 bags with 4 items in each.",
+            "tangible_id": "visual_b",
+            "description": "Option B: 2 bags with 4 items each, grid layout.",
             "tangible_type": "equal_groups",
             "mode": "reading",
+            "container_type": "bags",
             "container_count": 2,
             "items_per_container": 4
           },
           {
-            "tangible_id": "visual_option_c",
-            "description": "Visual option C: 6 items scattered without equal group structure.",
+            "tangible_id": "visual_c",
+            "description": "Option C: 6 items scattered, no grouping.",
             "tangible_type": "equal_groups",
             "mode": "reading",
+            "container_type": "none",
             "container_count": 1,
             "items_per_container": 6
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:00:21.389451+00:00"
+    "_generated_at": "2026-04-27T15:53:37.050064+00:00"
   },
   {
     "id": "s1_3_build_expression_circles",
@@ -257,10 +285,12 @@
         "tangible_type": "equal_groups",
         "params": {
           "mode": "reading",
+          "container_type": "circles",
+          "item_type": "dots",
           "container_count": 5,
           "items_per_container": 3,
-          "visual_style": "circles_with_dots",
-          "description": "5 circles appear, each containing 3 dots. Semi-abstract equal groups representation."
+          "layout": "grid",
+          "description": "5 circles appear, each containing 3 dots, arranged in grid layout. Semi-abstract equal groups visualization."
         }
       },
       {
@@ -269,12 +299,12 @@
         "tangible_id": "equation_builder_circles",
         "tangible_type": "equation_builder",
         "params": {
-          "expression_template": [
+          "template": [
             "__",
             "×",
             "__"
           ],
-          "tile_palette": [
+          "palette": [
             3,
             5,
             7,
@@ -284,7 +314,7 @@
             15,
             18
           ],
-          "description": "Equation builder appears below the circles. Two blank slots with multiplication symbol between. Tile palette shows: 3, 5, 7, 8, 10, 12, 15, 18."
+          "description": "Equation builder appears with two blank slots separated by multiplication symbol. Tile palette shows 3, 5, 7, 8, 10, 12, 15, 18."
         }
       },
       {
@@ -303,19 +333,9 @@
               "groups": 5,
               "items": 3
             },
-            "description": "Student placed 5 × 3, correct",
+            "description": "Student placed 5 and 3 to build 5 × 3",
             "is_correct": true,
             "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "equation_builder_circles",
-                "params": {
-                  "event": "confirm_expression",
-                  "status": "confirmed",
-                  "description": "Expression 5 × 3 confirms."
-                }
-              },
               {
                 "type": "dialogue",
                 "text": "Nice—5 times 3."
@@ -329,35 +349,27 @@
         "elements": [
           {
             "tangible_id": "equal_groups_circles",
-            "description": "5 circles with 3 dots each. Semi-abstract equal groups context.",
+            "description": "5 circles, each containing 3 dots, arranged in grid layout. Semi-abstract equal groups visualization in reading mode.",
             "tangible_type": "equal_groups",
             "mode": "reading",
+            "container_type": "circles",
+            "item_type": "dots",
             "container_count": 5,
             "items_per_container": 3
           },
           {
             "tangible_id": "equation_builder_circles",
-            "description": "Equation builder showing confirmed expression 5 × 3.",
+            "description": "Equation builder displaying completed expression 5 × 3.",
             "tangible_type": "equation_builder",
-            "expression_template": [
-              "__",
+            "template": [
+              "5",
               "×",
-              "__"
-            ],
-            "tile_palette": [
-              3,
-              5,
-              7,
-              8,
-              10,
-              12,
-              15,
-              18
+              "3"
             ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:00:32.393194+00:00"
+    "_generated_at": "2026-04-27T15:53:54.236207+00:00"
   }
 ]

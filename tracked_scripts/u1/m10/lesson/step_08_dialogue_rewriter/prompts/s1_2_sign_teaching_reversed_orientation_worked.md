@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:06:18.463349
+# Generated: 2026-04-27T11:00:55.495163
 ======================================================================
 
 ## API Parameters
@@ -960,7 +960,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "Both of these are correct. The equals sign works both ways, because it means same value as.",
+      "text": "Both of these are correct. The equals sign works both ways because it means same value as.",
       "context": "lesson"
     },
     {

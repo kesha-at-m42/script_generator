@@ -4,13 +4,15 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equal_groups_build",
+      "tangible_id": "equal_groups_builder",
       "tangible_type": "equal_groups",
       "params": {
         "mode": "building",
+        "container_type": "bag",
+        "item_type": "item",
         "container_count": 0,
         "items_per_container": 0,
-        "description": "Empty equal groups workspace appears in building mode. No groups yet."
+        "description": "Empty equal groups workspace appears in building mode. No bags or items yet."
       }
     },
     {
@@ -25,7 +27,7 @@
       "type": "prompt",
       "text": "How many groups? Set the bags.",
       "tool": "set_container_count",
-      "target": "equal_groups_build",
+      "target": "equal_groups_builder",
       "validator": [
         {
           "condition_id": "correct",
@@ -38,10 +40,10 @@
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "equal_groups_build",
+              "tangible_id": "equal_groups_builder",
               "params": {
                 "container_count": 2,
-                "description": "2 empty bags appear."
+                "description": "2 bags appear on screen, empty."
               }
             },
             {
@@ -55,7 +57,7 @@
           "condition": {
             "container_count": 3
           },
-          "description": "Student set container count to 3, reversed the numbers",
+          "description": "Student set container count to 3, reversed the values",
           "is_correct": false,
           "beats": [
             {
@@ -67,7 +69,7 @@
         {
           "condition_id": "other",
           "condition": {},
-          "description": "Student set container count to any other value",
+          "description": "Student set container count to any value other than 2 or 3",
           "is_correct": false,
           "beats": [
             {
@@ -82,24 +84,22 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equal_groups_build",
-          "description": "Equal groups workspace in building mode. 2 empty bags visible.",
+          "tangible_id": "equal_groups_builder",
+          "description": "Equal groups workspace in building mode. 2 empty bags visible. Awaiting items-per-container input.",
           "tangible_type": "equal_groups",
           "mode": "building",
+          "container_type": "bag",
+          "item_type": "item",
           "container_count": 2,
           "items_per_container": 0
         }
       ]
     },
     {
-      "type": "dialogue",
-      "text": "How many in each group? Add the items."
-    },
-    {
       "type": "prompt",
       "text": "How many in each group? Add the items.",
       "tool": "set_items_per_container",
-      "target": "equal_groups_build",
+      "target": "equal_groups_builder",
       "validator": [
         {
           "condition_id": "correct",
@@ -112,10 +112,10 @@
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "equal_groups_build",
+              "tangible_id": "equal_groups_builder",
               "params": {
                 "items_per_container": 3,
-                "description": "3 items appear in each bag."
+                "description": "3 items appear in each of the 2 bags."
               }
             },
             {
@@ -129,7 +129,7 @@
           "condition": {
             "items_per_container": 2
           },
-          "description": "Student set items per container to 2, reversed the numbers",
+          "description": "Student set items per container to 2, reversed the values",
           "is_correct": false,
           "beats": [
             {
@@ -141,12 +141,12 @@
         {
           "condition_id": "other",
           "condition": {},
-          "description": "Student set items per container to any other value",
+          "description": "Student set items per container to any value other than 3 or 2",
           "is_correct": false,
           "beats": [
             {
               "type": "dialogue",
-              "text": "'2 groups of 3.' The 3 goes inside each bag."
+              "text": "2 groups of 3. The 3 goes inside each bag."
             }
           ]
         }
@@ -156,15 +156,17 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equal_groups_build",
-          "description": "Equal groups workspace in building mode. 2 bags with 3 items in each bag visible.",
+          "tangible_id": "equal_groups_builder",
+          "description": "Equal groups workspace showing 2 bags, each containing 3 items. Build complete.",
           "tangible_type": "equal_groups",
           "mode": "building",
+          "container_type": "bag",
+          "item_type": "item",
           "container_count": 2,
           "items_per_container": 3
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:00:05.559342+00:00"
+  "_generated_at": "2026-04-27T15:53:32.724826+00:00"
 }

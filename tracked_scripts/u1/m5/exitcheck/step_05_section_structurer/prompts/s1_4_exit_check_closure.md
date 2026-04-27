@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T11:59:19.779659
+# Generated: 2026-04-27T10:53:59.740166
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -812,11 +828,12 @@ Cacheable: Yes
   "id": "s1_4_exit_check_closure",
   "visual": "Final problem clears.",
   "guide": "\"You're ready to practice.\"",
-  "_generated_at": "2026-04-20T16:58:40.615877+00:00",
+  "_generated_at": "2026-04-27T15:52:44.411058+00:00",
   "workspace_specs": {
     "toys": [],
     "tools": []
-  }
+  },
+  "prior_section_summaries": "## s1_0_transition_into_exit_check\n# Section Summary: s1_0_transition_into_exit_check\n\n**VISUAL STATE:** No tangible visualizations or data displays are present on screen at section end. The scene is empty with no graphs, charts, or interactive elements.\n\n**CONTENT:** This transition reviews the core skill practiced in the preceding lesson: selecting appropriate scales for graphs by (1) checking whether the largest data value fits within the chosen scale range, and (2) examining the last digits of data values to ensure the scale increments align logically with the data. No new vocabulary is formally introduced; this is a consolidation moment.\n\n**STUDENT ACTION:** The student performed no interactive action in this section. This is a dialogue-only transition that sets up an upcoming assessment (\"Let's see what you know\"), signaling a shift from instruction/practice to evaluation.\n\n---\n\n## s1_1_scale_too_small_identify\n# Section Summary: s1_1_scale_too_small_identify\n\n**VISUAL STATE:** Two tangibles remain on screen at section end: (1) a vertical data table displaying \"Toys Collected\" with four categories—Amy (45), Ben (70), Cora (15), Dan (30)—and (2) a vertical bar graph in reading mode with the same four categories (Amy, Ben, Cora, Dan) and four scale options (1, 2, 5, 10), with Scale of 10 selected and marked as correct.\n\n**CONTENT:** Students learned to identify an appropriate scale for a bar graph by evaluating whether the maximum data value (70) fits within each scale option. The concept introduced is that scales that are too small require too many gridlines and become difficult to read, while an appropriately sized scale (10) accommodates the data efficiently. Vocabulary: \"scale\" (the unit intervals on a graph axis).\n\n**STUDENT ACTION:** The student answered a multiple-choice question selecting \"Scale of 10\" as the best scale for the toy collection data, receiving corrective feedback explaining why smaller scales (1, 2, 5) don't work and why Scale of 10 requires only 8 lines, making it easier to read.\n\n---\n\n## s1_2_non_multiples_need_scale_2\n# Section Summary: s1_2_non_multiples_need_scale_2\n\n**VISUAL STATE:** A horizontal data table titled \"Minutes Reading\" displays four categories (Gus, Hal, Eli, Fay) with corresponding values (23, 31, 9, 16 minutes respectively).\n\n**CONTENT:** Students learned to select an appropriate scale for a bar graph by analyzing whether data values are multiples of potential scales. The lesson introduced the strategy of checking the ones digits of all values: if none are 0 or 5, the data contains non-multiples of 5, signaling that a Scale of 2 is needed to display exact values on the graph.\n\n**STUDENT ACTION:** The student answered a multiple-choice question selecting \"Scale of 2\" as the correct scale that would show all four values (23, 31, 9, 16) exactly on a graph, and received corrective feedback explaining why scales of 5 and 10 would not work for this dataset.\n\n---\n\n## s1_3_select_appropriate_scale_compare\n# Section Summary: s1_3_select_appropriate_scale_compare\n\n**VISUAL STATE:** A vertical data table titled \"Steps Walked\" is displayed with four categories (Ana, Ben, Cara, Dan) and their corresponding values (30, 70, 90, 50 steps respectively).\n\n**CONTENT:** Students learned to select an appropriate scale for a bar graph by considering the range of data values. The concept introduced is that larger data ranges (like 0–90) require larger scales (e.g., scale of 10) to create a clean, readable graph with fewer axis lines, rather than smaller scales (5 or 2) that would require excessive lines.\n\n**STUDENT ACTION:** Students answered a multiple-choice question selecting the best scale option from three choices: \"Scale of 10 — it's easiest to read\" (correct), \"Scale of 5 — it shows more detail\" (incorrect), or \"Scale of 2 — it works for any numbers\" (incorrect). Feedback was provided based on their selection, reinforcing why scale of 10 is optimal for data reaching 90."
 }
 </input>
 

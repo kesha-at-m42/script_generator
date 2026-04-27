@@ -4,9 +4,9 @@
     [
       {
         "condition": {
-          "selected": "3 groups of 2"
+          "selected": "2 groups of 2"
         },
-        "description": "Student selected 3 groups of 2: counted groups correctly but undercounted items per group",
+        "description": "Student selected 2 groups of 2: miscounted both groups and items",
         "is_correct": false,
         "steps": [
           [
@@ -15,13 +15,37 @@
               "method": "update",
               "tangible_id": "equal_groups_circles",
               "params": {
-                "highlight_one_container": true,
-                "description": "One circle highlights to draw attention to counting items inside."
+                "highlight_categories": [],
+                "description": "All circles briefly highlight to draw attention to the full set."
               }
             },
             {
               "type": "dialogue",
-              "text": "You counted the circles correctly. Now look inside ONE circle. Count the dots carefully."
+              "text": "Count all the circles. Then look inside one circle and count the dots."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "3 groups of 2"
+        },
+        "description": "Student selected 3 groups of 2: counted groups correctly but miscounted items per group",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "highlight_categories": [],
+                "description": "One circle pulses to draw focus."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted the circles. Now look inside one circle. Count the dots carefully."
             }
           ]
         ]
@@ -30,7 +54,7 @@
         "condition": {
           "selected": "2 groups of 3"
         },
-        "description": "Student selected 2 groups of 3: reversed the groups count and items per group",
+        "description": "Student selected 2 groups of 3: miscounted groups but counted items correctly",
         "is_correct": false,
         "steps": [
           [
@@ -39,37 +63,13 @@
               "method": "update",
               "tangible_id": "equal_groups_circles",
               "params": {
-                "highlight_all_containers": true,
-                "description": "All three circles highlight to emphasize the group count."
+                "highlight_categories": [],
+                "description": "All circles highlight sequentially."
               }
             },
             {
               "type": "dialogue",
-              "text": "The 2 tells us about the items inside. The groups are the circles themselves. How many circles do you see?"
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "selected": "4 groups of 3"
-        },
-        "description": "Student selected 4 groups of 3: overcounted the number of groups",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "equal_groups_circles",
-              "params": {
-                "highlight_all_containers": true,
-                "description": "All circles highlight to emphasize counting the groups."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "Each circle is one group. Count the circles: how many circles are there?"
+              "text": "Count the circles one at a time. How many circles are there?"
             }
           ]
         ]
@@ -85,19 +85,19 @@
               "method": "animate",
               "tangible_id": "equal_groups_circles",
               "params": {
-                "event": "highlight_containers_sequentially",
+                "event": "count_containers",
                 "status": "confirmed",
-                "description": "Circles highlight one at a time as they are counted: 1, 2, 3. Then one circle opens and dots inside highlight one at a time: 1, 2, 3."
+                "description": "Circles highlight sequentially: 1, 2, 3."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. First, count the circles: 1, 2, 3. Three circles. Those are the groups. Now look inside one circle: 1, 2, 3 dots. Three in each group. So we have 3 groups of 3. That's how you identify equal groups: count the containers first, then count what's inside one of them."
+              "text": "Let me show you. First, I count the circles: 1, 2, 3. Three circles. Now I look inside one circle and count the dots: 1, 2, 3. Three dots in each circle. So we have 3 groups of 3. That's what equal groups are: the same number in each group."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:05:33.592445+00:00"
+  "_generated_at": "2026-04-27T16:00:22.134923+00:00"
 }

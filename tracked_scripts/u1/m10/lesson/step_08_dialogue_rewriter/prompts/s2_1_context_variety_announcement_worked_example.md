@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:06:31.514861
+# Generated: 2026-04-27T11:01:05.112320
 ======================================================================
 
 ## API Parameters
@@ -960,11 +960,11 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "3 times 9. And the product? Skip count by 9s: 9, 18, 27.",
+      "text": "3 times 9. And the product? Skip-count by 9s: 9, 18, 27.",
       "context": "lesson"
     },
     {
-      "text": "3 times 9 equals 27. Same equation building, different picture.",
+      "text": "3 times 9 equals 27. Same equation-building, different picture.",
       "context": "lesson"
     },
     {

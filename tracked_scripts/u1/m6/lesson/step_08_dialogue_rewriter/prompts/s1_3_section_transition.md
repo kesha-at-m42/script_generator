@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:02:56.999384
+# Generated: 2026-04-27T10:58:02.041598
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,7 @@ Cacheable: Yes
   "id": "s1_3_section_transition",
   "dialogues": [
     {
-      "text": "Good. How many more means compare, and compare means subtract. You've got that. Now here's something new: What if the problem asks about MORE than one category?",
+      "text": "Good. How many more means compare, and compare means subtract. You've got that. Now here's something new: What if the problem asks about more than one category?",
       "context": "lesson"
     }
   ]

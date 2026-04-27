@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:01:00.213195
+# Generated: 2026-04-27T10:54:33.971857
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -812,15 +828,16 @@ Cacheable: Yes
   "id": "s1_3_section_transition",
   "visual": "Same bar graph remains.",
   "guide": "\"Good—'how many more' means compare, and compare means subtract. You've got that. Now here's something new: What if the problem asks about MORE than one category?\"",
-  "divider": "## **1.7.2 LESSON SECTION 2: Two-Step Strategy Introduction**\n\n**Purpose:** Introduce two-step problems through explicit worked example with Guide think-aloud. Teach the strategy: \"Find the combined total first, then compare.\" Students see the strategy modeled before attempting.",
-  "_generated_at": "2026-04-20T16:59:09.831371+00:00",
+  "divider": "---\n\n## **1.7.2 LESSON SECTION 2: Two-Step Strategy Introduction**\n\n**Purpose:** Introduce two-step problems through explicit worked example with Guide think-aloud. Teach the strategy: \"Find the combined total first, then compare.\" Students see the strategy modeled before attempting.\n\n---",
+  "_generated_at": "2026-04-27T15:52:31.104809+00:00",
   "workspace_specs": {
     "toys": [
       "bar_graph"
     ],
     "tools": [],
     "workspace_carry_over": true
-  }
+  },
+  "prior_section_summaries": "## s1_1_transition_warmup\n# Section Summary: s1_1_transition_warmup\n\n**VISUAL STATE:** A horizontal bar graph titled \"Favorite Lunch Foods\" is displayed in reading mode with a scale of 5. The graph contains four categories with the following values: Pizza = 45, Tacos = 25, Salad = 10, and Burgers = 15.\n\n**CONTENT:** This transition section bridges prior graph-reading skills (learned in Warmup) to problem-solving applications using graphs. Students are introduced to the context of using data visualization to answer questions, with no new vocabulary formally introduced.\n\n**STUDENT ACTION:** The student passively viewed the bar graph display as the instructor introduced the lesson transition and prepared for an upcoming comprehension check on previously learned material.\n\n---\n\n## s1_2_single_step_activation\n# Section Summary: s1_2_single_step_activation\n\n**VISUAL STATE:** A horizontal bar graph titled \"Favorite Lunch Foods\" is displayed in reading mode with scale 5. The graph contains four categories with exact values: Pizza=45, Tacos=25, Salad=10, Burgers=15. A multiple-choice tool is active on screen.\n\n**CONTENT:** Students practiced interpreting bar graph data and performing comparison subtraction. The phrase \"how many more\" was formally introduced as a signal to subtract when comparing two quantities from a graph.\n\n**STUDENT ACTION:** The student answered a multiple-choice question asking \"How many more students chose pizza than salad?\" by selecting 35 (the correct answer derived from 45 − 10). Upon correct selection, feedback reinforced the subtraction strategy and the meaning of \"how many more\" as a comparison operation."
 }
 </input>
 

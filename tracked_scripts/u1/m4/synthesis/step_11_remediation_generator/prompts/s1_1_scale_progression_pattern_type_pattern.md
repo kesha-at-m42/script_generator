@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T11:58:47.334039
+# Generated: 2026-04-27T10:54:42.360364
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1860,14 +1864,17 @@ Cacheable: Yes
         "mode": "reading",
         "orientation": "vertical",
         "categories": [
-          "Scale 1"
+          "Data"
+        ],
+        "values": [
+          20
         ],
         "scale": 1,
         "axis_range": [
           0,
           20
         ],
-        "description": "Vertical bar graph appears on left. Scale of 1. Axis shows 0, 1, 2, 3... 20. Bar reaches 20. 20 axis lines visible."
+        "description": "Vertical bar graph with scale of 1. Single bar showing value of 20. Axis shows 0, 1, 2, 3... up to 20. 20 gridlines visible."
       },
       "id": "s1_1_scale_progression_pattern_type_pattern_b0"
     },
@@ -1880,14 +1887,17 @@ Cacheable: Yes
         "mode": "reading",
         "orientation": "vertical",
         "categories": [
-          "Scale 2"
+          "Data"
+        ],
+        "values": [
+          20
         ],
         "scale": 2,
         "axis_range": [
           0,
           20
         ],
-        "description": "Vertical bar graph appears second from left. Scale of 2. Axis shows 0, 2, 4, 6... 20. Bar reaches 20. 10 axis lines visible."
+        "description": "Vertical bar graph with scale of 2. Single bar showing value of 20. Axis shows 0, 2, 4, 6... up to 20. 10 gridlines visible."
       },
       "id": "s1_1_scale_progression_pattern_type_pattern_b1"
     },
@@ -1900,14 +1910,17 @@ Cacheable: Yes
         "mode": "reading",
         "orientation": "vertical",
         "categories": [
-          "Scale 5"
+          "Data"
+        ],
+        "values": [
+          20
         ],
         "scale": 5,
         "axis_range": [
           0,
           20
         ],
-        "description": "Vertical bar graph appears third from left. Scale of 5. Axis shows 0, 5, 10, 15, 20. Bar reaches 20. 4 axis lines visible."
+        "description": "Vertical bar graph with scale of 5. Single bar showing value of 20. Axis shows 0, 5, 10, 15, 20. 4 gridlines visible."
       },
       "id": "s1_1_scale_progression_pattern_type_pattern_b2"
     },
@@ -1920,14 +1933,17 @@ Cacheable: Yes
         "mode": "reading",
         "orientation": "vertical",
         "categories": [
-          "Scale 10"
+          "Data"
+        ],
+        "values": [
+          20
         ],
         "scale": 10,
         "axis_range": [
           0,
           20
         ],
-        "description": "Vertical bar graph appears on right. Scale of 10. Axis shows 0, 10, 20. Bar reaches 20. 2 axis lines visible."
+        "description": "Vertical bar graph with scale of 10. Single bar showing value of 20. Axis shows 0, 10, 20. 2 gridlines visible."
       },
       "id": "s1_1_scale_progression_pattern_type_pattern_b3"
     },
@@ -1939,15 +1955,20 @@ Cacheable: Yes
     {
       "type": "prompt",
       "text": "Which scale uses the fewest lines to show the same amount?",
-      "tool": "click_category",
-      "target": "bar_graph_scale_10",
+      "tool": "click_tangible",
+      "target": [
+        "bar_graph_scale_1",
+        "bar_graph_scale_2",
+        "bar_graph_scale_5",
+        "bar_graph_scale_10"
+      ],
       "validator": [
         {
           "condition_id": "correct",
           "condition": {
-            "selected": "Scale 10"
+            "selected": "bar_graph_scale_10"
           },
-          "description": "Student clicked scale of 10 graph, correct",
+          "description": "Student clicked scale of 10 graph (rightmost), correct",
           "is_correct": true,
           "beats": [
             {
@@ -1955,10 +1976,9 @@ Cacheable: Yes
               "method": "animate",
               "tangible_id": "bar_graph_scale_10",
               "params": {
-                "event": "highlight_category",
+                "event": "highlight_graph",
                 "status": "confirmed",
-                "description": "Scale of 10 graph highlights to confirm selection.",
-                "category": "Scale 10"
+                "description": "Scale of 10 graph highlights to confirm selection."
               },
               "id": "s1_1_scale_progression_pattern_type_pattern_b5_v0_b0"
             },
@@ -1977,45 +1997,45 @@ Cacheable: Yes
       "elements": [
         {
           "tangible_id": "bar_graph_scale_1",
-          "description": "Vertical bar graph. Scale of 1. Axis: 0, 1, 2... 20. Bar at 20. 20 axis lines.",
+          "description": "Vertical bar graph with scale of 1. Single bar at value 20. Axis shows 0 through 20 with 20 gridlines.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Scale 1"
+            "Data"
           ],
           "scale": 1
         },
         {
           "tangible_id": "bar_graph_scale_2",
-          "description": "Vertical bar graph. Scale of 2. Axis: 0, 2, 4... 20. Bar at 20. 10 axis lines.",
+          "description": "Vertical bar graph with scale of 2. Single bar at value 20. Axis shows 0, 2, 4... 20 with 10 gridlines.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Scale 2"
+            "Data"
           ],
           "scale": 2
         },
         {
           "tangible_id": "bar_graph_scale_5",
-          "description": "Vertical bar graph. Scale of 5. Axis: 0, 5, 10, 15, 20. Bar at 20. 4 axis lines.",
+          "description": "Vertical bar graph with scale of 5. Single bar at value 20. Axis shows 0, 5, 10, 15, 20 with 4 gridlines.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Scale 5"
+            "Data"
           ],
           "scale": 5
         },
         {
           "tangible_id": "bar_graph_scale_10",
-          "description": "Vertical bar graph highlighted. Scale of 10. Axis: 0, 10, 20. Bar at 20. 2 axis lines.",
+          "description": "Vertical bar graph with scale of 10. Single bar at value 20. Axis shows 0, 10, 20 with 2 gridlines. Graph highlighted.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Scale 10"
+            "Data"
           ],
           "scale": 10
         }
@@ -2032,45 +2052,45 @@ Cacheable: Yes
       "elements": [
         {
           "tangible_id": "bar_graph_scale_1",
-          "description": "Vertical bar graph. Scale of 1. Axis: 0, 1, 2... 20. Bar at 20. 20 axis lines.",
+          "description": "Vertical bar graph with scale of 1. Single bar at value 20. Axis shows 0 through 20 with 20 gridlines.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Scale 1"
+            "Data"
           ],
           "scale": 1
         },
         {
           "tangible_id": "bar_graph_scale_2",
-          "description": "Vertical bar graph. Scale of 2. Axis: 0, 2, 4... 20. Bar at 20. 10 axis lines.",
+          "description": "Vertical bar graph with scale of 2. Single bar at value 20. Axis shows 0, 2, 4... 20 with 10 gridlines.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Scale 2"
+            "Data"
           ],
           "scale": 2
         },
         {
           "tangible_id": "bar_graph_scale_5",
-          "description": "Vertical bar graph. Scale of 5. Axis: 0, 5, 10, 15, 20. Bar at 20. 4 axis lines.",
+          "description": "Vertical bar graph with scale of 5. Single bar at value 20. Axis shows 0, 5, 10, 15, 20 with 4 gridlines.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Scale 5"
+            "Data"
           ],
           "scale": 5
         },
         {
           "tangible_id": "bar_graph_scale_10",
-          "description": "Vertical bar graph highlighted. Scale of 10. Axis: 0, 10, 20. Bar at 20. 2 axis lines.",
+          "description": "Vertical bar graph with scale of 10. Single bar at value 20. Axis shows 0, 10, 20 with 2 gridlines. Graph highlighted.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Scale 10"
+            "Data"
           ],
           "scale": 10
         }
@@ -2078,7 +2098,7 @@ Cacheable: Yes
       "id": "s1_1_scale_progression_pattern_type_pattern_b8"
     }
   ],
-  "_generated_at": "2026-04-20T16:57:53.837596+00:00"
+  "_generated_at": "2026-04-27T15:53:19.018284+00:00"
 }
 </input>
 

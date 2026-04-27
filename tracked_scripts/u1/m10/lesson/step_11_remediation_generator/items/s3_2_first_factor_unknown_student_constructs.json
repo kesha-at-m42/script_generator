@@ -4,36 +4,6 @@
     [
       {
         "condition": {
-          "container_count": 3
-        },
-        "description": "Student built 3 groups of 10, total = 30, short of target",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "dialogue",
-              "text": "That's 3 groups of 10, which is 30. You need 40 total. Add one more group."
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "container_count": 6
-        },
-        "description": "Student built 6 groups of 10, total = 60, overshot",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "dialogue",
-              "text": "That's 60, too many. Remove groups until you reach 40."
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
           "incorrect_count": 1
         },
         "description": "Student built wrong number of groups on first attempt",
@@ -42,7 +12,7 @@
           [
             {
               "type": "dialogue",
-              "text": "Count by 10s as you add groups. Stop when you hit 40."
+              "text": "Not quite. Skip-count by 10s until you reach 40. How many times do you count?"
             }
           ]
         ]
@@ -60,12 +30,13 @@
               "method": "update",
               "tangible_id": "equal_groups_cats",
               "params": {
-                "description": "Running total display emphasized: Total: 0 / 40. Target of 40 highlighted."
+                "highlight_running_total": true,
+                "description": "Running total display highlights showing target 40."
               }
             },
             {
               "type": "dialogue",
-              "text": "You need exactly 40. Count by 10s: one group is 10, two groups is 20, three groups is 30. How many groups to reach 40?"
+              "text": "Groups of 10. Count by 10s: 10, 20, 30, 40. How many groups did that take? Build that many."
             }
           ]
         ]
@@ -81,14 +52,14 @@
               "method": "animate",
               "tangible_id": "equal_groups_cats",
               "params": {
-                "event": "guide_builds_groups",
+                "event": "build_groups_sequential",
                 "status": "confirmed",
-                "description": "Guide demonstrates building groups: one group (10), two groups (20), three groups (30), four groups (40). Each group appears sequentially with running count."
+                "description": "Groups appear one at a time: first group (10), second group (20), third group (30), fourth group (40). Running total counts up."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. One group of 10 is 10. Two groups is 20. Three groups is 30. Four groups is 40. It takes 4 groups of 10 to make 40. The unknown was 4."
+              "text": "Let me show you. Skip-count by 10s: 10, 20, 30, 40. That's 4 times, so 4 groups. 4 times 10 equals 40."
             }
           ]
         ]
@@ -97,45 +68,15 @@
     [
       {
         "condition": {
-          "items_per_container": 4
-        },
-        "description": "Student put 4 in each group, total = 8, short of target",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "dialogue",
-              "text": "That's 8 total. You need 10. Add one more to each group."
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "items_per_container": 6
-        },
-        "description": "Student put 6 in each group, total = 12, overshot",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "dialogue",
-              "text": "That's 12, too many. Remove one from each group."
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
           "incorrect_count": 1
         },
-        "description": "Student set wrong number per group on first attempt",
+        "description": "Student set wrong number of items per group on first attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "dialogue",
-              "text": "Check the total. You need 10. Adjust the number in each group."
+              "text": "Look at the total. 2 groups need to equal 10. How many in each group?"
             }
           ]
         ]
@@ -144,7 +85,7 @@
         "condition": {
           "incorrect_count": 2
         },
-        "description": "Student set wrong number per group on second attempt",
+        "description": "Student set wrong number of items per group on second attempt",
         "is_correct": false,
         "steps": [
           [
@@ -153,19 +94,20 @@
               "method": "update",
               "tangible_id": "equal_groups_cats_2",
               "params": {
-                "description": "Running total display emphasized: Total shows current count / 10. Target of 10 highlighted."
+                "highlight_running_total": true,
+                "description": "Running total display highlights showing target 10."
               }
             },
             {
               "type": "dialogue",
-              "text": "You have 2 groups. Each group needs the same number. Count by that number twice to reach 10. Try different amounts and watch the total."
+              "text": "2 groups. Total is 10. Skip-count by 5s: 5, 10. That's 2 groups of 5. Build it."
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student set wrong number per group three or more times. System models the answer.",
+        "description": "Student set wrong number of items per group three or more times. System models the answer.",
         "is_correct": false,
         "steps": [
           [
@@ -174,14 +116,14 @@
               "method": "animate",
               "tangible_id": "equal_groups_cats_2",
               "params": {
-                "event": "guide_builds_groups",
+                "event": "add_items_to_groups",
                 "status": "confirmed",
-                "description": "Guide demonstrates building: 5 cats appear in first group, then 5 in second group. Running count shows: 5, then 10."
+                "description": "5 cats appear in each of the 2 groups simultaneously. Running total updates to 10."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. If I put 5 in the first group, that's 5. Then 5 in the second group brings the total to 10. Two groups of 5 equals 10. The unknown was 5."
+              "text": "Watch. 2 groups, 5 in each. That makes 10 total. 2 times 5 equals 10. The unknown was 5."
             }
           ]
         ]
@@ -190,45 +132,15 @@
     [
       {
         "condition": {
-          "items_per_container": 6
-        },
-        "description": "Student put 6 in each group, total = 12, short of target",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "dialogue",
-              "text": "That's 12 total. You need 14. Add one more to each group."
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "items_per_container": 8
-        },
-        "description": "Student put 8 in each group, total = 16, overshot",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "dialogue",
-              "text": "That's 16, too many. Remove one from each group."
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
           "incorrect_count": 1
         },
-        "description": "Student set wrong number per group on first attempt",
+        "description": "Student set wrong number of items per group on first attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "dialogue",
-              "text": "Check the total. You need 14. Adjust how many are in each group."
+              "text": "Check the total. 2 groups need to equal 14. What goes in each group?"
             }
           ]
         ]
@@ -237,7 +149,7 @@
         "condition": {
           "incorrect_count": 2
         },
-        "description": "Student set wrong number per group on second attempt",
+        "description": "Student set wrong number of items per group on second attempt",
         "is_correct": false,
         "steps": [
           [
@@ -246,19 +158,20 @@
               "method": "update",
               "tangible_id": "equal_groups_cats_3",
               "params": {
-                "description": "Running total display emphasized: Total shows current count / 14. Target of 14 highlighted."
+                "highlight_running_total": true,
+                "description": "Running total display highlights showing target 14."
               }
             },
             {
               "type": "dialogue",
-              "text": "You have 2 groups. Skip count by the number in each group twice. What number, counted twice, reaches 14?"
+              "text": "2 groups make 14. Skip-count by 7s twice: 7, 14. That's 7 in each group. Build it."
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student set wrong number per group three or more times. System models the answer.",
+        "description": "Student set wrong number of items per group three or more times. System models the answer.",
         "is_correct": false,
         "steps": [
           [
@@ -267,19 +180,19 @@
               "method": "animate",
               "tangible_id": "equal_groups_cats_3",
               "params": {
-                "event": "guide_builds_groups",
+                "event": "add_items_to_groups",
                 "status": "confirmed",
-                "description": "Guide demonstrates building: 7 cats appear in first group, then 7 in second group. Running count shows: 7, then 14."
+                "description": "7 cats appear in each of the 2 groups simultaneously. Running total updates to 14."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. If I put 7 in the first group, that's 7. Then 7 in the second group brings the total to 14. Two groups of 7 equals 14. The unknown was 7."
+              "text": "Here's how. 2 groups, 7 in each. That's 14 total. 2 times 7 equals 14. The unknown was 7."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:09:18.258603+00:00"
+  "_generated_at": "2026-04-27T16:03:38.679648+00:00"
 }

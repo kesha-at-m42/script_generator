@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:02:58.927296
+# Generated: 2026-04-27T10:58:04.305218
 ======================================================================
 
 ## API Parameters
@@ -952,7 +952,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "Those three. Notice we DON'T need burgers. The question doesn't ask about burgers.",
+      "text": "Those three. Notice we DON'T need burgers—the question doesn't ask about burgers.",
       "context": "on_correct"
     }
   ]

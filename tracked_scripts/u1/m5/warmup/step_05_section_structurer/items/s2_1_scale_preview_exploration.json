@@ -1,6 +1,5 @@
 {
   "id": "s2_1_scale_preview_exploration",
-  "type": "transition",
   "beats": [
     {
       "type": "scene",
@@ -8,25 +7,31 @@
       "tangible_id": "data_table",
       "tangible_type": "data_table",
       "params": {
-        "description": "Data table appears showing student's collected data from warmup."
+        "description": "Data table appears showing student's collected data from the counting game. Four categories: Red blocks, Blue blocks, Green blocks, Yellow blocks. Values are multiples of 5 between 10 and 45."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "bar_graph_student_data",
+      "tangible_id": "bar_graph_blocks",
       "tangible_type": "bar_graph",
       "params": {
         "mode": "reading",
         "orientation": "vertical",
+        "categories": [
+          "Red blocks",
+          "Blue blocks",
+          "Green blocks",
+          "Yellow blocks"
+        ],
         "scale_selector_visible": true,
-        "scale_options": [
+        "available_scales": [
           1,
           2,
           5,
           10
         ],
-        "description": "Vertical bar graph appears with Scale Preview System. Four clickable scale buttons visible: Scale of 1, Scale of 2, Scale of 5, Scale of 10. Graph displays student's data using currently selected scale."
+        "description": "Vertical bar graph appears ready to display student data. Scale Preview System visible with four clickable scale buttons: Scale of 1, Scale of 2, Scale of 5, Scale of 10. Graph updates when a scale button is clicked."
       }
     },
     {
@@ -34,59 +39,31 @@
       "text": "You know how to use different scales. But which one should you use for YOUR data?"
     },
     {
-      "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "data_table",
-          "description": "Data table showing student's collected data.",
-          "tangible_type": "data_table"
-        },
-        {
-          "tangible_id": "bar_graph_student_data",
-          "description": "Vertical bar graph with Scale Preview System. Four scale buttons visible: 1, 2, 5, 10.",
-          "tangible_type": "bar_graph",
-          "mode": "reading",
-          "orientation": "vertical",
-          "scale_selector_visible": true,
-          "scale_options": [
-            1,
-            2,
-            5,
-            10
-          ]
-        }
-      ]
-    },
-    {
       "type": "dialogue",
       "text": "Let's find out. Click each scale to see what the graph would look like."
     },
     {
-      "type": "scene",
-      "method": "animate",
-      "tangible_id": "bar_graph_student_data",
-      "params": {
-        "event": "enable_scale_exploration",
-        "status": "confirmed",
-        "description": "All four scale buttons become active and clickable. Student can freely click between scales to preview how the graph looks with each option."
-      }
-    },
-    {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Data table showing student's collected data.",
+          "description": "Data table showing student's collected block data. Four categories with values that are multiples of 5 between 10 and 45.",
           "tangible_type": "data_table"
         },
         {
-          "tangible_id": "bar_graph_student_data",
-          "description": "Vertical bar graph with Scale Preview System active. All four scale buttons clickable for exploration.",
+          "tangible_id": "bar_graph_blocks",
+          "description": "Vertical bar graph with Scale Preview System. Four scale buttons visible: Scale of 1, Scale of 2, Scale of 5, Scale of 10. Graph ready to display data when scale is selected.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
           "scale_selector_visible": true,
-          "scale_options": [
+          "available_scales": [
             1,
             2,
             5,
@@ -94,6 +71,16 @@
           ]
         }
       ]
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "bar_graph_blocks",
+      "params": {
+        "event": "explore_all_scales",
+        "status": "confirmed",
+        "description": "Student clicks through all four scale options. Scale of 1 shows many tick marks. Scale of 2 displays data clearly. Scale of 5 fits all values. Scale of 10 also fits all values. All four scales successfully display the data."
+      }
     },
     {
       "type": "dialogue",
@@ -104,17 +91,23 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Data table showing student's collected data.",
+          "description": "Data table showing student's collected block data.",
           "tangible_type": "data_table"
         },
         {
-          "tangible_id": "bar_graph_student_data",
-          "description": "Vertical bar graph displaying student's data with whichever scale was last selected during exploration.",
+          "tangible_id": "bar_graph_blocks",
+          "description": "Vertical bar graph displaying student data. Scale Preview System showing all four scale options explored. All scales confirmed as working for this dataset.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
           "scale_selector_visible": true,
-          "scale_options": [
+          "available_scales": [
             1,
             2,
             5,
@@ -124,5 +117,5 @@
       ]
     }
   ],
-  "_generated_at": "2026-04-20T16:58:54.142362+00:00"
+  "_generated_at": "2026-04-27T15:53:09.989893+00:00"
 }

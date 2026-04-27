@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:00:28.864380
+# Generated: 2026-04-27T10:55:02.885939
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -817,7 +833,7 @@ Cacheable: Yes
   "divider": "Preview displays: All four bars fit cleanly. ✓ indicator. Axis shows 0, 10, 20, 30, 40, 50, 60, 70, 80—only 9 tick marks.",
   "guide_2": "\"Look at that—only 9 tick marks now instead of 17. Much cleaner!\"",
   "guide_3": "\"All the data fits, and the graph is easier to read.\"",
-  "_generated_at": "2026-04-20T16:58:24.310918+00:00",
+  "_generated_at": "2026-04-27T15:52:29.738404+00:00",
   "workspace_specs": {
     "toys": [
       "bar_graph"
@@ -826,7 +842,8 @@ Cacheable: Yes
       "click_scale_button"
     ],
     "workspace_carry_over": true
-  }
+  },
+  "prior_section_summaries": "## s1_1_transition_warmup\n# Section Summary: s1_1_transition_warmup\n\n**VISUAL STATE:** A Scale Preview System image (tangible_id: scale_preview_warmup) is displayed showing the student's warmup dataset with four scale options—scales of 1, 2, 5, and 10—each marked with a checkmark to indicate all four scales successfully accommodated the warmup data.\n\n**CONTENT:** This transition section reviews the concept that multiple scales can work for a given dataset, then introduces the question of how scale selection changes when data values are larger. No new vocabulary was formally introduced; the focus is on bridging from the warmup activity to the upcoming investigation of scale behavior with bigger numbers.\n\n**STUDENT ACTION:** The student passively observed the Scale Preview System image and received dialogue prompts; no interactive response or data entry was required in this transition beat.\n\n---\n\n## s1_2_when_scale_needs_too_many\n# Section Summary: s1_2_when_scale_needs_too_many\n\n**VISUAL STATE AT SECTION END:**\nA data table and vertical bar graph are displayed. The data table shows \"Books Read This Month\" with values: Aisha: 20, Ben: 35, Carlos: 55, Dana: 80. The bar graph is vertical, oriented with categories Aisha, Ben, Carlos, and Dana on the x-axis, axis range 0 to 80, scale of 5, with all 17 tick marks visible and highlighted (0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80). All four bars are fully visible within the graph boundary.\n\n**CONTENT:**\nThe section introduced the problem that when a scale is too small for a dataset's range, it creates too many tick marks on the axis, making the graph cluttered and difficult to read. The key vocabulary introduced was the principle: \"When one scale needs too many tick marks, try a bigger scale.\" Students observed that a scale of 5 from 0–80 produces 17 tick marks, which is excessive.\n\n**STUDENT ACTION:**\nThe student observed a bar graph initially set with axis range 0–50 and scale of 5, which caused Dana's bar (value 80) to overflow past the top boundary. The student then extended the axis upward to 0–80 to accommodate all data, recognizing the resulting 17 tick marks as problematic, and received guidance that a larger scale would be a better solution."
 }
 </input>
 

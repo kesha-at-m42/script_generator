@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:05:27.023637
+# Generated: 2026-04-27T11:00:07.155270
 ======================================================================
 
 ## API Parameters
@@ -944,11 +944,11 @@ Cacheable: Yes
   "id": "s4_1_circles_introduction_build",
   "dialogues": [
     {
-      "text": "Equal groups aren't always in bags or boxes. Check out these circles. First question: how many groups do you see? Second question: how many in each group? Build the expression using those two numbers.",
+      "text": "Equal groups are not always in bags or boxes. Check out these circles. First question: how many groups do you see? Second question: how many in each group? Build the expression using those two numbers.",
       "context": "lesson"
     },
     {
-      "text": "2 times 3—same structure, different look.",
+      "text": "2 times 3. Same structure, different look.",
       "context": "on_correct"
     }
   ]

@@ -11,7 +11,8 @@
         "container_count": 3,
         "items_per_container": 8,
         "item_type": "cookies",
-        "description": "Equal groups appear. 3 boxes, 8 cookies in each box."
+        "containers_visible": true,
+        "description": "Equal groups visualization appears. 3 boxes, 8 cookies in each box."
       }
     },
     {
@@ -27,24 +28,12 @@
           "×",
           "__"
         ],
-        "tile_palette": [
-          3,
-          4,
-          6,
-          7,
-          8,
-          11,
-          16,
-          20,
-          21,
-          24
-        ],
-        "description": "Equation builder appears with reversed template: product slot = groups slot × items slot. Tile palette shows 3, 4, 6, 7, 8, 11, 16, 20, 21, 24."
+        "description": "Equation Builder appears with REVERSED template: product slot = groups slot × items slot. Tile palette: 3, 4, 6, 7, 8, 11, 16, 20, 21, 24."
       }
     },
     {
       "type": "dialogue",
-      "text": "Here's something different. The template is flipped — product comes first this time. Remember, equals means same value as, so the product can go on either side. Build this equation with the product first."
+      "text": "Here's something different. The template is flipped — product comes FIRST this time. Remember, equals means same value as, so the product can go on either side. Build this equation with the product first."
     },
     {
       "type": "prompt",
@@ -55,11 +44,13 @@
         {
           "condition_id": "correct",
           "condition": {
-            "total": 24,
-            "groups": 3,
-            "items": 8
+            "placed": {
+              "total": 24,
+              "groups": 3,
+              "items": 8
+            }
           },
-          "description": "Student placed 24 = 3 × 8, correct",
+          "description": "Student placed 24 = 3 × 8, correct reversed form",
           "is_correct": true,
           "beats": [
             {
@@ -75,16 +66,17 @@
       "elements": [
         {
           "tangible_id": "equal_groups_cookies",
-          "description": "Equal groups showing 3 boxes with 8 cookies in each box.",
+          "description": "Equal groups visualization. 3 boxes, 8 cookies in each.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 3,
           "items_per_container": 8,
-          "item_type": "cookies"
+          "item_type": "cookies",
+          "containers_visible": true
         },
         {
           "tangible_id": "equation_builder_reversed",
-          "description": "Equation builder with reversed template: __ = __ × __. Tile palette active with place_tile tool.",
+          "description": "Equation Builder with reversed template showing completed equation 24 = 3 × 8.",
           "tangible_type": "equation_builder",
           "template": [
             "__",
@@ -93,21 +85,14 @@
             "×",
             "__"
           ],
-          "tile_palette": [
-            3,
-            4,
-            6,
-            7,
-            8,
-            11,
-            16,
-            20,
-            21,
-            24
-          ]
+          "placed_values": {
+            "total": 24,
+            "groups": 3,
+            "items": 8
+          }
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:03:16.124722+00:00"
+  "_generated_at": "2026-04-27T15:56:14.831108+00:00"
 }

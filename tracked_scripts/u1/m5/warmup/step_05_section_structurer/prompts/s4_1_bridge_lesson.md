@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T11:59:06.327500
+# Generated: 2026-04-27T10:53:32.172242
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -816,14 +832,15 @@ Cacheable: Yes
   "guide_2": "\"But what if the numbers are bigger? Or what if you need to figure out which scale is BEST?\"",
   "bridge_statement": "\"Let's learn how to figure out which scale to choose—and what tells us that a scale won't work for the data we have.\"",
   "no_student_prompt": "(transition)",
-  "_generated_at": "2026-04-20T16:58:27.766134+00:00",
+  "_generated_at": "2026-04-27T15:52:32.635458+00:00",
   "workspace_specs": {
     "toys": [],
     "tools": [],
     "unresolved": [
       "Scale Preview System remains"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_1_data_collection_game\n# Section Summary: s1_1_data_collection_game\n\n**VISUAL STATE:** An animated data collection game (\"data_collection_game_blocks\") displays on screen featuring Minis characters with colored blocks. The game presents four categories: Red blocks, Blue blocks, Green blocks, and Yellow blocks. Valid count values are multiples of 5 ranging from 10 to 45 (10, 15, 20, 25, 30, 35, 40, 45). The game runs for 60 seconds and concludes with all four category counts confirmed and recorded.\n\n**CONTENT:** Students were introduced to data collection through an interactive counting activity. The lesson practiced counting and recording discrete data across multiple categories, establishing foundational skills for organizing information before graphing.\n\n**STUDENT ACTION:** The student engaged with the animated counting game by counting blocks in each of the four color categories and confirming their counts. Upon game completion, the student's recorded data became ready for visualization in a subsequent graph.\n\n---\n\n## s2_1_scale_preview_exploration\n# Section Summary: s2_1_scale_preview_exploration\n\n**VISUAL STATE:** Two tangibles are on screen at section end: (1) a data_table displaying student-collected block data with four categories—Red blocks, Blue blocks, Green blocks, Yellow blocks—with values that are multiples of 5 between 10 and 45; (2) a vertical bar_graph in reading mode with the Scale Preview System visible, showing four clickable scale buttons (Scale of 1, Scale of 2, Scale of 5, Scale of 10) that allow interactive exploration of how different scales represent the same dataset.\n\n**CONTENT:** This section introduced the concept of scale selection and flexibility—specifically, that multiple scales can work appropriately for a single dataset. Students learned that choosing a scale involves evaluating which option best displays their data, rather than there being a single \"correct\" answer. The vocabulary \"scale\" was reinforced in context (Scale of 1, Scale of 2, Scale of 5, Scale of 10).\n\n**STUDENT ACTION:** The student clicked through all four available scale options sequentially to preview how each scale would render their block-counting data on the vertical bar graph, confirming that all four scales (1, 2, 5, and 10) successfully display the data without issues.\n\n---\n\n## s3_1_efficiency_comparison\n# Section Summary: s3_1_efficiency_comparison\n\n**VISUAL STATE:** Three tangibles are displayed at section end: (1) a data table containing student-collected block counts for Red blocks, Blue blocks, Green blocks, and Yellow blocks (values are multiples of 5 between 10–45); (2) a vertical bar graph in reading mode with scale 5, categories Red blocks/Blue blocks/Green blocks/Yellow blocks, positioned on the left; (3) a vertical bar graph in reading mode with scale 10, same categories, positioned on the right.\n\n**CONTENT:** This section introduced the concept of **scale efficiency**—that multiple scales can validly represent the same data, but different scales offer different advantages (scale 5 provides more detail; scale 10 is cleaner/simpler). The key principle taught is that when multiple scales work, the student has the freedom to choose based on readability preference.\n\n**STUDENT ACTION:** The student compared two side-by-side bar graphs and answered a multiple-choice question (\"Which graph is easier to read?\") with three options: Scale of 5, Scale of 10, or They're the same. All three responses were marked correct with affirming feedback reflecting the student's choice."
 }
 </input>
 

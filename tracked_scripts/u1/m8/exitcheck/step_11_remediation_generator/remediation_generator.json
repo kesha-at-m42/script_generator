@@ -14,7 +14,7 @@
         "id": "s1_0_transition_into_exit_check_b1"
       }
     ],
-    "_generated_at": "2026-04-20T16:59:54.405474+00:00"
+    "_generated_at": "2026-04-27T15:53:02.849311+00:00"
   },
   {
     "id": "s1_1_build_expression_boxes",
@@ -22,42 +22,27 @@
       [
         {
           "condition": {
-            "and": [
-              {
-                "placed": {
-                  "groups": 4,
-                  "items": 3
-                }
-              },
-              {
-                "or": [
-                  {
-                    "incorrect_count": 1
-                  },
-                  {
-                    "incorrect_count": 2
-                  }
-                ]
-              }
-            ]
+            "placed": {
+              "groups": 4,
+              "items": 3
+            }
           },
-          "description": "Student reversed the numbers, placing 4 × 3 instead of 3 × 4",
+          "description": "Student placed 4 × 3, reversed the groups and items",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
-                "method": "animate",
+                "method": "update",
                 "tangible_id": "equal_groups_boxes",
                 "params": {
-                  "event": "highlight_containers_sequentially",
-                  "status": "confirmed",
-                  "description": "Boxes highlight one at a time."
+                  "highlight_containers": true,
+                  "description": "Boxes highlight to draw attention to groups."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "You got the numbers, but check the order. First number: how many groups? Count the boxes. Second number: how many in each group? Count inside one box."
+                "text": "You switched them. The first number is how many GROUPS. Count the boxes."
               }
             ]
           ]
@@ -78,13 +63,13 @@
               }
             ]
           },
-          "description": "Student placed incorrect values on first attempt",
+          "description": "Student placed any other wrong expression on first attempt",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "dialogue",
-                "text": "Remember the two questions. How many groups? How many in each group?"
+                "text": "Not quite. First number: how many groups? Second number: how many in each group?"
               }
             ]
           ]
@@ -105,7 +90,7 @@
               }
             ]
           },
-          "description": "Student placed incorrect values on second attempt",
+          "description": "Student placed any other wrong expression on second attempt",
           "is_correct": false,
           "steps": [
             [
@@ -116,76 +101,56 @@
                 "params": {
                   "event": "highlight_containers_sequentially",
                   "status": "confirmed",
-                  "description": "Boxes highlight one at a time as guide counts."
+                  "description": "Boxes highlight one by one as guide counts."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let's count together. How many boxes? 1, 2, 3. That's the first number. Now look inside one box. How many items? 1, 2, 3, 4. That's the second number."
+                "text": "Count the boxes: 1, 2, 3. Three groups. Count inside one box: 1, 2, 3, 4. Four in each. Which numbers go in the slots?"
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Student answered incorrectly. System models the answer.",
+          "description": "Student placed wrong expression three or more times. System models the answer.",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equal_groups_boxes",
+                "tangible_id": "equation_builder",
                 "params": {
-                  "event": "highlight_containers_sequentially",
+                  "event": "demo_place_tile",
                   "status": "confirmed",
-                  "description": "Boxes highlight one at a time as guide counts groups."
+                  "tile_value": 3,
+                  "slot_position": 1,
+                  "description": "System places 3 in first slot."
                 }
               },
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equal_groups_boxes",
+                "tangible_id": "equation_builder",
                 "params": {
-                  "event": "highlight_items_in_one_container",
+                  "event": "demo_place_tile",
                   "status": "confirmed",
-                  "description": "Items in one box highlight as guide counts items."
-                }
-              },
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "equation_builder_boxes",
-                "params": {
-                  "event": "place_tile_demo",
-                  "status": "confirmed",
-                  "slot": 0,
-                  "value": 3,
-                  "description": "Guide demonstrates placing 3 tile into first slot."
-                }
-              },
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "equation_builder_boxes",
-                "params": {
-                  "event": "place_tile_demo",
-                  "status": "confirmed",
-                  "slot": 1,
-                  "value": 4,
-                  "description": "Guide demonstrates placing 4 tile into second slot."
+                  "tile_value": 4,
+                  "slot_position": 2,
+                  "description": "System places 4 in second slot, completing 3 × 4."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Here's how this works. I count the groups: 1, 2, 3. Three boxes. That's my first number. Then I look inside one box: 1, 2, 3, 4. Four items. That's my second number. The expression is 3 times 4. First number shows how many groups, second number shows how many in each."
+                "text": "Let me show you. I count the boxes: 3 groups. I count inside one box: 4 cookies. First number is groups, so 3. Second number is in each group, so 4. The expression is 3 times 4."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:01:02.921917+00:00"
+    "_generated_at": "2026-04-27T15:54:21.655739+00:00"
   },
   {
     "id": "s1_2_identify_visual_expression",
@@ -195,7 +160,7 @@
           "condition": {
             "selected": "B"
           },
-          "description": "Student selected B: 2 bags of 4, factor reversal error",
+          "description": "Student selected option B: 2 bags with 4 items each, reversed the groups and items",
           "is_correct": false,
           "steps": [
             [
@@ -204,13 +169,13 @@
                 "method": "update",
                 "tangible_id": "equation_builder",
                 "params": {
-                  "highlight_first_number": true,
+                  "highlight_slot": 0,
                   "description": "First number in expression highlights."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "The first number tells you how many groups. Look at the first number in 4 times 2. How many groups do you need?"
+                "text": "Look at the first number in the expression. That tells you how many groups. How many groups do you need?"
               }
             ]
           ]
@@ -219,22 +184,22 @@
           "condition": {
             "selected": "C"
           },
-          "description": "Student selected C: 6 scattered items, not equal groups",
+          "description": "Student selected option C: scattered items with no grouping structure",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "visual_option_a",
+                "tangible_id": "visual_a",
                 "params": {
                   "highlight_containers": true,
-                  "description": "Bags in option A highlight."
+                  "description": "Option A bags highlight to show grouping structure."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Multiplication shows equal groups. The expression tells you how many groups and how many in each. Which picture shows groups?"
+                "text": "Multiplication shows equal groups. You need to see groups with items inside them. Which picture shows that?"
               }
             ]
           ]
@@ -248,23 +213,23 @@
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "visual_option_a",
+                "tangible_id": "visual_a",
                 "params": {
-                  "event": "highlight_groups_sequentially",
+                  "event": "highlight_containers_sequentially",
                   "status": "confirmed",
-                  "description": "Option A bags highlight one at a time, then items in one bag highlight."
+                  "description": "Option A bags highlight one by one while Guide counts."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. The expression 4 times 2 means 4 groups with 2 in each group. I count the groups: 1, 2, 3, 4 bags. Then I check inside one bag: 2 items. Option A shows 4 groups of 2. That's what the expression means."
+                "text": "Let me show you. The first number is groups. 4 times 2 means 4 groups. Count the bags in Option A: 1, 2, 3, 4. Four bags, four groups. The second number is in each group. Look inside one bag: 2 items. Every bag has 2. Option A shows 4 groups with 2 in each, exactly what 4 times 2 means."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:01:13.908432+00:00"
+    "_generated_at": "2026-04-27T15:54:35.330260+00:00"
   },
   {
     "id": "s1_3_build_expression_circles",
@@ -272,24 +237,57 @@
       [
         {
           "condition": {
-            "and": [
+            "groups": 3,
+            "items": 5
+          },
+          "description": "Student reversed the numbers, placing 3 × 5 instead of 5 × 3",
+          "is_correct": false,
+          "steps": [
+            [
               {
-                "groups": 3,
-                "items": 5
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_circles",
+                "params": {
+                  "highlight_containers": true,
+                  "description": "All five circles highlight."
+                }
               },
               {
-                "or": [
-                  {
-                    "incorrect_count": 1
-                  },
-                  {
-                    "incorrect_count": 2
-                  }
-                ]
+                "type": "dialogue",
+                "text": "Count the circles first. How many groups do you see?"
               }
             ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 1,
+            "not": {
+              "groups": 3,
+              "items": 5
+            }
           },
-          "description": "Student reversed the numbers: placed 3 × 5 instead of 5 × 3",
+          "description": "Student placed incorrect values on first attempt, not the reversed pair",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Count the circles, then count the dots in one circle."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2,
+            "not": {
+              "groups": 3,
+              "items": 5
+            }
+          },
+          "description": "Student placed incorrect values on second attempt, not the reversed pair",
           "is_correct": false,
           "steps": [
             [
@@ -300,79 +298,19 @@
                 "params": {
                   "event": "highlight_containers_sequentially",
                   "status": "confirmed",
-                  "description": "Circles highlight one at a time as guide counts them."
+                  "description": "Circles highlight one by one."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "You switched the numbers. Count the circles first. How many circles do you see?"
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "and": [
-              {
-                "incorrect_count": 1
-              },
-              {
-                "not": {
-                  "groups": 3,
-                  "items": 5
-                }
-              }
-            ]
-          },
-          "description": "Student placed incorrect values on first attempt (not the reversal)",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "dialogue",
-                "text": "Check both numbers. First, how many circles? Second, how many dots in each circle?"
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "and": [
-              {
-                "incorrect_count": 2
-              },
-              {
-                "not": {
-                  "groups": 3,
-                  "items": 5
-                }
-              }
-            ]
-          },
-          "description": "Student placed incorrect values on second attempt (not the reversal)",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "equal_groups_circles",
-                "params": {
-                  "event": "highlight_containers_sequentially",
-                  "status": "confirmed",
-                  "description": "Circles highlight one at a time."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "Count the circles: that number goes first. Then count the dots inside one circle: that number goes second. Place those two tiles."
+                "text": "Count with me: 1, 2, 3, 4, 5 circles. Now look inside one circle. How many dots?"
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Student answered incorrectly three or more times. System models the answer.",
+          "description": "Student placed incorrect values on third attempt. System models the answer.",
           "is_correct": false,
           "steps": [
             [
@@ -383,52 +321,18 @@
                 "params": {
                   "event": "highlight_containers_sequentially",
                   "status": "confirmed",
-                  "description": "Guide counts circles one by one, highlighting each."
-                }
-              },
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "equal_groups_circles",
-                "params": {
-                  "event": "highlight_items_in_one_container",
-                  "status": "confirmed",
-                  "description": "Guide focuses on one circle and counts dots inside."
-                }
-              },
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "equation_builder_circles",
-                "params": {
-                  "event": "place_tile_demo",
-                  "status": "confirmed",
-                  "description": "Guide places 5 tile into first slot.",
-                  "slot": 0,
-                  "value": 5
-                }
-              },
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "equation_builder_circles",
-                "params": {
-                  "event": "place_tile_demo",
-                  "status": "confirmed",
-                  "description": "Guide places 3 tile into second slot.",
-                  "slot": 1,
-                  "value": 3
+                  "description": "Circles highlight sequentially."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. I count the circles: 1, 2, 3, 4, 5. That is 5 groups. I place the 5 tile first. Then I look inside one circle and count the dots: 1, 2, 3. That is 3 in each group. I place the 3 tile second. The expression is 5 times 3."
+                "text": "Let me show you. First, I count the circles: 1, 2, 3, 4, 5. That's 5 groups. Now I look inside one circle: 1, 2, 3 dots. That's 3 in each group. The expression is 5 times 3. Five groups of 3."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:01:29.655283+00:00"
+    "_generated_at": "2026-04-27T15:54:47.262568+00:00"
   }
 ]

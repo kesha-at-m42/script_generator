@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:00:49.879133
+# Generated: 2026-04-27T10:54:53.438540
 ======================================================================
 
 ## API Parameters
@@ -948,6 +948,10 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
+      "text": "What should we find first?",
+      "context": "lesson"
+    },
+    {
       "text": "Combine nonfiction and poetry first.",
       "context": "on_correct"
     },
@@ -956,7 +960,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "50 combined. That's nonfiction 30 plus poetry 20.",
+      "text": "50 combined.",
       "context": "on_correct"
     },
     {

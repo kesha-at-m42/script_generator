@@ -8,20 +8,22 @@
       "tangible_type": "bar_graph",
       "params": {
         "mode": "reading",
-        "orientation": "vertical",
+        "orientation": "horizontal",
+        "scale": 10,
         "categories": [
           "Dogs",
           "Cats",
           "Birds",
           "Fish"
         ],
-        "values": {
-          "Dogs": 65,
-          "Cats": 40,
-          "Birds": 25,
-          "Fish": 30
-        },
-        "description": "Vertical bar graph appears. Pet Survey data. Dogs 65, Cats 40, Birds 25, Fish 30."
+        "values": [
+          65,
+          40,
+          25,
+          30
+        ],
+        "title": "Pets at the Shelter",
+        "description": "Horizontal bar graph appears. Pets at the Shelter data. Dogs=65, Cats=40, Birds=25, Fish=30. Scale of 10."
       }
     },
     {
@@ -44,9 +46,21 @@
           "condition": {
             "selected": 25
           },
-          "description": "Student answered 25, correct. 65 minus 40 equals 25.",
+          "description": "Student selected 25, correct answer (65 - 40 = 25)",
           "is_correct": true,
           "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_pets",
+              "params": {
+                "highlight_categories": [
+                  "Dogs",
+                  "Cats"
+                ],
+                "description": "Dogs and Cats bars highlight to confirm selection."
+              }
+            },
             {
               "type": "dialogue",
               "text": "25 more dogs than cats. This one was just one step—no combined, so straight to comparing."
@@ -60,10 +74,11 @@
       "elements": [
         {
           "tangible_id": "bar_graph_pets",
-          "description": "Vertical bar graph showing Pet Survey data. Dogs 65, Cats 40, Birds 25, Fish 30.",
+          "description": "Horizontal bar graph. Pets at the Shelter. Dogs and Cats bars highlighted. Dogs=65, Cats=40, Birds=25, Fish=30. Scale of 10.",
           "tangible_type": "bar_graph",
           "mode": "reading",
-          "orientation": "vertical",
+          "orientation": "horizontal",
+          "scale": 10,
           "categories": [
             "Dogs",
             "Cats",
@@ -74,5 +89,5 @@
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:02:30.600960+00:00"
+  "_generated_at": "2026-04-27T15:57:24.238246+00:00"
 }

@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:01:45.283358
+# Generated: 2026-04-27T10:55:30.266133
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1855,16 +1859,16 @@ Cacheable: Yes
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "word_problem_area_scenarios",
-      "tangible_type": "word_problem_area",
+      "tangible_id": "word_problem_scenarios",
+      "tangible_type": "image",
       "params": {
-        "description": "Three real-world scenarios displayed: 1) Who has more stickers—just Maya, or Ben and Carlos put together? 2) Which team scored more—the Red team alone, or the Blue and Green teams combined? 3) Did I spend more on only snacks, or on drinks and dessert altogether?"
+        "description": "Three real-world scenario questions displayed: (1) Who has more stickers—just Maya, or Ben and Carlos put together? (2) Which team scored more—the Red team alone, or the Blue and Green teams combined? (3) Did I spend more on only snacks, or on drinks and dessert altogether?"
       },
       "id": "s3_1_real_world_bridge_type_c_b0"
     },
     {
       "type": "dialogue",
-      "text": "This kind of thinking shows up all the time, not just in math problems.",
+      "text": "This kind of thinking shows up all the time, not just in math problems. What would you need to do to answer all of these?",
       "id": "s3_1_real_world_bridge_type_c_b1"
     },
     {
@@ -1883,7 +1887,7 @@ Cacheable: Yes
           "condition": {
             "selected": "Combine some things first, then compare"
           },
-          "description": "Student selected option B, combine first then compare, correct",
+          "description": "Student selected option B, combine some things first then compare, correct",
           "is_correct": true,
           "beats": [
             {
@@ -1900,15 +1904,15 @@ Cacheable: Yes
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "word_problem_area_scenarios",
-          "description": "Three real-world scenarios displayed on screen. multiple_choice tool active.",
-          "tangible_type": "word_problem_area"
+          "tangible_id": "word_problem_scenarios",
+          "description": "Three real-world scenario questions displayed on screen.",
+          "tangible_type": "image"
         }
       ],
       "id": "s3_1_real_world_bridge_type_c_b3"
     }
   ],
-  "_generated_at": "2026-04-20T17:00:30.561313+00:00"
+  "_generated_at": "2026-04-27T15:54:09.337595+00:00"
 }
 </input>
 

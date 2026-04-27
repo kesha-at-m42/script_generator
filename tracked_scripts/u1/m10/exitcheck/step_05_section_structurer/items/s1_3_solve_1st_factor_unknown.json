@@ -8,16 +8,18 @@
       "tangible_type": "equal_groups",
       "params": {
         "mode": "building",
+        "orientation": "horizontal",
+        "item_type": "generic_items",
         "container_count": 0,
         "items_per_container": 5,
         "context": "stacks",
-        "description": "Equal groups construction area appears, empty. Control panel shows +/- group buttons. Each new group will have 5 items. Running total display shows Total: 0."
+        "description": "Equal groups visual in building mode. Construction area starts empty. Item type: generic items. Items per container pre-set to 5. Running total display shows Total: 0."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder_factor",
+      "tangible_id": "equation_builder_stacks",
       "tangible_type": "equation_builder",
       "params": {
         "template": [
@@ -27,8 +29,13 @@
           "=",
           "15"
         ],
-        "style": "equation",
-        "description": "Equation builder appears with pre-filled template: blank × 5 = 15. First position is fillable slot, 5 and 15 are visible."
+        "palette": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "description": "Equation builder with pre-filled template: blank × 5 = 15. Tile palette shows options 2, 3, 4, 5."
       }
     },
     {
@@ -51,7 +58,7 @@
           "condition": {
             "selected": 3
           },
-          "description": "Student selected 3, correct answer",
+          "description": "Student selected 3, correct (3 × 5 = 15; skip-count by 5s: 5, 10, 15 — three counts)",
           "is_correct": true,
           "beats": [
             {
@@ -61,12 +68,27 @@
               "params": {
                 "event": "build_groups_sequentially",
                 "status": "confirmed",
-                "description": "3 stacks of 5 items appear, building one stack at a time. Running total updates: 5, 10, 15."
+                "description": "3 stacks of 5 items build one at a time. First stack appears with 5 items, then second stack with 5 items, then third stack with 5 items. Running total updates: Total: 5, Total: 10, Total: 15."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder_stacks",
+              "params": {
+                "template": [
+                  "3",
+                  "×",
+                  "5",
+                  "=",
+                  "15"
+                ],
+                "description": "Tile 3 locks into the blank slot, completing the equation: 3 × 5 = 15."
               }
             },
             {
               "type": "dialogue",
-              "text": "3 stacks of 5 equals 15. That's how you find the missing factor by skip counting."
+              "text": "3 stacks of 5 equals 15."
             }
           ]
         }
@@ -77,15 +99,17 @@
       "elements": [
         {
           "tangible_id": "equal_groups_stacks",
-          "description": "Equal groups construction area showing 3 stacks of 5 items. Running total display shows Total: 15.",
+          "description": "Equal groups visual showing 3 stacks of 5 items each. Total: 15.",
           "tangible_type": "equal_groups",
           "mode": "building",
+          "orientation": "horizontal",
+          "item_type": "generic_items",
           "container_count": 3,
           "items_per_container": 5,
           "context": "stacks"
         },
         {
-          "tangible_id": "equation_builder_factor",
+          "tangible_id": "equation_builder_stacks",
           "description": "Equation builder showing completed equation: 3 × 5 = 15.",
           "tangible_type": "equation_builder",
           "template": [
@@ -94,11 +118,10 @@
             "5",
             "=",
             "15"
-          ],
-          "style": "equation"
+          ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:01:19.051479+00:00"
+  "_generated_at": "2026-04-27T15:54:24.471820+00:00"
 }

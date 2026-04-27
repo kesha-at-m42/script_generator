@@ -11,22 +11,32 @@
         "container_count": 5,
         "items_per_container": 7,
         "item_type": "sheep",
-        "container_style": "spatial_cluster",
-        "description": "Equal groups visual appears. 5 clusters of 7 sheep in a field. Sheep grouped by natural spatial proximity with clear gaps between clusters. No circles or containers."
+        "containers_visible": false,
+        "spatial_clustering": true,
+        "description": "Equal groups visualization shows 5 clusters of 7 sheep in a field. Sheep grouped by natural spatial proximity with clear gaps between clusters. No circles or containers. Each cluster contains exactly 7 sheep."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder_reversed",
+      "tangible_id": "equation_builder",
       "tangible_type": "equation_builder",
       "params": {
-        "template": "reversed_product",
-        "prefilled_slots": {
-          "groups": 5,
-          "items": 7
-        },
-        "description": "Equation builder appears with reversed template. Pre-filled: ☐ = 5 × 7. Palette shows tiles: 12, 30, 35, 42."
+        "template": [
+          "__",
+          "=",
+          "5",
+          "×",
+          "7"
+        ],
+        "reversed_form": true,
+        "palette": [
+          12,
+          30,
+          35,
+          42
+        ],
+        "description": "Equation Builder appears with reversed template. Pre-filled with 5 × 7 on right side. Product slot (left side) empty, awaiting student input. Tile palette shows 12, 30, 35, 42."
       }
     },
     {
@@ -37,26 +47,18 @@
       "type": "prompt",
       "text": "☐ = 5 × 7. What is the product?",
       "tool": "place_tile",
-      "target": "equation_builder_reversed",
+      "target": "equation_builder",
       "validator": [
         {
           "condition_id": "correct",
           "condition": {
-            "product": 35
+            "placed": {
+              "total": 35
+            }
           },
-          "description": "Student placed 35, correct product",
+          "description": "Student placed 35 in the product slot, correct answer",
           "is_correct": true,
           "beats": [
-            {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "equation_builder_reversed",
-              "params": {
-                "event": "tile_placed",
-                "status": "confirmed",
-                "description": "35 tile slides into the unknown slot, equation completes: 35 = 5 × 7."
-              }
-            },
             {
               "type": "dialogue",
               "text": "35 equals 5 times 7. The unknown was 35 — same value on both sides."
@@ -70,22 +72,30 @@
       "elements": [
         {
           "tangible_id": "equal_groups_sheep",
-          "description": "Equal groups visual showing 5 clusters of 7 sheep in a field. Natural spatial clustering with clear gaps.",
+          "description": "Equal groups showing 5 clusters of 7 sheep grouped by spatial proximity in a field. No containers visible. 35 total sheep.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 5,
           "items_per_container": 7,
           "item_type": "sheep",
-          "container_style": "spatial_cluster"
+          "containers_visible": false,
+          "spatial_clustering": true
         },
         {
-          "tangible_id": "equation_builder_reversed",
-          "description": "Equation builder with reversed template. Completed equation: 35 = 5 × 7.",
+          "tangible_id": "equation_builder",
+          "description": "Equation Builder displaying completed reversed equation 35 = 5 × 7. All slots filled.",
           "tangible_type": "equation_builder",
-          "template": "reversed_product"
+          "template": [
+            "35",
+            "=",
+            "5",
+            "×",
+            "7"
+          ],
+          "reversed_form": true
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:04:27.639844+00:00"
+  "_generated_at": "2026-04-27T15:58:21.683070+00:00"
 }

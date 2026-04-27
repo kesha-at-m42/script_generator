@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:00:34.577157
+# Generated: 2026-04-27T10:53:32.446872
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -814,11 +830,12 @@ Cacheable: Yes
   "visual": "Products Strip [2] [4] [6] [8] [10] and 5 circles remain on screen through transition. (If technical constraints require a screen reset, Lesson 1.1 re-displays them.)",
   "student_action": "None",
   "design_note": "Bridge creates anticipation (\"keep going\") without teaching. The \"interesting, right?\" is a curiosity hook, not a question requiring response. Warmup ends with the accumulation paused at 5 — Lesson picks up exactly where it stopped.",
-  "_generated_at": "2026-04-20T16:59:52.947100+00:00",
+  "_generated_at": "2026-04-27T15:52:47.060915+00:00",
   "workspace_specs": {
     "toys": [],
     "tools": []
-  }
+  },
+  "prior_section_summaries": "## s1_1_expression_callback_activation\n# Section Summary: s1_1_expression_callback_activation\n\n**VISUAL STATE AT SECTION END:**\nTwo tangibles are displayed: (1) Equal Groups visualization (\"equal_groups_bags\") showing 4 bags in bag-style containers, each containing 2 items, in reading mode; (2) Equation Builder (\"equation_builder_warmup\") displaying the completed expression \"4 × 2\" with tiles placed and confirmed in both slots, equation style.\n\n**CONTENT:**\nThis section reviews the foundational skill of translating equal groups into multiplication expressions. Students practiced recognizing that \"4 groups of 2\" corresponds to the expression 4 × 2, reinforcing the connection between concrete visual representations (bags with items) and symbolic notation.\n\n**STUDENT ACTION:**\nThe student placed tiles into the Equation Builder's two empty slots: placing \"4\" in the first slot and \"2\" in the second slot to correctly represent 4 groups of 2, then received confirmation feedback.\n\n---\n\n## s2_1_animated_accumulation_5_circles_observation\n# Section Summary: s2_1_animated_accumulation_5_circles_observation\n\n**VISUAL STATE AT SECTION END:**\nThree tangibles are displayed: (1) Equal groups visualization (type: equal_groups, mode: reading, container_style: circles) showing 5 containers with 2 items per container; (2) Equation Builder (type: equation_builder, style: equation) displaying the template [5, ×, 2, =, 10]; (3) Products strip (type: image) showing the sequence 2, 4, 6, 8, 10.\n\n**CONTENT:**\nThis section introduced the concept of **accumulating equal groups** to build multiplication understanding. Students observed how adding groups one at a time generates a sequence of products. The vocabulary reinforced includes \"groups,\" \"of,\" and the multiplication symbol (×). The key insight is that repeated addition of equal groups produces the multiplication sequence for the ×2 facts.\n\n**STUDENT ACTION:**\nThe student passively observed an animated sequence where five circles (each containing 2 dots) appeared sequentially, with the equation updating after each addition (1×2=2, 2×2=4, 3×2=6, 4×2=8, 5×2=10). The student then viewed the complete products strip displaying the cumulative results: 2, 4, 6, 8, 10."
 }
 </input>
 

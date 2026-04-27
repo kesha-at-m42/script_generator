@@ -6,7 +6,7 @@
         "condition": {
           "selected": "2 × 4"
         },
-        "description": "Student selected 2 × 4: reversed the order of groups and items per group",
+        "description": "Student selected 2 × 4: reversed the factors",
         "is_correct": false,
         "steps": [
           [
@@ -15,13 +15,13 @@
               "method": "update",
               "tangible_id": "equal_groups_boxes",
               "params": {
-                "highlight_container_count": true,
-                "description": "The 4 boxes highlight to emphasize the number of groups."
+                "highlight_groups": true,
+                "description": "The 4 boxes pulse to highlight the number of groups."
               }
             },
             {
               "type": "dialogue",
-              "text": "You've got the right numbers. But in multiplication, order matters for what we're describing. Count the boxes first. How many groups are there?"
+              "text": "You got the numbers right, but they're switched. The first number is always how many groups. How many boxes do you see?"
             }
           ]
         ]
@@ -39,13 +39,13 @@
               "method": "update",
               "tangible_id": "equal_groups_boxes",
               "params": {
-                "highlight_all_items": true,
-                "description": "All items in all boxes highlight to show the total count."
+                "highlight_groups": true,
+                "description": "All boxes pulse to show equal groups structure."
               }
             },
             {
               "type": "dialogue",
-              "text": "Addition puts amounts together. But here we have equal groups. When you see equal groups, multiplication is the tool. How many groups, and how many in each?"
+              "text": "You picked addition, but these are equal groups. We use times when every group has the same amount. Which symbol shows groups of the same size?"
             }
           ]
         ]
@@ -54,7 +54,7 @@
         "condition": {
           "selected": "2 + 4"
         },
-        "description": "Student selected 2 + 4: used addition and reversed the order",
+        "description": "Student selected 2 + 4: used addition and reversed the numbers",
         "is_correct": false,
         "steps": [
           [
@@ -63,13 +63,13 @@
               "method": "update",
               "tangible_id": "equal_groups_boxes",
               "params": {
-                "highlight_container_count": true,
-                "description": "The 4 boxes highlight to show the structure of equal groups."
+                "highlight_groups": true,
+                "description": "All boxes pulse to show equal groups structure."
               }
             },
             {
               "type": "dialogue",
-              "text": "These aren't two separate amounts to add. They're equal groups. Multiplication describes equal groups. Count the boxes, then count what's in one box."
+              "text": "These are equal groups, not parts we're adding. When every group has the same amount, we use times. Which expression uses the times symbol?"
             }
           ]
         ]
@@ -87,17 +87,17 @@
               "params": {
                 "event": "count_groups_then_items",
                 "status": "confirmed",
-                "description": "Animation counts the 4 boxes, then counts 2 items in one box, building 4 × 2."
+                "description": "System counts the 4 boxes, then counts 2 items in each box, building the expression 4 × 2."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. First, count the boxes: 1, 2, 3, 4. Four groups. Then look inside one box: 2 items. The expression is 4 times 2. That's how multiplication captures equal groups."
+              "text": "Let me show you. I count the boxes: 1, 2, 3, 4. That's 4 groups. Now I count what's in one box: 2 items. Equal groups use times, so the expression is 4 times 2. The answer is 4 times 2."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:00:40.434519+00:00"
+  "_generated_at": "2026-04-27T15:53:56.906833+00:00"
 }

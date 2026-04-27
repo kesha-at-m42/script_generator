@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:01:05.419758
+# Generated: 2026-04-27T10:53:58.092442
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -819,10 +835,10 @@ Cacheable: Yes
   "answer_rationale": "- 3 \\= Correct (3 × 5 \\= 15; skip-count by 5s: 5, 10, 15 — three counts)\n\t- 2 \\= Skip-count error (stopped at 10, thought 2 was enough)\n\t- 4 \\= Skip-count error (counted one too many)\n\t- 5 \\= Confused unknown with the visible factor (sees \"5\" in the equation, places \"5\")",
   "on_correct": "\"3 stacks of 5 equals 15.\"",
   "remediation": "Pipeline",
-  "remediation_note": "Have student skip-count by 5s and count how many times they count to reach 15 (5, 10, 15 = 3 times). Distractor 2 = stopped at 10; Distractor 4 = counted one too many; Distractor 5 = confused unknown with the visible factor.",
+  "divider": "> **Remediation Note:** Have student skip-count by 5s and count how many times they count to reach 15 (5, 10, 15 = 3 times). Distractor 2 = stopped at 10; Distractor 4 = counted one too many; Distractor 5 = confused unknown with the visible factor.",
   "visual_on_correct": "3 stacks of 5 items appear, building one at a time (same confirmation pattern as Lesson 3.3).",
   "design_note": "Language prompt (\"\\*\\*\\_ stacks of 5 equals 15 total\") is essential scaffolding — it was taught this way in Lesson 3.3 and must appear the same way in Exit Check. MC keeps computation accessible. The value 3 × 5 \\= 15 appeared in Lesson 1.5 as a full equation build (standard form, all numbers given, bags context). The Exit Check tests a fundamentally different skill: identifying a missing FACTOR from a pre-filled equation in a variety context. Different cognitive type (IDENTIFY vs CREATE), different unknown position (1st factor vs none), different context (stacks vs bags). This is not recall — it's transfer.",
-  "_generated_at": "2026-04-20T17:00:24.240264+00:00",
+  "_generated_at": "2026-04-27T15:52:58.779655+00:00",
   "workspace_specs": {
     "toys": [
       "equal_groups",
@@ -830,8 +846,12 @@ Cacheable: Yes
     ],
     "tools": [
       "multiple_choice"
+    ],
+    "unresolved": [
+      "Construction area starts empty"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_0_transition_into_exit_check\n# Section Summary: s1_0_transition_into_exit_check\n\n**VISUAL STATE:** No tangible visuals or data displays are present on screen at section end—the scene is empty.\n\n**CONTENT:** This transition reviews the core concepts practiced throughout the lesson: building equations using concrete models (bags, rows, stacks, and groups) and solving for unknown numbers in various positions within those equations. No new vocabulary is formally introduced; this is a recap of prior work.\n\n**STUDENT ACTION:** The student did not perform an interactive action in this section. This is a dialogue-only transition that sets up the upcoming exit check by reminding the student of what they've learned and signaling a shift to assessment.\n\n---\n\n## s1_1_build_complete_equation_variety_visual\n# Section Summary: s1_1_build_complete_equation_variety_visual\n\n**VISUAL STATE:** Two tangibles are on screen at section end. (1) Equal groups visual (\"equal_groups_pencils\"): 3 containers arranged in horizontal rows, 6 pencils per container, item type = pencils, mode = reading. (2) Equation builder (\"equation_builder_pencils\"): multiplication template with structure [__, ×, __, =, __], tile palette containing values {2, 3, 4, 5, 6, 9, 12, 15, 18, 20}.\n\n**CONTENT:** Students learned to represent equal groups as multiplication equations. The concept connects visual groupings (rows of objects) to symbolic notation (groups × items per group = total). Vocabulary introduced: \"times\" and \"equals\" in the context of multiplication.\n\n**STUDENT ACTION:** Student placed tiles into the equation builder to complete the multiplication equation matching the visual. The correct response was placing 3 in the first blank, 6 in the second blank, and 18 in the third blank, forming 3 × 6 = 18, which was validated and confirmed with dialogue.\n\n---\n\n## s1_2_solve_product_unknown_reversed_form\n# Section Summary: s1_2_solve_product_unknown_reversed_form\n\n**VISUAL STATE:** Two tangibles are on screen at section end:\n1. **Equal Groups Visual** (equal_groups, \"flowers\" dataset): 4 containers with 7 flowers each, arranged horizontally in circled clusters, reading mode.\n2. **Equation Builder** (equation_builder, \"flowers\" dataset): Completed reversed-form equation displaying **28 = 4 × 7**, with tile 28 locked in the product slot (first position).\n\n**CONTENT:** Students were introduced to the **reversed product-unknown equation form**, where the total (product) appears on the left side of the equals sign rather than the right. The concept reinforces that multiplication equations can be written in either direction while maintaining equal value on both sides.\n\n**STUDENT ACTION:** Student placed tile **28** into the blank product slot to complete the equation ☐ = 4 × 7, correctly solving for the total of 4 groups of 7 flowers. The tile locked in place upon correct placement, confirming the solution."
 }
 </input>
 

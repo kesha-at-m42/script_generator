@@ -4,24 +4,75 @@
     [
       {
         "condition": {
-          "incorrect_count": 1
+          "and": [
+            {
+              "placed": {
+                "groups": 7,
+                "items": 10
+              }
+            },
+            {
+              "not": {
+                "placed": {
+                  "total": 70
+                }
+              }
+            },
+            {
+              "incorrect_count": 1
+            }
+          ]
         },
-        "description": "Student placed incorrect tiles on first attempt",
+        "description": "Student placed correct factors (7 × 10) but wrong product on first attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "dialogue",
-              "text": "Check the numbers. What are the two factors being multiplied, and what's their product?"
+              "text": "You got the factors right: 7 and 10. Now skip-count by 10s seven times for the product."
             }
           ]
         ]
       },
       {
         "condition": {
-          "incorrect_count": 2
+          "and": [
+            {
+              "or": [
+                {
+                  "placed": {
+                    "groups": 10,
+                    "items": 7
+                  }
+                },
+                {
+                  "placed": {
+                    "items": 7,
+                    "groups": 10
+                  }
+                }
+              ]
+            },
+            {
+              "not": {
+                "placed": {
+                  "total": 70
+                }
+              }
+            },
+            {
+              "or": [
+                {
+                  "incorrect_count": 1
+                },
+                {
+                  "incorrect_count": 2
+                }
+              ]
+            }
+          ]
         },
-        "description": "Student placed incorrect tiles on second attempt",
+        "description": "Student reversed the factors (placed 10 × 7 instead of 7 × 10) but has not placed correct product",
         "is_correct": false,
         "steps": [
           [
@@ -30,19 +81,64 @@
               "method": "update",
               "tangible_id": "products_strip_10s",
               "params": {
-                "description": "7 × 10 = 70 highlights on the products strip."
+                "highlight_values": [
+                  70
+                ],
+                "description": "70 highlights on the Products Strip."
               }
             },
             {
               "type": "dialogue",
-              "text": "Look at the strip. Find 7 times 10. The problem says 7 groups of 10. Place those two factors, then find the product on the strip."
+              "text": "The problem says 7 times 10. That means 7 groups of 10. Look at the strip: which equation matches?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student made any other error on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Look at the Products Strip. Find 7 times 10 on it."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student made any other error on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "products_strip_10s",
+              "params": {
+                "highlight_factor_pair": {
+                  "groups": 7,
+                  "items": 10
+                },
+                "description": "The equation 7 × 10 = 70 highlights on the Products Strip."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's what to build: the problem asks for 7 groups of 10. That's 7 times 10 equals 70. Place those three tiles."
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student placed incorrect tiles on third or subsequent attempt. System models the answer.",
+        "description": "Student answered incorrectly three or more times. System models the answer.",
         "is_correct": false,
         "steps": [
           [
@@ -51,19 +147,19 @@
               "method": "animate",
               "tangible_id": "equation_builder_7x10",
               "params": {
-                "event": "model_tile_placement",
+                "event": "place_tiles_sequence",
                 "status": "confirmed",
-                "description": "System places 7 in first slot, 10 in second slot, 70 in product slot."
+                "description": "System places tiles in sequence: 7 in first slot, 10 in second slot, 70 in product slot."
               }
             },
             {
               "type": "dialogue",
-              "text": "Here's how to build it. 7 times 10 means 7 groups of 10. Those are the factors: 7 and 10. Skip count by 10s seven times: 10, 20, 30, 40, 50, 60, 70. The product is 70. The equation is 7 times 10 equals 70."
+              "text": "Let me show you how to build this. The problem says 7 times 10. That means 7 groups of 10. So the first factor is 7, the second factor is 10. Now I skip-count by 10s seven times: 10, 20, 30, 40, 50, 60, 70. The product is 70. The complete equation is 7 times 10 equals 70."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:06:09.272743+00:00"
+  "_generated_at": "2026-04-27T16:01:29.985351+00:00"
 }

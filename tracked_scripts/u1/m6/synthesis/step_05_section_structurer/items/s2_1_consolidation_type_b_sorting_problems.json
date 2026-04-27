@@ -7,17 +7,18 @@
       "tangible_id": "sorting_area",
       "tangible_type": "sorting_area",
       "params": {
+        "description": "Sorting workspace appears. Left side shows three draggable problem cards: (1) 'How many more chose pizza than tacos?', (2) 'How many more chose pizza and tacos combined than salad?', (3) 'How many fewer chose burgers and hot dogs together than pizza?' Right side shows two drop zones labeled 'JUST COMPARE' and 'COMBINE FIRST, THEN COMPARE'.",
         "items": [
           {
-            "id": "q1",
+            "id": "problem_1",
             "text": "How many more chose pizza than tacos?"
           },
           {
-            "id": "q2",
+            "id": "problem_2",
             "text": "How many more chose pizza and tacos combined than salad?"
           },
           {
-            "id": "q3",
+            "id": "problem_3",
             "text": "How many fewer chose burgers and hot dogs together than pizza?"
           }
         ],
@@ -30,8 +31,7 @@
             "id": "combine_first",
             "label": "COMBINE FIRST, THEN COMPARE"
           }
-        ],
-        "description": "Sorting area appears. Three question cards on left. Two drop zones on right labeled JUST COMPARE and COMBINE FIRST, THEN COMPARE."
+        ]
       }
     },
     {
@@ -49,30 +49,20 @@
           "condition": {
             "placed": {
               "just_compare": [
-                "q1"
+                "problem_1"
               ],
               "combine_first": [
-                "q2",
-                "q3"
+                "problem_2",
+                "problem_3"
               ]
             }
           },
-          "description": "Student sorted all three questions correctly: q1 to just_compare, q2 and q3 to combine_first",
+          "description": "Student sorted all problems correctly: problem 1 to JUST COMPARE, problems 2 and 3 to COMBINE FIRST",
           "is_correct": true,
           "beats": [
             {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "sorting_area",
-              "params": {
-                "event": "confirm_placement",
-                "status": "confirmed",
-                "description": "All three cards lock into their zones to confirm correct sorting."
-              }
-            },
-            {
               "type": "dialogue",
-              "text": "You sorted them all. Words like combined and together tell you to find a total first."
+              "text": "You sorted them all. Words like 'combined' and 'together' tell you to find a total first."
             }
           ]
         }
@@ -83,17 +73,17 @@
       "elements": [
         {
           "tangible_id": "sorting_area",
-          "description": "Sorting area with three question cards and two drop zones. drag_to_sort tool active.",
+          "description": "Sorting workspace with three problem cards draggable to two zones: JUST COMPARE and COMBINE FIRST, THEN COMPARE. Drag-to-sort tool active.",
           "tangible_type": "sorting_area"
         }
       ]
     },
     {
       "type": "scene",
-      "method": "remove",
+      "method": "update",
       "tangible_id": "sorting_area",
       "params": {
-        "description": "Sorting area clears."
+        "description": "Sorting area fades. Problem cards are no longer draggable."
       }
     },
     {
@@ -106,7 +96,7 @@
       "tool": "multiple_choice",
       "options": [
         "What's the biggest number?",
-        "Does it say combined or together?",
+        "Does it say 'combined' or 'together'?",
         "How many categories are there?",
         "Should I add or subtract?"
       ],
@@ -114,9 +104,9 @@
         {
           "condition_id": "correct",
           "condition": {
-            "selected": "Does it say combined or together?"
+            "selected": "Does it say 'combined' or 'together'?"
           },
-          "description": "Student selected option B, correct",
+          "description": "Student selected option B, the correct key question",
           "is_correct": true,
           "beats": [
             {
@@ -129,7 +119,13 @@
     },
     {
       "type": "current_scene",
-      "elements": []
+      "elements": [
+        {
+          "tangible_id": "sorting_area",
+          "description": "Sorting workspace inactive. Multiple choice options visible: 'What's the biggest number?', 'Does it say 'combined' or 'together'?', 'How many categories are there?', 'Should I add or subtract?'",
+          "tangible_type": "sorting_area"
+        }
+      ]
     },
     {
       "type": "dialogue",
@@ -137,8 +133,14 @@
     },
     {
       "type": "current_scene",
-      "elements": []
+      "elements": [
+        {
+          "tangible_id": "sorting_area",
+          "description": "Sorting workspace remains on screen, interaction complete.",
+          "tangible_type": "sorting_area"
+        }
+      ]
     }
   ],
-  "_generated_at": "2026-04-20T17:00:23.183639+00:00"
+  "_generated_at": "2026-04-27T15:53:54.505521+00:00"
 }

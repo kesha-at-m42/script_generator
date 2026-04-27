@@ -4,27 +4,46 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "bar_graph_scale_5",
-      "tangible_type": "bar_graph",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
       "params": {
-        "mode": "reading",
-        "orientation": "vertical",
-        "scale": 5,
-        "position": "left",
-        "description": "Vertical bar graph appears on left side. Student's data displayed at scale of 5. Categories and bars visible."
+        "description": "Data table showing student-collected block data. Red blocks, Blue blocks, Green blocks, Yellow blocks. Values are multiples of 5 between 10 and 45."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "bar_graph_scale_10",
+      "tangible_id": "bar_graph_scale5",
       "tangible_type": "bar_graph",
       "params": {
         "mode": "reading",
         "orientation": "vertical",
+        "categories": [
+          "Red blocks",
+          "Blue blocks",
+          "Green blocks",
+          "Yellow blocks"
+        ],
+        "scale": 5,
+        "description": "Vertical bar graph at Scale of 5 showing student's block data. Positioned on left side of screen."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_scale10",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Red blocks",
+          "Blue blocks",
+          "Green blocks",
+          "Yellow blocks"
+        ],
         "scale": 10,
-        "position": "right",
-        "description": "Vertical bar graph appears on right side. Same data displayed at scale of 10. Categories and bars visible."
+        "description": "Vertical bar graph at Scale of 10 showing student's block data. Positioned on right side of screen."
       }
     },
     {
@@ -42,25 +61,11 @@
       ],
       "validator": [
         {
-          "condition_id": "selected_scale_10",
-          "condition": {
-            "selected": "Scale of 10"
-          },
-          "description": "Student picked Scale of 10",
-          "is_correct": true,
-          "beats": [
-            {
-              "type": "dialogue",
-              "text": "You picked Scale of 10. Nice and clean!"
-            }
-          ]
-        },
-        {
-          "condition_id": "selected_scale_5",
+          "condition_id": "selected_scale5",
           "condition": {
             "selected": "Scale of 5"
           },
-          "description": "Student picked Scale of 5",
+          "description": "Student selected Scale of 5",
           "is_correct": true,
           "beats": [
             {
@@ -70,11 +75,25 @@
           ]
         },
         {
+          "condition_id": "selected_scale10",
+          "condition": {
+            "selected": "Scale of 10"
+          },
+          "description": "Student selected Scale of 10",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You picked Scale of 10. Nice and clean!"
+            }
+          ]
+        },
+        {
           "condition_id": "selected_same",
           "condition": {
             "selected": "They're the same"
           },
-          "description": "Student picked they're the same",
+          "description": "Student selected they're the same",
           "is_correct": true,
           "beats": [
             {
@@ -89,19 +108,36 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "bar_graph_scale_5",
-          "description": "Vertical bar graph on left. Student's data at scale of 5.",
+          "tangible_id": "data_table",
+          "description": "Data table showing student-collected block data. Red blocks, Blue blocks, Green blocks, Yellow blocks.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_scale5",
+          "description": "Vertical bar graph at Scale of 5 showing student's block data. Left side.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
           "scale": 5
         },
         {
-          "tangible_id": "bar_graph_scale_10",
-          "description": "Vertical bar graph on right. Same data at scale of 10.",
+          "tangible_id": "bar_graph_scale10",
+          "description": "Vertical bar graph at Scale of 10 showing student's block data. Right side.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
           "scale": 10
         }
       ]
@@ -114,23 +150,40 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "bar_graph_scale_5",
-          "description": "Vertical bar graph on left. Student's data at scale of 5.",
+          "tangible_id": "data_table",
+          "description": "Data table showing student-collected block data. Red blocks, Blue blocks, Green blocks, Yellow blocks.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_scale5",
+          "description": "Vertical bar graph at Scale of 5 showing student's block data. Left side.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
           "scale": 5
         },
         {
-          "tangible_id": "bar_graph_scale_10",
-          "description": "Vertical bar graph on right. Same data at scale of 10.",
+          "tangible_id": "bar_graph_scale10",
+          "description": "Vertical bar graph at Scale of 10 showing student's block data. Right side.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
           "scale": 10
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T16:59:05.736599+00:00"
+  "_generated_at": "2026-04-27T15:53:31.430709+00:00"
 }

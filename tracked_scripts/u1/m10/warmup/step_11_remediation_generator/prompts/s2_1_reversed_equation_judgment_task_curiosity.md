@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:01:15.708475
+# Generated: 2026-04-27T10:53:50.415226
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1854,19 +1858,37 @@ Cacheable: Yes
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_student_built",
-      "tangible_type": "equation",
+      "tangible_id": "equal_groups_bags",
+      "tangible_type": "equal_groups",
       "params": {
-        "expression": [
-          "5",
-          "x",
-          "2",
-          "=",
-          "10"
-        ],
-        "description": "Static equation appears: 5 × 2 = 10. Student's equation from previous section, now read-only."
+        "mode": "reading",
+        "container_count": 5,
+        "items_per_container": 2,
+        "description": "Equal groups visual showing 5 bags, each containing 2 picture items."
       },
       "id": "s2_1_reversed_equation_judgment_task_curiosity_b0"
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_builder_warmup",
+      "tangible_type": "equation_builder",
+      "params": {
+        "template": [
+          "__",
+          "×",
+          "__",
+          "=",
+          "__"
+        ],
+        "placed_tiles": {
+          "groups": 5,
+          "items": 2,
+          "total": 10
+        },
+        "description": "Equation builder showing completed equation 5 × 2 = 10."
+      },
+      "id": "s2_1_reversed_equation_judgment_task_curiosity_b1"
     },
     {
       "type": "scene",
@@ -1874,21 +1896,21 @@ Cacheable: Yes
       "tangible_id": "equation_reversed",
       "tangible_type": "equation",
       "params": {
-        "expression": [
+        "template": [
           "10",
           "=",
           "5",
-          "x",
+          "×",
           "2"
         ],
-        "description": "Second equation appears alongside or below first: 10 = 5 × 2. Reversed orientation."
+        "description": "Static equation appears showing 10 = 5 × 2."
       },
-      "id": "s2_1_reversed_equation_judgment_task_curiosity_b1"
+      "id": "s2_1_reversed_equation_judgment_task_curiosity_b2"
     },
     {
       "type": "dialogue",
       "text": "Now look at this equation. What do you think?",
-      "id": "s2_1_reversed_equation_judgment_task_curiosity_b2"
+      "id": "s2_1_reversed_equation_judgment_task_curiosity_b3"
     },
     {
       "type": "prompt",
@@ -1902,135 +1924,161 @@ Cacheable: Yes
       ],
       "validator": [
         {
-          "condition_id": "both_sides_10",
+          "condition_id": "option_a",
           "condition": {
             "selected": "It's true — both sides are 10"
           },
-          "description": "Student chose option A — checked both sides",
+          "description": "Student chose option A: both sides are 10",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
               "text": "You checked both sides. Smart thinking. Hold that thought.",
-              "id": "s2_1_reversed_equation_judgment_task_curiosity_b3_v0_b0"
+              "id": "s2_1_reversed_equation_judgment_task_curiosity_b4_v0_b0"
             }
           ]
         },
         {
-          "condition_id": "just_flipped",
+          "condition_id": "option_b",
           "condition": {
             "selected": "It's true — it's just written differently"
           },
-          "description": "Student chose option B — noticed it's the same equation flipped",
+          "description": "Student chose option B: same equation flipped",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
               "text": "You noticed it's the same equation, just flipped. Hold that thought.",
-              "id": "s2_1_reversed_equation_judgment_task_curiosity_b3_v1_b0"
+              "id": "s2_1_reversed_equation_judgment_task_curiosity_b4_v1_b0"
             }
           ]
         },
         {
-          "condition_id": "answer_last",
+          "condition_id": "option_c",
           "condition": {
             "selected": "It's wrong — the answer should come last"
           },
-          "description": "Student chose option C — thinks answer must come last",
+          "description": "Student chose option C: answer should come last",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
               "text": "Interesting. Something looks different about it. Hold that thought.",
-              "id": "s2_1_reversed_equation_judgment_task_curiosity_b3_v2_b0"
+              "id": "s2_1_reversed_equation_judgment_task_curiosity_b4_v2_b0"
             }
           ]
         },
         {
-          "condition_id": "not_sure",
+          "condition_id": "option_d",
           "condition": {
             "selected": "I'm not sure"
           },
-          "description": "Student chose option D — uncertain",
+          "description": "Student chose option D: not sure",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
               "text": "That's honest. It does look different. Hold that thought.",
-              "id": "s2_1_reversed_equation_judgment_task_curiosity_b3_v3_b0"
+              "id": "s2_1_reversed_equation_judgment_task_curiosity_b4_v3_b0"
             }
-          ]
-        }
-      ],
-      "id": "s2_1_reversed_equation_judgment_task_curiosity_b3"
-    },
-    {
-      "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "equation_student_built",
-          "description": "Static equation: 5 × 2 = 10.",
-          "tangible_type": "equation",
-          "expression": [
-            "5",
-            "x",
-            "2",
-            "=",
-            "10"
-          ]
-        },
-        {
-          "tangible_id": "equation_reversed",
-          "description": "Static equation: 10 = 5 × 2.",
-          "tangible_type": "equation",
-          "expression": [
-            "10",
-            "=",
-            "5",
-            "x",
-            "2"
           ]
         }
       ],
       "id": "s2_1_reversed_equation_judgment_task_curiosity_b4"
     },
     {
-      "type": "dialogue",
-      "text": "You can build equations. But today, equations have some surprises. You'll see them in new ways and figure out missing numbers.",
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equal_groups_bags",
+          "description": "Equal groups visual showing 5 bags, each containing 2 picture items.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 2
+        },
+        {
+          "tangible_id": "equation_builder_warmup",
+          "description": "Equation builder showing completed equation 5 × 2 = 10.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "×",
+            "__",
+            "=",
+            "__"
+          ],
+          "placed_tiles": {
+            "groups": 5,
+            "items": 2,
+            "total": 10
+          }
+        },
+        {
+          "tangible_id": "equation_reversed",
+          "description": "Static equation showing 10 = 5 × 2.",
+          "tangible_type": "equation",
+          "template": [
+            "10",
+            "=",
+            "5",
+            "×",
+            "2"
+          ]
+        }
+      ],
       "id": "s2_1_reversed_equation_judgment_task_curiosity_b5"
+    },
+    {
+      "type": "dialogue",
+      "text": "You can build equations. But equations have some surprises. You'll see them in new ways and figure out missing numbers.",
+      "id": "s2_1_reversed_equation_judgment_task_curiosity_b6"
     },
     {
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equation_student_built",
-          "description": "Static equation: 5 × 2 = 10. Remains visible through transition.",
-          "tangible_type": "equation",
-          "expression": [
-            "5",
-            "x",
-            "2",
+          "tangible_id": "equal_groups_bags",
+          "description": "Equal groups visual showing 5 bags, each containing 2 picture items.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 2
+        },
+        {
+          "tangible_id": "equation_builder_warmup",
+          "description": "Equation builder showing completed equation 5 × 2 = 10.",
+          "tangible_type": "equation_builder",
+          "template": [
+            "__",
+            "×",
+            "__",
             "=",
-            "10"
-          ]
+            "__"
+          ],
+          "placed_tiles": {
+            "groups": 5,
+            "items": 2,
+            "total": 10
+          }
         },
         {
           "tangible_id": "equation_reversed",
-          "description": "Static equation: 10 = 5 × 2. Remains visible through transition.",
+          "description": "Static equation showing 10 = 5 × 2.",
           "tangible_type": "equation",
-          "expression": [
+          "template": [
             "10",
             "=",
             "5",
-            "x",
+            "×",
             "2"
           ]
         }
       ],
-      "id": "s2_1_reversed_equation_judgment_task_curiosity_b6"
+      "id": "s2_1_reversed_equation_judgment_task_curiosity_b7"
     }
   ],
-  "_generated_at": "2026-04-20T17:00:54.934441+00:00"
+  "_generated_at": "2026-04-27T15:53:29.927478+00:00"
 }
 </input>
 

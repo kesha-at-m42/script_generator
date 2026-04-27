@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:04:22.823963
+# Generated: 2026-04-27T10:59:11.057857
 ======================================================================
 
 ## API Parameters
@@ -948,11 +948,15 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "They're ALL even. Remember from graphing — even numbers split perfectly into groups of 2. And that makes sense: multiplying BY 2 means making groups of 2, so the product always splits evenly.",
+      "text": "What do all the products of 2 have in common?",
+      "context": "lesson"
+    },
+    {
+      "text": "They're ALL even. Remember from graphing: even numbers split perfectly into groups of 2. And that makes sense: multiplying BY 2 means making groups of 2, so the product always splits evenly.",
       "context": "on_correct"
     },
     {
-      "text": "Here's the pattern: when you multiply by 2, the product is ALWAYS even. Every time. That's your first checking tool — if you multiply by 2 and get an odd number, something went wrong.",
+      "text": "Here's the pattern: when you multiply by 2, the product is ALWAYS even. Every time. That's your first checking tool. If you multiply by 2 and get an odd number, something went wrong.",
       "context": "lesson"
     }
   ]

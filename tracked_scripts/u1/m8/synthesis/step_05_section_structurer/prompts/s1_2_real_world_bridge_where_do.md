@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:00:29.342152
+# Generated: 2026-04-27T10:53:38.922075
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -816,23 +832,21 @@ Cacheable: Yes
   "prompt": "\"Which one shows equal groups?\"",
   "student_action": "Multiple Choice selection (accept A, B, or C).",
   "correct_answer": "A, B, or C (all are equal groups; accept any)",
-  "on_correct_selection_a": "\"The egg carton—2 rows of 6 eggs. That's 2 times 6. Equal groups in the grocery store.\"",
-  "on_correct_selection_b": "\"The parking lot—3 rows of 4 cars. That's 3 times 4. Equal groups at the mall.\"",
-  "on_correct_selection_c": "\"The bookshelf—5 shelves with 3 books each. That's 5 times 3. Equal groups in your room.\"",
-  "on_incorrect_selection_d": "\"The benches have people, but they're not in equal groups—different numbers on each bench. Check the others for groups where each has the same amount.\"",
+  "on_correct_selection_a": "(Selection A) \"The egg carton—2 rows of 6 eggs. That's 2 times 6. Equal groups in the grocery store.\"",
+  "on_correct_selection_b": "(Selection B) \"The parking lot—3 rows of 4 cars. That's 3 times 4. Equal groups at the mall.\"",
+  "on_correct_selection_c": "(Selection C) \"The bookshelf—5 shelves with 3 books each. That's 5 times 3. Equal groups in your room.\"",
+  "on_incorrect_selection_d": "(Selection D) \"The benches have people, but they're not in equal groups—different numbers on each bench. Check the others for groups where each has the same amount.\"",
   "remediation": "Pipeline",
-  "_generated_at": "2026-04-20T16:59:50.443267+00:00",
+  "_generated_at": "2026-04-27T15:52:44.629850+00:00",
   "workspace_specs": {
     "toys": [
       "equal_groups"
     ],
     "tools": [
       "multiple_choice"
-    ],
-    "unresolved": [
-      "Four real-world scenario illustrations"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_0_opening_frame\n# Section Summary: s1_0_opening_frame\n\n**VISUAL STATE:** No tangible visualizations or data displays are present on screen at section end. The screen shows only dialogue text against a blank background.\n\n**CONTENT:** This opening frame recaps prior learning about building expressions from equal groups pictures and introduces the transition to connecting multiple representation methods. No new vocabulary is formally introduced; the section references previously learned concepts (equal groups, expressions, tiles).\n\n**STUDENT ACTION:** No interactive student action occurs in this section. The student receives information through dialogue only, preparing them for subsequent activities.\n\n---\n\n## s1_1_representation_transfer_same_expression_different\n# Section Summary: s1_1_representation_transfer_same_expression_different\n\n**VISUAL STATE:**\nThree equal-groups representations displayed horizontally: (1) 2 bags with 5 items each (left), (2) 2 boxes with 5 items each (center), (3) 2 circles with 5 dots each (right)—all in reading mode. Below all three visuals: the equation \"2 × 5\" displayed as a shared expression.\n\n**CONTENT:**\nStudents were introduced to the concept of **representation transfer**—recognizing that different visual containers (bags, boxes, circles) can represent the same underlying mathematical structure. The vocabulary term **structure** was formally introduced to describe the invariant relationship (2 groups of 5) that remains constant across different representations. The lesson emphasized that a single expression (2 × 5) captures this abstract structure regardless of the concrete container type.\n\n**STUDENT ACTION:**\nStudent answered a multiple-choice question identifying what stays the same across all three visuals, selecting \"2 groups with 5 in each\" as the correct response, demonstrating understanding that the multiplicative structure—not the visual form—is what the expression represents."
 }
 </input>
 

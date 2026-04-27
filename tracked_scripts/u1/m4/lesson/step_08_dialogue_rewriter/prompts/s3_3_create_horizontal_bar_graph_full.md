@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:42.923945
+# Generated: 2026-04-27T11:01:38.890639
 ======================================================================
 
 ## API Parameters
@@ -948,7 +948,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "Ava at 50, right at the line. Kai, Noah, and Zoe all between the lines.",
+      "text": "Ava at 50—right at the line. Kai, Noah, and Zoe—all between the lines.",
       "context": "on_correct"
     }
   ]

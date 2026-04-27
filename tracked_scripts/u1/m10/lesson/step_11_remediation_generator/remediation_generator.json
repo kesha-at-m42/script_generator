@@ -7,13 +7,13 @@
           "condition": {
             "incorrect_count": 1
           },
-          "description": "Student placed incorrect equation on first attempt",
+          "description": "Student placed incorrect tiles on first attempt",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "dialogue",
-                "text": "Check the bags. How many bags do you see? How many apples in each?"
+                "text": "Check the picture. Count the bags, then count what's in each bag."
               }
             ]
           ]
@@ -22,7 +22,7 @@
           "condition": {
             "incorrect_count": 2
           },
-          "description": "Student placed incorrect equation on second attempt",
+          "description": "Student placed incorrect tiles on second attempt",
           "is_correct": false,
           "steps": [
             [
@@ -32,42 +32,42 @@
                 "tangible_id": "equal_groups_apples",
                 "params": {
                   "highlight_containers": true,
-                  "description": "Bags highlight to draw attention to the groups."
+                  "description": "The 3 bags highlight."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let's count together. I see 3 bags. In each bag, I count 4 apples. The first slot needs the number of bags. The second slot needs how many are in each bag. The last slot is the total."
+                "text": "I see 3 bags. That's the first number. Now count how many apples are in one bag. That's the second number. Then figure out the total."
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Student placed incorrect equation three or more times. System models the answer.",
+          "description": "Student placed incorrect tiles three or more times. System models the answer.",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equation_builder_apples",
+                "tangible_id": "equal_groups_apples",
                 "params": {
-                  "event": "place_tiles_sequentially",
+                  "event": "highlight_containers_sequential",
                   "status": "confirmed",
-                  "description": "System demonstrates placing tiles: first 3, then 4, then 12. Each tile slides into position."
+                  "description": "Bags highlight sequentially: 1, 2, 3."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Here's how this works. First, I count the bags: 3. That goes in the first slot. Then I count what's in each bag: 4. That goes in the second slot. Finally, I count all the apples: 12. That's the product, so it goes in the last slot. The equation is 3 times 4 equals 12. 3 groups of 4 equals 12 total."
+                "text": "Let me show you. I count the bags: 1, 2, 3. That's 3 groups. Now I count one bag: 1, 2, 3, 4 apples. So 3 times 4. And the product? 3 fours: 4, 8, 12. The equation is 3 times 4 equals 12."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:07:17.873939+00:00"
+    "_generated_at": "2026-04-27T16:01:45.164386+00:00"
   },
   {
     "id": "s1_2_sign_teaching_reversed_orientation_worked",
@@ -77,13 +77,13 @@
           "condition": {
             "incorrect_count": 1
           },
-          "description": "Student placed wrong numbers on first attempt",
+          "description": "Student placed incorrect tiles on first attempt",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "dialogue",
-                "text": "Check the picture. How many boxes? How many crayons in each box?"
+                "text": "Count the boxes. Then count what's in each box."
               }
             ]
           ]
@@ -92,57 +92,48 @@
           "condition": {
             "incorrect_count": 2
           },
-          "description": "Student placed wrong numbers on second attempt",
+          "description": "Student placed incorrect tiles on second attempt",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
-                "method": "animate",
-                "tangible_id": "equal_groups_boxes_crayons",
+                "method": "update",
+                "tangible_id": "equation_builder_main",
                 "params": {
-                  "event": "highlight_containers_sequential",
-                  "status": "confirmed",
-                  "description": "Boxes highlight one at a time: 1, 2, 3, 4, 5, 6."
+                  "highlight_slots": [
+                    "groups",
+                    "items"
+                  ],
+                  "description": "Groups and items slots highlight in the equation template."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let's count together. Count the boxes first: 1, 2, 3, 4, 5, 6. That's your first number. Now count what's in one box. How many crayons?"
+                "text": "Look at the boxes. How many boxes? That's the first number. Count the crayons in one box. That's the second number. Then skip count by 7s: 7, 14, 21, 28, 35, 42. That's the product."
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Student placed wrong numbers three or more times. System models the answer.",
+          "description": "Student placed incorrect tiles three or more times. System models the answer.",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equal_groups_boxes_crayons",
+                "tangible_id": "equal_groups_crayons",
                 "params": {
                   "event": "highlight_containers_sequential",
                   "status": "confirmed",
-                  "description": "Boxes highlight one at a time as guide counts: 1, 2, 3, 4, 5, 6."
-                }
-              },
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "equal_groups_boxes_crayons",
-                "params": {
-                  "event": "highlight_items_in_container",
-                  "status": "confirmed",
-                  "container_index": 0,
-                  "description": "Items in first box highlight as guide counts: 1, 2, 3, 4, 5, 6, 7."
+                  "description": "Boxes highlight sequentially as guide counts: 1, 2, 3, 4, 5, 6."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. First I count the boxes: 1, 2, 3, 4, 5, 6. That's the first number, 6 groups. Then I count what's in one box: 1, 2, 3, 4, 5, 6, 7. That's 7 in each group. So I place 6, then 7, then the product. 6 times 7. Skip count by 7s six times: 7, 14, 21, 28, 35, 42. The answer is 6 times 7 equals 42. Six boxes, 7 crayons in each, 42 total."
+                "text": "Let me show you. I count the boxes: 1, 2, 3, 4, 5, 6. Six boxes. That's my first number. Now I count one box: 1, 2, 3, 4, 5, 6, 7. Seven crayons. That's my second number. 6 times 7. And the product? Skip count by 7s six times: 7, 14, 21, 28, 35, 42. The equation is 6 times 7 equals 42. That's how equal groups connect to multiplication."
               }
             ]
           ]
@@ -153,13 +144,13 @@
           "condition": {
             "incorrect_count": 1
           },
-          "description": "Student placed wrong numbers on first attempt",
+          "description": "Student placed incorrect tiles on first attempt",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "dialogue",
-                "text": "Look closely. Count the bags. Count what's inside each bag."
+                "text": "Look closely. How many bags? How many stars in each?"
               }
             ]
           ]
@@ -168,64 +159,52 @@
           "condition": {
             "incorrect_count": 2
           },
-          "description": "Student placed wrong numbers on second attempt",
+          "description": "Student placed incorrect tiles on second attempt",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
-                "method": "animate",
-                "tangible_id": "equal_groups_bags_stars",
+                "method": "update",
+                "tangible_id": "equal_groups_stars",
                 "params": {
-                  "event": "highlight_containers_sequential",
-                  "status": "confirmed",
-                  "description": "Bags highlight one at a time: 1, 2, 3, 4, 5."
+                  "highlight_all_containers": true,
+                  "description": "All 5 bags highlight."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Here's what helps. Count the bags first: 1, 2, 3, 4, 5. That gives you the groups. Now look inside one bag and count the stars. What do you get?"
+                "text": "Count the bags: 5. Count the stars in one bag: 9. So 5 times 9. Skip count by 9s: 9, 18, 27, 36, 45. Place those three numbers."
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Student placed wrong numbers three or more times. System models the answer.",
+          "description": "Student placed incorrect tiles three or more times. System models the answer.",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equal_groups_bags_stars",
+                "tangible_id": "equal_groups_stars",
                 "params": {
                   "event": "highlight_containers_sequential",
                   "status": "confirmed",
-                  "description": "Bags highlight one at a time as guide counts: 1, 2, 3, 4, 5."
-                }
-              },
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "equal_groups_bags_stars",
-                "params": {
-                  "event": "highlight_items_in_container",
-                  "status": "confirmed",
-                  "container_index": 0,
-                  "description": "Stars in first bag highlight as guide counts: 1, 2, 3, 4, 5, 6, 7, 8, 9."
+                  "description": "Bags highlight one at a time as guide counts them."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "This one takes a bit of thought, so let's work through it together. I start by counting the bags: 1, 2, 3, 4, 5. That's 5 groups. Then I pick one bag and count the stars inside: 1, 2, 3, 4, 5, 6, 7, 8, 9. That's 9 in each group. So the equation is 5 times 9. Now I need the product. I can skip count by 9s five times: 9, 18, 27, 36, 45. The answer is 5 times 9 equals 45. Five bags, 9 stars in each, 45 total. That's how the equation matches the picture."
+                "text": "Here's how it works. I count the bags: 1, 2, 3, 4, 5. Five bags total. Then I pick one bag and count the stars inside: 1, 2, 3, 4, 5, 6, 7, 8, 9. Nine stars. So I have 5 groups of 9. 5 times 9. To find the product, I skip count by 9s: 9, 18, 27, 36, 45. The answer is 5 times 9 equals 45. Five bags, 9 in each, same value as 45."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:07:38.640035+00:00"
+    "_generated_at": "2026-04-27T16:02:05.120256+00:00"
   },
   {
     "id": "s1_3_guided_practice_reversed_form",
@@ -235,13 +214,13 @@
           "condition": {
             "incorrect_count": 1
           },
-          "description": "Student placed incorrect values on first attempt",
+          "description": "Student placed incorrect tiles on first attempt",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "dialogue",
-                "text": "Check the picture. Count the boxes, count what's in each box."
+                "text": "Not quite. Count the boxes, count what's inside each, then look at the total. Product goes first in this template."
               }
             ]
           ]
@@ -250,7 +229,7 @@
           "condition": {
             "incorrect_count": 2
           },
-          "description": "Student placed incorrect values on second attempt",
+          "description": "Student placed incorrect tiles on second attempt",
           "is_correct": false,
           "steps": [
             [
@@ -260,62 +239,42 @@
                 "tangible_id": "equal_groups_cookies",
                 "params": {
                   "highlight_containers": true,
-                  "description": "The 3 boxes highlight."
+                  "description": "Boxes highlight sequentially: 1, 2, 3 boxes total."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Three boxes. Count the cookies in one box: 1, 2, 3, 4, 5, 6, 7, 8. That's 8 cookies per box. Now figure out the product — 3 groups of 8. Place those numbers into the equation."
+                "text": "Let's count together. 3 boxes. Each box has 8 cookies. 3 times 8 is 24. The reversed template puts 24 first, then the equal sign, then 3 times 8."
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Student placed incorrect values three or more times. System models the answer.",
+          "description": "Student placed incorrect tiles three or more times. System models the answer.",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equal_groups_cookies",
-                "params": {
-                  "event": "count_containers_sequential",
-                  "status": "confirmed",
-                  "description": "Boxes highlight one at a time: 1, 2, 3."
-                }
-              },
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "equal_groups_cookies",
-                "params": {
-                  "event": "count_items_in_first_container",
-                  "status": "confirmed",
-                  "description": "Cookies in first box highlight one at a time: 1, 2, 3, 4, 5, 6, 7, 8."
-                }
-              },
-              {
-                "type": "scene",
-                "method": "animate",
                 "tangible_id": "equation_builder_reversed",
                 "params": {
-                  "event": "place_tiles_sequence",
+                  "event": "demonstrate_tile_placement",
                   "status": "confirmed",
-                  "description": "Tiles place into equation one at a time: 24 in product slot, 3 in groups slot, 8 in items slot."
+                  "description": "System demonstrates placing tiles: 24 in product slot, 3 in groups slot, 8 in items slot."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Here's how this works. I count the boxes: 1, 2, 3. Three groups. I count the cookies in one box: 8 cookies. So I have 3 groups of 8. Three times 8 equals 24. That's the product. The equation is 24 equals 3 times 8. Product first, expression second. Same value on both sides."
+                "text": "Let me show you. I count 3 boxes. Each box has 8 cookies. 3 times 8 equals 24. In the reversed template, the product 24 goes first. Then equals. Then 3 times 8. Same value on both sides."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:07:50.695025+00:00"
+    "_generated_at": "2026-04-27T16:02:16.058663+00:00"
   },
   {
     "id": "s1_4_independent_practice_standard_reversed",
@@ -331,7 +290,7 @@
             [
               {
                 "type": "dialogue",
-                "text": "Not quite. Count the bags, then count what's in each bag."
+                "text": "Check the picture. Count the bags. Count what's in each bag."
               }
             ]
           ]
@@ -346,17 +305,16 @@
             [
               {
                 "type": "scene",
-                "method": "animate",
+                "method": "update",
                 "tangible_id": "equal_groups_bags",
                 "params": {
-                  "event": "highlight_containers_sequential",
-                  "status": "proposed",
-                  "description": "Bags highlight one at a time in sequence: 1, 2, 3, 4."
+                  "highlight_containers": true,
+                  "description": "All 4 bags highlight to show the group count."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let's count together. Four bags. Now count the marbles in one bag. How many do you see in each?"
+                "text": "Here's a hint: I see 4 bags. That's 4 groups. Count the marbles in one bag. That number goes in the middle. Then skip-count by that number 4 times to find the product."
               }
             ]
           ]
@@ -370,27 +328,31 @@
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equal_groups_bags",
+                "tangible_id": "equation_builder_main",
                 "params": {
-                  "event": "highlight_containers_sequential",
+                  "event": "demonstrate_tile_placement",
                   "status": "confirmed",
-                  "description": "Bags highlight sequentially as guide counts: 1, 2, 3, 4."
+                  "description": "System demonstrates placing tiles: 4 in groups slot, 6 in items slot, 24 in product slot.",
+                  "placed_values": {
+                    "groups": 4,
+                    "items": 6,
+                    "total": 24
+                  }
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. First, count the bags: 1, 2, 3, 4. Four bags, that's the first number. Now look inside one bag and count: 1, 2, 3, 4, 5, 6. Six marbles in each bag, that's the second number. Four groups of 6. Now multiply: 4 times 6 equals 24. The equation is 4 times 6 equals 24."
+                "text": "Let me show you how this works. First, I count the bags. That's the number of groups: 4. Then I count the marbles in one bag: 6. So I've got 4 groups of 6. Now I skip-count by 6 four times: 6, 12, 18, 24. The product is 24. The equation is 4 times 6 equals 24. Four bags of 6 marbles means the same value as 24 total marbles."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:08:00.835928+00:00"
+    "_generated_at": "2026-04-27T16:02:27.861901+00:00"
   },
   {
     "id": "s2_1_context_variety_announcement_worked_example",
-    "type": "transition",
     "beats": [
       {
         "type": "scene",
@@ -401,8 +363,10 @@
           "mode": "reading",
           "container_count": 3,
           "items_per_container": 9,
-          "visual_style": "books_on_shelves",
-          "description": "Equal groups visual appears. 3 horizontal rows of books on shelves. 9 books per row. Books arranged in clear horizontal rows."
+          "item_type": "books",
+          "containers_visible": true,
+          "arrangement": "horizontal_rows",
+          "description": "Equal groups visualization appears showing 3 rows of books on shelves. Each row contains 9 books arranged horizontally. Books clearly separated into 3 distinct rows."
         },
         "id": "s2_1_context_variety_announcement_worked_example_b0"
       },
@@ -419,7 +383,7 @@
             "=",
             "__"
           ],
-          "palette": [
+          "tile_palette": [
             3,
             4,
             8,
@@ -431,7 +395,7 @@
             30,
             36
           ],
-          "description": "Equation builder appears with blank multiplication equation template. Tile palette shows numbers 3, 4, 8, 9, 10, 12, 24, 27, 30, 36."
+          "description": "Equation Builder appears with three blank slots and tile palette showing numbers 3, 4, 8, 9, 10, 12, 24, 27, 30, 36."
         },
         "id": "s2_1_context_variety_announcement_worked_example_b1"
       },
@@ -445,16 +409,16 @@
         "elements": [
           {
             "tangible_id": "equal_groups_books",
-            "description": "Equal groups visual showing 3 rows of books on shelves. 9 books per row.",
+            "description": "Equal groups showing 3 rows of 9 books on shelves, horizontal arrangement, containers visible.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 3,
             "items_per_container": 9,
-            "visual_style": "books_on_shelves"
+            "item_type": "books"
           },
           {
             "tangible_id": "equation_builder_books",
-            "description": "Equation builder with blank multiplication template. Palette available.",
+            "description": "Equation Builder with empty template and tile palette available.",
             "tangible_type": "equation_builder",
             "template": [
               "__",
@@ -462,18 +426,6 @@
               "__",
               "=",
               "__"
-            ],
-            "palette": [
-              3,
-              4,
-              8,
-              9,
-              10,
-              12,
-              24,
-              27,
-              30,
-              36
             ]
           }
         ],
@@ -491,7 +443,7 @@
         "params": {
           "event": "highlight_containers_sequential",
           "status": "confirmed",
-          "description": "Rows highlight one at a time in sequence."
+          "description": "Rows highlight sequentially: first row, then second row, then third row."
         },
         "id": "s2_1_context_variety_announcement_worked_example_b5"
       },
@@ -501,76 +453,37 @@
         "id": "s2_1_context_variety_announcement_worked_example_b6"
       },
       {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "equal_groups_books",
-            "description": "3 rows of books. All rows highlighted after sequential animation.",
-            "tangible_type": "equal_groups",
-            "mode": "reading",
-            "container_count": 3,
-            "items_per_container": 9,
-            "visual_style": "books_on_shelves"
-          },
-          {
-            "tangible_id": "equation_builder_books",
-            "description": "Equation builder with blank template.",
-            "tangible_type": "equation_builder",
-            "template": [
-              "__",
-              "×",
-              "__",
-              "=",
-              "__"
-            ],
-            "palette": [
-              3,
-              4,
-              8,
-              9,
-              10,
-              12,
-              24,
-              27,
-              30,
-              36
-            ]
-          }
-        ],
-        "id": "s2_1_context_variety_announcement_worked_example_b7"
-      },
-      {
         "type": "scene",
         "method": "animate",
         "tangible_id": "equal_groups_books",
         "params": {
           "event": "highlight_items_in_container",
-          "status": "confirmed",
           "container_index": 0,
-          "description": "Items in first row highlight one at a time as guide counts."
+          "status": "confirmed",
+          "description": "Items in first row highlight sequentially while counting."
         },
-        "id": "s2_1_context_variety_announcement_worked_example_b8"
+        "id": "s2_1_context_variety_announcement_worked_example_b7"
       },
       {
         "type": "dialogue",
         "text": "1, 2, 3, 4, 5, 6, 7, 8, 9. Nine books. So I've got 3 rows of 9. Same pattern: groups of items.",
-        "id": "s2_1_context_variety_announcement_worked_example_b9"
+        "id": "s2_1_context_variety_announcement_worked_example_b8"
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "equal_groups_books",
-            "description": "3 rows of books. First row's items highlighted.",
+            "description": "Equal groups showing 3 rows of 9 books, first row items highlighted from counting demonstration.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 3,
             "items_per_container": 9,
-            "visual_style": "books_on_shelves"
+            "item_type": "books"
           },
           {
             "tangible_id": "equation_builder_books",
-            "description": "Equation builder with blank template.",
+            "description": "Equation Builder with empty template.",
             "tangible_type": "equation_builder",
             "template": [
               "__",
@@ -578,163 +491,125 @@
               "__",
               "=",
               "__"
-            ],
-            "palette": [
-              3,
-              4,
-              8,
-              9,
-              10,
-              12,
-              24,
-              27,
-              30,
-              36
             ]
           }
         ],
-        "id": "s2_1_context_variety_announcement_worked_example_b10"
+        "id": "s2_1_context_variety_announcement_worked_example_b9"
       },
       {
         "type": "dialogue",
-        "text": "3 times 9. And the product? Skip count by 9s: 9, 18, 27.",
-        "id": "s2_1_context_variety_announcement_worked_example_b11"
+        "text": "3 times 9. And the product? Skip-count by 9s: 9, 18, 27.",
+        "id": "s2_1_context_variety_announcement_worked_example_b10"
       },
       {
         "type": "scene",
         "method": "update",
         "tangible_id": "equation_builder_books",
         "params": {
-          "placed": {
+          "placed_values": {
             "groups": 3,
             "items": 9,
             "total": 27
           },
-          "description": "Guide demonstration: tiles place into equation. 3 × 9 = 27 appears."
+          "description": "Guide demonstration: tiles 3, 9, and 27 place into equation builder slots to show 3 × 9 = 27."
         },
-        "id": "s2_1_context_variety_announcement_worked_example_b12"
+        "id": "s2_1_context_variety_announcement_worked_example_b11"
       },
       {
         "type": "dialogue",
         "text": "3 times 9 equals 27. Same equation building, different picture.",
-        "id": "s2_1_context_variety_announcement_worked_example_b13"
+        "id": "s2_1_context_variety_announcement_worked_example_b12"
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "equal_groups_books",
-            "description": "3 rows of books on shelves. First row highlighted.",
+            "description": "Equal groups showing 3 rows of 9 books on shelves.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 3,
             "items_per_container": 9,
-            "visual_style": "books_on_shelves"
+            "item_type": "books"
           },
           {
             "tangible_id": "equation_builder_books",
-            "description": "Equation builder showing completed equation: 3 × 9 = 27.",
+            "description": "Equation Builder displaying completed equation 3 × 9 = 27.",
             "tangible_type": "equation_builder",
             "template": [
-              "__",
+              "3",
               "×",
-              "__",
+              "9",
               "=",
-              "__"
-            ],
-            "palette": [
-              3,
-              4,
-              8,
-              9,
-              10,
-              12,
-              24,
-              27,
-              30,
-              36
-            ],
-            "placed": {
-              "groups": 3,
-              "items": 9,
-              "total": 27
-            }
+              "27"
+            ]
           }
         ],
-        "id": "s2_1_context_variety_announcement_worked_example_b14"
+        "id": "s2_1_context_variety_announcement_worked_example_b13"
       },
       {
         "type": "scene",
-        "method": "update",
-        "tangible_id": "equation_builder_books",
+        "method": "add",
+        "tangible_id": "static_equation_reversed_books",
+        "tangible_type": "equation",
         "params": {
           "template": [
-            "__",
+            "27",
             "=",
-            "__",
+            "3",
             "×",
-            "__"
+            "9"
           ],
-          "placed": {
-            "total": 27,
-            "groups": 3,
-            "items": 9
-          },
-          "description": "Equation reverses to show commutative form: 27 = 3 × 9."
+          "description": "Reversed form equation appears below builder: 27 = 3 × 9."
         },
-        "id": "s2_1_context_variety_announcement_worked_example_b15"
+        "id": "s2_1_context_variety_announcement_worked_example_b14"
       },
       {
         "type": "dialogue",
         "text": "Both ways, same value.",
-        "id": "s2_1_context_variety_announcement_worked_example_b16"
+        "id": "s2_1_context_variety_announcement_worked_example_b15"
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "equal_groups_books",
-            "description": "3 rows of books on shelves.",
+            "description": "Equal groups showing 3 rows of 9 books on shelves.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 3,
             "items_per_container": 9,
-            "visual_style": "books_on_shelves"
+            "item_type": "books"
           },
           {
             "tangible_id": "equation_builder_books",
-            "description": "Equation builder showing reversed form: 27 = 3 × 9.",
+            "description": "Equation Builder displaying completed equation 3 × 9 = 27.",
             "tangible_type": "equation_builder",
             "template": [
-              "__",
-              "=",
-              "__",
+              "3",
               "×",
-              "__"
-            ],
-            "palette": [
-              3,
-              4,
-              8,
-              9,
-              10,
-              12,
-              24,
-              27,
-              30,
-              36
-            ],
-            "placed": {
-              "total": 27,
-              "groups": 3,
-              "items": 9
-            }
+              "9",
+              "=",
+              "27"
+            ]
+          },
+          {
+            "tangible_id": "static_equation_reversed_books",
+            "description": "Static equation showing reversed form 27 = 3 × 9.",
+            "tangible_type": "equation",
+            "template": [
+              "27",
+              "=",
+              "3",
+              "×",
+              "9"
+            ]
           }
         ],
-        "id": "s2_1_context_variety_announcement_worked_example_b17"
+        "id": "s2_1_context_variety_announcement_worked_example_b16"
       }
     ],
-    "_generated_at": "2026-04-20T17:03:54.405799+00:00"
+    "_generated_at": "2026-04-27T15:57:15.750938+00:00"
   },
   {
     "id": "s2_2_equal_vs_unequal_groups_identification",
@@ -742,182 +617,92 @@
       [
         {
           "condition": {
-            "and": [
-              {
-                "or": [
-                  {
-                    "selected": "A"
-                  },
-                  {
-                    "selected": "C"
-                  }
-                ]
-              },
-              {
-                "not": {
-                  "and": [
-                    {
-                      "selected": "A"
-                    },
-                    {
-                      "selected": "C"
-                    }
-                  ]
-                }
-              },
-              {
-                "not": {
-                  "selected": "B"
-                }
-              },
-              {
-                "not": {
-                  "selected": "D"
-                }
-              }
-            ]
+            "incorrect_count": 1
           },
-          "description": "Branch 2: Student selected only A or only C (correct options only, but incomplete)",
+          "description": "Student did not select both A and C on first attempt",
           "is_correct": false,
           "steps": [
             [
               {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "image_grid",
-                "params": {
-                  "highlight_images": [
-                    "A",
-                    "C"
-                  ],
-                  "description": "Both A and C highlight to show they are the equal groups examples."
-                }
-              },
-              {
                 "type": "dialogue",
-                "text": "You found one of them. Look at both A and C closely. They both show equal groups. Did you select both?"
+                "text": "Not quite. Equal groups means the same number in every group. Look at each picture again."
               }
             ]
           ]
         },
         {
           "condition": {
-            "not": {
-              "or": [
-                {
-                  "selected": "A"
-                },
-                {
-                  "selected": "C"
-                }
-              ]
-            }
+            "incorrect_count": 2
           },
-          "description": "Branch 3: Student selected only incorrect options (B and/or D), no correct answers",
+          "description": "Student did not select both A and C on second attempt",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "image_grid",
+                "tangible_id": "image_a",
                 "params": {
-                  "highlight_images": [
-                    "B",
-                    "D"
-                  ],
-                  "dim_images": [
-                    "A",
-                    "C"
-                  ],
-                  "description": "B and D highlight to draw attention to their unequal structure. A and C dim."
+                  "highlight": true,
+                  "description": "Image A highlights — 3 shelves, 6 jars on each shelf."
                 }
               },
-              {
-                "type": "dialogue",
-                "text": "Equal groups means the same number in every group. Look at B: 5, 6, 5, 2. Those aren't equal. Look at D: 7, 4, 7. Those aren't equal either. Find the pictures where every group has exactly the same count."
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "and": [
-              {
-                "or": [
-                  {
-                    "selected": "B"
-                  },
-                  {
-                    "selected": "D"
-                  }
-                ]
-              },
-              {
-                "or": [
-                  {
-                    "selected": "A"
-                  },
-                  {
-                    "selected": "C"
-                  }
-                ]
-              }
-            ]
-          },
-          "description": "Branch 4: Student selected a mix of correct (A or C) and incorrect (B or D)",
-          "is_correct": false,
-          "steps": [
-            [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "image_grid",
+                "tangible_id": "image_c",
                 "params": {
-                  "highlight_correct": [
-                    "A",
-                    "C"
-                  ],
-                  "highlight_incorrect": [
-                    "B",
-                    "D"
-                  ],
-                  "description": "A and C pulse green (equal groups). B and D pulse red (unequal groups)."
+                  "highlight": true,
+                  "description": "Image C highlights — 2 stacks, 9 books in each stack."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "You found at least one equal group picture. But check the others you selected. Count the items in each group. Are they all the same number?"
+                "text": "Count carefully. The first picture has 6 jars on EACH shelf. The third picture has 9 books in EACH stack. Same count in every group — that's equal groups. Are there any others?"
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Heavy: Student answered incorrectly. System models the correct answer.",
+          "description": "Student answered incorrectly. System models the correct answer.",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "image_grid",
+                "tangible_id": "image_a",
                 "params": {
-                  "event": "demonstrate_equal_groups",
+                  "event": "count_items_per_group",
                   "status": "confirmed",
-                  "description": "System highlights A: arrows point to each shelf showing 6, 6, 6. Then highlights C: arrows point to each stack showing 9, 9. Then shows B: 5, 6, 5, 2 with X marks. Then D: 7, 4, 7 with X marks."
+                  "description": "System demonstrates counting Image A: shelf 1 shows 6 jars, shelf 2 shows 6 jars, shelf 3 shows 6 jars."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. Picture A has 3 shelves: 6 jars, 6 jars, 6 jars. Equal groups. Picture C has 2 stacks: 9 books, 9 books. Equal groups. Picture B has 4 plates: 5, 6, 5, 2. Not equal. Picture D has 3 groups: 7 ducks, 4 ducks, 7 ducks. Not equal. A and C are the answers because every group in those pictures has the same count. That is what equal groups means."
+                "text": "Image A: I count the first shelf — 6 jars. Second shelf — 6 jars. Third shelf — 6 jars. Every shelf has the same number. That's equal groups."
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "image_c",
+                "params": {
+                  "event": "count_items_per_group",
+                  "status": "confirmed",
+                  "description": "System demonstrates counting Image C: stack 1 shows 9 books, stack 2 shows 9 books."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Image C: First stack — 9 books. Second stack — 9 books. Same number in both. Equal groups. A and C show equal groups. We can write multiplication equations for pictures with equal groups."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:08:19.402435+00:00"
+    "_generated_at": "2026-04-27T16:02:39.784322+00:00"
   },
   {
     "id": "s2_3_product_unknown_standard_form",
@@ -925,24 +710,23 @@
       [
         {
           "condition": {
-            "incorrect_count": 1
-          },
-          "description": "Student placed wrong number on first attempt",
-          "is_correct": false,
-          "steps": [
-            [
+            "and": [
               {
-                "type": "dialogue",
-                "text": "Not quite. Count the plates in all 8 stacks."
+                "total": 28
+              },
+              {
+                "or": [
+                  {
+                    "incorrect_count": 1
+                  },
+                  {
+                    "incorrect_count": 2
+                  }
+                ]
               }
             ]
-          ]
-        },
-        {
-          "condition": {
-            "incorrect_count": 2
           },
-          "description": "Student placed wrong number on second attempt",
+          "description": "Student placed 28. Specific error: chose first palette option without calculating",
           "is_correct": false,
           "steps": [
             [
@@ -951,13 +735,122 @@
                 "method": "update",
                 "tangible_id": "equal_groups_plates",
                 "params": {
-                  "highlight_containers": true,
-                  "description": "All 8 stacks highlight sequentially."
+                  "highlight_all_groups": true,
+                  "description": "All 8 stacks highlight."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let's think about this together. Skip count by 4s, once for each stack. 4, 8, 12, 16, 20, 24, 28, 32. How many times did we count? Eight times. What's the total?"
+                "text": "Look at all 8 stacks. Count how many plates are in one stack. Then skip-count by that number 8 times to find the product."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "total": 36
+              },
+              {
+                "or": [
+                  {
+                    "incorrect_count": 1
+                  },
+                  {
+                    "incorrect_count": 2
+                  }
+                ]
+              }
+            ]
+          },
+          "description": "Student placed 36. Specific error: added instead of multiplying (8 + 4 + ... pattern or miscounting)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_plates",
+                "params": {
+                  "highlight_categories": [
+                    "stack_1"
+                  ],
+                  "description": "First stack highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Count one stack: 4 plates. Now skip-count by 4s for all 8 stacks: 4, 8, 12... Keep going until you've counted all 8 stacks."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "incorrect_count": 1
+              },
+              {
+                "not": {
+                  "total": 28
+                }
+              },
+              {
+                "not": {
+                  "total": 36
+                }
+              }
+            ]
+          },
+          "description": "Student selected any other wrong answer on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Count the plates in one stack, then skip-count by that number 8 times."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "incorrect_count": 2
+              },
+              {
+                "not": {
+                  "total": 28
+                }
+              },
+              {
+                "not": {
+                  "total": 36
+                }
+              }
+            ]
+          },
+          "description": "Student selected any other wrong answer on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_plates",
+                "params": {
+                  "highlight_categories": [
+                    "stack_1"
+                  ],
+                  "description": "First stack of 4 plates highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's what helps: one stack has 4 plates. So skip-count by 4s, eight times: 4, 8, 12, 16, 20, 24, 28, 32. What number did you land on?"
               }
             ]
           ]
@@ -973,96 +866,24 @@
                 "method": "animate",
                 "tangible_id": "equal_groups_plates",
                 "params": {
-                  "event": "count_items_with_running_total",
+                  "event": "sequential_count_all_groups",
                   "status": "confirmed",
-                  "description": "System counts plates sequentially: 4, 8, 12, 16, 20, 24, 28, 32. Running total appears under each stack."
+                  "description": "System counts through all 8 stacks sequentially: 4, 8, 12, 16, 20, 24, 28, 32. Each stack highlights as it is counted."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you how this works. We skip count by 4s, once for each stack: 4, 8, 12, 16, 20, 24, 28, 32. Eight stacks of 4 plates equals 32 total. That's what 8 times 4 means. The product is 32."
+                "text": "Let me show you. I count one stack: 4 plates. Then I skip-count by 4s for all 8 stacks. 4, 8, 12, 16, 20, 24, 28, 32. I counted 8 times and landed on 32. The product is 32 because 8 stacks of 4 equals 32 total."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:08:29.200503+00:00"
+    "_generated_at": "2026-04-27T16:02:56.919658+00:00"
   },
   {
     "id": "s2_4_product_unknown_reversed_form",
-    "incorrects": [
-      [
-        {
-          "condition": {
-            "incorrect_count": 1
-          },
-          "description": "Student placed wrong product tile on first attempt",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "dialogue",
-                "text": "Not quite. Count the sheep in one cluster, then skip count by that number for all 5 clusters."
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "incorrect_count": 2
-          },
-          "description": "Student placed wrong product tile on second attempt",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "equal_groups_sheep",
-                "params": {
-                  "highlight_clusters": [
-                    0
-                  ],
-                  "description": "First cluster of 7 sheep highlights."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "Here's what helps: one cluster has 7 sheep. Now skip count by 7s for the 5 clusters: 7, 14, 21, 28, 35. What's the product?"
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {},
-          "description": "Student answered incorrectly three or more times. System models the answer.",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "equal_groups_sheep",
-                "params": {
-                  "event": "highlight_clusters_sequential",
-                  "status": "confirmed",
-                  "description": "Clusters highlight one at a time as guide skip counts: 7, 14, 21, 28, 35."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "Let me show you. One cluster has 7 sheep. I skip count by 7s: first cluster, 7. Second cluster, 14. Third, 21. Fourth, 28. Fifth, 35. Five groups of 7 equals 35. The product is 35 because 5 times 7 has the same value as 35."
-              }
-            ]
-          ]
-        }
-      ]
-    ],
-    "_generated_at": "2026-04-20T17:08:44.063927+00:00"
-  },
-  {
-    "id": "s2_5_independent_new_context_product_unknown",
     "incorrects": [
       [
         {
@@ -1075,7 +896,7 @@
             [
               {
                 "type": "dialogue",
-                "text": "Not quite. Count all the jars. How many total?"
+                "text": "Not quite. Skip-count by 7s: 7, 14, 21, 28, 35. How many times did you count?"
               }
             ]
           ]
@@ -1091,7 +912,87 @@
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "equal_groups_shelves",
+                "tangible_id": "equal_groups_sheep",
+                "params": {
+                  "highlight_clusters_sequential": true,
+                  "description": "Clusters highlight one at a time while skip-counting: 7, 14, 21, 28, 35."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Watch the clusters highlight as we skip-count by 7. First cluster: 7. Second: 14. Third: 21. Fourth: 28. Fifth: 35. Five groups of 7 equals what total?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student placed a wrong tile on third attempt. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_sheep",
+                "params": {
+                  "event": "highlight_clusters_sequential",
+                  "status": "confirmed",
+                  "description": "All 5 clusters highlight sequentially while counting: 7, 14, 21, 28, 35."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder",
+                "params": {
+                  "event": "place_correct_tile",
+                  "status": "confirmed",
+                  "description": "Tile 35 moves into the product slot. Equation completes: 35 = 5 × 7."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. I skip-count by 7 five times: 7, 14, 21, 28, 35. Five groups of 7 is 35 total. The unknown is 35. That is the product, and it is the same value as 5 times 7."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-27T16:03:08.516704+00:00"
+  },
+  {
+    "id": "s2_5_independent_new_context_product_unknown",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student placed a wrong tile on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Count the jars on each shelf."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student placed a wrong tile on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_jars",
                 "params": {
                   "highlight_containers": [
                     0,
@@ -1102,41 +1003,51 @@
               },
               {
                 "type": "dialogue",
-                "text": "Let's count together. First shelf has 8 jars. Second shelf has 8 jars. 8 plus 8. What's the total?"
+                "text": "Let's count together. First shelf: 8 jars. Second shelf: 8 jars. 2 groups of 8. Skip-count: 8, 16. What's the product?"
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Student placed a wrong tile three or more times. System models the answer.",
+          "description": "Student placed a wrong tile on third attempt. System models the answer.",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equation_builder_shelves",
+                "tangible_id": "equal_groups_jars",
                 "params": {
-                  "event": "tile_locks_in_slot",
+                  "event": "count_items_sequentially",
                   "status": "confirmed",
-                  "description": "16 tile slides into the product slot, completing 2 × 8 = 16."
+                  "description": "First shelf items count sequentially 1-8, then second shelf items count 9-16."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_builder",
+                "params": {
+                  "placed_values": {
+                    "total": 16
+                  },
+                  "description": "Tile 16 places into product slot."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. First shelf, 8 jars. Second shelf, 8 jars. 8 plus 8 equals 16. Or we can skip count by 8s: 8, 16. Either way, 2 times 8 equals 16. That's the product."
+                "text": "Let me show you. First shelf has 8 jars. Second shelf has 8 jars. 8 plus 8 equals 16. Or skip-count by 8s: 8, 16. 2 times 8 equals 16. The product is 16."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:08:53.654247+00:00"
+    "_generated_at": "2026-04-27T16:03:19.016224+00:00"
   },
   {
     "id": "s3_1_first_factor_unknown_skip_counting",
-    "type": "transition",
     "beats": [
       {
         "type": "scene",
@@ -1149,15 +1060,16 @@
           "items_per_container": 5,
           "item_type": "birds",
           "containers_visible": false,
-          "total_label": "20 birds total",
-          "description": "4 clusters of 5 birds each, all clusters faded. Total shown: 20 birds total."
+          "all_items_faded": true,
+          "total_display": "20 birds total",
+          "description": "Equal groups visualization appears showing 4 faded clusters of 5 birds each. Total label displays '20 birds total.' Clusters are not yet revealed."
         },
         "id": "s3_1_first_factor_unknown_skip_counting_b0"
       },
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "equation_builder_groups",
+        "tangible_id": "equation_builder",
         "tangible_type": "equation_builder",
         "params": {
           "template": [
@@ -1167,7 +1079,7 @@
             "=",
             "20"
           ],
-          "description": "Equation Builder with pre-filled template: blank × 5 = 20. Language prompt above: blank groups of 5 equals 20 total."
+          "description": "Equation Builder appears with template showing ☐ × 5 = 20. First factor slot is blank; second factor (5) and product (20) are pre-filled."
         },
         "id": "s3_1_first_factor_unknown_skip_counting_b1"
       },
@@ -1182,16 +1094,18 @@
           {
             "tangible_id": "equal_groups_birds",
             "tangible_type": "equal_groups",
-            "description": "4 clusters of 5 birds each, all clusters faded. Total label: 20 birds total.",
+            "description": "Equal groups showing 4 faded clusters of 5 birds. Total label: '20 birds total.'",
             "mode": "reading",
             "container_count": 4,
             "items_per_container": 5,
-            "item_type": "birds"
+            "item_type": "birds",
+            "containers_visible": false,
+            "all_items_faded": true
           },
           {
-            "tangible_id": "equation_builder_groups",
+            "tangible_id": "equation_builder",
             "tangible_type": "equation_builder",
-            "description": "Equation Builder: blank × 5 = 20. Language prompt: blank groups of 5 equals 20 total.",
+            "description": "Equation Builder showing template ☐ × 5 = 20. First factor unknown.",
             "template": [
               "__",
               "×",
@@ -1214,16 +1128,18 @@
           {
             "tangible_id": "equal_groups_birds",
             "tangible_type": "equal_groups",
-            "description": "4 clusters of 5 birds each, all clusters faded. Total label: 20 birds total.",
+            "description": "Equal groups showing 4 faded clusters of 5 birds. Total label: '20 birds total.'",
             "mode": "reading",
             "container_count": 4,
             "items_per_container": 5,
-            "item_type": "birds"
+            "item_type": "birds",
+            "containers_visible": false,
+            "all_items_faded": true
           },
           {
-            "tangible_id": "equation_builder_groups",
+            "tangible_id": "equation_builder",
             "tangible_type": "equation_builder",
-            "description": "Equation Builder: blank × 5 = 20. Language prompt: blank groups of 5 equals 20 total.",
+            "description": "Equation Builder showing template ☐ × 5 = 20.",
             "template": [
               "__",
               "×",
@@ -1245,10 +1161,11 @@
         "method": "animate",
         "tangible_id": "equal_groups_birds",
         "params": {
-          "event": "reveal_container",
-          "container_index": 0,
+          "event": "reveal_cluster",
           "status": "confirmed",
-          "description": "First cluster of 5 birds reveals and highlights. Running count: 5"
+          "cluster_index": 1,
+          "running_count_display": "5",
+          "description": "First cluster of 5 birds reveals and highlights. Running count displays '5'."
         },
         "id": "s3_1_first_factor_unknown_skip_counting_b7"
       },
@@ -1258,16 +1175,17 @@
           {
             "tangible_id": "equal_groups_birds",
             "tangible_type": "equal_groups",
-            "description": "First cluster of 5 birds visible and highlighted. Remaining 3 clusters faded. Running count: 5. Total label: 20 birds total.",
+            "description": "Equal groups showing 4 clusters. First cluster (5 birds) revealed and highlighted. Running count: '5'. Remaining 3 clusters still faded.",
             "mode": "reading",
             "container_count": 4,
             "items_per_container": 5,
-            "item_type": "birds"
+            "item_type": "birds",
+            "containers_visible": false
           },
           {
-            "tangible_id": "equation_builder_groups",
+            "tangible_id": "equation_builder",
             "tangible_type": "equation_builder",
-            "description": "Equation Builder: blank × 5 = 20.",
+            "description": "Equation Builder showing template ☐ × 5 = 20.",
             "template": [
               "__",
               "×",
@@ -1289,10 +1207,11 @@
         "method": "animate",
         "tangible_id": "equal_groups_birds",
         "params": {
-          "event": "reveal_container",
-          "container_index": 1,
+          "event": "reveal_cluster",
           "status": "confirmed",
-          "description": "Second cluster of 5 birds reveals and highlights. Running count: 10"
+          "cluster_index": 2,
+          "running_count_display": "10",
+          "description": "Second cluster of 5 birds reveals and highlights. Running count updates to '10'."
         },
         "id": "s3_1_first_factor_unknown_skip_counting_b10"
       },
@@ -1302,16 +1221,17 @@
           {
             "tangible_id": "equal_groups_birds",
             "tangible_type": "equal_groups",
-            "description": "First two clusters of 5 birds visible, second cluster highlighted. Remaining 2 clusters faded. Running count: 10. Total label: 20 birds total.",
+            "description": "Equal groups showing 4 clusters. First two clusters (10 birds total) revealed and highlighted. Running count: '10'. Remaining 2 clusters still faded.",
             "mode": "reading",
             "container_count": 4,
             "items_per_container": 5,
-            "item_type": "birds"
+            "item_type": "birds",
+            "containers_visible": false
           },
           {
-            "tangible_id": "equation_builder_groups",
+            "tangible_id": "equation_builder",
             "tangible_type": "equation_builder",
-            "description": "Equation Builder: blank × 5 = 20.",
+            "description": "Equation Builder showing template ☐ × 5 = 20.",
             "template": [
               "__",
               "×",
@@ -1333,10 +1253,11 @@
         "method": "animate",
         "tangible_id": "equal_groups_birds",
         "params": {
-          "event": "reveal_container",
-          "container_index": 2,
+          "event": "reveal_cluster",
           "status": "confirmed",
-          "description": "Third cluster of 5 birds reveals and highlights. Running count: 15"
+          "cluster_index": 3,
+          "running_count_display": "15",
+          "description": "Third cluster of 5 birds reveals and highlights. Running count updates to '15'."
         },
         "id": "s3_1_first_factor_unknown_skip_counting_b13"
       },
@@ -1346,16 +1267,17 @@
           {
             "tangible_id": "equal_groups_birds",
             "tangible_type": "equal_groups",
-            "description": "First three clusters of 5 birds visible, third cluster highlighted. Last cluster faded. Running count: 15. Total label: 20 birds total.",
+            "description": "Equal groups showing 4 clusters. First three clusters (15 birds total) revealed and highlighted. Running count: '15'. One cluster remains faded.",
             "mode": "reading",
             "container_count": 4,
             "items_per_container": 5,
-            "item_type": "birds"
+            "item_type": "birds",
+            "containers_visible": false
           },
           {
-            "tangible_id": "equation_builder_groups",
+            "tangible_id": "equation_builder",
             "tangible_type": "equation_builder",
-            "description": "Equation Builder: blank × 5 = 20.",
+            "description": "Equation Builder showing template ☐ × 5 = 20.",
             "template": [
               "__",
               "×",
@@ -1377,10 +1299,11 @@
         "method": "animate",
         "tangible_id": "equal_groups_birds",
         "params": {
-          "event": "reveal_container",
-          "container_index": 3,
+          "event": "reveal_cluster",
           "status": "confirmed",
-          "description": "Fourth cluster of 5 birds reveals and highlights. Running count: 20"
+          "cluster_index": 4,
+          "running_count_display": "20",
+          "description": "Fourth cluster of 5 birds reveals and highlights. Running count updates to '20'."
         },
         "id": "s3_1_first_factor_unknown_skip_counting_b16"
       },
@@ -1390,16 +1313,17 @@
           {
             "tangible_id": "equal_groups_birds",
             "tangible_type": "equal_groups",
-            "description": "All 4 clusters of 5 birds visible, fourth cluster highlighted. Running count: 20. Total label: 20 birds total.",
+            "description": "Equal groups showing all 4 clusters (20 birds total) fully revealed and highlighted. Running count: '20'.",
             "mode": "reading",
             "container_count": 4,
             "items_per_container": 5,
-            "item_type": "birds"
+            "item_type": "birds",
+            "containers_visible": false
           },
           {
-            "tangible_id": "equation_builder_groups",
+            "tangible_id": "equation_builder",
             "tangible_type": "equation_builder",
-            "description": "Equation Builder: blank × 5 = 20.",
+            "description": "Equation Builder showing template ☐ × 5 = 20.",
             "template": [
               "__",
               "×",
@@ -1419,45 +1343,32 @@
       {
         "type": "scene",
         "method": "update",
-        "tangible_id": "equation_builder_groups",
+        "tangible_id": "equation_builder",
         "params": {
-          "template": [
-            "4",
-            "×",
-            "5",
-            "=",
-            "20"
-          ],
-          "description": "Equation updates: 4 × 5 = 20. First blank now filled with 4."
+          "placed_values": {
+            "groups": 4
+          },
+          "description": "Equation Builder updates to show completed equation: 4 × 5 = 20."
         },
         "id": "s3_1_first_factor_unknown_skip_counting_b19"
       },
       {
-        "type": "scene",
-        "method": "update",
-        "tangible_id": "equal_groups_birds",
-        "params": {
-          "containers_visible": true,
-          "description": "All 4 clusters fully visible, no longer highlighted."
-        },
-        "id": "s3_1_first_factor_unknown_skip_counting_b20"
-      },
-      {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "equal_groups_birds",
             "tangible_type": "equal_groups",
-            "description": "All 4 clusters of 5 birds fully visible. Total label: 20 birds total.",
+            "description": "Equal groups showing all 4 clusters of 5 birds fully revealed. Total: 20 birds.",
             "mode": "reading",
             "container_count": 4,
             "items_per_container": 5,
-            "item_type": "birds"
+            "item_type": "birds",
+            "containers_visible": false
           },
           {
-            "tangible_id": "equation_builder_groups",
+            "tangible_id": "equation_builder",
             "tangible_type": "equation_builder",
-            "description": "Equation Builder: 4 × 5 = 20.",
+            "description": "Equation Builder displaying completed equation 4 × 5 = 20.",
             "template": [
               "4",
               "×",
@@ -1467,12 +1378,12 @@
             ]
           }
         ],
-        "id": "s3_1_first_factor_unknown_skip_counting_b21"
+        "id": "s3_1_first_factor_unknown_skip_counting_b20"
       },
       {
         "type": "dialogue",
         "text": "The unknown was 4. I used skip-counting, something I already know, to figure out how many groups.",
-        "id": "s3_1_first_factor_unknown_skip_counting_b22"
+        "id": "s3_1_first_factor_unknown_skip_counting_b21"
       },
       {
         "type": "current_scene",
@@ -1480,16 +1391,17 @@
           {
             "tangible_id": "equal_groups_birds",
             "tangible_type": "equal_groups",
-            "description": "All 4 clusters of 5 birds fully visible. Total label: 20 birds total.",
+            "description": "Equal groups showing all 4 clusters of 5 birds fully revealed. Total: 20 birds.",
             "mode": "reading",
             "container_count": 4,
             "items_per_container": 5,
-            "item_type": "birds"
+            "item_type": "birds",
+            "containers_visible": false
           },
           {
-            "tangible_id": "equation_builder_groups",
+            "tangible_id": "equation_builder",
             "tangible_type": "equation_builder",
-            "description": "Equation Builder: 4 × 5 = 20.",
+            "description": "Equation Builder displaying completed equation 4 × 5 = 20.",
             "template": [
               "4",
               "×",
@@ -1499,45 +1411,15 @@
             ]
           }
         ],
-        "id": "s3_1_first_factor_unknown_skip_counting_b23"
+        "id": "s3_1_first_factor_unknown_skip_counting_b22"
       }
     ],
-    "_generated_at": "2026-04-20T17:05:06.798648+00:00"
+    "_generated_at": "2026-04-27T15:59:21.076194+00:00"
   },
   {
     "id": "s3_2_first_factor_unknown_student_constructs",
     "incorrects": [
       [
-        {
-          "condition": {
-            "container_count": 3
-          },
-          "description": "Student built 3 groups of 10, total = 30, short of target",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "dialogue",
-                "text": "That's 3 groups of 10, which is 30. You need 40 total. Add one more group."
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "container_count": 6
-          },
-          "description": "Student built 6 groups of 10, total = 60, overshot",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "dialogue",
-                "text": "That's 60, too many. Remove groups until you reach 40."
-              }
-            ]
-          ]
-        },
         {
           "condition": {
             "incorrect_count": 1
@@ -1548,7 +1430,7 @@
             [
               {
                 "type": "dialogue",
-                "text": "Count by 10s as you add groups. Stop when you hit 40."
+                "text": "Not quite. Skip-count by 10s until you reach 40. How many times do you count?"
               }
             ]
           ]
@@ -1566,12 +1448,13 @@
                 "method": "update",
                 "tangible_id": "equal_groups_cats",
                 "params": {
-                  "description": "Running total display emphasized: Total: 0 / 40. Target of 40 highlighted."
+                  "highlight_running_total": true,
+                  "description": "Running total display highlights showing target 40."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "You need exactly 40. Count by 10s: one group is 10, two groups is 20, three groups is 30. How many groups to reach 40?"
+                "text": "Groups of 10. Count by 10s: 10, 20, 30, 40. How many groups did that take? Build that many."
               }
             ]
           ]
@@ -1587,14 +1470,14 @@
                 "method": "animate",
                 "tangible_id": "equal_groups_cats",
                 "params": {
-                  "event": "guide_builds_groups",
+                  "event": "build_groups_sequential",
                   "status": "confirmed",
-                  "description": "Guide demonstrates building groups: one group (10), two groups (20), three groups (30), four groups (40). Each group appears sequentially with running count."
+                  "description": "Groups appear one at a time: first group (10), second group (20), third group (30), fourth group (40). Running total counts up."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. One group of 10 is 10. Two groups is 20. Three groups is 30. Four groups is 40. It takes 4 groups of 10 to make 40. The unknown was 4."
+                "text": "Let me show you. Skip-count by 10s: 10, 20, 30, 40. That's 4 times, so 4 groups. 4 times 10 equals 40."
               }
             ]
           ]
@@ -1603,45 +1486,15 @@
       [
         {
           "condition": {
-            "items_per_container": 4
-          },
-          "description": "Student put 4 in each group, total = 8, short of target",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "dialogue",
-                "text": "That's 8 total. You need 10. Add one more to each group."
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "items_per_container": 6
-          },
-          "description": "Student put 6 in each group, total = 12, overshot",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "dialogue",
-                "text": "That's 12, too many. Remove one from each group."
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
             "incorrect_count": 1
           },
-          "description": "Student set wrong number per group on first attempt",
+          "description": "Student set wrong number of items per group on first attempt",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "dialogue",
-                "text": "Check the total. You need 10. Adjust the number in each group."
+                "text": "Look at the total. 2 groups need to equal 10. How many in each group?"
               }
             ]
           ]
@@ -1650,7 +1503,7 @@
           "condition": {
             "incorrect_count": 2
           },
-          "description": "Student set wrong number per group on second attempt",
+          "description": "Student set wrong number of items per group on second attempt",
           "is_correct": false,
           "steps": [
             [
@@ -1659,19 +1512,20 @@
                 "method": "update",
                 "tangible_id": "equal_groups_cats_2",
                 "params": {
-                  "description": "Running total display emphasized: Total shows current count / 10. Target of 10 highlighted."
+                  "highlight_running_total": true,
+                  "description": "Running total display highlights showing target 10."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "You have 2 groups. Each group needs the same number. Count by that number twice to reach 10. Try different amounts and watch the total."
+                "text": "2 groups. Total is 10. Skip-count by 5s: 5, 10. That's 2 groups of 5. Build it."
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Student set wrong number per group three or more times. System models the answer.",
+          "description": "Student set wrong number of items per group three or more times. System models the answer.",
           "is_correct": false,
           "steps": [
             [
@@ -1680,14 +1534,14 @@
                 "method": "animate",
                 "tangible_id": "equal_groups_cats_2",
                 "params": {
-                  "event": "guide_builds_groups",
+                  "event": "add_items_to_groups",
                   "status": "confirmed",
-                  "description": "Guide demonstrates building: 5 cats appear in first group, then 5 in second group. Running count shows: 5, then 10."
+                  "description": "5 cats appear in each of the 2 groups simultaneously. Running total updates to 10."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. If I put 5 in the first group, that's 5. Then 5 in the second group brings the total to 10. Two groups of 5 equals 10. The unknown was 5."
+                "text": "Watch. 2 groups, 5 in each. That makes 10 total. 2 times 5 equals 10. The unknown was 5."
               }
             ]
           ]
@@ -1696,45 +1550,15 @@
       [
         {
           "condition": {
-            "items_per_container": 6
-          },
-          "description": "Student put 6 in each group, total = 12, short of target",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "dialogue",
-                "text": "That's 12 total. You need 14. Add one more to each group."
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "items_per_container": 8
-          },
-          "description": "Student put 8 in each group, total = 16, overshot",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "dialogue",
-                "text": "That's 16, too many. Remove one from each group."
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
             "incorrect_count": 1
           },
-          "description": "Student set wrong number per group on first attempt",
+          "description": "Student set wrong number of items per group on first attempt",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "dialogue",
-                "text": "Check the total. You need 14. Adjust how many are in each group."
+                "text": "Check the total. 2 groups need to equal 14. What goes in each group?"
               }
             ]
           ]
@@ -1743,7 +1567,7 @@
           "condition": {
             "incorrect_count": 2
           },
-          "description": "Student set wrong number per group on second attempt",
+          "description": "Student set wrong number of items per group on second attempt",
           "is_correct": false,
           "steps": [
             [
@@ -1752,19 +1576,20 @@
                 "method": "update",
                 "tangible_id": "equal_groups_cats_3",
                 "params": {
-                  "description": "Running total display emphasized: Total shows current count / 14. Target of 14 highlighted."
+                  "highlight_running_total": true,
+                  "description": "Running total display highlights showing target 14."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "You have 2 groups. Skip count by the number in each group twice. What number, counted twice, reaches 14?"
+                "text": "2 groups make 14. Skip-count by 7s twice: 7, 14. That's 7 in each group. Build it."
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Student set wrong number per group three or more times. System models the answer.",
+          "description": "Student set wrong number of items per group three or more times. System models the answer.",
           "is_correct": false,
           "steps": [
             [
@@ -1773,21 +1598,96 @@
                 "method": "animate",
                 "tangible_id": "equal_groups_cats_3",
                 "params": {
-                  "event": "guide_builds_groups",
+                  "event": "add_items_to_groups",
                   "status": "confirmed",
-                  "description": "Guide demonstrates building: 7 cats appear in first group, then 7 in second group. Running count shows: 7, then 14."
+                  "description": "7 cats appear in each of the 2 groups simultaneously. Running total updates to 14."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. If I put 7 in the first group, that's 7. Then 7 in the second group brings the total to 14. Two groups of 7 equals 14. The unknown was 7."
+                "text": "Here's how. 2 groups, 7 in each. That's 14 total. 2 times 7 equals 14. The unknown was 7."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:09:18.258603+00:00"
+    "_generated_at": "2026-04-27T16:03:38.679648+00:00"
+  },
+  {
+    "id": "s3_3_mixed_positions_expression_construction",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "and": [
+              {
+                "total": 30
+              },
+              {
+                "items_per_container_unequal": true
+              }
+            ]
+          },
+          "description": "Student reached total 30 but groups are not equal",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "You hit 30! But check: are the groups equal? Multiplication needs equal groups. Adjust so each group has the same number."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "items_per_container_equal": true
+              },
+              {
+                "total_not": 30
+              }
+            ]
+          },
+          "description": "Student built equal groups but total is not 30",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Equal groups, great! But the total isn't 30 yet. Add more to each group (or remove some) and watch the total."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups",
+                "params": {
+                  "event": "model_construction",
+                  "status": "confirmed",
+                  "description": "System demonstrates adding items to each group sequentially. Each group gets 6 items. Running total increments: 6, 12, 18, 24, 30. All groups highlight to show equality."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. 5 groups need to make 30 total. I add 6 to each group: 6, 12, 18, 24, 30. Each group has the same amount, 6, and the total is 30. 5 times 6 equals 30."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-27T16:03:48.063799+00:00"
   },
   {
     "id": "s3_4_bridge_exit_check",
@@ -1804,6 +1704,6 @@
         "id": "s3_4_bridge_exit_check_b1"
       }
     ],
-    "_generated_at": "2026-04-20T17:06:15.731165+00:00"
+    "_generated_at": "2026-04-27T16:00:52.513509+00:00"
   }
 ]

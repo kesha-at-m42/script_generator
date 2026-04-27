@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:00:10.865433
+# Generated: 2026-04-27T10:53:18.106695
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -822,7 +838,7 @@ Cacheable: Yes
   "remediation": "Pipeline",
   "remediation_note": "Have student skip-count by 5s seven times to compute the product (5, 10, 15, 20, 25, 30, 35).",
   "design_note": "Simplest problem — MC method, factors pre-filled. Tests only computation. Uses ×5 (middle difficulty family — 5s require more counts than 10s but smaller jumps than 2s at high first factors). Guide dialogue is 5 words. Feedback is result-only, no re-teaching.",
-  "_generated_at": "2026-04-20T16:59:45.502078+00:00",
+  "_generated_at": "2026-04-27T15:52:42.000132+00:00",
   "workspace_specs": {
     "toys": [
       "equation_builder"
@@ -830,7 +846,8 @@ Cacheable: Yes
     "tools": [
       "multiple_choice"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_0_transition_into_exit_check\n# Section Summary: s1_0_transition_into_exit_check\n\n**VISUAL STATE:** No tangible visuals or data displays remain on screen at section end; the scene is blank/cleared.\n\n**CONTENT:** This transition section bridges the prior work on building equations for multiplication patterns (specifically the 2s, 5s, and 10s times tables) into an assessment phase. No new vocabulary or concepts are formally introduced; instead, the section signals a shift from guided practice to knowledge verification.\n\n**STUDENT ACTION:** The student did not perform an interactive action in this section. This is a dialogue-only transition that sets expectations for the upcoming exit check assessment."
 }
 </input>
 

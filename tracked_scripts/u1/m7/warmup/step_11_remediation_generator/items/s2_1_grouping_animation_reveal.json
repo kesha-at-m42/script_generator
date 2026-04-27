@@ -13,17 +13,15 @@
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "picture_graph_snacks",
+              "tangible_id": "equal_groups_books",
               "params": {
-                "highlight_categories": [
-                  "Chips"
-                ],
-                "description": "Chips row highlights to focus attention on the containers."
+                "highlight_containers": true,
+                "description": "The 4 bags themselves highlight, not the items inside."
               }
             },
             {
               "type": "dialogue",
-              "text": "You counted how many items are in each bag. But we're asking about groups. How many bags do you see?"
+              "text": "You're counting what's inside each group. The question asks how many groups. Count the bags themselves."
             }
           ]
         ]
@@ -32,24 +30,22 @@
         "condition": {
           "selected": 8
         },
-        "description": "Student selected 8: may have counted both containers and something else, or misunderstood grouping",
+        "description": "Student selected 8: may have added 4 groups + 5 items, or misunderstood the question",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "picture_graph_snacks",
+              "tangible_id": "equal_groups_books",
               "params": {
-                "highlight_categories": [
-                  "Chips"
-                ],
-                "description": "Chips row highlights. Each bag container pulses briefly to emphasize what counts as a group."
+                "highlight_containers": true,
+                "description": "The 4 bags themselves highlight."
               }
             },
             {
               "type": "dialogue",
-              "text": "A group is one bag. Each bag holds items inside, but the bag itself is one group. Count the bags in the Chips row."
+              "text": "Look at the bags. We're asking how many bags you see, not how much is inside them. Count the containers."
             }
           ]
         ]
@@ -65,17 +61,15 @@
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "picture_graph_snacks",
+              "tangible_id": "equal_groups_books",
               "params": {
-                "highlight_categories": [
-                  "Chips"
-                ],
-                "description": "Chips row highlights. Bag containers emphasized, items inside dimmed slightly."
+                "highlight_containers": true,
+                "description": "The 4 bags themselves highlight, distinguishing containers from contents."
               }
             },
             {
               "type": "dialogue",
-              "text": "You found the total number of items. We're not asking for that yet. Right now, count the bags. Each bag is one group. How many bags are there?"
+              "text": "You counted all the items. The question asks how many groups. A group is one bag. How many bags are there?"
             }
           ]
         ]
@@ -89,21 +83,21 @@
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "picture_graph_snacks",
+              "tangible_id": "equal_groups_books",
               "params": {
-                "event": "highlight_groups_sequentially",
+                "event": "count_containers",
                 "status": "confirmed",
-                "description": "Each of the 4 bag containers in the Chips row highlights one at a time, counting 1, 2, 3, 4."
+                "description": "The 4 bags highlight one at a time in sequence: 1, 2, 3, 4."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. Watch each bag light up: 1, 2, 3, 4. Four bags. Each bag is a group. The answer is 4 groups. That's how multiplication starts: counting groups."
+              "text": "Let me show you. I count the bags: 1 bag, 2 bags, 3 bags, 4 bags. There are 4 groups. Each group is a bag. The answer is 4 groups."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:00:58.560958+00:00"
+  "_generated_at": "2026-04-27T15:54:33.330511+00:00"
 }

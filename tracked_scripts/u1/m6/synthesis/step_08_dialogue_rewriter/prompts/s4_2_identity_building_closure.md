@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:01:11.666257
+# Generated: 2026-04-27T10:54:52.417555
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,7 @@ Cacheable: Yes
   "id": "s4_2_identity_building_closure",
   "dialogues": [
     {
-      "text": "You learned something important today. You learned to LOOK at a problem before jumping in. You ask: What should I find first?",
+      "text": "You learned something important today. You learned to LOOK at a problem before jumping in. You ask: 'What should I find first?'",
       "context": "lesson"
     },
     {

@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T11:57:54.178876
+# Generated: 2026-04-27T10:53:19.492568
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -818,7 +834,7 @@ Cacheable: Yes
   "on_correct": "\"Same value, same position between the lines—just different directions.\"",
   "remediation_light": "\"Find 35 on the axis in each graph. Which bar ends there?\"",
   "connection_guide_states_after_task": "\"The axis works the same way whether bars go up or sideways. The math doesn't change—only the direction.\"",
-  "_generated_at": "2026-04-20T16:57:14.380159+00:00",
+  "_generated_at": "2026-04-27T15:52:26.523779+00:00",
   "workspace_specs": {
     "toys": [
       "bar_graph"
@@ -826,7 +842,8 @@ Cacheable: Yes
     "tools": [
       "click_category"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_0_opening_frame\n# Section Summary: s1_0_opening_frame\n\n**VISUAL STATE:** No tangible visualizations are displayed on screen at section end; this is a transition frame with empty scene elements.\n\n**CONTENT:** The section recaps prior learning about bar graphs with a scale of 10, specifically reviewing two skills: (1) reading values at gridlines and (2) reading values between gridlines. The dialogue introduces the upcoming focus on identifying patterns discovered during previous graph work.\n\n**STUDENT ACTION:** No interactive action was required; the student passively received a recap statement preparing them for pattern analysis in subsequent sections.\n\n---\n\n## s1_1_scale_progression_pattern_type_pattern\n# Section Summary: Scale Progression Pattern Type Pattern\n\n**VISUAL STATE:** Four vertical bar graphs displayed side-by-side in reading mode, all showing a single \"Data\" category with value 20 across axis range 0–20. Graph 1 (scale 1): 20 gridlines marking 0, 1, 2, 3…20. Graph 2 (scale 2): 10 gridlines marking 0, 2, 4, 6…20. Graph 3 (scale 5): 4 gridlines marking 0, 5, 10, 15, 20. Graph 4 (scale 10): 2 gridlines marking 0, 10, 20, with highlight animation applied to confirm selection.\n\n**CONTENT:** Students learned how scale affects graph readability by comparing four different scales (1, 2, 5, 10) representing the same data value (20). The key concept introduced: larger scales require fewer gridlines to represent the same amount, making them more efficient for larger datasets. Vocabulary formally introduced: \"scale\" as a unit increment on graph axes.\n\n**STUDENT ACTION:** Student clicked on the bar graph with scale 10 to identify which scale uses the fewest lines, demonstrating understanding that larger scales reduce visual clutter while maintaining data accuracy."
 }
 </input>
 

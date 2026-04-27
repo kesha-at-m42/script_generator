@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:03:59.781274
+# Generated: 2026-04-27T10:58:50.722516
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1865,7 +1869,7 @@ Cacheable: Yes
           "mode": "reading",
           "container_count": 3,
           "items_per_container": 4,
-          "container_type": "bag",
+          "container_type": "bags",
           "description": "Three bags appear on screen, each containing 4 items."
         }
       },
@@ -1883,7 +1887,7 @@ Cacheable: Yes
             "mode": "reading",
             "container_count": 3,
             "items_per_container": 4,
-            "container_type": "bag"
+            "container_type": "bags"
           }
         ]
       },
@@ -1896,9 +1900,9 @@ Cacheable: Yes
         "method": "animate",
         "tangible_id": "equal_groups_bags",
         "params": {
-          "event": "highlight_containers_sequentially",
+          "event": "count_containers",
           "status": "confirmed",
-          "description": "Bags highlight one by one as they are counted: 1, 2, 3."
+          "description": "Bags highlight sequentially as they are counted: 1, 2, 3."
         }
       },
       {
@@ -1910,12 +1914,12 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_bags",
-            "description": "Three bags on screen. All three bags highlighted to show the group count.",
+            "description": "Three bags on screen, all highlighted. Each contains 4 items.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 3,
             "items_per_container": 4,
-            "container_type": "bag"
+            "container_type": "bags"
           }
         ]
       },
@@ -1924,9 +1928,9 @@ Cacheable: Yes
         "method": "animate",
         "tangible_id": "equal_groups_bags",
         "params": {
-          "event": "open_one_container",
+          "event": "zoom_container",
           "status": "confirmed",
-          "description": "One bag opens to reveal its contents. Items inside highlight one by one as they are counted: 1, 2, 3, 4."
+          "description": "First bag zooms in or highlights. Items inside are counted: 1, 2, 3, 4."
         }
       },
       {
@@ -1938,12 +1942,12 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_bags",
-            "description": "Three bags on screen. One bag open, showing 4 items inside. Items highlighted.",
+            "description": "Three bags on screen. First bag highlighted, showing 4 items counted inside.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 3,
             "items_per_container": 4,
-            "container_type": "bag"
+            "container_type": "bags"
           }
         ]
       },
@@ -1961,22 +1965,22 @@ Cacheable: Yes
             "mode": "reading",
             "container_count": 3,
             "items_per_container": 4,
-            "container_type": "bag"
+            "container_type": "bags"
           }
         ]
       },
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "equation_display",
+        "tangible_id": "equation_3x4",
         "tangible_type": "equation",
         "params": {
           "expression": [
             "3",
-            "x",
+            "×",
             "4"
           ],
-          "description": "Equation 3 × 4 appears on screen."
+          "description": "Equation 3 × 4 appears below the bags."
         }
       },
       {
@@ -1993,22 +1997,22 @@ Cacheable: Yes
             "mode": "reading",
             "container_count": 3,
             "items_per_container": 4,
-            "container_type": "bag"
+            "container_type": "bags"
           },
           {
-            "tangible_id": "equation_display",
-            "description": "Equation 3 × 4 displayed on screen.",
+            "tangible_id": "equation_3x4",
+            "description": "Equation 3 × 4 displayed below the bags.",
             "tangible_type": "equation",
             "expression": [
               "3",
-              "x",
+              "×",
               "4"
             ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:01:13.598518+00:00"
+    "_generated_at": "2026-04-27T15:54:41.253392+00:00"
   },
   {
     "id": "s1_2_student_identifies_example_problem_pair",
@@ -2020,9 +2024,10 @@ Cacheable: Yes
         "tangible_type": "equal_groups",
         "params": {
           "mode": "reading",
+          "container_type": "boxes",
           "container_count": 2,
           "items_per_container": 5,
-          "description": "Equal groups appear. 2 boxes, 5 items in each box."
+          "description": "Equal groups visualization appears. 2 boxes, 5 items in each box."
         }
       },
       {
@@ -2045,7 +2050,7 @@ Cacheable: Yes
             "condition": {
               "selected": 2
             },
-            "description": "Student answered 2 groups, correct",
+            "description": "Student selected 2 groups, correct",
             "is_correct": true,
             "beats": [
               {
@@ -2061,9 +2066,10 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_boxes",
-            "description": "Equal groups in reading mode. 2 boxes, 5 items in each.",
+            "description": "Equal groups visualization. 2 boxes, 5 items in each box. Reading mode.",
             "tangible_type": "equal_groups",
             "mode": "reading",
+            "container_type": "boxes",
             "container_count": 2,
             "items_per_container": 5
           }
@@ -2089,7 +2095,7 @@ Cacheable: Yes
             "condition": {
               "selected": 5
             },
-            "description": "Student answered 5 items, correct",
+            "description": "Student selected 5 items, correct",
             "is_correct": true,
             "beats": [
               {
@@ -2105,9 +2111,10 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_boxes",
-            "description": "Equal groups in reading mode. 2 boxes, 5 items in each.",
+            "description": "Equal groups visualization. 2 boxes, 5 items in each box. Reading mode.",
             "tangible_type": "equal_groups",
             "mode": "reading",
+            "container_type": "boxes",
             "container_count": 2,
             "items_per_container": 5
           }
@@ -2125,7 +2132,7 @@ Cacheable: Yes
           "2 groups of 5",
           "5 groups of 2",
           "2 groups of 10",
-          "5 groups of 10"
+          "10 groups of 2"
         ],
         "validator": [
           {
@@ -2133,12 +2140,12 @@ Cacheable: Yes
             "condition": {
               "selected": "2 groups of 5"
             },
-            "description": "Student answered 2 groups of 5, correct",
+            "description": "Student selected 2 groups of 5, correct",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "Two groups of five. These are equal groups—same number in each one."
+                "text": "Two groups of five. These are equal groups. Same number in each one."
               }
             ]
           }
@@ -2149,16 +2156,17 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_boxes",
-            "description": "Equal groups in reading mode. 2 boxes, 5 items in each.",
+            "description": "Equal groups visualization. 2 boxes, 5 items in each box. Reading mode.",
             "tangible_type": "equal_groups",
             "mode": "reading",
+            "container_type": "boxes",
             "container_count": 2,
             "items_per_container": 5
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:01:25.973636+00:00"
+    "_generated_at": "2026-04-27T15:54:58.520803+00:00"
   },
   {
     "id": "s1_3_student_builds_first_build_mode",
@@ -2170,9 +2178,10 @@ Cacheable: Yes
         "tangible_type": "equal_groups",
         "params": {
           "mode": "building",
+          "container_type": "bags",
           "container_count": 0,
           "items_per_container": 0,
-          "description": "Build Mode interface appears. Empty workspace, no groups yet. Container count and items-per-container controls visible."
+          "description": "Empty workspace. Build Mode interface active. No containers or items displayed yet."
         }
       },
       {
@@ -2180,25 +2189,12 @@ Cacheable: Yes
         "text": "Now you're going to build. Listen carefully. Build 3 groups of 4."
       },
       {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "equal_groups_build",
-            "description": "Build Mode interface. Empty workspace. Container count and items-per-container controls visible, both at 0.",
-            "tangible_type": "equal_groups",
-            "mode": "building",
-            "container_count": 0,
-            "items_per_container": 0
-          }
-        ]
-      },
-      {
         "type": "dialogue",
         "text": "How many groups? Set the bags."
       },
       {
         "type": "prompt",
-        "text": "Set the number of groups.",
+        "text": "How many groups?",
         "tool": "set_container_count",
         "target": "equal_groups_build",
         "validator": [
@@ -2212,11 +2208,12 @@ Cacheable: Yes
             "beats": [
               {
                 "type": "scene",
-                "method": "update",
+                "method": "animate",
                 "tangible_id": "equal_groups_build",
                 "params": {
-                  "container_count": 3,
-                  "description": "3 empty bags appear on screen."
+                  "event": "containers_appear",
+                  "status": "confirmed",
+                  "description": "3 bags appear on screen, empty."
                 }
               },
               {
@@ -2232,9 +2229,10 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_build",
-            "description": "Build Mode interface. 3 empty bags visible. Items-per-container control ready for next step.",
+            "description": "Build Mode interface. 3 empty bags displayed. Container count set to 3, items per container still 0.",
             "tangible_type": "equal_groups",
             "mode": "building",
+            "container_type": "bags",
             "container_count": 3,
             "items_per_container": 0
           }
@@ -2246,7 +2244,7 @@ Cacheable: Yes
       },
       {
         "type": "prompt",
-        "text": "Set the number of items in each group.",
+        "text": "How many in each group?",
         "tool": "set_items_per_container",
         "target": "equal_groups_build",
         "validator": [
@@ -2255,15 +2253,16 @@ Cacheable: Yes
             "condition": {
               "items_per_container": 4
             },
-            "description": "Student set items-per-container to 4, correct",
+            "description": "Student set items per container to 4, correct",
             "is_correct": true,
             "beats": [
               {
                 "type": "scene",
-                "method": "update",
+                "method": "animate",
                 "tangible_id": "equal_groups_build",
                 "params": {
-                  "items_per_container": 4,
+                  "event": "items_populate",
+                  "status": "confirmed",
                   "description": "4 items appear in each of the 3 bags."
                 }
               },
@@ -2280,16 +2279,17 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_build",
-            "description": "Build Mode interface. 3 bags visible, each containing 4 items. Complete equal groups representation of 3 groups of 4.",
+            "description": "Build Mode interface. 3 bags, each containing 4 items. Complete equal groups visualization: 3 groups of 4.",
             "tangible_type": "equal_groups",
             "mode": "building",
+            "container_type": "bags",
             "container_count": 3,
             "items_per_container": 4
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:01:39.702394+00:00"
+    "_generated_at": "2026-04-27T15:55:16.266821+00:00"
   },
   {
     "id": "s1_4_student_builds_notation_shown_build",
@@ -2301,14 +2301,20 @@ Cacheable: Yes
         "tangible_type": "equal_groups",
         "params": {
           "mode": "building",
+          "container_type": "bags",
           "container_count": 0,
           "items_per_container": 0,
-          "description": "Empty equal groups workspace in building mode. Container count and items per container controls visible."
+          "orientation": "horizontal",
+          "description": "Empty equal groups workspace in building mode. No containers or items yet."
         }
       },
       {
         "type": "dialogue",
         "text": "Build one more. This time, I'll show you how to write it with the × symbol."
+      },
+      {
+        "type": "dialogue",
+        "text": "How many groups?"
       },
       {
         "type": "prompt",
@@ -2330,7 +2336,7 @@ Cacheable: Yes
                 "tangible_id": "equal_groups_build",
                 "params": {
                   "container_count": 4,
-                  "description": "4 empty containers appear on screen."
+                  "description": "4 empty bags appear in the workspace."
                 }
               },
               {
@@ -2346,13 +2352,19 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_build",
-            "description": "Equal groups workspace showing 4 empty containers. Items per container control active.",
+            "description": "Equal groups workspace in building mode. 4 empty bags visible. Container count set, awaiting items per container.",
             "tangible_type": "equal_groups",
             "mode": "building",
+            "container_type": "bags",
             "container_count": 4,
-            "items_per_container": 0
+            "items_per_container": 0,
+            "orientation": "horizontal"
           }
         ]
+      },
+      {
+        "type": "dialogue",
+        "text": "How many in each?"
       },
       {
         "type": "prompt",
@@ -2374,7 +2386,7 @@ Cacheable: Yes
                 "tangible_id": "equal_groups_build",
                 "params": {
                   "items_per_container": 3,
-                  "description": "3 items appear in each of the 4 containers."
+                  "description": "3 items appear in each of the 4 bags."
                 }
               },
               {
@@ -2390,11 +2402,13 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_build",
-            "description": "Equal groups workspace showing 4 containers with 3 items in each.",
+            "description": "Equal groups workspace showing 4 bags, each containing 3 items. Complete equal groups model.",
             "tangible_type": "equal_groups",
             "mode": "building",
+            "container_type": "bags",
             "container_count": 4,
-            "items_per_container": 3
+            "items_per_container": 3,
+            "orientation": "horizontal"
           }
         ]
       },
@@ -2406,10 +2420,10 @@ Cacheable: Yes
         "params": {
           "expression": [
             "4",
-            "×",
+            "x",
             "3"
           ],
-          "description": "Static equation 4 × 3 appears below the equal groups."
+          "description": "Equation 4 × 3 appears below the equal groups model."
         }
       },
       {
@@ -2421,26 +2435,28 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_build",
-            "description": "Equal groups workspace showing 4 containers with 3 items in each.",
+            "description": "Equal groups workspace showing 4 bags, each containing 3 items.",
             "tangible_type": "equal_groups",
             "mode": "building",
+            "container_type": "bags",
             "container_count": 4,
-            "items_per_container": 3
+            "items_per_container": 3,
+            "orientation": "horizontal"
           },
           {
             "tangible_id": "equation_display",
-            "description": "Static equation 4 × 3 displayed below the equal groups.",
+            "description": "Static equation showing 4 × 3 positioned below the equal groups model.",
             "tangible_type": "equation",
             "expression": [
               "4",
-              "×",
+              "x",
               "3"
             ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:01:53.519711+00:00"
+    "_generated_at": "2026-04-27T15:55:41.306585+00:00"
   },
   {
     "id": "s1_5_identify_with_notation",
@@ -2452,10 +2468,11 @@ Cacheable: Yes
         "tangible_type": "equal_groups",
         "params": {
           "mode": "reading",
+          "container_type": "boxes",
           "container_count": 2,
           "items_per_container": 5,
-          "container_type": "boxes",
-          "description": "2 boxes appear on screen. Each box contains 5 items."
+          "orientation": "horizontal",
+          "description": "Equal groups visualization appears. 2 boxes, 5 items in each box, horizontal orientation."
         }
       },
       {
@@ -2463,20 +2480,44 @@ Cacheable: Yes
         "text": "You've seen this one. Tell me what you see."
       },
       {
-        "type": "dialogue",
-        "text": "How many groups? How many in each?"
+        "type": "prompt",
+        "text": "How many groups? How many in each?",
+        "tool": "multiple_choice",
+        "options": [
+          "2 groups of 5",
+          "5 groups of 2",
+          "2 groups of 2",
+          "5 groups of 5"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "2 groups of 5"
+            },
+            "description": "Student selected 2 groups of 5, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "2 groups of 5."
+              }
+            ]
+          }
+        ]
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "equal_groups_boxes",
-            "description": "2 boxes on screen, each containing 5 items.",
+            "description": "Equal groups visualization. 2 boxes, 5 items in each box, horizontal orientation.",
             "tangible_type": "equal_groups",
             "mode": "reading",
+            "container_type": "boxes",
             "container_count": 2,
             "items_per_container": 5,
-            "container_type": "boxes"
+            "orientation": "horizontal"
           }
         ]
       },
@@ -2516,17 +2557,18 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_boxes",
-            "description": "2 boxes on screen, each containing 5 items.",
+            "description": "Equal groups visualization. 2 boxes, 5 items in each box, horizontal orientation.",
             "tangible_type": "equal_groups",
             "mode": "reading",
+            "container_type": "boxes",
             "container_count": 2,
             "items_per_container": 5,
-            "container_type": "boxes"
+            "orientation": "horizontal"
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:02:03.342036+00:00"
+    "_generated_at": "2026-04-27T15:56:00.370435+00:00"
   },
   {
     "id": "s2_1_transfer_circles",
@@ -2538,11 +2580,11 @@ Cacheable: Yes
         "tangible_type": "equal_groups",
         "params": {
           "mode": "reading",
+          "orientation": "horizontal",
+          "container_type": "circles",
           "container_count": 4,
           "items_per_container": 2,
-          "container_style": "circle",
-          "item_style": "dot",
-          "description": "4 circles appear, each containing 2 dots."
+          "description": "Equal groups visualization appears. 4 circles arranged horizontally, each containing 2 dots."
         }
       },
       {
@@ -2554,13 +2596,13 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_circles",
-            "description": "4 circles, each containing 2 dots.",
+            "description": "Equal groups visualization. 4 circles arranged horizontally, each containing 2 dots.",
             "tangible_type": "equal_groups",
             "mode": "reading",
+            "orientation": "horizontal",
+            "container_type": "circles",
             "container_count": 4,
-            "items_per_container": 2,
-            "container_style": "circle",
-            "item_style": "dot"
+            "items_per_container": 2
           }
         ]
       },
@@ -2584,7 +2626,7 @@ Cacheable: Yes
             "condition": {
               "selected": 4
             },
-            "description": "Student selected 4, correct",
+            "description": "Student selected 4 groups, correct",
             "is_correct": true,
             "beats": [
               {
@@ -2600,13 +2642,13 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_circles",
-            "description": "4 circles, each containing 2 dots. Multiple choice tool active.",
+            "description": "Equal groups visualization. 4 circles arranged horizontally, each containing 2 dots.",
             "tangible_type": "equal_groups",
             "mode": "reading",
+            "orientation": "horizontal",
+            "container_type": "circles",
             "container_count": 4,
-            "items_per_container": 2,
-            "container_style": "circle",
-            "item_style": "dot"
+            "items_per_container": 2
           }
         ]
       },
@@ -2630,12 +2672,12 @@ Cacheable: Yes
             "condition": {
               "selected": 2
             },
-            "description": "Student selected 2, correct",
+            "description": "Student selected 2 dots, correct",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "2 dots in each. So you have..."
+                "text": "2 dots in each."
               }
             ]
           }
@@ -2646,29 +2688,29 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_circles",
-            "description": "4 circles, each containing 2 dots. Multiple choice tool active.",
+            "description": "Equal groups visualization. 4 circles arranged horizontally, each containing 2 dots.",
             "tangible_type": "equal_groups",
             "mode": "reading",
+            "orientation": "horizontal",
+            "container_type": "circles",
             "container_count": 4,
-            "items_per_container": 2,
-            "container_style": "circle",
-            "item_style": "dot"
+            "items_per_container": 2
           }
         ]
       },
       {
         "type": "dialogue",
-        "text": "Say it."
+        "text": "So you have..."
       },
       {
         "type": "prompt",
         "text": "Say it.",
         "tool": "multiple_choice",
         "options": [
-          "4 groups of 2",
           "2 groups of 4",
-          "8 groups",
-          "4 dots"
+          "4 groups of 2",
+          "4 groups of 4",
+          "2 groups of 2"
         ],
         "validator": [
           {
@@ -2692,18 +2734,18 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_circles",
-            "description": "4 circles, each containing 2 dots. Multiple choice tool active.",
+            "description": "Equal groups visualization. 4 circles arranged horizontally, each containing 2 dots.",
             "tangible_type": "equal_groups",
             "mode": "reading",
+            "orientation": "horizontal",
+            "container_type": "circles",
             "container_count": 4,
-            "items_per_container": 2,
-            "container_style": "circle",
-            "item_style": "dot"
+            "items_per_container": 2
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:02:17.137193+00:00"
+    "_generated_at": "2026-04-27T15:56:22.294295+00:00"
   },
   {
     "id": "s2_2_reduced_scaffolding_product_introduction",
@@ -2715,11 +2757,11 @@ Cacheable: Yes
         "tangible_type": "equal_groups",
         "params": {
           "mode": "reading",
+          "container_type": "circles",
           "container_count": 3,
           "items_per_container": 3,
-          "container_type": "circles",
-          "item_type": "dots",
-          "description": "3 circles appear, each containing 3 dots."
+          "orientation": "horizontal",
+          "description": "Equal groups visualization appears. 3 circles arranged horizontally, each containing 3 dots."
         }
       },
       {
@@ -2731,10 +2773,10 @@ Cacheable: Yes
         "text": "How many groups? How many in each?",
         "tool": "multiple_choice",
         "options": [
+          "2 groups of 2",
           "3 groups of 3",
           "3 groups of 2",
-          "2 groups of 3",
-          "4 groups of 3"
+          "2 groups of 3"
         ],
         "validator": [
           {
@@ -2747,7 +2789,7 @@ Cacheable: Yes
             "beats": [
               {
                 "type": "dialogue",
-                "text": "3 groups of 3. That's 3 times 3. And here's something new: the answer to a multiplication problem is called the product. 3 times 3 equals 9. 9 is the product. You have 9 dots altogether."
+                "text": "3 groups of 3. That's 3 × 3. And here's something new: the answer to a multiplication problem is called the product. 3 × 3 = 9. 9 is the product. You have 9 dots altogether."
               }
             ]
           }
@@ -2758,18 +2800,18 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_circles",
-            "description": "3 circles, each containing 3 dots. Reading mode.",
+            "description": "Equal groups visualization showing 3 circles horizontally, each containing 3 dots, in reading mode.",
             "tangible_type": "equal_groups",
             "mode": "reading",
+            "container_type": "circles",
             "container_count": 3,
             "items_per_container": 3,
-            "container_type": "circles",
-            "item_type": "dots"
+            "orientation": "horizontal"
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:02:24.345100+00:00"
+    "_generated_at": "2026-04-27T15:56:35.655123+00:00"
   },
   {
     "id": "s2_3_near_independent_graph_callback_identify",
@@ -2781,11 +2823,11 @@ Cacheable: Yes
         "tangible_type": "equal_groups",
         "params": {
           "mode": "reading",
+          "container_type": "circles",
           "container_count": 4,
           "items_per_container": 5,
-          "container_type": "circle",
-          "item_type": "dot",
-          "description": "4 circles appear, each containing 5 dots. Same structure as the Warmup graph: 4 groups of 5."
+          "orientation": "horizontal",
+          "description": "4 circles arranged horizontally, each containing 5 dots."
         }
       },
       {
@@ -2793,25 +2835,54 @@ Cacheable: Yes
         "text": "You know this already. You did something like this in the graph."
       },
       {
-        "type": "dialogue",
-        "text": "What do you see?"
+        "type": "prompt",
+        "text": "What do you see?",
+        "tool": "multiple_choice",
+        "options": [
+          "2 groups of 4",
+          "4 groups of 5",
+          "5 groups of 4",
+          "4 groups of 4"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "4 groups of 5"
+            },
+            "description": "Student identified 4 groups of 5, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "4 groups of 5. Just like the graph. 4 symbols, each worth 5. Here, 4 circles, 5 dots each."
+              }
+            ]
+          }
+        ]
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "equal_groups_circles",
-            "description": "4 circles, each containing 5 dots. Equal groups structure visible.",
+            "description": "4 circles arranged horizontally in reading mode, each containing 5 dots.",
             "tangible_type": "equal_groups",
             "mode": "reading",
+            "container_type": "circles",
             "container_count": 4,
-            "items_per_container": 5
+            "items_per_container": 5,
+            "orientation": "horizontal"
           }
         ]
       },
       {
         "type": "dialogue",
         "text": "That's multiplication."
+      },
+      {
+        "type": "dialogue",
+        "text": "Which expression matches?"
       },
       {
         "type": "prompt",
@@ -2845,16 +2916,18 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_circles",
-            "description": "4 circles, each containing 5 dots. Multiple choice options displayed.",
+            "description": "4 circles arranged horizontally in reading mode, each containing 5 dots.",
             "tangible_type": "equal_groups",
             "mode": "reading",
+            "container_type": "circles",
             "container_count": 4,
-            "items_per_container": 5
+            "items_per_container": 5,
+            "orientation": "horizontal"
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:02:33.272961+00:00"
+    "_generated_at": "2026-04-27T15:57:00.586160+00:00"
   },
   {
     "id": "s3_1_first_expression_recognition_mc_recognition",
@@ -2866,10 +2939,11 @@ Cacheable: Yes
         "tangible_type": "equal_groups",
         "params": {
           "mode": "reading",
+          "container_type": "bags",
           "container_count": 3,
           "items_per_container": 2,
-          "container_type": "bags",
-          "description": "3 bags appear, each containing 2 items."
+          "orientation": "horizontal",
+          "description": "Equal groups visualization appears showing 3 bags arranged horizontally, each containing 2 items."
         }
       },
       {
@@ -2892,12 +2966,12 @@ Cacheable: Yes
             "condition": {
               "selected": "3 × 2"
             },
-            "description": "Student selected 3 × 2, correct",
+            "description": "Student selected 3 × 2, correct answer",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "3 times 2. Three bags, two in each. That's how you match groups to an expression."
+                "text": "3 × 2. Three bags, two in each."
               }
             ]
           }
@@ -2908,17 +2982,18 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_bags",
-            "description": "3 bags, each containing 2 items. Reading mode.",
+            "description": "Equal groups visualization showing 3 bags in horizontal orientation, each containing 2 items, in reading mode.",
             "tangible_type": "equal_groups",
             "mode": "reading",
+            "container_type": "bags",
             "container_count": 3,
             "items_per_container": 2,
-            "container_type": "bags"
+            "orientation": "horizontal"
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:02:41.747831+00:00"
+    "_generated_at": "2026-04-27T15:57:14.620621+00:00"
   },
   {
     "id": "s3_2_expression_recognition_semi_abstract",
@@ -2930,10 +3005,11 @@ Cacheable: Yes
         "tangible_type": "equal_groups",
         "params": {
           "mode": "reading",
+          "container_type": "circles",
           "container_count": 5,
           "items_per_container": 3,
-          "visual_style": "circles",
-          "description": "5 circles appear, each containing 3 dots. Semi-abstract representation."
+          "orientation": "horizontal",
+          "description": "Five circles arranged horizontally, each containing 3 dots."
         }
       },
       {
@@ -2972,17 +3048,18 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_circles",
-            "description": "5 circles, each containing 3 dots. Semi-abstract equal groups representation in reading mode.",
+            "description": "Five circles arranged horizontally in reading mode, each circle containing 3 dots.",
             "tangible_type": "equal_groups",
             "mode": "reading",
+            "container_type": "circles",
             "container_count": 5,
             "items_per_container": 3,
-            "visual_style": "circles"
+            "orientation": "horizontal"
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:02:48.698879+00:00"
+    "_generated_at": "2026-04-27T15:57:25.855860+00:00"
   },
   {
     "id": "s3_3_expression_recognition_mixed_with_reduced",
@@ -2994,10 +3071,11 @@ Cacheable: Yes
         "tangible_type": "equal_groups",
         "params": {
           "mode": "reading",
+          "container_type": "boxes",
           "container_count": 2,
           "items_per_container": 4,
-          "container_type": "box",
-          "description": "Two boxes appear, each containing 4 items."
+          "orientation": "horizontal",
+          "description": "Equal groups visualization appears: 2 boxes arranged horizontally, each containing 4 items."
         }
       },
       {
@@ -3036,17 +3114,18 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "equal_groups_boxes",
-            "description": "Two boxes, each containing 4 items. Multiple choice options displayed.",
+            "description": "Equal groups visualization: 2 boxes arranged horizontally, each containing 4 items. Reading mode.",
             "tangible_type": "equal_groups",
             "mode": "reading",
+            "container_type": "boxes",
             "container_count": 2,
             "items_per_container": 4,
-            "container_type": "box"
+            "orientation": "horizontal"
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:02:55.761094+00:00"
+    "_generated_at": "2026-04-27T15:57:38.633324+00:00"
   }
 ]
 </lesson_sections>
@@ -3066,9 +3145,10 @@ Cacheable: Yes
       "tangible_type": "equal_groups",
       "params": {
         "mode": "building",
+        "container_type": "bags",
         "container_count": 0,
         "items_per_container": 0,
-        "description": "Build Mode interface appears. Empty workspace, no groups yet. Container count and items-per-container controls visible."
+        "description": "Empty workspace. Build Mode interface active. No containers or items displayed yet."
       },
       "id": "s1_3_student_builds_first_build_mode_b0"
     },
@@ -3078,27 +3158,13 @@ Cacheable: Yes
       "id": "s1_3_student_builds_first_build_mode_b1"
     },
     {
-      "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "equal_groups_build",
-          "description": "Build Mode interface. Empty workspace. Container count and items-per-container controls visible, both at 0.",
-          "tangible_type": "equal_groups",
-          "mode": "building",
-          "container_count": 0,
-          "items_per_container": 0
-        }
-      ],
+      "type": "dialogue",
+      "text": "How many groups? Set the bags.",
       "id": "s1_3_student_builds_first_build_mode_b2"
     },
     {
-      "type": "dialogue",
-      "text": "How many groups? Set the bags.",
-      "id": "s1_3_student_builds_first_build_mode_b3"
-    },
-    {
       "type": "prompt",
-      "text": "Set the number of groups.",
+      "text": "How many groups?",
       "tool": "set_container_count",
       "target": "equal_groups_build",
       "validator": [
@@ -3112,46 +3178,48 @@ Cacheable: Yes
           "beats": [
             {
               "type": "scene",
-              "method": "update",
+              "method": "animate",
               "tangible_id": "equal_groups_build",
               "params": {
-                "container_count": 3,
-                "description": "3 empty bags appear on screen."
+                "event": "containers_appear",
+                "status": "confirmed",
+                "description": "3 bags appear on screen, empty."
               },
-              "id": "s1_3_student_builds_first_build_mode_b4_v0_b0"
+              "id": "s1_3_student_builds_first_build_mode_b3_v0_b0"
             },
             {
               "type": "dialogue",
-              "text": "Right. 3 groups.",
-              "id": "s1_3_student_builds_first_build_mode_b4_v0_b1"
+              "text": "That's right. 3 groups.",
+              "id": "s1_3_student_builds_first_build_mode_b3_v0_b1"
             }
           ]
         }
       ],
-      "id": "s1_3_student_builds_first_build_mode_b4"
+      "id": "s1_3_student_builds_first_build_mode_b3"
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "equal_groups_build",
-          "description": "Build Mode interface. 3 empty bags visible. Items-per-container control ready for next step.",
+          "description": "Build Mode interface. 3 empty bags displayed. Container count set to 3, items per container still 0.",
           "tangible_type": "equal_groups",
           "mode": "building",
+          "container_type": "bags",
           "container_count": 3,
           "items_per_container": 0
         }
       ],
-      "id": "s1_3_student_builds_first_build_mode_b5"
+      "id": "s1_3_student_builds_first_build_mode_b4"
     },
     {
       "type": "dialogue",
       "text": "How many in each group? Add the items.",
-      "id": "s1_3_student_builds_first_build_mode_b6"
+      "id": "s1_3_student_builds_first_build_mode_b5"
     },
     {
       "type": "prompt",
-      "text": "Set the number of items in each group.",
+      "text": "How many in each group?",
       "tool": "set_items_per_container",
       "target": "equal_groups_build",
       "validator": [
@@ -3160,45 +3228,47 @@ Cacheable: Yes
           "condition": {
             "items_per_container": 4
           },
-          "description": "Student set items-per-container to 4, correct",
+          "description": "Student set items per container to 4, correct",
           "is_correct": true,
           "beats": [
             {
               "type": "scene",
-              "method": "update",
+              "method": "animate",
               "tangible_id": "equal_groups_build",
               "params": {
-                "items_per_container": 4,
+                "event": "items_populate",
+                "status": "confirmed",
                 "description": "4 items appear in each of the 3 bags."
               },
-              "id": "s1_3_student_builds_first_build_mode_b7_v0_b0"
+              "id": "s1_3_student_builds_first_build_mode_b6_v0_b0"
             },
             {
               "type": "dialogue",
-              "text": "That's it. 4 in each. 3 groups of 4.",
-              "id": "s1_3_student_builds_first_build_mode_b7_v0_b1"
+              "text": "Right. 4 in each. 3 groups of 4.",
+              "id": "s1_3_student_builds_first_build_mode_b6_v0_b1"
             }
           ]
         }
       ],
-      "id": "s1_3_student_builds_first_build_mode_b7"
+      "id": "s1_3_student_builds_first_build_mode_b6"
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "equal_groups_build",
-          "description": "Build Mode interface. 3 bags visible, each containing 4 items. Complete equal groups representation of 3 groups of 4.",
+          "description": "Build Mode interface. 3 bags, each containing 4 items. Complete equal groups visualization: 3 groups of 4.",
           "tangible_type": "equal_groups",
           "mode": "building",
+          "container_type": "bags",
           "container_count": 3,
           "items_per_container": 4
         }
       ],
-      "id": "s1_3_student_builds_first_build_mode_b8"
+      "id": "s1_3_student_builds_first_build_mode_b7"
     }
   ],
-  "_generated_at": "2026-04-20T17:01:39.702394+00:00"
+  "_generated_at": "2026-04-27T15:55:16.266821+00:00"
 }
 </input>
 

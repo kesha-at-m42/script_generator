@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:08.883361
+# Generated: 2026-04-27T10:57:57.753941
 ======================================================================
 
 ## API Parameters
@@ -948,8 +948,8 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "How many groups? How many in each?",
-      "context": "lesson"
+      "text": "2 groups of 5.",
+      "context": "on_correct"
     },
     {
       "text": "Look at these expressions. Which one shows what you see?",

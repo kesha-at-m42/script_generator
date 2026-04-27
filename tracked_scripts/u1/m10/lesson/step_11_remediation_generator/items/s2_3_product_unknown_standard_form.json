@@ -4,24 +4,23 @@
     [
       {
         "condition": {
-          "incorrect_count": 1
-        },
-        "description": "Student placed wrong number on first attempt",
-        "is_correct": false,
-        "steps": [
-          [
+          "and": [
             {
-              "type": "dialogue",
-              "text": "Not quite. Count the plates in all 8 stacks."
+              "total": 28
+            },
+            {
+              "or": [
+                {
+                  "incorrect_count": 1
+                },
+                {
+                  "incorrect_count": 2
+                }
+              ]
             }
           ]
-        ]
-      },
-      {
-        "condition": {
-          "incorrect_count": 2
         },
-        "description": "Student placed wrong number on second attempt",
+        "description": "Student placed 28. Specific error: chose first palette option without calculating",
         "is_correct": false,
         "steps": [
           [
@@ -30,13 +29,122 @@
               "method": "update",
               "tangible_id": "equal_groups_plates",
               "params": {
-                "highlight_containers": true,
-                "description": "All 8 stacks highlight sequentially."
+                "highlight_all_groups": true,
+                "description": "All 8 stacks highlight."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let's think about this together. Skip count by 4s, once for each stack. 4, 8, 12, 16, 20, 24, 28, 32. How many times did we count? Eight times. What's the total?"
+              "text": "Look at all 8 stacks. Count how many plates are in one stack. Then skip-count by that number 8 times to find the product."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "total": 36
+            },
+            {
+              "or": [
+                {
+                  "incorrect_count": 1
+                },
+                {
+                  "incorrect_count": 2
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Student placed 36. Specific error: added instead of multiplying (8 + 4 + ... pattern or miscounting)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_plates",
+              "params": {
+                "highlight_categories": [
+                  "stack_1"
+                ],
+                "description": "First stack highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Count one stack: 4 plates. Now skip-count by 4s for all 8 stacks: 4, 8, 12... Keep going until you've counted all 8 stacks."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 1
+            },
+            {
+              "not": {
+                "total": 28
+              }
+            },
+            {
+              "not": {
+                "total": 36
+              }
+            }
+          ]
+        },
+        "description": "Student selected any other wrong answer on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Count the plates in one stack, then skip-count by that number 8 times."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 2
+            },
+            {
+              "not": {
+                "total": 28
+              }
+            },
+            {
+              "not": {
+                "total": 36
+              }
+            }
+          ]
+        },
+        "description": "Student selected any other wrong answer on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_plates",
+              "params": {
+                "highlight_categories": [
+                  "stack_1"
+                ],
+                "description": "First stack of 4 plates highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's what helps: one stack has 4 plates. So skip-count by 4s, eight times: 4, 8, 12, 16, 20, 24, 28, 32. What number did you land on?"
             }
           ]
         ]
@@ -52,19 +160,19 @@
               "method": "animate",
               "tangible_id": "equal_groups_plates",
               "params": {
-                "event": "count_items_with_running_total",
+                "event": "sequential_count_all_groups",
                 "status": "confirmed",
-                "description": "System counts plates sequentially: 4, 8, 12, 16, 20, 24, 28, 32. Running total appears under each stack."
+                "description": "System counts through all 8 stacks sequentially: 4, 8, 12, 16, 20, 24, 28, 32. Each stack highlights as it is counted."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you how this works. We skip count by 4s, once for each stack: 4, 8, 12, 16, 20, 24, 28, 32. Eight stacks of 4 plates equals 32 total. That's what 8 times 4 means. The product is 32."
+              "text": "Let me show you. I count one stack: 4 plates. Then I skip-count by 4s for all 8 stacks. 4, 8, 12, 16, 20, 24, 28, 32. I counted 8 times and landed on 32. The product is 32 because 8 stacks of 4 equals 32 total."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:08:29.200503+00:00"
+  "_generated_at": "2026-04-27T16:02:56.919658+00:00"
 }

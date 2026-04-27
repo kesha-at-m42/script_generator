@@ -22,7 +22,7 @@
           "id": "s1_0_opening_frame_b1"
         }
       ],
-      "_generated_at": "2026-04-20T17:01:14.236178+00:00"
+      "_generated_at": "2026-04-27T15:53:37.387545+00:00"
     },
     {
       "id": "s1_1_sign_truth_check",
@@ -30,7 +30,7 @@
         {
           "type": "scene",
           "method": "add",
-          "tangible_id": "equation_A",
+          "tangible_id": "equation_a",
           "tangible_type": "equation",
           "params": {
             "expression": [
@@ -40,14 +40,14 @@
               "=",
               "15"
             ],
-            "description": "Equation A: 3 × 5 = 15"
+            "description": "Equation A displays: 3 × 5 = 15"
           },
           "id": "s1_1_sign_truth_check_b0"
         },
         {
           "type": "scene",
           "method": "add",
-          "tangible_id": "equation_B",
+          "tangible_id": "equation_b",
           "tangible_type": "equation",
           "params": {
             "expression": [
@@ -57,14 +57,14 @@
               "x",
               "5"
             ],
-            "description": "Equation B: 15 = 3 × 5"
+            "description": "Equation B displays: 15 = 3 × 5"
           },
           "id": "s1_1_sign_truth_check_b1"
         },
         {
           "type": "scene",
           "method": "add",
-          "tangible_id": "equation_C",
+          "tangible_id": "equation_c",
           "tangible_type": "equation",
           "params": {
             "expression": [
@@ -74,14 +74,14 @@
               "=",
               "20"
             ],
-            "description": "Equation C: 3 × 5 = 20"
+            "description": "Equation C displays: 3 × 5 = 20"
           },
           "id": "s1_1_sign_truth_check_b2"
         },
         {
           "type": "scene",
           "method": "add",
-          "tangible_id": "equation_D",
+          "tangible_id": "equation_d",
           "tangible_type": "equation",
           "params": {
             "expression": [
@@ -91,13 +91,13 @@
               "x",
               "3"
             ],
-            "description": "Equation D: 15 = 5 × 3"
+            "description": "Equation D displays: 15 = 5 × 3"
           },
           "id": "s1_1_sign_truth_check_b3"
         },
         {
           "type": "dialogue",
-          "text": "Four equations. Three are true — both sides have the same value. One is false. Which one is false?",
+          "text": "Four equations. Three are true, both sides have the same value. One is false. Which one is false?",
           "id": "s1_1_sign_truth_check_b4"
         },
         {
@@ -116,13 +116,23 @@
               "condition": {
                 "selected": "C"
               },
-              "description": "Student selected C, correct — 3 × 5 = 20 is false",
+              "description": "Student selected C (3 × 5 = 20), the false equation",
               "is_correct": true,
               "beats": [
                 {
-                  "type": "dialogue",
-                  "text": "Right. 3 times 5 is 15, not 20. The sides don't match. And notice, the other equations are all true. The total is on the right in some and on the left in others, but both sides have the same value either way. That's what the equals sign checks.",
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "equation_c",
+                  "params": {
+                    "highlight": true,
+                    "description": "Equation C highlights to confirm selection."
+                  },
                   "id": "s1_1_sign_truth_check_b5_v0_b0"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Right. 3 times 5 is 15, not 20. The sides don't match.",
+                  "id": "s1_1_sign_truth_check_b5_v0_b1"
                 }
               ]
             }
@@ -133,58 +143,61 @@
           "type": "current_scene",
           "elements": [
             {
-              "tangible_id": "equation_A",
+              "tangible_id": "equation_a",
               "description": "Equation A: 3 × 5 = 15",
-              "tangible_type": "equation",
-              "expression": [
-                "3",
-                "x",
-                "5",
-                "=",
-                "15"
-              ]
+              "tangible_type": "equation"
             },
             {
-              "tangible_id": "equation_B",
+              "tangible_id": "equation_b",
               "description": "Equation B: 15 = 3 × 5",
-              "tangible_type": "equation",
-              "expression": [
-                "15",
-                "=",
-                "3",
-                "x",
-                "5"
-              ]
+              "tangible_type": "equation"
             },
             {
-              "tangible_id": "equation_C",
-              "description": "Equation C: 3 × 5 = 20",
-              "tangible_type": "equation",
-              "expression": [
-                "3",
-                "x",
-                "5",
-                "=",
-                "20"
-              ]
+              "tangible_id": "equation_c",
+              "description": "Equation C: 3 × 5 = 20, highlighted",
+              "tangible_type": "equation"
             },
             {
-              "tangible_id": "equation_D",
+              "tangible_id": "equation_d",
               "description": "Equation D: 15 = 5 × 3",
-              "tangible_type": "equation",
-              "expression": [
-                "15",
-                "=",
-                "5",
-                "x",
-                "3"
-              ]
+              "tangible_type": "equation"
             }
           ],
           "id": "s1_1_sign_truth_check_b6"
+        },
+        {
+          "type": "dialogue",
+          "text": "And notice, the other equations are all true. The total is on the right in one and on the left in others, but both sides have the same value either way. That's what the equals sign checks.",
+          "id": "s1_1_sign_truth_check_b7"
+        },
+        {
+          "type": "current_scene",
+          "elements": [
+            {
+              "tangible_id": "equation_a",
+              "description": "Equation A: 3 × 5 = 15",
+              "tangible_type": "equation"
+            },
+            {
+              "tangible_id": "equation_b",
+              "description": "Equation B: 15 = 3 × 5",
+              "tangible_type": "equation"
+            },
+            {
+              "tangible_id": "equation_c",
+              "description": "Equation C: 3 × 5 = 20, highlighted as the false equation",
+              "tangible_type": "equation"
+            },
+            {
+              "tangible_id": "equation_d",
+              "description": "Equation D: 15 = 5 × 3",
+              "tangible_type": "equation"
+            }
+          ],
+          "id": "s1_1_sign_truth_check_b8"
         }
       ],
-      "_generated_at": "2026-04-20T17:01:25.939630+00:00"
+      "_generated_at": "2026-04-27T15:53:57.581619+00:00"
     },
     {
       "id": "s2_1_context_variety_same_structure",
@@ -215,7 +228,7 @@
           "tangible_id": "image_butterflies",
           "tangible_type": "image",
           "params": {
-            "description": "Image 3: 4 groups of 2 butterflies in circled clusters"
+            "description": "Image 3: 4 groups of 2 butterflies (circled clusters)"
           },
           "id": "s2_1_context_variety_same_structure_b2"
         },
@@ -232,7 +245,7 @@
               "=",
               "8"
             ],
-            "description": "One equation below all three images: 4 × 2 = 8"
+            "description": "Equation displayed below all three images: 4 × 2 = 8"
           },
           "id": "s2_1_context_variety_same_structure_b3"
         },
@@ -264,7 +277,7 @@
                   }
                 ]
               },
-              "description": "Student selected both A and B, correct",
+              "description": "Student selected A and B only, both true",
               "is_correct": true,
               "beats": [
                 {
@@ -283,28 +296,35 @@
             {
               "tangible_id": "image_books",
               "tangible_type": "image",
-              "description": "Image showing 4 rows of 2 books on shelves"
+              "description": "Image 1: 4 rows of 2 books on shelves"
             },
             {
               "tangible_id": "image_cups",
               "tangible_type": "image",
-              "description": "Image showing 4 stacks of 2 cups"
+              "description": "Image 2: 4 stacks of 2 cups"
             },
             {
               "tangible_id": "image_butterflies",
               "tangible_type": "image",
-              "description": "Image showing 4 groups of 2 butterflies in circled clusters"
+              "description": "Image 3: 4 groups of 2 butterflies (circled clusters)"
             },
             {
               "tangible_id": "equation_shared",
               "tangible_type": "equation",
-              "description": "Equation displayed below all three images: 4 × 2 = 8"
+              "description": "Equation displayed below all three images: 4 × 2 = 8",
+              "expression": [
+                "4",
+                "x",
+                "2",
+                "=",
+                "8"
+              ]
             }
           ],
           "id": "s2_1_context_variety_same_structure_b6"
         }
       ],
-      "_generated_at": "2026-04-20T17:01:37.403028+00:00"
+      "_generated_at": "2026-04-27T15:54:14.471130+00:00"
     },
     {
       "id": "s3_1_unknown_position_flexibility",
@@ -312,10 +332,9 @@
         {
           "type": "scene",
           "method": "add",
-          "tangible_id": "equation_builder_product_unknown",
-          "tangible_type": "equation_builder",
+          "tangible_id": "equation_product_unknown",
+          "tangible_type": "equation",
           "params": {
-            "mode": "reading",
             "expression": [
               "4",
               "x",
@@ -323,17 +342,16 @@
               "=",
               "__"
             ],
-            "description": "First equation appears: 4 × 5 = ☐. Label 'product unknown' appears below."
+            "description": "First equation displays: 4 × 5 = ☐ (product unknown)"
           },
           "id": "s3_1_unknown_position_flexibility_b0"
         },
         {
           "type": "scene",
           "method": "add",
-          "tangible_id": "equation_builder_factor2_unknown",
-          "tangible_type": "equation_builder",
+          "tangible_id": "equation_factor2_unknown",
+          "tangible_type": "equation",
           "params": {
-            "mode": "reading",
             "expression": [
               "4",
               "x",
@@ -341,17 +359,16 @@
               "=",
               "20"
             ],
-            "description": "Second equation appears below first: 4 × ☐ = 20. Label 'second factor unknown' appears below."
+            "description": "Second equation displays below first: 4 × ☐ = 20 (second factor unknown)"
           },
           "id": "s3_1_unknown_position_flexibility_b1"
         },
         {
           "type": "scene",
           "method": "add",
-          "tangible_id": "equation_builder_factor1_unknown",
-          "tangible_type": "equation_builder",
+          "tangible_id": "equation_factor1_unknown",
+          "tangible_type": "equation",
           "params": {
-            "mode": "reading",
             "expression": [
               "__",
               "x",
@@ -359,14 +376,44 @@
               "=",
               "20"
             ],
-            "description": "Third equation appears below second: ☐ × 5 = 20. Label 'first factor unknown' appears below."
+            "description": "Third equation displays below second: ☐ × 5 = 20 (first factor unknown)"
           },
           "id": "s3_1_unknown_position_flexibility_b2"
         },
         {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "equation_product_unknown",
+          "params": {
+            "label": "product unknown",
+            "description": "Label appears next to first equation: product unknown"
+          },
+          "id": "s3_1_unknown_position_flexibility_b3"
+        },
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "equation_factor2_unknown",
+          "params": {
+            "label": "second factor unknown",
+            "description": "Label appears next to second equation: second factor unknown"
+          },
+          "id": "s3_1_unknown_position_flexibility_b4"
+        },
+        {
+          "type": "scene",
+          "method": "update",
+          "tangible_id": "equation_factor1_unknown",
+          "params": {
+            "label": "first factor unknown",
+            "description": "Label appears next to third equation: first factor unknown"
+          },
+          "id": "s3_1_unknown_position_flexibility_b5"
+        },
+        {
           "type": "dialogue",
           "text": "Three equations. Same numbers: 4, 5, and 20. But the unknown moved to a different spot each time. What stays the same?",
-          "id": "s3_1_unknown_position_flexibility_b3"
+          "id": "s3_1_unknown_position_flexibility_b6"
         },
         {
           "type": "prompt",
@@ -384,116 +431,116 @@
               "condition": {
                 "selected": "4 groups of 5 equals 20"
               },
-              "description": "Student selected A: 4 groups of 5 equals 20, correct",
+              "description": "Student selected option A: 4 groups of 5 equals 20",
               "is_correct": true,
               "beats": [
                 {
                   "type": "dialogue",
-                  "text": "Right. 4 groups of 5 equals 20. The unknown moves, but the relationship stays constant.",
-                  "id": "s3_1_unknown_position_flexibility_b4_v0_b0"
+                  "text": "Right. 4 groups of 5 equals 20. That relationship stays the same no matter where the unknown is.",
+                  "id": "s3_1_unknown_position_flexibility_b7_v0_b0"
                 }
               ]
             }
           ],
-          "id": "s3_1_unknown_position_flexibility_b4"
+          "id": "s3_1_unknown_position_flexibility_b7"
         },
         {
           "type": "current_scene",
           "elements": [
             {
-              "tangible_id": "equation_builder_product_unknown",
-              "description": "First equation: 4 × 5 = ☐, labeled 'product unknown'",
-              "tangible_type": "equation_builder",
-              "mode": "reading",
+              "tangible_id": "equation_product_unknown",
+              "description": "First equation: 4 × 5 = ☐ with label 'product unknown'",
+              "tangible_type": "equation",
               "expression": [
                 "4",
                 "x",
                 "5",
                 "=",
                 "__"
-              ]
+              ],
+              "label": "product unknown"
             },
             {
-              "tangible_id": "equation_builder_factor2_unknown",
-              "description": "Second equation: 4 × ☐ = 20, labeled 'second factor unknown'",
-              "tangible_type": "equation_builder",
-              "mode": "reading",
+              "tangible_id": "equation_factor2_unknown",
+              "description": "Second equation: 4 × ☐ = 20 with label 'second factor unknown'",
+              "tangible_type": "equation",
               "expression": [
                 "4",
                 "x",
                 "__",
                 "=",
                 "20"
-              ]
+              ],
+              "label": "second factor unknown"
             },
             {
-              "tangible_id": "equation_builder_factor1_unknown",
-              "description": "Third equation: ☐ × 5 = 20, labeled 'first factor unknown'",
-              "tangible_type": "equation_builder",
-              "mode": "reading",
+              "tangible_id": "equation_factor1_unknown",
+              "description": "Third equation: ☐ × 5 = 20 with label 'first factor unknown'",
+              "tangible_type": "equation",
               "expression": [
                 "__",
                 "x",
                 "5",
                 "=",
                 "20"
-              ]
+              ],
+              "label": "first factor unknown"
             }
           ],
-          "id": "s3_1_unknown_position_flexibility_b5"
+          "id": "s3_1_unknown_position_flexibility_b8"
         },
         {
           "type": "dialogue",
-          "text": "The unknown moves, but the relationship stays: 4 groups of 5 is always 20. You figure out whichever piece is missing.",
-          "id": "s3_1_unknown_position_flexibility_b6"
+          "text": "The unknown moves, but the relationship stays. 4 groups of 5 is always 20. You figure out whichever piece is missing.",
+          "id": "s3_1_unknown_position_flexibility_b9"
         },
         {
           "type": "current_scene",
           "elements": [
             {
-              "tangible_id": "equation_builder_product_unknown",
-              "description": "First equation: 4 × 5 = ☐, labeled 'product unknown'",
-              "tangible_type": "equation_builder",
-              "mode": "reading",
+              "tangible_id": "equation_product_unknown",
+              "description": "First equation: 4 × 5 = ☐ with label 'product unknown'",
+              "tangible_type": "equation",
               "expression": [
                 "4",
                 "x",
                 "5",
                 "=",
                 "__"
-              ]
+              ],
+              "label": "product unknown"
             },
             {
-              "tangible_id": "equation_builder_factor2_unknown",
-              "description": "Second equation: 4 × ☐ = 20, labeled 'second factor unknown'",
-              "tangible_type": "equation_builder",
-              "mode": "reading",
+              "tangible_id": "equation_factor2_unknown",
+              "description": "Second equation: 4 × ☐ = 20 with label 'second factor unknown'",
+              "tangible_type": "equation",
               "expression": [
                 "4",
                 "x",
                 "__",
                 "=",
                 "20"
-              ]
+              ],
+              "label": "second factor unknown"
             },
             {
-              "tangible_id": "equation_builder_factor1_unknown",
-              "description": "Third equation: ☐ × 5 = 20, labeled 'first factor unknown'",
-              "tangible_type": "equation_builder",
-              "mode": "reading",
+              "tangible_id": "equation_factor1_unknown",
+              "description": "Third equation: ☐ × 5 = 20 with label 'first factor unknown'",
+              "tangible_type": "equation",
               "expression": [
                 "__",
                 "x",
                 "5",
                 "=",
                 "20"
-              ]
+              ],
+              "label": "first factor unknown"
             }
           ],
-          "id": "s3_1_unknown_position_flexibility_b7"
+          "id": "s3_1_unknown_position_flexibility_b10"
         }
       ],
-      "_generated_at": "2026-04-20T17:01:52.529885+00:00"
+      "_generated_at": "2026-04-27T15:54:38.417758+00:00"
     },
     {
       "id": "s4_1_m9_m10_growth",
@@ -506,14 +553,14 @@
           "params": {
             "expression": [
               "6",
-              "x",
+              "×",
               "5",
               "=",
               "30"
             ],
             "label": "Last time",
-            "context_image": "bags",
-            "description": "Left equation: 6 × 5 = 30. Labeled 'Last time'. Bags context image. M9 style — standard form, no unknown."
+            "position": "left",
+            "description": "Equation appears on left side of screen: 6 × 5 = 30, labeled 'Last time'. Standard form, no unknown, bags context image above."
           },
           "id": "s4_1_m9_m10_growth_b0"
         },
@@ -524,15 +571,15 @@
           "tangible_type": "equation",
           "params": {
             "expression": [
-              "__",
+              "☐",
               "=",
               "3",
-              "x",
+              "×",
               "10"
             ],
             "label": "Today",
-            "context_image": "stacks",
-            "description": "Right equation: ☐ = 3 × 10. Labeled 'Today'. Stacks context image. M10 style — reversed, unknown on left."
+            "position": "right",
+            "description": "Equation appears on right side of screen: ☐ = 3 × 10, labeled 'Today'. Reversed form with unknown on left, stacks context image above."
           },
           "id": "s4_1_m9_m10_growth_b1"
         },
@@ -557,12 +604,12 @@
               "condition": {
                 "selected": "All of these are different today"
               },
-              "description": "Student selected D, recognizing all three M10 changes",
+              "description": "Student selected D, recognizing all three M10 changes together",
               "is_correct": true,
               "beats": [
                 {
                   "type": "dialogue",
-                  "text": "Right. Three new things, all in one equation. The equals sign works both ways. Unknowns can go anywhere. And equations work for stacks, rows, groups, not just bags.",
+                  "text": "Right. All of these are different today. Three new things, all in one equation. The equals sign works both ways. Unknowns can go anywhere. And equations work for stacks, rows, groups, not just bags.",
                   "id": "s4_1_m9_m10_growth_b3_v0_b0"
                 }
               ]
@@ -575,11 +622,11 @@
           "elements": [
             {
               "tangible_id": "equation_m9",
-              "description": "Left equation: 6 × 5 = 30. Labeled 'Last time'. Bags context image.",
+              "description": "Equation on left: 6 × 5 = 30, labeled 'Last time', with bags context image.",
               "tangible_type": "equation",
               "expression": [
                 "6",
-                "x",
+                "×",
                 "5",
                 "=",
                 "30"
@@ -588,13 +635,13 @@
             },
             {
               "tangible_id": "equation_m10",
-              "description": "Right equation: ☐ = 3 × 10. Labeled 'Today'. Stacks context image.",
+              "description": "Equation on right: ☐ = 3 × 10, labeled 'Today', with stacks context image.",
               "tangible_type": "equation",
               "expression": [
-                "__",
+                "☐",
                 "=",
                 "3",
-                "x",
+                "×",
                 "10"
               ],
               "label": "Today"
@@ -603,11 +650,10 @@
           "id": "s4_1_m9_m10_growth_b4"
         }
       ],
-      "_generated_at": "2026-04-20T17:02:02.587440+00:00"
+      "_generated_at": "2026-04-27T15:54:56.843052+00:00"
     },
     {
       "id": "s4_2_key_takeaway",
-      "type": "transition",
       "beats": [
         {
           "type": "dialogue",
@@ -625,11 +671,11 @@
           ],
           "validator": [
             {
-              "condition_id": "option_a",
+              "condition_id": "selected_equals_meaning",
               "condition": {
                 "selected": "Equals means same value as"
               },
-              "description": "Student selected option A: equals means same value as",
+              "description": "Student selected option A: equals sign meaning",
               "is_correct": true,
               "beats": [
                 {
@@ -640,11 +686,11 @@
               ]
             },
             {
-              "condition_id": "option_b",
+              "condition_id": "selected_unknown_flexibility",
               "condition": {
                 "selected": "The unknown can go anywhere"
               },
-              "description": "Student selected option B: unknowns can move",
+              "description": "Student selected option B: unknown position flexibility",
               "is_correct": true,
               "beats": [
                 {
@@ -655,11 +701,11 @@
               ]
             },
             {
-              "condition_id": "option_c",
+              "condition_id": "selected_structure_variety",
               "condition": {
                 "selected": "Different pictures can have the same equation"
               },
-              "description": "Student selected option C: different pictures, same equation",
+              "description": "Student selected option C: structural variety",
               "is_correct": true,
               "beats": [
                 {
@@ -678,7 +724,7 @@
           "id": "s4_2_key_takeaway_b2"
         }
       ],
-      "_generated_at": "2026-04-20T17:02:09.299615+00:00"
+      "_generated_at": "2026-04-27T15:55:11.868679+00:00"
     },
     {
       "id": "s4_3_identity_building_closure_m11_bridge",
@@ -687,90 +733,88 @@
         {
           "type": "scene",
           "method": "add",
-          "tangible_id": "equation_m9",
+          "tangible_id": "equation_m9_recap",
           "tangible_type": "equation",
           "params": {
-            "description": "M9 equation appears briefly: 3 × 4 = 12"
+            "expression": [
+              "6",
+              "×",
+              "5",
+              "=",
+              "30"
+            ],
+            "description": "Equation from M9 appears: 6 × 5 = 30"
           },
           "id": "s4_3_identity_building_closure_m11_bridge_b0"
         },
         {
           "type": "scene",
           "method": "add",
-          "tangible_id": "equation_m10",
+          "tangible_id": "equation_m10_recap",
           "tangible_type": "equation",
           "params": {
-            "description": "M10 equation appears briefly: 4 × 3 = 12"
+            "expression": [
+              "__",
+              "=",
+              "3",
+              "×",
+              "10"
+            ],
+            "description": "Equation from M10 appears: ☐ = 3 × 10"
           },
           "id": "s4_3_identity_building_closure_m11_bridge_b1"
         },
         {
-          "type": "scene",
-          "method": "animate",
-          "tangible_id": "equation_m9",
-          "params": {
-            "event": "fade_out",
-            "status": "confirmed",
-            "description": "M9 equation fades out"
-          },
+          "type": "dialogue",
+          "text": "You came in knowing expressions and products. Now you write complete equations. You know the equals sign means same value as. You find unknowns in any position. And you see equal groups everywhere: bags, rows, stacks, groups.",
           "id": "s4_3_identity_building_closure_m11_bridge_b2"
         },
         {
           "type": "scene",
           "method": "animate",
-          "tangible_id": "equation_m10",
+          "tangible_id": "equation_m9_recap",
           "params": {
             "event": "fade_out",
             "status": "confirmed",
-            "description": "M10 equation fades out"
+            "description": "M9 equation fades out"
           },
           "id": "s4_3_identity_building_closure_m11_bridge_b3"
         },
         {
           "type": "scene",
-          "method": "add",
-          "tangible_id": "dot_arrangement",
-          "tangible_type": "image",
+          "method": "animate",
+          "tangible_id": "equation_m10_recap",
           "params": {
-            "description": "Simple rectangular arrangement of dots appears: 3 rows of 4 dots"
+            "event": "fade_out",
+            "status": "confirmed",
+            "description": "M10 equation fades out"
           },
           "id": "s4_3_identity_building_closure_m11_bridge_b4"
         },
         {
-          "type": "dialogue",
-          "text": "You came in knowing expressions and products. Now you write complete equations. You know the equals sign means same value as. You find unknowns in any position. And you see equal groups everywhere: bags, rows, stacks, groups.",
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "equation_m9_recap",
           "id": "s4_3_identity_building_closure_m11_bridge_b5"
         },
         {
-          "type": "current_scene",
-          "elements": [
-            {
-              "tangible_id": "dot_arrangement",
-              "description": "Rectangular arrangement of dots visible: 3 rows of 4 dots",
-              "tangible_type": "image"
-            }
-          ],
+          "type": "scene",
+          "method": "remove",
+          "tangible_id": "equation_m10_recap",
           "id": "s4_3_identity_building_closure_m11_bridge_b6"
         },
         {
-          "type": "scene",
-          "method": "animate",
-          "tangible_id": "dot_arrangement",
-          "params": {
-            "event": "highlight_rows",
-            "status": "confirmed",
-            "description": "Rows highlight briefly"
-          },
+          "type": "current_scene",
+          "elements": [],
           "id": "s4_3_identity_building_closure_m11_bridge_b7"
         },
         {
           "type": "scene",
-          "method": "animate",
-          "tangible_id": "dot_arrangement",
+          "method": "add",
+          "tangible_id": "dot_arrangement_preview",
+          "tangible_type": "image",
           "params": {
-            "event": "highlight_columns",
-            "status": "confirmed",
-            "description": "Columns highlight briefly"
+            "description": "Simple rectangular arrangement of dots appears: 3 rows of 4 dots, not labeled as array"
           },
           "id": "s4_3_identity_building_closure_m11_bridge_b8"
         },
@@ -780,34 +824,45 @@
           "id": "s4_3_identity_building_closure_m11_bridge_b9"
         },
         {
-          "type": "current_scene",
-          "elements": [
-            {
-              "tangible_id": "dot_arrangement",
-              "description": "Rectangular arrangement of dots: 3 rows of 4 dots, columns highlighted",
-              "tangible_type": "image"
-            }
-          ],
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "dot_arrangement_preview",
+          "params": {
+            "event": "highlight_rows",
+            "status": "confirmed",
+            "description": "Rows highlight briefly, then fade"
+          },
           "id": "s4_3_identity_building_closure_m11_bridge_b10"
+        },
+        {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "dot_arrangement_preview",
+          "params": {
+            "event": "highlight_columns",
+            "status": "confirmed",
+            "description": "Columns highlight briefly"
+          },
+          "id": "s4_3_identity_building_closure_m11_bridge_b11"
         },
         {
           "type": "dialogue",
           "text": "Rows AND columns. You'll have a lot to notice.",
-          "id": "s4_3_identity_building_closure_m11_bridge_b11"
+          "id": "s4_3_identity_building_closure_m11_bridge_b12"
         },
         {
           "type": "current_scene",
           "elements": [
             {
-              "tangible_id": "dot_arrangement",
-              "description": "Rectangular arrangement of dots: 3 rows of 4 dots",
+              "tangible_id": "dot_arrangement_preview",
+              "description": "Rectangular arrangement of dots (3 rows of 4), columns highlighted",
               "tangible_type": "image"
             }
           ],
-          "id": "s4_3_identity_building_closure_m11_bridge_b12"
+          "id": "s4_3_identity_building_closure_m11_bridge_b13"
         }
       ],
-      "_generated_at": "2026-04-20T17:02:21.043295+00:00"
+      "_generated_at": "2026-04-27T15:55:31.098481+00:00"
     }
   ]
 }

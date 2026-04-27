@@ -8,10 +8,11 @@
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
+        "container_type": "boxes",
         "container_count": 2,
         "items_per_container": 5,
-        "container_type": "boxes",
-        "description": "2 boxes appear on screen. Each box contains 5 items."
+        "orientation": "horizontal",
+        "description": "Equal groups visualization appears. 2 boxes, 5 items in each box, horizontal orientation."
       }
     },
     {
@@ -19,20 +20,44 @@
       "text": "You've seen this one. Tell me what you see."
     },
     {
-      "type": "dialogue",
-      "text": "How many groups? How many in each?"
+      "type": "prompt",
+      "text": "How many groups? How many in each?",
+      "tool": "multiple_choice",
+      "options": [
+        "2 groups of 5",
+        "5 groups of 2",
+        "2 groups of 2",
+        "5 groups of 5"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "2 groups of 5"
+          },
+          "description": "Student selected 2 groups of 5, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "2 groups of 5."
+            }
+          ]
+        }
+      ]
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "equal_groups_boxes",
-          "description": "2 boxes on screen, each containing 5 items.",
+          "description": "Equal groups visualization. 2 boxes, 5 items in each box, horizontal orientation.",
           "tangible_type": "equal_groups",
           "mode": "reading",
+          "container_type": "boxes",
           "container_count": 2,
           "items_per_container": 5,
-          "container_type": "boxes"
+          "orientation": "horizontal"
         }
       ]
     },
@@ -72,15 +97,16 @@
       "elements": [
         {
           "tangible_id": "equal_groups_boxes",
-          "description": "2 boxes on screen, each containing 5 items.",
+          "description": "Equal groups visualization. 2 boxes, 5 items in each box, horizontal orientation.",
           "tangible_type": "equal_groups",
           "mode": "reading",
+          "container_type": "boxes",
           "container_count": 2,
           "items_per_container": 5,
-          "container_type": "boxes"
+          "orientation": "horizontal"
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:02:03.342036+00:00"
+  "_generated_at": "2026-04-27T15:56:00.370435+00:00"
 }

@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:00:44.637413
+# Generated: 2026-04-27T10:53:59.792497
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -822,7 +838,7 @@ Cacheable: Yes
   "on_selection_c": "\"Different directions for different moments. That's flexible thinking.\"",
   "on_selection_d": "\"Still figuring it out is totally fine. You'll notice what works as you keep practicing.\"",
   "remediation": "Pipeline",
-  "_generated_at": "2026-04-20T16:59:55.109425+00:00",
+  "_generated_at": "2026-04-27T15:52:56.501183+00:00",
   "workspace_specs": {
     "toys": [
       "equal_groups",
@@ -831,7 +847,8 @@ Cacheable: Yes
     "tools": [
       "multiple_choice"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_0_opening_frame\n# Section Summary: s1_0_opening_frame\n\n**VISUAL STATE:** No tangible visualizations or data displays are present on screen at section end. The screen shows only dialogue text against a blank background.\n\n**CONTENT:** This opening frame recaps prior learning about building expressions from equal groups pictures and introduces the transition to connecting multiple representation methods. No new vocabulary is formally introduced; the section references previously learned concepts (equal groups, expressions, tiles).\n\n**STUDENT ACTION:** No interactive student action occurs in this section. The student receives information through dialogue only, preparing them for subsequent activities.\n\n---\n\n## s1_1_representation_transfer_same_expression_different\n# Section Summary: s1_1_representation_transfer_same_expression_different\n\n**VISUAL STATE:**\nThree equal-groups representations displayed horizontally: (1) 2 bags with 5 items each (left), (2) 2 boxes with 5 items each (center), (3) 2 circles with 5 dots each (right)—all in reading mode. Below all three visuals: the equation \"2 × 5\" displayed as a shared expression.\n\n**CONTENT:**\nStudents were introduced to the concept of **representation transfer**—recognizing that different visual containers (bags, boxes, circles) can represent the same underlying mathematical structure. The vocabulary term **structure** was formally introduced to describe the invariant relationship (2 groups of 5) that remains constant across different representations. The lesson emphasized that a single expression (2 × 5) captures this abstract structure regardless of the concrete container type.\n\n**STUDENT ACTION:**\nStudent answered a multiple-choice question identifying what stays the same across all three visuals, selecting \"2 groups with 5 in each\" as the correct response, demonstrating understanding that the multiplicative structure—not the visual form—is what the expression represents.\n\n---\n\n## s1_2_real_world_bridge_where_do\n# Section Summary: Real-World Bridge—Where Do Equal Groups Show Up?\n\n**VISUAL STATE:** An equal_groups tangible in reading mode displays four real-world scenario illustrations: Scenario A (egg carton: 2 rows × 6 eggs each), Scenario B (parking lot: 3 rows × 4 cars each), Scenario C (bookshelf: 5 shelves × 3 books each), and Scenario D (park bench: 4 benches with varying numbers of people). A multiple-choice tool with options A, B, C, D is active on screen.\n\n**CONTENT:** Students were introduced to the concept that equal groups appear in real-world contexts beyond abstract math problems. The section bridges multiplication (expressed as \"times\" language: 2 times 6, 3 times 4, 5 times 3) to everyday scenarios like grocery stores, parking lots, and homes. Vocabulary reinforced: \"equal groups.\"\n\n**STUDENT ACTION:** The student selected one of four multiple-choice options (A, B, C, or D) to identify which scenario demonstrates equal groups. Selecting A, B, or C triggered confirmation feedback with the chosen scenario highlighted and contextual dialogue explaining the multiplication structure (e.g., \"The egg carton: 2 rows of 6 eggs. That's 2 times 6\"). Scenario D (park bench with varying people) represents a non-example of equal groups."
 }
 </input>
 

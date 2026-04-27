@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:06:35.578388
+# Generated: 2026-04-27T11:01:08.650374
 ======================================================================
 
 ## API Parameters
@@ -944,11 +944,11 @@ Cacheable: Yes
   "id": "s2_2_equal_vs_unequal_groups_identification",
   "dialogues": [
     {
-      "text": "Equal groups are everywhere — but not EVERY group of things is an equal group. Look at these four pictures. Each picture has 18 items in total. Which ones show equal groups — the same number in every group?",
+      "text": "Equal groups are everywhere, but not every group of things is an equal group. Look at these four pictures. Each picture has 18 items in total. Which ones show equal groups — the same number in every group?",
       "context": "lesson"
     },
     {
-      "text": "A has 3 shelves with 6 on each — equal groups. C has 2 stacks of 9 — equal groups. We can write multiplication equations for these. B and D? The groups aren't equal — different amounts in different groups. We can't write a multiplication equation for those.",
+      "text": "A has 3 shelves with 6 on each — equal groups. C has 2 stacks of 9 — equal groups. We can write multiplication equations for these. B and D? The groups are not equal — different amounts in different groups. We cannot write a multiplication equation for those.",
       "context": "on_correct"
     }
   ]

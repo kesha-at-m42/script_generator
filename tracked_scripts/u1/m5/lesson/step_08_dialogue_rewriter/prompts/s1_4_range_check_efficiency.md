@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:52.511130
+# Generated: 2026-04-27T11:00:41.491711
 ======================================================================
 
 ## API Parameters
@@ -957,6 +957,10 @@ Cacheable: Yes
     },
     {
       "text": "When more than one scale fits, pick the one that's easier to read.",
+      "context": "lesson"
+    },
+    {
+      "text": "You learned to check if the biggest number fits. But there's something else to check...",
       "context": "lesson"
     }
   ]

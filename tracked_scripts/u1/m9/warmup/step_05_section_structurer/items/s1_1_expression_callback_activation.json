@@ -10,14 +10,14 @@
         "mode": "reading",
         "container_count": 4,
         "items_per_container": 2,
-        "container_type": "bag",
-        "description": "4 bags appear, each containing 2 items."
+        "container_style": "bag",
+        "description": "4 bags appear. Each bag contains 2 items."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder",
+      "tangible_id": "equation_builder_warmup",
       "tangible_type": "equation_builder",
       "params": {
         "template": [
@@ -25,7 +25,14 @@
           "×",
           "__"
         ],
-        "description": "Equation builder appears alongside bags. Two empty slots separated by multiplication symbol. No equals sign. M8 expression format."
+        "style": "equation",
+        "tile_palette": [
+          2,
+          4,
+          6,
+          8
+        ],
+        "description": "Equation Builder appears alongside bags. Two empty slots with multiplication symbol between them. Tile palette shows 2, 4, 6, 8."
       }
     },
     {
@@ -36,7 +43,7 @@
       "type": "prompt",
       "text": "Build the expression for 4 groups of 2.",
       "tool": "place_tile",
-      "target": "equation_builder",
+      "target": "equation_builder_warmup",
       "validator": [
         {
           "condition_id": "correct",
@@ -46,9 +53,19 @@
               "items": 2
             }
           },
-          "description": "Student placed 4 × 2, correct",
+          "description": "Student placed 4 in first slot and 2 in second slot",
           "is_correct": true,
           "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_warmup",
+              "params": {
+                "event": "confirm_placement",
+                "status": "confirmed",
+                "description": "Placed tiles 4 and 2 confirm in slots."
+              }
+            },
             {
               "type": "dialogue",
               "text": "4 times 2. You know how to show groups with expressions."
@@ -66,21 +83,21 @@
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 4,
-          "items_per_container": 2,
-          "container_type": "bag"
+          "items_per_container": 2
         },
         {
-          "tangible_id": "equation_builder",
-          "description": "Equation builder with 4 × 2 placed in slots.",
+          "tangible_id": "equation_builder_warmup",
+          "description": "Equation Builder showing 4 × 2 expression. Tiles placed and confirmed.",
           "tangible_type": "equation_builder",
           "template": [
-            "__",
+            "4",
             "×",
-            "__"
-          ]
+            "2"
+          ],
+          "style": "equation"
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:00:06.091512+00:00"
+  "_generated_at": "2026-04-27T15:53:06.455348+00:00"
 }

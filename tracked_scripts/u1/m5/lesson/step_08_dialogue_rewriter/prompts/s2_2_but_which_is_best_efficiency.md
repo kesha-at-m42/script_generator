@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:58.770974
+# Generated: 2026-04-27T11:00:48.209219
 ======================================================================
 
 ## API Parameters
@@ -949,6 +949,10 @@ Cacheable: Yes
     },
     {
       "text": "Let's try Scale of 10.",
+      "context": "lesson"
+    },
+    {
+      "text": "Click Scale of 10 to compare.",
       "context": "lesson"
     },
     {

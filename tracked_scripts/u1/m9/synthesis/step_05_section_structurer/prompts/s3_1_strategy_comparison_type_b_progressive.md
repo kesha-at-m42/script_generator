@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:01:16.384957
+# Generated: 2026-04-27T10:54:30.775538
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -812,7 +828,7 @@ Cacheable: Yes
   "id": "s3_1_strategy_comparison_type_b_progressive",
   "purpose": "Students see three representations of the same problem and reflect on which approach works for them. This is connection-making between representations, not preference polling.",
   "visual": "Three-panel display showing 6 × 5 = 30 solved three ways:\n\t- Left: Context Visualization — 6 groups of 5 dots\n\t- Center: Skip-counting display: 5, 10, 15, 20, 25, 30 (six counts highlighted)\n\t- Right: Repeated addition: 5 + 5 + 5 + 5 + 5 + 5 = 30\n\t- Below all three: The equation 6 × 5 = 30",
-  "guide": "\"Three ways to find 6 times 5 equals 30. You can look at the groups and count. You can skip-count: 5, 10, 15, 20, 25, 30. Or you can add: 5 plus 5 plus 5 plus 5 plus 5 plus 30. Same answer — all three work.\"",
+  "guide": "\"Three ways to find 6 times 5 equals 30. You can look at the groups and count. You can skip-count: 5, 10, 15, 20, 25, 30. Or you can add: 5 plus 5 plus 5 plus 5 plus 5 plus 5 equals 30. Same answer — all three work.\"",
   "guide_2": "\"Which way made more sense to you today?\"",
   "prompt": "\"Which strategy helped you more?\"",
   "method": "MC (three options: Looking at the groups / Skip-counting / Repeated addition)",
@@ -821,13 +837,14 @@ Cacheable: Yes
   "on_repeated_addition": "\"Adding lets you see each group. As you add, you're also counting by 5s. That's a solid strategy too.\"",
   "design_note": "This is a Type 3 metacognitive reflection (Tool/Approach Preference) per the playbook. All three responses are validated — no \"right\" answer. The three-panel display shows strategies as parallel representations progressing from concrete (visual groups) to efficient (skip-counting). Per SME feedback, the visual option completes the representational chain from M7–M8 and the Guide response for that option explicitly bridges it to skip-counting: \"counting those groups by 5s IS skip-counting.\" This reinforces M9's core message that the strategies are connected, not competing. No identity labels (\"you're a skip-counter\"). Observable only: \"which helped you\" not \"which do you understand better.\"",
   "voice_compliance": "No assumed internal states. All responses reference what the strategy DOES, not what the student thinks or feels.",
-  "_generated_at": "2026-04-20T17:00:01.447030+00:00",
+  "_generated_at": "2026-04-27T15:52:58.717556+00:00",
   "workspace_specs": {
     "toys": [],
     "tools": [
       "multiple_choice"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_0_opening_frame\n# Section Summary: s1_0_opening_frame\n\n**VISUAL STATE:** No tangible visuals or data displays are present on screen at section end—this is a transition frame with no graphs, charts, or interactive elements.\n\n**CONTENT:** The section introduces a bridging concept, referencing prior practice with multiplication equations involving factors 2, 5, and 10, and signals an upcoming connection between these previously learned skills and new material.\n\n**STUDENT ACTION:** No interaction required; this is a dialogue-driven transition frame that sets context for subsequent instruction.\n\n---\n\n## s1_1_graph_scale_connection_type_c\n# Section Summary: s1_1_graph_scale_connection_type_c\n\n**VISUAL STATE:** Three horizontal picture graphs are displayed side-by-side, each in reading mode with a single category labeled \"Category\" and 3 symbols. Graph 1 has scale 2 (key: each symbol = 2 votes); Graph 2 has scale 5 (key: each symbol = 5 votes); Graph 3 has scale 10 (key: each symbol = 10 votes). Below each graph is a corresponding equation: 3 × 2 = 6, 3 × 5 = 15, and 3 × 10 = 30.\n\n**CONTENT:** Students learned the connection between picture graph scales and multiplication. The lesson demonstrated that identical graph shapes with the same number of symbols (3) produce different products when the scale changes, because the scale value becomes the multiplier. Vocabulary introduced: \"scale\" as the value each symbol represents.\n\n**STUDENT ACTION:** Students observed and read three picture graphs with different scales, then analyzed how changing the scale (2, 5, 10) while keeping symbol count constant (3) changes the multiplication equation and product (6, 15, 30). No interactive input was required; this was a guided observation and explanation section.\n\n---\n\n## s2_1_pattern_summary_as_checking_toolkit\n# Section Summary: Pattern Summary as Checking Toolkit\n\n**VISUAL STATE:** Three horizontal products strips are displayed vertically stacked: (1) Multiples of 2 strip (factor: 2, products: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20) at top; (2) Multiples of 5 strip (factor: 5, products: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50) in middle; (3) Multiples of 10 strip (factor: 10, products: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100) at bottom. An equation tangible displays \"8 × 5 = ?\" below the strips.\n\n**CONTENT:** Students learned that multiplication patterns serve as a checking toolkit: multiples of 2 are always even; multiples of 5 always end in 0 or 5; multiples of 10 always end in 0. These patterns enable quick elimination of incorrect answers before using skip-counting to verify the correct one.\n\n**STUDENT ACTION:** Student completed a multi-select prompt identifying which answer choices (13, 35, 40, 42) violate the 5s pattern. Student correctly selected 13 and 42 as eliminable answers because they end in 3 and 2 respectively, not 0 or 5."
 }
 </input>
 

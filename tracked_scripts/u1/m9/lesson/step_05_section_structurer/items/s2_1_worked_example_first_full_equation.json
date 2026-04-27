@@ -10,15 +10,17 @@
         "mode": "reading",
         "container_count": 7,
         "items_per_container": 2,
-        "description": "7 bags appear, each containing 2 items. Context visualization showing equal groups."
+        "container_style": "bags",
+        "description": "7 bags appear, each containing 2 items. Context visualization maintaining continuity from Warmup."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder_main",
+      "tangible_id": "equation_builder_7x2",
       "tangible_type": "equation_builder",
       "params": {
+        "mode": "reading",
         "template": [
           "__",
           "×",
@@ -30,39 +32,36 @@
           "groups": 7,
           "items": 2
         },
-        "description": "Equation builder appears with three slots visible. Template: [___] × [___] = [___]. First two slots pre-filled with 7 and 2. Equals sign is fixed. Product slot empty."
+        "description": "Equation Builder appears with expanded template showing three slots: groups × items = product. First two slots pre-filled with 7 and 2. Equals sign is fixed. Third slot (product) is empty."
       }
     },
     {
       "type": "dialogue",
-      "text": "You discovered that multiples of 2 are always even. Now let me show you something new. I already know the expression: 7 times 2. But now I want to find what it equals — the total."
+      "text": "You discovered that multiples of 2 are always even. Now let me show you something new. I already know the expression: 7 times 2. But now I want to find what it EQUALS — the total."
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "equal_groups_bags",
-          "description": "7 bags, each containing 2 items. Context visualization.",
+          "description": "7 bags with 2 items each displayed as context visualization.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 7,
           "items_per_container": 2
         },
         {
-          "tangible_id": "equation_builder_main",
-          "description": "Equation builder showing 7 × 2 = [___]. First two slots filled, product slot empty.",
+          "tangible_id": "equation_builder_7x2",
+          "description": "Equation Builder showing 7 × 2 = [empty slot]. First two slots pre-filled.",
           "tangible_type": "equation_builder",
+          "mode": "reading",
           "template": [
             "__",
             "×",
             "__",
             "=",
             "__"
-          ],
-          "pre_filled": {
-            "groups": 7,
-            "items": 2
-          }
+          ]
         }
       ]
     },
@@ -75,27 +74,24 @@
       "elements": [
         {
           "tangible_id": "equal_groups_bags",
-          "description": "7 bags, each containing 2 items.",
+          "description": "7 bags with 2 items each.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 7,
           "items_per_container": 2
         },
         {
-          "tangible_id": "equation_builder_main",
-          "description": "Equation builder showing 7 × 2 = [___].",
+          "tangible_id": "equation_builder_7x2",
+          "description": "Equation Builder showing 7 × 2 = [empty slot].",
           "tangible_type": "equation_builder",
+          "mode": "reading",
           "template": [
             "__",
             "×",
             "__",
             "=",
             "__"
-          ],
-          "pre_filled": {
-            "groups": 7,
-            "items": 2
-          }
+          ]
         }
       ]
     },
@@ -104,55 +100,52 @@
       "method": "animate",
       "tangible_id": "equal_groups_bags",
       "params": {
-        "event": "highlight_skip_count_sequence",
+        "event": "skip_count_highlight_sequence",
         "status": "confirmed",
-        "description": "Bags highlight sequentially as Guide counts. Skip-count numbers appear briefly above each bag: 2, 4, 6, 8, 10, 12, 14."
+        "description": "Bags highlight sequentially as Guide counts. Skip-count numbers (2, 4, 6, 8, 10, 12, 14) appear briefly above each bag in sequence."
       }
     },
     {
       "type": "dialogue",
-      "text": "Now I skip-count by 2s, seven times: 2... 4... 6... 8... 10... 12... 14."
+      "text": "Now I skip-count by 2s, seven times: 2, 4, 6, 8, 10, 12, 14."
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "equal_groups_bags",
-          "description": "7 bags, each containing 2 items. All bags highlighted after skip-count sequence.",
+          "description": "7 bags with 2 items each. Skip-count sequence animation complete, all bags highlighted.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 7,
           "items_per_container": 2
         },
         {
-          "tangible_id": "equation_builder_main",
-          "description": "Equation builder showing 7 × 2 = [___].",
+          "tangible_id": "equation_builder_7x2",
+          "description": "Equation Builder showing 7 × 2 = [empty slot].",
           "tangible_type": "equation_builder",
+          "mode": "reading",
           "template": [
             "__",
             "×",
             "__",
             "=",
             "__"
-          ],
-          "pre_filled": {
-            "groups": 7,
-            "items": 2
-          }
+          ]
         }
       ]
     },
     {
       "type": "scene",
       "method": "update",
-      "tangible_id": "equation_builder_main",
+      "tangible_id": "equation_builder_7x2",
       "params": {
         "pre_filled": {
           "groups": 7,
           "items": 2,
           "total": 14
         },
-        "description": "14 placed in product slot. Complete equation now shows: 7 × 2 = 14."
+        "description": "14 appears in the product slot. Complete equation now reads: 7 × 2 = 14."
       }
     },
     {
@@ -164,16 +157,17 @@
       "elements": [
         {
           "tangible_id": "equal_groups_bags",
-          "description": "7 bags, each containing 2 items.",
+          "description": "7 bags with 2 items each, all highlighted.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 7,
           "items_per_container": 2
         },
         {
-          "tangible_id": "equation_builder_main",
-          "description": "Complete equation: 7 × 2 = 14. All three slots filled.",
+          "tangible_id": "equation_builder_7x2",
+          "description": "Complete equation: 7 × 2 = 14.",
           "tangible_type": "equation_builder",
+          "mode": "reading",
           "template": [
             "__",
             "×",
@@ -198,16 +192,17 @@
       "elements": [
         {
           "tangible_id": "equal_groups_bags",
-          "description": "7 bags, each containing 2 items.",
+          "description": "7 bags with 2 items each.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 7,
           "items_per_container": 2
         },
         {
-          "tangible_id": "equation_builder_main",
+          "tangible_id": "equation_builder_7x2",
           "description": "Complete equation: 7 × 2 = 14.",
           "tangible_type": "equation_builder",
+          "mode": "reading",
           "template": [
             "__",
             "×",
@@ -226,11 +221,11 @@
     {
       "type": "scene",
       "method": "animate",
-      "tangible_id": "equation_builder_main",
+      "tangible_id": "equation_builder_7x2",
       "params": {
-        "event": "show_vocabulary_labels",
+        "event": "display_labels",
         "status": "confirmed",
-        "description": "Labels appear briefly: 'factor' under 7, 'factor' under 2, 'product' under 14."
+        "description": "Labels appear briefly: \"factor\" under 7, \"factor\" under 2, \"product\" under 14."
       }
     },
     {
@@ -242,16 +237,17 @@
       "elements": [
         {
           "tangible_id": "equal_groups_bags",
-          "description": "7 bags, each containing 2 items.",
+          "description": "7 bags with 2 items each.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 7,
           "items_per_container": 2
         },
         {
-          "tangible_id": "equation_builder_main",
-          "description": "Complete equation: 7 × 2 = 14. Vocabulary labels visible: 'factor' under 7 and 2, 'product' under 14.",
+          "tangible_id": "equation_builder_7x2",
+          "description": "Complete equation: 7 × 2 = 14. Labels (factor, factor, product) have appeared and faded.",
           "tangible_type": "equation_builder",
+          "mode": "reading",
           "template": [
             "__",
             "×",
@@ -268,5 +264,5 @@
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:02:24.395742+00:00"
+  "_generated_at": "2026-04-27T15:56:05.786873+00:00"
 }

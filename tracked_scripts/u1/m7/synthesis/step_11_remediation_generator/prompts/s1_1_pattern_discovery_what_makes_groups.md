@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:01:02.148543
+# Generated: 2026-04-27T10:54:49.665447
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1861,38 +1865,38 @@ Cacheable: Yes
         "layout": "grid_2x2",
         "options": [
           {
-            "id": "A",
+            "option_id": "A",
             "container_count": 3,
             "items_per_container": 4,
-            "container_type": "bags",
+            "container_type": "bag",
             "description": "3 bags, 4 items in each"
           },
           {
-            "id": "B",
+            "option_id": "B",
             "container_count": 4,
             "items_per_container": 2,
-            "container_type": "circles",
+            "container_type": "circle",
             "description": "4 circles, 2 dots in each"
           },
           {
-            "id": "C",
+            "option_id": "C",
             "container_count": 2,
             "items_per_container": [
               3,
               5
             ],
-            "container_type": "boxes",
+            "container_type": "box",
             "description": "2 boxes: one has 3 items, the other has 5 items"
           },
           {
-            "id": "D",
+            "option_id": "D",
             "container_count": 5,
             "items_per_container": 3,
-            "container_type": "bags",
+            "container_type": "bag",
             "description": "5 bags, 3 items in each"
           }
         ],
-        "description": "Four context visualizations displayed in a 2x2 grid. A: 3 bags with 4 items each. B: 4 circles with 2 dots each. C: 2 boxes with different amounts, 3 and 5. D: 5 bags with 3 items each."
+        "description": "Four context visualizations displayed in a 2×2 grid. A: 3 bags with 4 items each. B: 4 circles with 2 dots each. C: 2 boxes, one with 3 items and one with 5 items. D: 5 bags with 3 items each."
       },
       "id": "s1_1_pattern_discovery_what_makes_groups_b0"
     },
@@ -1917,7 +1921,7 @@ Cacheable: Yes
           "condition": {
             "selected": "C"
           },
-          "description": "Student selected C, the two boxes with different amounts",
+          "description": "Student selected C, correct answer",
           "is_correct": true,
           "beats": [
             {
@@ -1934,8 +1938,13 @@ Cacheable: Yes
             },
             {
               "type": "dialogue",
-              "text": "Right. Those two boxes have different amounts: 3 in one, 5 in the other. That's not equal. For groups to be EQUAL, every container needs the same number inside. The other three all have the same number in each group. That's what makes them equal groups.",
+              "text": "Right. Those two boxes have different amounts. 3 in one, 5 in the other. That's not equal.",
               "id": "s1_1_pattern_discovery_what_makes_groups_b2_v0_b1"
+            },
+            {
+              "type": "dialogue",
+              "text": "For groups to be equal, every container needs the same number inside. The other three all have the same number in each group. That's what makes them equal groups.",
+              "id": "s1_1_pattern_discovery_what_makes_groups_b2_v0_b2"
             }
           ]
         }
@@ -1947,7 +1956,7 @@ Cacheable: Yes
       "elements": [
         {
           "tangible_id": "equal_groups_grid",
-          "description": "Four context visualizations in 2x2 grid. Multiple choice tool active. A: 3 bags with 4 items each. B: 4 circles with 2 dots each. C: 2 boxes with different amounts. D: 5 bags with 3 items each.",
+          "description": "Four context visualizations in 2×2 grid. A: 3 bags with 4 items each. B: 4 circles with 2 dots each. C: 2 boxes with unequal amounts (3 and 5). D: 5 bags with 3 items each. Multiple choice tool active.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "layout": "grid_2x2"
@@ -1956,7 +1965,7 @@ Cacheable: Yes
       "id": "s1_1_pattern_discovery_what_makes_groups_b3"
     }
   ],
-  "_generated_at": "2026-04-20T17:00:02.820629+00:00"
+  "_generated_at": "2026-04-27T15:53:30.298921+00:00"
 }
 </input>
 

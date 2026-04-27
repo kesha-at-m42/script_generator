@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:00:50.957580
+# Generated: 2026-04-27T10:54:39.394856
 ======================================================================
 
 ## API Parameters
@@ -948,7 +948,11 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "All three show 3 groups of 5. Bags, circles, graph symbols — different containers, same structure inside. That's what multiplication IS. It describes the same pattern no matter how the groups look. 3 groups of 5 is always 3 × 5 — whether it's bags on a shelf, dots in circles, or symbols on a graph.",
+      "text": "All three show 3 groups of 5. Bags, circles, graph symbols — different containers, same structure inside.",
+      "context": "on_correct"
+    },
+    {
+      "text": "That's what multiplication IS. It describes the same pattern no matter how the groups look. 3 groups of 5 is always 3 × 5 — whether it's bags on a shelf, dots in circles, or symbols on a graph.",
       "context": "on_correct"
     }
   ]

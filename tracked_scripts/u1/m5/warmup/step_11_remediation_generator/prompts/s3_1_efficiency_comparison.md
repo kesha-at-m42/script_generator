@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T11:59:21.068825
+# Generated: 2026-04-27T10:54:00.573260
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1854,35 +1858,55 @@ Cacheable: Yes
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "bar_graph_scale_5",
-      "tangible_type": "bar_graph",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
       "params": {
-        "mode": "reading",
-        "orientation": "vertical",
-        "scale": 5,
-        "position": "left",
-        "description": "Vertical bar graph appears on left side. Student's data displayed at scale of 5. Categories and bars visible."
+        "description": "Data table showing student-collected block data. Red blocks, Blue blocks, Green blocks, Yellow blocks. Values are multiples of 5 between 10 and 45."
       },
       "id": "s3_1_efficiency_comparison_b0"
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "bar_graph_scale_10",
+      "tangible_id": "bar_graph_scale5",
       "tangible_type": "bar_graph",
       "params": {
         "mode": "reading",
         "orientation": "vertical",
-        "scale": 10,
-        "position": "right",
-        "description": "Vertical bar graph appears on right side. Same data displayed at scale of 10. Categories and bars visible."
+        "categories": [
+          "Red blocks",
+          "Blue blocks",
+          "Green blocks",
+          "Yellow blocks"
+        ],
+        "scale": 5,
+        "description": "Vertical bar graph at Scale of 5 showing student's block data. Positioned on left side of screen."
       },
       "id": "s3_1_efficiency_comparison_b1"
     },
     {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_scale10",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Red blocks",
+          "Blue blocks",
+          "Green blocks",
+          "Yellow blocks"
+        ],
+        "scale": 10,
+        "description": "Vertical bar graph at Scale of 10 showing student's block data. Positioned on right side of screen."
+      },
+      "id": "s3_1_efficiency_comparison_b2"
+    },
+    {
       "type": "dialogue",
       "text": "Both of these work. Take a look at them side by side. Which graph is easier to read?",
-      "id": "s3_1_efficiency_comparison_b2"
+      "id": "s3_1_efficiency_comparison_b3"
     },
     {
       "type": "prompt",
@@ -1895,32 +1919,32 @@ Cacheable: Yes
       ],
       "validator": [
         {
-          "condition_id": "selected_scale_10",
+          "condition_id": "selected_scale5",
           "condition": {
-            "selected": "Scale of 10"
+            "selected": "Scale of 5"
           },
-          "description": "Student picked Scale of 10",
+          "description": "Student selected Scale of 5",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "You picked the scale of 10. Nice and clean.",
-              "id": "s3_1_efficiency_comparison_b3_v0_b0"
+              "text": "Right. Scale of 5. More detail!",
+              "id": "s3_1_efficiency_comparison_b4_v0_b0"
             }
           ]
         },
         {
-          "condition_id": "selected_scale_5",
+          "condition_id": "selected_scale10",
           "condition": {
-            "selected": "Scale of 5"
+            "selected": "Scale of 10"
           },
-          "description": "Student picked Scale of 5",
+          "description": "Student selected Scale of 10",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "You picked the scale of 5. More detail.",
-              "id": "s3_1_efficiency_comparison_b3_v1_b0"
+              "text": "Right. Scale of 10. Nice and clean!",
+              "id": "s3_1_efficiency_comparison_b4_v1_b0"
             }
           ]
         },
@@ -1929,70 +1953,104 @@ Cacheable: Yes
           "condition": {
             "selected": "They're the same"
           },
-          "description": "Student picked they're the same",
+          "description": "Student selected they're the same",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "You think they're both easy to read. Both do work.",
-              "id": "s3_1_efficiency_comparison_b3_v2_b0"
+              "text": "Right. They're both easy to read. Both do work!",
+              "id": "s3_1_efficiency_comparison_b4_v2_b0"
             }
           ]
-        }
-      ],
-      "id": "s3_1_efficiency_comparison_b3"
-    },
-    {
-      "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "bar_graph_scale_5",
-          "description": "Vertical bar graph on left. Student's data at scale of 5.",
-          "tangible_type": "bar_graph",
-          "mode": "reading",
-          "orientation": "vertical",
-          "scale": 5
-        },
-        {
-          "tangible_id": "bar_graph_scale_10",
-          "description": "Vertical bar graph on right. Same data at scale of 10.",
-          "tangible_type": "bar_graph",
-          "mode": "reading",
-          "orientation": "vertical",
-          "scale": 10
         }
       ],
       "id": "s3_1_efficiency_comparison_b4"
     },
     {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing student-collected block data. Red blocks, Blue blocks, Green blocks, Yellow blocks.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_scale5",
+          "description": "Vertical bar graph at Scale of 5 showing student's block data. Left side.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
+          "scale": 5
+        },
+        {
+          "tangible_id": "bar_graph_scale10",
+          "description": "Vertical bar graph at Scale of 10 showing student's block data. Right side.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
+          "scale": 10
+        }
+      ],
+      "id": "s3_1_efficiency_comparison_b5"
+    },
+    {
       "type": "dialogue",
       "text": "When more than one scale works, you get to choose.",
-      "id": "s3_1_efficiency_comparison_b5"
+      "id": "s3_1_efficiency_comparison_b6"
     },
     {
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "bar_graph_scale_5",
-          "description": "Vertical bar graph on left. Student's data at scale of 5.",
+          "tangible_id": "data_table",
+          "description": "Data table showing student-collected block data. Red blocks, Blue blocks, Green blocks, Yellow blocks.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_scale5",
+          "description": "Vertical bar graph at Scale of 5 showing student's block data. Left side.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
           "scale": 5
         },
         {
-          "tangible_id": "bar_graph_scale_10",
-          "description": "Vertical bar graph on right. Same data at scale of 10.",
+          "tangible_id": "bar_graph_scale10",
+          "description": "Vertical bar graph at Scale of 10 showing student's block data. Right side.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
           "scale": 10
         }
       ],
-      "id": "s3_1_efficiency_comparison_b6"
+      "id": "s3_1_efficiency_comparison_b7"
     }
   ],
-  "_generated_at": "2026-04-20T16:59:05.736599+00:00"
+  "_generated_at": "2026-04-27T15:53:31.430709+00:00"
 }
 </input>
 

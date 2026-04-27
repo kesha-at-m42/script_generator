@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:00:14.015579
+# Generated: 2026-04-27T10:53:28.927554
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1860,9 +1864,10 @@ Cacheable: Yes
         "mode": "reading",
         "container_count": 3,
         "items_per_container": 5,
-        "context": "bags",
+        "container_type": "bags",
+        "item_type": "items",
         "position": "left",
-        "description": "Left visual: 3 bags, 5 items in each bag. Equal groups arrangement."
+        "description": "Left side: 3 bags, 5 items in each bag. Equal groups visual appears."
       },
       "id": "s1_1_judgment_noticing_task_b0"
     },
@@ -1875,9 +1880,10 @@ Cacheable: Yes
         "mode": "reading",
         "container_count": 5,
         "items_per_container": 3,
-        "context": "bags",
+        "container_type": "bags",
+        "item_type": "items",
         "position": "right",
-        "description": "Right visual: 5 bags, 3 items in each bag. Equal groups arrangement."
+        "description": "Right side: 5 bags, 3 items in each bag. Equal groups visual appears."
       },
       "id": "s1_1_judgment_noticing_task_b1"
     },
@@ -1907,7 +1913,7 @@ Cacheable: Yes
           "beats": [
             {
               "type": "dialogue",
-              "text": "Right. The left has 3 bags. The right has 5 bags.",
+              "text": "Right. Different number of bags. The left has 3 bags. The right has 5 bags.",
               "id": "s1_1_judgment_noticing_task_b3_v0_b0"
             }
           ]
@@ -1920,29 +1926,25 @@ Cacheable: Yes
       "elements": [
         {
           "tangible_id": "equal_groups_left",
-          "description": "Left visual: 3 bags, 5 items in each bag.",
+          "description": "Left side: 3 bags, 5 items in each bag.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 3,
-          "items_per_container": 5,
-          "context": "bags",
-          "position": "left"
+          "items_per_container": 5
         },
         {
           "tangible_id": "equal_groups_right",
-          "description": "Right visual: 5 bags, 3 items in each bag.",
+          "description": "Right side: 5 bags, 3 items in each bag.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 5,
-          "items_per_container": 3,
-          "context": "bags",
-          "position": "right"
+          "items_per_container": 3
         }
       ],
       "id": "s1_1_judgment_noticing_task_b4"
     }
   ],
-  "_generated_at": "2026-04-20T16:59:54.885712+00:00"
+  "_generated_at": "2026-04-27T15:53:06.179714+00:00"
 }
 </input>
 

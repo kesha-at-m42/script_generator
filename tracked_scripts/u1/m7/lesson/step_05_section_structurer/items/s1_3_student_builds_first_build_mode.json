@@ -8,9 +8,10 @@
       "tangible_type": "equal_groups",
       "params": {
         "mode": "building",
+        "container_type": "bags",
         "container_count": 0,
         "items_per_container": 0,
-        "description": "Build Mode interface appears. Empty workspace, no groups yet. Container count and items-per-container controls visible."
+        "description": "Empty workspace. Build Mode interface active. No containers or items displayed yet."
       }
     },
     {
@@ -18,25 +19,12 @@
       "text": "Now you're going to build. Listen carefully. Build 3 groups of 4."
     },
     {
-      "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "equal_groups_build",
-          "description": "Build Mode interface. Empty workspace. Container count and items-per-container controls visible, both at 0.",
-          "tangible_type": "equal_groups",
-          "mode": "building",
-          "container_count": 0,
-          "items_per_container": 0
-        }
-      ]
-    },
-    {
       "type": "dialogue",
       "text": "How many groups? Set the bags."
     },
     {
       "type": "prompt",
-      "text": "Set the number of groups.",
+      "text": "How many groups?",
       "tool": "set_container_count",
       "target": "equal_groups_build",
       "validator": [
@@ -50,11 +38,12 @@
           "beats": [
             {
               "type": "scene",
-              "method": "update",
+              "method": "animate",
               "tangible_id": "equal_groups_build",
               "params": {
-                "container_count": 3,
-                "description": "3 empty bags appear on screen."
+                "event": "containers_appear",
+                "status": "confirmed",
+                "description": "3 bags appear on screen, empty."
               }
             },
             {
@@ -70,9 +59,10 @@
       "elements": [
         {
           "tangible_id": "equal_groups_build",
-          "description": "Build Mode interface. 3 empty bags visible. Items-per-container control ready for next step.",
+          "description": "Build Mode interface. 3 empty bags displayed. Container count set to 3, items per container still 0.",
           "tangible_type": "equal_groups",
           "mode": "building",
+          "container_type": "bags",
           "container_count": 3,
           "items_per_container": 0
         }
@@ -84,7 +74,7 @@
     },
     {
       "type": "prompt",
-      "text": "Set the number of items in each group.",
+      "text": "How many in each group?",
       "tool": "set_items_per_container",
       "target": "equal_groups_build",
       "validator": [
@@ -93,15 +83,16 @@
           "condition": {
             "items_per_container": 4
           },
-          "description": "Student set items-per-container to 4, correct",
+          "description": "Student set items per container to 4, correct",
           "is_correct": true,
           "beats": [
             {
               "type": "scene",
-              "method": "update",
+              "method": "animate",
               "tangible_id": "equal_groups_build",
               "params": {
-                "items_per_container": 4,
+                "event": "items_populate",
+                "status": "confirmed",
                 "description": "4 items appear in each of the 3 bags."
               }
             },
@@ -118,14 +109,15 @@
       "elements": [
         {
           "tangible_id": "equal_groups_build",
-          "description": "Build Mode interface. 3 bags visible, each containing 4 items. Complete equal groups representation of 3 groups of 4.",
+          "description": "Build Mode interface. 3 bags, each containing 4 items. Complete equal groups visualization: 3 groups of 4.",
           "tangible_type": "equal_groups",
           "mode": "building",
+          "container_type": "bags",
           "container_count": 3,
           "items_per_container": 4
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:01:39.702394+00:00"
+  "_generated_at": "2026-04-27T15:55:16.266821+00:00"
 }

@@ -6,7 +6,7 @@
         "condition": {
           "selected": "They are all odd numbers"
         },
-        "description": "Student selected 'They are all odd numbers'",
+        "description": "Student selected odd numbers",
         "is_correct": false,
         "steps": [
           [
@@ -15,12 +15,17 @@
               "method": "update",
               "tangible_id": "products_strip",
               "params": {
-                "description": "Even number examples highlight: 2, 4, 6. Odd number examples (not present) dim or remain unhighlighted."
+                "highlight_categories": [
+                  2,
+                  4,
+                  6
+                ],
+                "description": "First three products (2, 4, 6) pulse briefly."
               }
             },
             {
               "type": "dialogue",
-              "text": "Look at 2, 4, and 6. Those numbers split perfectly into groups of 2 with no leftovers. That's what makes them even, not odd."
+              "text": "Look at the first few. 2, 4, 6. Those split evenly into groups of 2. That makes them even, not odd."
             }
           ]
         ]
@@ -29,7 +34,7 @@
         "condition": {
           "selected": "They are all greater than 10"
         },
-        "description": "Student selected 'They are all greater than 10'",
+        "description": "Student selected greater than 10",
         "is_correct": false,
         "steps": [
           [
@@ -38,12 +43,19 @@
               "method": "update",
               "tangible_id": "products_strip",
               "params": {
-                "description": "Products less than or equal to 10 highlight: 2, 4, 6, 8, 10."
+                "highlight_categories": [
+                  2,
+                  4,
+                  6,
+                  8,
+                  10
+                ],
+                "description": "Products 2, 4, 6, 8, 10 highlight."
               }
             },
             {
               "type": "dialogue",
-              "text": "Check the left side of the strip. 2, 4, 6, 8, and 10 are all less than or equal to 10. What pattern works for ALL the numbers?"
+              "text": "Look at the left side. 2, 4, 6, 8, 10. Those are ALL less than or equal to 10. What's true about ALL the numbers?"
             }
           ]
         ]
@@ -52,7 +64,7 @@
         "condition": {
           "selected": "They all end in 5"
         },
-        "description": "Student selected 'They all end in 5'",
+        "description": "Student selected end in 5",
         "is_correct": false,
         "steps": [
           [
@@ -61,21 +73,21 @@
               "method": "animate",
               "tangible_id": "products_strip",
               "params": {
-                "event": "highlight_ones_digits",
+                "event": "highlight_ones_digit",
                 "status": "confirmed",
-                "description": "Ones digit of each product highlights: 2, 4, 6, 8, 0, 2, 4, 6, 8, 0."
+                "description": "Ones digits of all values highlight sequentially: 2, 4, 6, 8, 0, 2, 4, 6, 8, 0."
               }
             },
             {
               "type": "dialogue",
-              "text": "Look at the ones digit of each product. None of them end in 5. What do you notice about the ones digits you see?"
+              "text": "Look at the ones place in each number. 2, 4, 6, 8, 0. None of them end in 5. What makes them all the same kind of number?"
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student answered incorrectly three or more times. System models the answer.",
+        "description": "Student answered incorrectly. System models the correct answer.",
         "is_correct": false,
         "steps": [
           [
@@ -84,19 +96,19 @@
               "method": "animate",
               "tangible_id": "products_strip",
               "params": {
-                "event": "demonstrate_even_property",
+                "event": "group_by_twos",
                 "status": "confirmed",
-                "description": "Each product on the strip pairs up into groups of 2 with no remainder, demonstrating the even property visually."
+                "description": "Products Strip animates to show each number splitting into groups of 2 with no remainders."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. Every one of these numbers splits perfectly into groups of 2. That's what makes a number even. 2 makes a group, 4 makes two groups, 6 makes three groups. All the products of 2 are even numbers. That's the pattern: multiply by 2, the answer is always even."
+              "text": "Watch each number. 2 splits into 1 group of 2. 4 splits into 2 groups of 2. 6 splits into 3 groups of 2. Every single one splits evenly with nothing left over. That's what makes them even. All products of 2 are even numbers because multiplying by 2 creates pairs."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:05:11.163692+00:00"
+  "_generated_at": "2026-04-27T16:00:11.966810+00:00"
 }

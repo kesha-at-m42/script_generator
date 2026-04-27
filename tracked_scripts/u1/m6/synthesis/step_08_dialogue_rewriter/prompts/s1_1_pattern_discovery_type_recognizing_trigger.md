@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:00:53.466558
+# Generated: 2026-04-27T10:54:36.035216
 ======================================================================
 
 ## API Parameters
@@ -944,11 +944,11 @@ Cacheable: Yes
   "id": "s1_1_pattern_discovery_type_recognizing_trigger",
   "dialogues": [
     {
-      "text": "Look at these three questions. Two of them need two steps. One needs just one step. Which one?",
+      "text": "Look at these three questions. Two of them need two steps. One needs just one step.",
       "context": "lesson"
     },
     {
-      "text": "Question 1. It just compares dogs to cats, no combining first.",
+      "text": "Question 1. It just compares dogs to cats — no combining first.",
       "context": "on_correct"
     },
     {
@@ -956,7 +956,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "Words like combined, together, and altogether are your signal. When you see them, you know: find that total first, then compare.",
+      "text": "Words like combined, together, and altogether are your signal. When you see them, you know: find that total FIRST, then compare.",
       "context": "on_correct"
     }
   ]

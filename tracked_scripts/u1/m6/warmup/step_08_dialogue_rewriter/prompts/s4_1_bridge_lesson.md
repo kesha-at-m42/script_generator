@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:00:14.793696
+# Generated: 2026-04-27T10:54:04.162480
 ======================================================================
 
 ## API Parameters
@@ -952,7 +952,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "See that word 'together'? This question needs more than one step. We'll come back to THIS question in the lesson, and you'll be able to answer it.",
+      "text": "See that word 'together'? This question needs more than one step. We'll come back to THIS question in the lesson. And you'll be able to answer it.",
       "context": "lesson"
     }
   ]

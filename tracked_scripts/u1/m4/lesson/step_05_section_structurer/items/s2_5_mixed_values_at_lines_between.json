@@ -7,7 +7,20 @@
       "tangible_id": "data_table",
       "tangible_type": "data_table",
       "params": {
-        "description": "Data table appears showing Minutes of Reading values: Monday=40, Tuesday=35, Wednesday=50, Thursday=25."
+        "orientation": "vertical",
+        "categories": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday"
+        ],
+        "values": [
+          40,
+          35,
+          50,
+          25
+        ],
+        "description": "Data table appears showing Minutes of Reading: Monday=40, Tuesday=35, Wednesday=50, Thursday=25."
       }
     },
     {
@@ -18,20 +31,20 @@
       "params": {
         "mode": "building",
         "orientation": "vertical",
+        "scale": 10,
+        "axis_range": [
+          0,
+          60
+        ],
         "categories": [
           "Monday",
           "Tuesday",
           "Wednesday",
           "Thursday"
         ],
-        "axis_range": [
-          0,
-          60
-        ],
-        "scale": 10,
         "snap_to": 5,
-        "gridlines_visible": true,
-        "description": "Vertical bar graph appears with scale of 10, axis 0 to 60. No bars pre-filled. Ghost gridlines at 5s visible. Snap-to-5 enabled."
+        "ghost_gridlines": true,
+        "description": "Vertical bar graph appears in building mode. Scale of 10, axis 0–60. No bars pre-filled. Ghost gridlines at 5s visible. Snap-to-5 enabled."
       }
     },
     {
@@ -50,31 +63,27 @@
             "and": [
               {
                 "bar_height": {
-                  "category": "Monday",
-                  "value": 40
+                  "Monday": 40
                 }
               },
               {
                 "bar_height": {
-                  "category": "Tuesday",
-                  "value": 35
+                  "Tuesday": 35
                 }
               },
               {
                 "bar_height": {
-                  "category": "Wednesday",
-                  "value": 50
+                  "Wednesday": 50
                 }
               },
               {
                 "bar_height": {
-                  "category": "Thursday",
-                  "value": 25
+                  "Thursday": 25
                 }
               }
             ]
           },
-          "description": "Student set all four bars correctly: Monday=40, Tuesday=35, Wednesday=50, Thursday=25",
+          "description": "All four bars correctly placed: Monday=40 (at line), Tuesday=35 (between), Wednesday=50 (at line), Thursday=25 (between)",
           "is_correct": true,
           "beats": [
             {
@@ -90,14 +99,8 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Data table showing Minutes of Reading values: Monday=40, Tuesday=35, Wednesday=50, Thursday=25.",
-          "tangible_type": "data_table"
-        },
-        {
-          "tangible_id": "bar_graph_reading",
-          "description": "Vertical bar graph in building mode. All four bars set correctly: Monday at 40, Tuesday at 35, Wednesday at 50, Thursday at 25.",
-          "tangible_type": "bar_graph",
-          "mode": "building",
+          "description": "Data table showing Minutes of Reading: Monday=40, Tuesday=35, Wednesday=50, Thursday=25.",
+          "tangible_type": "data_table",
           "orientation": "vertical",
           "categories": [
             "Monday",
@@ -105,14 +108,33 @@
             "Wednesday",
             "Thursday"
           ],
+          "values": [
+            40,
+            35,
+            50,
+            25
+          ]
+        },
+        {
+          "tangible_id": "bar_graph_reading",
+          "description": "Vertical bar graph in building mode, all four bars complete: Monday=40, Tuesday=35, Wednesday=50, Thursday=25. Scale 10, axis 0–60, ghost gridlines at 5s.",
+          "tangible_type": "bar_graph",
+          "mode": "building",
+          "orientation": "vertical",
+          "scale": 10,
           "axis_range": [
             0,
             60
           ],
-          "scale": 10
+          "categories": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday"
+          ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:01:51.614207+00:00"
+  "_generated_at": "2026-04-27T15:58:36.560296+00:00"
 }

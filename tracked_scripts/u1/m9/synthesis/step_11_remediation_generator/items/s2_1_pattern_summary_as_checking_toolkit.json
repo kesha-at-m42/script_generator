@@ -6,37 +6,59 @@
         "condition": {
           "and": [
             {
-              "or": [
-                {
-                  "selected": "35"
-                },
-                {
-                  "selected": "40"
-                }
-              ]
+              "not_selected": "13"
             },
             {
-              "not": {
-                "and": [
-                  {
-                    "selected": "13"
-                  },
-                  {
-                    "selected": "42"
-                  }
-                ]
-              }
+              "not_selected": "42"
             }
           ]
         },
-        "description": "Branch 2: Student selected only correct answers (13 and/or 42) but not both",
+        "description": "Branch 2: Student selected valid answers (35 and/or 40 fit the pattern) but did not select both 13 and 42",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "product_strip_fives",
+              "tangible_id": "products_strip_5s",
+              "params": {
+                "highlight_products": [
+                  35,
+                  40
+                ],
+                "description": "35 and 40 highlight on the 5s strip."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found some answers that fit the 5s pattern. But the question asks which ones DON'T fit. Look at the endings again. Which numbers can't be multiples of 5?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "not": {
+                "selected": "13"
+              }
+            },
+            {
+              "not": {
+                "selected": "42"
+              }
+            }
+          ]
+        },
+        "description": "Branch 3: Student selected only incorrect answers (35 and/or 40, which DO fit the pattern)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "products_strip_5s",
               "params": {
                 "highlight_products": [
                   5,
@@ -50,116 +72,70 @@
                   45,
                   50
                 ],
-                "description": "All multiples of 5 highlight on the strip."
+                "description": "All products on the 5s strip highlight."
               }
             },
             {
               "type": "dialogue",
-              "text": "You found answers that don't fit. Look at the 5s strip: every product ends in 0 or 5. Are there any other choices that break that pattern?"
+              "text": "Multiples of 5 always end in 0 or 5. That's the pattern. The question asks which answers DON'T fit that rule. Look at what each number ends with."
             }
           ]
         ]
       },
       {
         "condition": {
-          "and": [
+          "or": [
             {
-              "not": {
-                "or": [
-                  {
-                    "selected": "13"
-                  },
-                  {
-                    "selected": "42"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "description": "Branch 3: Student selected only incorrect answers (35 and/or 40), none correct",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "product_strip_fives",
-              "params": {
-                "highlight_products": [
-                  5,
-                  10,
-                  15,
-                  20,
-                  25,
-                  30,
-                  35,
-                  40,
-                  45,
-                  50
-                ],
-                "description": "All multiples of 5 highlight on the strip."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "Look at the 5s pattern: every product ends in 0 or 5. Which choices end in something else? Those are the ones you can eliminate."
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "and": [
-            {
-              "or": [
+              "and": [
                 {
                   "selected": "13"
                 },
                 {
-                  "selected": "42"
+                  "or": [
+                    {
+                      "selected": "35"
+                    },
+                    {
+                      "selected": "40"
+                    }
+                  ]
                 }
               ]
             },
             {
-              "or": [
+              "and": [
                 {
-                  "selected": "35"
+                  "selected": "42"
                 },
                 {
-                  "selected": "40"
+                  "or": [
+                    {
+                      "selected": "35"
+                    },
+                    {
+                      "selected": "40"
+                    }
+                  ]
                 }
               ]
             }
           ]
         },
-        "description": "Branch 4: Student selected a mix of correct (13 and/or 42) and incorrect (35 and/or 40)",
+        "description": "Branch 4: Student selected a mix of correct (13 and/or 42) and incorrect answers (35 and/or 40)",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "product_strip_fives",
+              "tangible_id": "products_strip_5s",
               "params": {
-                "highlight_products": [
-                  5,
-                  10,
-                  15,
-                  20,
-                  25,
-                  30,
-                  35,
-                  40,
-                  45,
-                  50
-                ],
-                "description": "All multiples of 5 highlight on the strip."
+                "description": "5s strip updates to show pattern emphasis on endings."
               }
             },
             {
               "type": "dialogue",
-              "text": "You caught some answers that don't fit the pattern. But look at the 5s strip: 35 and 40 both end in 0 or 5, so they could be right. Only pick the ones that definitely can't be multiples of 5."
+              "text": "You found numbers that don't fit the 5s pattern. But you also selected some that do fit. Check the endings: 35 and 40 both end in 0 or 5, so they could be multiples of 5."
             }
           ]
         ]
@@ -173,21 +149,21 @@
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "product_strip_fives",
+              "tangible_id": "products_strip_5s",
               "params": {
                 "event": "highlight_pattern",
                 "status": "confirmed",
-                "description": "Strip animates to emphasize the pattern: all products end in 0 or 5."
+                "description": "5s strip animates to show all products ending in 0 or 5. Then 13 and 42 pulse with a cross-out to show they don't fit."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. Look at every product on the 5s strip: 5, 10, 15, 20, all the way to 50. They all end in 0 or 5. That's the pattern. Now check the choices: 13 ends in 3 and 42 ends in 2. Neither fits. 35 ends in 5 and 40 ends in 0, so both could be right. The answers to eliminate are 13 and 42."
+              "text": "Let me show you. Every multiple of 5 ends in 0 or 5. Look at the strip: 5, 10, 15, 20, all the way to 50. Now check the choices. 13 ends in 3. 42 ends in 2. Neither fits the pattern. The answer is 13 and 42. Those are the ones you can eliminate."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:02:44.166537+00:00"
+  "_generated_at": "2026-04-27T15:56:43.366043+00:00"
 }

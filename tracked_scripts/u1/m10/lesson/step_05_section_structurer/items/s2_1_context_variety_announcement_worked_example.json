@@ -1,6 +1,5 @@
 {
   "id": "s2_1_context_variety_announcement_worked_example",
-  "type": "transition",
   "beats": [
     {
       "type": "scene",
@@ -11,8 +10,10 @@
         "mode": "reading",
         "container_count": 3,
         "items_per_container": 9,
-        "visual_style": "books_on_shelves",
-        "description": "Equal groups visual appears. 3 horizontal rows of books on shelves. 9 books per row. Books arranged in clear horizontal rows."
+        "item_type": "books",
+        "containers_visible": true,
+        "arrangement": "horizontal_rows",
+        "description": "Equal groups visualization appears showing 3 rows of books on shelves. Each row contains 9 books arranged horizontally. Books clearly separated into 3 distinct rows."
       }
     },
     {
@@ -28,7 +29,7 @@
           "=",
           "__"
         ],
-        "palette": [
+        "tile_palette": [
           3,
           4,
           8,
@@ -40,7 +41,7 @@
           30,
           36
         ],
-        "description": "Equation builder appears with blank multiplication equation template. Tile palette shows numbers 3, 4, 8, 9, 10, 12, 24, 27, 30, 36."
+        "description": "Equation Builder appears with three blank slots and tile palette showing numbers 3, 4, 8, 9, 10, 12, 24, 27, 30, 36."
       }
     },
     {
@@ -52,16 +53,16 @@
       "elements": [
         {
           "tangible_id": "equal_groups_books",
-          "description": "Equal groups visual showing 3 rows of books on shelves. 9 books per row.",
+          "description": "Equal groups showing 3 rows of 9 books on shelves, horizontal arrangement, containers visible.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 3,
           "items_per_container": 9,
-          "visual_style": "books_on_shelves"
+          "item_type": "books"
         },
         {
           "tangible_id": "equation_builder_books",
-          "description": "Equation builder with blank multiplication template. Palette available.",
+          "description": "Equation Builder with empty template and tile palette available.",
           "tangible_type": "equation_builder",
           "template": [
             "__",
@@ -69,18 +70,6 @@
             "__",
             "=",
             "__"
-          ],
-          "palette": [
-            3,
-            4,
-            8,
-            9,
-            10,
-            12,
-            24,
-            27,
-            30,
-            36
           ]
         }
       ]
@@ -96,7 +85,7 @@
       "params": {
         "event": "highlight_containers_sequential",
         "status": "confirmed",
-        "description": "Rows highlight one at a time in sequence."
+        "description": "Rows highlight sequentially: first row, then second row, then third row."
       }
     },
     {
@@ -104,52 +93,14 @@
       "text": "1, 2, 3. Three rows. That's 3 groups. And in each row?"
     },
     {
-      "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "equal_groups_books",
-          "description": "3 rows of books. All rows highlighted after sequential animation.",
-          "tangible_type": "equal_groups",
-          "mode": "reading",
-          "container_count": 3,
-          "items_per_container": 9,
-          "visual_style": "books_on_shelves"
-        },
-        {
-          "tangible_id": "equation_builder_books",
-          "description": "Equation builder with blank template.",
-          "tangible_type": "equation_builder",
-          "template": [
-            "__",
-            "×",
-            "__",
-            "=",
-            "__"
-          ],
-          "palette": [
-            3,
-            4,
-            8,
-            9,
-            10,
-            12,
-            24,
-            27,
-            30,
-            36
-          ]
-        }
-      ]
-    },
-    {
       "type": "scene",
       "method": "animate",
       "tangible_id": "equal_groups_books",
       "params": {
         "event": "highlight_items_in_container",
-        "status": "confirmed",
         "container_index": 0,
-        "description": "Items in first row highlight one at a time as guide counts."
+        "status": "confirmed",
+        "description": "Items in first row highlight sequentially while counting."
       }
     },
     {
@@ -161,16 +112,16 @@
       "elements": [
         {
           "tangible_id": "equal_groups_books",
-          "description": "3 rows of books. First row's items highlighted.",
+          "description": "Equal groups showing 3 rows of 9 books, first row items highlighted from counting demonstration.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 3,
           "items_per_container": 9,
-          "visual_style": "books_on_shelves"
+          "item_type": "books"
         },
         {
           "tangible_id": "equation_builder_books",
-          "description": "Equation builder with blank template.",
+          "description": "Equation Builder with empty template.",
           "tangible_type": "equation_builder",
           "template": [
             "__",
@@ -178,104 +129,71 @@
             "__",
             "=",
             "__"
-          ],
-          "palette": [
-            3,
-            4,
-            8,
-            9,
-            10,
-            12,
-            24,
-            27,
-            30,
-            36
           ]
         }
       ]
     },
     {
       "type": "dialogue",
-      "text": "3 times 9. And the product? Skip count by 9s: 9, 18, 27."
+      "text": "3 times 9. And the product? Skip-count by 9s: 9, 18, 27."
     },
     {
       "type": "scene",
       "method": "update",
       "tangible_id": "equation_builder_books",
       "params": {
-        "placed": {
+        "placed_values": {
           "groups": 3,
           "items": 9,
           "total": 27
         },
-        "description": "Guide demonstration: tiles place into equation. 3 × 9 = 27 appears."
+        "description": "Guide demonstration: tiles 3, 9, and 27 place into equation builder slots to show 3 × 9 = 27."
       }
     },
     {
       "type": "dialogue",
-      "text": "3 times 9 equals 27. Same equation building, different picture."
+      "text": "3 times 9 equals 27. Same equation-building, different picture."
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "equal_groups_books",
-          "description": "3 rows of books on shelves. First row highlighted.",
+          "description": "Equal groups showing 3 rows of 9 books on shelves.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 3,
           "items_per_container": 9,
-          "visual_style": "books_on_shelves"
+          "item_type": "books"
         },
         {
           "tangible_id": "equation_builder_books",
-          "description": "Equation builder showing completed equation: 3 × 9 = 27.",
+          "description": "Equation Builder displaying completed equation 3 × 9 = 27.",
           "tangible_type": "equation_builder",
           "template": [
-            "__",
+            "3",
             "×",
-            "__",
+            "9",
             "=",
-            "__"
-          ],
-          "palette": [
-            3,
-            4,
-            8,
-            9,
-            10,
-            12,
-            24,
-            27,
-            30,
-            36
-          ],
-          "placed": {
-            "groups": 3,
-            "items": 9,
-            "total": 27
-          }
+            "27"
+          ]
         }
       ]
     },
     {
       "type": "scene",
-      "method": "update",
-      "tangible_id": "equation_builder_books",
+      "method": "add",
+      "tangible_id": "static_equation_reversed_books",
+      "tangible_type": "equation",
       "params": {
         "template": [
-          "__",
+          "27",
           "=",
-          "__",
+          "3",
           "×",
-          "__"
+          "9"
         ],
-        "placed": {
-          "total": 27,
-          "groups": 3,
-          "items": 9
-        },
-        "description": "Equation reverses to show commutative form: 27 = 3 × 9."
+        "description": "Reversed form equation appears below builder: 27 = 3 × 9."
       }
     },
     {
@@ -287,44 +205,39 @@
       "elements": [
         {
           "tangible_id": "equal_groups_books",
-          "description": "3 rows of books on shelves.",
+          "description": "Equal groups showing 3 rows of 9 books on shelves.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 3,
           "items_per_container": 9,
-          "visual_style": "books_on_shelves"
+          "item_type": "books"
         },
         {
           "tangible_id": "equation_builder_books",
-          "description": "Equation builder showing reversed form: 27 = 3 × 9.",
+          "description": "Equation Builder displaying completed equation 3 × 9 = 27.",
           "tangible_type": "equation_builder",
           "template": [
-            "__",
-            "=",
-            "__",
+            "3",
             "×",
-            "__"
-          ],
-          "palette": [
-            3,
-            4,
-            8,
-            9,
-            10,
-            12,
-            24,
-            27,
-            30,
-            36
-          ],
-          "placed": {
-            "total": 27,
-            "groups": 3,
-            "items": 9
-          }
+            "9",
+            "=",
+            "27"
+          ]
+        },
+        {
+          "tangible_id": "static_equation_reversed_books",
+          "description": "Static equation showing reversed form 27 = 3 × 9.",
+          "tangible_type": "equation",
+          "template": [
+            "27",
+            "=",
+            "3",
+            "×",
+            "9"
+          ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:03:54.405799+00:00"
+  "_generated_at": "2026-04-27T15:57:15.750938+00:00"
 }

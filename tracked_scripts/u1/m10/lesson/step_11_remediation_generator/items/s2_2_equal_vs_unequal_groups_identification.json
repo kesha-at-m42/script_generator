@@ -4,180 +4,90 @@
     [
       {
         "condition": {
-          "and": [
-            {
-              "or": [
-                {
-                  "selected": "A"
-                },
-                {
-                  "selected": "C"
-                }
-              ]
-            },
-            {
-              "not": {
-                "and": [
-                  {
-                    "selected": "A"
-                  },
-                  {
-                    "selected": "C"
-                  }
-                ]
-              }
-            },
-            {
-              "not": {
-                "selected": "B"
-              }
-            },
-            {
-              "not": {
-                "selected": "D"
-              }
-            }
-          ]
+          "incorrect_count": 1
         },
-        "description": "Branch 2: Student selected only A or only C (correct options only, but incomplete)",
+        "description": "Student did not select both A and C on first attempt",
         "is_correct": false,
         "steps": [
           [
             {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "image_grid",
-              "params": {
-                "highlight_images": [
-                  "A",
-                  "C"
-                ],
-                "description": "Both A and C highlight to show they are the equal groups examples."
-              }
-            },
-            {
               "type": "dialogue",
-              "text": "You found one of them. Look at both A and C closely. They both show equal groups. Did you select both?"
+              "text": "Not quite. Equal groups means the same number in every group. Look at each picture again."
             }
           ]
         ]
       },
       {
         "condition": {
-          "not": {
-            "or": [
-              {
-                "selected": "A"
-              },
-              {
-                "selected": "C"
-              }
-            ]
-          }
+          "incorrect_count": 2
         },
-        "description": "Branch 3: Student selected only incorrect options (B and/or D), no correct answers",
+        "description": "Student did not select both A and C on second attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "image_grid",
+              "tangible_id": "image_a",
               "params": {
-                "highlight_images": [
-                  "B",
-                  "D"
-                ],
-                "dim_images": [
-                  "A",
-                  "C"
-                ],
-                "description": "B and D highlight to draw attention to their unequal structure. A and C dim."
+                "highlight": true,
+                "description": "Image A highlights — 3 shelves, 6 jars on each shelf."
               }
             },
-            {
-              "type": "dialogue",
-              "text": "Equal groups means the same number in every group. Look at B: 5, 6, 5, 2. Those aren't equal. Look at D: 7, 4, 7. Those aren't equal either. Find the pictures where every group has exactly the same count."
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "and": [
-            {
-              "or": [
-                {
-                  "selected": "B"
-                },
-                {
-                  "selected": "D"
-                }
-              ]
-            },
-            {
-              "or": [
-                {
-                  "selected": "A"
-                },
-                {
-                  "selected": "C"
-                }
-              ]
-            }
-          ]
-        },
-        "description": "Branch 4: Student selected a mix of correct (A or C) and incorrect (B or D)",
-        "is_correct": false,
-        "steps": [
-          [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "image_grid",
+              "tangible_id": "image_c",
               "params": {
-                "highlight_correct": [
-                  "A",
-                  "C"
-                ],
-                "highlight_incorrect": [
-                  "B",
-                  "D"
-                ],
-                "description": "A and C pulse green (equal groups). B and D pulse red (unequal groups)."
+                "highlight": true,
+                "description": "Image C highlights — 2 stacks, 9 books in each stack."
               }
             },
             {
               "type": "dialogue",
-              "text": "You found at least one equal group picture. But check the others you selected. Count the items in each group. Are they all the same number?"
+              "text": "Count carefully. The first picture has 6 jars on EACH shelf. The third picture has 9 books in EACH stack. Same count in every group — that's equal groups. Are there any others?"
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Heavy: Student answered incorrectly. System models the correct answer.",
+        "description": "Student answered incorrectly. System models the correct answer.",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "image_grid",
+              "tangible_id": "image_a",
               "params": {
-                "event": "demonstrate_equal_groups",
+                "event": "count_items_per_group",
                 "status": "confirmed",
-                "description": "System highlights A: arrows point to each shelf showing 6, 6, 6. Then highlights C: arrows point to each stack showing 9, 9. Then shows B: 5, 6, 5, 2 with X marks. Then D: 7, 4, 7 with X marks."
+                "description": "System demonstrates counting Image A: shelf 1 shows 6 jars, shelf 2 shows 6 jars, shelf 3 shows 6 jars."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. Picture A has 3 shelves: 6 jars, 6 jars, 6 jars. Equal groups. Picture C has 2 stacks: 9 books, 9 books. Equal groups. Picture B has 4 plates: 5, 6, 5, 2. Not equal. Picture D has 3 groups: 7 ducks, 4 ducks, 7 ducks. Not equal. A and C are the answers because every group in those pictures has the same count. That is what equal groups means."
+              "text": "Image A: I count the first shelf — 6 jars. Second shelf — 6 jars. Third shelf — 6 jars. Every shelf has the same number. That's equal groups."
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "image_c",
+              "params": {
+                "event": "count_items_per_group",
+                "status": "confirmed",
+                "description": "System demonstrates counting Image C: stack 1 shows 9 books, stack 2 shows 9 books."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Image C: First stack — 9 books. Second stack — 9 books. Same number in both. Equal groups. A and C show equal groups. We can write multiplication equations for pictures with equal groups."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:08:19.402435+00:00"
+  "_generated_at": "2026-04-27T16:02:39.784322+00:00"
 }

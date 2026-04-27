@@ -4,15 +4,46 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "image_grid",
+      "tangible_id": "image_a",
       "tangible_type": "image",
       "params": {
-        "description": "Four images displayed in a 2×2 grid, labeled A-D. A: 3 shelves with 6 jars on each shelf. B: 4 plates with different numbers of cookies: 5, 6, 5, 2. C: 2 equal stacks of 9 books. D: 3 groups of animals: 7 ducks, 4 ducks, 7 ducks. Each picture has 18 items total."
+        "description": "Image A: 3 shelves with 6 jars on each shelf. Equal groups — 3 containers, 6 items per container.",
+        "label": "A"
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "image_b",
+      "tangible_type": "image",
+      "params": {
+        "description": "Image B: 4 plates with different numbers of cookies — 5, 6, 5, 2. Unequal groups — same containers, different amounts.",
+        "label": "B"
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "image_c",
+      "tangible_type": "image",
+      "params": {
+        "description": "Image C: 2 equal stacks of 9 books. Equal groups — 2 containers, 9 items per container.",
+        "label": "C"
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "image_d",
+      "tangible_type": "image",
+      "params": {
+        "description": "Image D: 3 groups of animals — 7 ducks, 4 ducks, 7 ducks. Unequal groups — middle group differs.",
+        "label": "D"
       }
     },
     {
       "type": "dialogue",
-      "text": "Equal groups are everywhere — but not EVERY group of things is an equal group. Look at these four pictures. Each picture has 18 items in total. Which ones show equal groups — the same number in every group?"
+      "text": "Equal groups are everywhere, but not every group of things is an equal group. Look at these four pictures. Each picture has 18 items in total. Which ones show equal groups — the same number in every group?"
     },
     {
       "type": "prompt",
@@ -37,12 +68,12 @@
               }
             ]
           },
-          "description": "Student selected A and C, both correct",
+          "description": "Student selected A and C, both correct — A shows 3 shelves with 6 jars each, C shows 2 stacks of 9 books",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "A has 3 shelves with 6 on each — equal groups. C has 2 stacks of 9 — equal groups. We can write multiplication equations for these. B and D? The groups aren't equal — different amounts in different groups. We can't write a multiplication equation for those."
+              "text": "A has 3 shelves with 6 on each — equal groups. C has 2 stacks of 9 — equal groups. We can write multiplication equations for these. B and D? The groups are not equal — different amounts in different groups. We cannot write a multiplication equation for those."
             }
           ]
         }
@@ -52,12 +83,31 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "image_grid",
-          "description": "Four images displayed in a 2×2 grid, labeled A-D. A: 3 shelves with 6 jars on each shelf. B: 4 plates with different numbers of cookies: 5, 6, 5, 2. C: 2 equal stacks of 9 books. D: 3 groups of animals: 7 ducks, 4 ducks, 7 ducks.",
-          "tangible_type": "image"
+          "tangible_id": "image_a",
+          "description": "Image A: 3 shelves with 6 jars each. Selected.",
+          "tangible_type": "image",
+          "label": "A"
+        },
+        {
+          "tangible_id": "image_b",
+          "description": "Image B: 4 plates with unequal cookie counts.",
+          "tangible_type": "image",
+          "label": "B"
+        },
+        {
+          "tangible_id": "image_c",
+          "description": "Image C: 2 stacks of 9 books. Selected.",
+          "tangible_type": "image",
+          "label": "C"
+        },
+        {
+          "tangible_id": "image_d",
+          "description": "Image D: 3 groups of ducks with unequal counts.",
+          "tangible_type": "image",
+          "label": "D"
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:04:03.227966+00:00"
+  "_generated_at": "2026-04-27T15:57:37.408106+00:00"
 }

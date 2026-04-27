@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:03:25.640880
+# Generated: 2026-04-27T10:56:34.236473
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1859,14 +1863,14 @@ Cacheable: Yes
       "params": {
         "expression": [
           "6",
-          "x",
+          "×",
           "5",
           "=",
           "30"
         ],
         "label": "Last time",
-        "context_image": "bags",
-        "description": "Left equation: 6 × 5 = 30. Labeled 'Last time'. Bags context image. M9 style — standard form, no unknown."
+        "position": "left",
+        "description": "Equation appears on left side of screen: 6 × 5 = 30, labeled 'Last time'. Standard form, no unknown, bags context image above."
       },
       "id": "s4_1_m9_m10_growth_b0"
     },
@@ -1877,15 +1881,15 @@ Cacheable: Yes
       "tangible_type": "equation",
       "params": {
         "expression": [
-          "__",
+          "☐",
           "=",
           "3",
-          "x",
+          "×",
           "10"
         ],
         "label": "Today",
-        "context_image": "stacks",
-        "description": "Right equation: ☐ = 3 × 10. Labeled 'Today'. Stacks context image. M10 style — reversed, unknown on left."
+        "position": "right",
+        "description": "Equation appears on right side of screen: ☐ = 3 × 10, labeled 'Today'. Reversed form with unknown on left, stacks context image above."
       },
       "id": "s4_1_m9_m10_growth_b1"
     },
@@ -1910,12 +1914,12 @@ Cacheable: Yes
           "condition": {
             "selected": "All of these are different today"
           },
-          "description": "Student selected D, recognizing all three M10 changes",
+          "description": "Student selected D, recognizing all three M10 changes together",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "Right. Three new things, all in one equation. The equals sign works both ways. Unknowns can go anywhere. And equations work for stacks, rows, groups, not just bags.",
+              "text": "Right. All of these are different today. Three new things, all in one equation. The equals sign works both ways. Unknowns can go anywhere. And equations work for stacks, rows, groups, not just bags.",
               "id": "s4_1_m9_m10_growth_b3_v0_b0"
             }
           ]
@@ -1928,11 +1932,11 @@ Cacheable: Yes
       "elements": [
         {
           "tangible_id": "equation_m9",
-          "description": "Left equation: 6 × 5 = 30. Labeled 'Last time'. Bags context image.",
+          "description": "Equation on left: 6 × 5 = 30, labeled 'Last time', with bags context image.",
           "tangible_type": "equation",
           "expression": [
             "6",
-            "x",
+            "×",
             "5",
             "=",
             "30"
@@ -1941,13 +1945,13 @@ Cacheable: Yes
         },
         {
           "tangible_id": "equation_m10",
-          "description": "Right equation: ☐ = 3 × 10. Labeled 'Today'. Stacks context image.",
+          "description": "Equation on right: ☐ = 3 × 10, labeled 'Today', with stacks context image.",
           "tangible_type": "equation",
           "expression": [
-            "__",
+            "☐",
             "=",
             "3",
-            "x",
+            "×",
             "10"
           ],
           "label": "Today"
@@ -1956,7 +1960,7 @@ Cacheable: Yes
       "id": "s4_1_m9_m10_growth_b4"
     }
   ],
-  "_generated_at": "2026-04-20T17:02:02.587440+00:00"
+  "_generated_at": "2026-04-27T15:54:56.843052+00:00"
 }
 </input>
 

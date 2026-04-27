@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:01:41.862627
+# Generated: 2026-04-27T10:55:31.266236
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1859,12 +1863,14 @@ Cacheable: Yes
       "tangible_type": "picture_graph",
       "params": {
         "mode": "reading",
-        "orientation": "horizontal",
+        "orientation": "vertical",
         "categories": [
-          "Category A"
+          "Symbol1",
+          "Symbol2",
+          "Symbol3"
         ],
         "scale": 5,
-        "description": "Small picture graph appears on left side of screen. Scale of 5. Not interactive — iconic display only."
+        "description": "Small vertical picture graph appears on left side of screen. Scale of 5. Three categories shown as iconic visual reminder."
       },
       "id": "s4_1_metacognitive_reflection_type_2_connection_b0"
     },
@@ -1875,9 +1881,9 @@ Cacheable: Yes
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
-        "container_count": 4,
+        "container_count": 3,
         "items_per_container": 5,
-        "description": "Small equal groups visual appears on right side of screen. 4 bags with 5 items each. Not interactive — iconic display only."
+        "description": "Small equal groups visual appears on right side of screen. 3 bags with 5 items each shown as iconic visual reminder."
       },
       "id": "s4_1_metacognitive_reflection_type_2_connection_b1"
     },
@@ -1888,55 +1894,59 @@ Cacheable: Yes
     },
     {
       "type": "prompt",
-      "text": "Did you notice a connection between graphs and equal groups?",
+      "text": "Did you notice a connection?",
       "tool": "multiple_choice",
       "options": [
         "Yes — reading graph scales was like finding equal groups",
         "Kind of — some parts felt similar",
         "Not really — this felt brand new"
       ],
+      "branching": true,
       "validator": [
         {
-          "condition_id": "selected_yes",
+          "condition_id": "selection_a",
+          "branch": true,
           "condition": {
             "selected": "Yes — reading graph scales was like finding equal groups"
           },
-          "description": "Student selected Yes",
+          "description": "Student selected option A: recognized the connection between graph scales and equal groups",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "You spotted it. Every time you read a scale of 5 graph, you were counting groups of 5. Graph scales were equal groups the whole time.",
+              "text": "You spotted it. Every time you read a scale-of-5 graph, you were counting groups of 5. Graph scales were equal groups the whole time.",
               "id": "s4_1_metacognitive_reflection_type_2_connection_b3_v0_b0"
             }
           ]
         },
         {
-          "condition_id": "selected_kind_of",
+          "condition_id": "selection_b",
+          "branch": true,
           "condition": {
             "selected": "Kind of — some parts felt similar"
           },
-          "description": "Student selected Kind of",
+          "description": "Student selected option B: partially recognized connection",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "Good noticing. The counting by 5s and counting by 2s from graphs. That was groups all along. The connection gets clearer over time.",
+              "text": "Good noticing. The counting by 5s and counting by 2s from graphs, that was groups all along. The connection gets clearer over time.",
               "id": "s4_1_metacognitive_reflection_type_2_connection_b3_v1_b0"
             }
           ]
         },
         {
-          "condition_id": "selected_not_really",
+          "condition_id": "selection_c",
+          "branch": true,
           "condition": {
             "selected": "Not really — this felt brand new"
           },
-          "description": "Student selected Not really",
+          "description": "Student selected option C: did not recognize connection",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "That makes sense. The multiplication symbol and equal groups are new. But remember the Warmup graph? Those symbols were holding groups inside. You'll see more connections as we keep going.",
+              "text": "That makes sense. The × symbol and 'equal groups' are new. But remember the Warmup graph? Those symbols were holding groups inside. You'll see more connections as we keep going.",
               "id": "s4_1_metacognitive_reflection_type_2_connection_b3_v2_b0"
             }
           ]
@@ -1949,28 +1959,30 @@ Cacheable: Yes
       "elements": [
         {
           "tangible_id": "picture_graph_warmup",
-          "description": "Small picture graph on left side. Scale of 5. Iconic display.",
+          "description": "Small vertical picture graph on left side. Scale of 5. Three categories. Iconic reminder of graph work.",
           "tangible_type": "picture_graph",
           "mode": "reading",
-          "orientation": "horizontal",
+          "orientation": "vertical",
           "categories": [
-            "Category A"
+            "Symbol1",
+            "Symbol2",
+            "Symbol3"
           ],
           "scale": 5
         },
         {
           "tangible_id": "equal_groups_bags",
-          "description": "Small equal groups visual on right side. 4 bags with 5 items each. Iconic display.",
+          "description": "Small equal groups visual on right side. 3 bags with 5 items each. Iconic reminder of equal groups work.",
           "tangible_type": "equal_groups",
           "mode": "reading",
-          "container_count": 4,
+          "container_count": 3,
           "items_per_container": 5
         }
       ],
       "id": "s4_1_metacognitive_reflection_type_2_connection_b4"
     }
   ],
-  "_generated_at": "2026-04-20T17:00:46.770697+00:00"
+  "_generated_at": "2026-04-27T15:54:35.438219+00:00"
 }
 </input>
 

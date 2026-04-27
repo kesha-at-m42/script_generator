@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:03:09.909613
+# Generated: 2026-04-27T10:56:22.188626
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1854,10 +1858,9 @@ Cacheable: Yes
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder_product_unknown",
-      "tangible_type": "equation_builder",
+      "tangible_id": "equation_product_unknown",
+      "tangible_type": "equation",
       "params": {
-        "mode": "reading",
         "expression": [
           "4",
           "x",
@@ -1865,17 +1868,16 @@ Cacheable: Yes
           "=",
           "__"
         ],
-        "description": "First equation appears: 4 × 5 = ☐. Label 'product unknown' appears below."
+        "description": "First equation displays: 4 × 5 = ☐ (product unknown)"
       },
       "id": "s3_1_unknown_position_flexibility_b0"
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder_factor2_unknown",
-      "tangible_type": "equation_builder",
+      "tangible_id": "equation_factor2_unknown",
+      "tangible_type": "equation",
       "params": {
-        "mode": "reading",
         "expression": [
           "4",
           "x",
@@ -1883,17 +1885,16 @@ Cacheable: Yes
           "=",
           "20"
         ],
-        "description": "Second equation appears below first: 4 × ☐ = 20. Label 'second factor unknown' appears below."
+        "description": "Second equation displays below first: 4 × ☐ = 20 (second factor unknown)"
       },
       "id": "s3_1_unknown_position_flexibility_b1"
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder_factor1_unknown",
-      "tangible_type": "equation_builder",
+      "tangible_id": "equation_factor1_unknown",
+      "tangible_type": "equation",
       "params": {
-        "mode": "reading",
         "expression": [
           "__",
           "x",
@@ -1901,14 +1902,44 @@ Cacheable: Yes
           "=",
           "20"
         ],
-        "description": "Third equation appears below second: ☐ × 5 = 20. Label 'first factor unknown' appears below."
+        "description": "Third equation displays below second: ☐ × 5 = 20 (first factor unknown)"
       },
       "id": "s3_1_unknown_position_flexibility_b2"
     },
     {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "equation_product_unknown",
+      "params": {
+        "label": "product unknown",
+        "description": "Label appears next to first equation: product unknown"
+      },
+      "id": "s3_1_unknown_position_flexibility_b3"
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "equation_factor2_unknown",
+      "params": {
+        "label": "second factor unknown",
+        "description": "Label appears next to second equation: second factor unknown"
+      },
+      "id": "s3_1_unknown_position_flexibility_b4"
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "equation_factor1_unknown",
+      "params": {
+        "label": "first factor unknown",
+        "description": "Label appears next to third equation: first factor unknown"
+      },
+      "id": "s3_1_unknown_position_flexibility_b5"
+    },
+    {
       "type": "dialogue",
       "text": "Three equations. Same numbers: 4, 5, and 20. But the unknown moved to a different spot each time. What stays the same?",
-      "id": "s3_1_unknown_position_flexibility_b3"
+      "id": "s3_1_unknown_position_flexibility_b6"
     },
     {
       "type": "prompt",
@@ -1926,116 +1957,116 @@ Cacheable: Yes
           "condition": {
             "selected": "4 groups of 5 equals 20"
           },
-          "description": "Student selected A: 4 groups of 5 equals 20, correct",
+          "description": "Student selected option A: 4 groups of 5 equals 20",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "Right. 4 groups of 5 equals 20. The unknown moves, but the relationship stays constant.",
-              "id": "s3_1_unknown_position_flexibility_b4_v0_b0"
+              "text": "Right. 4 groups of 5 equals 20. That relationship stays the same no matter where the unknown is.",
+              "id": "s3_1_unknown_position_flexibility_b7_v0_b0"
             }
           ]
         }
       ],
-      "id": "s3_1_unknown_position_flexibility_b4"
+      "id": "s3_1_unknown_position_flexibility_b7"
     },
     {
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equation_builder_product_unknown",
-          "description": "First equation: 4 × 5 = ☐, labeled 'product unknown'",
-          "tangible_type": "equation_builder",
-          "mode": "reading",
+          "tangible_id": "equation_product_unknown",
+          "description": "First equation: 4 × 5 = ☐ with label 'product unknown'",
+          "tangible_type": "equation",
           "expression": [
             "4",
             "x",
             "5",
             "=",
             "__"
-          ]
+          ],
+          "label": "product unknown"
         },
         {
-          "tangible_id": "equation_builder_factor2_unknown",
-          "description": "Second equation: 4 × ☐ = 20, labeled 'second factor unknown'",
-          "tangible_type": "equation_builder",
-          "mode": "reading",
+          "tangible_id": "equation_factor2_unknown",
+          "description": "Second equation: 4 × ☐ = 20 with label 'second factor unknown'",
+          "tangible_type": "equation",
           "expression": [
             "4",
             "x",
             "__",
             "=",
             "20"
-          ]
+          ],
+          "label": "second factor unknown"
         },
         {
-          "tangible_id": "equation_builder_factor1_unknown",
-          "description": "Third equation: ☐ × 5 = 20, labeled 'first factor unknown'",
-          "tangible_type": "equation_builder",
-          "mode": "reading",
+          "tangible_id": "equation_factor1_unknown",
+          "description": "Third equation: ☐ × 5 = 20 with label 'first factor unknown'",
+          "tangible_type": "equation",
           "expression": [
             "__",
             "x",
             "5",
             "=",
             "20"
-          ]
+          ],
+          "label": "first factor unknown"
         }
       ],
-      "id": "s3_1_unknown_position_flexibility_b5"
+      "id": "s3_1_unknown_position_flexibility_b8"
     },
     {
       "type": "dialogue",
-      "text": "The unknown moves, but the relationship stays: 4 groups of 5 is always 20. You figure out whichever piece is missing.",
-      "id": "s3_1_unknown_position_flexibility_b6"
+      "text": "The unknown moves, but the relationship stays. 4 groups of 5 is always 20. You figure out whichever piece is missing.",
+      "id": "s3_1_unknown_position_flexibility_b9"
     },
     {
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equation_builder_product_unknown",
-          "description": "First equation: 4 × 5 = ☐, labeled 'product unknown'",
-          "tangible_type": "equation_builder",
-          "mode": "reading",
+          "tangible_id": "equation_product_unknown",
+          "description": "First equation: 4 × 5 = ☐ with label 'product unknown'",
+          "tangible_type": "equation",
           "expression": [
             "4",
             "x",
             "5",
             "=",
             "__"
-          ]
+          ],
+          "label": "product unknown"
         },
         {
-          "tangible_id": "equation_builder_factor2_unknown",
-          "description": "Second equation: 4 × ☐ = 20, labeled 'second factor unknown'",
-          "tangible_type": "equation_builder",
-          "mode": "reading",
+          "tangible_id": "equation_factor2_unknown",
+          "description": "Second equation: 4 × ☐ = 20 with label 'second factor unknown'",
+          "tangible_type": "equation",
           "expression": [
             "4",
             "x",
             "__",
             "=",
             "20"
-          ]
+          ],
+          "label": "second factor unknown"
         },
         {
-          "tangible_id": "equation_builder_factor1_unknown",
-          "description": "Third equation: ☐ × 5 = 20, labeled 'first factor unknown'",
-          "tangible_type": "equation_builder",
-          "mode": "reading",
+          "tangible_id": "equation_factor1_unknown",
+          "description": "Third equation: ☐ × 5 = 20 with label 'first factor unknown'",
+          "tangible_type": "equation",
           "expression": [
             "__",
             "x",
             "5",
             "=",
             "20"
-          ]
+          ],
+          "label": "first factor unknown"
         }
       ],
-      "id": "s3_1_unknown_position_flexibility_b7"
+      "id": "s3_1_unknown_position_flexibility_b10"
     }
   ],
-  "_generated_at": "2026-04-20T17:01:52.529885+00:00"
+  "_generated_at": "2026-04-27T15:54:38.417758+00:00"
 }
 </input>
 

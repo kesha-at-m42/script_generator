@@ -12,7 +12,7 @@
         "elements": []
       }
     ],
-    "_generated_at": "2026-04-20T16:59:44.566594+00:00"
+    "_generated_at": "2026-04-27T15:53:17.467116+00:00"
   },
   {
     "id": "s1_1_single_step_comparison_compare",
@@ -36,13 +36,14 @@
             "Notebooks",
             "Markers"
           ],
-          "values": {
-            "Pencils": 40,
-            "Erasers": 25,
-            "Notebooks": 35,
-            "Markers": 20
-          },
-          "description": "Vertical bar graph appears. School Supplies Sold. Scale of 5, axis 0-50. Pencils 40, Erasers 25, Notebooks 35, Markers 20."
+          "values": [
+            40,
+            25,
+            35,
+            20
+          ],
+          "title": "School Supplies Sold",
+          "description": "Vertical bar graph appears. School Supplies Sold. Scale of 5, axis 0-50. Four bars: Pencils 40, Erasers 25, Notebooks 35, Markers 20."
         }
       },
       {
@@ -65,12 +66,12 @@
             "condition": {
               "selected": 20
             },
-            "description": "Student selected 20, correct (40 - 20 = 20)",
+            "description": "Student selected 20, correct answer (40 - 20 = 20)",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "20 more pencils sold. This one asked about only two categories and was just one step—no combined, so straight to comparing."
+                "text": "20 more pencils sold. This one asked about only two categories and was just one step. No combined, so straight to comparing."
               }
             ]
           }
@@ -81,7 +82,7 @@
         "elements": [
           {
             "tangible_id": "bar_graph_supplies",
-            "description": "Vertical bar graph in reading mode. School Supplies Sold. Scale of 5, axis 0-50. Pencils 40, Erasers 25, Notebooks 35, Markers 20.",
+            "description": "Vertical bar graph in reading mode. School Supplies Sold. Scale 5, axis 0-50. Pencils 40, Erasers 25, Notebooks 35, Markers 20. Multiple choice tool active.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -95,12 +96,18 @@
               "Erasers",
               "Notebooks",
               "Markers"
+            ],
+            "values": [
+              40,
+              25,
+              35,
+              20
             ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T16:59:52.988488+00:00"
+    "_generated_at": "2026-04-27T15:53:30.968198+00:00"
   },
   {
     "id": "s1_2_two_step_problem_identify_compare",
@@ -139,6 +146,10 @@
         "text": "How many more fiction books were read than nonfiction and poetry combined?"
       },
       {
+        "type": "dialogue",
+        "text": "What should we find first?"
+      },
+      {
         "type": "prompt",
         "text": "What should we find first?",
         "tool": "multiple_choice",
@@ -154,7 +165,7 @@
             "condition": {
               "selected": "Add nonfiction and poetry"
             },
-            "description": "Student selected add nonfiction and poetry, correct first step",
+            "description": "Student selected to add nonfiction and poetry, correct first step",
             "is_correct": true,
             "beats": [
               {
@@ -170,7 +181,7 @@
         "elements": [
           {
             "tangible_id": "bar_graph_books",
-            "description": "Horizontal bar graph. Books Read This Month. Scale of 10. Fiction 50, Nonfiction 30, Comics 40, Poetry 20.",
+            "description": "Horizontal bar graph. Books Read This Month. Scale 10, axis 0-60. Fiction 50, Nonfiction 30, Comics 40, Poetry 20.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "horizontal",
@@ -184,6 +195,12 @@
               "Nonfiction",
               "Comics",
               "Poetry"
+            ],
+            "values": [
+              50,
+              30,
+              40,
+              20
             ]
           }
         ]
@@ -220,12 +237,12 @@
             "condition": {
               "selected": 50
             },
-            "description": "Student answered 50, correct, 30 plus 20",
+            "description": "Student answered 50, correct (30 + 20 = 50)",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "50 combined. That's nonfiction 30 plus poetry 20."
+                "text": "50 combined."
               }
             ]
           }
@@ -236,7 +253,7 @@
         "elements": [
           {
             "tangible_id": "bar_graph_books",
-            "description": "Horizontal bar graph. Books Read This Month. Nonfiction and Poetry bars highlighted. Scale of 10.",
+            "description": "Horizontal bar graph. Books Read This Month. Nonfiction and Poetry bars highlighted. Scale 10, axis 0-60. Fiction 50, Nonfiction 30, Comics 40, Poetry 20.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "horizontal",
@@ -249,6 +266,16 @@
               "Fiction",
               "Nonfiction",
               "Comics",
+              "Poetry"
+            ],
+            "values": [
+              50,
+              30,
+              40,
+              20
+            ],
+            "highlight_categories": [
+              "Nonfiction",
               "Poetry"
             ]
           }
@@ -285,7 +312,7 @@
             "condition": {
               "selected": 0
             },
-            "description": "Student answered 0, correct, fiction equals combined total, no difference",
+            "description": "Student answered 0, correct (50 - 50 = 0, equal amounts, no difference)",
             "is_correct": true,
             "beats": [
               {
@@ -301,7 +328,7 @@
         "elements": [
           {
             "tangible_id": "bar_graph_books",
-            "description": "Horizontal bar graph. Books Read This Month. Fiction bar highlighted. Scale of 10.",
+            "description": "Horizontal bar graph. Books Read This Month. Fiction bar highlighted. Scale 10, axis 0-60. Fiction 50, Nonfiction 30, Comics 40, Poetry 20.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "horizontal",
@@ -315,12 +342,21 @@
               "Nonfiction",
               "Comics",
               "Poetry"
+            ],
+            "values": [
+              50,
+              30,
+              40,
+              20
+            ],
+            "highlight_categories": [
+              "Fiction"
             ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:00:09.966415+00:00"
+    "_generated_at": "2026-04-27T15:53:55.286290+00:00"
   },
   {
     "id": "s1_3_two_step_problem_identify_compare",
@@ -328,7 +364,7 @@
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "bar_graph_fieldtrip",
+        "tangible_id": "bar_graph_field_trip",
         "tangible_type": "bar_graph",
         "params": {
           "mode": "reading",
@@ -345,14 +381,15 @@
             "Park",
             "Farm"
           ],
-          "values": {
-            "Aquarium": 35,
-            "Museum": 25,
-            "Zoo": 45,
-            "Park": 30,
-            "Farm": 15
-          },
-          "description": "Vertical bar graph appears. Scale of 5, axis 0-60. Context: Votes for Field Trip. Five categories: Aquarium 35, Museum 25, Zoo 45, Park 30, Farm 15."
+          "values": [
+            35,
+            25,
+            45,
+            30,
+            15
+          ],
+          "title": "Votes for Field Trip",
+          "description": "Vertical bar graph appears. Votes for Field Trip. Five categories: Aquarium 35, Museum 25, Zoo 45, Park 30, Farm 15. Scale of 5, axis 0-60."
         }
       },
       {
@@ -375,7 +412,7 @@
             "condition": {
               "selected": "Add museum and farm"
             },
-            "description": "Student selected to add museum and farm first, correct strategy",
+            "description": "Student selected Add museum and farm, correct first step",
             "is_correct": true,
             "beats": [
               {
@@ -390,8 +427,8 @@
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "bar_graph_fieldtrip",
-            "description": "Vertical bar graph in reading mode. Votes for Field Trip data. Five categories displayed.",
+            "tangible_id": "bar_graph_field_trip",
+            "description": "Vertical bar graph. Votes for Field Trip. Five categories visible. Reading mode. Multiple choice tool active for first step.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -413,13 +450,13 @@
       {
         "type": "scene",
         "method": "update",
-        "tangible_id": "bar_graph_fieldtrip",
+        "tangible_id": "bar_graph_field_trip",
         "params": {
           "highlight_categories": [
             "Museum",
             "Farm"
           ],
-          "description": "Museum bar (25) and Farm bar (15) highlight."
+          "description": "Museum bar (25) and Farm bar (15) highlight for step 2."
         }
       },
       {
@@ -442,12 +479,12 @@
             "condition": {
               "selected": 40
             },
-            "description": "Student answered 40, correct (25 + 15 = 40)",
+            "description": "Student selected 40, correct (25 + 15 = 40)",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "40 combined. That's 25 plus 15."
+                "text": "40 combined."
               }
             ]
           }
@@ -457,8 +494,8 @@
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "bar_graph_fieldtrip",
-            "description": "Vertical bar graph. Museum and Farm bars highlighted. Votes for Field Trip data.",
+            "tangible_id": "bar_graph_field_trip",
+            "description": "Vertical bar graph. Votes for Field Trip. Museum bar (25) and Farm bar (15) highlighted. Reading mode.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -480,12 +517,12 @@
       {
         "type": "scene",
         "method": "update",
-        "tangible_id": "bar_graph_fieldtrip",
+        "tangible_id": "bar_graph_field_trip",
         "params": {
           "highlight_categories": [
             "Zoo"
           ],
-          "description": "Zoo bar (45) highlights. Combined value 40 displayed."
+          "description": "Zoo bar (45) highlights for comparison step."
         }
       },
       {
@@ -508,12 +545,12 @@
             "condition": {
               "selected": 5
             },
-            "description": "Student answered 5, correct (45 - 40 = 5)",
+            "description": "Student selected 5, correct (45 - 40 = 5)",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "5 fewer. Museum and farm combined got 5 fewer votes than the zoo. You used two steps: first added, then compared."
+                "text": "5 fewer. Museum and farm combined got 5 fewer votes than the zoo."
               }
             ]
           }
@@ -523,8 +560,8 @@
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "bar_graph_fieldtrip",
-            "description": "Vertical bar graph. Zoo bar highlighted. Votes for Field Trip data. Combined value 40 displayed.",
+            "tangible_id": "bar_graph_field_trip",
+            "description": "Vertical bar graph. Votes for Field Trip. Zoo bar (45) highlighted. Reading mode.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -544,7 +581,7 @@
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:00:27.688772+00:00"
+    "_generated_at": "2026-04-27T15:54:20.038731+00:00"
   },
   {
     "id": "s1_4_two_step_with_scale_2",
@@ -558,6 +595,10 @@
           "mode": "reading",
           "orientation": "vertical",
           "scale": 2,
+          "axis_range": [
+            0,
+            16
+          ],
           "categories": [
             "Maya",
             "Ben",
@@ -570,6 +611,7 @@
             "Carla": 11,
             "David": 6
           },
+          "title": "Books Read This Week",
           "description": "Vertical bar graph appears. Books Read This Week data. Scale of 2. Maya=14, Ben=9, Carla=11, David=6."
         }
       },
@@ -598,7 +640,7 @@
             "beats": [
               {
                 "type": "dialogue",
-                "text": "23 books together. You added Maya's 14 and Ben's 9."
+                "text": "23 books together."
               }
             ]
           }
@@ -609,7 +651,7 @@
         "elements": [
           {
             "tangible_id": "bar_graph_books",
-            "description": "Vertical bar graph in reading mode. Books Read This Week data. Scale of 2. Maya=14, Ben=9, Carla=11, David=6.",
+            "description": "Vertical bar graph in reading mode. Books Read This Week. Scale of 2. Maya=14, Ben=9, Carla=11, David=6. Multiple choice tool active.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -670,7 +712,7 @@
         "elements": [
           {
             "tangible_id": "bar_graph_books",
-            "description": "Vertical bar graph in reading mode. Books Read This Week data. Scale of 2. Carla bar highlighted. Maya=14, Ben=9, Carla=11, David=6.",
+            "description": "Vertical bar graph in reading mode. Books Read This Week. Scale of 2. Maya=14, Ben=9, Carla=11, David=6. Carla bar highlighted. Multiple choice tool active.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -685,7 +727,7 @@
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:00:41.115060+00:00"
+    "_generated_at": "2026-04-27T15:54:40.524069+00:00"
   },
   {
     "id": "s1_5_exit_check_closure",
@@ -700,6 +742,6 @@
         "elements": []
       }
     ],
-    "_generated_at": "2026-04-20T17:00:44.291252+00:00"
+    "_generated_at": "2026-04-27T15:54:47.907480+00:00"
   }
 ]

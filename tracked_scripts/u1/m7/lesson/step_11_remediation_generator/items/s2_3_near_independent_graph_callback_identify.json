@@ -4,9 +4,9 @@
     [
       {
         "condition": {
-          "selected": "5 × 4"
+          "selected": "2 groups of 4"
         },
-        "description": "Student selected 5 × 4, reversed the groups and items",
+        "description": "Student selected 2 groups of 4: confused the counts",
         "is_correct": false,
         "steps": [
           [
@@ -15,22 +15,21 @@
               "method": "update",
               "tangible_id": "equal_groups_circles",
               "params": {
-                "highlight_containers": true,
-                "description": "All 4 circles highlight to show the groups."
+                "description": "All circles highlight sequentially to emphasize count: 1, 2, 3, 4."
               }
             },
             {
               "type": "dialogue",
-              "text": "You reversed it. Count the circles first. That number goes first in the expression. How many circles?"
+              "text": "Count the circles first. How many circles? Then look inside ONE circle. How many dots?"
             }
           ]
         ]
       },
       {
         "condition": {
-          "selected": "4 + 5"
+          "selected": "5 groups of 4"
         },
-        "description": "Student selected 4 + 5, used addition instead of multiplication",
+        "description": "Student selected 5 groups of 4: reversed the groups and items per group",
         "is_correct": false,
         "steps": [
           [
@@ -39,22 +38,21 @@
               "method": "update",
               "tangible_id": "equal_groups_circles",
               "params": {
-                "highlight_containers": true,
-                "description": "All 4 circles highlight briefly, then one circle opens to show its 5 dots."
+                "description": "Circles highlight, then one circle zooms or highlights with its 5 dots emphasized."
               }
             },
             {
               "type": "dialogue",
-              "text": "You used plus. When we have equal groups, we use times, not plus. You have 4 circles with 5 in each. That's 4 times 5."
+              "text": "The circles are the groups. Count them: 4 circles. Then check inside one: 5 dots. Which number is the groups?"
             }
           ]
         ]
       },
       {
         "condition": {
-          "selected": "5 + 4"
+          "selected": "4 groups of 4"
         },
-        "description": "Student selected 5 + 4, used addition instead of multiplication",
+        "description": "Student selected 4 groups of 4: correctly counted groups but miscounted items per group",
         "is_correct": false,
         "steps": [
           [
@@ -63,13 +61,12 @@
               "method": "update",
               "tangible_id": "equal_groups_circles",
               "params": {
-                "highlight_containers": true,
-                "description": "All 4 circles highlight briefly, then one circle opens to show its 5 dots."
+                "description": "One circle zooms or highlights. Dots inside count sequentially: 1, 2, 3, 4, 5."
               }
             },
             {
               "type": "dialogue",
-              "text": "You used plus. Equal groups need the times symbol. Count the groups, then count what's in each group. Which symbol connects them?"
+              "text": "You're right that there are 4 circles. Now look closely at ONE circle. Count the dots. How many?"
             }
           ]
         ]
@@ -85,19 +82,113 @@
               "method": "animate",
               "tangible_id": "equal_groups_circles",
               "params": {
-                "event": "count_groups_then_items",
+                "event": "count_containers",
                 "status": "confirmed",
-                "description": "Circles highlight one by one as they are counted: 1, 2, 3, 4. Then one circle opens and its dots highlight: 1, 2, 3, 4, 5."
+                "description": "Circles highlight sequentially as they are counted: 1, 2, 3, 4. Then one circle zooms and dots inside are counted: 1, 2, 3, 4, 5."
               }
             },
             {
               "type": "dialogue",
-              "text": "Here's how to see it. First, I count the circles: 1, 2, 3, 4. That's 4 groups. Then I look inside one circle and count: 1, 2, 3, 4, 5. That's 5 in each group. When I have groups with the same amount in each, I use times. 4 groups times 5 in each equals 4 × 5. The answer is 4 × 5."
+              "text": "Let me show you. First, count the circles: 1, 2, 3, 4. Four circles are your groups. Then look inside one circle: 1, 2, 3, 4, 5. Five dots in each. The answer is 4 groups of 5."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": "5 × 4"
+        },
+        "description": "Student selected 5 × 4: reversed the factors",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "description": "Circles pulse to emphasize the count of 4, then one circle highlights showing 5 dots."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The first number tells you how many groups. Count the circles. The second number tells you how many in each. Count inside one."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "4 + 5"
+        },
+        "description": "Student selected 4 + 5: used addition instead of multiplication",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "description": "Circles and their contents highlight to show the repeating structure."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You have equal groups here, not adding two numbers. When every group has the same amount, use ×. Which symbol shows groups?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "5 + 4"
+        },
+        "description": "Student selected 5 + 4: used addition and reversed the values",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "description": "All circles highlight together to show they are equal groups."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "This shows equal groups, not adding. The × symbol shows you have groups with the same amount in each. Look for ×."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "event": "count_containers",
+                "status": "confirmed",
+                "description": "Circles highlight sequentially: 1, 2, 3, 4. Then one circle zooms, dots count: 1, 2, 3, 4, 5."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how to think about it. Count the circles: 4. That's your first number. Count inside one circle: 5. That's your second number. The × shows equal groups. The answer is 4 × 5."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:05:49.614738+00:00"
+  "_generated_at": "2026-04-27T16:00:47.061288+00:00"
 }

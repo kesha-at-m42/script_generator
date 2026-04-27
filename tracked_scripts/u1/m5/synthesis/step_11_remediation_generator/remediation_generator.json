@@ -14,7 +14,7 @@
         "id": "s1_0_opening_frame_b1"
       }
     ],
-    "_generated_at": "2026-04-20T16:58:55.118135+00:00"
+    "_generated_at": "2026-04-27T15:53:10.290271+00:00"
   },
   {
     "id": "s1_1_decision_checklist_consolidation_type_b",
@@ -24,13 +24,13 @@
           "condition": {
             "selected": "Do the numbers end in 0 or 5?"
           },
-          "description": "Student selected Do the numbers end in 0 or 5?, which is the second check, not the first",
+          "description": "Student selected 'Do the numbers end in 0 or 5?', which is the second check, not the first",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "dialogue",
-                "text": "That's the second question. But if you check the digits first and the biggest number doesn't fit, the scale won't work no matter what. Which question tells you if the scale is even possible?"
+                "text": "You need to check if the biggest number fits first. If the number is too big, the scale won't work at all. Which question checks that?"
               }
             ]
           ]
@@ -43,14 +43,14 @@
             [
               {
                 "type": "dialogue",
-                "text": "Let me show you how to think about this. The first question is always Does the biggest number fit? If the biggest number is too big for the scale, nothing else matters. The scale can't work. So you check that first. Then, if it fits, you check the digits to see if it works exactly. The answer is Does the biggest number fit?"
+                "text": "Let me show you how this works. First, you check if the biggest number fits. That tells you which scales are even possible. A scale that's too small won't work, no matter what. Then, after you know it fits, you check if the numbers end in 0 or 5. That tells you which scale makes the counting easiest. The answer is: Does the biggest number fit? That's always first."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:00:25.630459+00:00"
+    "_generated_at": "2026-04-27T15:55:25.488478+00:00"
   },
   {
     "id": "s2_1_scale_strengths_type_pattern_discovery",
@@ -60,22 +60,26 @@
           "condition": {
             "selected": "Graph A"
           },
-          "description": "Student selected Graph A (scale of 1)",
+          "description": "Student selected Graph A (Scale of 1)",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "bar_graph_a",
+                "tangible_id": "bar_graph_scale_1",
                 "params": {
-                  "highlight": true,
-                  "description": "Graph A highlights."
+                  "highlight_categories": [
+                    "Apples",
+                    "Bananas",
+                    "Cherries"
+                  ],
+                  "description": "Graph A bars highlight."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Graph A shows every number, but count the lines. With so many tick marks, it's harder to find the value quickly. Look at Graph D. How many lines does it have?"
+                "text": "Graph A shows every single number, but count the tick marks. Too many lines make it harder to read quickly. When data is bigger, a larger scale is cleaner."
               }
             ]
           ]
@@ -84,22 +88,26 @@
           "condition": {
             "selected": "Graph B"
           },
-          "description": "Student selected Graph B (scale of 2)",
+          "description": "Student selected Graph B (Scale of 2)",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "bar_graph_b",
+                "tangible_id": "bar_graph_scale_2",
                 "params": {
-                  "highlight": true,
-                  "description": "Graph B highlights."
+                  "highlight_categories": [
+                    "Apples",
+                    "Bananas",
+                    "Cherries"
+                  ],
+                  "description": "Graph B bars highlight."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Graph B has fewer lines than A, but it's still crowded. When the data ends in 0 or 5, a bigger scale works better. Compare Graph B to Graph D."
+                "text": "Graph B has fewer lines than A, but still a lot to count. Look at the values: 20, 40, 60. They're all multiples of 10. Which scale matches that pattern best?"
               }
             ]
           ]
@@ -108,22 +116,26 @@
           "condition": {
             "selected": "Graph C"
           },
-          "description": "Student selected Graph C (scale of 5)",
+          "description": "Student selected Graph C (Scale of 5)",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "bar_graph_c",
+                "tangible_id": "bar_graph_scale_5",
                 "params": {
-                  "highlight": true,
-                  "description": "Graph C highlights."
+                  "highlight_categories": [
+                    "Apples",
+                    "Bananas",
+                    "Cherries"
+                  ],
+                  "description": "Graph C bars highlight."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Graph C is good, but when all the numbers are multiples of 10, scale of 10 is even cleaner. Look at Graph D. Notice how simple it is?"
+                "text": "Graph C is cleaner than A and B. But look at Graph D. When all your numbers end in 0, the scale of 10 has the fewest lines and is easiest to read."
               }
             ]
           ]
@@ -137,23 +149,23 @@
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "bar_graph_d",
+                "tangible_id": "bar_graph_scale_10",
                 "params": {
-                  "event": "highlight_scale_comparison",
+                  "event": "highlight_scale_efficiency",
                   "status": "confirmed",
-                  "description": "Graph D highlights. Scale of 10 tick marks pulse to show clean intervals."
+                  "description": "Graph D highlights. Tick marks at 0, 10, 20, 30, 40, 50, 60 pulse to show clean spacing."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Here's how to think about it. All four graphs show the same data: 20, 40, and 60. Graph D uses scale of 10. That means only three tick marks between 0 and 60. Fewer lines means faster reading. When your data lands on multiples of 10, scale of 10 is the easiest to read."
+                "text": "Here's how to think about this. All the values are 20, 40, and 60. Those are multiples of 10. Graph D uses a scale of 10, so every bar lands exactly on a line. Fewer tick marks means less clutter. That makes Graph D the easiest to read. When your data fits a bigger scale, use it."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:00:37.405200+00:00"
+    "_generated_at": "2026-04-27T15:55:40.606980+00:00"
   },
   {
     "id": "s3_1_real_world_connection_type_c",
@@ -163,22 +175,22 @@
           "condition": {
             "selected": "Table A"
           },
-          "description": "Student selected Table A (Daily Steps), which has large numbers that all end in 0 or 5",
+          "description": "Student selected Table A, Daily Steps with values 4500, 3200, 5100, 2800",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "data_table_steps",
+                "tangible_id": "data_table_a",
                 "params": {
                   "highlight": true,
-                  "description": "Table A (Daily Steps) highlights."
+                  "description": "Table A highlights."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Look at the steps numbers: 4,500, 3,200, 5,100, 2,800. They all end in 0. That means Scale of 5 could work. Which table has numbers that don't end in 0 or 5?"
+                "text": "Look at the numbers in Table A. They all end in hundreds: 4,500, 3,200, 5,100, 2,800. You could use Scale of 5 or even larger scales. Which table has numbers that don't end in 0 or 5?"
               }
             ]
           ]
@@ -187,22 +199,22 @@
           "condition": {
             "selected": "Table C"
           },
-          "description": "Student selected Table C (Books Read), which has numbers that all end in 0 or 5",
+          "description": "Student selected Table C, Books Read with values 25, 30, 35, 40",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "data_table_books",
+                "tangible_id": "data_table_c",
                 "params": {
                   "highlight": true,
-                  "description": "Table C (Books Read) highlights."
+                  "description": "Table C highlights."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Check the books numbers: 25, 30, 35, 40. Every one ends in 0 or 5. That gives you options. Which table has numbers that don't follow that pattern?"
+                "text": "Table C has 25, 30, 35, 40. Every number ends in 0 or 5. You could use Scale of 5 or Scale of 10 for those. Which table has numbers that aren't multiples of 5?"
               }
             ]
           ]
@@ -216,28 +228,28 @@
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "data_table_coins",
+                "tangible_id": "data_table_b",
                 "params": {
-                  "event": "highlight_with_explanation",
+                  "event": "highlight_table",
                   "status": "confirmed",
-                  "description": "Table B (Coins Collected) highlights. Each value pulses in sequence: 7, 12, 19, 23."
+                  "description": "Table B highlights and its values pulse: 7, 12, 19, 23."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. Table B has 7, 12, 19, 23. None of those end in 0 or 5. You can't count by 5s to get to 7 or 12 or 19 or 23. Scale of 2 is the only way to show all of them exactly. That's what makes Table B have to use Scale of 2."
+                "text": "Here's how to think about it. Look at Table B: 7, 12, 19, 23. None of these end in 0 or 5. That means you can't use Scale of 5 or Scale of 10. Scale of 2 is the only way to show every number exactly. Table B has to use Scale of 2."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:00:49.289691+00:00"
+    "_generated_at": "2026-04-27T15:55:51.563668+00:00"
   },
   {
     "id": "s4_1_metacognitive_reflection_type_1_strategy",
     "incorrects": [],
-    "_generated_at": "2026-04-20T17:00:52.175855+00:00"
+    "_generated_at": "2026-04-27T15:55:54.148027+00:00"
   },
   {
     "id": "s4_2_identity_building_closure",
@@ -251,14 +263,20 @@
         "params": {
           "mode": "reading",
           "orientation": "vertical",
+          "categories": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
           "scale": 10,
-          "description": "Completed vertical bar graph appears with Scale of 10."
+          "description": "Vertical bar graph appears. Scale of 10. Completed example showing strategic scale choice."
         },
         "id": "s4_2_identity_building_closure_b0"
       },
       {
         "type": "dialogue",
-        "text": "You learned to choose scales, not just use them. You check if the biggest number fits. You check the last digits to look for multiples of 5. Then you pick what's easiest to read without too many lines.",
+        "text": "You learned to choose scales. Not just use them. You check if the biggest number fits. You check the last digits to look for multiples of 5. Then you pick what's easiest to read without too many lines.",
         "id": "s4_2_identity_building_closure_b1"
       },
       {
@@ -266,7 +284,7 @@
         "elements": [
           {
             "tangible_id": "bar_graph_completed",
-            "description": "Completed vertical bar graph with Scale of 10.",
+            "description": "Vertical bar graph in reading mode. Scale of 10. Completed example.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -285,7 +303,7 @@
         "elements": [
           {
             "tangible_id": "bar_graph_completed",
-            "description": "Completed vertical bar graph with Scale of 10.",
+            "description": "Vertical bar graph in reading mode. Scale of 10. Completed example.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -304,7 +322,7 @@
         "elements": [
           {
             "tangible_id": "bar_graph_completed",
-            "description": "Completed vertical bar graph with Scale of 10.",
+            "description": "Vertical bar graph in reading mode. Scale of 10. Completed example.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -314,6 +332,6 @@
         "id": "s4_2_identity_building_closure_b6"
       }
     ],
-    "_generated_at": "2026-04-20T16:59:58.117190+00:00"
+    "_generated_at": "2026-04-27T15:54:58.135112+00:00"
   }
 ]

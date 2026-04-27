@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:01:08.181119
+# Generated: 2026-04-27T10:54:46.280367
 ======================================================================
 
 ## API Parameters
@@ -956,7 +956,7 @@ Cacheable: Yes
       "context": "on_correct"
     },
     {
-      "text": "Thinking about what the question REALLY asks—that's mathematical reasoning.",
+      "text": "Thinking about what the question REALLY asks. That's mathematical reasoning.",
       "context": "on_correct"
     },
     {

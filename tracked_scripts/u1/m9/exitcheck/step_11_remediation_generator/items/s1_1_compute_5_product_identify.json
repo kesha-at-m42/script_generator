@@ -6,7 +6,7 @@
         "condition": {
           "selected": 12
         },
-        "description": "Student selected 12: likely added 7 + 5 instead of multiplying",
+        "description": "Student selected 12, which does not match the 5s pattern and is too small",
         "is_correct": false,
         "steps": [
           [
@@ -15,12 +15,16 @@
               "method": "update",
               "tangible_id": "equation_builder_7x5",
               "params": {
-                "description": "The × symbol pulses to emphasize multiplication operation."
+                "highlight_factors": [
+                  7,
+                  5
+                ],
+                "description": "Factors 7 and 5 highlight."
               }
             },
             {
               "type": "dialogue",
-              "text": "The × means multiply, not add. You need 7 groups of 5. Skip-count by 5s seven times."
+              "text": "7 times 5 means 7 groups of 5. Skip-count by 5s seven times. Does that get you to 12?"
             }
           ]
         ]
@@ -29,7 +33,7 @@
         "condition": {
           "selected": 30
         },
-        "description": "Student selected 30: confused 7 × 5 with 6 × 5",
+        "description": "Student selected 30, which is 6 × 5, one group short",
         "is_correct": false,
         "steps": [
           [
@@ -38,12 +42,16 @@
               "method": "update",
               "tangible_id": "equation_builder_7x5",
               "params": {
-                "description": "The 7 in the first factor position highlights."
+                "highlight_factors": [
+                  7,
+                  5
+                ],
+                "description": "Factor 7 highlights."
               }
             },
             {
               "type": "dialogue",
-              "text": "Look at the first factor. It's 7, not 6. Skip-count by 5s seven times, not six."
+              "text": "30 is close but check the first factor. You need 7 groups of 5, not 6. Skip-count by 5s one more time."
             }
           ]
         ]
@@ -52,7 +60,7 @@
         "condition": {
           "selected": 40
         },
-        "description": "Student selected 40: likely confused 7 × 5 with 8 × 5",
+        "description": "Student selected 40, which is 8 × 5, one group too many",
         "is_correct": false,
         "steps": [
           [
@@ -61,12 +69,16 @@
               "method": "update",
               "tangible_id": "equation_builder_7x5",
               "params": {
-                "description": "The 7 in the first factor position highlights."
+                "highlight_factors": [
+                  7,
+                  5
+                ],
+                "description": "Factor 7 highlights."
               }
             },
             {
               "type": "dialogue",
-              "text": "Check the first factor. It's 7, not 8. Count by 5s seven times: 5, 10, 15, 20, 25, 30... what comes next?"
+              "text": "You went too far. Count the groups carefully. You need 7 groups of 5, not 8. Which product comes before 40 in the 5s pattern?"
             }
           ]
         ]
@@ -84,17 +96,17 @@
               "params": {
                 "event": "demonstrate_skip_count",
                 "status": "confirmed",
-                "description": "Skip-count sequence appears above equation: 5, 10, 15, 20, 25, 30, 35. Each number pulses briefly as if counting. After sequence completes, 35 fills the product slot."
+                "description": "Animation shows skip-counting by 5s seven times: 5, 10, 15, 20, 25, 30, 35. Each count highlights sequentially."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. 7 times 5 means 7 groups of 5. I skip-count by 5s seven times: 5, 10, 15, 20, 25, 30, 35. The seventh number is 35. That's the product. Notice it ends in 5, which is the pattern for all multiples of 5. The answer is 35."
+              "text": "Let me show you. 7 groups of 5. I skip-count by 5s: 5, 10, 15, 20, 25, 30, 35. Seven jumps lands on 35. The product is 35. It ends in 5, which matches the 5s pattern. 7 times 5 equals 35."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:01:06.964210+00:00"
+  "_generated_at": "2026-04-27T15:54:29.327561+00:00"
 }

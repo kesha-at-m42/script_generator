@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:00:57.666937
+# Generated: 2026-04-27T10:55:00.175554
 ======================================================================
 
 ## API Parameters
@@ -948,7 +948,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "23 books together. You added Maya's 14 and Ben's 9.",
+      "text": "23 books together.",
       "context": "on_correct"
     },
     {

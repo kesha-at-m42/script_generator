@@ -4,42 +4,27 @@
     [
       {
         "condition": {
-          "and": [
-            {
-              "placed": {
-                "groups": 4,
-                "items": 3
-              }
-            },
-            {
-              "or": [
-                {
-                  "incorrect_count": 1
-                },
-                {
-                  "incorrect_count": 2
-                }
-              ]
-            }
-          ]
+          "placed": {
+            "groups": 4,
+            "items": 3
+          }
         },
-        "description": "Student reversed the numbers, placing 4 × 3 instead of 3 × 4",
+        "description": "Student placed 4 × 3, reversed the groups and items",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
-              "method": "animate",
+              "method": "update",
               "tangible_id": "equal_groups_boxes",
               "params": {
-                "event": "highlight_containers_sequentially",
-                "status": "confirmed",
-                "description": "Boxes highlight one at a time."
+                "highlight_containers": true,
+                "description": "Boxes highlight to draw attention to groups."
               }
             },
             {
               "type": "dialogue",
-              "text": "You got the numbers, but check the order. First number: how many groups? Count the boxes. Second number: how many in each group? Count inside one box."
+              "text": "You switched them. The first number is how many GROUPS. Count the boxes."
             }
           ]
         ]
@@ -60,13 +45,13 @@
             }
           ]
         },
-        "description": "Student placed incorrect values on first attempt",
+        "description": "Student placed any other wrong expression on first attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "dialogue",
-              "text": "Remember the two questions. How many groups? How many in each group?"
+              "text": "Not quite. First number: how many groups? Second number: how many in each group?"
             }
           ]
         ]
@@ -87,7 +72,7 @@
             }
           ]
         },
-        "description": "Student placed incorrect values on second attempt",
+        "description": "Student placed any other wrong expression on second attempt",
         "is_correct": false,
         "steps": [
           [
@@ -98,74 +83,54 @@
               "params": {
                 "event": "highlight_containers_sequentially",
                 "status": "confirmed",
-                "description": "Boxes highlight one at a time as guide counts."
+                "description": "Boxes highlight one by one as guide counts."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let's count together. How many boxes? 1, 2, 3. That's the first number. Now look inside one box. How many items? 1, 2, 3, 4. That's the second number."
+              "text": "Count the boxes: 1, 2, 3. Three groups. Count inside one box: 1, 2, 3, 4. Four in each. Which numbers go in the slots?"
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student answered incorrectly. System models the answer.",
+        "description": "Student placed wrong expression three or more times. System models the answer.",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equal_groups_boxes",
+              "tangible_id": "equation_builder",
               "params": {
-                "event": "highlight_containers_sequentially",
+                "event": "demo_place_tile",
                 "status": "confirmed",
-                "description": "Boxes highlight one at a time as guide counts groups."
+                "tile_value": 3,
+                "slot_position": 1,
+                "description": "System places 3 in first slot."
               }
             },
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equal_groups_boxes",
+              "tangible_id": "equation_builder",
               "params": {
-                "event": "highlight_items_in_one_container",
+                "event": "demo_place_tile",
                 "status": "confirmed",
-                "description": "Items in one box highlight as guide counts items."
-              }
-            },
-            {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "equation_builder_boxes",
-              "params": {
-                "event": "place_tile_demo",
-                "status": "confirmed",
-                "slot": 0,
-                "value": 3,
-                "description": "Guide demonstrates placing 3 tile into first slot."
-              }
-            },
-            {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "equation_builder_boxes",
-              "params": {
-                "event": "place_tile_demo",
-                "status": "confirmed",
-                "slot": 1,
-                "value": 4,
-                "description": "Guide demonstrates placing 4 tile into second slot."
+                "tile_value": 4,
+                "slot_position": 2,
+                "description": "System places 4 in second slot, completing 3 × 4."
               }
             },
             {
               "type": "dialogue",
-              "text": "Here's how this works. I count the groups: 1, 2, 3. Three boxes. That's my first number. Then I look inside one box: 1, 2, 3, 4. Four items. That's my second number. The expression is 3 times 4. First number shows how many groups, second number shows how many in each."
+              "text": "Let me show you. I count the boxes: 3 groups. I count inside one box: 4 cookies. First number is groups, so 3. Second number is in each group, so 4. The expression is 3 times 4."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:01:02.921917+00:00"
+  "_generated_at": "2026-04-27T15:54:21.655739+00:00"
 }

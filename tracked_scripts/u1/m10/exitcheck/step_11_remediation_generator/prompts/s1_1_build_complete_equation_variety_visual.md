@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:01:35.010699
+# Generated: 2026-04-27T10:54:44.611386
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1845,6 +1849,2765 @@ Cacheable: Yes
 
 ----------------------------------------------------------------------
 
+### Block 6: Context
+Purpose: Pipeline-injected context (e.g. lesson sections)
+Cacheable: Yes
+*[CACHED: {'type': 'ephemeral'}]*
+
+<lesson_sections>
+[
+  {
+    "id": "s1_1_quick_equation_build_setup_sign",
+    "type": "Type B — Activate Prior Skill",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_apples",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 4,
+          "item_type": "apples",
+          "container_type": "bags",
+          "description": "3 bags appear on screen, each containing 4 apples. Bags clearly separated, total 12 apples visible."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_apples",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": [
+            "__",
+            "×",
+            "__",
+            "=",
+            "__"
+          ],
+          "tile_palette": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            10,
+            12,
+            14
+          ],
+          "description": "Equation builder appears below the bags. Template shows three blank slots with multiplication and equals signs. Tile palette displays numbers 2, 3, 4, 5, 6, 7, 8, 10, 12, 14."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "You know how to do this. Build the equation shown by the picture."
+      },
+      {
+        "type": "prompt",
+        "text": "Build the equation.",
+        "tool": "place_tile",
+        "target": "equation_builder_apples",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "groups": 3,
+              "items": 4,
+              "total": 12
+            },
+            "description": "Student placed 3 × 4 = 12, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_apples",
+                "params": {
+                  "event": "confirm_equation",
+                  "status": "confirmed",
+                  "description": "Placed tiles lock into slots confirming 3 × 4 = 12."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "3 groups of 4. 3 times 4 equals 12. You've got equation building down."
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_apples",
+                "params": {
+                  "event": "highlight_equals_sign",
+                  "status": "confirmed",
+                  "description": "The equals sign in the equation subtly highlights, drawing attention to it."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "But now, let's look more closely at that equals sign."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_apples",
+            "description": "3 bags each containing 4 apples, total 12 apples visible.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 4,
+            "item_type": "apples",
+            "container_type": "bags"
+          },
+          {
+            "tangible_id": "equation_builder_apples",
+            "description": "Equation builder showing 3 × 4 = 12 with equals sign highlighted. Tile palette visible.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "3",
+              "×",
+              "4",
+              "=",
+              "12"
+            ],
+            "tile_palette": [
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              10,
+              12,
+              14
+            ]
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:02:26.621482+00:00"
+  },
+  {
+    "id": "s1_2_sign_teaching_reversed_orientation_worked",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_3x4_12",
+        "tangible_type": "equation",
+        "params": {
+          "expression": [
+            "3",
+            "x",
+            "4",
+            "=",
+            "12"
+          ],
+          "description": "Static equation appears: 3 × 4 = 12."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "See this sign right here? The equals sign. Here's something important about it."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equation_3x4_12",
+            "description": "Static equation: 3 × 4 = 12.",
+            "tangible_type": "equation",
+            "expression": [
+              "3",
+              "x",
+              "4",
+              "=",
+              "12"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equation_3x4_12",
+        "params": {
+          "event": "highlight_equals_sign",
+          "status": "confirmed",
+          "description": "Equals sign glows and pulses."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "It means SAME VALUE AS. 3 times 4 has the same value as 12. Not the answer is. Equals means same value."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equation_3x4_12",
+            "description": "Equation: 3 × 4 = 12. Equals sign highlighted.",
+            "tangible_type": "equation",
+            "expression": [
+              "3",
+              "x",
+              "4",
+              "=",
+              "12"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "And since both sides have the same value, we can flip them around."
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equation_3x4_12",
+        "params": {
+          "event": "rearrange_to_reversed",
+          "status": "confirmed",
+          "description": "Equation rearranges to 12 = 3 × 4. Original fades, reversed stays."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "12 equals 3 times 4. Same equation. Same value on both sides. Just written differently."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equation_3x4_12",
+            "description": "Equation now shows: 12 = 3 × 4.",
+            "tangible_type": "equation",
+            "expression": [
+              "12",
+              "=",
+              "3",
+              "x",
+              "4"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_12_3x4",
+        "tangible_type": "equation",
+        "params": {
+          "expression": [
+            "12",
+            "=",
+            "3",
+            "x",
+            "4"
+          ],
+          "description": "Reversed equation appears: 12 = 3 × 4."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "equation_3x4_12",
+        "params": {
+          "expression": [
+            "3",
+            "x",
+            "4",
+            "=",
+            "12"
+          ],
+          "description": "Original equation reappears: 3 × 4 = 12. Both equations now visible side by side."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Both of these are correct. The equals sign works both ways, because it means same value as."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equation_3x4_12",
+            "description": "Equation: 3 × 4 = 12.",
+            "tangible_type": "equation",
+            "expression": [
+              "3",
+              "x",
+              "4",
+              "=",
+              "12"
+            ]
+          },
+          {
+            "tangible_id": "equation_12_3x4",
+            "description": "Equation: 12 = 3 × 4. Both equations visible side by side.",
+            "tangible_type": "equation",
+            "expression": [
+              "12",
+              "=",
+              "3",
+              "x",
+              "4"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "equation_3x4_12"
+      },
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "equation_12_3x4"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_boxes_crayons",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 6,
+          "items_per_container": 7,
+          "item_type": "crayons",
+          "container_type": "boxes",
+          "description": "Equal groups visual appears: 6 boxes, 7 crayons in each."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_boxes",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": [
+            "__",
+            "x",
+            "__",
+            "=",
+            "__"
+          ],
+          "palette": [
+            5,
+            6,
+            7,
+            8,
+            13,
+            36,
+            40,
+            42,
+            48,
+            49
+          ],
+          "description": "Equation builder appears with template: blank × blank = blank. Tile palette: 5, 6, 7, 8, 13, 36, 40, 42, 48, 49."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Your turn. Build the equation for these boxes."
+      },
+      {
+        "type": "prompt",
+        "text": "Build the equation for these boxes.",
+        "tool": "place_tile",
+        "target": "equation_builder_boxes",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "placed": {
+                "groups": 6,
+                "items": 7,
+                "total": 42
+              }
+            },
+            "description": "Student placed 6 × 7 = 42, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "6 times 7 equals 42. Six boxes, 7 in each, same value as 42."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_boxes_crayons",
+            "description": "Equal groups visual: 6 boxes, 7 crayons in each.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 6,
+            "items_per_container": 7
+          },
+          {
+            "tangible_id": "equation_builder_boxes",
+            "description": "Equation builder with template: blank × blank = blank. Tile palette active.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "__",
+              "x",
+              "__",
+              "=",
+              "__"
+            ],
+            "palette": [
+              5,
+              6,
+              7,
+              8,
+              13,
+              36,
+              40,
+              42,
+              48,
+              49
+            ]
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_reversed_6x7",
+        "tangible_type": "equation",
+        "params": {
+          "expression": [
+            "42",
+            "=",
+            "6",
+            "x",
+            "7"
+          ],
+          "description": "Reversed equation appears below: 42 = 6 × 7."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "And we can also write it this way. Same value, both sides."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_boxes_crayons",
+            "description": "Equal groups visual: 6 boxes, 7 crayons in each.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 6,
+            "items_per_container": 7
+          },
+          {
+            "tangible_id": "equation_builder_boxes",
+            "description": "Equation builder showing placed equation: 6 × 7 = 42.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "6",
+              "x",
+              "7",
+              "=",
+              "42"
+            ],
+            "palette": [
+              5,
+              6,
+              7,
+              8,
+              13,
+              36,
+              40,
+              42,
+              48,
+              49
+            ]
+          },
+          {
+            "tangible_id": "equation_reversed_6x7",
+            "description": "Reversed equation: 42 = 6 × 7.",
+            "tangible_type": "equation",
+            "expression": [
+              "42",
+              "=",
+              "6",
+              "x",
+              "7"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "equal_groups_boxes_crayons"
+      },
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "equation_builder_boxes"
+      },
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "equation_reversed_6x7"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_bags_stars",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 9,
+          "item_type": "stars",
+          "container_type": "bags",
+          "description": "Equal groups visual appears: 5 bags, 9 stars in each."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_bags",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": [
+            "__",
+            "x",
+            "__",
+            "=",
+            "__"
+          ],
+          "palette": [
+            3,
+            5,
+            9,
+            14,
+            36,
+            40,
+            45,
+            50,
+            54,
+            63
+          ],
+          "description": "Equation builder appears with template: blank × blank = blank. Tile palette: 3, 5, 9, 14, 36, 40, 45, 50, 54, 63."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Same idea. Count the bags, count what's inside, figure out the product. Build the equation."
+      },
+      {
+        "type": "prompt",
+        "text": "Build the equation: blank × blank = blank",
+        "tool": "place_tile",
+        "target": "equation_builder_bags",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "placed": {
+                "groups": 5,
+                "items": 9,
+                "total": 45
+              }
+            },
+            "description": "Student placed 5 × 9 = 45, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "5 times 9 equals 45. Five bags, 9 in each, same value as 45."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_bags_stars",
+            "description": "Equal groups visual: 5 bags, 9 stars in each.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 5,
+            "items_per_container": 9
+          },
+          {
+            "tangible_id": "equation_builder_bags",
+            "description": "Equation builder with template: blank × blank = blank. Tile palette active.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "__",
+              "x",
+              "__",
+              "=",
+              "__"
+            ],
+            "palette": [
+              3,
+              5,
+              9,
+              14,
+              36,
+              40,
+              45,
+              50,
+              54,
+              63
+            ]
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_reversed_5x9",
+        "tangible_type": "equation",
+        "params": {
+          "expression": [
+            "45",
+            "=",
+            "5",
+            "x",
+            "9"
+          ],
+          "description": "Reversed equation appears: 45 = 5 × 9."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Both ways work."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_bags_stars",
+            "description": "Equal groups visual: 5 bags, 9 stars in each.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 5,
+            "items_per_container": 9
+          },
+          {
+            "tangible_id": "equation_builder_bags",
+            "description": "Equation builder showing placed equation: 5 × 9 = 45.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "5",
+              "x",
+              "9",
+              "=",
+              "45"
+            ],
+            "palette": [
+              3,
+              5,
+              9,
+              14,
+              36,
+              40,
+              45,
+              50,
+              54,
+              63
+            ]
+          },
+          {
+            "tangible_id": "equation_reversed_5x9",
+            "description": "Reversed equation: 45 = 5 × 9.",
+            "tangible_type": "equation",
+            "expression": [
+              "45",
+              "=",
+              "5",
+              "x",
+              "9"
+            ]
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:03:04.712044+00:00"
+  },
+  {
+    "id": "s1_3_guided_practice_reversed_form",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_cookies",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 8,
+          "item_type": "cookies",
+          "description": "Equal groups appear. 3 boxes, 8 cookies in each box."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_reversed",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": [
+            "__",
+            "=",
+            "__",
+            "×",
+            "__"
+          ],
+          "tile_palette": [
+            3,
+            4,
+            6,
+            7,
+            8,
+            11,
+            16,
+            20,
+            21,
+            24
+          ],
+          "description": "Equation builder appears with reversed template: product slot = groups slot × items slot. Tile palette shows 3, 4, 6, 7, 8, 11, 16, 20, 21, 24."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's something different. The template is flipped — product comes first this time. Remember, equals means same value as, so the product can go on either side. Build this equation with the product first."
+      },
+      {
+        "type": "prompt",
+        "text": "Build the equation: __ = __ × __",
+        "tool": "place_tile",
+        "target": "equation_builder_reversed",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "total": 24,
+              "groups": 3,
+              "items": 8
+            },
+            "description": "Student placed 24 = 3 × 8, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "24 equals 3 times 8. Product on the left, multiplication expression on the right. Same value on both sides."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_cookies",
+            "description": "Equal groups showing 3 boxes with 8 cookies in each box.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 8,
+            "item_type": "cookies"
+          },
+          {
+            "tangible_id": "equation_builder_reversed",
+            "description": "Equation builder with reversed template: __ = __ × __. Tile palette active with place_tile tool.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "__",
+              "=",
+              "__",
+              "×",
+              "__"
+            ],
+            "tile_palette": [
+              3,
+              4,
+              6,
+              7,
+              8,
+              11,
+              16,
+              20,
+              21,
+              24
+            ]
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:03:16.124722+00:00"
+  },
+  {
+    "id": "s1_4_independent_practice_standard_reversed",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_bags",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 6,
+          "container_type": "bags",
+          "item_type": "marbles",
+          "description": "Equal groups appear. 4 bags, 6 marbles in each bag."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": [
+            "__",
+            "×",
+            "__",
+            "=",
+            "__"
+          ],
+          "tile_palette": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            10,
+            16,
+            18,
+            24,
+            28
+          ],
+          "description": "Equation builder appears below. Template: blank × blank = blank. Tile palette: 3, 4, 5, 6, 7, 10, 16, 18, 24, 28."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "One more with bags. Build the equation."
+      },
+      {
+        "type": "prompt",
+        "text": "Build the equation that matches the picture.",
+        "tool": "place_tile",
+        "target": "equation_builder",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "placed": {
+                "groups": 4,
+                "items": 6,
+                "total": 24
+              }
+            },
+            "description": "Student placed 4 × 6 = 24, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "4 times 6 equals 24. Four bags, 6 in each, same value as 24."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_bags",
+            "description": "Equal groups. 4 bags, 6 marbles in each bag.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 6,
+            "container_type": "bags",
+            "item_type": "marbles"
+          },
+          {
+            "tangible_id": "equation_builder",
+            "description": "Equation builder with template blank × blank = blank. Student placing tiles.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "__",
+              "×",
+              "__",
+              "=",
+              "__"
+            ],
+            "tile_palette": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              10,
+              16,
+              18,
+              24,
+              28
+            ]
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "equation_builder",
+        "params": {
+          "template": [
+            "24",
+            "=",
+            "4",
+            "×",
+            "6"
+          ],
+          "description": "Equation builder updates to reversed template: 24 = 4 × 6."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "And we can write it this way too — same value."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_bags",
+            "description": "Equal groups. 4 bags, 6 marbles in each bag.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 6,
+            "container_type": "bags",
+            "item_type": "marbles"
+          },
+          {
+            "tangible_id": "equation_builder",
+            "description": "Equation builder showing reversed template: 24 = 4 × 6.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "24",
+              "=",
+              "4",
+              "×",
+              "6"
+            ]
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:03:29.712399+00:00"
+  },
+  {
+    "id": "s2_1_context_variety_announcement_worked_example",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_books",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 3,
+          "items_per_container": 9,
+          "visual_style": "books_on_shelves",
+          "description": "Equal groups visual appears. 3 horizontal rows of books on shelves. 9 books per row. Books arranged in clear horizontal rows."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_books",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": [
+            "__",
+            "×",
+            "__",
+            "=",
+            "__"
+          ],
+          "palette": [
+            3,
+            4,
+            8,
+            9,
+            10,
+            12,
+            24,
+            27,
+            30,
+            36
+          ],
+          "description": "Equation builder appears with blank multiplication equation template. Tile palette shows numbers 3, 4, 8, 9, 10, 12, 24, 27, 30, 36."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Equal groups don't just come in bags and boxes. They're everywhere. Rows of books. Stacks of plates. Groups of animals. The math works the same way."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_books",
+            "description": "Equal groups visual showing 3 rows of books on shelves. 9 books per row.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 9,
+            "visual_style": "books_on_shelves"
+          },
+          {
+            "tangible_id": "equation_builder_books",
+            "description": "Equation builder with blank multiplication template. Palette available.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "__",
+              "×",
+              "__",
+              "=",
+              "__"
+            ],
+            "palette": [
+              3,
+              4,
+              8,
+              9,
+              10,
+              12,
+              24,
+              27,
+              30,
+              36
+            ]
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "Look at these shelves. I see rows of books. Each row is a group, just like each bag was a group."
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_books",
+        "params": {
+          "event": "highlight_containers_sequential",
+          "status": "confirmed",
+          "description": "Rows highlight one at a time in sequence."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "1, 2, 3. Three rows. That's 3 groups. And in each row?"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_books",
+            "description": "3 rows of books. All rows highlighted after sequential animation.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 9,
+            "visual_style": "books_on_shelves"
+          },
+          {
+            "tangible_id": "equation_builder_books",
+            "description": "Equation builder with blank template.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "__",
+              "×",
+              "__",
+              "=",
+              "__"
+            ],
+            "palette": [
+              3,
+              4,
+              8,
+              9,
+              10,
+              12,
+              24,
+              27,
+              30,
+              36
+            ]
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_books",
+        "params": {
+          "event": "highlight_items_in_container",
+          "status": "confirmed",
+          "container_index": 0,
+          "description": "Items in first row highlight one at a time as guide counts."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "1, 2, 3, 4, 5, 6, 7, 8, 9. Nine books. So I've got 3 rows of 9. Same pattern: groups of items."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_books",
+            "description": "3 rows of books. First row's items highlighted.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 9,
+            "visual_style": "books_on_shelves"
+          },
+          {
+            "tangible_id": "equation_builder_books",
+            "description": "Equation builder with blank template.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "__",
+              "×",
+              "__",
+              "=",
+              "__"
+            ],
+            "palette": [
+              3,
+              4,
+              8,
+              9,
+              10,
+              12,
+              24,
+              27,
+              30,
+              36
+            ]
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "3 times 9. And the product? Skip count by 9s: 9, 18, 27."
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "equation_builder_books",
+        "params": {
+          "placed": {
+            "groups": 3,
+            "items": 9,
+            "total": 27
+          },
+          "description": "Guide demonstration: tiles place into equation. 3 × 9 = 27 appears."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "3 times 9 equals 27. Same equation building, different picture."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_books",
+            "description": "3 rows of books on shelves. First row highlighted.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 9,
+            "visual_style": "books_on_shelves"
+          },
+          {
+            "tangible_id": "equation_builder_books",
+            "description": "Equation builder showing completed equation: 3 × 9 = 27.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "__",
+              "×",
+              "__",
+              "=",
+              "__"
+            ],
+            "palette": [
+              3,
+              4,
+              8,
+              9,
+              10,
+              12,
+              24,
+              27,
+              30,
+              36
+            ],
+            "placed": {
+              "groups": 3,
+              "items": 9,
+              "total": 27
+            }
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "equation_builder_books",
+        "params": {
+          "template": [
+            "__",
+            "=",
+            "__",
+            "×",
+            "__"
+          ],
+          "placed": {
+            "total": 27,
+            "groups": 3,
+            "items": 9
+          },
+          "description": "Equation reverses to show commutative form: 27 = 3 × 9."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Both ways, same value."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_books",
+            "description": "3 rows of books on shelves.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 3,
+            "items_per_container": 9,
+            "visual_style": "books_on_shelves"
+          },
+          {
+            "tangible_id": "equation_builder_books",
+            "description": "Equation builder showing reversed form: 27 = 3 × 9.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "__",
+              "=",
+              "__",
+              "×",
+              "__"
+            ],
+            "palette": [
+              3,
+              4,
+              8,
+              9,
+              10,
+              12,
+              24,
+              27,
+              30,
+              36
+            ],
+            "placed": {
+              "total": 27,
+              "groups": 3,
+              "items": 9
+            }
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:03:54.405799+00:00"
+  },
+  {
+    "id": "s2_2_equal_vs_unequal_groups_identification",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "image_grid",
+        "tangible_type": "image",
+        "params": {
+          "description": "Four images displayed in a 2×2 grid, labeled A-D. A: 3 shelves with 6 jars on each shelf. B: 4 plates with different numbers of cookies: 5, 6, 5, 2. C: 2 equal stacks of 9 books. D: 3 groups of animals: 7 ducks, 4 ducks, 7 ducks. Each picture has 18 items total."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Equal groups are everywhere — but not EVERY group of things is an equal group. Look at these four pictures. Each picture has 18 items in total. Which ones show equal groups — the same number in every group?"
+      },
+      {
+        "type": "prompt",
+        "text": "Select ALL the pictures that show equal groups.",
+        "tool": "multi_select",
+        "options": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "selected": "A"
+                },
+                {
+                  "selected": "C"
+                }
+              ]
+            },
+            "description": "Student selected A and C, both correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "A has 3 shelves with 6 on each — equal groups. C has 2 stacks of 9 — equal groups. We can write multiplication equations for these. B and D? The groups aren't equal — different amounts in different groups. We can't write a multiplication equation for those."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "image_grid",
+            "description": "Four images displayed in a 2×2 grid, labeled A-D. A: 3 shelves with 6 jars on each shelf. B: 4 plates with different numbers of cookies: 5, 6, 5, 2. C: 2 equal stacks of 9 books. D: 3 groups of animals: 7 ducks, 4 ducks, 7 ducks.",
+            "tangible_type": "image"
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:04:03.227966+00:00"
+  },
+  {
+    "id": "s2_3_product_unknown_standard_form",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_plates",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 8,
+          "items_per_container": 4,
+          "item_type": "plates",
+          "container_style": "stacks",
+          "description": "8 stacks of 4 plates appear. Plates clearly stacked."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_product",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": "standard_form",
+          "expression": [
+            "8",
+            "×",
+            "4",
+            "=",
+            "__"
+          ],
+          "palette": [
+            28,
+            30,
+            32,
+            36
+          ],
+          "description": "Equation Builder appears with pre-filled equation: 8 × 4 = ☐. The ☐ is visible in the product slot. Palette shows answer tiles: 28, 30, 32, 36."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "8 stacks of 4 plates. These are equal groups so we can write a multiplication equation to represent the picture. The expression part is done — 8 times 4. But see that box where the product goes? That's the unknown — the number we need to figure out. Find the total and place it."
+      },
+      {
+        "type": "prompt",
+        "text": "8 × 4 = ☐. Find the product. Place the number.",
+        "tool": "place_tile",
+        "target": "equation_builder_product",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "total": 32
+            },
+            "description": "Student placed 32 in the product slot",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_product",
+                "params": {
+                  "event": "tile_locks_in_slot",
+                  "status": "confirmed",
+                  "description": "32 tile locks into the product slot, completing the equation."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "8 times 4 equals 32. You found the unknown — 32 is the product. 8 stacks, 4 in each, same value as 32."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_plates",
+            "description": "8 stacks of 4 plates. Equal groups representation with plates clearly stacked.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 8,
+            "items_per_container": 4
+          },
+          {
+            "tangible_id": "equation_builder_product",
+            "description": "Equation Builder showing completed equation: 8 × 4 = 32. Product slot filled.",
+            "tangible_type": "equation_builder",
+            "template": "standard_form"
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:04:15.887902+00:00"
+  },
+  {
+    "id": "s2_4_product_unknown_reversed_form",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_sheep",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 7,
+          "item_type": "sheep",
+          "container_style": "spatial_cluster",
+          "description": "Equal groups visual appears. 5 clusters of 7 sheep in a field. Sheep grouped by natural spatial proximity with clear gaps between clusters. No circles or containers."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_reversed",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": "reversed_product",
+          "prefilled_slots": {
+            "groups": 5,
+            "items": 7
+          },
+          "description": "Equation builder appears with reversed template. Pre-filled: ☐ = 5 × 7. Palette shows tiles: 12, 30, 35, 42."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Look at this field. See the sheep? They're grouped together equally — 5 groups, 7 in each. The equation is flipped — unknown first this time. But equals still means same value as. Figure out the product and place it."
+      },
+      {
+        "type": "prompt",
+        "text": "☐ = 5 × 7. What is the product?",
+        "tool": "place_tile",
+        "target": "equation_builder_reversed",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "product": 35
+            },
+            "description": "Student placed 35, correct product",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_reversed",
+                "params": {
+                  "event": "tile_placed",
+                  "status": "confirmed",
+                  "description": "35 tile slides into the unknown slot, equation completes: 35 = 5 × 7."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "35 equals 5 times 7. The unknown was 35 — same value on both sides."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_sheep",
+            "description": "Equal groups visual showing 5 clusters of 7 sheep in a field. Natural spatial clustering with clear gaps.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 5,
+            "items_per_container": 7,
+            "item_type": "sheep",
+            "container_style": "spatial_cluster"
+          },
+          {
+            "tangible_id": "equation_builder_reversed",
+            "description": "Equation builder with reversed template. Completed equation: 35 = 5 × 7.",
+            "tangible_type": "equation_builder",
+            "template": "reversed_product"
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:04:27.639844+00:00"
+  },
+  {
+    "id": "s2_5_independent_new_context_product_unknown",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_shelves",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 2,
+          "items_per_container": 8,
+          "visual_context": "shelves_with_jars",
+          "description": "Equal groups visual appears: 2 shelves with 8 jars each."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_shelves",
+        "tangible_type": "equation_builder",
+        "params": {
+          "expression": [
+            "2",
+            "×",
+            "8",
+            "=",
+            "__"
+          ],
+          "palette": [
+            10,
+            14,
+            16,
+            18
+          ],
+          "description": "Equation builder appears with pre-filled equation: 2 × 8 = ☐. Palette shows tiles: 10, 14, 16, 18."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "New context, same pattern of equal groups. 2 shelves of 8 jars. Find the unknown — the product."
+      },
+      {
+        "type": "prompt",
+        "text": "2 × 8 = ☐. Find the product.",
+        "tool": "place_tile",
+        "target": "equation_builder_shelves",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "total": 16
+            },
+            "description": "Student placed 16 in the product slot, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "2 times 8 equals 16. Two shelves, 8 in each, 16 total."
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_builder_shelves",
+                "params": {
+                  "expression": [
+                    "16",
+                    "=",
+                    "2",
+                    "×",
+                    "8"
+                  ],
+                  "description": "Equation builder updates to show reversed version: 16 = 2 × 8."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Same value — both ways."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_shelves",
+            "description": "Equal groups visual showing 2 shelves with 8 jars each.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 2,
+            "items_per_container": 8
+          },
+          {
+            "tangible_id": "equation_builder_shelves",
+            "description": "Equation builder showing 2 × 8 = ☐ with palette tiles 10, 14, 16, 18. Place_tile tool active.",
+            "tangible_type": "equation_builder",
+            "expression": [
+              "2",
+              "×",
+              "8",
+              "=",
+              "__"
+            ],
+            "palette": [
+              10,
+              14,
+              16,
+              18
+            ]
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:04:39.506925+00:00"
+  },
+  {
+    "id": "s3_1_first_factor_unknown_skip_counting",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_birds",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 4,
+          "items_per_container": 5,
+          "item_type": "birds",
+          "containers_visible": false,
+          "total_label": "20 birds total",
+          "description": "4 clusters of 5 birds each, all clusters faded. Total shown: 20 birds total."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_groups",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": [
+            "__",
+            "×",
+            "5",
+            "=",
+            "20"
+          ],
+          "description": "Equation Builder with pre-filled template: blank × 5 = 20. Language prompt above: blank groups of 5 equals 20 total."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's the new unknown. I know there are 5 birds in each group. And I know the total is 20 birds. But I don't know how many groups — that's the unknown."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_birds",
+            "tangible_type": "equal_groups",
+            "description": "4 clusters of 5 birds each, all clusters faded. Total label: 20 birds total.",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 5,
+            "item_type": "birds"
+          },
+          {
+            "tangible_id": "equation_builder_groups",
+            "tangible_type": "equation_builder",
+            "description": "Equation Builder: blank × 5 = 20. Language prompt: blank groups of 5 equals 20 total.",
+            "template": [
+              "__",
+              "×",
+              "5",
+              "=",
+              "20"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "Let me read the sentence: HOW MANY groups of 5 equals 20 total? I need to figure out how many groups of 5 make 20."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_birds",
+            "tangible_type": "equal_groups",
+            "description": "4 clusters of 5 birds each, all clusters faded. Total label: 20 birds total.",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 5,
+            "item_type": "birds"
+          },
+          {
+            "tangible_id": "equation_builder_groups",
+            "tangible_type": "equation_builder",
+            "description": "Equation Builder: blank × 5 = 20. Language prompt: blank groups of 5 equals 20 total.",
+            "template": [
+              "__",
+              "×",
+              "5",
+              "=",
+              "20"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "I can skip-count by 5s — I know how to do that. Watch: 5..."
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_birds",
+        "params": {
+          "event": "reveal_container",
+          "container_index": 0,
+          "status": "confirmed",
+          "description": "First cluster of 5 birds reveals and highlights. Running count: 5"
+        }
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_birds",
+            "tangible_type": "equal_groups",
+            "description": "First cluster of 5 birds visible and highlighted. Remaining 3 clusters faded. Running count: 5. Total label: 20 birds total.",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 5,
+            "item_type": "birds"
+          },
+          {
+            "tangible_id": "equation_builder_groups",
+            "tangible_type": "equation_builder",
+            "description": "Equation Builder: blank × 5 = 20.",
+            "template": [
+              "__",
+              "×",
+              "5",
+              "=",
+              "20"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "...10..."
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_birds",
+        "params": {
+          "event": "reveal_container",
+          "container_index": 1,
+          "status": "confirmed",
+          "description": "Second cluster of 5 birds reveals and highlights. Running count: 10"
+        }
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_birds",
+            "tangible_type": "equal_groups",
+            "description": "First two clusters of 5 birds visible, second cluster highlighted. Remaining 2 clusters faded. Running count: 10. Total label: 20 birds total.",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 5,
+            "item_type": "birds"
+          },
+          {
+            "tangible_id": "equation_builder_groups",
+            "tangible_type": "equation_builder",
+            "description": "Equation Builder: blank × 5 = 20.",
+            "template": [
+              "__",
+              "×",
+              "5",
+              "=",
+              "20"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "...15..."
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_birds",
+        "params": {
+          "event": "reveal_container",
+          "container_index": 2,
+          "status": "confirmed",
+          "description": "Third cluster of 5 birds reveals and highlights. Running count: 15"
+        }
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_birds",
+            "tangible_type": "equal_groups",
+            "description": "First three clusters of 5 birds visible, third cluster highlighted. Last cluster faded. Running count: 15. Total label: 20 birds total.",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 5,
+            "item_type": "birds"
+          },
+          {
+            "tangible_id": "equation_builder_groups",
+            "tangible_type": "equation_builder",
+            "description": "Equation Builder: blank × 5 = 20.",
+            "template": [
+              "__",
+              "×",
+              "5",
+              "=",
+              "20"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "...20. I'm at 20!"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equal_groups_birds",
+        "params": {
+          "event": "reveal_container",
+          "container_index": 3,
+          "status": "confirmed",
+          "description": "Fourth cluster of 5 birds reveals and highlights. Running count: 20"
+        }
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_birds",
+            "tangible_type": "equal_groups",
+            "description": "All 4 clusters of 5 birds visible, fourth cluster highlighted. Running count: 20. Total label: 20 birds total.",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 5,
+            "item_type": "birds"
+          },
+          {
+            "tangible_id": "equation_builder_groups",
+            "tangible_type": "equation_builder",
+            "description": "Equation Builder: blank × 5 = 20.",
+            "template": [
+              "__",
+              "×",
+              "5",
+              "=",
+              "20"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "I counted 4 times. That means 4 groups. 4 groups of 5 equals 20."
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "equation_builder_groups",
+        "params": {
+          "template": [
+            "4",
+            "×",
+            "5",
+            "=",
+            "20"
+          ],
+          "description": "Equation updates: 4 × 5 = 20. First blank now filled with 4."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "equal_groups_birds",
+        "params": {
+          "containers_visible": true,
+          "description": "All 4 clusters fully visible, no longer highlighted."
+        }
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_birds",
+            "tangible_type": "equal_groups",
+            "description": "All 4 clusters of 5 birds fully visible. Total label: 20 birds total.",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 5,
+            "item_type": "birds"
+          },
+          {
+            "tangible_id": "equation_builder_groups",
+            "tangible_type": "equation_builder",
+            "description": "Equation Builder: 4 × 5 = 20.",
+            "template": [
+              "4",
+              "×",
+              "5",
+              "=",
+              "20"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "The unknown was 4. I used skip-counting — something I already know — to figure out how many groups."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_birds",
+            "tangible_type": "equal_groups",
+            "description": "All 4 clusters of 5 birds fully visible. Total label: 20 birds total.",
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 5,
+            "item_type": "birds"
+          },
+          {
+            "tangible_id": "equation_builder_groups",
+            "tangible_type": "equation_builder",
+            "description": "Equation Builder: 4 × 5 = 20.",
+            "template": [
+              "4",
+              "×",
+              "5",
+              "=",
+              "20"
+            ]
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:05:06.798648+00:00"
+  },
+  {
+    "id": "s3_2_first_factor_unknown_student_constructs",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_cats",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "building",
+          "container_count": 0,
+          "items_per_container": 10,
+          "description": "Equal Groups with Pictures in Construction Mode appears. Construction area empty. Running total display: Total: 0 / 40."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_groups_of_10",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": [
+            "__",
+            "×",
+            "10",
+            "=",
+            "40"
+          ],
+          "description": "Equation Builder appears with pre-filled template: ☐ × 10 = 40. Language prompt: __ groups of 10 equals 40 total."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Now you try. Groups of 10. Total is 40. How many groups do you need? Build groups until you hit 40."
+      },
+      {
+        "type": "prompt",
+        "text": "☐ × 10 = 40. Build groups of 10 until the total reaches 40.",
+        "tool": "set_container_count",
+        "target": "equal_groups_cats",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "container_count": 4
+            },
+            "description": "Student built 4 groups of 10, total = 40",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_cats",
+                "params": {
+                  "event": "confirm_groups",
+                  "status": "confirmed",
+                  "description": "4 groups of 10 highlight to confirm total = 40."
+                }
+              }
+            ]
+          },
+          {
+            "condition_id": "overshoot",
+            "condition": {
+              "container_count": 5
+            },
+            "description": "Student built 5 groups of 10, total = 50, overshot",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's 50, too many. Remove a group and check again."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_cats",
+            "description": "Equal Groups with Pictures in Construction Mode. Student building groups of 10. Running total updates live. set_container_count tool active.",
+            "tangible_type": "equal_groups",
+            "mode": "building",
+            "container_count": 0,
+            "items_per_container": 10
+          },
+          {
+            "tangible_id": "equation_builder_groups_of_10",
+            "description": "Equation Builder with template: ☐ × 10 = 40.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "__",
+              "×",
+              "10",
+              "=",
+              "40"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "equal_groups_cats",
+        "params": {
+          "container_count": 4,
+          "description": "4 groups of 10 cats visible. Total = 40."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "equation_builder_groups_of_10",
+        "params": {
+          "template": [
+            "4",
+            "×",
+            "10",
+            "=",
+            "40"
+          ],
+          "description": "Equation completes: 4 × 10 = 40."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "4 groups of 10 equals 40. You skip counted, 10, 20, 30, 40, and it took 4 groups."
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equation_builder_groups_of_10",
+        "params": {
+          "event": "show_reversed_form",
+          "status": "confirmed",
+          "description": "Reversed form shown: 40 = 4 × 10."
+        }
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_cats",
+            "description": "4 groups of 10 cats visible. Total = 40.",
+            "tangible_type": "equal_groups",
+            "mode": "building",
+            "container_count": 4,
+            "items_per_container": 10
+          },
+          {
+            "tangible_id": "equation_builder_groups_of_10",
+            "description": "Equation: 4 × 10 = 40. Reversed form shown: 40 = 4 × 10.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "4",
+              "×",
+              "10",
+              "=",
+              "40"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "equal_groups_cats"
+      },
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "equation_builder_groups_of_10"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_cats_2",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "building",
+          "container_count": 2,
+          "items_per_container": 0,
+          "description": "Equal Groups with Pictures in Construction Mode appears. 2 empty groups displayed, group count locked at 2. Items inside covered. Running total: Total: 0 / 10."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_2_groups",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": [
+            "2",
+            "×",
+            "__",
+            "=",
+            "10"
+          ],
+          "description": "Equation Builder with pre-filled template: 2 × ☐ = 10. Language prompt: 2 groups of __ equals 10 total."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's the equation. 2 groups of how many cats equals 10. We need to build the groups. Let's add equal items to the 2 groups until you reach 10. Add 5 to each group so the total reaches 10."
+      },
+      {
+        "type": "prompt",
+        "text": "2 × ☐ = 10. Add 5 cats to each of the 2 groups to make 10 total.",
+        "tool": "set_items_per_container",
+        "target": "equal_groups_cats_2",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "items_per_container": 5
+            },
+            "description": "Student set 5 items per container, 2 equal groups of 5, total = 10",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_cats_2",
+                "params": {
+                  "event": "confirm_groups",
+                  "status": "confirmed",
+                  "description": "2 groups of 5 cats highlight to confirm total = 10."
+                }
+              }
+            ]
+          },
+          {
+            "condition_id": "total_correct_unequal",
+            "condition": {
+              "total": 10
+            },
+            "description": "Student hit 10 total but groups unequal",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You hit 10. But check, are the groups equal? Multiplication needs equal groups. Adjust so each group has the same number."
+              }
+            ]
+          },
+          {
+            "condition_id": "equal_wrong_total",
+            "condition": {},
+            "description": "Groups equal but total not 10",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Equal groups, great! But the total isn't 10. Add more to each group or remove some and watch the total."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_cats_2",
+            "description": "Equal Groups with Pictures in Construction Mode. 2 empty groups, group count locked at 2. set_items_per_container tool active. Running total updates live.",
+            "tangible_type": "equal_groups",
+            "mode": "building",
+            "container_count": 2,
+            "items_per_container": 0
+          },
+          {
+            "tangible_id": "equation_builder_2_groups",
+            "description": "Equation Builder with template: 2 × ☐ = 10.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "2",
+              "×",
+              "__",
+              "=",
+              "10"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "equal_groups_cats_2",
+        "params": {
+          "items_per_container": 5,
+          "description": "5 cats appear in each of the 2 groups. Total = 10."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "equation_builder_2_groups",
+        "params": {
+          "template": [
+            "2",
+            "×",
+            "5",
+            "=",
+            "10"
+          ],
+          "description": "Equation completes: 2 × 5 = 10."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "2 times 5 equals 10. You started with the equation and BUILT the answer. Now we can skip count by 5s two times: 5, 10. That's the total of 10. Each side of the equation has the same value."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_cats_2",
+            "description": "2 groups of 5 cats visible. Total = 10.",
+            "tangible_type": "equal_groups",
+            "mode": "building",
+            "container_count": 2,
+            "items_per_container": 5
+          },
+          {
+            "tangible_id": "equation_builder_2_groups",
+            "description": "Equation: 2 × 5 = 10.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "2",
+              "×",
+              "5",
+              "=",
+              "10"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "equal_groups_cats_2"
+      },
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "equation_builder_2_groups"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_cats_3",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "building",
+          "container_count": 2,
+          "items_per_container": 0,
+          "description": "Equal Groups with Pictures in Construction Mode appears. 2 empty groups displayed, group count locked at 2. Running total: Total: 0 / 14."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_2_groups_14",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": [
+            "2",
+            "×",
+            "__",
+            "=",
+            "14"
+          ],
+          "description": "Equation Builder with pre-filled template: 2 × ☐ = 14."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Your turn with a different one. 2 groups, 14 total. 2 times what equals 14?"
+      },
+      {
+        "type": "prompt",
+        "text": "2 × ☐ = 14. How many in each group?",
+        "tool": "set_items_per_container",
+        "target": "equal_groups_cats_3",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "items_per_container": 7
+            },
+            "description": "Student set 7 items per container, 2 equal groups of 7, total = 14",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_cats_3",
+                "params": {
+                  "event": "confirm_groups",
+                  "status": "confirmed",
+                  "description": "2 groups of 7 cats highlight to confirm total = 14."
+                }
+              }
+            ]
+          },
+          {
+            "condition_id": "total_correct_unequal",
+            "condition": {
+              "total": 14
+            },
+            "description": "Student hit 14 total but groups unequal",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You hit 14. But check, are the groups equal? Multiplication needs equal groups. Adjust so each group has the same number."
+              }
+            ]
+          },
+          {
+            "condition_id": "equal_wrong_total",
+            "condition": {},
+            "description": "Groups equal but total not 14",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Equal groups, great! But the total isn't 14. Add more to each group or remove some and watch the total."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_cats_3",
+            "description": "Equal Groups with Pictures in Construction Mode. 2 empty groups, group count locked at 2. set_items_per_container tool active. Running total updates live.",
+            "tangible_type": "equal_groups",
+            "mode": "building",
+            "container_count": 2,
+            "items_per_container": 0
+          },
+          {
+            "tangible_id": "equation_builder_2_groups_14",
+            "description": "Equation Builder with template: 2 × ☐ = 14.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "2",
+              "×",
+              "__",
+              "=",
+              "14"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "equal_groups_cats_3",
+        "params": {
+          "items_per_container": 7,
+          "description": "7 cats appear in each of the 2 groups. Total = 14."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "equation_builder_2_groups_14",
+        "params": {
+          "template": [
+            "2",
+            "×",
+            "7",
+            "=",
+            "14"
+          ],
+          "description": "Equation completes: 2 × 7 = 14."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "2 times 7 equals 14. 2 groups of 7 is 14. You built the answer."
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "equation_builder_2_groups_14",
+        "params": {
+          "event": "show_reversed_form",
+          "status": "confirmed",
+          "description": "Reversed form shown: 14 = 2 × 7."
+        }
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_cats_3",
+            "description": "2 groups of 7 cats visible. Total = 14.",
+            "tangible_type": "equal_groups",
+            "mode": "building",
+            "container_count": 2,
+            "items_per_container": 7
+          },
+          {
+            "tangible_id": "equation_builder_2_groups_14",
+            "description": "Equation: 2 × 7 = 14. Reversed form shown: 14 = 2 × 7.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "2",
+              "×",
+              "7",
+              "=",
+              "14"
+            ]
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:05:53.968853+00:00"
+  },
+  {
+    "id": "s3_3_mixed_positions_expression_construction",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_unknown_second",
+        "tangible_type": "equation_builder",
+        "params": {
+          "mode": "reading",
+          "template": "equation_style",
+          "expression": [
+            "5",
+            "x",
+            "__",
+            "=",
+            "30"
+          ],
+          "description": "Equation Builder displays: 5 × ☐ = 30. Unknown second factor position."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_construction",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "building",
+          "container_count": 5,
+          "items_per_container": 0,
+          "locked_container_count": true,
+          "show_running_total": true,
+          "current_total": 0,
+          "description": "Equal Groups with Pictures in Construction Mode. 5 empty groups displayed. Group count locked at 5. Per-group +/- controls. Running total: Total: 0."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's the equation. 5 groups of something equals 30. Build the groups — add items until you hit 30. Keep them equal!"
+      },
+      {
+        "type": "prompt",
+        "text": "5 × ☐ = 30. Build 5 equal groups that make 30 total.",
+        "tool": "set_items_per_container",
+        "target": "equal_groups_construction",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "items_per_container": 6
+            },
+            "description": "Student built 5 equal groups of 6, total = 30",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_construction",
+                "params": {
+                  "event": "confirm_completion",
+                  "status": "confirmed",
+                  "description": "Equal groups construction completes. 5 groups of 6 items each confirmed."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_builder_unknown_second",
+                "params": {
+                  "expression": [
+                    "5",
+                    "x",
+                    "6",
+                    "=",
+                    "30"
+                  ],
+                  "description": "Equation Builder updates: 5 × 6 = 30. Second factor filled."
+                }
+              }
+            ]
+          },
+          {
+            "condition_id": "total_30_unequal",
+            "condition": {
+              "current_total": 30
+            },
+            "description": "Total reached 30 but groups are unequal",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You hit 30! But check — are the groups equal? Multiplication needs equal groups. Adjust so each group has the same number."
+              }
+            ]
+          },
+          {
+            "condition_id": "equal_wrong_total",
+            "condition": {},
+            "description": "Groups are equal but total is not 30",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Equal groups — great! But the total isn't 30 yet. Add more to each group (or remove some) and watch the total."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equation_builder_unknown_second",
+            "description": "Equation Builder displays: 5 × ☐ = 30. Unknown second factor position.",
+            "tangible_type": "equation_builder",
+            "mode": "reading",
+            "template": "equation_style",
+            "expression": [
+              "5",
+              "x",
+              "__",
+              "=",
+              "30"
+            ]
+          },
+          {
+            "tangible_id": "equal_groups_construction",
+            "description": "Equal Groups Construction Mode. 5 empty groups. Group count locked at 5. Per-group +/- controls active. Running total: Total: 0.",
+            "tangible_type": "equal_groups",
+            "mode": "building",
+            "container_count": 5,
+            "items_per_container": 0,
+            "locked_container_count": true,
+            "show_running_total": true,
+            "current_total": 0
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "equation_builder_unknown_second",
+        "params": {
+          "expression": [
+            "30",
+            "=",
+            "5",
+            "x",
+            "6"
+          ],
+          "description": "Equation Builder updates to reversed form: 30 = 5 × 6."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "5 times 6 equals 30. You started with the equation and BUILT the answer. That's exactly what equations are for — they tell you how the numbers connect."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equation_builder_unknown_second",
+            "description": "Equation Builder displays reversed form: 30 = 5 × 6.",
+            "tangible_type": "equation_builder",
+            "mode": "reading",
+            "template": "equation_style",
+            "expression": [
+              "30",
+              "=",
+              "5",
+              "x",
+              "6"
+            ]
+          },
+          {
+            "tangible_id": "equal_groups_construction",
+            "description": "Equal Groups Construction Mode showing completed solution: 5 groups of 6 items each. Running total: Total: 30.",
+            "tangible_type": "equal_groups",
+            "mode": "building",
+            "container_count": 5,
+            "items_per_container": 6,
+            "locked_container_count": true,
+            "show_running_total": true,
+            "current_total": 30
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-20T17:06:12.958861+00:00"
+  },
+  {
+    "id": "s3_4_bridge_exit_check",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You built equations with bags, rows, stacks, and groups. You found unknown numbers in different positions. Let's see what you know."
+      },
+      {
+        "type": "current_scene",
+        "elements": []
+      }
+    ],
+    "_generated_at": "2026-04-20T17:06:15.731165+00:00"
+  }
+]
+</lesson_sections>
+
+----------------------------------------------------------------------
+
 ## User Message
 
 <input>
@@ -1861,8 +4624,8 @@ Cacheable: Yes
         "container_count": 3,
         "items_per_container": 6,
         "item_type": "pencils",
-        "arrangement": "horizontal_rows",
-        "description": "Equal groups visual appears. 3 rows of 6 pencils on a desk. Pencils arranged in clear horizontal rows."
+        "arrangement": "rows",
+        "description": "Equal groups visual appears. 3 horizontal rows of 6 pencils on a desk. Pencils arranged in clear horizontal rows."
       },
       "id": "s1_1_build_complete_equation_variety_visual_b0"
     },
@@ -1874,12 +4637,12 @@ Cacheable: Yes
       "params": {
         "template": [
           "__",
-          "x",
+          "×",
           "__",
           "=",
           "__"
         ],
-        "palette": [
+        "tile_palette": [
           2,
           3,
           4,
@@ -1891,7 +4654,7 @@ Cacheable: Yes
           18,
           20
         ],
-        "description": "Equation Builder appears below. Template shows three blank slots with multiplication and equals symbols. Tile palette displays: 2, 3, 4, 5, 6, 9, 12, 15, 18, 20."
+        "description": "Equation Builder appears below the visual. Template shows three blanks with multiplication and equals symbols. Tile palette displays numbers 2, 3, 4, 5, 6, 9, 12, 15, 18, 20."
       },
       "id": "s1_1_build_complete_equation_variety_visual_b1"
     },
@@ -1909,28 +4672,19 @@ Cacheable: Yes
         {
           "condition_id": "correct",
           "condition": {
-            "groups": 3,
-            "items": 6,
-            "total": 18
+            "placed": {
+              "groups": 3,
+              "items": 6,
+              "total": 18
+            }
           },
           "description": "Student placed 3 × 6 = 18, correct",
           "is_correct": true,
           "beats": [
             {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "equation_builder_pencils",
-              "params": {
-                "event": "confirm_equation",
-                "status": "confirmed",
-                "description": "Equation 3 × 6 = 18 confirms."
-              },
-              "id": "s1_1_build_complete_equation_variety_visual_b3_v0_b0"
-            },
-            {
               "type": "dialogue",
               "text": "That's it. 3 times 6 equals 18.",
-              "id": "s1_1_build_complete_equation_variety_visual_b3_v0_b1"
+              "id": "s1_1_build_complete_equation_variety_visual_b3_v0_b0"
             }
           ]
         }
@@ -1942,26 +4696,26 @@ Cacheable: Yes
       "elements": [
         {
           "tangible_id": "equal_groups_pencils",
-          "description": "Equal groups visual. 3 rows of 6 pencils on a desk.",
+          "description": "Equal groups visual showing 3 horizontal rows of 6 pencils on a desk.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 3,
           "items_per_container": 6,
           "item_type": "pencils",
-          "arrangement": "horizontal_rows"
+          "arrangement": "rows"
         },
         {
           "tangible_id": "equation_builder_pencils",
-          "description": "Equation Builder showing confirmed equation 3 × 6 = 18.",
+          "description": "Equation Builder with template and tile palette. Student may place tiles into the three blanks.",
           "tangible_type": "equation_builder",
           "template": [
             "__",
-            "x",
+            "×",
             "__",
             "=",
             "__"
           ],
-          "palette": [
+          "tile_palette": [
             2,
             3,
             4,
@@ -1978,7 +4732,7 @@ Cacheable: Yes
       "id": "s1_1_build_complete_equation_variety_visual_b4"
     }
   ],
-  "_generated_at": "2026-04-20T17:00:52.409741+00:00"
+  "_generated_at": "2026-04-27T15:53:34.101576+00:00"
 }
 </input>
 

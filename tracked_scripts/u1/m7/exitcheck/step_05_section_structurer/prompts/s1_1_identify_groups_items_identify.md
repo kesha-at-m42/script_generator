@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T11:59:39.447028
+# Generated: 2026-04-27T10:52:58.253407
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -815,12 +831,12 @@ Cacheable: Yes
   "prompt": "\"How many groups? How many in each group?\"",
   "student_action": "Identify groups and items (independently or with light support).",
   "correct_answer": "3 groups, 5 in each.",
-  "answer_rationale": "5 = Correct (5 markers in each box)\n\t- 3 = Error: Said number of groups instead of items per group (#10 confusion)\n\t- 8 = Error: Added groups + items\n\t- 15 = Error: Said total items instead of items per group",
+  "answer_rationale": "5 = Correct (5 markers in each box)\n3 = Error: Said number of groups instead of items per group (#10 confusion)\n8 = Error: Added groups + items\n15 = Error: Said total items instead of items per group",
   "on_correct": "\"5 markers in each box. 3 groups of 5.\"",
   "on_incorrect": "\"Look inside ONE box. Count the markers.\"",
   "remediation": "Pipeline",
   "alignment": "Tests same skill as Lesson 1.2 and 1.5 (identify groups and items per group from concrete visual using two-step routine). Uses boxes (Lesson context) with a new item (markers) and value combination.",
-  "_generated_at": "2026-04-20T16:59:17.151619+00:00",
+  "_generated_at": "2026-04-27T15:52:34.354062+00:00",
   "workspace_specs": {
     "toys": [
       "equal_groups"

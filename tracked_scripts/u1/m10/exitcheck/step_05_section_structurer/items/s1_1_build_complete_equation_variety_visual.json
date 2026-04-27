@@ -11,8 +11,8 @@
         "container_count": 3,
         "items_per_container": 6,
         "item_type": "pencils",
-        "arrangement": "horizontal_rows",
-        "description": "Equal groups visual appears. 3 rows of 6 pencils on a desk. Pencils arranged in clear horizontal rows."
+        "arrangement": "rows",
+        "description": "Equal groups visual appears. 3 horizontal rows of 6 pencils on a desk. Pencils arranged in clear horizontal rows."
       }
     },
     {
@@ -23,12 +23,12 @@
       "params": {
         "template": [
           "__",
-          "x",
+          "×",
           "__",
           "=",
           "__"
         ],
-        "palette": [
+        "tile_palette": [
           2,
           3,
           4,
@@ -40,7 +40,7 @@
           18,
           20
         ],
-        "description": "Equation Builder appears below. Template shows three blank slots with multiplication and equals symbols. Tile palette displays: 2, 3, 4, 5, 6, 9, 12, 15, 18, 20."
+        "description": "Equation Builder appears below the visual. Template shows three blanks with multiplication and equals symbols. Tile palette displays numbers 2, 3, 4, 5, 6, 9, 12, 15, 18, 20."
       }
     },
     {
@@ -56,23 +56,15 @@
         {
           "condition_id": "correct",
           "condition": {
-            "groups": 3,
-            "items": 6,
-            "total": 18
+            "placed": {
+              "groups": 3,
+              "items": 6,
+              "total": 18
+            }
           },
           "description": "Student placed 3 × 6 = 18, correct",
           "is_correct": true,
           "beats": [
-            {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "equation_builder_pencils",
-              "params": {
-                "event": "confirm_equation",
-                "status": "confirmed",
-                "description": "Equation 3 × 6 = 18 confirms."
-              }
-            },
             {
               "type": "dialogue",
               "text": "3 times 6 equals 18."
@@ -86,26 +78,26 @@
       "elements": [
         {
           "tangible_id": "equal_groups_pencils",
-          "description": "Equal groups visual. 3 rows of 6 pencils on a desk.",
+          "description": "Equal groups visual showing 3 horizontal rows of 6 pencils on a desk.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 3,
           "items_per_container": 6,
           "item_type": "pencils",
-          "arrangement": "horizontal_rows"
+          "arrangement": "rows"
         },
         {
           "tangible_id": "equation_builder_pencils",
-          "description": "Equation Builder showing confirmed equation 3 × 6 = 18.",
+          "description": "Equation Builder with template and tile palette. Student may place tiles into the three blanks.",
           "tangible_type": "equation_builder",
           "template": [
             "__",
-            "x",
+            "×",
             "__",
             "=",
             "__"
           ],
-          "palette": [
+          "tile_palette": [
             2,
             3,
             4,
@@ -121,5 +113,5 @@
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:00:52.409741+00:00"
+  "_generated_at": "2026-04-27T15:53:34.101576+00:00"
 }

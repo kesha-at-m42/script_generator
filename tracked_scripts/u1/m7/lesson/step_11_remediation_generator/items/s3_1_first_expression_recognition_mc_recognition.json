@@ -6,18 +6,17 @@
         "condition": {
           "selected": "2 × 3"
         },
-        "description": "Student selected 2 × 3: reversed the groups and items-per-group",
+        "description": "Student selected 2 × 3: reversed the groups and items per group",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
-              "method": "animate",
+              "method": "update",
               "tangible_id": "equal_groups_bags",
               "params": {
-                "event": "highlight_containers_sequentially",
-                "status": "proposed",
-                "description": "Bags highlight one by one to show the group count."
+                "highlight_containers": true,
+                "description": "The 3 bags highlight sequentially to emphasize the number of groups."
               }
             },
             {
@@ -31,7 +30,7 @@
         "condition": {
           "selected": "3 + 2"
         },
-        "description": "Student selected 3 + 2: chose addition instead of multiplication",
+        "description": "Student selected 3 + 2: used addition instead of multiplication",
         "is_correct": false,
         "steps": [
           [
@@ -40,12 +39,13 @@
               "method": "update",
               "tangible_id": "equal_groups_bags",
               "params": {
-                "description": "One bag opens to reveal its contents."
+                "highlight_containers": true,
+                "description": "Bags highlight to show the equal groups structure."
               }
             },
             {
               "type": "dialogue",
-              "text": "When you have groups with the same number in each, that's multiplication, not addition. Count the bags, then count inside one bag."
+              "text": "When you have equal groups, you multiply. The × symbol shows groups of the same size. How many groups? How many in each?"
             }
           ]
         ]
@@ -54,7 +54,7 @@
         "condition": {
           "selected": "2 + 3"
         },
-        "description": "Student selected 2 + 3: reversed values and chose addition",
+        "description": "Student selected 2 + 3: used addition and reversed the numbers",
         "is_correct": false,
         "steps": [
           [
@@ -63,12 +63,13 @@
               "method": "update",
               "tangible_id": "equal_groups_bags",
               "params": {
-                "description": "One bag opens to show 2 items inside."
+                "highlight_containers": true,
+                "description": "Bags highlight to show the equal groups structure."
               }
             },
             {
               "type": "dialogue",
-              "text": "You need multiplication here, not addition. Three bags with two items each means 3 groups of 2. What symbol shows groups?"
+              "text": "For equal groups, use multiplication. Count the bags. That's the first number. Count inside one bag. That's the second number."
             }
           ]
         ]
@@ -84,19 +85,19 @@
               "method": "animate",
               "tangible_id": "equal_groups_bags",
               "params": {
-                "event": "highlight_containers_sequentially",
+                "event": "count_containers",
                 "status": "confirmed",
-                "description": "Bags highlight one by one: 1, 2, 3. Then one bag opens to show 2 items inside."
+                "description": "Bags highlight sequentially as they are counted: 1, 2, 3."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. First I count the bags: 1, 2, 3. Three bags. Those are my groups. Then I look inside one bag: 2 items. That's how many in each group. So I have 3 groups of 2. When we write groups with the times symbol, groups come first: 3 × 2. The answer is 3 × 2 because we have 3 bags with 2 items in each."
+              "text": "Let me show you. First, I count the bags: 1, 2, 3. Three bags. That's the groups. Next, I look inside one bag: 1, 2. Two items in each. When I have 3 groups of 2, I write 3 × 2. The first number is the groups, the second is how many in each group."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:06:05.053101+00:00"
+  "_generated_at": "2026-04-27T16:01:01.377673+00:00"
 }

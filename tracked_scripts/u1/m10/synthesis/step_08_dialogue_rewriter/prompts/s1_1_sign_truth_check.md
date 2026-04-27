@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:02:23.590920
+# Generated: 2026-04-27T10:55:33.356583
 ======================================================================
 
 ## API Parameters
@@ -948,8 +948,12 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "3 times 5 is 15, not 20. The sides don't match. And notice — the other equations are all true. The total is on the right in A and on the left in B and D, but both sides have the same value either way. That's what the equals sign checks.",
+      "text": "3 times 5 is 15, not 20. The sides don't match.",
       "context": "on_correct"
+    },
+    {
+      "text": "And notice — the other equations are all true. The total is on the right in A and on the left in B and D, but both sides have the same value either way. That's what the equals sign checks.",
+      "context": "lesson"
     }
   ]
 }

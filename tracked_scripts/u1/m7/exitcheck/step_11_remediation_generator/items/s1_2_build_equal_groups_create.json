@@ -20,22 +20,22 @@
             }
           ]
         },
-        "description": "Student set container count to 3 (reversed the numbers) on first or second attempt",
+        "description": "Student set container count to 3, reversed the values (first or second attempt)",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "equal_groups_build",
+              "tangible_id": "equal_groups_builder",
               "params": {
-                "highlight_control": "container_count",
-                "description": "Container count control highlights."
+                "container_count": 3,
+                "description": "3 bags appear on screen, empty."
               }
             },
             {
               "type": "dialogue",
-              "text": "You set 3 bags. But we need 2 GROUPS. The first number tells you how many bags to make. What's the first number?"
+              "text": "You put in the 3. But 2 GROUPS means 2 bags. How many bags do you need?"
             }
           ]
         ]
@@ -53,13 +53,13 @@
             }
           ]
         },
-        "description": "Student set container count incorrectly on first attempt (not the reversed case)",
+        "description": "Student set container count to any value other than 2 or 3 on first attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "dialogue",
-              "text": "Check the prompt. How many groups?"
+              "text": "Look at the words. How many GROUPS?"
             }
           ]
         ]
@@ -77,22 +77,22 @@
             }
           ]
         },
-        "description": "Student set container count incorrectly on second attempt (not the reversed case)",
+        "description": "Student set container count to any value other than 2 or 3 on second attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "equal_groups_build",
+              "tangible_id": "equal_groups_builder",
               "params": {
-                "highlight_control": "container_count",
-                "description": "Container count control highlights."
+                "highlight_instruction": "2 groups",
+                "description": "The phrase '2 groups' highlights in the instruction."
               }
             },
             {
               "type": "dialogue",
-              "text": "The prompt says 2 groups of 3. The first number is the groups. That's how many bags. Set 2."
+              "text": "2 groups of 3. The first number tells you the groups. That's how many bags you make. Set it to 2."
             }
           ]
         ]
@@ -106,17 +106,17 @@
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equal_groups_build",
+              "tangible_id": "equal_groups_builder",
               "params": {
-                "event": "set_container_count",
+                "event": "set_containers_with_narration",
                 "status": "confirmed",
-                "container_count": 2,
-                "description": "System sets container count to 2. 2 empty bags appear."
+                "description": "System sets container count to 2. Two bags appear on screen, one at a time.",
+                "container_count": 2
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. When we say 2 groups of 3, the first number tells us how many groups. That's 2. So we need 2 bags. Each bag is one group."
+              "text": "Let me show you. 2 groups of 3. I start with the groups. That's the first number: 2. So I make 2 bags. The number of groups is how many containers you create."
             }
           ]
         ]
@@ -141,22 +141,22 @@
             }
           ]
         },
-        "description": "Student set items per container to 2 (reversed the numbers) on first or second attempt",
+        "description": "Student set items per container to 2, reversed the values (first or second attempt)",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "equal_groups_build",
+              "tangible_id": "equal_groups_builder",
               "params": {
-                "highlight_control": "items_per_container",
-                "description": "Items per container control highlights."
+                "items_per_container": 2,
+                "description": "2 items appear in each of the 2 bags."
               }
             },
             {
               "type": "dialogue",
-              "text": "You set 2 in each bag. But we already have 2 bags. The second number tells you how many go INSIDE. What's the second number?"
+              "text": "That's how many bags you have. Look inside ONE bag. How many items should be in each?"
             }
           ]
         ]
@@ -174,13 +174,13 @@
             }
           ]
         },
-        "description": "Student set items per container incorrectly on first attempt (not the reversed case)",
+        "description": "Student set items per container to any value other than 3 or 2 on first attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "dialogue",
-              "text": "Look at the prompt again. How many in each group?"
+              "text": "How many go IN EACH group?"
             }
           ]
         ]
@@ -198,22 +198,22 @@
             }
           ]
         },
-        "description": "Student set items per container incorrectly on second attempt (not the reversed case)",
+        "description": "Student set items per container to any value other than 3 or 2 on second attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "equal_groups_build",
+              "tangible_id": "equal_groups_builder",
               "params": {
-                "highlight_control": "items_per_container",
-                "description": "Items per container control highlights."
+                "highlight_instruction": "of 3",
+                "description": "The phrase 'of 3' highlights in the instruction."
               }
             },
             {
               "type": "dialogue",
-              "text": "The prompt says 2 groups of 3. The second number is how many in each bag. That's 3. Set 3."
+              "text": "2 groups OF 3. The second number tells you what goes inside each bag. Put 3 in each one."
             }
           ]
         ]
@@ -227,22 +227,22 @@
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equal_groups_build",
+              "tangible_id": "equal_groups_builder",
               "params": {
-                "event": "set_items_per_container",
+                "event": "fill_containers_with_narration",
                 "status": "confirmed",
-                "items_per_container": 3,
-                "description": "System sets items per container to 3. 3 items appear in each of the 2 bags."
+                "description": "System fills each bag with 3 items. Items appear one at a time in each bag until all bags contain 3.",
+                "items_per_container": 3
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. When we say 2 groups of 3, the second number tells us how many go in each group. That's 3. So each bag gets 3 items. Now we have 2 groups of 3."
+              "text": "Here's how it works. I already have my 2 bags. Now I look at the second number: 3. That tells me how many go inside EACH bag. So I put 3 items in this bag, and 3 items in this bag. The second number is what goes in each group."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:01:07.278634+00:00"
+  "_generated_at": "2026-04-27T15:54:45.160406+00:00"
 }

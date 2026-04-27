@@ -7,49 +7,58 @@
       "tangible_id": "equation_builder",
       "tangible_type": "equation_builder",
       "params": {
-        "mode": "display",
-        "expression": [
+        "mode": "reading",
+        "template": [
           "4",
           "×",
           "2"
         ],
-        "description": "Equation builder displays static expression 4 × 2 in expression mode."
+        "description": "Equation builder displays completed expression 4 × 2 in reading mode. No blanks to fill."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "visual_option_a",
+      "tangible_id": "visual_a",
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
+        "container_type": "bags",
+        "item_type": "items",
         "container_count": 4,
         "items_per_container": 2,
-        "description": "Visual option A: 4 bags with 2 items in each."
+        "layout": "grid",
+        "description": "Option A: 4 bags, each containing 2 items, arranged in grid layout."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "visual_option_b",
+      "tangible_id": "visual_b",
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
+        "container_type": "bags",
+        "item_type": "items",
         "container_count": 2,
         "items_per_container": 4,
-        "description": "Visual option B: 2 bags with 4 items in each (factor reversal)."
+        "layout": "grid",
+        "description": "Option B: 2 bags, each containing 4 items, arranged in grid layout."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "visual_option_c",
+      "tangible_id": "visual_c",
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
+        "container_type": "none",
+        "item_type": "items",
         "container_count": 1,
         "items_per_container": 6,
-        "description": "Visual option C: 6 items scattered without equal group structure (sum of factors)."
+        "layout": "scattered",
+        "description": "Option C: 6 items scattered with no grouping structure."
       }
     },
     {
@@ -71,13 +80,13 @@
           "condition": {
             "selected": "A"
           },
-          "description": "Student selected A: 4 bags of 2, correct match for 4 × 2",
+          "description": "Student selected option A, correct: 4 bags with 2 in each matches 4 × 2",
           "is_correct": true,
           "beats": [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "visual_option_a",
+              "tangible_id": "visual_a",
               "params": {
                 "event": "highlight_selection",
                 "status": "confirmed",
@@ -86,7 +95,7 @@
             },
             {
               "type": "dialogue",
-              "text": "That's right—4 groups with 2 in each."
+              "text": "That's right—4 groups with 2 in each. That's what 4 times 2 shows."
             }
           ]
         }
@@ -97,41 +106,44 @@
       "elements": [
         {
           "tangible_id": "equation_builder",
-          "description": "Equation builder displays static expression 4 × 2.",
+          "description": "Equation builder displays 4 × 2 in reading mode.",
           "tangible_type": "equation_builder",
-          "mode": "display",
-          "expression": [
+          "mode": "reading",
+          "template": [
             "4",
             "×",
             "2"
           ]
         },
         {
-          "tangible_id": "visual_option_a",
-          "description": "Visual option A: 4 bags with 2 items in each.",
+          "tangible_id": "visual_a",
+          "description": "Option A: 4 bags with 2 items each, grid layout.",
           "tangible_type": "equal_groups",
           "mode": "reading",
+          "container_type": "bags",
           "container_count": 4,
           "items_per_container": 2
         },
         {
-          "tangible_id": "visual_option_b",
-          "description": "Visual option B: 2 bags with 4 items in each.",
+          "tangible_id": "visual_b",
+          "description": "Option B: 2 bags with 4 items each, grid layout.",
           "tangible_type": "equal_groups",
           "mode": "reading",
+          "container_type": "bags",
           "container_count": 2,
           "items_per_container": 4
         },
         {
-          "tangible_id": "visual_option_c",
-          "description": "Visual option C: 6 items scattered without equal group structure.",
+          "tangible_id": "visual_c",
+          "description": "Option C: 6 items scattered, no grouping.",
           "tangible_type": "equal_groups",
           "mode": "reading",
+          "container_type": "none",
           "container_count": 1,
           "items_per_container": 6
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:00:21.389451+00:00"
+  "_generated_at": "2026-04-27T15:53:37.050064+00:00"
 }

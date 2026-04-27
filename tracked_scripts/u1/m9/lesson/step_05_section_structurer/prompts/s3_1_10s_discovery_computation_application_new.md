@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:03:23.613249
+# Generated: 2026-04-27T10:57:32.371609
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -825,7 +841,7 @@ Cacheable: Yes
   "remediation": "Pipeline",
   "remediation_note": "Confirm factors: first = 7 (groups), second = 10 (count unit). Skip-count by 10s seven times to find product (70).",
   "design_note": "Discovery compression across the lesson: 2s get full animation (Warmup 5 + Lesson 5 more), 5s get brief animation (6 circles), 10s get Products Strip only. This mirrors growing student familiarity — by the third family, they know the format and the pattern is the simplest. The \"add a zero\" shortcut is named but skip-counting is also modeled in remediation.",
-  "_generated_at": "2026-04-20T17:00:34.404935+00:00",
+  "_generated_at": "2026-04-27T15:53:31.539377+00:00",
   "workspace_specs": {
     "toys": [],
     "tools": [
@@ -834,7 +850,8 @@ Cacheable: Yes
     "unresolved": [
       "Products Strip"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_1_extend_accumulation_5_10_concrete\n# Section Summary: s1_1_extend_accumulation_5_10_concrete\n\n**VISUAL STATE AT SECTION END:**\nThree tangibles are displayed: (1) Equal Groups (circles mode, reading mode): 10 containers with 2 items per container; (2) Products Strip (reading mode): displays values 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 with all highlighted and labeled \"Multiples of 2\"; (3) Equation Builder (reading mode): shows expression \"10 × 2 = 20.\"\n\n**CONTENT:**\nThis section introduced the concept of **multiples** and **accumulation through repeated multiplication**. Students observed the pattern of multiplying by 2 sequentially (from 5 groups through 10 groups), watching products increase by 2 each time. The vocabulary term **\"multiples of 2\"** was formally introduced to describe all products generated when multiplying by 2.\n\n**STUDENT ACTION:**\nThe student passively observed an animated sequence where equal groups were added one at a time (groups 6–10), with corresponding equations updating dynamically (6 × 2 = 12 through 10 × 2 = 20). The student then viewed the complete Products Strip displaying all 10 multiples of 2 in a single visual collection.\n\n---\n\n## s1_2_pattern_discovery_2s_are_always\n# Section Summary: Pattern Discovery – \"2s Are Always Even\"\n\n**VISUAL STATE:** A Products Strip tangible displays ten values (2, 4, 6, 8, 10, 12, 14, 16, 18, 20) labeled \"Multiples of 2\" in reading mode with all products highlighted/glowing throughout the section.\n\n**CONTENT:** Students discovered and formalized the pattern that all products of 2 are even numbers. The section introduced the concept of using this pattern as a \"checking tool\"—a self-verification strategy where an odd result from multiplying by 2 signals an error. The vocabulary term \"even numbers\" was reinforced in connection to the property of splitting perfectly into groups of 2.\n\n**STUDENT ACTION:** The student answered a multiple-choice question selecting \"They are all even numbers\" from four options (even numbers, odd numbers, greater than 10, end in 5), demonstrating pattern recognition and receiving confirmatory dialogue explaining the mathematical reasoning.\n\n---\n\n## s1_3_bridge_pattern_check_concrete_relational\n# Section Summary: s1_3_bridge_pattern_check_concrete_relational\n\n**VISUAL STATE AT SECTION END:**\nFour tangibles are displayed simultaneously in reading mode:\n1. **Products Strip** (dataset: Multiples of 2): values 2, 4, 6, 8, 10, 12, 14, 16, 18, 20—all highlighted\n2. **Equal Groups** (circles): 5 containers with 2 items per container, all highlighted\n3. **Equation Builder**: expression \"5 × 2 = 10\"\n4. **Equation** (repeated addition): \"2 + 2 + 2 + 2 + 2 = 10\"\n\n**CONTENT:**\nThe section bridges concrete (equal groups, repeated addition) and relational (multiplication, skip-counting) representations of the same quantity. Key concepts introduced: skip-counting by 2s IS multiplication by 2; multiplication is a shorter notation for repeated addition; any number multiplied by 2 always yields an even product (because items in groups of 2 always have pairs with no remainder).\n\n**STUDENT ACTION:**\nStudent answered a multiple-choice question selecting \"Even\" as the correct response to: \"When you multiply any number by 2, is the product even or odd?\"\n\n---\n\n## s2_1_worked_example_first_full_equation\n# Section Summary: s2_1_worked_example_first_full_equation\n\n**VISUAL STATE AT SECTION END:**\nTwo tangibles are displayed: (1) Equal Groups visualization (\"equal_groups_bags\") showing 7 bags in reading mode, each containing 2 items; (2) Equation Builder (\"equation_builder_7x2\") in reading mode displaying the complete equation template with three slots [__] × [__] = [__], pre-filled with factors 7 and 2, and product 14. Labels identifying \"factor,\" \"factor,\" and \"product\" have appeared and faded.\n\n**CONTENT:**\nThe section introduced the formal concept of an **equation** (a complete multiplication statement with an equals sign and answer) and distinguished it from an **expression** (7 times 2 alone). Two key vocabulary terms were formally introduced: **factors** (the numbers being multiplied: 7 and 2) and **product** (the answer to multiplication: 14). The worked example modeled solving 7 × 2 by skip-counting by 2s seven times (2, 4, 6, 8, 10, 12, 14) to reach the product.\n\n**STUDENT ACTION:**\nThe student observed a guided worked example. The Guide demonstrated interpreting the equal groups model, performing skip-counting, and completing the equation by filling the product slot with 14. No direct student interaction occurred; this was a demonstration of the full problem-solving process.\n\n---\n\n## s2_2_student_computes_product_method_relational\n# Section Summary: s2_2_student_computes_product_method_relational\n\n**VISUAL STATE:** Two tangibles are on screen at section end:\n1. **Equal Groups (equal_groups_bags)**: 8 bags (containers), each containing 2 circles (items), displayed in reading mode.\n2. **Equation Builder (equation_builder_8x2)**: A completed multiplication equation template showing 8 × 2 = 16, with all three slots filled (slot_0: 8, slot_2: 2, slot_4: 16).\n\n**CONTENT:** The student practiced computing a multiplication product using the relational method—interpreting \"8 times 2\" as \"8 groups of 2\" and skip-counting by 2s eight times to find the product. The vocabulary reinforced includes: *product*, *times*, *groups*, and *skip-count*.\n\n**STUDENT ACTION:** The student selected the correct multiple-choice answer (16) from options {10, 14, 16, 18} to complete the equation 8 × 2 = ___. Upon correct selection, the equation builder automatically filled the product slot with 16, and feedback confirmed the relationship between the equal groups model and the completed equation.\n\n---\n\n## s2_3_5s_discovery_partial_worked_example\n# Section Summary: s2_3_5s_discovery_partial_worked_example\n\n**VISUAL STATE AT SECTION END:**\nThree tangibles are on screen: (1) **Products Strip** (products_strip_5s), reading mode, displaying values 5, 10, 15, 20, 25, 30 with ones digits highlighted; (2) **Equation Builder** (equation_builder_5s), reading mode, showing completed equation 3 × 5 = 15 with all slots filled; (3) **Tile Palette** (tile_palette_3x5) containing tile options 8, 10, 15, 20.\n\n**CONTENT:**\nThis section introduced the **5s multiplication pattern** through a worked example. Students discovered that all multiples of 5 end in either 0 or 5 in the ones place—the defining characteristic of the 5s pattern. Key vocabulary formally introduced: \"multiples of 5,\" \"ones digit,\" and \"5s pattern.\" The section modeled skip-counting by 5s (1×5=5, 2×5=10, 3×5=15, 4×5=20, 5×5=25, 6×5=30) and connected visual equal groups to symbolic equations.\n\n**STUDENT ACTION:**\nThe student placed a tile (15) into the product slot of an equation builder to complete 3 × 5 = __, selecting from four options (8, 10, 15, 20). This was a single tile-placement interaction that required applying the skip-counting strategy and pattern recognition to find the correct product.\n\n---\n\n## s2_4_student_builds_full_equation_5s\n# Section Summary: s2_4_student_builds_full_equation_5s\n\n**VISUAL STATE:** An Equation Builder tangible (equation_builder_6x5) displays a completed multiplication equation with three filled slots in the template format: [6] × [5] = [30]. The builder operates in \"building\" mode with an inactive tile palette that previously contained values 4, 5, 6, 11, 20, 25, 30, 35. No context visualization is present.\n\n**CONTENT:** Students practiced constructing a complete multiplication equation by identifying and placing both factors and the product. The lesson reinforced the concept that 6 groups of 5 equals 30, and introduced the pattern recognition skill that products in the 5s multiplication family end in 0 or 5.\n\n**STUDENT ACTION:** The student placed three tiles to build the full equation: placing 6 in the first slot (groups), 5 in the second slot (items per group), and 30 in the third slot (total product). The system confirmed the correct equation 6 × 5 = 30 with a pulse animation."
 }
 </input>
 

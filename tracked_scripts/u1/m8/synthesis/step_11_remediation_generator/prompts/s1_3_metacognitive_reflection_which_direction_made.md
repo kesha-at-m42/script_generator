@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:01:43.736677
+# Generated: 2026-04-27T10:55:17.075181
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1850,51 +1854,62 @@ Cacheable: Yes
 <input>
 {
   "id": "s1_3_metacognitive_reflection_which_direction_made",
-  "type": "transition",
   "beats": [
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equal_groups_reminder_top",
+      "tangible_id": "equal_groups_bags_reminder",
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
-        "container_count": 3,
-        "items_per_container": 4,
-        "description": "Small equal groups visual appears at top. 3 bags, 4 items per bag. Non-interactive reminder."
+        "container_count": 2,
+        "items_per_container": 5,
+        "container_type": "bag",
+        "description": "Small reminder visual at top of screen: 2 bags with 5 items each, in reading mode."
       },
       "id": "s1_3_metacognitive_reflection_which_direction_made_b0"
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder_reminder_top",
-      "tangible_type": "equation_builder",
+      "tangible_id": "equation_visual_to_expression",
+      "tangible_type": "equation",
       "params": {
-        "mode": "reading",
-        "description": "Small equation builder appears beside top visual. Shows 3 × 4 = 12. Non-interactive reminder."
+        "expression": [
+          "2",
+          "x",
+          "5"
+        ],
+        "description": "Small reminder equation displayed to the right of the bags visual: 2 × 5."
       },
       "id": "s1_3_metacognitive_reflection_which_direction_made_b1"
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder_reminder_bottom",
-      "tangible_type": "equation_builder",
+      "tangible_id": "equation_expression_to_visual",
+      "tangible_type": "equation",
       "params": {
-        "mode": "reading",
-        "description": "Small equation builder appears at bottom. Shows expression. Non-interactive reminder."
+        "expression": [
+          "2",
+          "x",
+          "5"
+        ],
+        "description": "Small reminder equation displayed at bottom: 2 × 5, representing the expression-to-visual direction."
       },
       "id": "s1_3_metacognitive_reflection_which_direction_made_b2"
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equal_groups_reminder_bottom",
+      "tangible_id": "equal_groups_circles_reminder",
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
-        "description": "Small equal groups visual appears beside bottom equation. Non-interactive reminder."
+        "container_count": 2,
+        "items_per_container": 5,
+        "container_type": "circle",
+        "description": "Small reminder visual at bottom: 2 circles with 5 dots each, representing the expression-to-visual selection direction."
       },
       "id": "s1_3_metacognitive_reflection_which_direction_made_b3"
     },
@@ -1919,12 +1934,12 @@ Cacheable: Yes
           "condition": {
             "selected": "Building from pictures (Visual → Expression)"
           },
-          "description": "Student selected building from pictures",
+          "description": "Student selected Building from pictures",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "Nice. Building from pictures lets you see where the numbers come from. That's a strong way to learn.",
+              "text": "That makes sense. Building from pictures lets you see where the numbers come from. That's a strong way to learn.",
               "id": "s1_3_metacognitive_reflection_which_direction_made_b5_v0_b0"
             }
           ]
@@ -1934,12 +1949,12 @@ Cacheable: Yes
           "condition": {
             "selected": "Matching pictures to expressions (Expression → Visual)"
           },
-          "description": "Student selected matching pictures to expressions",
+          "description": "Student selected Matching pictures to expressions",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "Good. Working backwards, from expression to picture, shows you what expressions MEAN. That's powerful too.",
+              "text": "That's solid. Working backwards, from expression to picture, shows you what expressions MEAN. That's powerful too.",
               "id": "s1_3_metacognitive_reflection_which_direction_made_b5_v1_b0"
             }
           ]
@@ -1949,12 +1964,12 @@ Cacheable: Yes
           "condition": {
             "selected": "Both helped in different ways"
           },
-          "description": "Student selected both helped in different ways",
+          "description": "Student selected Both helped in different ways",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "I see. Different directions for different moments. That's flexible thinking.",
+              "text": "Right. Different directions for different moments. That's flexible thinking.",
               "id": "s1_3_metacognitive_reflection_which_direction_made_b5_v2_b0"
             }
           ]
@@ -1964,7 +1979,7 @@ Cacheable: Yes
           "condition": {
             "selected": "I'm still figuring it out"
           },
-          "description": "Student selected still figuring it out",
+          "description": "Student selected I'm still figuring it out",
           "is_correct": true,
           "beats": [
             {
@@ -1981,34 +1996,38 @@ Cacheable: Yes
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equal_groups_reminder_top",
-          "description": "Small equal groups visual at top. 3 bags, 4 items per bag. Non-interactive.",
+          "tangible_id": "equal_groups_bags_reminder",
+          "description": "Small reminder visual at top: 2 bags with 5 items each.",
           "tangible_type": "equal_groups",
-          "mode": "reading"
+          "mode": "reading",
+          "container_count": 2,
+          "items_per_container": 5,
+          "container_type": "bag"
         },
         {
-          "tangible_id": "equation_builder_reminder_top",
-          "description": "Small equation builder beside top visual. Shows 3 × 4 = 12. Non-interactive.",
-          "tangible_type": "equation_builder",
-          "mode": "reading"
+          "tangible_id": "equation_visual_to_expression",
+          "description": "Small reminder equation: 2 × 5, displayed to the right of the bags.",
+          "tangible_type": "equation"
         },
         {
-          "tangible_id": "equation_builder_reminder_bottom",
-          "description": "Small equation builder at bottom. Shows expression. Non-interactive.",
-          "tangible_type": "equation_builder",
-          "mode": "reading"
+          "tangible_id": "equation_expression_to_visual",
+          "description": "Small reminder equation at bottom: 2 × 5.",
+          "tangible_type": "equation"
         },
         {
-          "tangible_id": "equal_groups_reminder_bottom",
-          "description": "Small equal groups visual beside bottom equation. Non-interactive.",
+          "tangible_id": "equal_groups_circles_reminder",
+          "description": "Small reminder visual at bottom: 2 circles with 5 dots each.",
           "tangible_type": "equal_groups",
-          "mode": "reading"
+          "mode": "reading",
+          "container_count": 2,
+          "items_per_container": 5,
+          "container_type": "circle"
         }
       ],
       "id": "s1_3_metacognitive_reflection_which_direction_made_b6"
     }
   ],
-  "_generated_at": "2026-04-20T17:01:00.858111+00:00"
+  "_generated_at": "2026-04-27T15:54:24.982490+00:00"
 }
 </input>
 

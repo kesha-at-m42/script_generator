@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:00:54.280520
+# Generated: 2026-04-27T10:54:56.965839
 ======================================================================
 
 ## API Parameters
@@ -956,7 +956,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "40 combined. That's 25 plus 15.",
+      "text": "40 combined.",
       "context": "on_correct"
     },
     {
@@ -964,7 +964,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "5 fewer. Museum and farm combined got 5 fewer votes than the zoo. You used two steps: first added, then compared.",
+      "text": "5 fewer. Museum and farm combined got 5 fewer votes than the zoo.",
       "context": "on_correct"
     }
   ]

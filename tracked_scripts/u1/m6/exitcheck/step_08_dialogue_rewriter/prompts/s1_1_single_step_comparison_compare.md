@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:00:47.602056
+# Generated: 2026-04-27T10:54:50.894783
 ======================================================================
 
 ## API Parameters
@@ -948,7 +948,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "20 more pencils sold. This one asked about only two categories and was just one step—no combined, so straight to comparing.",
+      "text": "20 more pencils sold. This one asked about only two categories and was just one step. No combined, so straight to comparing.",
       "context": "on_correct"
     }
   ]

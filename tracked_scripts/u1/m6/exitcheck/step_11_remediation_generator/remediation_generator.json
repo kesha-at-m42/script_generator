@@ -14,7 +14,7 @@
         "id": "s1_0_transition_into_exit_check_b1"
       }
     ],
-    "_generated_at": "2026-04-20T16:59:44.566594+00:00"
+    "_generated_at": "2026-04-27T15:53:17.467116+00:00"
   },
   {
     "id": "s1_1_single_step_comparison_compare",
@@ -24,7 +24,7 @@
           "condition": {
             "selected": 60
           },
-          "description": "Student selected 60 (added pencils and markers instead of finding difference)",
+          "description": "Student selected 60 (added pencils and markers instead of finding the difference)",
           "is_correct": false,
           "steps": [
             [
@@ -37,12 +37,12 @@
                     "Pencils",
                     "Markers"
                   ],
-                  "description": "Pencils and Markers bars highlight."
+                  "description": "Pencils bar (40) and Markers bar (20) highlight."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "How many more means compare, not add. Look at how far apart the bars are. What's the difference between 40 and 20?"
+                "text": "When we ask how many more, we compare. That means subtract, not add. Pencils is 40, markers is 20. What's the difference?"
               }
             ]
           ]
@@ -51,7 +51,7 @@
           "condition": {
             "selected": 40
           },
-          "description": "Student selected 40 (identified pencils value but did not subtract)",
+          "description": "Student selected 40 (chose the value for pencils without comparing)",
           "is_correct": false,
           "steps": [
             [
@@ -64,12 +64,12 @@
                     "Pencils",
                     "Markers"
                   ],
-                  "description": "Pencils and Markers bars highlight."
+                  "description": "Pencils bar (40) and Markers bar (20) highlight."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "That's the pencils total. How many more asks for the difference. Pencils is 40, markers is 20. How much bigger is 40 than 20?"
+                "text": "That's how many pencils were sold. But the question asks how many MORE. We need to find the difference. Pencils is 40, markers is 20. Subtract to compare."
               }
             ]
           ]
@@ -78,7 +78,7 @@
           "condition": {
             "selected": 15
           },
-          "description": "Student selected 15 (compared wrong categories or miscalculated)",
+          "description": "Student selected 15 (incorrect calculation or misread values)",
           "is_correct": false,
           "steps": [
             [
@@ -91,12 +91,12 @@
                     "Pencils",
                     "Markers"
                   ],
-                  "description": "Pencils and Markers bars highlight."
+                  "description": "Pencils bar (40) and Markers bar (20) highlight."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "The question asks about pencils and markers. Find those two bars. Pencils is 40, markers is 20. Subtract to find how many more."
+                "text": "Check the values carefully. Pencils is 40, markers is 20. When we compare, we subtract: 40 minus 20."
               }
             ]
           ]
@@ -112,21 +112,21 @@
                 "method": "animate",
                 "tangible_id": "bar_graph_supplies",
                 "params": {
-                  "event": "show_comparison_overlay",
+                  "event": "show_comparison",
                   "status": "confirmed",
-                  "description": "Comparison overlay shows pencils bar at 40 and markers bar at 20, with difference of 20 highlighted."
+                  "description": "Animation highlights Pencils (40) and Markers (20), then shows 40 minus 20 equals 20."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. How many more means compare. Pencils is 40, markers is 20. I subtract to find the difference: 40 minus 20 equals 20. The answer is 20. That's what compare means—find the difference between two values."
+                "text": "Let me show you. How many more means compare. Pencils is 40, markers is 20. We subtract: 40 minus 20 equals 20. The answer is 20 more pencils sold than markers. That's what compare means: find the difference."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:01:16.447907+00:00"
+    "_generated_at": "2026-04-27T15:55:17.931851+00:00"
   },
   {
     "id": "s1_2_two_step_problem_identify_compare",
@@ -136,7 +136,7 @@
           "condition": {
             "selected": "Compare fiction to nonfiction"
           },
-          "description": "Student selected compare fiction to nonfiction, skipping the combined step",
+          "description": "Student selected comparing fiction to nonfiction, skipping the combined step",
           "is_correct": false,
           "steps": [
             [
@@ -154,7 +154,7 @@
               },
               {
                 "type": "dialogue",
-                "text": "The question asks about nonfiction and poetry combined. When you see combined or together, add those first. What's the total of nonfiction and poetry?"
+                "text": "The question asks about nonfiction and poetry combined. When you see combined, find that total first."
               }
             ]
           ]
@@ -163,7 +163,7 @@
           "condition": {
             "selected": "Add all four categories"
           },
-          "description": "Student selected add all four categories, including categories not needed",
+          "description": "Student selected adding all categories, not focusing on the needed categories",
           "is_correct": false,
           "steps": [
             [
@@ -181,7 +181,7 @@
               },
               {
                 "type": "dialogue",
-                "text": "We only need nonfiction and poetry. The question doesn't ask about comics or fiction yet. Add the two categories the question names first."
+                "text": "We don't need all categories. The question only asks about nonfiction and poetry combined. Start with those two."
               }
             ]
           ]
@@ -190,7 +190,7 @@
           "condition": {
             "selected": "Subtract poetry from nonfiction"
           },
-          "description": "Student selected subtract poetry from nonfiction, incorrect operation",
+          "description": "Student selected subtracting poetry from nonfiction, incorrect operation for combined",
           "is_correct": false,
           "steps": [
             [
@@ -208,14 +208,14 @@
               },
               {
                 "type": "dialogue",
-                "text": "Combined means add, not subtract. When the question says nonfiction and poetry together, we find the total by adding. What do those two add up to?"
+                "text": "Combined means add, not subtract. We need the total of nonfiction and poetry together."
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Student answered incorrectly. System models the correct answer.",
+          "description": "Student answered incorrectly. System models the correct first step.",
           "is_correct": false,
           "steps": [
             [
@@ -224,14 +224,14 @@
                 "method": "animate",
                 "tangible_id": "bar_graph_books",
                 "params": {
-                  "event": "show_equation_overlay",
+                  "event": "show_calculation",
                   "status": "confirmed",
-                  "description": "Animation shows: Nonfiction (30) + Poetry (20) = 50"
+                  "description": "Nonfiction and Poetry bars highlight. Calculation shows: 30 + 20 = 50."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you how to think about this. The question says nonfiction and poetry combined. That word combined tells us to add those two first. Nonfiction is 30, poetry is 20. Together they make 50. We need to find that combined total first before we can compare anything. The answer is add nonfiction and poetry."
+                "text": "When we see combined, we add first. Nonfiction is 30, poetry is 20. That's 50 combined. The answer is to add nonfiction and poetry."
               }
             ]
           ]
@@ -242,7 +242,7 @@
           "condition": {
             "selected": 10
           },
-          "description": "Student selected 10, the difference between nonfiction and poetry",
+          "description": "Student selected 10, subtracted values instead of adding",
           "is_correct": false,
           "steps": [
             [
@@ -255,12 +255,12 @@
                     "Nonfiction",
                     "Poetry"
                   ],
-                  "description": "Both Nonfiction and Poetry bars highlight together."
+                  "description": "Nonfiction and Poetry bars pulse to emphasize adding."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "You found the difference between nonfiction and poetry. But we need the total of both together. Combined means add. What's 30 plus 20?"
+                "text": "Combined means add them together, not subtract. Nonfiction is 30, poetry is 20. What's 30 plus 20?"
               }
             ]
           ]
@@ -269,7 +269,7 @@
           "condition": {
             "selected": 40
           },
-          "description": "Student selected 40, the value for comics",
+          "description": "Student selected 40, may have confused with Comics value or miscounted",
           "is_correct": false,
           "steps": [
             [
@@ -282,12 +282,12 @@
                     "Nonfiction",
                     "Poetry"
                   ],
-                  "description": "Nonfiction and Poetry bars highlight, not Comics."
+                  "description": "Nonfiction and Poetry bars highlight. Values 30 and 20 emphasized."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "That's the comics value. We need nonfiction and poetry. Nonfiction is 30, poetry is 20. Add those two."
+                "text": "Look at nonfiction: 30. Look at poetry: 20. Add those two together. What do you get?"
               }
             ]
           ]
@@ -296,7 +296,7 @@
           "condition": {
             "selected": 60
           },
-          "description": "Student selected 60, possibly adding fiction instead of the correct categories",
+          "description": "Student selected 60, may have added extra categories or misread values",
           "is_correct": false,
           "steps": [
             [
@@ -309,19 +309,19 @@
                     "Nonfiction",
                     "Poetry"
                   ],
-                  "description": "Nonfiction and Poetry bars pulse."
+                  "description": "Only Nonfiction and Poetry bars highlighted."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Look at the highlighted bars. Nonfiction is 30, poetry is 20. What do those two add up to?"
+                "text": "We only need these two categories. Nonfiction is 30, poetry is 20. Count just those two bars."
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Student answered incorrectly. System models the correct answer.",
+          "description": "Student answered incorrectly. System models the correct calculation.",
           "is_correct": false,
           "steps": [
             [
@@ -330,14 +330,14 @@
                 "method": "animate",
                 "tangible_id": "bar_graph_books",
                 "params": {
-                  "event": "show_equation_overlay",
+                  "event": "show_calculation",
                   "status": "confirmed",
-                  "description": "Animation demonstrates: Nonfiction bar (30) + Poetry bar (20) = 50"
+                  "description": "Nonfiction bar (30) and Poetry bar (20) highlight. Calculation appears: 30 + 20 = 50."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Here's how this works. The question asks for nonfiction and poetry combined. I look at nonfiction: that bar reaches 30. I look at poetry: that bar reaches 20. Combined means I add them. 30 plus 20 equals 50. The combined total is 50."
+                "text": "Nonfiction is 30 books. Poetry is 20 books. When we add them, 30 plus 20 equals 50. The combined total is 50."
               }
             ]
           ]
@@ -348,7 +348,7 @@
           "condition": {
             "selected": 100
           },
-          "description": "Student selected 100, adding fiction to the combined total instead of comparing",
+          "description": "Student selected 100, added instead of subtracting",
           "is_correct": false,
           "steps": [
             [
@@ -360,12 +360,12 @@
                   "highlight_categories": [
                     "Fiction"
                   ],
-                  "description": "Fiction bar highlights alone."
+                  "description": "Fiction bar highlights alongside displayed value 50."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "You added fiction to the combined total. The question asks how many more, so we compare. Fiction is 50, combined is 50. What's the difference between those?"
+                "text": "How many more means compare. Fiction is 50, combined is 50. Are they the same or different?"
               }
             ]
           ]
@@ -374,7 +374,7 @@
           "condition": {
             "selected": 50
           },
-          "description": "Student selected 50, giving one of the values instead of the difference",
+          "description": "Student selected 50, stated one value instead of finding the difference",
           "is_correct": false,
           "steps": [
             [
@@ -386,12 +386,12 @@
                   "highlight_categories": [
                     "Fiction"
                   ],
-                  "description": "Fiction bar highlights."
+                  "description": "Fiction bar highlights. Combined value 50 displayed next to it."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "That's how many fiction books there are. But we need to compare. Fiction is 50, the combined total is 50. They're equal. What's the difference when two numbers are equal?"
+                "text": "50 is the fiction value, but the question asks how many more. Subtract: 50 minus 50. What's the difference?"
               }
             ]
           ]
@@ -400,7 +400,7 @@
           "condition": {
             "selected": 10
           },
-          "description": "Student selected 10, possibly subtracting poetry from nonfiction instead of comparing fiction to combined",
+          "description": "Student selected 10, may have miscalculated or compared wrong categories",
           "is_correct": false,
           "steps": [
             [
@@ -412,12 +412,124 @@
                   "highlight_categories": [
                     "Fiction"
                   ],
-                  "description": "Fiction bar pulses."
+                  "description": "Fiction bar highlights. Combined value 50 displayed."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Fiction is 50. The combined total of nonfiction and poetry is 50. When both amounts are the same, there is no difference. How many more is 50 than 50?"
+                "text": "Fiction is 50. Combined is 50. When two amounts are equal, the difference is zero, not 10."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the comparison.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "event": "show_calculation",
+                  "status": "confirmed",
+                  "description": "Fiction bar (50) and combined value (50) appear side by side. Calculation shows: 50 - 50 = 0."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Fiction is 50 books. Nonfiction and poetry combined is also 50. When we compare equal amounts, 50 minus 50 equals 0. There is no difference. The answer is 0."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-27T15:55:45.892345+00:00"
+  },
+  {
+    "id": "s1_3_two_step_problem_identify_compare",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "Compare zoo to museum"
+          },
+          "description": "Student selected 'Compare zoo to museum' (skipped the combine step)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_field_trip",
+                "params": {
+                  "highlight_categories": [
+                    "Museum",
+                    "Farm"
+                  ],
+                  "description": "Museum and Farm bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The question says museum and farm combined. That word combined tells us to add those two first."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "Add all five places"
+          },
+          "description": "Student selected 'Add all five places' (added categories not mentioned in the question)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_field_trip",
+                "params": {
+                  "highlight_categories": [
+                    "Museum",
+                    "Farm"
+                  ],
+                  "description": "Museum and Farm bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "We only need the categories the question asks about. It says museum and farm combined. Add those two."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "Subtract farm from museum"
+          },
+          "description": "Student selected 'Subtract farm from museum' (wrong operation for combined)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_field_trip",
+                "params": {
+                  "highlight_categories": [
+                    "Museum",
+                    "Farm"
+                  ],
+                  "description": "Museum and Farm bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Combined means add, not subtract. When we see combined or together, we find the total first."
               }
             ]
           ]
@@ -431,91 +543,16 @@
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "bar_graph_books",
+                "tangible_id": "bar_graph_field_trip",
                 "params": {
-                  "event": "show_comparison_overlay",
+                  "event": "show_calculation",
                   "status": "confirmed",
-                  "description": "Animation shows Fiction bar (50) compared to combined total (50), demonstrating they are equal"
+                  "description": "Animation shows Museum (25) and Farm (15) combining: 25 + 15 = 40"
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me walk you through this. We found that nonfiction and poetry combined equals 50. Now I look at fiction: that bar reaches 50. The question asks how many more fiction than the combined total. I compare: 50 minus 50 equals 0. When two amounts are equal, the difference is zero. Fiction and the combined total are the same, so the answer is 0."
-              }
-            ]
-          ]
-        }
-      ]
-    ],
-    "_generated_at": "2026-04-20T17:01:46.454383+00:00"
-  },
-  {
-    "id": "s1_3_two_step_problem_identify_compare",
-    "incorrects": [
-      [
-        {
-          "condition": {
-            "incorrect_count": 1
-          },
-          "description": "Student selected wrong strategy on first attempt",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "dialogue",
-                "text": "Look at the question. It says museum and farm combined. What does combined tell us to do?"
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "incorrect_count": 2
-          },
-          "description": "Student selected wrong strategy on second attempt",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_fieldtrip",
-                "params": {
-                  "highlight_categories": [
-                    "Museum",
-                    "Farm"
-                  ],
-                  "description": "Museum and Farm bars highlight."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "The question asks about museum and farm together. When you see combined or together, add those categories first. Which choice shows adding museum and farm?"
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {},
-          "description": "Student selected wrong strategy three or more times. System models the correct strategy.",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_fieldtrip",
-                "params": {
-                  "highlight_categories": [
-                    "Museum",
-                    "Farm"
-                  ],
-                  "description": "Museum and Farm bars highlight."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "Let me show you. The question says museum and farm combined. Combined means add. So our first step is to add museum and farm together. That's what we need to find first."
+                "text": "Let me show you. The question says museum and farm combined. That word combined tells us to add first. Museum is 25, farm is 15. Combined, that's 40. The first step is to add museum and farm."
               }
             ]
           ]
@@ -526,25 +563,23 @@
           "condition": {
             "selected": 10
           },
-          "description": "Student selected 10, likely subtracted 25 - 15 instead of adding",
+          "description": "Student selected 10 (subtracted instead of added)",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_fieldtrip",
+                "method": "animate",
+                "tangible_id": "bar_graph_field_trip",
                 "params": {
-                  "highlight_categories": [
-                    "Museum",
-                    "Farm"
-                  ],
-                  "description": "Museum and Farm bars highlight."
+                  "event": "show_calculation",
+                  "status": "confirmed",
+                  "description": "Animation shows: 25 + 15 = 40"
                 }
               },
               {
                 "type": "dialogue",
-                "text": "You subtracted. But the question asks for combined. Combined means add the two values. What is 25 plus 15?"
+                "text": "Combined means add, not subtract. Museum is 25, farm is 15. Add them: 25 plus 15 equals what?"
               }
             ]
           ]
@@ -553,25 +588,25 @@
           "condition": {
             "selected": 30
           },
-          "description": "Student selected 30, possibly misread one bar value",
+          "description": "Student selected 30 (miscounted or used wrong values)",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "bar_graph_fieldtrip",
+                "tangible_id": "bar_graph_field_trip",
                 "params": {
                   "highlight_categories": [
                     "Museum",
                     "Farm"
                   ],
-                  "description": "Museum and Farm bars pulse to show values."
+                  "description": "Museum (25) and Farm (15) bars highlight."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Check the bar heights. Museum is 25, farm is 15. Count by fives or add them. What is the total?"
+                "text": "Check the bar heights. Museum goes to 25, farm goes to 15. Add those two numbers."
               }
             ]
           ]
@@ -580,25 +615,25 @@
           "condition": {
             "selected": 45
           },
-          "description": "Student selected 45, the zoo value instead of the combined total",
+          "description": "Student selected 45 (zoo's value instead of the combined total)",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "bar_graph_fieldtrip",
+                "tangible_id": "bar_graph_field_trip",
                 "params": {
                   "highlight_categories": [
                     "Museum",
                     "Farm"
                   ],
-                  "description": "Museum and Farm bars highlight."
+                  "description": "Museum (25) and Farm (15) bars pulse."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "That's the zoo's votes. We need the combined total for museum and farm. Add those two bars. Museum is 25, farm is 15. What do they add up to?"
+                "text": "That's the zoo's votes. We need museum and farm combined. Add museum's 25 and farm's 15."
               }
             ]
           ]
@@ -612,16 +647,16 @@
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "bar_graph_fieldtrip",
+                "tangible_id": "bar_graph_field_trip",
                 "params": {
-                  "event": "show_equation_overlay",
+                  "event": "show_calculation",
                   "status": "confirmed",
-                  "description": "Animation shows: 25 + 15 = 40"
+                  "description": "System demonstrates: Museum bar (25) and Farm bar (15) combine. 25 + 15 = 40 displays."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Here's how we find it. Museum is 25 votes. Farm is 15 votes. We add them: 25 plus 15 equals 40. The combined total for museum and farm is 40 votes."
+                "text": "Here's how. Museum is 25 votes. Farm is 15 votes. When we add them, 25 plus 15 equals 40. Museum and farm combined got 40 votes."
               }
             ]
           ]
@@ -632,24 +667,24 @@
           "condition": {
             "selected": 85
           },
-          "description": "Student selected 85, likely added 45 + 40 instead of subtracting",
+          "description": "Student selected 85 (added 45 + 40 instead of subtracting)",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "bar_graph_fieldtrip",
+                "tangible_id": "bar_graph_field_trip",
                 "params": {
                   "highlight_categories": [
                     "Zoo"
                   ],
-                  "description": "Zoo bar highlights."
+                  "description": "Zoo bar (45) highlights."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "You added. But the question asks how many fewer. Fewer means compare, and compare means subtract. The zoo has 45, combined is 40. What is the difference?"
+                "text": "How many fewer means compare. Compare means subtract. Zoo is 45, combined is 40. What's the difference?"
               }
             ]
           ]
@@ -658,24 +693,24 @@
           "condition": {
             "selected": 45
           },
-          "description": "Student selected 45, the zoo value without comparing",
+          "description": "Student selected 45 (zoo's value, not the difference)",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "bar_graph_fieldtrip",
+                "tangible_id": "bar_graph_field_trip",
                 "params": {
                   "highlight_categories": [
                     "Zoo"
                   ],
-                  "description": "Zoo bar highlights."
+                  "description": "Zoo bar (45) and combined value 40 display."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "That's just the zoo. We need to compare. Zoo is 45, combined is 40. Find the difference between those two numbers."
+                "text": "That's how many votes the zoo got. We need the difference between 45 and 40. Subtract to find how many fewer."
               }
             ]
           ]
@@ -684,24 +719,24 @@
           "condition": {
             "selected": 40
           },
-          "description": "Student selected 40, the combined value without comparing",
+          "description": "Student selected 40 (combined total, not the difference)",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "bar_graph_fieldtrip",
+                "tangible_id": "bar_graph_field_trip",
                 "params": {
                   "highlight_categories": [
                     "Zoo"
                   ],
-                  "description": "Zoo bar highlights. Combined value 40 displayed."
+                  "description": "Zoo bar (45) highlights against combined total 40."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "That's the combined total we found. Now we compare it to the zoo. The zoo has 45 votes. How many more is 45 than 40?"
+                "text": "That's the combined total. Now compare it to the zoo. How many fewer means find the difference. Zoo is 45, combined is 40. Subtract."
               }
             ]
           ]
@@ -715,23 +750,23 @@
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "bar_graph_fieldtrip",
+                "tangible_id": "bar_graph_field_trip",
                 "params": {
-                  "event": "show_comparison_overlay",
+                  "event": "show_calculation",
                   "status": "confirmed",
-                  "description": "Shows: 45 compared to 40, difference of 5 highlighted"
+                  "description": "System demonstrates comparison: Zoo bar (45) compared to combined total (40). Shows 45 minus 40 = 5."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me walk through it. Museum and farm combined is 40 votes. The zoo has 45 votes. We compare: 45 minus 40 equals 5. Museum and farm combined got 5 fewer votes than the zoo. The answer is 5."
+                "text": "Let me show you the second step. Museum and farm combined is 40. Zoo is 45. How many fewer asks for the difference. We subtract: 45 minus 40 equals 5. Museum and farm combined got 5 fewer votes than the zoo."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:02:12.444658+00:00"
+    "_generated_at": "2026-04-27T15:56:14.387012+00:00"
   },
   {
     "id": "s1_4_two_step_with_scale_2",
@@ -739,24 +774,9 @@
       [
         {
           "condition": {
-            "incorrect_count": 1
+            "selected": 5
           },
-          "description": "Student answered incorrectly on first attempt",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "dialogue",
-                "text": "Not quite. Read the scale and add Maya's books and Ben's books."
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "incorrect_count": 2
-          },
-          "description": "Student answered incorrectly on second attempt",
+          "description": "Student selected 5: subtracted instead of adding (14 - 9 = 5)",
           "is_correct": false,
           "steps": [
             [
@@ -774,14 +794,68 @@
               },
               {
                 "type": "dialogue",
-                "text": "Here's what to do: count by twos on Maya's bar to 14, then count Ben's bar to 9. Add those numbers. What is 14 plus 9?"
+                "text": "The question says together. That means add Maya's 14 books and Ben's 9 books. What's 14 plus 9?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 14
+          },
+          "description": "Student selected 14: chose Maya's value only, didn't add Ben",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Maya",
+                    "Ben"
+                  ],
+                  "description": "Maya and Ben bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You found Maya. But the question asks for Maya AND Ben together. Add both amounts."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 22
+          },
+          "description": "Student selected 22: misread scale or miscounted",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Maya",
+                    "Ben"
+                  ],
+                  "description": "Maya and Ben bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Check the scale. Each mark counts by 2. Maya is at 14, Ben is at 9. Count carefully and add those values."
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Student answered incorrectly three or more times. System models the answer.",
+          "description": "Student answered incorrectly. System models the correct answer.",
           "is_correct": false,
           "steps": [
             [
@@ -790,14 +864,14 @@
                 "method": "animate",
                 "tangible_id": "bar_graph_books",
                 "params": {
-                  "event": "show_equation_overlay",
+                  "event": "show_calculation",
                   "status": "confirmed",
-                  "description": "Animation shows: 14 + 9 = 23"
+                  "description": "Animation demonstrates: Maya bar at 14, Ben bar at 9. 14 + 9 = 23."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. The scale is 2, so I count by twos. Maya's bar reaches 14. Ben's bar reaches 9. When we see together, we add. 14 plus 9 equals 23. Maya and Ben read 23 books together."
+                "text": "Let me show you. Maya read 14 books. I find that by counting up by 2s to where her bar stops. Ben read 9. Together means add: 14 plus 9 equals 23. The answer is 23 books together."
               }
             ]
           ]
@@ -806,24 +880,9 @@
       [
         {
           "condition": {
-            "incorrect_count": 1
+            "selected": 34
           },
-          "description": "Student answered incorrectly on first attempt",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "dialogue",
-                "text": "Let's look closely. You have 23 total. Carla has 11. Compare them."
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "incorrect_count": 2
-          },
-          "description": "Student answered incorrectly on second attempt",
+          "description": "Student selected 34: added all values instead of subtracting (23 + 11 = 34)",
           "is_correct": false,
           "steps": [
             [
@@ -840,14 +899,68 @@
               },
               {
                 "type": "dialogue",
-                "text": "Here's the key: you found that Maya and Ben together is 23. How many more means we subtract. Count Carla's bar: 11. What is 23 minus 11?"
+                "text": "How many MORE means compare. We subtract. Maya and Ben together is 23. Carla is 11. What's 23 minus 11?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 23
+          },
+          "description": "Student selected 23: gave the combined total without subtracting Carla",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Carla"
+                  ],
+                  "description": "Carla bar highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That's the combined total. But the question asks how many MORE than Carla. Compare 23 to Carla's 11. Subtract."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": 17
+          },
+          "description": "Student selected 17: used incorrect combined total or subtraction error",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_books",
+                "params": {
+                  "highlight_categories": [
+                    "Maya",
+                    "Ben",
+                    "Carla"
+                  ],
+                  "description": "Maya, Ben, and Carla bars highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Check your work. Maya and Ben together is 23. Carla is 11. To find how many more, subtract: 23 minus 11. What's that difference?"
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Student answered incorrectly three or more times. System models the answer.",
+          "description": "Student answered incorrectly. System models the correct answer.",
           "is_correct": false,
           "steps": [
             [
@@ -856,21 +969,21 @@
                 "method": "animate",
                 "tangible_id": "bar_graph_books",
                 "params": {
-                  "event": "show_comparison_overlay",
+                  "event": "show_calculation",
                   "status": "confirmed",
-                  "description": "Shows: 23 compared to 11, difference 12"
+                  "description": "Animation demonstrates: combined total 23 displayed, Carla bar at 11 highlighted, calculation 23 - 11 = 12 shown."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me walk you through it. Maya and Ben together is 23 books. Carla read 11 books. How many more asks for the difference. We subtract: 23 minus 11 equals 12. The answer is 12 books more."
+                "text": "Here's how this works. Maya and Ben together read 23 books. Carla read 11. How many MORE means we compare by subtracting: 23 minus 11 equals 12. Maya and Ben together read 12 more books than Carla."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:02:28.893731+00:00"
+    "_generated_at": "2026-04-27T15:56:36.378453+00:00"
   },
   {
     "id": "s1_5_exit_check_closure",
@@ -887,6 +1000,6 @@
         "id": "s1_5_exit_check_closure_b1"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:44.291252+00:00"
+    "_generated_at": "2026-04-27T15:54:47.907480+00:00"
   }
 ]

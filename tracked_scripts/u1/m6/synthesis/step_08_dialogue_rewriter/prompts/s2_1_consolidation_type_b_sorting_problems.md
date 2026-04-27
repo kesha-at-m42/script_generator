@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:00:58.949965
+# Generated: 2026-04-27T10:54:39.481587
 ======================================================================
 
 ## API Parameters
@@ -948,7 +948,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "You sorted them all. Words like combined and together tell you to find a total first.",
+      "text": "You sorted them all. Words like 'combined' and 'together' tell you to find a total first.",
       "context": "on_correct"
     },
     {

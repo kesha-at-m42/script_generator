@@ -1,20 +1,19 @@
 {
   "id": "s3_2_worked_example_expression_visual",
-  "type": "transition",
   "beats": [
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder_example",
+      "tangible_id": "equation_builder",
       "tangible_type": "equation_builder",
       "params": {
-        "mode": "display",
-        "expression": [
+        "mode": "expression",
+        "template": [
           "2",
           "×",
           "6"
         ],
-        "description": "Equation Builder in expression mode displays complete expression 2 × 6. No slots, read-only."
+        "description": "Equation builder appears showing completed expression 2 × 6 (no slots, static display)."
       }
     },
     {
@@ -24,6 +23,8 @@
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
+        "separation": "full",
+        "context": "bags_items",
         "container_count": 2,
         "items_per_container": 6,
         "description": "Option A: 2 bags with 6 items each."
@@ -36,6 +37,8 @@
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
+        "separation": "full",
+        "context": "bags_items",
         "container_count": 6,
         "items_per_container": 2,
         "description": "Option B: 6 bags with 2 items each."
@@ -48,6 +51,8 @@
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
+        "separation": "full",
+        "context": "bags_items",
         "container_count": 3,
         "items_per_container": 4,
         "description": "Option C: 3 bags with 4 items each."
@@ -61,11 +66,11 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equation_builder_example",
-          "description": "Equation Builder displays 2 × 6 in expression mode.",
+          "tangible_id": "equation_builder",
+          "description": "Equation builder displaying 2 × 6 (static, no slots).",
           "tangible_type": "equation_builder",
-          "mode": "display",
-          "expression": [
+          "mode": "expression",
+          "template": [
             "2",
             "×",
             "6"
@@ -104,7 +109,7 @@
       "params": {
         "event": "flash_containers",
         "status": "confirmed",
-        "description": "Option A bags flash subtly."
+        "description": "Option A containers flash subtly."
       }
     },
     {
@@ -115,11 +120,11 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equation_builder_example",
-          "description": "Equation Builder displays 2 × 6.",
+          "tangible_id": "equation_builder",
+          "description": "Equation builder displaying 2 × 6.",
           "tangible_type": "equation_builder",
-          "mode": "display",
-          "expression": [
+          "mode": "expression",
+          "template": [
             "2",
             "×",
             "6"
@@ -127,7 +132,7 @@
         },
         {
           "tangible_id": "equal_groups_option_a",
-          "description": "Option A: 2 bags with 6 items each. Bags flashed.",
+          "description": "Option A: 2 bags with 6 items each. Containers flashed.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 2,
@@ -153,11 +158,12 @@
     },
     {
       "type": "scene",
-      "method": "update",
+      "method": "animate",
       "tangible_id": "equal_groups_option_a",
       "params": {
-        "highlight_items": true,
-        "description": "Items inside Option A bags highlight."
+        "event": "highlight_items",
+        "status": "confirmed",
+        "description": "Items in Option A highlight."
       }
     },
     {
@@ -168,11 +174,11 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equation_builder_example",
-          "description": "Equation Builder displays 2 × 6.",
+          "tangible_id": "equation_builder",
+          "description": "Equation builder displaying 2 × 6.",
           "tangible_type": "equation_builder",
-          "mode": "display",
-          "expression": [
+          "mode": "expression",
+          "template": [
             "2",
             "×",
             "6"
@@ -209,7 +215,7 @@
       "method": "update",
       "tangible_id": "equal_groups_option_a",
       "params": {
-        "highlight_full": true,
+        "highlight": "full",
         "description": "Option A highlights completely."
       }
     },
@@ -221,11 +227,11 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equation_builder_example",
-          "description": "Equation Builder displays 2 × 6.",
+          "tangible_id": "equation_builder",
+          "description": "Equation builder displaying 2 × 6.",
           "tangible_type": "equation_builder",
-          "mode": "display",
-          "expression": [
+          "mode": "expression",
+          "template": [
             "2",
             "×",
             "6"
@@ -258,5 +264,5 @@
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:03:53.274392+00:00"
+  "_generated_at": "2026-04-27T15:57:55.125232+00:00"
 }

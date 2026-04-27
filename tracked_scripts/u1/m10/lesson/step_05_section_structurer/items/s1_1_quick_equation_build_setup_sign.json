@@ -1,6 +1,5 @@
 {
   "id": "s1_1_quick_equation_build_setup_sign",
-  "type": "Type B — Activate Prior Skill",
   "beats": [
     {
       "type": "scene",
@@ -12,14 +11,14 @@
         "container_count": 3,
         "items_per_container": 4,
         "item_type": "apples",
-        "container_type": "bags",
-        "description": "3 bags appear on screen, each containing 4 apples. Bags clearly separated, total 12 apples visible."
+        "containers_visible": true,
+        "description": "Equal groups appear. 3 bags, each containing 4 apples. Bags clearly separated."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder_apples",
+      "tangible_id": "equation_builder_multiply",
       "tangible_type": "equation_builder",
       "params": {
         "template": [
@@ -29,7 +28,7 @@
           "=",
           "__"
         ],
-        "tile_palette": [
+        "palette": [
           2,
           3,
           4,
@@ -41,7 +40,7 @@
           12,
           14
         ],
-        "description": "Equation builder appears below the bags. Template shows three blank slots with multiplication and equals signs. Tile palette displays numbers 2, 3, 4, 5, 6, 7, 8, 10, 12, 14."
+        "description": "Equation Builder appears. Template shows three blanks with multiplication and equals signs. Tile palette shows numbers 2, 3, 4, 5, 6, 7, 8, 10, 12, 14."
       }
     },
     {
@@ -52,14 +51,16 @@
       "type": "prompt",
       "text": "Build the equation.",
       "tool": "place_tile",
-      "target": "equation_builder_apples",
+      "target": "equation_builder_multiply",
       "validator": [
         {
           "condition_id": "correct",
           "condition": {
-            "groups": 3,
-            "items": 4,
-            "total": 12
+            "placed": {
+              "groups": 3,
+              "items": 4,
+              "total": 12
+            }
           },
           "description": "Student placed 3 × 4 = 12, correct",
           "is_correct": true,
@@ -67,11 +68,11 @@
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equation_builder_apples",
+              "tangible_id": "equation_builder_multiply",
               "params": {
-                "event": "confirm_equation",
+                "event": "confirm_placement",
                 "status": "confirmed",
-                "description": "Placed tiles lock into slots confirming 3 × 4 = 12."
+                "description": "Equation tiles lock into place confirming 3 × 4 = 12."
               }
             },
             {
@@ -80,17 +81,16 @@
             },
             {
               "type": "scene",
-              "method": "animate",
-              "tangible_id": "equation_builder_apples",
+              "method": "update",
+              "tangible_id": "equation_builder_multiply",
               "params": {
-                "event": "highlight_equals_sign",
-                "status": "confirmed",
-                "description": "The equals sign in the equation subtly highlights, drawing attention to it."
+                "highlight_component": "equals_sign",
+                "description": "The equals sign subtly highlights."
               }
             },
             {
               "type": "dialogue",
-              "text": "But now, let's look more closely at that equals sign."
+              "text": "But now — let's look more closely at that equals sign."
             }
           ]
         }
@@ -101,17 +101,15 @@
       "elements": [
         {
           "tangible_id": "equal_groups_apples",
-          "description": "3 bags each containing 4 apples, total 12 apples visible.",
+          "description": "Equal groups showing 3 bags, each containing 4 apples. Bags clearly separated.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 3,
-          "items_per_container": 4,
-          "item_type": "apples",
-          "container_type": "bags"
+          "items_per_container": 4
         },
         {
-          "tangible_id": "equation_builder_apples",
-          "description": "Equation builder showing 3 × 4 = 12 with equals sign highlighted. Tile palette visible.",
+          "tangible_id": "equation_builder_multiply",
+          "description": "Equation Builder showing completed equation 3 × 4 = 12. Equals sign highlighted.",
           "tangible_type": "equation_builder",
           "template": [
             "3",
@@ -119,22 +117,10 @@
             "4",
             "=",
             "12"
-          ],
-          "tile_palette": [
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            10,
-            12,
-            14
           ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:02:26.621482+00:00"
+  "_generated_at": "2026-04-27T15:55:02.858058+00:00"
 }

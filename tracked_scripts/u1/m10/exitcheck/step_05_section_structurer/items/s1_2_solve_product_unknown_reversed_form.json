@@ -11,21 +11,22 @@
         "container_count": 4,
         "items_per_container": 7,
         "item_type": "flowers",
-        "container_style": "circled",
-        "description": "Equal groups visual appears: 4 circled clusters of flowers, 7 flowers in each cluster."
+        "arrangement": "horizontal_rows",
+        "description": "Equal groups visual appears: 4 groups of 7 flowers, flowers in circled clusters arranged horizontally."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder_reversed",
+      "tangible_id": "equation_builder_flowers",
       "tangible_type": "equation_builder",
       "params": {
-        "template": [
+        "template": "reversed_product_unknown",
+        "structure": [
           "__",
           "=",
           "4",
-          "x",
+          "×",
           "7"
         ],
         "palette": [
@@ -34,7 +35,7 @@
           24,
           28
         ],
-        "description": "Equation builder appears with reversed form: blank equals 4 times 7. Answer palette shows tiles 11, 21, 24, 28."
+        "description": "Equation builder appears with reversed pre-filled equation: ☐ = 4 × 7. Palette shows tiles 11, 21, 24, 28."
       }
     },
     {
@@ -45,24 +46,26 @@
       "type": "prompt",
       "text": "☐ = 4 × 7. Find the total.",
       "tool": "place_tile",
-      "target": "equation_builder_reversed",
+      "target": "equation_builder_flowers",
       "validator": [
         {
           "condition_id": "correct",
           "condition": {
-            "total": 28
+            "placed": {
+              "product": 28
+            }
           },
-          "description": "Student placed 28 in the blank, correct product",
+          "description": "Student placed 28 in the product slot, correct",
           "is_correct": true,
           "beats": [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equation_builder_reversed",
+              "tangible_id": "equation_builder_flowers",
               "params": {
-                "event": "tile_placed",
+                "event": "tile_locks_in_slot",
                 "status": "confirmed",
-                "description": "28 tile locks into blank slot, equation complete: 28 = 4 × 7."
+                "description": "Tile 28 locks into the product slot, completing the equation ☐ = 4 × 7."
               }
             },
             {
@@ -78,26 +81,28 @@
       "elements": [
         {
           "tangible_id": "equal_groups_flowers",
-          "description": "Equal groups visual showing 4 circled clusters of 7 flowers each.",
+          "description": "Equal groups visual: 4 groups of 7 flowers in circled clusters, horizontal arrangement.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 4,
-          "items_per_container": 7
+          "items_per_container": 7,
+          "item_type": "flowers"
         },
         {
-          "tangible_id": "equation_builder_reversed",
-          "description": "Equation builder showing completed reversed equation: 28 = 4 × 7.",
+          "tangible_id": "equation_builder_flowers",
+          "description": "Equation builder showing completed equation: 28 = 4 × 7. Product tile 28 placed in first slot.",
           "tangible_type": "equation_builder",
-          "template": [
+          "template": "reversed_product_unknown",
+          "structure": [
             "28",
             "=",
             "4",
-            "x",
+            "×",
             "7"
           ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:01:04.849149+00:00"
+  "_generated_at": "2026-04-27T15:53:57.458966+00:00"
 }

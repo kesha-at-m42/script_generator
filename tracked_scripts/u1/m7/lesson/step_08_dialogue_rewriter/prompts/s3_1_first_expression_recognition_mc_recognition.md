@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:24.448784
+# Generated: 2026-04-27T10:58:09.421727
 ======================================================================
 
 ## API Parameters
@@ -948,7 +948,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "3 times 2. Three bags, two in each. That's how you match groups to an expression.",
+      "text": "3 × 2. Three bags, two in each.",
       "context": "on_correct"
     }
   ]

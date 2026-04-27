@@ -7,15 +7,11 @@
           "condition": {
             "and": [
               {
-                "or": [
-                  {
-                    "groups": 2,
-                    "items": 5
-                  },
-                  {
-                    "groups": 10
-                  }
-                ]
+                "placed": {
+                  "groups": 2,
+                  "items": 5,
+                  "total": 10
+                }
               },
               {
                 "or": [
@@ -29,7 +25,7 @@
               }
             ]
           },
-          "description": "Student reversed groups and items (2 × 5) or wrote 10 as groups",
+          "description": "Student reversed groups and items: placed 2 × 5 = 10",
           "is_correct": false,
           "steps": [
             [
@@ -39,12 +35,12 @@
                 "tangible_id": "equal_groups_bags",
                 "params": {
                   "highlight_containers": true,
-                  "description": "The 5 bags highlight to show groups."
+                  "description": "Bags pulse to draw attention to the groups."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Count the bags. That's your first number, the groups. Then count what's in one bag. That's your second number."
+                "text": "You got the total right. But count how many bags there are. That's the first number. How many bags do you see?"
               }
             ]
           ]
@@ -57,26 +53,22 @@
               },
               {
                 "not": {
-                  "or": [
-                    {
-                      "groups": 2,
-                      "items": 5
-                    },
-                    {
-                      "groups": 10
-                    }
-                  ]
+                  "placed": {
+                    "groups": 2,
+                    "items": 5,
+                    "total": 10
+                  }
                 }
               }
             ]
           },
-          "description": "Student built an incorrect equation on first attempt",
+          "description": "Student placed incorrect equation on first attempt",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "dialogue",
-                "text": "Not quite. Count the bags, then what's inside one bag."
+                "text": "Not quite. Count the groups first, then count the items in each group."
               }
             ]
           ]
@@ -89,20 +81,16 @@
               },
               {
                 "not": {
-                  "or": [
-                    {
-                      "groups": 2,
-                      "items": 5
-                    },
-                    {
-                      "groups": 10
-                    }
-                  ]
+                  "placed": {
+                    "groups": 2,
+                    "items": 5,
+                    "total": 10
+                  }
                 }
               }
             ]
           },
-          "description": "Student built an incorrect equation on second attempt",
+          "description": "Student placed incorrect equation on second attempt",
           "is_correct": false,
           "steps": [
             [
@@ -112,19 +100,19 @@
                 "tangible_id": "equal_groups_bags",
                 "params": {
                   "highlight_containers": true,
-                  "description": "The 5 bags highlight."
+                  "description": "Bags highlight to show the groups."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Here's what helps: the first number counts how many bags you see. The second number counts what's in one bag. What do you get?"
+                "text": "Let's think about this together. The first number is how many bags. The second number is how many items are in each bag. Count the bags, then count what's inside one bag."
               }
             ]
           ]
         },
         {
           "condition": {},
-          "description": "Student answered incorrectly three or more times. System models the answer.",
+          "description": "Student placed incorrect equation three or more times. System models the answer.",
           "is_correct": false,
           "steps": [
             [
@@ -135,28 +123,28 @@
                 "params": {
                   "event": "place_tiles",
                   "status": "confirmed",
-                  "description": "System places tiles: 5 in first blank, 2 in second blank, 10 in third blank.",
-                  "tiles": [
-                    5,
-                    2,
-                    10
-                  ]
+                  "description": "System places tiles to build 5 × 2 = 10.",
+                  "values": {
+                    "groups": 5,
+                    "items": 2,
+                    "total": 10
+                  }
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. I count the bags: 5 bags. That's my first number. I count what's in one bag: 2 items. That's my second number. 5 times 2 equals 10. The equation is 5 times 2 equals 10."
+                "text": "Let me show you how this works. I count the bags. There are 5 bags. That's my first number. Then I count the items in one bag. There are 2 items. That's my second number. 5 times 2 equals 10. The equation is 5 times 2 equals 10."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:01:15.241509+00:00"
+    "_generated_at": "2026-04-27T15:53:49.940752+00:00"
   },
   {
     "id": "s2_1_reversed_equation_judgment_task_curiosity",
     "incorrects": [],
-    "_generated_at": "2026-04-20T17:01:18.590051+00:00"
+    "_generated_at": "2026-04-27T15:53:52.804508+00:00"
   }
 ]

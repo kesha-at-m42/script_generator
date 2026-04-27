@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:05:05.421484
+# Generated: 2026-04-27T10:59:39.683752
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,7 @@ Cacheable: Yes
   "id": "s2_1_show_pattern_bags_boxes",
   "dialogues": [
     {
-      "text": "Look at these two. On the left, bags. On the right, boxes.",
+      "text": "Look at these two. On the left—bags. On the right—boxes.",
       "context": "lesson"
     },
     {
@@ -960,7 +960,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "Different containers, bags or boxes, but the SAME structure. Both are 2 groups of 5. Both build the same expression: 2 times 5.",
+      "text": "Different containers—bags or boxes—but the SAME structure. Both are 2 groups of 5. Both build the same expression: 2 times 5.",
       "context": "lesson"
     },
     {

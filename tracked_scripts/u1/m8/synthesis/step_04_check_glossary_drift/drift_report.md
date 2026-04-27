@@ -1,6 +1,6 @@
 # UX/Script Terminology Drift Report
 
-Generated: 2026-04-20 12:00  
+Generated: 2026-04-27 10:53  
 Source: `check_glossary_drift.json`  
 Scope: Unit 1, Module 8
 
@@ -16,7 +16,6 @@ These likely represent concepts not yet in the glossary or toy_specs directory.
 
 | Phrase | Section | Snippet |
 | ---|---|--- |
-| `Four real-world scenario illustrations` | `s1_2_real_world_bridge_where_do` | Four real-world scenario illustrations. A: Egg carton (2 rows, 6 eggs each). B:  |
 | `Clean screen` | `s1_4_identity_building_closure` | Clean screen. Brief display of an expression `4 × 3`. |
 
 ---
@@ -58,11 +57,6 @@ _None found._
 ---
 
 ## Section Detail
-
-### `s1_2_real_world_bridge_where_do`
-
-- **Unresolved:** `Four real-world scenario illustrations` in `visual`
-  > Four real-world scenario illustrations. A: Egg carton (2 rows, 6 eggs each). B: Parking lot (3 rows, 4 cars each). C:...
 
 ### `s1_4_identity_building_closure`
 

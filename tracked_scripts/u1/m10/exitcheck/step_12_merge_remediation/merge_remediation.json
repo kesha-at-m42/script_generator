@@ -7,18 +7,16 @@
         "type": "dialogue",
         "text": "You built equations with bags, rows, stacks, and groups. You found unknown numbers in different positions. Let's see what you know.",
         "id": "s1_0_transition_into_exit_check_b0",
-        "_notion_block_id": "3485917e-ac52-81cc-b246-db793589c465"
+        "_notion_block_id": "34f5917e-ac52-816f-990d-eca0549c8f5f"
       },
       {
         "type": "current_scene",
         "elements": [],
-        "id": "s1_0_transition_into_exit_check_b1",
-        "_toml_key": "step_100_transition_into_exit_check"
+        "id": "s1_0_transition_into_exit_check_b1"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:39.876335+00:00",
-    "_notion_block_id": "3485917e-ac52-8167-acbc-fa015ad510fa",
-    "_toml_key": "section_100_transition_into_exit_check"
+    "_generated_at": "2026-04-27T15:53:18.154150+00:00",
+    "_notion_block_id": "34f5917e-ac52-8128-a712-c461e9b9f7e0"
   },
   {
     "id": "s1_1_build_complete_equation_variety_visual",
@@ -33,11 +31,11 @@
           "container_count": 3,
           "items_per_container": 6,
           "item_type": "pencils",
-          "arrangement": "horizontal_rows",
-          "description": "Equal groups visual appears. 3 rows of 6 pencils on a desk. Pencils arranged in clear horizontal rows."
+          "arrangement": "rows",
+          "description": "Equal groups visual appears. 3 horizontal rows of 6 pencils on a desk. Pencils arranged in clear horizontal rows."
         },
         "id": "s1_1_build_complete_equation_variety_visual_b0",
-        "_notion_block_id": "3485917e-ac52-8186-9750-ca8cb3a60328"
+        "_notion_block_id": "34f5917e-ac52-81a3-88bc-f69688eaace8"
       },
       {
         "type": "scene",
@@ -47,12 +45,12 @@
         "params": {
           "template": [
             "__",
-            "x",
+            "×",
             "__",
             "=",
             "__"
           ],
-          "palette": [
+          "tile_palette": [
             2,
             3,
             4,
@@ -64,16 +62,16 @@
             18,
             20
           ],
-          "description": "Equation Builder appears below. Template shows three blank slots with multiplication and equals symbols. Tile palette displays: 2, 3, 4, 5, 6, 9, 12, 15, 18, 20."
+          "description": "Equation Builder appears below the visual. Template shows three blanks with multiplication and equals symbols. Tile palette displays numbers 2, 3, 4, 5, 6, 9, 12, 15, 18, 20."
         },
         "id": "s1_1_build_complete_equation_variety_visual_b1",
-        "_notion_block_id": "3485917e-ac52-8140-b02e-c8d199a09b0d"
+        "_notion_block_id": "34f5917e-ac52-8187-ab40-cf58b99417e1"
       },
       {
         "type": "dialogue",
         "text": "Rows of pencils. Build the equation.",
         "id": "s1_1_build_complete_equation_variety_visual_b2",
-        "_notion_block_id": "3485917e-ac52-813e-9fc0-f38db09bbe5a"
+        "_notion_block_id": "34f5917e-ac52-8121-976b-d4ae688430be"
       },
       {
         "type": "prompt",
@@ -84,64 +82,43 @@
           {
             "condition_id": "correct",
             "condition": {
-              "groups": 3,
-              "items": 6,
-              "total": 18
+              "placed": {
+                "groups": 3,
+                "items": 6,
+                "total": 18
+              }
             },
             "description": "Student placed 3 × 6 = 18, correct",
             "is_correct": true,
             "beats": [
               {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "equation_builder_pencils",
-                "params": {
-                  "event": "confirm_equation",
-                  "status": "confirmed",
-                  "description": "Equation 3 × 6 = 18 confirms."
-                },
-                "id": "s1_1_build_complete_equation_variety_visual_b3_v0_b0"
-              },
-              {
                 "type": "dialogue",
                 "text": "That's it. 3 times 6 equals 18.",
-                "id": "s1_1_build_complete_equation_variety_visual_b3_v0_b1",
-                "_notion_block_id": "3485917e-ac52-81d2-98a7-e66f22518ca1"
+                "id": "s1_1_build_complete_equation_variety_visual_b3_v0_b0",
+                "_notion_block_id": "34f5917e-ac52-8190-a10d-dc654021c6fa"
               }
             ]
           },
           {
             "condition": {
-              "and": [
-                {
-                  "or": [
-                    {
-                      "groups": 6,
-                      "items": 3
-                    },
-                    {
-                      "groups": 6,
-                      "total": 18
-                    },
-                    {
-                      "items": 3,
-                      "total": 18
-                    }
-                  ]
-                },
-                {
-                  "or": [
-                    {
-                      "incorrect_count": 1
-                    },
-                    {
-                      "incorrect_count": 2
-                    }
-                  ]
-                }
-              ]
+              "incorrect_count": 1
             },
-            "description": "Student reversed groups and items (placed 6 × 3 or partial reversal) on first or second attempt",
+            "description": "Student placed incorrect equation on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Count the rows, then count how many in each row.",
+                "id": "s1_1_build_complete_equation_variety_visual_b3_v1_b0",
+                "_notion_block_id": "34f5917e-ac52-8161-91d3-faabac4ceb75"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student placed incorrect equation on second attempt",
             "is_correct": false,
             "beats": [
               {
@@ -149,100 +126,20 @@
                 "method": "update",
                 "tangible_id": "equal_groups_pencils",
                 "params": {
-                  "highlight_containers": true,
-                  "description": "The 3 rows highlight."
+                  "highlight_containers": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "description": "All 3 rows highlight."
                 },
-                "id": "s1_1_build_complete_equation_variety_visual_b3_v1_b0"
+                "id": "s1_1_build_complete_equation_variety_visual_b3_v2_b0"
               },
               {
                 "type": "dialogue",
-                "text": "You're right that there are 3 and 6. But count how many rows there are. Is it 6?",
-                "id": "s1_1_build_complete_equation_variety_visual_b3_v1_b1",
-                "_notion_block_id": "3485917e-ac52-8122-8b04-fdb61b13e956"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "and": [
-                {
-                  "incorrect_count": 1
-                },
-                {
-                  "not": {
-                    "or": [
-                      {
-                        "groups": 6,
-                        "items": 3
-                      },
-                      {
-                        "groups": 6,
-                        "total": 18
-                      },
-                      {
-                        "items": 3,
-                        "total": 18
-                      }
-                    ]
-                  }
-                }
-              ]
-            },
-            "description": "Student placed incorrect equation on first attempt (not a reversal)",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Not quite. Count the rows. Then count how many pencils are in each row.",
-                "id": "s1_1_build_complete_equation_variety_visual_b3_v2_b0",
-                "_notion_block_id": "3485917e-ac52-8104-bcd0-d5634c479ffe"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "and": [
-                {
-                  "incorrect_count": 2
-                },
-                {
-                  "not": {
-                    "or": [
-                      {
-                        "groups": 6,
-                        "items": 3
-                      },
-                      {
-                        "groups": 6,
-                        "total": 18
-                      },
-                      {
-                        "items": 3,
-                        "total": 18
-                      }
-                    ]
-                  }
-                }
-              ]
-            },
-            "description": "Student placed incorrect equation on second attempt (not a reversal)",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "equal_groups_pencils",
-                "params": {
-                  "highlight_containers": true,
-                  "description": "The 3 rows highlight."
-                },
-                "id": "s1_1_build_complete_equation_variety_visual_b3_v3_b0"
-              },
-              {
-                "type": "dialogue",
-                "text": "Here's what helps: count the rows first. That number goes in the first slot. Then count the pencils in one row. How many are in each row?",
-                "id": "s1_1_build_complete_equation_variety_visual_b3_v3_b1",
-                "_notion_block_id": "3485917e-ac52-8115-bc17-e5a5f4400baa"
+                "text": "Look at the rows. There are 3 rows. Each row has the same number. Count one row: how many pencils?",
+                "id": "s1_1_build_complete_equation_variety_visual_b3_v2_b1",
+                "_notion_block_id": "34f5917e-ac52-8199-93d0-d9a8af3bb146"
               }
             ]
           },
@@ -254,51 +151,62 @@
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equation_builder_pencils",
+                "tangible_id": "equal_groups_pencils",
                 "params": {
-                  "event": "place_tiles",
+                  "event": "highlight_containers_sequential",
                   "status": "confirmed",
-                  "description": "System places tiles into equation: 3 in first slot, 6 in second slot, 18 in third slot. Equation becomes 3 × 6 = 18."
+                  "description": "Rows highlight one at a time as guide counts: 1, 2, 3."
                 },
-                "id": "s1_1_build_complete_equation_variety_visual_b3_v4_b0"
+                "id": "s1_1_build_complete_equation_variety_visual_b3_v3_b0"
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you how this works. I count the rows. There are 3 rows. That's my first number. Then I count the pencils in one row. There are 6 pencils. That's my second number. 3 times 6 equals 18. The equation is 3 times 6 equals 18.",
-                "id": "s1_1_build_complete_equation_variety_visual_b3_v4_b1",
-                "_notion_block_id": "3485917e-ac52-8122-8cc2-ca2cc7008fa7"
+                "text": "Let me show you. I count the rows: 1, 2, 3. Three rows. Now I count one row: 1, 2, 3, 4, 5, 6. Six pencils. So it's 3 groups of 6. The product? 3 times 6 equals 18. That's the equation: 3 times 6 equals 18.",
+                "id": "s1_1_build_complete_equation_variety_visual_b3_v3_b1",
+                "_notion_block_id": "34f5917e-ac52-8143-9ba6-c2ff61135d2e"
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_pencils",
+                "params": {
+                  "event": "tiles_place_sequentially",
+                  "status": "confirmed",
+                  "description": "Tiles place into equation: 3 × 6 = 18 appears."
+                },
+                "id": "s1_1_build_complete_equation_variety_visual_b3_v3_b2"
               }
             ]
           }
         ],
         "id": "s1_1_build_complete_equation_variety_visual_b3",
-        "_notion_block_id": "3485917e-ac52-817c-8560-e36d3ae3ec56"
+        "_notion_block_id": "34f5917e-ac52-816c-9612-f3817d26f3c5"
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "equal_groups_pencils",
-            "description": "Equal groups visual. 3 rows of 6 pencils on a desk.",
+            "description": "Equal groups visual showing 3 horizontal rows of 6 pencils on a desk.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 3,
             "items_per_container": 6,
             "item_type": "pencils",
-            "arrangement": "horizontal_rows"
+            "arrangement": "rows"
           },
           {
             "tangible_id": "equation_builder_pencils",
-            "description": "Equation Builder showing confirmed equation 3 × 6 = 18.",
+            "description": "Equation Builder with template and tile palette. Student may place tiles into the three blanks.",
             "tangible_type": "equation_builder",
             "template": [
               "__",
-              "x",
+              "×",
               "__",
               "=",
               "__"
             ],
-            "palette": [
+            "tile_palette": [
               2,
               3,
               4,
@@ -312,13 +220,11 @@
             ]
           }
         ],
-        "id": "s1_1_build_complete_equation_variety_visual_b4",
-        "_toml_key": "step_101_build_complete_equation_variety_visual"
+        "id": "s1_1_build_complete_equation_variety_visual_b4"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:52.409741+00:00",
-    "_notion_block_id": "3485917e-ac52-81ce-aeca-ea4c9862edb8",
-    "_toml_key": "section_101_build_complete_equation_variety_visual"
+    "_generated_at": "2026-04-27T15:53:34.101576+00:00",
+    "_notion_block_id": "34f5917e-ac52-8150-97ac-ca513a9ed6af"
   },
   {
     "id": "s1_2_solve_product_unknown_reversed_form",
@@ -333,23 +239,24 @@
           "container_count": 4,
           "items_per_container": 7,
           "item_type": "flowers",
-          "container_style": "circled",
-          "description": "Equal groups visual appears: 4 circled clusters of flowers, 7 flowers in each cluster."
+          "arrangement": "horizontal_rows",
+          "description": "Equal groups visual appears: 4 groups of 7 flowers, flowers in circled clusters arranged horizontally."
         },
         "id": "s1_2_solve_product_unknown_reversed_form_b0",
-        "_notion_block_id": "3485917e-ac52-819a-a0ae-d225e111bffd"
+        "_notion_block_id": "34f5917e-ac52-8173-a2f7-ef8da2c18394"
       },
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "equation_builder_reversed",
+        "tangible_id": "equation_builder_flowers",
         "tangible_type": "equation_builder",
         "params": {
-          "template": [
+          "template": "reversed_product_unknown",
+          "structure": [
             "__",
             "=",
             "4",
-            "x",
+            "×",
             "7"
           ],
           "palette": [
@@ -358,39 +265,41 @@
             24,
             28
           ],
-          "description": "Equation builder appears with reversed form: blank equals 4 times 7. Answer palette shows tiles 11, 21, 24, 28."
+          "description": "Equation builder appears with reversed pre-filled equation: ☐ = 4 × 7. Palette shows tiles 11, 21, 24, 28."
         },
         "id": "s1_2_solve_product_unknown_reversed_form_b1",
-        "_notion_block_id": "3485917e-ac52-8182-8603-c3e88d1c52f6"
+        "_notion_block_id": "34f5917e-ac52-812e-a6e8-c877bd25d658"
       },
       {
         "type": "dialogue",
         "text": "4 groups of 7 flowers. The equation is flipped. Total goes first. Find the total and place it.",
         "id": "s1_2_solve_product_unknown_reversed_form_b2",
-        "_notion_block_id": "3485917e-ac52-8131-bde6-d0355d4ee81a"
+        "_notion_block_id": "34f5917e-ac52-816a-a4c6-d2138f292d66"
       },
       {
         "type": "prompt",
         "text": "☐ = 4 × 7. Find the total.",
         "tool": "place_tile",
-        "target": "equation_builder_reversed",
+        "target": "equation_builder_flowers",
         "validator": [
           {
             "condition_id": "correct",
             "condition": {
-              "total": 28
+              "placed": {
+                "product": 28
+              }
             },
-            "description": "Student placed 28 in the blank, correct product",
+            "description": "Student placed 28 in the product slot, correct",
             "is_correct": true,
             "beats": [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equation_builder_reversed",
+                "tangible_id": "equation_builder_flowers",
                 "params": {
-                  "event": "tile_placed",
+                  "event": "tile_locks_in_slot",
                   "status": "confirmed",
-                  "description": "28 tile locks into blank slot, equation complete: 28 = 4 × 7."
+                  "description": "Tile 28 locks into the product slot, completing the equation ☐ = 4 × 7."
                 },
                 "id": "s1_2_solve_product_unknown_reversed_form_b3_v0_b0"
               },
@@ -398,7 +307,7 @@
                 "type": "dialogue",
                 "text": "That's it. 28 equals 4 times 7. Same value, both sides.",
                 "id": "s1_2_solve_product_unknown_reversed_form_b3_v0_b1",
-                "_notion_block_id": "3485917e-ac52-81f0-a81d-f3566228e795"
+                "_notion_block_id": "34f5917e-ac52-81d1-bec1-fa0961a8d2ac"
               }
             ]
           },
@@ -406,14 +315,14 @@
             "condition": {
               "incorrect_count": 1
             },
-            "description": "Student placed wrong tile on first attempt",
+            "description": "Student placed a wrong number tile on first attempt",
             "is_correct": false,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "Not quite. Count the total flowers in all 4 groups.",
+                "text": "Not quite. Count all the flowers. How many total?",
                 "id": "s1_2_solve_product_unknown_reversed_form_b3_v1_b0",
-                "_notion_block_id": "3485917e-ac52-8109-9efb-d6b01274fb3a"
+                "_notion_block_id": "34f5917e-ac52-81fe-a205-c7886b23c935"
               }
             ]
           },
@@ -421,29 +330,7 @@
             "condition": {
               "incorrect_count": 2
             },
-            "description": "Student placed wrong tile on second attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "equal_groups_flowers",
-                "params": {
-                  "description": "One group highlights to show 7 flowers."
-                },
-                "id": "s1_2_solve_product_unknown_reversed_form_b3_v2_b0"
-              },
-              {
-                "type": "dialogue",
-                "text": "Each group has 7 flowers. 4 groups means you count 7 four times. Count them all and place that number.",
-                "id": "s1_2_solve_product_unknown_reversed_form_b3_v2_b1",
-                "_notion_block_id": "3485917e-ac52-8175-b0ec-d44a0c7083e1"
-              }
-            ]
-          },
-          {
-            "condition": {},
-            "description": "Student placed wrong tile three or more times. System models the answer.",
+            "description": "Student placed a wrong number tile on second attempt",
             "is_correct": false,
             "beats": [
               {
@@ -451,55 +338,79 @@
                 "method": "animate",
                 "tangible_id": "equal_groups_flowers",
                 "params": {
-                  "event": "count_all",
+                  "event": "highlight_containers_sequential",
                   "status": "confirmed",
-                  "description": "Each group lights up as the guide counts: 7, 14, 21, 28."
+                  "description": "Groups highlight one at a time: 7, 14, 21, 28."
+                },
+                "id": "s1_2_solve_product_unknown_reversed_form_b3_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Skip count by 7s: 7, 14, 21, 28. Four groups of 7. What's the total?",
+                "id": "s1_2_solve_product_unknown_reversed_form_b3_v2_b1",
+                "_notion_block_id": "34f5917e-ac52-8149-b959-dca90a56540b"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student placed a wrong number tile three or more times. System models the answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_flowers",
+                "params": {
+                  "event": "highlight_containers_sequential",
+                  "status": "confirmed",
+                  "description": "Groups highlight one at a time as guide counts: 7, 14, 21, 28."
                 },
                 "id": "s1_2_solve_product_unknown_reversed_form_b3_v3_b0"
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. I count each group: 7, 14, 21, 28. Four groups of 7 equals 28 total. The total is 28, so 28 equals 4 times 7.",
+                "text": "Let me show you. I count the groups: 1, 2, 3, 4 groups. Each group has 7 flowers. Skip count by 7s: 7, 14, 21, 28. Four groups of 7 makes 28 total. The product is 28. That's the same value as 4 times 7.",
                 "id": "s1_2_solve_product_unknown_reversed_form_b3_v3_b1",
-                "_notion_block_id": "3485917e-ac52-8149-bf22-f26ac12376cf"
+                "_notion_block_id": "34f5917e-ac52-8156-8c0d-f900df8250a4"
               }
             ]
           }
         ],
         "id": "s1_2_solve_product_unknown_reversed_form_b3",
-        "_notion_block_id": "3485917e-ac52-811f-a38c-e1c6fe25562a"
+        "_notion_block_id": "34f5917e-ac52-8148-af79-ff704219ffb3"
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "equal_groups_flowers",
-            "description": "Equal groups visual showing 4 circled clusters of 7 flowers each.",
+            "description": "Equal groups visual: 4 groups of 7 flowers in circled clusters, horizontal arrangement.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 4,
-            "items_per_container": 7
+            "items_per_container": 7,
+            "item_type": "flowers"
           },
           {
-            "tangible_id": "equation_builder_reversed",
-            "description": "Equation builder showing completed reversed equation: 28 = 4 × 7.",
+            "tangible_id": "equation_builder_flowers",
+            "description": "Equation builder showing completed equation: 28 = 4 × 7. Product tile 28 placed in first slot.",
             "tangible_type": "equation_builder",
-            "template": [
+            "template": "reversed_product_unknown",
+            "structure": [
               "28",
               "=",
               "4",
-              "x",
+              "×",
               "7"
             ]
           }
         ],
-        "id": "s1_2_solve_product_unknown_reversed_form_b4",
-        "_toml_key": "step_102_solve_product_unknown_reversed_form"
+        "id": "s1_2_solve_product_unknown_reversed_form_b4"
       }
     ],
-    "_generated_at": "2026-04-20T17:01:04.849149+00:00",
-    "_notion_block_id": "3485917e-ac52-812d-9048-d3de5119af65",
-    "_toml_key": "section_102_solve_product_unknown_reversed_form"
+    "_generated_at": "2026-04-27T15:53:57.458966+00:00",
+    "_notion_block_id": "34f5917e-ac52-815c-84b4-ca77b6fb1965"
   },
   {
     "id": "s1_3_solve_1st_factor_unknown",
@@ -511,18 +422,20 @@
         "tangible_type": "equal_groups",
         "params": {
           "mode": "building",
+          "orientation": "horizontal",
+          "item_type": "generic_items",
           "container_count": 0,
           "items_per_container": 5,
           "context": "stacks",
-          "description": "Equal groups construction area appears, empty. Control panel shows +/- group buttons. Each new group will have 5 items. Running total display shows Total: 0."
+          "description": "Equal groups visual in building mode. Construction area starts empty. Item type: generic items. Items per container pre-set to 5. Running total display shows Total: 0."
         },
         "id": "s1_3_solve_1st_factor_unknown_b0",
-        "_notion_block_id": "3485917e-ac52-81ca-90b5-d716dc23b070"
+        "_notion_block_id": "34f5917e-ac52-814f-bb2f-f3209a1784fc"
       },
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "equation_builder_factor",
+        "tangible_id": "equation_builder_stacks",
         "tangible_type": "equation_builder",
         "params": {
           "template": [
@@ -532,17 +445,22 @@
             "=",
             "15"
           ],
-          "style": "equation",
-          "description": "Equation builder appears with pre-filled template: blank × 5 = 15. First position is fillable slot, 5 and 15 are visible."
+          "palette": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "description": "Equation builder with pre-filled template: blank × 5 = 15. Tile palette shows options 2, 3, 4, 5."
         },
         "id": "s1_3_solve_1st_factor_unknown_b1",
-        "_notion_block_id": "3485917e-ac52-8153-b390-ef5d1f06a325"
+        "_notion_block_id": "34f5917e-ac52-813d-aaa5-c293d776a1d4"
       },
       {
         "type": "dialogue",
         "text": "How many stacks of 5 make 15? Pick the number.",
         "id": "s1_3_solve_1st_factor_unknown_b2",
-        "_notion_block_id": "3485917e-ac52-8139-9805-ce7d1351555c"
+        "_notion_block_id": "34f5917e-ac52-8106-9bb3-e2c8bf7a41a7"
       },
       {
         "type": "prompt",
@@ -560,7 +478,7 @@
             "condition": {
               "selected": 3
             },
-            "description": "Student selected 3, correct answer",
+            "description": "Student selected 3, correct (3 × 5 = 15; skip-count by 5s: 5, 10, 15 — three counts)",
             "is_correct": true,
             "beats": [
               {
@@ -570,15 +488,31 @@
                 "params": {
                   "event": "build_groups_sequentially",
                   "status": "confirmed",
-                  "description": "3 stacks of 5 items appear, building one stack at a time. Running total updates: 5, 10, 15."
+                  "description": "3 stacks of 5 items build one at a time. First stack appears with 5 items, then second stack with 5 items, then third stack with 5 items. Running total updates: Total: 5, Total: 10, Total: 15."
                 },
                 "id": "s1_3_solve_1st_factor_unknown_b3_v0_b0"
               },
               {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_builder_stacks",
+                "params": {
+                  "template": [
+                    "3",
+                    "×",
+                    "5",
+                    "=",
+                    "15"
+                  ],
+                  "description": "Tile 3 locks into the blank slot, completing the equation: 3 × 5 = 15."
+                },
+                "id": "s1_3_solve_1st_factor_unknown_b3_v0_b1"
+              },
+              {
                 "type": "dialogue",
-                "text": "Right. 3 stacks of 5 equals 15. That's how you find the missing factor by skip counting.",
-                "id": "s1_3_solve_1st_factor_unknown_b3_v0_b1",
-                "_notion_block_id": "3485917e-ac52-817c-8952-f2d354c64cb1"
+                "text": "That's it. 3 stacks of 5 equals 15.",
+                "id": "s1_3_solve_1st_factor_unknown_b3_v0_b2",
+                "_notion_block_id": "34f5917e-ac52-8179-b926-c19ff3d1078e"
               }
             ]
           },
@@ -586,7 +520,7 @@
             "condition": {
               "selected": 2
             },
-            "description": "Student selected 2: undercounted the groups needed",
+            "description": "Student selected 2 (2 × 5 = 10, not 15)",
             "is_correct": false,
             "beats": [
               {
@@ -596,15 +530,15 @@
                 "params": {
                   "event": "build_groups_sequentially",
                   "status": "proposed",
-                  "description": "2 stacks of 5 items appear. Running total shows 10."
+                  "description": "2 stacks of 5 items appear. Running total shows: Total: 5, Total: 10."
                 },
                 "id": "s1_3_solve_1st_factor_unknown_b3_v1_b0"
               },
               {
                 "type": "dialogue",
-                "text": "2 stacks of 5 gives us 10, not 15. We need more stacks. Skip count by 5s until you reach 15.",
+                "text": "2 stacks of 5 makes 10, not 15. Skip count by 5s until you reach 15. How many times did you count?",
                 "id": "s1_3_solve_1st_factor_unknown_b3_v1_b1",
-                "_notion_block_id": "3485917e-ac52-8120-869d-fc0b284160a3"
+                "_notion_block_id": "34f5917e-ac52-8105-b616-e10c408ff0dc"
               }
             ]
           },
@@ -612,7 +546,7 @@
             "condition": {
               "selected": 4
             },
-            "description": "Student selected 4: overcounted the groups needed",
+            "description": "Student selected 4 (4 × 5 = 20, not 15)",
             "is_correct": false,
             "beats": [
               {
@@ -622,15 +556,15 @@
                 "params": {
                   "event": "build_groups_sequentially",
                   "status": "proposed",
-                  "description": "4 stacks of 5 items appear. Running total shows 20."
+                  "description": "4 stacks of 5 items appear. Running total shows: Total: 5, Total: 10, Total: 15, Total: 20."
                 },
                 "id": "s1_3_solve_1st_factor_unknown_b3_v2_b0"
               },
               {
                 "type": "dialogue",
-                "text": "4 stacks of 5 gives us 20, too many. We need exactly 15. Count by 5s: 5, 10, and then what?",
+                "text": "4 stacks of 5 makes 20, too many. We need 15. How many 5s does it take to reach exactly 15?",
                 "id": "s1_3_solve_1st_factor_unknown_b3_v2_b1",
-                "_notion_block_id": "3485917e-ac52-8169-be4a-e02602fec224"
+                "_notion_block_id": "34f5917e-ac52-8155-b633-ce6569b83f5f"
               }
             ]
           },
@@ -638,23 +572,25 @@
             "condition": {
               "selected": 5
             },
-            "description": "Student selected 5: likely confused the factor with the group size",
+            "description": "Student selected 5 (5 × 5 = 25, not 15; may have confused items per stack with number of stacks)",
             "is_correct": false,
             "beats": [
               {
                 "type": "scene",
-                "method": "update",
-                "tangible_id": "equation_builder_factor",
+                "method": "animate",
+                "tangible_id": "equal_groups_stacks",
                 "params": {
-                  "description": "The 5 in the equation pulses to highlight it."
+                  "event": "build_groups_sequentially",
+                  "status": "proposed",
+                  "description": "5 stacks of 5 items appear. Running total shows: Total: 5, Total: 10, Total: 15, Total: 20, Total: 25."
                 },
                 "id": "s1_3_solve_1st_factor_unknown_b3_v3_b0"
               },
               {
                 "type": "dialogue",
-                "text": "5 is the size of each stack, not how many stacks we need. The blank is asking how many groups of 5 make 15.",
+                "text": "5 stacks of 5 makes 25, not 15. The unknown is how many stacks you need. Skip count by 5s and stop at 15. How many times did you count?",
                 "id": "s1_3_solve_1st_factor_unknown_b3_v3_b1",
-                "_notion_block_id": "3485917e-ac52-81e0-b5ad-c48550992d45"
+                "_notion_block_id": "34f5917e-ac52-818b-a570-c34e5053ad20"
               }
             ]
           },
@@ -670,36 +606,38 @@
                 "params": {
                   "event": "build_groups_sequentially",
                   "status": "confirmed",
-                  "description": "3 stacks of 5 items appear one by one. Running total updates: 5, 10, 15."
+                  "description": "System demonstrates skip counting. First stack appears: 5. Second stack appears: 10. Third stack appears: 15. Final groups show 3 stacks of 5."
                 },
                 "id": "s1_3_solve_1st_factor_unknown_b3_v4_b0"
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. We skip count by 5s: 5, 10, 15. That's 3 jumps, so 3 stacks of 5 make 15. The answer is 3 stacks. That's how we find the missing factor.",
+                "text": "Let me show you. Skip count by 5s. First stack: 5. Second stack: 10. Third stack: 15. I counted three times. 3 stacks of 5 equals 15. That's the unknown.",
                 "id": "s1_3_solve_1st_factor_unknown_b3_v4_b1",
-                "_notion_block_id": "3485917e-ac52-81e5-95b9-d6a555122c27"
+                "_notion_block_id": "34f5917e-ac52-8105-9497-e5b317bd56f6"
               }
             ]
           }
         ],
         "id": "s1_3_solve_1st_factor_unknown_b3",
-        "_notion_block_id": "3485917e-ac52-81c8-9d81-eadc679d3962"
+        "_notion_block_id": "34f5917e-ac52-8189-9502-f8e6a6ee51ca"
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "equal_groups_stacks",
-            "description": "Equal groups construction area showing 3 stacks of 5 items. Running total display shows Total: 15.",
+            "description": "Equal groups visual showing 3 stacks of 5 items each. Total: 15.",
             "tangible_type": "equal_groups",
             "mode": "building",
+            "orientation": "horizontal",
+            "item_type": "generic_items",
             "container_count": 3,
             "items_per_container": 5,
             "context": "stacks"
           },
           {
-            "tangible_id": "equation_builder_factor",
+            "tangible_id": "equation_builder_stacks",
             "description": "Equation builder showing completed equation: 3 × 5 = 15.",
             "tangible_type": "equation_builder",
             "template": [
@@ -708,17 +646,14 @@
               "5",
               "=",
               "15"
-            ],
-            "style": "equation"
+            ]
           }
         ],
-        "id": "s1_3_solve_1st_factor_unknown_b4",
-        "_toml_key": "step_103_solve_1st_factor_unknown"
+        "id": "s1_3_solve_1st_factor_unknown_b4"
       }
     ],
-    "_generated_at": "2026-04-20T17:01:19.051479+00:00",
-    "_notion_block_id": "3485917e-ac52-8122-a458-f44b646b9d95",
-    "_toml_key": "section_103_solve_1st_factor_unknown"
+    "_generated_at": "2026-04-27T15:54:24.471820+00:00",
+    "_notion_block_id": "34f5917e-ac52-812a-a194-e784cb07d048"
   },
   {
     "id": "s1_4_exit_check_closure",
@@ -728,17 +663,15 @@
         "type": "dialogue",
         "text": "You're ready. Let's practice.",
         "id": "s1_4_exit_check_closure_b0",
-        "_notion_block_id": "3485917e-ac52-8128-a343-dd7f3d26dd8b"
+        "_notion_block_id": "34f5917e-ac52-8156-9a18-c080cd8cb099"
       },
       {
         "type": "current_scene",
         "elements": [],
-        "id": "s1_4_exit_check_closure_b1",
-        "_toml_key": "step_104_exit_check_closure"
+        "id": "s1_4_exit_check_closure_b1"
       }
     ],
-    "_generated_at": "2026-04-20T17:01:21.948898+00:00",
-    "_notion_block_id": "3485917e-ac52-815f-8fce-fb64b283160c",
-    "_toml_key": "section_104_exit_check_closure"
+    "_generated_at": "2026-04-27T15:54:31.027376+00:00",
+    "_notion_block_id": "34f5917e-ac52-818b-83b5-e126dbfbffda"
   }
 ]

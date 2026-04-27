@@ -10,15 +10,15 @@
         "mode": "reading",
         "container_count": 4,
         "items_per_container": 6,
-        "container_type": "bags",
         "item_type": "marbles",
-        "description": "Equal groups appear. 4 bags, 6 marbles in each bag."
+        "containers_visible": true,
+        "description": "Equal groups visualization appears. 4 bags, 6 marbles in each bag. Containers visible and clearly separated."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder",
+      "tangible_id": "equation_builder_main",
       "tangible_type": "equation_builder",
       "params": {
         "template": [
@@ -40,7 +40,7 @@
           24,
           28
         ],
-        "description": "Equation builder appears below. Template: blank × blank = blank. Tile palette: 3, 4, 5, 6, 7, 10, 16, 18, 24, 28."
+        "description": "Equation Builder appears with standard template. Three blanks: groups, items per group, total. Tile palette shows 3, 4, 5, 6, 7, 10, 16, 18, 24, 28."
       }
     },
     {
@@ -51,7 +51,7 @@
       "type": "prompt",
       "text": "Build the equation that matches the picture.",
       "tool": "place_tile",
-      "target": "equation_builder",
+      "target": "equation_builder_main",
       "validator": [
         {
           "condition_id": "correct",
@@ -62,7 +62,7 @@
               "total": 24
             }
           },
-          "description": "Student placed 4 × 6 = 24, correct",
+          "description": "Student placed 4, 6, and 24 to build 4 × 6 = 24, correct",
           "is_correct": true,
           "beats": [
             {
@@ -78,17 +78,17 @@
       "elements": [
         {
           "tangible_id": "equal_groups_bags",
-          "description": "Equal groups. 4 bags, 6 marbles in each bag.",
+          "description": "Equal groups visualization. 4 bags, 6 marbles in each.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 4,
           "items_per_container": 6,
-          "container_type": "bags",
-          "item_type": "marbles"
+          "item_type": "marbles",
+          "containers_visible": true
         },
         {
-          "tangible_id": "equation_builder",
-          "description": "Equation builder with template blank × blank = blank. Student placing tiles.",
+          "tangible_id": "equation_builder_main",
+          "description": "Equation Builder showing completed equation 4 × 6 = 24.",
           "tangible_type": "equation_builder",
           "template": [
             "__",
@@ -97,34 +97,28 @@
             "=",
             "__"
           ],
-          "tile_palette": [
-            3,
-            4,
-            5,
-            6,
-            7,
-            10,
-            16,
-            18,
-            24,
-            28
-          ]
+          "placed_values": {
+            "groups": 4,
+            "items": 6,
+            "total": 24
+          }
         }
       ]
     },
     {
       "type": "scene",
-      "method": "update",
-      "tangible_id": "equation_builder",
+      "method": "add",
+      "tangible_id": "equation_reversed",
+      "tangible_type": "equation",
       "params": {
         "template": [
-          "24",
+          24,
           "=",
-          "4",
+          4,
           "×",
-          "6"
+          6
         ],
-        "description": "Equation builder updates to reversed template: 24 = 4 × 6."
+        "description": "Static equation appears below the builder displaying reversed form: 24 = 4 × 6."
       }
     },
     {
@@ -136,28 +130,45 @@
       "elements": [
         {
           "tangible_id": "equal_groups_bags",
-          "description": "Equal groups. 4 bags, 6 marbles in each bag.",
+          "description": "Equal groups visualization. 4 bags, 6 marbles in each.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 4,
           "items_per_container": 6,
-          "container_type": "bags",
-          "item_type": "marbles"
+          "item_type": "marbles",
+          "containers_visible": true
         },
         {
-          "tangible_id": "equation_builder",
-          "description": "Equation builder showing reversed template: 24 = 4 × 6.",
+          "tangible_id": "equation_builder_main",
+          "description": "Equation Builder showing completed equation 4 × 6 = 24.",
           "tangible_type": "equation_builder",
           "template": [
-            "24",
-            "=",
-            "4",
+            "__",
             "×",
-            "6"
+            "__",
+            "=",
+            "__"
+          ],
+          "placed_values": {
+            "groups": 4,
+            "items": 6,
+            "total": 24
+          }
+        },
+        {
+          "tangible_id": "equation_reversed",
+          "description": "Static equation displaying reversed form 24 = 4 × 6.",
+          "tangible_type": "equation",
+          "template": [
+            24,
+            "=",
+            4,
+            "×",
+            6
           ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:03:29.712399+00:00"
+  "_generated_at": "2026-04-27T15:56:37.201710+00:00"
 }

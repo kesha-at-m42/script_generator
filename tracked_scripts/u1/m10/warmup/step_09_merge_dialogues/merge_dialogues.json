@@ -11,9 +11,9 @@
           "mode": "reading",
           "container_count": 5,
           "items_per_container": 2,
-          "visual_style": "pictures",
           "container_type": "bags",
-          "description": "Equal groups visual appears: 5 bags with 2 items each."
+          "item_type": "pictures",
+          "description": "Equal groups visual appears. 5 bags with 2 items each."
         },
         "id": "s1_1_equation_building_callback_activation_b0"
       },
@@ -30,7 +30,7 @@
             "=",
             "__"
           ],
-          "palette": [
+          "tile_palette": [
             1,
             2,
             3,
@@ -42,7 +42,7 @@
             9,
             10
           ],
-          "description": "Equation builder appears alongside with full equation template and tile palette 1 through 10."
+          "description": "Equation Builder appears alongside equal groups. Full equation template with three blanks. Tile palette shows numbers 1 through 10."
         },
         "id": "s1_1_equation_building_callback_activation_b1"
       },
@@ -60,9 +60,11 @@
           {
             "condition_id": "correct",
             "condition": {
-              "groups": 5,
-              "items": 2,
-              "total": 10
+              "placed": {
+                "groups": 5,
+                "items": 2,
+                "total": 10
+              }
             },
             "description": "Student placed 5 × 2 = 10, correct",
             "is_correct": true,
@@ -82,17 +84,17 @@
         "elements": [
           {
             "tangible_id": "equal_groups_bags",
-            "description": "Equal groups visual: 5 bags with 2 items each.",
+            "description": "Equal groups visual. 5 bags with 2 items each.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 5,
             "items_per_container": 2,
-            "visual_style": "pictures",
-            "container_type": "bags"
+            "container_type": "bags",
+            "item_type": "pictures"
           },
           {
             "tangible_id": "equation_builder_warmup",
-            "description": "Equation builder with template [___] × [___] = [___] and tile palette 1-10. Place_tile tool active.",
+            "description": "Equation Builder with completed equation 5 × 2 = 10.",
             "tangible_type": "equation_builder",
             "template": [
               "__",
@@ -101,7 +103,7 @@
               "=",
               "__"
             ],
-            "palette": [
+            "tile_palette": [
               1,
               2,
               3,
@@ -118,7 +120,7 @@
         "id": "s1_1_equation_building_callback_activation_b4"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:30.488251+00:00"
+    "_generated_at": "2026-04-27T15:53:06.908414+00:00"
   },
   {
     "id": "s2_1_reversed_equation_judgment_task_curiosity",
@@ -126,19 +128,37 @@
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "equation_student_built",
-        "tangible_type": "equation",
+        "tangible_id": "equal_groups_bags",
+        "tangible_type": "equal_groups",
         "params": {
-          "expression": [
-            "5",
-            "x",
-            "2",
-            "=",
-            "10"
-          ],
-          "description": "Static equation appears: 5 × 2 = 10. Student's equation from previous section, now read-only."
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 2,
+          "description": "Equal groups visual showing 5 bags, each containing 2 picture items."
         },
         "id": "s2_1_reversed_equation_judgment_task_curiosity_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_warmup",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": [
+            "__",
+            "×",
+            "__",
+            "=",
+            "__"
+          ],
+          "placed_tiles": {
+            "groups": 5,
+            "items": 2,
+            "total": 10
+          },
+          "description": "Equation builder showing completed equation 5 × 2 = 10."
+        },
+        "id": "s2_1_reversed_equation_judgment_task_curiosity_b1"
       },
       {
         "type": "scene",
@@ -146,21 +166,21 @@
         "tangible_id": "equation_reversed",
         "tangible_type": "equation",
         "params": {
-          "expression": [
+          "template": [
             "10",
             "=",
             "5",
-            "x",
+            "×",
             "2"
           ],
-          "description": "Second equation appears alongside or below first: 10 = 5 × 2. Reversed orientation."
+          "description": "Static equation appears showing 10 = 5 × 2."
         },
-        "id": "s2_1_reversed_equation_judgment_task_curiosity_b1"
+        "id": "s2_1_reversed_equation_judgment_task_curiosity_b2"
       },
       {
         "type": "dialogue",
         "text": "Now look at this equation. What do you think?",
-        "id": "s2_1_reversed_equation_judgment_task_curiosity_b2"
+        "id": "s2_1_reversed_equation_judgment_task_curiosity_b3"
       },
       {
         "type": "prompt",
@@ -174,134 +194,160 @@
         ],
         "validator": [
           {
-            "condition_id": "both_sides_10",
+            "condition_id": "option_a",
             "condition": {
               "selected": "It's true — both sides are 10"
             },
-            "description": "Student chose option A — checked both sides",
+            "description": "Student chose option A: both sides are 10",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
                 "text": "You checked both sides. Smart thinking. Hold that thought.",
-                "id": "s2_1_reversed_equation_judgment_task_curiosity_b3_v0_b0"
+                "id": "s2_1_reversed_equation_judgment_task_curiosity_b4_v0_b0"
               }
             ]
           },
           {
-            "condition_id": "just_flipped",
+            "condition_id": "option_b",
             "condition": {
               "selected": "It's true — it's just written differently"
             },
-            "description": "Student chose option B — noticed it's the same equation flipped",
+            "description": "Student chose option B: same equation flipped",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
                 "text": "You noticed it's the same equation, just flipped. Hold that thought.",
-                "id": "s2_1_reversed_equation_judgment_task_curiosity_b3_v1_b0"
+                "id": "s2_1_reversed_equation_judgment_task_curiosity_b4_v1_b0"
               }
             ]
           },
           {
-            "condition_id": "answer_last",
+            "condition_id": "option_c",
             "condition": {
               "selected": "It's wrong — the answer should come last"
             },
-            "description": "Student chose option C — thinks answer must come last",
+            "description": "Student chose option C: answer should come last",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
                 "text": "Interesting. Something looks different about it. Hold that thought.",
-                "id": "s2_1_reversed_equation_judgment_task_curiosity_b3_v2_b0"
+                "id": "s2_1_reversed_equation_judgment_task_curiosity_b4_v2_b0"
               }
             ]
           },
           {
-            "condition_id": "not_sure",
+            "condition_id": "option_d",
             "condition": {
               "selected": "I'm not sure"
             },
-            "description": "Student chose option D — uncertain",
+            "description": "Student chose option D: not sure",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
                 "text": "That's honest. It does look different. Hold that thought.",
-                "id": "s2_1_reversed_equation_judgment_task_curiosity_b3_v3_b0"
+                "id": "s2_1_reversed_equation_judgment_task_curiosity_b4_v3_b0"
               }
-            ]
-          }
-        ],
-        "id": "s2_1_reversed_equation_judgment_task_curiosity_b3"
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "equation_student_built",
-            "description": "Static equation: 5 × 2 = 10.",
-            "tangible_type": "equation",
-            "expression": [
-              "5",
-              "x",
-              "2",
-              "=",
-              "10"
-            ]
-          },
-          {
-            "tangible_id": "equation_reversed",
-            "description": "Static equation: 10 = 5 × 2.",
-            "tangible_type": "equation",
-            "expression": [
-              "10",
-              "=",
-              "5",
-              "x",
-              "2"
             ]
           }
         ],
         "id": "s2_1_reversed_equation_judgment_task_curiosity_b4"
       },
       {
-        "type": "dialogue",
-        "text": "You can build equations. But today, equations have some surprises. You'll see them in new ways and figure out missing numbers.",
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equal_groups_bags",
+            "description": "Equal groups visual showing 5 bags, each containing 2 picture items.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 5,
+            "items_per_container": 2
+          },
+          {
+            "tangible_id": "equation_builder_warmup",
+            "description": "Equation builder showing completed equation 5 × 2 = 10.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "__",
+              "×",
+              "__",
+              "=",
+              "__"
+            ],
+            "placed_tiles": {
+              "groups": 5,
+              "items": 2,
+              "total": 10
+            }
+          },
+          {
+            "tangible_id": "equation_reversed",
+            "description": "Static equation showing 10 = 5 × 2.",
+            "tangible_type": "equation",
+            "template": [
+              "10",
+              "=",
+              "5",
+              "×",
+              "2"
+            ]
+          }
+        ],
         "id": "s2_1_reversed_equation_judgment_task_curiosity_b5"
+      },
+      {
+        "type": "dialogue",
+        "text": "You can build equations. But equations have some surprises. You'll see them in new ways and figure out missing numbers.",
+        "id": "s2_1_reversed_equation_judgment_task_curiosity_b6"
       },
       {
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "equation_student_built",
-            "description": "Static equation: 5 × 2 = 10. Remains visible through transition.",
-            "tangible_type": "equation",
-            "expression": [
-              "5",
-              "x",
-              "2",
+            "tangible_id": "equal_groups_bags",
+            "description": "Equal groups visual showing 5 bags, each containing 2 picture items.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 5,
+            "items_per_container": 2
+          },
+          {
+            "tangible_id": "equation_builder_warmup",
+            "description": "Equation builder showing completed equation 5 × 2 = 10.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "__",
+              "×",
+              "__",
               "=",
-              "10"
-            ]
+              "__"
+            ],
+            "placed_tiles": {
+              "groups": 5,
+              "items": 2,
+              "total": 10
+            }
           },
           {
             "tangible_id": "equation_reversed",
-            "description": "Static equation: 10 = 5 × 2. Remains visible through transition.",
+            "description": "Static equation showing 10 = 5 × 2.",
             "tangible_type": "equation",
-            "expression": [
+            "template": [
               "10",
               "=",
               "5",
-              "x",
+              "×",
               "2"
             ]
           }
         ],
-        "id": "s2_1_reversed_equation_judgment_task_curiosity_b6"
+        "id": "s2_1_reversed_equation_judgment_task_curiosity_b7"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:54.934441+00:00"
+    "_generated_at": "2026-04-27T15:53:29.927478+00:00"
   }
 ]

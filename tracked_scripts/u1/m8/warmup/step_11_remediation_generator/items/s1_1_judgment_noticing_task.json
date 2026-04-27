@@ -6,7 +6,7 @@
         "condition": {
           "selected": "Different items inside"
         },
-        "description": "Student selected 'Different items inside': misread what changed between the two groups",
+        "description": "Student selected Different items inside",
         "is_correct": false,
         "steps": [
           [
@@ -15,7 +15,8 @@
               "method": "update",
               "tangible_id": "equal_groups_left",
               "params": {
-                "description": "Left visual highlights: bags pulse to draw attention."
+                "highlight": true,
+                "description": "Left bags pulse to draw attention."
               }
             },
             {
@@ -23,12 +24,13 @@
               "method": "update",
               "tangible_id": "equal_groups_right",
               "params": {
-                "description": "Right visual highlights: bags pulse to draw attention."
+                "highlight": true,
+                "description": "Right bags pulse to draw attention."
               }
             },
             {
               "type": "dialogue",
-              "text": "Look at the bags themselves. The items inside are the same. What about the number of bags?"
+              "text": "Look at the items in each bag. They're the same type in both groups. What else could be different?"
             }
           ]
         ]
@@ -37,7 +39,7 @@
         "condition": {
           "selected": "One has more total items inside"
         },
-        "description": "Student selected 'One has more total items inside': focused on total rather than structure",
+        "description": "Student selected One has more total items inside",
         "is_correct": false,
         "steps": [
           [
@@ -46,7 +48,8 @@
               "method": "update",
               "tangible_id": "equal_groups_left",
               "params": {
-                "description": "Left visual: container outlines pulse."
+                "highlight": true,
+                "description": "Left bags highlight."
               }
             },
             {
@@ -54,12 +57,13 @@
               "method": "update",
               "tangible_id": "equal_groups_right",
               "params": {
-                "description": "Right visual: container outlines pulse."
+                "highlight": true,
+                "description": "Right bags highlight."
               }
             },
             {
               "type": "dialogue",
-              "text": "The total is the same. But look at how the groups are organized. Count the bags on each side."
+              "text": "Count all the items in each group. Both groups have the same total. Look at the number of bags instead."
             }
           ]
         ]
@@ -68,7 +72,7 @@
         "condition": {
           "selected": "Nothing—they're the same"
         },
-        "description": "Student selected 'Nothing—they're the same': did not notice structural difference",
+        "description": "Student selected Nothing, they're the same",
         "is_correct": false,
         "steps": [
           [
@@ -77,7 +81,8 @@
               "method": "update",
               "tangible_id": "equal_groups_left",
               "params": {
-                "description": "Left visual: all bags highlight."
+                "highlight_containers": true,
+                "description": "Left bags highlight to emphasize the containers."
               }
             },
             {
@@ -85,12 +90,13 @@
               "method": "update",
               "tangible_id": "equal_groups_right",
               "params": {
-                "description": "Right visual: all bags highlight."
+                "highlight_containers": true,
+                "description": "Right bags highlight to emphasize the containers."
               }
             },
             {
               "type": "dialogue",
-              "text": "They look similar, but something is different. Count how many bags are on the left. Now count the bags on the right."
+              "text": "They look similar, but count the bags. How many bags are on the left? How many on the right?"
             }
           ]
         ]
@@ -108,7 +114,7 @@
               "params": {
                 "event": "count_containers",
                 "status": "confirmed",
-                "description": "Left visual: bags count from 1 to 3."
+                "description": "System counts the 3 bags on the left, highlighting each in turn."
               }
             },
             {
@@ -118,17 +124,17 @@
               "params": {
                 "event": "count_containers",
                 "status": "confirmed",
-                "description": "Right visual: bags count from 1 to 5."
+                "description": "System counts the 5 bags on the right, highlighting each in turn."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. On the left, I count the bags: 1, 2, 3. Three bags. On the right, I count: 1, 2, 3, 4, 5. Five bags. The number of bags is different."
+              "text": "Let me show you. I count the bags on the left: 1, 2, 3 bags. Then I count the bags on the right: 1, 2, 3, 4, 5 bags. The groups have different numbers of bags. The left has 3 bags and the right has 5 bags. That's what's different."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:00:26.319240+00:00"
+  "_generated_at": "2026-04-27T15:53:42.992194+00:00"
 }

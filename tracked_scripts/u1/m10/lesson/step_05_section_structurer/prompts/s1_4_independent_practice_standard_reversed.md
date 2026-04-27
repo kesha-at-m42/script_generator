@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:03:16.490692
+# Generated: 2026-04-27T10:56:15.326967
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -818,7 +834,8 @@ Cacheable: Yes
   "on_correct": "\"4 times 6 equals 24. Four bags, 6 in each, same value as 24.\"",
   "visual_on_correct": "Reversed version appears: `24 = 4 × 6`. Guide: \"And we can write it this way too — same value.\"",
   "design_note": "Last bags/boxes interaction in the entire curriculum. Standard form assigned (reversed was just practiced in 1.4). Guide shows reversed version on correct to maintain dual-orientation exposure without requiring a template toggle. This also serves as a readiness check: if the student struggles here, Section 2's added complexity (variety + unknowns) will compound the difficulty.",
-  "_generated_at": "2026-04-20T17:00:28.402289+00:00",
+  "divider": "---\n**→ SECTION 1 COMPLETE. PROCEED TO SECTION 2.**\n---\n## 1.7.2 LESSON SECTION 2: Context Variety + Product Unknowns**\n**Purpose:** Explicitly introduce non-bag/box equal groups contexts (rows, stacks, groups) and first unknown position (product). Students learn that equal groups appear in many real-world forms. \"**_ groups of **_\" remains the structural anchor; context-specific terms (rows, stacks, etc.) are used descriptively, then bridged back: \"[context term] → that's [X] groups of [Y].\" Product unknowns (3 × 5 = ☐) are the simplest unknown type — students count or skip-count to find the total.\n**Transition from Section 1:**\n- **Guide:** \"You built equations with bags and boxes — and you know that the equals sign means same value as. Now, check this out.\"\n---",
+  "_generated_at": "2026-04-27T15:53:03.981203+00:00",
   "workspace_specs": {
     "toys": [
       "equal_groups",
@@ -827,7 +844,8 @@ Cacheable: Yes
     "tools": [
       "place_tile"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_1_quick_equation_build_setup_sign\n# Section Summary: s1_1_quick_equation_build_setup_sign\n\n**VISUAL STATE:**\nTwo tangibles are on screen: (1) Equal Groups visualization showing 3 containers with 4 apples each, mode \"reading,\" containers visible and clearly separated; (2) Equation Builder displaying the completed equation \"3 × 4 = 12\" with the equals sign subtly highlighted, template filled with values 3, ×, 4, =, 12.\n\n**CONTENT:**\nStudents practiced translating a concrete equal-groups representation into multiplication equation form. The section introduced formal attention to the equals sign as a symbol of balance/equivalence, moving beyond simple equation-building mechanics.\n\n**STUDENT ACTION:**\nStudent placed number tiles (3, 4, and 12) into the equation builder template to construct \"3 × 4 = 12\" matching the visual model, then received confirmation and dialogue directing focus to the equals sign's meaning.\n\n---\n\n## s1_2_sign_teaching_reversed_orientation_worked\n# Section Summary: s1_2_sign_teaching_reversed_orientation_worked\n\n## VISUAL STATE\nAt section end, three tangibles are on screen:\n1. **Equal Groups (stars)**: type=equal_groups, mode=reading, container_count=5, items_per_container=9, item_type=stars, containers_visible=true\n2. **Equation Builder (main)**: type=equation_builder, template=[__,×,__,=,__], placed_values={groups:5, items:9, total:45}, showing completed equation 5 × 9 = 45\n3. **Static Equation (reversed stars)**: type=equation, template=[45,=,5,×,9], displaying reversed form below the builder\n\n## CONTENT\nThis section taught the meaning of the equals sign as \"same value as\" (not \"the answer is\") and demonstrated that multiplication equations can be written in reversed orientation while maintaining equivalence. The key vocabulary formally introduced was the equals sign's bidirectional property: since both sides have equal value, equations can be flipped (e.g., 3 × 4 = 12 is equivalent to 12 = 3 × 4). Students practiced this concept across three worked examples: apples (3 × 4 = 12), crayons (6 × 7 = 42), and stars (5 × 9 = 45).\n\n## STUDENT ACTION\nThe student completed two interactive equation-building tasks using the place_tile tool: (1) built 6 × 7 = 42 from a crayon equal groups visualization with tile palette [5,6,7,8,13,36,40,42,48,49], and (2) built 5 × 9 = 45 from a star equal groups visualization with tile palette [3,5,9,14,36,40,45,50,54,63]. Both responses were validated as correct.\n\n---\n\n## s1_3_guided_practice_reversed_form\n# Section Summary: s1_3_guided_practice_reversed_form\n\n**VISUAL STATE:** Two tangibles appear on screen at section end: (1) Equal groups visualization displaying 3 containers with 8 cookies each, in reading mode with containers visible; (2) Equation Builder with reversed template showing the completed equation **24 = 3 × 8**, where the product (24) occupies the first slot, groups (3) the second slot, and items per group (8) the third slot.\n\n**CONTENT:** This section introduced the **reversed form of multiplication equations**, where the product appears on the left side of the equals sign rather than the right. The key concept reinforced is that the equals sign represents equivalence—the same value can appear on either side of an equation. Vocabulary: \"product,\" \"equals,\" \"multiplication expression.\"\n\n**STUDENT ACTION:** The student placed number tiles (24, 3, and 8) into the three slots of the reversed equation template to build **24 = 3 × 8**, matching the equal groups visualization of 3 boxes containing 8 cookies each."
 }
 </input>
 

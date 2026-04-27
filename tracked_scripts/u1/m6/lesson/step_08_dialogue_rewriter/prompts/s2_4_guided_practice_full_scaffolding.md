@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:06.616072
+# Generated: 2026-04-27T10:58:12.843590
 ======================================================================
 
 ## API Parameters
@@ -952,7 +952,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "Right—scooters and skateboards combined. Let's find that total.",
+      "text": "Right. Scooters and skateboards combined. Let's find that total.",
       "context": "on_correct"
     },
     {

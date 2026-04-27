@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T11:58:34.377670
+# Generated: 2026-04-27T10:54:29.228248
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,7 @@ Cacheable: Yes
   "id": "s1_1_scale_progression_pattern_type_pattern",
   "dialogues": [
     {
-      "text": "Look at all four graphs. They show the same amount: 20. Which scale uses the fewest lines to show the same amount?",
+      "text": "Look at all four graphs. They show the SAME amount: 20. Which scale uses the fewest lines to show the same amount?",
       "context": "lesson"
     },
     {

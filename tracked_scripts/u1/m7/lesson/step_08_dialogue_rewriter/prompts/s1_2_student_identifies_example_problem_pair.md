@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:02:59.683163
+# Generated: 2026-04-27T10:57:46.668315
 ======================================================================
 
 ## API Parameters
@@ -964,7 +964,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "Two groups of five. These are equal groups—same number in each one.",
+      "text": "Two groups of five. These are equal groups. Same number in each one.",
       "context": "on_correct"
     }
   ]

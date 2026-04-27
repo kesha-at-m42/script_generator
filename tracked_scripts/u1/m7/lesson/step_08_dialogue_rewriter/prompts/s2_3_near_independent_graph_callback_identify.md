@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:22.065229
+# Generated: 2026-04-27T10:58:06.533632
 ======================================================================
 
 ## API Parameters
@@ -948,11 +948,15 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "What do you see?",
-      "context": "lesson"
+      "text": "4 groups of 5. Just like the graph. 4 symbols, each worth 5. Here, 4 circles, 5 dots each.",
+      "context": "on_correct"
     },
     {
       "text": "That's multiplication.",
+      "context": "lesson"
+    },
+    {
+      "text": "Which expression matches?",
       "context": "lesson"
     },
     {

@@ -8,35 +8,31 @@
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
-        "container_count": 0,
+        "container_count": 1,
         "items_per_container": 5,
-        "description": "Empty canvas. Circles with 5 dots each will appear one at a time."
+        "description": "First circle appears with 5 dots."
       }
     },
     {
       "type": "scene",
       "method": "add",
       "tangible_id": "equation_builder_5s",
-      "tangible_type": "equation",
+      "tangible_type": "equation_builder",
       "params": {
-        "expression": [
-          "1",
+        "mode": "reading",
+        "template": [
+          "__",
           "×",
-          "5",
+          "__",
           "=",
-          "5"
+          "__"
         ],
-        "description": "Equation displays 1 × 5 = 5."
-      }
-    },
-    {
-      "type": "scene",
-      "method": "animate",
-      "tangible_id": "equal_groups_5s",
-      "params": {
-        "event": "add_container",
-        "status": "confirmed",
-        "description": "First circle with 5 dots appears."
+        "prefilled_slots": {
+          "slot_0": 1,
+          "slot_2": 5,
+          "slot_4": 5
+        },
+        "description": "Equation Builder appears showing 1 × 5 = 5."
       }
     },
     {
@@ -48,7 +44,7 @@
       "elements": [
         {
           "tangible_id": "equal_groups_5s",
-          "description": "1 circle with 5 dots visible.",
+          "description": "One circle with 5 dots displayed.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 1,
@@ -56,19 +52,19 @@
         },
         {
           "tangible_id": "equation_builder_5s",
-          "description": "Equation shows 1 × 5 = 5.",
-          "tangible_type": "equation"
+          "description": "Equation Builder showing 1 × 5 = 5.",
+          "tangible_type": "equation_builder",
+          "mode": "reading"
         }
       ]
     },
     {
       "type": "scene",
-      "method": "animate",
+      "method": "update",
       "tangible_id": "equal_groups_5s",
       "params": {
-        "event": "add_container",
-        "status": "confirmed",
-        "description": "Second circle with 5 dots appears."
+        "container_count": 2,
+        "description": "Second circle appears. Two circles total, each with 5 dots."
       }
     },
     {
@@ -76,13 +72,11 @@
       "method": "update",
       "tangible_id": "equation_builder_5s",
       "params": {
-        "expression": [
-          "2",
-          "×",
-          "5",
-          "=",
-          "10"
-        ],
+        "prefilled_slots": {
+          "slot_0": 2,
+          "slot_2": 5,
+          "slot_4": 10
+        },
         "description": "Equation updates to 2 × 5 = 10."
       }
     },
@@ -95,7 +89,7 @@
       "elements": [
         {
           "tangible_id": "equal_groups_5s",
-          "description": "2 circles with 5 dots each visible.",
+          "description": "Two circles displayed, each with 5 dots.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 2,
@@ -103,19 +97,19 @@
         },
         {
           "tangible_id": "equation_builder_5s",
-          "description": "Equation shows 2 × 5 = 10.",
-          "tangible_type": "equation"
+          "description": "Equation Builder showing 2 × 5 = 10.",
+          "tangible_type": "equation_builder",
+          "mode": "reading"
         }
       ]
     },
     {
       "type": "scene",
-      "method": "animate",
+      "method": "update",
       "tangible_id": "equal_groups_5s",
       "params": {
-        "event": "add_container",
-        "status": "confirmed",
-        "description": "Third circle with 5 dots appears."
+        "container_count": 3,
+        "description": "Third circle appears. Three circles total."
       }
     },
     {
@@ -123,26 +117,24 @@
       "method": "update",
       "tangible_id": "equation_builder_5s",
       "params": {
-        "expression": [
-          "3",
-          "×",
-          "5",
-          "=",
-          "15"
-        ],
+        "prefilled_slots": {
+          "slot_0": 3,
+          "slot_2": 5,
+          "slot_4": 15
+        },
         "description": "Equation updates to 3 × 5 = 15."
       }
     },
     {
       "type": "dialogue",
-      "text": "15..."
+      "text": "15."
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "equal_groups_5s",
-          "description": "3 circles with 5 dots each visible.",
+          "description": "Three circles displayed, each with 5 dots.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 3,
@@ -150,19 +142,19 @@
         },
         {
           "tangible_id": "equation_builder_5s",
-          "description": "Equation shows 3 × 5 = 15.",
-          "tangible_type": "equation"
+          "description": "Equation Builder showing 3 × 5 = 15.",
+          "tangible_type": "equation_builder",
+          "mode": "reading"
         }
       ]
     },
     {
       "type": "scene",
-      "method": "animate",
+      "method": "update",
       "tangible_id": "equal_groups_5s",
       "params": {
-        "event": "add_container",
-        "status": "confirmed",
-        "description": "Fourth circle with 5 dots appears."
+        "container_count": 4,
+        "description": "Fourth circle appears. Four circles total."
       }
     },
     {
@@ -170,26 +162,24 @@
       "method": "update",
       "tangible_id": "equation_builder_5s",
       "params": {
-        "expression": [
-          "4",
-          "×",
-          "5",
-          "=",
-          "20"
-        ],
+        "prefilled_slots": {
+          "slot_0": 4,
+          "slot_2": 5,
+          "slot_4": 20
+        },
         "description": "Equation updates to 4 × 5 = 20."
       }
     },
     {
       "type": "dialogue",
-      "text": "20..."
+      "text": "20."
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "equal_groups_5s",
-          "description": "4 circles with 5 dots each visible.",
+          "description": "Four circles displayed, each with 5 dots.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 4,
@@ -197,19 +187,19 @@
         },
         {
           "tangible_id": "equation_builder_5s",
-          "description": "Equation shows 4 × 5 = 20.",
-          "tangible_type": "equation"
+          "description": "Equation Builder showing 4 × 5 = 20.",
+          "tangible_type": "equation_builder",
+          "mode": "reading"
         }
       ]
     },
     {
       "type": "scene",
-      "method": "animate",
+      "method": "update",
       "tangible_id": "equal_groups_5s",
       "params": {
-        "event": "add_container",
-        "status": "confirmed",
-        "description": "Fifth circle with 5 dots appears."
+        "container_count": 5,
+        "description": "Fifth circle appears. Five circles total."
       }
     },
     {
@@ -217,26 +207,24 @@
       "method": "update",
       "tangible_id": "equation_builder_5s",
       "params": {
-        "expression": [
-          "5",
-          "×",
-          "5",
-          "=",
-          "25"
-        ],
+        "prefilled_slots": {
+          "slot_0": 5,
+          "slot_2": 5,
+          "slot_4": 25
+        },
         "description": "Equation updates to 5 × 5 = 25."
       }
     },
     {
       "type": "dialogue",
-      "text": "25..."
+      "text": "25."
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "equal_groups_5s",
-          "description": "5 circles with 5 dots each visible.",
+          "description": "Five circles displayed, each with 5 dots.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 5,
@@ -244,19 +232,19 @@
         },
         {
           "tangible_id": "equation_builder_5s",
-          "description": "Equation shows 5 × 5 = 25.",
-          "tangible_type": "equation"
+          "description": "Equation Builder showing 5 × 5 = 25.",
+          "tangible_type": "equation_builder",
+          "mode": "reading"
         }
       ]
     },
     {
       "type": "scene",
-      "method": "animate",
+      "method": "update",
       "tangible_id": "equal_groups_5s",
       "params": {
-        "event": "add_container",
-        "status": "confirmed",
-        "description": "Sixth circle with 5 dots appears."
+        "container_count": 6,
+        "description": "Sixth circle appears. Six circles total."
       }
     },
     {
@@ -264,13 +252,11 @@
       "method": "update",
       "tangible_id": "equation_builder_5s",
       "params": {
-        "expression": [
-          "6",
-          "×",
-          "5",
-          "=",
-          "30"
-        ],
+        "prefilled_slots": {
+          "slot_0": 6,
+          "slot_2": 5,
+          "slot_4": 30
+        },
         "description": "Equation updates to 6 × 5 = 30."
       }
     },
@@ -283,7 +269,7 @@
       "elements": [
         {
           "tangible_id": "equal_groups_5s",
-          "description": "6 circles with 5 dots each visible.",
+          "description": "Six circles displayed, each with 5 dots.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 6,
@@ -291,8 +277,9 @@
         },
         {
           "tangible_id": "equation_builder_5s",
-          "description": "Equation shows 6 × 5 = 30.",
-          "tangible_type": "equation"
+          "description": "Equation Builder showing 6 × 5 = 30.",
+          "tangible_type": "equation_builder",
+          "mode": "reading"
         }
       ]
     },
@@ -301,23 +288,27 @@
       "method": "animate",
       "tangible_id": "equal_groups_5s",
       "params": {
-        "event": "compress_to_strip",
+        "event": "compress",
         "status": "confirmed",
-        "description": "Circles compress. Products strip appears showing [ 5 ] [ 10 ] [ 15 ] [ 20 ] [ 25 ] [ 30 ]."
+        "description": "Six circles compress to make room for Products Strip."
       }
-    },
-    {
-      "type": "scene",
-      "method": "hide",
-      "tangible_id": "equation_builder_5s"
     },
     {
       "type": "scene",
       "method": "add",
       "tangible_id": "products_strip_5s",
-      "tangible_type": "image",
+      "tangible_type": "products_strip",
       "params": {
-        "description": "Products strip displays [ 5 ] [ 10 ] [ 15 ] [ 20 ] [ 25 ] [ 30 ]."
+        "mode": "reading",
+        "values": [
+          5,
+          10,
+          15,
+          20,
+          25,
+          30
+        ],
+        "description": "Products Strip appears displaying 5, 10, 15, 20, 25, 30."
       }
     },
     {
@@ -328,20 +319,42 @@
       "type": "current_scene",
       "elements": [
         {
+          "tangible_id": "equal_groups_5s",
+          "description": "Six circles compressed, each with 5 dots.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 6,
+          "items_per_container": 5
+        },
+        {
+          "tangible_id": "equation_builder_5s",
+          "description": "Equation Builder showing 6 × 5 = 30.",
+          "tangible_type": "equation_builder",
+          "mode": "reading"
+        },
+        {
           "tangible_id": "products_strip_5s",
-          "description": "Products strip showing [ 5 ] [ 10 ] [ 15 ] [ 20 ] [ 25 ] [ 30 ].",
-          "tangible_type": "image"
+          "description": "Products Strip displaying values 5, 10, 15, 20, 25, 30.",
+          "tangible_type": "products_strip",
+          "mode": "reading",
+          "values": [
+            5,
+            10,
+            15,
+            20,
+            25,
+            30
+          ]
         }
       ]
     },
     {
       "type": "scene",
-      "method": "animate",
+      "method": "update",
       "tangible_id": "products_strip_5s",
       "params": {
-        "event": "highlight_ones_digits",
-        "status": "confirmed",
-        "description": "Ones digit of each number on products strip highlights: 5, 0, 5, 0, 5, 0."
+        "highlight_ones_digits": true,
+        "description": "Ones digits of all values on Products Strip highlight."
       }
     },
     {
@@ -352,26 +365,68 @@
       "type": "current_scene",
       "elements": [
         {
+          "tangible_id": "equal_groups_5s",
+          "description": "Six circles compressed, each with 5 dots.",
+          "tangible_type": "equal_groups",
+          "mode": "reading",
+          "container_count": 6,
+          "items_per_container": 5
+        },
+        {
+          "tangible_id": "equation_builder_5s",
+          "description": "Equation Builder showing 6 × 5 = 30.",
+          "tangible_type": "equation_builder",
+          "mode": "reading"
+        },
+        {
           "tangible_id": "products_strip_5s",
-          "description": "Products strip with ones digits highlighted. [ 5 ] [ 10 ] [ 15 ] [ 20 ] [ 25 ] [ 30 ].",
-          "tangible_type": "image"
+          "description": "Products Strip displaying values 5, 10, 15, 20, 25, 30 with ones digits highlighted.",
+          "tangible_type": "products_strip",
+          "mode": "reading",
+          "values": [
+            5,
+            10,
+            15,
+            20,
+            25,
+            30
+          ]
         }
       ]
     },
     {
       "type": "scene",
-      "method": "add",
-      "tangible_id": "equation_builder_3x5",
-      "tangible_type": "equation_builder",
+      "method": "hide",
+      "tangible_id": "equal_groups_5s",
       "params": {
-        "expression": [
-          "3",
-          "×",
-          "5",
-          "=",
-          "__"
+        "description": "Equal groups visualization hides."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "equation_builder_5s",
+      "params": {
+        "prefilled_slots": {
+          "slot_0": 3,
+          "slot_2": 5
+        },
+        "description": "Equation Builder transitions to 3 × 5 = [___] with factors pre-filled, product slot empty."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "tile_palette_3x5",
+      "tangible_type": "tile_palette",
+      "params": {
+        "tiles": [
+          8,
+          10,
+          15,
+          20
         ],
-        "description": "Equation builder appears: 3 × 5 = [blank]. Factors pre-filled. Product blank active."
+        "description": "Tile palette appears with options 8, 10, 15, 20."
       }
     },
     {
@@ -382,18 +437,14 @@
       "type": "prompt",
       "text": "Find the product of 3 × 5. Place the tile.",
       "tool": "place_tile",
-      "target": "equation_builder_3x5",
-      "options": [
-        8,
-        10,
-        15,
-        20
-      ],
+      "target": "equation_builder_5s",
       "validator": [
         {
           "condition_id": "correct",
           "condition": {
-            "total": 15
+            "placed": {
+              "total": 15
+            }
           },
           "description": "Student placed 15 in product slot, correct",
           "is_correct": true,
@@ -401,11 +452,11 @@
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equation_builder_3x5",
+              "tangible_id": "equation_builder_5s",
               "params": {
-                "event": "confirm_tile_placement",
+                "event": "confirm_placement",
                 "status": "confirmed",
-                "description": "15 tile locks into product slot."
+                "description": "Tile 15 confirms in product slot."
               }
             },
             {
@@ -421,16 +472,31 @@
       "elements": [
         {
           "tangible_id": "products_strip_5s",
-          "description": "Products strip visible as reference. [ 5 ] [ 10 ] [ 15 ] [ 20 ] [ 25 ] [ 30 ].",
-          "tangible_type": "image"
+          "description": "Products Strip displaying values 5, 10, 15, 20, 25, 30 with ones digits highlighted.",
+          "tangible_type": "products_strip",
+          "mode": "reading",
+          "values": [
+            5,
+            10,
+            15,
+            20,
+            25,
+            30
+          ]
         },
         {
-          "tangible_id": "equation_builder_3x5",
-          "description": "Equation builder: 3 × 5 = [blank]. Product slot active. Tile palette: 8, 10, 15, 20.",
-          "tangible_type": "equation_builder"
+          "tangible_id": "equation_builder_5s",
+          "description": "Equation Builder showing 3 × 5 = 15 with all slots filled.",
+          "tangible_type": "equation_builder",
+          "mode": "reading"
+        },
+        {
+          "tangible_id": "tile_palette_3x5",
+          "description": "Tile palette with options 8, 10, 15, 20.",
+          "tangible_type": "tile_palette"
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:03:14.143129+00:00"
+  "_generated_at": "2026-04-27T15:57:14.840908+00:00"
 }

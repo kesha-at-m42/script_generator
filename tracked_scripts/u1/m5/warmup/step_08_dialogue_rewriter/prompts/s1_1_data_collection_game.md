@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T11:59:09.886822
+# Generated: 2026-04-27T10:53:48.864121
 ======================================================================
 
 ## API Parameters
@@ -948,7 +948,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "You counted all the blocks. Now let's make a graph with your data.",
+      "text": "You counted the blocks. Now let's make a graph with your data.",
       "context": "lesson"
     }
   ]

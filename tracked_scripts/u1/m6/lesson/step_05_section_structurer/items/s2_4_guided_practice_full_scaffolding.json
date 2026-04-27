@@ -16,14 +16,14 @@
           "Bikes",
           "Scooters"
         ],
-        "values": {
-          "Skateboards": 15,
-          "Rollerblades": 10,
-          "Bikes": 65,
-          "Scooters": 30
-        },
+        "values": [
+          15,
+          10,
+          65,
+          30
+        ],
         "title": "Favorite Ways to Roll",
-        "description": "Vertical bar graph appears. Favorite Ways to Roll. Scale of 10. Skateboards 15, Rollerblades 10, Bikes 65, Scooters 30."
+        "description": "Vertical bar graph appears. Scale of 10. Title: Favorite Ways to Roll. Skateboards=15, Rollerblades=10, Bikes=65, Scooters=30."
       }
     },
     {
@@ -35,7 +35,7 @@
       "elements": [
         {
           "tangible_id": "bar_graph_rolling",
-          "description": "Vertical bar graph. Favorite Ways to Roll. Scale of 10. Skateboards 15, Rollerblades 10, Bikes 65, Scooters 30.",
+          "description": "Vertical bar graph. Favorite Ways to Roll. Scale 10. Skateboards=15, Rollerblades=10, Bikes=65, Scooters=30.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -48,6 +48,14 @@
           ]
         }
       ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_rolling",
+      "params": {
+        "description": "Question text appears: How many more students chose bikes than scooters and skateboards together?"
+      }
     },
     {
       "type": "dialogue",
@@ -68,12 +76,12 @@
           "condition": {
             "selected": "Add scooters and skateboards"
           },
-          "description": "Student selected add scooters and skateboards, correct first step",
+          "description": "Student selected to add scooters and skateboards, correct first step",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "Right—scooters and skateboards combined. Let's find that total."
+              "text": "Right. Scooters and skateboards combined. Let's find that total."
             }
           ]
         }
@@ -84,7 +92,7 @@
       "elements": [
         {
           "tangible_id": "bar_graph_rolling",
-          "description": "Vertical bar graph. Favorite Ways to Roll. Scale of 10. Skateboards 15, Rollerblades 10, Bikes 65, Scooters 30. Question visible: How many more students chose bikes than scooters and skateboards together?",
+          "description": "Vertical bar graph. Favorite Ways to Roll. Scale 10. Question displayed. Multiple choice active.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -107,7 +115,17 @@
           "Scooters",
           "Skateboards"
         ],
-        "description": "Scooters and Skateboards bars highlight. Shows 30 + 15 = 45."
+        "description": "Scooters bar (30) and Skateboards bar (15) highlight."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "bar_graph_rolling",
+      "params": {
+        "event": "show_calculation",
+        "status": "confirmed",
+        "description": "Calculation shows: 30 + 15 = 45"
       }
     },
     {
@@ -130,7 +148,7 @@
           "condition": {
             "selected": 20
           },
-          "description": "Student answered 20, correct",
+          "description": "Student selected 20, correct answer (65 − 45 = 20)",
           "is_correct": true,
           "beats": [
             {
@@ -146,7 +164,7 @@
       "elements": [
         {
           "tangible_id": "bar_graph_rolling",
-          "description": "Vertical bar graph. Favorite Ways to Roll. Scale of 10. Scooters and Skateboards bars highlighted. Shows 30 + 15 = 45.",
+          "description": "Vertical bar graph. Favorite Ways to Roll. Scale 10. Scooters and Skateboards bars highlighted. Calculation 30 + 15 = 45 shown. Multiple choice active for second step.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -161,5 +179,5 @@
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:01:48.073858+00:00"
+  "_generated_at": "2026-04-27T15:56:01.965742+00:00"
 }

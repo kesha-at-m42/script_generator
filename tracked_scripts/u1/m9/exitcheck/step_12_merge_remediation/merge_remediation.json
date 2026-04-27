@@ -7,18 +7,16 @@
         "type": "dialogue",
         "text": "You built equations for 2s, 5s, and 10s. Let's see what you know.",
         "id": "s1_0_transition_into_exit_check_b0",
-        "_notion_block_id": "3485917e-ac52-81f6-bddd-eb36cd25aa05"
+        "_notion_block_id": "34f5917e-ac52-8183-85e8-cd4e2a316a06"
       },
       {
         "type": "current_scene",
         "elements": [],
-        "id": "s1_0_transition_into_exit_check_b1",
-        "_toml_key": "step_100_transition_into_exit_check"
+        "id": "s1_0_transition_into_exit_check_b1"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:10.097627+00:00",
-    "_notion_block_id": "3485917e-ac52-8111-9973-faa005350f09",
-    "_toml_key": "section_100_transition_into_exit_check"
+    "_generated_at": "2026-04-27T15:53:17.583452+00:00",
+    "_notion_block_id": "34f5917e-ac52-81f4-9b94-c3d791c1435c"
   },
   {
     "id": "s1_1_compute_5_product_identify",
@@ -29,7 +27,7 @@
         "tangible_id": "equation_builder_7x5",
         "tangible_type": "equation_builder",
         "params": {
-          "template": "equation",
+          "mode": "reading",
           "expression": [
             "7",
             "×",
@@ -37,16 +35,27 @@
             "=",
             "__"
           ],
-          "description": "Equation Builder appears. 7 × 5 = [___]. Factors 7 and 5 are pre-filled. Product slot is blank with multiple choice options below: 12, 30, 35, 40."
+          "prefilled_slots": {
+            "groups": 7,
+            "items": 5
+          },
+          "response_type": "multiple_choice",
+          "options": [
+            12,
+            30,
+            35,
+            40
+          ],
+          "description": "Equation builder appears showing 7 × 5 = ___. Factors 7 and 5 are pre-filled. Product slot is blank with multiple choice options: 12, 30, 35, 40."
         },
         "id": "s1_1_compute_5_product_identify_b0",
-        "_notion_block_id": "3485917e-ac52-81d8-b543-f1f9c4cfe7e1"
+        "_notion_block_id": "34f5917e-ac52-81f4-86c6-d3affee69ef8"
       },
       {
         "type": "dialogue",
         "text": "7 times 5. Pick the product.",
         "id": "s1_1_compute_5_product_identify_b1",
-        "_notion_block_id": "3485917e-ac52-8186-b47d-f433baa9527c"
+        "_notion_block_id": "34f5917e-ac52-81ef-9b14-cf47d112a57a"
       },
       {
         "type": "prompt",
@@ -69,9 +78,9 @@
             "beats": [
               {
                 "type": "dialogue",
-                "text": "Right. 35. It ends in a 5 so we know it's a multiple of 5. 7 times 5 equals 35.",
+                "text": "That's it. 35. It ends in a 5 so we know it's a multiple of 5. 7 times 5 equals 35.",
                 "id": "s1_1_compute_5_product_identify_b2_v0_b0",
-                "_notion_block_id": "3485917e-ac52-81a4-b3c4-f750937f7fbf"
+                "_notion_block_id": "34f5917e-ac52-8103-b295-feeb1a1cfca9"
               }
             ]
           },
@@ -79,7 +88,7 @@
             "condition": {
               "selected": 12
             },
-            "description": "Student selected 12: likely added 7 + 5 instead of multiplying",
+            "description": "Student selected 12, which does not match the 5s pattern and is too small",
             "is_correct": false,
             "beats": [
               {
@@ -87,15 +96,19 @@
                 "method": "update",
                 "tangible_id": "equation_builder_7x5",
                 "params": {
-                  "description": "The × symbol pulses to emphasize multiplication operation."
+                  "highlight_factors": [
+                    7,
+                    5
+                  ],
+                  "description": "Factors 7 and 5 highlight."
                 },
                 "id": "s1_1_compute_5_product_identify_b2_v1_b0"
               },
               {
                 "type": "dialogue",
-                "text": "The × means multiply, not add. You need 7 groups of 5. Skip-count by 5s seven times.",
+                "text": "7 times 5 means 7 groups of 5. Skip-count by 5s seven times. Does that get you to 12?",
                 "id": "s1_1_compute_5_product_identify_b2_v1_b1",
-                "_notion_block_id": "3485917e-ac52-81dc-ad35-f7ed7c354020"
+                "_notion_block_id": "34f5917e-ac52-81fe-a0f9-dac43423867e"
               }
             ]
           },
@@ -103,7 +116,7 @@
             "condition": {
               "selected": 30
             },
-            "description": "Student selected 30: confused 7 × 5 with 6 × 5",
+            "description": "Student selected 30, which is 6 × 5, one group short",
             "is_correct": false,
             "beats": [
               {
@@ -111,15 +124,19 @@
                 "method": "update",
                 "tangible_id": "equation_builder_7x5",
                 "params": {
-                  "description": "The 7 in the first factor position highlights."
+                  "highlight_factors": [
+                    7,
+                    5
+                  ],
+                  "description": "Factor 7 highlights."
                 },
                 "id": "s1_1_compute_5_product_identify_b2_v2_b0"
               },
               {
                 "type": "dialogue",
-                "text": "Look at the first factor. It's 7, not 6. Skip-count by 5s seven times, not six.",
+                "text": "30 is close but check the first factor. You need 7 groups of 5, not 6. Skip-count by 5s one more time.",
                 "id": "s1_1_compute_5_product_identify_b2_v2_b1",
-                "_notion_block_id": "3485917e-ac52-8193-94d7-d98ebacae2f2"
+                "_notion_block_id": "34f5917e-ac52-8137-9ca2-fa143ef0dacd"
               }
             ]
           },
@@ -127,7 +144,7 @@
             "condition": {
               "selected": 40
             },
-            "description": "Student selected 40: likely confused 7 × 5 with 8 × 5",
+            "description": "Student selected 40, which is 8 × 5, one group too many",
             "is_correct": false,
             "beats": [
               {
@@ -135,15 +152,19 @@
                 "method": "update",
                 "tangible_id": "equation_builder_7x5",
                 "params": {
-                  "description": "The 7 in the first factor position highlights."
+                  "highlight_factors": [
+                    7,
+                    5
+                  ],
+                  "description": "Factor 7 highlights."
                 },
                 "id": "s1_1_compute_5_product_identify_b2_v3_b0"
               },
               {
                 "type": "dialogue",
-                "text": "Check the first factor. It's 7, not 8. Count by 5s seven times: 5, 10, 15, 20, 25, 30... what comes next?",
+                "text": "You went too far. Count the groups carefully. You need 7 groups of 5, not 8. Which product comes before 40 in the 5s pattern?",
                 "id": "s1_1_compute_5_product_identify_b2_v3_b1",
-                "_notion_block_id": "3485917e-ac52-81d5-b24f-eee83560e308"
+                "_notion_block_id": "34f5917e-ac52-8150-a00d-fab0045c74a4"
               }
             ]
           },
@@ -159,46 +180,55 @@
                 "params": {
                   "event": "demonstrate_skip_count",
                   "status": "confirmed",
-                  "description": "Skip-count sequence appears above equation: 5, 10, 15, 20, 25, 30, 35. Each number pulses briefly as if counting. After sequence completes, 35 fills the product slot."
+                  "description": "Animation shows skip-counting by 5s seven times: 5, 10, 15, 20, 25, 30, 35. Each count highlights sequentially."
                 },
                 "id": "s1_1_compute_5_product_identify_b2_v4_b0"
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. 7 times 5 means 7 groups of 5. I skip-count by 5s seven times: 5, 10, 15, 20, 25, 30, 35. The seventh number is 35. That's the product. Notice it ends in 5, which is the pattern for all multiples of 5. The answer is 35.",
+                "text": "Let me show you. 7 groups of 5. I skip-count by 5s: 5, 10, 15, 20, 25, 30, 35. Seven jumps lands on 35. The product is 35. It ends in 5, which matches the 5s pattern. 7 times 5 equals 35.",
                 "id": "s1_1_compute_5_product_identify_b2_v4_b1",
-                "_notion_block_id": "3485917e-ac52-818e-b42f-dff9869f37a8"
+                "_notion_block_id": "34f5917e-ac52-8161-b68e-f0e4c037e467"
               }
             ]
           }
         ],
         "id": "s1_1_compute_5_product_identify_b2",
-        "_notion_block_id": "3485917e-ac52-8155-9d7a-f2de30483dbe"
+        "_notion_block_id": "34f5917e-ac52-8107-baab-c41b182d486e"
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "equation_builder_7x5",
-            "description": "Equation Builder showing 7 × 5 = [___]. Multiple choice tool active on product slot with options 12, 30, 35, 40.",
+            "description": "Equation builder showing 7 × 5 = ___ with multiple choice options 12, 30, 35, 40 available for product slot.",
             "tangible_type": "equation_builder",
-            "template": "equation",
+            "mode": "reading",
             "expression": [
               "7",
               "×",
               "5",
               "=",
               "__"
+            ],
+            "prefilled_slots": {
+              "groups": 7,
+              "items": 5
+            },
+            "response_type": "multiple_choice",
+            "options": [
+              12,
+              30,
+              35,
+              40
             ]
           }
         ],
-        "id": "s1_1_compute_5_product_identify_b3",
-        "_toml_key": "step_101_compute_5_product_identify"
+        "id": "s1_1_compute_5_product_identify_b3"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:19.242812+00:00",
-    "_notion_block_id": "3485917e-ac52-812a-85b6-f9513d5eebfd",
-    "_toml_key": "section_101_compute_5_product_identify"
+    "_generated_at": "2026-04-27T15:53:30.498995+00:00",
+    "_notion_block_id": "34f5917e-ac52-8143-a090-f9e6066d9bfd"
   },
   {
     "id": "s1_2_build_full_visual_2_create",
@@ -206,23 +236,24 @@
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "equal_groups_context",
+        "tangible_id": "equal_groups_6x2",
         "tangible_type": "equal_groups",
         "params": {
           "mode": "reading",
           "container_count": 6,
           "items_per_container": 2,
-          "description": "6 groups appear, each containing 2 dots."
+          "description": "Context visualization appears: 6 groups with 2 dots each."
         },
         "id": "s1_2_build_full_visual_2_create_b0",
-        "_notion_block_id": "3485917e-ac52-818d-86bd-dbb9ccb332d5"
+        "_notion_block_id": "34f5917e-ac52-8105-a68a-e9a27cdb2d54"
       },
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "equation_builder_main",
+        "tangible_id": "equation_builder_6x2",
         "tangible_type": "equation_builder",
         "params": {
+          "mode": "building",
           "template": [
             "__",
             "×",
@@ -230,7 +261,7 @@
             "=",
             "__"
           ],
-          "tile_palette": [
+          "palette": [
             2,
             4,
             5,
@@ -240,22 +271,23 @@
             12,
             14
           ],
-          "description": "Equation builder appears below the visual. Three empty slots. Tile palette shows 2, 4, 5, 6, 8, 10, 12, 14."
+          "description": "Equation Builder appears below the visual. All three slots empty. Tile palette shows 2, 4, 5, 6, 8, 10, 12, 14."
         },
         "id": "s1_2_build_full_visual_2_create_b1",
-        "_notion_block_id": "3485917e-ac52-8166-9b04-de292e9cd7af"
+        "_notion_block_id": "34f5917e-ac52-8165-8ecb-c999b31d3c3b"
       },
       {
         "type": "dialogue",
         "text": "Build the equation that matches the picture.",
         "id": "s1_2_build_full_visual_2_create_b2",
-        "_notion_block_id": "3485917e-ac52-817d-9eed-da06bd1767de"
+        "_notion_block_id": "34f5917e-ac52-81d1-9eb7-e53d8b8a8ea3"
       },
       {
         "type": "prompt",
         "text": "Build the equation represented by this picture.",
         "tool": "place_tile",
-        "target": "equation_builder_main",
+        "target": "equation_builder_6x2",
+        "variable_answer": false,
         "validator": [
           {
             "condition_id": "correct",
@@ -270,113 +302,185 @@
             "is_correct": true,
             "beats": [
               {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_6x2",
+                "params": {
+                  "event": "confirm_equation",
+                  "status": "confirmed",
+                  "description": "Equation 6 × 2 = 12 confirms."
+                },
+                "id": "s1_2_build_full_visual_2_create_b3_v0_b0"
+              },
+              {
                 "type": "dialogue",
                 "text": "Right. 6 groups of 2 is 6 times 2 which equals 12.",
-                "id": "s1_2_build_full_visual_2_create_b3_v0_b0",
-                "_notion_block_id": "3485917e-ac52-81fa-8f40-cbd16d78b014"
+                "id": "s1_2_build_full_visual_2_create_b3_v0_b1",
+                "_notion_block_id": "34f5917e-ac52-819c-9526-fc4175b337a2"
               }
             ]
           },
           {
             "condition": {
-              "incorrect_count": 1
+              "and": [
+                {
+                  "placed": {
+                    "groups": 2,
+                    "items": 6
+                  }
+                },
+                {
+                  "or": [
+                    {
+                      "incorrect_count": 1
+                    },
+                    {
+                      "incorrect_count": 2
+                    }
+                  ]
+                }
+              ]
             },
-            "description": "Student placed incorrect tiles on first attempt",
+            "description": "Student reversed factors: placed 2 × 6 instead of 6 × 2",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equal_groups_6x2",
+                "params": {
+                  "description": "First two groups pulse."
+                },
+                "id": "s1_2_build_full_visual_2_create_b3_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You placed 2 × 6, but count the groups. There are 6 groups. Each group has 2 items. Which number should go first?",
+                "id": "s1_2_build_full_visual_2_create_b3_v1_b1",
+                "_notion_block_id": "34f5917e-ac52-810d-9007-d4036181e4c7"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "incorrect_count": 1
+                },
+                {
+                  "not": {
+                    "placed": {
+                      "groups": 2,
+                      "items": 6
+                    }
+                  }
+                }
+              ]
+            },
+            "description": "Student answered incorrectly on first attempt, not the reversed-factors case",
             "is_correct": false,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "Not quite. Count the groups first, then count how many dots are in each group.",
-                "id": "s1_2_build_full_visual_2_create_b3_v1_b0",
-                "_notion_block_id": "3485917e-ac52-8138-b72b-df9010944dea"
+                "text": "Not quite. Count the groups, then count what's in each group.",
+                "id": "s1_2_build_full_visual_2_create_b3_v2_b0",
+                "_notion_block_id": "34f5917e-ac52-8194-92db-d936246b3b4e"
               }
             ]
           },
           {
             "condition": {
-              "incorrect_count": 2
+              "and": [
+                {
+                  "incorrect_count": 2
+                },
+                {
+                  "not": {
+                    "placed": {
+                      "groups": 2,
+                      "items": 6
+                    }
+                  }
+                }
+              ]
             },
-            "description": "Student placed incorrect tiles on second attempt",
+            "description": "Student answered incorrectly on second attempt, not the reversed-factors case",
             "is_correct": false,
             "beats": [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equal_groups_context",
+                "tangible_id": "equal_groups_6x2",
                 "params": {
-                  "event": "sequential_highlight",
-                  "status": "proposed",
-                  "description": "Groups highlight sequentially: 1, 2, 3, 4, 5, 6."
+                  "event": "highlight_groups_sequentially",
+                  "status": "confirmed",
+                  "description": "Groups highlight one by one: 1, 2, 3, 4, 5, 6."
                 },
-                "id": "s1_2_build_full_visual_2_create_b3_v2_b0"
+                "id": "s1_2_build_full_visual_2_create_b3_v3_b0"
               },
               {
                 "type": "dialogue",
-                "text": "Let's count together. I see 6 groups. Each group has 2 dots. Place those two factors first, then skip-count by 2s six times to find the product.",
-                "id": "s1_2_build_full_visual_2_create_b3_v2_b1",
-                "_notion_block_id": "3485917e-ac52-819d-93c8-d0943b2ff8be"
+                "text": "Count the groups first: that tells you how many times you're multiplying. Then count how many items are in each group. Place those numbers, then skip-count to find the product.",
+                "id": "s1_2_build_full_visual_2_create_b3_v3_b1",
+                "_notion_block_id": "34f5917e-ac52-818e-93cf-e7d8a4324b27"
               }
             ]
           },
           {
             "condition": {},
-            "description": "Student placed incorrect tiles three or more times. System models the correct equation.",
+            "description": "Student answered incorrectly three or more times. System models the answer.",
             "is_correct": false,
             "beats": [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equal_groups_context",
+                "tangible_id": "equal_groups_6x2",
                 "params": {
-                  "event": "sequential_highlight_with_count",
+                  "event": "highlight_groups_sequentially",
                   "status": "confirmed",
-                  "description": "Groups highlight as guide skip-counts: 2, 4, 6, 8, 10, 12."
+                  "description": "Groups highlight one by one as Guide counts."
                 },
-                "id": "s1_2_build_full_visual_2_create_b3_v3_b0"
+                "id": "s1_2_build_full_visual_2_create_b3_v4_b0"
               },
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equation_builder_main",
+                "tangible_id": "equation_builder_6x2",
                 "params": {
-                  "event": "place_tiles_sequence",
+                  "event": "place_tiles_sequentially",
                   "status": "confirmed",
-                  "description": "Tiles place into slots in sequence: 6 in first slot, 2 in second slot, 12 in product slot.",
-                  "tiles": [
-                    6,
-                    2,
-                    12
-                  ]
+                  "description": "6 tile places in first slot, 2 tile in second slot, 12 tile in product slot."
                 },
-                "id": "s1_2_build_full_visual_2_create_b3_v3_b1"
+                "id": "s1_2_build_full_visual_2_create_b3_v4_b1"
               },
               {
                 "type": "dialogue",
-                "text": "Here's how to build it. First I count the groups: 6 groups total. That's the first factor. Then I count the dots in each group: 2 dots. That's the second factor. Now I skip-count by 2s six times: 2, 4, 6, 8, 10, 12. The product is 12. The complete equation is 6 times 2 equals 12.",
-                "id": "s1_2_build_full_visual_2_create_b3_v3_b2",
-                "_notion_block_id": "3485917e-ac52-8143-9a9b-c3685e2a0b41"
+                "text": "Here's how it works. I count the groups: 1, 2, 3, 4, 5, 6. That's the first factor. Each group has 2 items. That's the second factor. Now I skip-count by 2s, six times: 2, 4, 6, 8, 10, 12. The equation is 6 times 2 equals 12. The number of groups times the items in each group equals the total.",
+                "id": "s1_2_build_full_visual_2_create_b3_v4_b2",
+                "_notion_block_id": "34f5917e-ac52-8118-ace9-c451a217662b"
               }
             ]
           }
         ],
         "id": "s1_2_build_full_visual_2_create_b3",
-        "_notion_block_id": "3485917e-ac52-81d0-8505-feec218c602a"
+        "_notion_block_id": "34f5917e-ac52-816e-a7d8-e795e97372d4"
       },
       {
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "equal_groups_context",
-            "description": "6 groups with 2 dots each visible on screen.",
+            "tangible_id": "equal_groups_6x2",
+            "description": "Context visualization: 6 groups with 2 dots each.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 6,
             "items_per_container": 2
           },
           {
-            "tangible_id": "equation_builder_main",
-            "description": "Equation builder with three empty slots. Tile palette active.",
+            "tangible_id": "equation_builder_6x2",
+            "description": "Equation Builder with confirmed equation 6 × 2 = 12. Palette: 2, 4, 5, 6, 8, 10, 12, 14.",
             "tangible_type": "equation_builder",
+            "mode": "building",
             "template": [
               "__",
               "×",
@@ -384,7 +488,7 @@
               "=",
               "__"
             ],
-            "tile_palette": [
+            "palette": [
               2,
               4,
               5,
@@ -396,13 +500,11 @@
             ]
           }
         ],
-        "id": "s1_2_build_full_visual_2_create_b4",
-        "_toml_key": "step_102_build_full_visual_2_create"
+        "id": "s1_2_build_full_visual_2_create_b4"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:30.249835+00:00",
-    "_notion_block_id": "3485917e-ac52-817f-bccf-e0e97a4934e2",
-    "_toml_key": "section_102_build_full_visual_2_create"
+    "_generated_at": "2026-04-27T15:53:48.006849+00:00",
+    "_notion_block_id": "34f5917e-ac52-8173-898f-e4101d476443"
   },
   {
     "id": "s1_3_build_full_10_equation_create",
@@ -410,18 +512,18 @@
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "equation_builder",
+        "tangible_id": "equation_builder_4x10",
         "tangible_type": "equation_builder",
         "params": {
           "mode": "building",
           "template": [
             "__",
-            "x",
+            "×",
             "__",
             "=",
             "__"
           ],
-          "palette": [
+          "tile_palette": [
             4,
             5,
             10,
@@ -431,44 +533,41 @@
             40,
             50
           ],
-          "description": "Equation Builder appears. Three empty slots: [___] × [___] = [___]. Tile palette shows 4, 5, 10, 14, 20, 30, 40, 50."
+          "description": "Equation Builder appears with three empty slots. Template: [__] × [__] = [__]. Tile palette shows: 4, 5, 10, 14, 20, 30, 40, 50."
         },
         "id": "s1_3_build_full_10_equation_create_b0",
-        "_notion_block_id": "3485917e-ac52-8131-b763-c3566b2ed94f"
+        "_notion_block_id": "34f5917e-ac52-813b-9b15-d84049d605cf"
       },
       {
         "type": "dialogue",
         "text": "4 groups of 10. Build the equation.",
         "id": "s1_3_build_full_10_equation_create_b1",
-        "_notion_block_id": "3485917e-ac52-81a5-8010-c1f85a88f7ad"
+        "_notion_block_id": "34f5917e-ac52-814c-bca2-f2cba9b52bee"
       },
       {
         "type": "prompt",
         "text": "Build the equation for 4 groups of 10.",
         "tool": "place_tile",
-        "target": "equation_builder",
-        "variable_answer": false,
+        "target": "equation_builder_4x10",
         "validator": [
           {
             "condition_id": "correct",
             "condition": {
-              "placed": {
-                "groups": 4,
-                "items": 10,
-                "total": 40
-              }
+              "groups": 4,
+              "items": 10,
+              "total": 40
             },
-            "description": "Student placed 4 × 10 = 40, correct",
+            "description": "Student placed 4, 10, 40 correctly",
             "is_correct": true,
             "beats": [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equation_builder",
+                "tangible_id": "equation_builder_4x10",
                 "params": {
                   "event": "confirm_equation",
                   "status": "confirmed",
-                  "description": "Equation 4 × 10 = 40 confirms."
+                  "description": "Equation confirms: 4 × 10 = 40."
                 },
                 "id": "s1_3_build_full_10_equation_create_b2_v0_b0"
               },
@@ -476,7 +575,65 @@
                 "type": "dialogue",
                 "text": "Right. 4 times 10 equals 40. That ends in a 0, which is what we expect with multiples of 10.",
                 "id": "s1_3_build_full_10_equation_create_b2_v0_b1",
-                "_notion_block_id": "3485917e-ac52-81a9-a143-f8d70173d84a"
+                "_notion_block_id": "34f5917e-ac52-819f-8e42-f6d1be7c4d5b"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "or": [
+                    {
+                      "groups": 4,
+                      "items": 10
+                    },
+                    {
+                      "groups": 10,
+                      "items": 4
+                    }
+                  ]
+                },
+                {
+                  "not": {
+                    "total": 40
+                  }
+                },
+                {
+                  "incorrect_count": 1
+                }
+              ]
+            },
+            "description": "Student placed correct factors but wrong product on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You have the factors right. Now skip-count by 10s, four times, to find the product.",
+                "id": "s1_3_build_full_10_equation_create_b2_v1_b0",
+                "_notion_block_id": "34f5917e-ac52-81f3-bdd6-d689d5296fec"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "total": 14
+                },
+                {
+                  "incorrect_count": 1
+                }
+              ]
+            },
+            "description": "Student placed 14 as product, added factors instead of multiplying",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You added 4 plus 10. Multiplication means groups. 4 groups of 10. Skip-count by 10s four times.",
+                "id": "s1_3_build_full_10_equation_create_b2_v2_b0",
+                "_notion_block_id": "34f5917e-ac52-8137-9f45-c97ccd77009e"
               }
             ]
           },
@@ -484,14 +641,90 @@
             "condition": {
               "incorrect_count": 1
             },
-            "description": "Student placed incorrect tiles on first attempt",
+            "description": "Student answered incorrectly on first attempt",
             "is_correct": false,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "Not quite. Think about what 4 groups of 10 means.",
-                "id": "s1_3_build_full_10_equation_create_b2_v1_b0",
-                "_notion_block_id": "3485917e-ac52-81e7-8982-c939a7bb9df3"
+                "text": "Not quite. Look at what 4 groups of 10 means.",
+                "id": "s1_3_build_full_10_equation_create_b2_v3_b0",
+                "_notion_block_id": "34f5917e-ac52-8181-bf19-e2138ebbf22e"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "or": [
+                    {
+                      "groups": 4,
+                      "items": 10
+                    },
+                    {
+                      "groups": 10,
+                      "items": 4
+                    }
+                  ]
+                },
+                {
+                  "not": {
+                    "total": 40
+                  }
+                },
+                {
+                  "incorrect_count": 2
+                }
+              ]
+            },
+            "description": "Student placed correct factors but wrong product on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_builder_4x10",
+                "params": {
+                  "description": "Product slot pulses. Tiles 40 highlights in palette."
+                },
+                "id": "s1_3_build_full_10_equation_create_b2_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "The factors are correct: 4 and 10. Now find the product. Skip-count by 10s: 10, 20, 30, 40. Which tile shows that number?",
+                "id": "s1_3_build_full_10_equation_create_b2_v4_b1",
+                "_notion_block_id": "34f5917e-ac52-81e8-96b4-f2b2853c5e04"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "total": 14
+                },
+                {
+                  "incorrect_count": 2
+                }
+              ]
+            },
+            "description": "Student placed 14 as product on second attempt, still adding instead of multiplying",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_builder_4x10",
+                "params": {
+                  "description": "Tile 40 pulses in palette. Product slot highlighted."
+                },
+                "id": "s1_3_build_full_10_equation_create_b2_v5_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's adding. Multiplication is different. 4 groups of 10 means skip-count by 10s four times: 10, 20, 30, 40. What's the product?",
+                "id": "s1_3_build_full_10_equation_create_b2_v5_b1",
+                "_notion_block_id": "34f5917e-ac52-8166-9cda-e870084cad15"
               }
             ]
           },
@@ -499,81 +732,75 @@
             "condition": {
               "incorrect_count": 2
             },
-            "description": "Student placed incorrect tiles on second attempt",
+            "description": "Student answered incorrectly on second attempt",
             "is_correct": false,
             "beats": [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "equation_builder",
+                "tangible_id": "equation_builder_4x10",
                 "params": {
-                  "highlight_slots": [
-                    0,
-                    2
-                  ],
-                  "description": "First and third slots highlight."
+                  "description": "Correct tiles pulse in palette: 4, 10, 40."
                 },
-                "id": "s1_3_build_full_10_equation_create_b2_v2_b0"
+                "id": "s1_3_build_full_10_equation_create_b2_v6_b0"
               },
               {
                 "type": "dialogue",
-                "text": "Let's think about this together. 4 groups of 10. The first slot tells how many groups. The second slot tells how many in each group. Skip-count by 10s four times to find the product.",
-                "id": "s1_3_build_full_10_equation_create_b2_v2_b1",
-                "_notion_block_id": "3485917e-ac52-811e-b98f-f9f342b69758"
+                "text": "Here's what helps: 4 groups of 10. The first number tells you how many groups. The second tells you what's in each group. Skip-count by 10s four times and find that number.",
+                "id": "s1_3_build_full_10_equation_create_b2_v6_b1",
+                "_notion_block_id": "34f5917e-ac52-81bf-8e70-f70a3e335115"
               }
             ]
           },
           {
             "condition": {},
-            "description": "Student placed incorrect tiles three or more times. System models the answer.",
+            "description": "Student answered incorrectly three or more times. System models the answer.",
             "is_correct": false,
             "beats": [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equation_builder",
+                "tangible_id": "equation_builder_4x10",
                 "params": {
-                  "event": "model_solution",
+                  "event": "demonstrate_equation_building",
                   "status": "confirmed",
-                  "description": "System demonstrates placing 4, 10, and 40 into the three slots."
+                  "description": "Tiles 4, 10, and 40 place themselves sequentially into correct slots."
                 },
-                "id": "s1_3_build_full_10_equation_create_b2_v3_b0"
+                "id": "s1_3_build_full_10_equation_create_b2_v7_b0"
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. 4 groups of 10 means we put 4 in the first slot, 10 in the second slot. Then we skip-count: 10, 20, 30, 40. The product is 40. The equation is 4 times 10 equals 40.",
-                "id": "s1_3_build_full_10_equation_create_b2_v3_b1",
-                "_notion_block_id": "3485917e-ac52-815a-a46a-fa4ffe886b2f"
+                "text": "Let me show you. 4 groups of 10 means we multiply 4 times 10. I skip-count by 10s four times: 10, 20, 30, 40. The product is 40. The complete equation is 4 times 10 equals 40.",
+                "id": "s1_3_build_full_10_equation_create_b2_v7_b1",
+                "_notion_block_id": "34f5917e-ac52-8119-98fc-e7697a29d17e"
               }
             ]
           }
         ],
         "id": "s1_3_build_full_10_equation_create_b2",
-        "_notion_block_id": "3485917e-ac52-81c2-91ad-d9819f1640ba"
+        "_notion_block_id": "34f5917e-ac52-8155-b8cb-c4eabec705bc"
       },
       {
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "equation_builder",
-            "description": "Equation Builder showing 4 × 10 = 40 confirmed. Tile palette: 4, 5, 10, 14, 20, 30, 40, 50.",
+            "tangible_id": "equation_builder_4x10",
+            "description": "Equation Builder showing confirmed equation: 4 × 10 = 40. All three slots filled.",
             "tangible_type": "equation_builder",
             "mode": "building",
             "template": [
               "__",
-              "x",
+              "×",
               "__",
               "=",
               "__"
             ]
           }
         ],
-        "id": "s1_3_build_full_10_equation_create_b3",
-        "_toml_key": "step_103_build_full_10_equation_create"
+        "id": "s1_3_build_full_10_equation_create_b3"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:41.132144+00:00",
-    "_notion_block_id": "3485917e-ac52-8108-8dee-ccee8d10251f",
-    "_toml_key": "section_103_build_full_10_equation_create"
+    "_generated_at": "2026-04-27T15:54:03.521518+00:00",
+    "_notion_block_id": "34f5917e-ac52-8122-bcd2-ec9c542598fd"
   }
 ]

@@ -4,17 +4,16 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder_4x5",
+      "tangible_id": "equation_builder",
       "tangible_type": "equation_builder",
       "params": {
-        "mode": "display",
-        "style": "equation",
-        "expression": [
+        "mode": "expression",
+        "template": [
           "4",
           "×",
           "5"
         ],
-        "description": "Equation builder appears showing 4 × 5 in expression mode. Non-interactive display."
+        "description": "Equation builder appears in expression mode showing 4 × 5. Static display, no editable slots."
       }
     },
     {
@@ -24,14 +23,19 @@
       "tangible_type": "equal_groups",
       "params": {
         "mode": "building",
+        "context": "boxes_items",
         "container_count": 0,
         "items_per_container": 0,
-        "description": "Empty equal groups workspace appears below equation. Build mode controls visible: container count controls and items-per-container controls."
+        "description": "Empty equal groups workspace appears with build controls. Box icon visible. Container count and items-per-container both at 0."
       }
     },
     {
       "type": "dialogue",
       "text": "Now you build the picture. Show me: what does 4 times 5 mean?"
+    },
+    {
+      "type": "dialogue",
+      "text": "Set the number of boxes. Then set how many in each box."
     },
     {
       "type": "prompt",
@@ -40,22 +44,16 @@
       "target": "equal_groups_build",
       "validator": [
         {
-          "condition_id": "correct_container_count",
+          "condition_id": "correct",
           "condition": {
             "container_count": 4
           },
-          "description": "Student set container count to 4, correct first step",
+          "description": "Student set container count to 4",
           "is_correct": true,
           "beats": [
             {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "equal_groups_build",
-              "params": {
-                "container_count": 4,
-                "items_per_container": 0,
-                "description": "Four empty containers appear in the workspace."
-              }
+              "type": "dialogue",
+              "text": "4 boxes."
             }
           ]
         }
@@ -65,12 +63,11 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equation_builder_4x5",
-          "description": "Equation builder showing 4 × 5 in expression mode.",
+          "tangible_id": "equation_builder",
+          "description": "Equation builder showing static expression 4 × 5 in expression mode.",
           "tangible_type": "equation_builder",
-          "mode": "display",
-          "style": "equation",
-          "expression": [
+          "mode": "expression",
+          "template": [
             "4",
             "×",
             "5"
@@ -78,17 +75,18 @@
         },
         {
           "tangible_id": "equal_groups_build",
-          "description": "Equal groups workspace with set_container_count tool active. Workspace empty, awaiting student input.",
+          "description": "Equal groups workspace showing 4 empty containers (boxes). Items-per-container at 0. Build controls active.",
           "tangible_type": "equal_groups",
           "mode": "building",
-          "container_count": 0,
+          "context": "boxes_items",
+          "container_count": 4,
           "items_per_container": 0
         }
       ]
     },
     {
       "type": "prompt",
-      "text": "Now add items to each box.",
+      "text": "How many items in each box?",
       "tool": "set_items_per_container",
       "target": "equal_groups_build",
       "validator": [
@@ -97,18 +95,9 @@
           "condition": {
             "items_per_container": 5
           },
-          "description": "Student set items per container to 5, completing 4 boxes of 5 items, correct",
+          "description": "Student set items-per-container to 5",
           "is_correct": true,
           "beats": [
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "equal_groups_build",
-              "params": {
-                "items_per_container": 5,
-                "description": "Five items populate each of the four containers."
-              }
-            },
             {
               "type": "dialogue",
               "text": "You built it. All of the groups are equal. 4 boxes with 5 items in each. 4 groups of 5."
@@ -121,12 +110,11 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equation_builder_4x5",
-          "description": "Equation builder showing 4 × 5 in expression mode.",
+          "tangible_id": "equation_builder",
+          "description": "Equation builder showing static expression 4 × 5 in expression mode.",
           "tangible_type": "equation_builder",
-          "mode": "display",
-          "style": "equation",
-          "expression": [
+          "mode": "expression",
+          "template": [
             "4",
             "×",
             "5"
@@ -134,14 +122,15 @@
         },
         {
           "tangible_id": "equal_groups_build",
-          "description": "Equal groups workspace showing 4 containers with 5 items each. Build complete.",
+          "description": "Equal groups visualization showing 4 boxes with 5 items each, fully populated.",
           "tangible_type": "equal_groups",
           "mode": "building",
+          "context": "boxes_items",
           "container_count": 4,
           "items_per_container": 5
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:04:23.599665+00:00"
+  "_generated_at": "2026-04-27T15:58:36.952085+00:00"
 }

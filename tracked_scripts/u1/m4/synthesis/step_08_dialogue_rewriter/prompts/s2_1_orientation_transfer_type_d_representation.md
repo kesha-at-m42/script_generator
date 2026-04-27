@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T11:58:36.940964
+# Generated: 2026-04-27T10:54:32.183627
 ======================================================================
 
 ## API Parameters
@@ -944,16 +944,16 @@ Cacheable: Yes
   "id": "s2_1_orientation_transfer_type_d_representation",
   "dialogues": [
     {
-      "text": "Here's the same data shown two ways, vertical and horizontal. Find the category with 35 in BOTH graphs.",
+      "text": "Here's the same data shown two ways: vertical and horizontal. Find the category with 35 in BOTH graphs.",
       "context": "lesson"
     },
     {
-      "text": "Now find 35 in the horizontal graph.",
-      "context": "lesson"
-    },
-    {
-      "text": "Same value, same position between the lines, just different directions. The axis works the same way whether bars go up or sideways. The math doesn't change, only the direction.",
+      "text": "Same value, same position between the lines, just different directions.",
       "context": "on_correct"
+    },
+    {
+      "text": "The axis works the same way whether bars go up or sideways. The math doesn't change, only the direction.",
+      "context": "lesson"
     }
   ]
 }

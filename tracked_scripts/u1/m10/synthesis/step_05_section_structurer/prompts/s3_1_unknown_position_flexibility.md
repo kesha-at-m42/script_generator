@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:01:37.866349
+# Generated: 2026-04-27T10:54:14.984685
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -815,14 +831,14 @@ Cacheable: Yes
   "guide": "\"Three equations. Same numbers — 4, 5, and 20. But the unknown moved to a different spot each time. What stays the same?\"",
   "prompt": "\"What stays the same in all three equations?\"",
   "student_action": "MC",
-  "options": "A: \"4 groups of 5 equals 20\"\nB: \"The unknown is always the hardest number\"\nC: \"The numbers are different each time\"\nD: \"The equation changes meaning each time\"",
+  "options": "A: \"4 groups of 5 equals 20\"\n\t- B: \"The unknown is always the hardest number\"\n\t-\n\t- C: \"The numbers are different each time\"\n\t- D: \"The equation changes meaning each time\"",
   "correct_answer": "A",
   "on_correct": "(selected A)",
   "guide_2": "\"The unknown moves, but the relationship stays — 4 groups of 5 is always 20. You figure out whichever piece is missing.\"",
   "remediation": "Pipeline",
   "remediation_note": "Selected B (\"unknown is hardest number\"): clarify the unknown can be any of the three numbers — redirect to what relationship stays constant. Selected C (\"numbers are different\"): point out that 4, 5, and 20 appear in all three equations; the unknown box hides one each time. Selected D (\"equation changes meaning\"): have student read all three and ask if it's still 4 groups of 5 equals 20.",
   "design_note": "The key insight is STRUCTURAL INVARIANCE — the relationship (4 groups of 5 = 20) persists regardless of which number is unknown. Students aren't SOLVING any of these equations — they're observing that the underlying fact doesn't change when the unknown moves. Option B (\"hardest number\") is a common student belief that the unknown must be the answer/product. Option C (skip-counting) describes a strategy, not the invariant structure. Option D is the opposite of the correct answer — students who select it haven't yet generalized.",
-  "_generated_at": "2026-04-20T17:00:35.389961+00:00",
+  "_generated_at": "2026-04-27T15:52:57.533908+00:00",
   "workspace_specs": {
     "toys": [
       "equation_builder"
@@ -830,7 +846,8 @@ Cacheable: Yes
     "tools": [
       "multiple_choice"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_0_opening_frame\n# Section Summary: s1_0_opening_frame\n\n**VISUAL STATE:** No tangible visualizations or data displays are present on screen at section end. The screen shows only dialogue text against a blank background.\n\n**CONTENT:** This opening frame introduces a transition to connecting prior learning about equations with multiple groups and unknowns. No new vocabulary or formal concepts are introduced; instead, it serves as a bridge referencing previously practiced material.\n\n**STUDENT ACTION:** No interactive student action occurs in this section. The student receives dialogue prompting reflection on prior equation work but does not build, manipulate, or respond to any visual elements.\n\n---\n\n## s1_1_sign_truth_check\n# Section Summary: s1_1_sign_truth_check\n\n**VISUAL STATE:** Four equation tangibles displayed on screen at section end:\n- Equation A: \"3 × 5 = 15\" (standard form, left-to-right)\n- Equation B: \"15 = 3 × 5\" (reversed form, total on left)\n- Equation C: \"3 × 5 = 20\" (highlighted in red/accent color to indicate false statement)\n- Equation D: \"15 = 5 × 3\" (commutative form, total on left)\n\n**CONTENT:** Students were introduced to the concept of **equation truth-checking**—understanding that the equals sign verifies both sides have the same value. The vocabulary term **\"equals sign\"** was formally introduced as a checker of mathematical equivalence. The lesson emphasized that equations remain true regardless of whether the total appears on the left or right side, as long as both sides match.\n\n**STUDENT ACTION:** Student selected multiple-choice option \"C\" to identify the false equation (3 × 5 = 20). Upon correct selection, Equation C was highlighted and the system provided corrective feedback explaining that 3 × 5 equals 15, not 20, confirming the sides don't match.\n\n---\n\n## s2_1_context_variety_same_structure\n# Section Summary: s2_1_context_variety_same_structure\n\n**VISUAL STATE:** Three images are displayed on screen: Image 1 shows 4 rows of 2 books on shelves; Image 2 shows 4 stacks of 2 cups; Image 3 shows 4 groups of 2 butterflies arranged in circled clusters. Below all three images is an equation displaying \"4 × 2 = 8\" in standard mathematical notation.\n\n**CONTENT:** This section introduces the concept that different real-world contexts (books, cups, butterflies) can share the same underlying mathematical structure. Students learned that the equation 4 × 2 = 8 captures the common structure across all three images—not the visual appearance or object type, but the abstract relationship of \"4 groups of 2.\" The vocabulary \"groups\" and \"structure\" were emphasized as the key to understanding why one equation fits multiple contexts.\n\n**STUDENT ACTION:** Students answered a multi-select question identifying what all three pictures have in common, selecting both \"All have 4 groups of 2\" and \"All have 8 things\" as correct answers. This reinforced that both the structural organization (4 groups of 2) and the total count (8) are equivalent ways of describing the same mathematical relationship."
 }
 </input>
 

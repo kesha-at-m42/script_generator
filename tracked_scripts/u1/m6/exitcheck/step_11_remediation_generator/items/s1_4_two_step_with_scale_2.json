@@ -4,24 +4,9 @@
     [
       {
         "condition": {
-          "incorrect_count": 1
+          "selected": 5
         },
-        "description": "Student answered incorrectly on first attempt",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "dialogue",
-              "text": "Not quite. Read the scale and add Maya's books and Ben's books."
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "incorrect_count": 2
-        },
-        "description": "Student answered incorrectly on second attempt",
+        "description": "Student selected 5: subtracted instead of adding (14 - 9 = 5)",
         "is_correct": false,
         "steps": [
           [
@@ -39,14 +24,68 @@
             },
             {
               "type": "dialogue",
-              "text": "Here's what to do: count by twos on Maya's bar to 14, then count Ben's bar to 9. Add those numbers. What is 14 plus 9?"
+              "text": "The question says together. That means add Maya's 14 books and Ben's 9 books. What's 14 plus 9?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 14
+        },
+        "description": "Student selected 14: chose Maya's value only, didn't add Ben",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Maya",
+                  "Ben"
+                ],
+                "description": "Maya and Ben bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found Maya. But the question asks for Maya AND Ben together. Add both amounts."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 22
+        },
+        "description": "Student selected 22: misread scale or miscounted",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Maya",
+                  "Ben"
+                ],
+                "description": "Maya and Ben bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Check the scale. Each mark counts by 2. Maya is at 14, Ben is at 9. Count carefully and add those values."
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student answered incorrectly three or more times. System models the answer.",
+        "description": "Student answered incorrectly. System models the correct answer.",
         "is_correct": false,
         "steps": [
           [
@@ -55,14 +94,14 @@
               "method": "animate",
               "tangible_id": "bar_graph_books",
               "params": {
-                "event": "show_equation_overlay",
+                "event": "show_calculation",
                 "status": "confirmed",
-                "description": "Animation shows: 14 + 9 = 23"
+                "description": "Animation demonstrates: Maya bar at 14, Ben bar at 9. 14 + 9 = 23."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. The scale is 2, so I count by twos. Maya's bar reaches 14. Ben's bar reaches 9. When we see together, we add. 14 plus 9 equals 23. Maya and Ben read 23 books together."
+              "text": "Let me show you. Maya read 14 books. I find that by counting up by 2s to where her bar stops. Ben read 9. Together means add: 14 plus 9 equals 23. The answer is 23 books together."
             }
           ]
         ]
@@ -71,24 +110,9 @@
     [
       {
         "condition": {
-          "incorrect_count": 1
+          "selected": 34
         },
-        "description": "Student answered incorrectly on first attempt",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "dialogue",
-              "text": "Let's look closely. You have 23 total. Carla has 11. Compare them."
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "incorrect_count": 2
-        },
-        "description": "Student answered incorrectly on second attempt",
+        "description": "Student selected 34: added all values instead of subtracting (23 + 11 = 34)",
         "is_correct": false,
         "steps": [
           [
@@ -105,14 +129,68 @@
             },
             {
               "type": "dialogue",
-              "text": "Here's the key: you found that Maya and Ben together is 23. How many more means we subtract. Count Carla's bar: 11. What is 23 minus 11?"
+              "text": "How many MORE means compare. We subtract. Maya and Ben together is 23. Carla is 11. What's 23 minus 11?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 23
+        },
+        "description": "Student selected 23: gave the combined total without subtracting Carla",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Carla"
+                ],
+                "description": "Carla bar highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "That's the combined total. But the question asks how many MORE than Carla. Compare 23 to Carla's 11. Subtract."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 17
+        },
+        "description": "Student selected 17: used incorrect combined total or subtraction error",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_books",
+              "params": {
+                "highlight_categories": [
+                  "Maya",
+                  "Ben",
+                  "Carla"
+                ],
+                "description": "Maya, Ben, and Carla bars highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Check your work. Maya and Ben together is 23. Carla is 11. To find how many more, subtract: 23 minus 11. What's that difference?"
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student answered incorrectly three or more times. System models the answer.",
+        "description": "Student answered incorrectly. System models the correct answer.",
         "is_correct": false,
         "steps": [
           [
@@ -121,19 +199,19 @@
               "method": "animate",
               "tangible_id": "bar_graph_books",
               "params": {
-                "event": "show_comparison_overlay",
+                "event": "show_calculation",
                 "status": "confirmed",
-                "description": "Shows: 23 compared to 11, difference 12"
+                "description": "Animation demonstrates: combined total 23 displayed, Carla bar at 11 highlighted, calculation 23 - 11 = 12 shown."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me walk you through it. Maya and Ben together is 23 books. Carla read 11 books. How many more asks for the difference. We subtract: 23 minus 11 equals 12. The answer is 12 books more."
+              "text": "Here's how this works. Maya and Ben together read 23 books. Carla read 11. How many MORE means we compare by subtracting: 23 minus 11 equals 12. Maya and Ben together read 12 more books than Carla."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:02:28.893731+00:00"
+  "_generated_at": "2026-04-27T15:56:36.378453+00:00"
 }

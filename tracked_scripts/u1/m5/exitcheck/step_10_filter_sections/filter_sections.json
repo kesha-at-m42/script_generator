@@ -20,7 +20,7 @@
           "id": "s1_0_transition_into_exit_check_b1"
         }
       ],
-      "_generated_at": "2026-04-20T16:58:53.642742+00:00"
+      "_generated_at": "2026-04-27T15:53:02.093149+00:00"
     },
     {
       "id": "s1_1_scale_too_small_identify",
@@ -31,7 +31,7 @@
           "tangible_id": "data_table",
           "tangible_type": "data_table",
           "params": {
-            "description": "Vertical data table appears: Toys Collected. Amy: 45, Ben: 70, Cora: 15, Dan: 30."
+            "description": "Vertical data table appears showing Toys Collected data: Amy 45, Ben 70, Cora 15, Dan 30."
           },
           "id": "s1_1_scale_too_small_identify_b0"
         },
@@ -55,7 +55,13 @@
               5,
               10
             ],
-            "description": "Four scale options displayed below the data table. Scale of 1, 2, and 5 marked with ❌ and 'doesn't fit'. Scale of 10 marked with ✓."
+            "scale_feedback": {
+              "1": "70 doesn't fit",
+              "2": "70 doesn't fit",
+              "5": "70 doesn't fit",
+              "10": "works"
+            },
+            "description": "Four scale options displayed below data table with indicators: Scale of 1 marked with ❌ '70 doesn't fit', Scale of 2 marked with ❌ '70 doesn't fit', Scale of 5 marked with ❌ '70 doesn't fit', Scale of 10 marked with ✓."
           },
           "id": "s1_1_scale_too_small_identify_b1"
         },
@@ -80,12 +86,12 @@
               "condition": {
                 "selected": "Scale of 10"
               },
-              "description": "Student selected Scale of 10, correct",
+              "description": "Student selected Scale of 10, correct answer for data up to 70",
               "is_correct": true,
               "beats": [
                 {
                   "type": "dialogue",
-                  "text": "That's right. Scale of 10. For data up to 70, scale of 2 would need too many lines and scale of 5 would need fewer, but still many lines. Scale of 10 only needs 8, much easier to read.",
+                  "text": "That's right. Scale of 10. For data up to 70, Scale of 2 would need too many lines and Scale of 5 would need fewer, but still many lines. Scale of 10 only needs 8. Much easier to read.",
                   "id": "s1_1_scale_too_small_identify_b3_v0_b0"
                 }
               ]
@@ -98,12 +104,12 @@
           "elements": [
             {
               "tangible_id": "data_table",
-              "description": "Vertical data table showing Toys Collected values: Amy: 45, Ben: 70, Cora: 15, Dan: 30.",
+              "description": "Vertical data table showing Toys Collected data: Amy 45, Ben 70, Cora 15, Dan 30.",
               "tangible_type": "data_table"
             },
             {
               "tangible_id": "bar_graph_toys",
-              "description": "Bar graph with scale options displayed. Scale of 10 selected and confirmed.",
+              "description": "Four scale options displayed with validation indicators. Scale of 10 selected.",
               "tangible_type": "bar_graph",
               "mode": "reading",
               "orientation": "vertical",
@@ -112,19 +118,13 @@
                 "Ben",
                 "Cora",
                 "Dan"
-              ],
-              "scale_options": [
-                1,
-                2,
-                5,
-                10
               ]
             }
           ],
           "id": "s1_1_scale_too_small_identify_b4"
         }
       ],
-      "_generated_at": "2026-04-20T16:59:03.822445+00:00"
+      "_generated_at": "2026-04-27T15:53:17.000694+00:00"
     },
     {
       "id": "s1_2_non_multiples_need_scale_2",
@@ -135,7 +135,21 @@
           "tangible_id": "data_table",
           "tangible_type": "data_table",
           "params": {
-            "description": "Horizontal data table appears. Minutes Reading data. Gus: 23, Hal: 31, Eli: 9, Fay: 16."
+            "orientation": "horizontal",
+            "categories": [
+              "Gus",
+              "Hal",
+              "Eli",
+              "Fay"
+            ],
+            "values": [
+              23,
+              31,
+              9,
+              16
+            ],
+            "title": "Minutes Reading",
+            "description": "Horizontal data table appears showing Minutes Reading data: Gus 23, Hal 31, Eli 9, Fay 16."
           },
           "id": "s1_2_non_multiples_need_scale_2_b0"
         },
@@ -164,7 +178,7 @@
               "beats": [
                 {
                   "type": "dialogue",
-                  "text": "That's right. Scale of 2. The biggest value of 31 could work with Scale of 2 or Scale of 5. Then check those digits in the ones place: 3, 1, 9, 6. None are 0 or 5 so they aren't multiples of 5. That's your Scale of 2 signal to show the exact values on the graph.",
+                  "text": "That's it. Scale of 2. The biggest value is 31, which could work with Scale of 2 or Scale of 5. But look at the ones place: 3, 1, 9, 6. None of those are 0 or 5, so they aren't multiples of 5. That tells you Scale of 2 is what you need to show the exact values.",
                   "id": "s1_2_non_multiples_need_scale_2_b2_v0_b0"
                 }
               ]
@@ -177,14 +191,28 @@
           "elements": [
             {
               "tangible_id": "data_table",
-              "description": "Horizontal data table. Minutes Reading data. Gus: 23, Hal: 31, Eli: 9, Fay: 16.",
-              "tangible_type": "data_table"
+              "description": "Horizontal data table showing Minutes Reading data: Gus 23, Hal 31, Eli 9, Fay 16.",
+              "tangible_type": "data_table",
+              "orientation": "horizontal",
+              "categories": [
+                "Gus",
+                "Hal",
+                "Eli",
+                "Fay"
+              ],
+              "values": [
+                23,
+                31,
+                9,
+                16
+              ],
+              "title": "Minutes Reading"
             }
           ],
           "id": "s1_2_non_multiples_need_scale_2_b3"
         }
       ],
-      "_generated_at": "2026-04-20T16:59:10.583732+00:00"
+      "_generated_at": "2026-04-27T15:53:29.796653+00:00"
     },
     {
       "id": "s1_3_select_appropriate_scale_compare",
@@ -195,7 +223,21 @@
           "tangible_id": "data_table",
           "tangible_type": "data_table",
           "params": {
-            "description": "Vertical data table appears. Steps Walked data. Ana: 30, Ben: 70, Cara: 90, Dan: 50."
+            "orientation": "vertical",
+            "title": "Steps Walked",
+            "categories": [
+              "Ana",
+              "Ben",
+              "Cara",
+              "Dan"
+            ],
+            "values": [
+              30,
+              70,
+              90,
+              50
+            ],
+            "description": "Vertical data table appears. Steps Walked. Ana: 30, Ben: 70, Cara: 90, Dan: 50."
           },
           "id": "s1_3_select_appropriate_scale_compare_b0"
         },
@@ -268,13 +310,27 @@
             {
               "tangible_id": "data_table",
               "description": "Vertical data table showing Steps Walked data. Ana: 30, Ben: 70, Cara: 90, Dan: 50.",
-              "tangible_type": "data_table"
+              "tangible_type": "data_table",
+              "orientation": "vertical",
+              "title": "Steps Walked",
+              "categories": [
+                "Ana",
+                "Ben",
+                "Cara",
+                "Dan"
+              ],
+              "values": [
+                30,
+                70,
+                90,
+                50
+              ]
             }
           ],
           "id": "s1_3_select_appropriate_scale_compare_b3"
         }
       ],
-      "_generated_at": "2026-04-20T16:59:19.305568+00:00"
+      "_generated_at": "2026-04-27T15:53:59.181335+00:00"
     },
     {
       "id": "s1_4_exit_check_closure",
@@ -291,7 +347,7 @@
           "id": "s1_4_exit_check_closure_b1"
         }
       ],
-      "_generated_at": "2026-04-20T16:59:22.002737+00:00"
+      "_generated_at": "2026-04-27T15:54:05.435367+00:00"
     }
   ]
 }

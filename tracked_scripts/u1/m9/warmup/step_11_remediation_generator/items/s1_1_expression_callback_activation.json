@@ -23,7 +23,7 @@
             }
           ]
         },
-        "description": "Student reversed the numbers: placed 2 × 4 instead of 4 × 2",
+        "description": "Student reversed the numbers: placed 2 in first slot and 4 in second slot (attempt 1 or 2)",
         "is_correct": false,
         "steps": [
           [
@@ -38,7 +38,7 @@
             },
             {
               "type": "dialogue",
-              "text": "You're right that we need 4 and 2. But which number comes first? Count the bags. How many groups do you see?"
+              "text": "You're right that there are 4 and 2. But the first number tells us how many groups. Count the bags. How many bags are there?"
             }
           ]
         ]
@@ -59,13 +59,13 @@
             }
           ]
         },
-        "description": "Student placed wrong numbers on first attempt",
+        "description": "Student placed wrong values on first attempt (not the reversed case)",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "dialogue",
-              "text": "Let's look closely. Count the bags, then count what's in each bag."
+              "text": "Not quite. Count the bags, then count what's in each bag."
             }
           ]
         ]
@@ -86,7 +86,7 @@
             }
           ]
         },
-        "description": "Student placed wrong numbers on second attempt",
+        "description": "Student placed wrong values on second attempt (not the reversed case)",
         "is_correct": false,
         "steps": [
           [
@@ -101,45 +101,39 @@
             },
             {
               "type": "dialogue",
-              "text": "Here's what helps. The first number tells us how many groups. Count the bags: 4. The second number tells us how many in each group. Count inside one bag: 2. Place those numbers."
+              "text": "Here's what helps: the first number tells us how many groups. Count the highlighted bags. That number goes first. Then count inside one bag for the second number."
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student answered incorrectly three or more times. System models the answer.",
+        "description": "Student placed wrong values three or more times. System models the answer.",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equation_builder",
+              "tangible_id": "equation_builder_warmup",
               "params": {
-                "event": "place_tiles",
+                "event": "demonstrate_placement",
                 "status": "confirmed",
-                "description": "System places 4 in first slot, 2 in second slot.",
-                "tiles": [
-                  {
-                    "slot": 0,
-                    "value": 4
-                  },
-                  {
-                    "slot": 2,
-                    "value": 2
-                  }
+                "description": "System places 4 in first slot, then 2 in second slot. Tiles confirm.",
+                "values": [
+                  4,
+                  2
                 ]
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. First, I count the bags. That's my groups: 4. Then I count inside one bag. That's my items per group: 2. So the expression is 4 times 2. The first number names the groups, the second names what's in each group."
+              "text": "Let me show you how this works. I count the bags: 4 bags. That's my first number. I count inside one bag: 2 items. That's my second number. The expression is 4 times 2."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:00:59.817271+00:00"
+  "_generated_at": "2026-04-27T15:54:13.740236+00:00"
 }

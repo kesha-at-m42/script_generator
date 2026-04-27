@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:03.594560
+# Generated: 2026-04-27T11:00:56.104833
 ======================================================================
 
 ## API Parameters
@@ -948,7 +948,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "30. The bar ends at the 30 line. Same as 3 symbols on the picture graph—each symbol shows 10.",
+      "text": "30. The bar ends at the 30 line. Same as 3 symbols on the picture graph. Each symbol shows 10.",
       "context": "on_correct"
     }
   ]

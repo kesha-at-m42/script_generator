@@ -6,7 +6,7 @@
         "condition": {
           "selected": 50
         },
-        "description": "Student selected 50: read the closest grid line instead of the bar endpoint",
+        "description": "Student selected 50, the lower gridline endpoint",
         "is_correct": false,
         "steps": [
           [
@@ -18,12 +18,12 @@
                 "highlight_categories": [
                   "Park"
                 ],
-                "description": "Park bar remains highlighted, endpoint emphasized between 50 and 60."
+                "description": "Park bar remains highlighted. Ghost gridline at 50 pulses to show proximity."
               }
             },
             {
               "type": "dialogue",
-              "text": "The bar doesn't stop at 50. Look where the end of the bar actually is. Is it at a line or between two lines?"
+              "text": "The bar goes PAST 50. Look at where it ends. Is it at the 50 line or between the lines?"
             }
           ]
         ]
@@ -32,7 +32,7 @@
         "condition": {
           "selected": 60
         },
-        "description": "Student selected 60: read the higher grid line instead of the bar endpoint",
+        "description": "Student selected 60, the upper gridline endpoint",
         "is_correct": false,
         "steps": [
           [
@@ -44,12 +44,12 @@
                 "highlight_categories": [
                   "Park"
                 ],
-                "description": "Park bar remains highlighted, endpoint emphasized between 50 and 60."
+                "description": "Park bar remains highlighted. Ghost gridline at 60 pulses to show the bar ends before it."
               }
             },
             {
               "type": "dialogue",
-              "text": "The bar doesn't reach all the way to 60. Look closely at where the bar ends. It stops between two lines."
+              "text": "The bar does not reach 60. Look at where the bar actually ends. Count from 50."
             }
           ]
         ]
@@ -58,7 +58,7 @@
         "condition": {
           "selected": 58
         },
-        "description": "Student selected 58: attempted estimation but missed that halfway between 50 and 60 is 55",
+        "description": "Student selected 58, a value between the gridlines but not halfway",
         "is_correct": false,
         "steps": [
           [
@@ -70,12 +70,12 @@
                 "highlight_categories": [
                   "Park"
                 ],
-                "description": "Park bar highlighted with gridlines at 50 and 60 emphasized."
+                "description": "Park bar remains highlighted. Ghost gridlines at 50 and 60 pulse to show the interval."
               }
             },
             {
               "type": "dialogue",
-              "text": "You saw the bar is between the lines. When a bar is halfway between two lines, find the middle. What's halfway between 50 and 60?"
+              "text": "The bar is between 50 and 60, but where exactly? Half of 10 is 5. Halfway between 50 and 60 is 55."
             }
           ]
         ]
@@ -91,20 +91,20 @@
               "method": "animate",
               "tangible_id": "bar_graph_field_trip",
               "params": {
-                "event": "show_midpoint_value",
+                "event": "draw_bar_guideline",
                 "status": "confirmed",
-                "description": "Visual draws from bar endpoint to axis, highlighting position exactly halfway between 50 and 60, with 55 labeled at midpoint.",
-                "category": "Park"
+                "category": "Park",
+                "description": "Horizontal guideline draws from end of Park bar down to axis at 55. The ghost gridline at 55 glows to confirm position."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. The Park bar ends between 50 and 60. When a bar is exactly in the middle, that's halfway. Half of 10 is 5, so 50 plus 5 equals 55. The bar shows 55 votes."
+              "text": "Let me show you how to find it. The bar ends between 50 and 60. That means we count by 10s: 50, then halfway to 60 is 55. The bar ends at 55 because it's right in the middle between the two lines."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:06:24.005787+00:00"
+  "_generated_at": "2026-04-27T16:04:27.424704+00:00"
 }

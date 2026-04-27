@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:09.454089
+# Generated: 2026-04-27T10:58:16.163132
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,7 @@ Cacheable: Yes
   "id": "s2_5_section_transition",
   "dialogues": [
     {
-      "text": "You're getting it. Find the combined total first, then compare. Let's practice more—and I'll give you less help each time.",
+      "text": "You're getting it. Find the combined total first, then compare. Let's practice more, and I'll give you less help each time.",
       "context": "lesson"
     }
   ]

@@ -9,14 +9,20 @@
       "params": {
         "mode": "reading",
         "orientation": "horizontal",
-        "categories": [
-          "Dogs",
-          "Cats",
-          "Birds",
-          "Fish"
-        ],
         "scale": 10,
-        "description": "Simple horizontal picture graph appears on left side. Scale of 10. Dogs row has 3 symbols highlighted. Key shows each symbol = 10."
+        "categories": [
+          "Category A",
+          "Category B",
+          "Category C",
+          "Category D"
+        ],
+        "values": [
+          30,
+          20,
+          10,
+          40
+        ],
+        "description": "Horizontal picture graph appears on left side. Scale of 10. Four categories. Category A has 3 symbols, Category B has 2 symbols, Category C has 1 symbol, Category D has 4 symbols. Key shows each symbol = 10."
       }
     },
     {
@@ -25,18 +31,46 @@
       "tangible_id": "equation_builder_3x10",
       "tangible_type": "equation_builder",
       "params": {
-        "expression": [
-          "3",
-          "x",
-          "10",
+        "mode": "building",
+        "template": [
+          "__",
+          "×",
+          "__",
           "=",
           "__"
         ],
-        "prefilled": {
-          "groups": 3,
-          "items": 10
+        "prefilled_slots": {
+          "slot_0": 3,
+          "slot_2": 10
         },
-        "description": "Equation Builder appears on right side. 3 × 10 = [___]. Factors pre-filled, product blank awaits tile."
+        "description": "Equation builder appears on right side. Template shows 3 × 10 = [blank]. Factors 3 and 10 pre-filled. Product slot empty."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "tile_palette_3x10",
+      "tangible_type": "tile_palette",
+      "params": {
+        "tiles": [
+          13,
+          20,
+          25,
+          30,
+          40
+        ],
+        "description": "Tile palette displays five product options: 13, 20, 25, 30, 40."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "picture_graph_scale10",
+      "params": {
+        "highlight_categories": [
+          "Category A"
+        ],
+        "description": "Category A row highlights. Shows 3 symbols, each worth 10."
       }
     },
     {
@@ -48,13 +82,6 @@
       "text": "Find the product of 3 × 10.",
       "tool": "place_tile",
       "target": "equation_builder_3x10",
-      "options": [
-        13,
-        20,
-        25,
-        30,
-        40
-      ],
       "validator": [
         {
           "condition_id": "correct",
@@ -71,9 +98,9 @@
               "method": "animate",
               "tangible_id": "equation_builder_3x10",
               "params": {
-                "event": "tile_snap_to_slot",
+                "event": "pulse_confirmation",
                 "status": "confirmed",
-                "description": "30 tile snaps into product slot, equation complete: 3 × 10 = 30."
+                "description": "Equation builder pulses to confirm correct placement. Complete equation 3 × 10 = 30 displays."
               }
             },
             {
@@ -89,36 +116,38 @@
       "elements": [
         {
           "tangible_id": "picture_graph_scale10",
-          "description": "Horizontal picture graph on left. Scale of 10. Dogs row with 3 symbols highlighted.",
+          "description": "Horizontal picture graph on left side. Scale of 10. Category A row highlighted showing 3 symbols.",
           "tangible_type": "picture_graph",
           "mode": "reading",
           "orientation": "horizontal",
+          "scale": 10,
           "categories": [
-            "Dogs",
-            "Cats",
-            "Birds",
-            "Fish"
-          ],
-          "scale": 10
+            "Category A",
+            "Category B",
+            "Category C",
+            "Category D"
+          ]
         },
         {
           "tangible_id": "equation_builder_3x10",
-          "description": "Equation Builder on right. 3 × 10 = [___]. place_tile tool active, palette shows 13, 20, 25, 30, 40.",
+          "description": "Equation builder on right side showing completed equation 3 × 10 = 30.",
           "tangible_type": "equation_builder",
-          "expression": [
-            "3",
-            "x",
-            "10",
+          "mode": "building",
+          "template": [
+            "__",
+            "×",
+            "__",
             "=",
             "__"
-          ],
-          "prefilled": {
-            "groups": 3,
-            "items": 10
-          }
+          ]
+        },
+        {
+          "tangible_id": "tile_palette_3x10",
+          "description": "Tile palette showing options 13, 20, 25, 30, 40.",
+          "tangible_type": "tile_palette"
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:03:54.422293+00:00"
+  "_generated_at": "2026-04-27T15:58:29.050497+00:00"
 }

@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:00:37.874400
+# Generated: 2026-04-27T10:55:41.011385
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1854,10 +1858,9 @@ Cacheable: Yes
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "data_table_steps",
+      "tangible_id": "data_table_a",
       "tangible_type": "data_table",
       "params": {
-        "title": "Daily Steps",
         "categories": [
           "Mon",
           "Tue",
@@ -1870,17 +1873,17 @@ Cacheable: Yes
           5100,
           2800
         ],
-        "description": "Data table A appears. Daily Steps. Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800."
+        "title": "Daily Steps",
+        "description": "Data table A appears showing Daily Steps — Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800."
       },
       "id": "s3_1_real_world_connection_type_c_b0"
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "data_table_coins",
+      "tangible_id": "data_table_b",
       "tangible_type": "data_table",
       "params": {
-        "title": "Coins Collected",
         "categories": [
           "Jar 1",
           "Jar 2",
@@ -1893,17 +1896,17 @@ Cacheable: Yes
           19,
           23
         ],
-        "description": "Data table B appears. Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23."
+        "title": "Coins Collected",
+        "description": "Data table B appears showing Coins Collected — Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23."
       },
       "id": "s3_1_real_world_connection_type_c_b1"
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "data_table_books",
+      "tangible_id": "data_table_c",
       "tangible_type": "data_table",
       "params": {
-        "title": "Books Read",
         "categories": [
           "Room A",
           "Room B",
@@ -1916,7 +1919,8 @@ Cacheable: Yes
           35,
           40
         ],
-        "description": "Data table C appears. Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40."
+        "title": "Books Read",
+        "description": "Data table C appears showing Books Read — Room A: 25, Room B: 30, Room C: 35, Room D: 40."
       },
       "id": "s3_1_real_world_connection_type_c_b2"
     },
@@ -1940,16 +1944,16 @@ Cacheable: Yes
           "condition": {
             "selected": "Table B"
           },
-          "description": "Student selected Table B (Coins Collected), correct",
+          "description": "Student selected Table B, Coins Collected with values 7, 12, 19, 23",
           "is_correct": true,
           "beats": [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "data_table_coins",
+              "tangible_id": "data_table_b",
               "params": {
                 "highlight": true,
-                "description": "Table B (Coins Collected) highlights to confirm selection."
+                "description": "Table B highlights to confirm selection."
               },
               "id": "s3_1_real_world_connection_type_c_b4_v0_b0"
             },
@@ -1967,8 +1971,8 @@ Cacheable: Yes
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "data_table_steps",
-          "description": "Data table A. Daily Steps. Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800.",
+          "tangible_id": "data_table_a",
+          "description": "Data table A showing Daily Steps — Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800.",
           "tangible_type": "data_table",
           "title": "Daily Steps",
           "categories": [
@@ -1985,8 +1989,8 @@ Cacheable: Yes
           ]
         },
         {
-          "tangible_id": "data_table_coins",
-          "description": "Data table B. Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23.",
+          "tangible_id": "data_table_b",
+          "description": "Data table B showing Coins Collected — Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23. Highlighted.",
           "tangible_type": "data_table",
           "title": "Coins Collected",
           "categories": [
@@ -2003,8 +2007,8 @@ Cacheable: Yes
           ]
         },
         {
-          "tangible_id": "data_table_books",
-          "description": "Data table C. Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40.",
+          "tangible_id": "data_table_c",
+          "description": "Data table C showing Books Read — Room A: 25, Room B: 30, Room C: 35, Room D: 40.",
           "tangible_type": "data_table",
           "title": "Books Read",
           "categories": [
@@ -2032,8 +2036,8 @@ Cacheable: Yes
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "data_table_steps",
-          "description": "Data table A. Daily Steps. Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800.",
+          "tangible_id": "data_table_a",
+          "description": "Data table A showing Daily Steps — Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800.",
           "tangible_type": "data_table",
           "title": "Daily Steps",
           "categories": [
@@ -2050,8 +2054,8 @@ Cacheable: Yes
           ]
         },
         {
-          "tangible_id": "data_table_coins",
-          "description": "Data table B highlighted. Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23.",
+          "tangible_id": "data_table_b",
+          "description": "Data table B showing Coins Collected — Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23. Highlighted.",
           "tangible_type": "data_table",
           "title": "Coins Collected",
           "categories": [
@@ -2068,8 +2072,8 @@ Cacheable: Yes
           ]
         },
         {
-          "tangible_id": "data_table_books",
-          "description": "Data table C. Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40.",
+          "tangible_id": "data_table_c",
+          "description": "Data table C showing Books Read — Room A: 25, Room B: 30, Room C: 35, Room D: 40.",
           "tangible_type": "data_table",
           "title": "Books Read",
           "categories": [
@@ -2089,7 +2093,7 @@ Cacheable: Yes
       "id": "s3_1_real_world_connection_type_c_b7"
     }
   ],
-  "_generated_at": "2026-04-20T16:59:42.424896+00:00"
+  "_generated_at": "2026-04-27T15:54:18.735557+00:00"
 }
 </input>
 

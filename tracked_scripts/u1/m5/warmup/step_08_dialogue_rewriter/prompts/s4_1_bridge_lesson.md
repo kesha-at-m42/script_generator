@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T11:59:18.204101
+# Generated: 2026-04-27T10:53:57.640138
 ======================================================================
 
 ## API Parameters
@@ -952,7 +952,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "Let's learn how to figure out which scale to choose—and what tells us that a scale won't work for the data we have.",
+      "text": "Let's learn how to figure out which scale to choose and what tells us that a scale won't work for the data we have.",
       "context": "lesson"
     }
   ]

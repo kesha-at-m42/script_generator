@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:01:48.571845
+# Generated: 2026-04-27T10:55:01.868757
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -824,7 +840,7 @@ Cacheable: Yes
   "remediation": "Pipeline",
   "remediation_note": "Point student to the Products Strip — ask if any of the 2s multiples (2, 4, 6, 8, 10...) match the odd number pattern (1, 3, 5, 7, 9...).",
   "design_note": "This interaction carries significant weight — bridge statement, repeated addition comparison, AND even/odd check. But each piece is brief, and the student action (MC) is low cognitive demand. The bridge statement is the lesson's KEY conceptual moment: \"That WAS multiplication.\" The even/odd check confirms pattern recognition. The repeated addition comparison validates an alternative strategy without belaboring it.",
-  "_generated_at": "2026-04-20T16:59:58.465794+00:00",
+  "_generated_at": "2026-04-27T15:52:53.183027+00:00",
   "workspace_specs": {
     "toys": [
       "equation_builder"
@@ -837,7 +853,8 @@ Cacheable: Yes
       "Products Strip still"
     ],
     "workspace_carry_over": true
-  }
+  },
+  "prior_section_summaries": "## s1_1_extend_accumulation_5_10_concrete\n# Section Summary: s1_1_extend_accumulation_5_10_concrete\n\n**VISUAL STATE AT SECTION END:**\nThree tangibles are displayed: (1) Equal Groups (circles mode, reading mode): 10 containers with 2 items per container; (2) Products Strip (reading mode): displays values 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 with all highlighted and labeled \"Multiples of 2\"; (3) Equation Builder (reading mode): shows expression \"10 × 2 = 20.\"\n\n**CONTENT:**\nThis section introduced the concept of **multiples** and **accumulation through repeated multiplication**. Students observed the pattern of multiplying by 2 sequentially (from 5 groups through 10 groups), watching products increase by 2 each time. The vocabulary term **\"multiples of 2\"** was formally introduced to describe all products generated when multiplying by 2.\n\n**STUDENT ACTION:**\nThe student passively observed an animated sequence where equal groups were added one at a time (groups 6–10), with corresponding equations updating dynamically (6 × 2 = 12 through 10 × 2 = 20). The student then viewed the complete Products Strip displaying all 10 multiples of 2 in a single visual collection.\n\n---\n\n## s1_2_pattern_discovery_2s_are_always\n# Section Summary: Pattern Discovery – \"2s Are Always Even\"\n\n**VISUAL STATE:** A Products Strip tangible displays ten values (2, 4, 6, 8, 10, 12, 14, 16, 18, 20) labeled \"Multiples of 2\" in reading mode with all products highlighted/glowing throughout the section.\n\n**CONTENT:** Students discovered and formalized the pattern that all products of 2 are even numbers. The section introduced the concept of using this pattern as a \"checking tool\"—a self-verification strategy where an odd result from multiplying by 2 signals an error. The vocabulary term \"even numbers\" was reinforced in connection to the property of splitting perfectly into groups of 2.\n\n**STUDENT ACTION:** The student answered a multiple-choice question selecting \"They are all even numbers\" from four options (even numbers, odd numbers, greater than 10, end in 5), demonstrating pattern recognition and receiving confirmatory dialogue explaining the mathematical reasoning."
 }
 </input>
 

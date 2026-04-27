@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:02:56.426533
+# Generated: 2026-04-27T10:56:56.407003
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1850,7 +1854,6 @@ Cacheable: Yes
 <input>
 {
   "id": "s5_2_metacognitive_reflection",
-  "type": "transition",
   "beats": [
     {
       "type": "dialogue",
@@ -1875,7 +1878,7 @@ Cacheable: Yes
           "condition": {
             "selected": "Skip-counting is how I multiply by 2s, 5s, and 10s"
           },
-          "description": "Student selected option A",
+          "description": "Student selected option A: skip-counting strategy",
           "is_correct": true,
           "beats": [
             {
@@ -1891,12 +1894,12 @@ Cacheable: Yes
           "condition": {
             "selected": "Patterns help me check my answers"
           },
-          "description": "Student selected option B",
+          "description": "Student selected option B: pattern-checking as self-monitoring",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "That's it. Pattern-checking catches mistakes before they stick. That's powerful.",
+              "text": "That's a solid takeaway. Pattern-checking catches mistakes before they stick. That's powerful.",
               "id": "s5_2_metacognitive_reflection_b1_v1_b0"
             }
           ]
@@ -1907,12 +1910,12 @@ Cacheable: Yes
           "condition": {
             "selected": "Graph scales were multiplication all along"
           },
-          "description": "Student selected option C",
+          "description": "Student selected option C: cross-unit graph-multiplication connection",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "Exactly. You've been multiplying longer than you realized. Graphs were the start.",
+              "text": "Good insight. You've been multiplying longer than you realized. Graphs were the start.",
               "id": "s5_2_metacognitive_reflection_b1_v2_b0"
             }
           ]
@@ -1923,7 +1926,7 @@ Cacheable: Yes
           "condition": {
             "selected": "Factor times factor equals product"
           },
-          "description": "Student selected option D",
+          "description": "Student selected option D: vocabulary and notation precision",
           "is_correct": true,
           "beats": [
             {
@@ -1942,7 +1945,7 @@ Cacheable: Yes
       "id": "s5_2_metacognitive_reflection_b2"
     }
   ],
-  "_generated_at": "2026-04-20T17:01:56.614999+00:00"
+  "_generated_at": "2026-04-27T15:55:45.310371+00:00"
 }
 </input>
 

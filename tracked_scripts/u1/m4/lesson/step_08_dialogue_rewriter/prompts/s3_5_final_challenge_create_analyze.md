@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:49.060352
+# Generated: 2026-04-27T11:01:44.461989
 ======================================================================
 
 ## API Parameters
@@ -946,10 +946,6 @@ Cacheable: Yes
     {
       "text": "Use the data table to complete the graph.",
       "context": "lesson"
-    },
-    {
-      "text": "All four bars match the data. You built the graph from the table.",
-      "context": "on_correct"
     },
     {
       "text": "How many plants in all for Peppers and Carrots?",

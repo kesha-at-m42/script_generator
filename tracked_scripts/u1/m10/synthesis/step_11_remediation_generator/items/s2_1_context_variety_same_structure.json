@@ -6,16 +6,30 @@
         "condition": {
           "and": [
             {
-              "selected": "All have 4 groups of 2"
+              "or": [
+                {
+                  "selected": "All have 4 groups of 2"
+                },
+                {
+                  "selected": "All have 8 things"
+                }
+              ]
             },
             {
               "not": {
-                "selected": "All have 8 things"
+                "and": [
+                  {
+                    "selected": "All have 4 groups of 2"
+                  },
+                  {
+                    "selected": "All have 8 things"
+                  }
+                ]
               }
             }
           ]
         },
-        "description": "Branch 2: Student selected only 'All have 4 groups of 2' but missed 'All have 8 things'",
+        "description": "Branch 2: Student selected only one correct answer (either A or B), not both",
         "is_correct": false,
         "steps": [
           [
@@ -24,15 +38,17 @@
               "method": "update",
               "tangible_id": "equation_shared",
               "params": {
-                "highlight_terms": [
+                "highlight_segments": [
+                  "4",
+                  "2",
                   "8"
                 ],
-                "description": "The answer 8 highlights in the equation"
+                "description": "Equation segments 4, 2, and 8 highlight."
               }
             },
             {
               "type": "dialogue",
-              "text": "You found the structure: 4 groups of 2. That structure gives us a total. Look at the equation. What number comes after the equals sign?"
+              "text": "That's true. Look at the equation again. What else does it tell us about the pictures? There's one more answer that fits."
             }
           ]
         ]
@@ -52,7 +68,7 @@
             }
           ]
         },
-        "description": "Branch 3: Student selected neither correct answer",
+        "description": "Branch 3: Student selected only incorrect answers (C and/or D)",
         "is_correct": false,
         "steps": [
           [
@@ -61,44 +77,94 @@
               "method": "update",
               "tangible_id": "image_books",
               "params": {
-                "highlight_groups": true,
-                "description": "The 4 rows in the books image highlight to show grouping structure"
+                "highlight_structure": true,
+                "description": "Books image highlights the 4 groups of 2 structure."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "image_cups",
+              "params": {
+                "highlight_structure": true,
+                "description": "Cups image highlights the 4 groups of 2 structure."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "image_butterflies",
+              "params": {
+                "highlight_structure": true,
+                "description": "Butterflies image highlights the 4 groups of 2 structure."
               }
             },
             {
               "type": "dialogue",
-              "text": "Look past what the pictures show. Count the groups in each picture, then count how many are in each group. What pattern do you see in all three?"
+              "text": "The pictures look different, but think about the structure. How many groups? How many in each group? That's what makes them fit the same equation."
             }
           ]
         ]
       },
       {
         "condition": {
-          "or": [
+          "and": [
             {
-              "selected": "All look the same"
+              "or": [
+                {
+                  "selected": "All look the same"
+                },
+                {
+                  "selected": "All use books"
+                }
+              ]
             },
             {
-              "selected": "All use books"
+              "or": [
+                {
+                  "selected": "All have 4 groups of 2"
+                },
+                {
+                  "selected": "All have 8 things"
+                }
+              ]
             }
           ]
         },
-        "description": "Branch 4: Student selected at least one incorrect answer along with possibly some correct answers",
+        "description": "Branch 4: Student selected at least one correct and at least one incorrect answer",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
+              "tangible_id": "image_books",
+              "params": {
+                "highlight_border": true,
+                "description": "Books image border highlights."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "image_cups",
+              "params": {
+                "highlight_border": true,
+                "description": "Cups image border highlights."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
               "tangible_id": "image_butterflies",
               "params": {
-                "highlight": true,
-                "description": "The butterflies image highlights"
+                "highlight_border": true,
+                "description": "Butterflies image border highlights."
               }
             },
             {
               "type": "dialogue",
-              "text": "The pictures look different. Books, cups, butterflies. Different things. But the equation fits all three because something about how they're arranged is the same. What is it?"
+              "text": "You found something that's true about all three. But look closely at the pictures. One of your other choices doesn't fit. Books, cups, and butterflies are not the same thing."
             }
           ]
         ]
@@ -114,9 +180,9 @@
               "method": "animate",
               "tangible_id": "image_books",
               "params": {
-                "event": "count_groups_and_items",
+                "event": "count_groups",
                 "status": "confirmed",
-                "description": "System counts the 4 rows in books image, then counts 2 items per row"
+                "description": "Books: groups count from 1 to 4, then items in each group count to 2."
               }
             },
             {
@@ -124,9 +190,9 @@
               "method": "animate",
               "tangible_id": "image_cups",
               "params": {
-                "event": "count_groups_and_items",
+                "event": "count_groups",
                 "status": "confirmed",
-                "description": "System counts the 4 stacks in cups image, then counts 2 items per stack"
+                "description": "Cups: groups count from 1 to 4, then items in each group count to 2."
               }
             },
             {
@@ -134,19 +200,19 @@
               "method": "animate",
               "tangible_id": "image_butterflies",
               "params": {
-                "event": "count_groups_and_items",
+                "event": "count_groups",
                 "status": "confirmed",
-                "description": "System counts the 4 circled groups in butterflies image, then counts 2 items per group"
+                "description": "Butterflies: groups count from 1 to 4, then items in each group count to 2."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. Books: I count 4 rows, 2 books in each row. Cups: 4 stacks, 2 cups in each stack. Butterflies: 4 circles, 2 butterflies in each circle. Every picture has the same structure: 4 groups of 2. That gives us 8 things total. The correct answers are 'All have 4 groups of 2' and 'All have 8 things.'"
+              "text": "Let me show you. Books: 4 groups of 2. Cups: 4 groups of 2. Butterflies: 4 groups of 2. That's the structure. When we count, we get 8 things every time. The answers are 'All have 4 groups of 2' and 'All have 8 things.' The equation captures that structure, no matter what the objects are."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:03:09.473818+00:00"
+  "_generated_at": "2026-04-27T15:56:21.872069+00:00"
 }

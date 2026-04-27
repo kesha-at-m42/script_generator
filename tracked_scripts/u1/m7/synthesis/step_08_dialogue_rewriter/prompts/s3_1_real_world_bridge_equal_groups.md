@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:00:54.315298
+# Generated: 2026-04-27T10:54:42.614961
 ======================================================================
 
 ## API Parameters
@@ -949,6 +949,10 @@ Cacheable: Yes
     },
     {
       "text": "Can you build what the shelf looks like?",
+      "context": "lesson"
+    },
+    {
+      "text": "How many groups? Set the packs.",
       "context": "lesson"
     },
     {

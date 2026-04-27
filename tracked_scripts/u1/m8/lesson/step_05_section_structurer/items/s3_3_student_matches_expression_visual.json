@@ -4,17 +4,16 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder_match",
+      "tangible_id": "equation_builder",
       "tangible_type": "equation_builder",
       "params": {
-        "mode": "reading",
-        "style": "expression",
-        "expression": [
+        "mode": "expression",
+        "template": [
           "5",
           "×",
           "3"
         ],
-        "description": "Equation builder displays expression 5 × 3 in expression mode, read-only."
+        "description": "Equation builder displays expression 5 × 3 in static mode. No editable slots."
       }
     },
     {
@@ -26,7 +25,9 @@
         "mode": "reading",
         "container_count": 5,
         "items_per_container": 3,
-        "description": "Option A: 5 bags with 3 items in each bag."
+        "context": "bags_items",
+        "separation": "full",
+        "description": "Option A: 5 bags with 3 items each."
       }
     },
     {
@@ -38,7 +39,9 @@
         "mode": "reading",
         "container_count": 3,
         "items_per_container": 5,
-        "description": "Option B: 3 bags with 5 items in each bag."
+        "context": "bags_items",
+        "separation": "full",
+        "description": "Option B: 3 bags with 5 items each."
       }
     },
     {
@@ -48,10 +51,11 @@
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
-        "container_count": 0,
-        "items_per_container": 0,
-        "scattered_items": 8,
-        "description": "Option C: 8 items scattered without containers."
+        "container_count": 8,
+        "items_per_container": 1,
+        "context": "scattered_items",
+        "separation": "full",
+        "description": "Option C: 8 items scattered with no equal group structure."
       }
     },
     {
@@ -63,17 +67,17 @@
       "text": "Select the picture that shows 5 times 3.",
       "tool": "multiple_choice",
       "options": [
-        "A",
-        "B",
-        "C"
+        "Option A",
+        "Option B",
+        "Option C"
       ],
       "validator": [
         {
           "condition_id": "correct",
           "condition": {
-            "selected": "A"
+            "selected": "Option A"
           },
-          "description": "Student selected option A: 5 bags of 3",
+          "description": "Student selected Option A, correct: 5 bags with 3 items each",
           "is_correct": true,
           "beats": [
             {
@@ -87,7 +91,7 @@
             },
             {
               "type": "dialogue",
-              "text": "That's the one—5 groups with 3 in each. That's what 5 times 3 means."
+              "text": "That's the one—5 groups with 3 in each."
             }
           ]
         }
@@ -97,12 +101,11 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equation_builder_match",
-          "description": "Equation builder showing 5 × 3 in expression mode.",
+          "tangible_id": "equation_builder",
+          "description": "Equation builder displays static expression 5 × 3.",
           "tangible_type": "equation_builder",
-          "mode": "reading",
-          "style": "expression",
-          "expression": [
+          "mode": "expression",
+          "template": [
             "5",
             "×",
             "3"
@@ -110,29 +113,33 @@
         },
         {
           "tangible_id": "equal_groups_option_a",
-          "description": "Option A: 5 bags with 3 items in each.",
+          "description": "Option A: 5 bags with 3 items each, highlighted.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 5,
-          "items_per_container": 3
+          "items_per_container": 3,
+          "context": "bags_items"
         },
         {
           "tangible_id": "equal_groups_option_b",
-          "description": "Option B: 3 bags with 5 items in each.",
+          "description": "Option B: 3 bags with 5 items each.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 3,
-          "items_per_container": 5
+          "items_per_container": 5,
+          "context": "bags_items"
         },
         {
           "tangible_id": "equal_groups_option_c",
-          "description": "Option C: 8 items scattered without containers.",
+          "description": "Option C: 8 items scattered.",
           "tangible_type": "equal_groups",
           "mode": "reading",
-          "scattered_items": 8
+          "container_count": 8,
+          "items_per_container": 1,
+          "context": "scattered_items"
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:04:06.846189+00:00"
+  "_generated_at": "2026-04-27T15:58:16.005099+00:00"
 }

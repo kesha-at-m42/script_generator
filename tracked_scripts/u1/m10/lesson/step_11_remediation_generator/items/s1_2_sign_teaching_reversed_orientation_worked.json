@@ -6,13 +6,13 @@
         "condition": {
           "incorrect_count": 1
         },
-        "description": "Student placed wrong numbers on first attempt",
+        "description": "Student placed incorrect tiles on first attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "dialogue",
-              "text": "Check the picture. How many boxes? How many crayons in each box?"
+              "text": "Count the boxes. Then count what's in each box."
             }
           ]
         ]
@@ -21,57 +21,48 @@
         "condition": {
           "incorrect_count": 2
         },
-        "description": "Student placed wrong numbers on second attempt",
+        "description": "Student placed incorrect tiles on second attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
-              "method": "animate",
-              "tangible_id": "equal_groups_boxes_crayons",
+              "method": "update",
+              "tangible_id": "equation_builder_main",
               "params": {
-                "event": "highlight_containers_sequential",
-                "status": "confirmed",
-                "description": "Boxes highlight one at a time: 1, 2, 3, 4, 5, 6."
+                "highlight_slots": [
+                  "groups",
+                  "items"
+                ],
+                "description": "Groups and items slots highlight in the equation template."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let's count together. Count the boxes first: 1, 2, 3, 4, 5, 6. That's your first number. Now count what's in one box. How many crayons?"
+              "text": "Look at the boxes. How many boxes? That's the first number. Count the crayons in one box. That's the second number. Then skip count by 7s: 7, 14, 21, 28, 35, 42. That's the product."
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student placed wrong numbers three or more times. System models the answer.",
+        "description": "Student placed incorrect tiles three or more times. System models the answer.",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equal_groups_boxes_crayons",
+              "tangible_id": "equal_groups_crayons",
               "params": {
                 "event": "highlight_containers_sequential",
                 "status": "confirmed",
-                "description": "Boxes highlight one at a time as guide counts: 1, 2, 3, 4, 5, 6."
-              }
-            },
-            {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "equal_groups_boxes_crayons",
-              "params": {
-                "event": "highlight_items_in_container",
-                "status": "confirmed",
-                "container_index": 0,
-                "description": "Items in first box highlight as guide counts: 1, 2, 3, 4, 5, 6, 7."
+                "description": "Boxes highlight sequentially as guide counts: 1, 2, 3, 4, 5, 6."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. First I count the boxes: 1, 2, 3, 4, 5, 6. That's the first number, 6 groups. Then I count what's in one box: 1, 2, 3, 4, 5, 6, 7. That's 7 in each group. So I place 6, then 7, then the product. 6 times 7. Skip count by 7s six times: 7, 14, 21, 28, 35, 42. The answer is 6 times 7 equals 42. Six boxes, 7 crayons in each, 42 total."
+              "text": "Let me show you. I count the boxes: 1, 2, 3, 4, 5, 6. Six boxes. That's my first number. Now I count one box: 1, 2, 3, 4, 5, 6, 7. Seven crayons. That's my second number. 6 times 7. And the product? Skip count by 7s six times: 7, 14, 21, 28, 35, 42. The equation is 6 times 7 equals 42. That's how equal groups connect to multiplication."
             }
           ]
         ]
@@ -82,13 +73,13 @@
         "condition": {
           "incorrect_count": 1
         },
-        "description": "Student placed wrong numbers on first attempt",
+        "description": "Student placed incorrect tiles on first attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "dialogue",
-              "text": "Look closely. Count the bags. Count what's inside each bag."
+              "text": "Look closely. How many bags? How many stars in each?"
             }
           ]
         ]
@@ -97,62 +88,50 @@
         "condition": {
           "incorrect_count": 2
         },
-        "description": "Student placed wrong numbers on second attempt",
+        "description": "Student placed incorrect tiles on second attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
-              "method": "animate",
-              "tangible_id": "equal_groups_bags_stars",
+              "method": "update",
+              "tangible_id": "equal_groups_stars",
               "params": {
-                "event": "highlight_containers_sequential",
-                "status": "confirmed",
-                "description": "Bags highlight one at a time: 1, 2, 3, 4, 5."
+                "highlight_all_containers": true,
+                "description": "All 5 bags highlight."
               }
             },
             {
               "type": "dialogue",
-              "text": "Here's what helps. Count the bags first: 1, 2, 3, 4, 5. That gives you the groups. Now look inside one bag and count the stars. What do you get?"
+              "text": "Count the bags: 5. Count the stars in one bag: 9. So 5 times 9. Skip count by 9s: 9, 18, 27, 36, 45. Place those three numbers."
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student placed wrong numbers three or more times. System models the answer.",
+        "description": "Student placed incorrect tiles three or more times. System models the answer.",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equal_groups_bags_stars",
+              "tangible_id": "equal_groups_stars",
               "params": {
                 "event": "highlight_containers_sequential",
                 "status": "confirmed",
-                "description": "Bags highlight one at a time as guide counts: 1, 2, 3, 4, 5."
-              }
-            },
-            {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "equal_groups_bags_stars",
-              "params": {
-                "event": "highlight_items_in_container",
-                "status": "confirmed",
-                "container_index": 0,
-                "description": "Stars in first bag highlight as guide counts: 1, 2, 3, 4, 5, 6, 7, 8, 9."
+                "description": "Bags highlight one at a time as guide counts them."
               }
             },
             {
               "type": "dialogue",
-              "text": "This one takes a bit of thought, so let's work through it together. I start by counting the bags: 1, 2, 3, 4, 5. That's 5 groups. Then I pick one bag and count the stars inside: 1, 2, 3, 4, 5, 6, 7, 8, 9. That's 9 in each group. So the equation is 5 times 9. Now I need the product. I can skip count by 9s five times: 9, 18, 27, 36, 45. The answer is 5 times 9 equals 45. Five bags, 9 stars in each, 45 total. That's how the equation matches the picture."
+              "text": "Here's how it works. I count the bags: 1, 2, 3, 4, 5. Five bags total. Then I pick one bag and count the stars inside: 1, 2, 3, 4, 5, 6, 7, 8, 9. Nine stars. So I have 5 groups of 9. 5 times 9. To find the product, I skip count by 9s: 9, 18, 27, 36, 45. The answer is 5 times 9 equals 45. Five bags, 9 in each, same value as 45."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:07:38.640035+00:00"
+  "_generated_at": "2026-04-27T16:02:05.120256+00:00"
 }

@@ -7,7 +7,7 @@
       "tangible_id": "data_table",
       "tangible_type": "data_table",
       "params": {
-        "description": "Vertical data table appears. Stickers Earned Today. Mia: 9, Noah: 5, Olivia: 7, Pete: 3."
+        "description": "Vertical data table appears showing Stickers Earned Today: Mia: 9, Noah: 5, Olivia: 7, Pete: 3."
       }
     },
     {
@@ -24,7 +24,18 @@
           "Olivia",
           "Pete"
         ],
-        "description": "Vertical bar graph appears. Stickers Earned Today. Scale Preview System available. No bars showing yet."
+        "values": [
+          9,
+          5,
+          7,
+          3
+        ],
+        "scale": null,
+        "axis_range": [
+          0,
+          10
+        ],
+        "description": "Vertical bar graph with scale preview system visible. No bars showing yet. Categories Mia, Noah, Olivia, Pete on x-axis."
       }
     },
     {
@@ -36,12 +47,12 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Vertical data table showing Stickers Earned Today values.",
+          "description": "Vertical data table showing Stickers Earned Today: Mia: 9, Noah: 5, Olivia: 7, Pete: 3.",
           "tangible_type": "data_table"
         },
         {
           "tangible_id": "bar_graph_stickers",
-          "description": "Vertical bar graph. Stickers Earned Today. Scale Preview System available. No bars showing.",
+          "description": "Vertical bar graph with scale preview system. No bars displayed. Categories Mia, Noah, Olivia, Pete. Axis range 0-10.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -50,6 +61,12 @@
             "Noah",
             "Olivia",
             "Pete"
+          ],
+          "values": [
+            9,
+            5,
+            7,
+            3
           ]
         }
       ]
@@ -57,10 +74,6 @@
     {
       "type": "dialogue",
       "text": "What happens if we try Scale of 10?"
-    },
-    {
-      "type": "dialogue",
-      "text": "Click Scale of 10."
     },
     {
       "type": "prompt",
@@ -73,7 +86,7 @@
           "condition": {
             "selected": 10
           },
-          "description": "Student clicked Scale of 10",
+          "description": "Student clicked Scale of 10 button",
           "is_correct": true,
           "beats": [
             {
@@ -82,36 +95,18 @@
               "tangible_id": "bar_graph_stickers",
               "params": {
                 "scale": 10,
-                "description": "Scale of 10 applied. Tick marks at 0 and 10. Bars appear with warning indicators."
+                "axis_range": [
+                  0,
+                  10
+                ],
+                "tick_marks": [
+                  0,
+                  10
+                ],
+                "bars_visible": true,
+                "warning_indicators": true,
+                "description": "Graph updates to scale of 10. Only tick marks at 0 and 10 visible. All bars appear with warning indicators."
               }
-            },
-            {
-              "type": "dialogue",
-              "text": "The bars fit, but we don't know the exact value for any of the bars."
-            },
-            {
-              "type": "current_scene",
-              "elements": [
-                {
-                  "tangible_id": "data_table",
-                  "description": "Vertical data table showing Stickers Earned Today values.",
-                  "tangible_type": "data_table"
-                },
-                {
-                  "tangible_id": "bar_graph_stickers",
-                  "description": "Vertical bar graph with Scale of 10. Tick marks at 0 and 10. Bars showing with warning indicators.",
-                  "tangible_type": "bar_graph",
-                  "mode": "reading",
-                  "orientation": "vertical",
-                  "categories": [
-                    "Mia",
-                    "Noah",
-                    "Olivia",
-                    "Pete"
-                  ],
-                  "scale": 10
-                }
-              ]
             }
           ]
         }
@@ -122,12 +117,12 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Vertical data table showing Stickers Earned Today values.",
+          "description": "Vertical data table showing Stickers Earned Today: Mia: 9, Noah: 5, Olivia: 7, Pete: 3.",
           "tangible_type": "data_table"
         },
         {
           "tangible_id": "bar_graph_stickers",
-          "description": "Vertical bar graph. Scale Preview System active. Student selecting scale option.",
+          "description": "Vertical bar graph showing Stickers Earned Today with scale of 10. Tick marks at 0 and 10. Bars visible with warning indicators on all bars.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -136,13 +131,62 @@
             "Noah",
             "Olivia",
             "Pete"
+          ],
+          "values": [
+            9,
+            5,
+            7,
+            3
+          ],
+          "scale": 10,
+          "axis_range": [
+            0,
+            10
           ]
         }
       ]
     },
     {
       "type": "dialogue",
-      "text": "Think about the numbers: 9, 5, 7, 3. They don't end in 0 or 5 so we know Scale of 2 is clearer to show any number. Click Scale of 2."
+      "text": "The bars fit, but we don't know the exact value for any of the bars."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Vertical data table showing Stickers Earned Today: Mia: 9, Noah: 5, Olivia: 7, Pete: 3.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_stickers",
+          "description": "Vertical bar graph showing Stickers Earned Today with scale of 10. Tick marks at 0 and 10. Bars visible with warning indicators.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Mia",
+            "Noah",
+            "Olivia",
+            "Pete"
+          ],
+          "values": [
+            9,
+            5,
+            7,
+            3
+          ],
+          "scale": 10,
+          "axis_range": [
+            0,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Think about the numbers: 9, 5, 7, 3. They don't end in 0 or 5 so we know Scale of 2 is clearer to show any number. Click 'Scale of 2.'"
     },
     {
       "type": "prompt",
@@ -155,7 +199,7 @@
           "condition": {
             "selected": 2
           },
-          "description": "Student clicked Scale of 2",
+          "description": "Student clicked Scale of 2 button",
           "is_correct": true,
           "beats": [
             {
@@ -164,36 +208,14 @@
               "tangible_id": "bar_graph_stickers",
               "params": {
                 "scale": 2,
-                "description": "Scale of 2 applied. All bars show check indicator. Clean graph with 0 to 10 range."
+                "axis_range": [
+                  0,
+                  10
+                ],
+                "warning_indicators": false,
+                "check_indicators": true,
+                "description": "Graph updates to scale of 2. All bars show checkmark indicator. Clean graph with 0-10 range."
               }
-            },
-            {
-              "type": "dialogue",
-              "text": "That's better! We can see the bars end at lines or exactly halfway. Scale of 2 could work."
-            },
-            {
-              "type": "current_scene",
-              "elements": [
-                {
-                  "tangible_id": "data_table",
-                  "description": "Vertical data table showing Stickers Earned Today values.",
-                  "tangible_type": "data_table"
-                },
-                {
-                  "tangible_id": "bar_graph_stickers",
-                  "description": "Vertical bar graph with Scale of 2. All bars show check indicator. Clean graph with 0 to 10 range.",
-                  "tangible_type": "bar_graph",
-                  "mode": "reading",
-                  "orientation": "vertical",
-                  "categories": [
-                    "Mia",
-                    "Noah",
-                    "Olivia",
-                    "Pete"
-                  ],
-                  "scale": 2
-                }
-              ]
             }
           ]
         }
@@ -204,12 +226,12 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Vertical data table showing Stickers Earned Today values.",
+          "description": "Vertical data table showing Stickers Earned Today: Mia: 9, Noah: 5, Olivia: 7, Pete: 3.",
           "tangible_type": "data_table"
         },
         {
           "tangible_id": "bar_graph_stickers",
-          "description": "Vertical bar graph. Scale Preview System active. Student selecting scale option.",
+          "description": "Vertical bar graph showing Stickers Earned Today with scale of 2. All bars aligned to tick marks with checkmark indicators. Axis range 0-10.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -218,17 +240,24 @@
             "Noah",
             "Olivia",
             "Pete"
+          ],
+          "values": [
+            9,
+            5,
+            7,
+            3
+          ],
+          "scale": 2,
+          "axis_range": [
+            0,
+            10
           ]
         }
       ]
     },
     {
       "type": "dialogue",
-      "text": "But when numbers are this small, you have another option. Try Scale of 1. What do you notice?"
-    },
-    {
-      "type": "dialogue",
-      "text": "Click Scale of 1."
+      "text": "That's better! We can see the bars end at lines or exactly halfway. Scale of 2 could work. But when numbers are this small, you have another option. Try Scale of 1. What do you notice?"
     },
     {
       "type": "prompt",
@@ -241,7 +270,7 @@
           "condition": {
             "selected": 1
           },
-          "description": "Student clicked Scale of 1",
+          "description": "Student clicked Scale of 1 button",
           "is_correct": true,
           "beats": [
             {
@@ -250,40 +279,13 @@
               "tangible_id": "bar_graph_stickers",
               "params": {
                 "scale": 1,
-                "description": "Scale of 1 applied. All bars land exactly on tick marks. Check indicator showing. Clean graph with 0 to 10 range."
+                "axis_range": [
+                  0,
+                  10
+                ],
+                "check_indicators": true,
+                "description": "Graph updates to scale of 1. All bars land exactly on tick marks. Checkmark indicator visible. Clean graph with 0-10 range."
               }
-            },
-            {
-              "type": "dialogue",
-              "text": "Every number lands right on a line. No halfway bars needed. We can read the graph accurately without having the data table."
-            },
-            {
-              "type": "dialogue",
-              "text": "For very small numbers, Scale of 1 can be a great choice: simple and exact."
-            },
-            {
-              "type": "current_scene",
-              "elements": [
-                {
-                  "tangible_id": "data_table",
-                  "description": "Vertical data table showing Stickers Earned Today values.",
-                  "tangible_type": "data_table"
-                },
-                {
-                  "tangible_id": "bar_graph_stickers",
-                  "description": "Vertical bar graph with Scale of 1. All bars land exactly on tick marks. Check indicator showing. Clean graph with 0 to 10 range.",
-                  "tangible_type": "bar_graph",
-                  "mode": "reading",
-                  "orientation": "vertical",
-                  "categories": [
-                    "Mia",
-                    "Noah",
-                    "Olivia",
-                    "Pete"
-                  ],
-                  "scale": 1
-                }
-              ]
             }
           ]
         }
@@ -294,12 +296,12 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Vertical data table showing Stickers Earned Today values.",
+          "description": "Vertical data table showing Stickers Earned Today: Mia: 9, Noah: 5, Olivia: 7, Pete: 3.",
           "tangible_type": "data_table"
         },
         {
           "tangible_id": "bar_graph_stickers",
-          "description": "Vertical bar graph. Scale Preview System active. Student selecting scale option.",
+          "description": "Vertical bar graph showing Stickers Earned Today with scale of 1. All bars land exactly on tick marks with checkmark indicators. Axis range 0-10.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -308,10 +310,121 @@
             "Noah",
             "Olivia",
             "Pete"
+          ],
+          "values": [
+            9,
+            5,
+            7,
+            3
+          ],
+          "scale": 1,
+          "axis_range": [
+            0,
+            10
           ]
         }
       ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Every number lands right on a line. No halfway bars needed. We can read the graph accurately without having the data table."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Vertical data table showing Stickers Earned Today: Mia: 9, Noah: 5, Olivia: 7, Pete: 3.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_stickers",
+          "description": "Vertical bar graph showing Stickers Earned Today with scale of 1. All bars land exactly on tick marks with checkmark indicators. Axis range 0-10.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Mia",
+            "Noah",
+            "Olivia",
+            "Pete"
+          ],
+          "values": [
+            9,
+            5,
+            7,
+            3
+          ],
+          "scale": 1,
+          "axis_range": [
+            0,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "For very small numbers, Scale of 1 can be a great choice. Simple and exact."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Vertical data table showing Stickers Earned Today: Mia: 9, Noah: 5, Olivia: 7, Pete: 3.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_stickers",
+          "description": "Vertical bar graph showing Stickers Earned Today with scale of 1. All bars land exactly on tick marks with checkmark indicators. Axis range 0-10.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Mia",
+            "Noah",
+            "Olivia",
+            "Pete"
+          ],
+          "values": [
+            9,
+            5,
+            7,
+            3
+          ],
+          "scale": 1,
+          "axis_range": [
+            0,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "remove",
+      "tangible_id": "data_table",
+      "params": {
+        "description": "Data table removed from screen."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "remove",
+      "tangible_id": "bar_graph_stickers",
+      "params": {
+        "description": "Bar graph removed from screen."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "You know how to check if numbers fit, AND when smaller scales are the best choice. Now you'll choose scales on your own."
+    },
+    {
+      "type": "current_scene",
+      "elements": []
     }
   ],
-  "_generated_at": "2026-04-20T17:02:32.546504+00:00"
+  "_generated_at": "2026-04-27T15:58:42.433635+00:00"
 }

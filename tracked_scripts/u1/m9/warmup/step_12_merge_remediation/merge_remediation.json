@@ -11,16 +11,16 @@
           "mode": "reading",
           "container_count": 4,
           "items_per_container": 2,
-          "container_type": "bag",
-          "description": "4 bags appear, each containing 2 items."
+          "container_style": "bag",
+          "description": "4 bags appear. Each bag contains 2 items."
         },
         "id": "s1_1_expression_callback_activation_b0",
-        "_notion_block_id": "3485917e-ac52-815d-89a1-f001a236b469"
+        "_notion_block_id": "34f5917e-ac52-81a1-a020-d68035dbbbc6"
       },
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "equation_builder",
+        "tangible_id": "equation_builder_warmup",
         "tangible_type": "equation_builder",
         "params": {
           "template": [
@@ -28,22 +28,29 @@
             "×",
             "__"
           ],
-          "description": "Equation builder appears alongside bags. Two empty slots separated by multiplication symbol. No equals sign. M8 expression format."
+          "style": "equation",
+          "tile_palette": [
+            2,
+            4,
+            6,
+            8
+          ],
+          "description": "Equation Builder appears alongside bags. Two empty slots with multiplication symbol between them. Tile palette shows 2, 4, 6, 8."
         },
         "id": "s1_1_expression_callback_activation_b1",
-        "_notion_block_id": "3485917e-ac52-8139-8f2a-cbe766bc6c66"
+        "_notion_block_id": "34f5917e-ac52-8110-8bd3-d21407a224b2"
       },
       {
         "type": "dialogue",
         "text": "Let's warm up. Remember building these? 4 bags with 2 in each. Build the expression.",
         "id": "s1_1_expression_callback_activation_b2",
-        "_notion_block_id": "3485917e-ac52-810b-b015-d20001c56881"
+        "_notion_block_id": "34f5917e-ac52-8118-a209-e0b98c0c20d4"
       },
       {
         "type": "prompt",
         "text": "Build the expression for 4 groups of 2.",
         "tool": "place_tile",
-        "target": "equation_builder",
+        "target": "equation_builder_warmup",
         "validator": [
           {
             "condition_id": "correct",
@@ -53,14 +60,25 @@
                 "items": 2
               }
             },
-            "description": "Student placed 4 × 2, correct",
+            "description": "Student placed 4 in first slot and 2 in second slot",
             "is_correct": true,
             "beats": [
               {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_warmup",
+                "params": {
+                  "event": "confirm_placement",
+                  "status": "confirmed",
+                  "description": "Placed tiles 4 and 2 confirm in slots."
+                },
+                "id": "s1_1_expression_callback_activation_b3_v0_b0"
+              },
+              {
                 "type": "dialogue",
                 "text": "Right. 4 times 2. You know how to show groups with expressions.",
-                "id": "s1_1_expression_callback_activation_b3_v0_b0",
-                "_notion_block_id": "3485917e-ac52-815c-9f04-e2e96a8d9b0b"
+                "id": "s1_1_expression_callback_activation_b3_v0_b1",
+                "_notion_block_id": "34f5917e-ac52-810a-8c0f-f0b55787293b"
               }
             ]
           },
@@ -85,7 +103,7 @@
                 }
               ]
             },
-            "description": "Student reversed the numbers: placed 2 × 4 instead of 4 × 2",
+            "description": "Student reversed the numbers: placed 2 in first slot and 4 in second slot (attempt 1 or 2)",
             "is_correct": false,
             "beats": [
               {
@@ -100,9 +118,9 @@
               },
               {
                 "type": "dialogue",
-                "text": "You're right that we need 4 and 2. But which number comes first? Count the bags. How many groups do you see?",
+                "text": "You're right that there are 4 and 2. But the first number tells us how many groups. Count the bags. How many bags are there?",
                 "id": "s1_1_expression_callback_activation_b3_v1_b1",
-                "_notion_block_id": "3485917e-ac52-81ed-a702-d60816206026"
+                "_notion_block_id": "34f5917e-ac52-81ed-bca8-f2336bd9572e"
               }
             ]
           },
@@ -122,14 +140,14 @@
                 }
               ]
             },
-            "description": "Student placed wrong numbers on first attempt",
+            "description": "Student placed wrong values on first attempt (not the reversed case)",
             "is_correct": false,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "Let's look closely. Count the bags, then count what's in each bag.",
+                "text": "Not quite. Count the bags, then count what's in each bag.",
                 "id": "s1_1_expression_callback_activation_b3_v2_b0",
-                "_notion_block_id": "3485917e-ac52-81db-b0ec-d4bf1fe0d741"
+                "_notion_block_id": "34f5917e-ac52-8125-80ee-e7318cc0a764"
               }
             ]
           },
@@ -149,7 +167,7 @@
                 }
               ]
             },
-            "description": "Student placed wrong numbers on second attempt",
+            "description": "Student placed wrong values on second attempt (not the reversed case)",
             "is_correct": false,
             "beats": [
               {
@@ -164,49 +182,43 @@
               },
               {
                 "type": "dialogue",
-                "text": "Here's what helps. The first number tells us how many groups. Count the bags: 4. The second number tells us how many in each group. Count inside one bag: 2. Place those numbers.",
+                "text": "Here's what helps: the first number tells us how many groups. Count the highlighted bags. That number goes first. Then count inside one bag for the second number.",
                 "id": "s1_1_expression_callback_activation_b3_v3_b1",
-                "_notion_block_id": "3485917e-ac52-810e-814a-ea589ca2db57"
+                "_notion_block_id": "34f5917e-ac52-81d6-8b93-cdb2442f4052"
               }
             ]
           },
           {
             "condition": {},
-            "description": "Student answered incorrectly three or more times. System models the answer.",
+            "description": "Student placed wrong values three or more times. System models the answer.",
             "is_correct": false,
             "beats": [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equation_builder",
+                "tangible_id": "equation_builder_warmup",
                 "params": {
-                  "event": "place_tiles",
+                  "event": "demonstrate_placement",
                   "status": "confirmed",
-                  "description": "System places 4 in first slot, 2 in second slot.",
-                  "tiles": [
-                    {
-                      "slot": 0,
-                      "value": 4
-                    },
-                    {
-                      "slot": 2,
-                      "value": 2
-                    }
+                  "description": "System places 4 in first slot, then 2 in second slot. Tiles confirm.",
+                  "values": [
+                    4,
+                    2
                   ]
                 },
                 "id": "s1_1_expression_callback_activation_b3_v4_b0"
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. First, I count the bags. That's my groups: 4. Then I count inside one bag. That's my items per group: 2. So the expression is 4 times 2. The first number names the groups, the second names what's in each group.",
+                "text": "Let me show you how this works. I count the bags: 4 bags. That's my first number. I count inside one bag: 2 items. That's my second number. The expression is 4 times 2.",
                 "id": "s1_1_expression_callback_activation_b3_v4_b1",
-                "_notion_block_id": "3485917e-ac52-811c-b5d4-e8ff993a9ac3"
+                "_notion_block_id": "34f5917e-ac52-81cb-a981-fa2e36e5449c"
               }
             ]
           }
         ],
         "id": "s1_1_expression_callback_activation_b3",
-        "_notion_block_id": "3485917e-ac52-81f6-a6e9-fcd3a1ec21fe"
+        "_notion_block_id": "34f5917e-ac52-8117-a0b5-d440a816a2c0"
       },
       {
         "type": "current_scene",
@@ -217,27 +229,25 @@
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 4,
-            "items_per_container": 2,
-            "container_type": "bag"
+            "items_per_container": 2
           },
           {
-            "tangible_id": "equation_builder",
-            "description": "Equation builder with 4 × 2 placed in slots.",
+            "tangible_id": "equation_builder_warmup",
+            "description": "Equation Builder showing 4 × 2 expression. Tiles placed and confirmed.",
             "tangible_type": "equation_builder",
             "template": [
-              "__",
+              "4",
               "×",
-              "__"
-            ]
+              "2"
+            ],
+            "style": "equation"
           }
         ],
-        "id": "s1_1_expression_callback_activation_b4",
-        "_toml_key": "step_100_expression_callback_activation"
+        "id": "s1_1_expression_callback_activation_b4"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:06.091512+00:00",
-    "_notion_block_id": "3485917e-ac52-81cd-b447-e52d10ce4076",
-    "_toml_key": "section_100_expression_callback_activation"
+    "_generated_at": "2026-04-27T15:53:06.455348+00:00",
+    "_notion_block_id": "34f5917e-ac52-8130-b4e9-eff77d2c48ec"
   },
   {
     "id": "s2_1_animated_accumulation_5_circles_observation",
@@ -252,10 +262,11 @@
           "mode": "reading",
           "container_count": 0,
           "items_per_container": 2,
-          "description": "Equal groups workspace appears empty, ready for circles to accumulate."
+          "container_style": "circles",
+          "description": "Equal groups visualization appears empty, ready for animated accumulation."
         },
         "id": "s2_1_animated_accumulation_5_circles_observation_b0",
-        "_notion_block_id": "3485917e-ac52-8113-aeec-da83714661aa"
+        "_notion_block_id": "34f5917e-ac52-81ed-82e7-f14f711306e3"
       },
       {
         "type": "scene",
@@ -263,392 +274,207 @@
         "tangible_id": "equation_builder_accumulation",
         "tangible_type": "equation_builder",
         "params": {
-          "expression": [
+          "template": [
             "__",
             "×",
-            "__",
+            "2",
             "=",
             "__"
           ],
-          "description": "Equation Builder appears empty, ready to update in sync with circles."
+          "style": "equation",
+          "description": "Equation Builder appears showing multiplication equation format with groups slot and product slot empty, 2 pre-filled."
         },
         "id": "s2_1_animated_accumulation_5_circles_observation_b1",
-        "_notion_block_id": "3485917e-ac52-8116-a975-c888fb09894e"
+        "_notion_block_id": "34f5917e-ac52-818f-8a47-ca662542ce67"
       },
       {
         "type": "scene",
         "method": "animate",
         "tangible_id": "equal_groups_circles",
         "params": {
-          "event": "add_group_with_narration",
-          "status": "proposed",
-          "description": "First circle with 2 dots appears."
+          "event": "add_container",
+          "status": "confirmed",
+          "description": "First circle appears containing 2 dots."
         },
         "id": "s2_1_animated_accumulation_5_circles_observation_b2",
-        "_notion_block_id": "3485917e-ac52-815a-ac32-ce70411eebc5"
+        "_notion_block_id": "34f5917e-ac52-8100-af5f-decdb7092f07"
       },
       {
         "type": "scene",
         "method": "update",
         "tangible_id": "equation_builder_accumulation",
         "params": {
-          "expression": [
-            "1",
-            "×",
-            "2",
-            "=",
-            "2"
-          ],
+          "filled_slots": {
+            "groups": 1,
+            "product": 2
+          },
           "description": "Equation Builder updates to show 1 × 2 = 2."
         },
         "id": "s2_1_animated_accumulation_5_circles_observation_b3",
-        "_notion_block_id": "3485917e-ac52-8178-8ac5-d3bc4ca84763"
+        "_notion_block_id": "34f5917e-ac52-81c4-a18d-c8fc9104c50d"
       },
       {
         "type": "dialogue",
         "text": "1 group of 2. That's 2.",
         "id": "s2_1_animated_accumulation_5_circles_observation_b4",
-        "_notion_block_id": "3485917e-ac52-81b9-a074-f2d88b27f898"
+        "_notion_block_id": "34f5917e-ac52-81a8-ac38-f50a080a19b7"
       },
       {
         "type": "scene",
         "method": "animate",
         "tangible_id": "equal_groups_circles",
         "params": {
-          "event": "add_group_with_narration",
+          "event": "add_container",
           "status": "confirmed",
-          "description": "First circle animation completes."
+          "description": "Second circle appears containing 2 dots."
         },
         "id": "s2_1_animated_accumulation_5_circles_observation_b5",
-        "_notion_block_id": "3485917e-ac52-8128-afae-d23101294b1f"
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "equal_groups_circles",
-            "description": "1 circle with 2 dots displayed.",
-            "tangible_type": "equal_groups",
-            "mode": "reading",
-            "container_count": 1,
-            "items_per_container": 2
-          },
-          {
-            "tangible_id": "equation_builder_accumulation",
-            "description": "Equation Builder showing 1 × 2 = 2.",
-            "tangible_type": "equation_builder",
-            "expression": [
-              "1",
-              "×",
-              "2",
-              "=",
-              "2"
-            ]
-          }
-        ],
-        "id": "s2_1_animated_accumulation_5_circles_observation_b6",
-        "_notion_block_id": "3485917e-ac52-81e0-9ef7-f7e43cc669f0",
-        "_toml_key": "step_101_animated_accumulation_5_circles_observation"
-      },
-      {
-        "type": "scene",
-        "method": "animate",
-        "tangible_id": "equal_groups_circles",
-        "params": {
-          "event": "add_group_with_narration",
-          "status": "proposed",
-          "description": "Second circle with 2 dots appears."
-        },
-        "id": "s2_1_animated_accumulation_5_circles_observation_b7",
-        "_notion_block_id": "3485917e-ac52-81b3-9e44-fd592fa26a1b"
+        "_notion_block_id": "34f5917e-ac52-81ed-9802-e04d9c5d15e0"
       },
       {
         "type": "scene",
         "method": "update",
         "tangible_id": "equation_builder_accumulation",
         "params": {
-          "expression": [
-            "2",
-            "×",
-            "2",
-            "=",
-            "4"
-          ],
+          "filled_slots": {
+            "groups": 2,
+            "product": 4
+          },
           "description": "Equation Builder updates to show 2 × 2 = 4."
         },
-        "id": "s2_1_animated_accumulation_5_circles_observation_b8",
-        "_notion_block_id": "3485917e-ac52-81e4-9706-e784a74467ec"
+        "id": "s2_1_animated_accumulation_5_circles_observation_b6",
+        "_notion_block_id": "34f5917e-ac52-813e-bcfb-c8f7aa3d1cbb"
       },
       {
         "type": "dialogue",
         "text": "2 groups of 2. That's 4.",
-        "id": "s2_1_animated_accumulation_5_circles_observation_b9",
-        "_notion_block_id": "3485917e-ac52-817c-8496-c624cc165d4a"
+        "id": "s2_1_animated_accumulation_5_circles_observation_b7",
+        "_notion_block_id": "34f5917e-ac52-81cc-8662-c6ce4b50b9c4"
       },
       {
         "type": "scene",
         "method": "animate",
         "tangible_id": "equal_groups_circles",
         "params": {
-          "event": "add_group_with_narration",
+          "event": "add_container",
           "status": "confirmed",
-          "description": "Second circle animation completes."
+          "description": "Third circle appears containing 2 dots."
         },
-        "id": "s2_1_animated_accumulation_5_circles_observation_b10",
-        "_notion_block_id": "3485917e-ac52-8140-a789-efbde7aa15fe"
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "equal_groups_circles",
-            "description": "2 circles, each with 2 dots.",
-            "tangible_type": "equal_groups",
-            "mode": "reading",
-            "container_count": 2,
-            "items_per_container": 2
-          },
-          {
-            "tangible_id": "equation_builder_accumulation",
-            "description": "Equation Builder showing 2 × 2 = 4.",
-            "tangible_type": "equation_builder",
-            "expression": [
-              "2",
-              "×",
-              "2",
-              "=",
-              "4"
-            ]
-          }
-        ],
-        "id": "s2_1_animated_accumulation_5_circles_observation_b11",
-        "_notion_block_id": "3485917e-ac52-811a-88ab-da16eeb3fb8c",
-        "_toml_key": "step_102_animated_accumulation_5_circles_observation"
-      },
-      {
-        "type": "scene",
-        "method": "animate",
-        "tangible_id": "equal_groups_circles",
-        "params": {
-          "event": "add_group_with_narration",
-          "status": "proposed",
-          "description": "Third circle with 2 dots appears."
-        },
-        "id": "s2_1_animated_accumulation_5_circles_observation_b12",
-        "_notion_block_id": "3485917e-ac52-815e-b5be-ed0e6534c9a1"
+        "id": "s2_1_animated_accumulation_5_circles_observation_b8",
+        "_notion_block_id": "34f5917e-ac52-8134-befe-c41d1962ed2a"
       },
       {
         "type": "scene",
         "method": "update",
         "tangible_id": "equation_builder_accumulation",
         "params": {
-          "expression": [
-            "3",
-            "×",
-            "2",
-            "=",
-            "6"
-          ],
+          "filled_slots": {
+            "groups": 3,
+            "product": 6
+          },
           "description": "Equation Builder updates to show 3 × 2 = 6."
         },
-        "id": "s2_1_animated_accumulation_5_circles_observation_b13",
-        "_notion_block_id": "3485917e-ac52-81a3-a2c7-dd70c98b3dbc"
+        "id": "s2_1_animated_accumulation_5_circles_observation_b9",
+        "_notion_block_id": "34f5917e-ac52-8133-9d91-e3a18a691aaa"
       },
       {
         "type": "dialogue",
         "text": "6.",
-        "id": "s2_1_animated_accumulation_5_circles_observation_b14",
-        "_notion_block_id": "3485917e-ac52-81c6-bffd-e4ff980b1a80"
+        "id": "s2_1_animated_accumulation_5_circles_observation_b10",
+        "_notion_block_id": "34f5917e-ac52-818f-827d-ea3af51f77a8"
       },
       {
         "type": "scene",
         "method": "animate",
         "tangible_id": "equal_groups_circles",
         "params": {
-          "event": "add_group_with_narration",
+          "event": "add_container",
           "status": "confirmed",
-          "description": "Third circle animation completes."
+          "description": "Fourth circle appears containing 2 dots."
         },
-        "id": "s2_1_animated_accumulation_5_circles_observation_b15",
-        "_notion_block_id": "3485917e-ac52-81ce-9248-d1e105f6d03a"
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "equal_groups_circles",
-            "description": "3 circles, each with 2 dots.",
-            "tangible_type": "equal_groups",
-            "mode": "reading",
-            "container_count": 3,
-            "items_per_container": 2
-          },
-          {
-            "tangible_id": "equation_builder_accumulation",
-            "description": "Equation Builder showing 3 × 2 = 6.",
-            "tangible_type": "equation_builder",
-            "expression": [
-              "3",
-              "×",
-              "2",
-              "=",
-              "6"
-            ]
-          }
-        ],
-        "id": "s2_1_animated_accumulation_5_circles_observation_b16",
-        "_notion_block_id": "3485917e-ac52-8170-82a6-e7892ec92087",
-        "_toml_key": "step_103_animated_accumulation_5_circles_observation"
-      },
-      {
-        "type": "scene",
-        "method": "animate",
-        "tangible_id": "equal_groups_circles",
-        "params": {
-          "event": "add_group_with_narration",
-          "status": "proposed",
-          "description": "Fourth circle with 2 dots appears."
-        },
-        "id": "s2_1_animated_accumulation_5_circles_observation_b17",
-        "_notion_block_id": "3485917e-ac52-81e8-bc0e-d68278207792"
+        "id": "s2_1_animated_accumulation_5_circles_observation_b11",
+        "_notion_block_id": "34f5917e-ac52-814e-b71a-d7fb233c71bc"
       },
       {
         "type": "scene",
         "method": "update",
         "tangible_id": "equation_builder_accumulation",
         "params": {
-          "expression": [
-            "4",
-            "×",
-            "2",
-            "=",
-            "8"
-          ],
+          "filled_slots": {
+            "groups": 4,
+            "product": 8
+          },
           "description": "Equation Builder updates to show 4 × 2 = 8."
         },
-        "id": "s2_1_animated_accumulation_5_circles_observation_b18",
-        "_notion_block_id": "3485917e-ac52-8195-9c5e-f8ae7205621a"
+        "id": "s2_1_animated_accumulation_5_circles_observation_b12",
+        "_notion_block_id": "34f5917e-ac52-81bd-bdbb-fe21033de9f3"
       },
       {
         "type": "dialogue",
         "text": "8.",
-        "id": "s2_1_animated_accumulation_5_circles_observation_b19",
-        "_notion_block_id": "3485917e-ac52-8165-b1c0-c3eabdd8afdf"
+        "id": "s2_1_animated_accumulation_5_circles_observation_b13",
+        "_notion_block_id": "34f5917e-ac52-81f4-a497-c50f362a8fa0"
       },
       {
         "type": "scene",
         "method": "animate",
         "tangible_id": "equal_groups_circles",
         "params": {
-          "event": "add_group_with_narration",
+          "event": "add_container",
           "status": "confirmed",
-          "description": "Fourth circle animation completes."
+          "description": "Fifth circle appears containing 2 dots."
         },
-        "id": "s2_1_animated_accumulation_5_circles_observation_b20",
-        "_notion_block_id": "3485917e-ac52-81ed-88e1-d4cd3ea45331"
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "equal_groups_circles",
-            "description": "4 circles, each with 2 dots.",
-            "tangible_type": "equal_groups",
-            "mode": "reading",
-            "container_count": 4,
-            "items_per_container": 2
-          },
-          {
-            "tangible_id": "equation_builder_accumulation",
-            "description": "Equation Builder showing 4 × 2 = 8.",
-            "tangible_type": "equation_builder",
-            "expression": [
-              "4",
-              "×",
-              "2",
-              "=",
-              "8"
-            ]
-          }
-        ],
-        "id": "s2_1_animated_accumulation_5_circles_observation_b21",
-        "_notion_block_id": "3485917e-ac52-81e4-bfa5-fdfab7d63bd8",
-        "_toml_key": "step_104_animated_accumulation_5_circles_observation"
-      },
-      {
-        "type": "scene",
-        "method": "animate",
-        "tangible_id": "equal_groups_circles",
-        "params": {
-          "event": "add_group_with_narration",
-          "status": "proposed",
-          "description": "Fifth circle with 2 dots appears."
-        },
-        "id": "s2_1_animated_accumulation_5_circles_observation_b22",
-        "_notion_block_id": "3485917e-ac52-81ce-8e03-f30fe044a4c4"
+        "id": "s2_1_animated_accumulation_5_circles_observation_b14",
+        "_notion_block_id": "34f5917e-ac52-81f1-b00a-d3095ae23fd9"
       },
       {
         "type": "scene",
         "method": "update",
         "tangible_id": "equation_builder_accumulation",
         "params": {
-          "expression": [
-            "5",
-            "×",
-            "2",
-            "=",
-            "10"
-          ],
+          "filled_slots": {
+            "groups": 5,
+            "product": 10
+          },
           "description": "Equation Builder updates to show 5 × 2 = 10."
         },
-        "id": "s2_1_animated_accumulation_5_circles_observation_b23",
-        "_notion_block_id": "3485917e-ac52-81d0-8235-e74898031e45"
+        "id": "s2_1_animated_accumulation_5_circles_observation_b15",
+        "_notion_block_id": "34f5917e-ac52-812a-839e-ef8cfe1a1c18"
       },
       {
         "type": "dialogue",
         "text": "10.",
-        "id": "s2_1_animated_accumulation_5_circles_observation_b24",
-        "_notion_block_id": "3485917e-ac52-81f8-b0f9-f64f8cb2e27f"
-      },
-      {
-        "type": "scene",
-        "method": "animate",
-        "tangible_id": "equal_groups_circles",
-        "params": {
-          "event": "add_group_with_narration",
-          "status": "confirmed",
-          "description": "Fifth circle animation completes."
-        },
-        "id": "s2_1_animated_accumulation_5_circles_observation_b25",
-        "_notion_block_id": "3485917e-ac52-812e-97c7-c18f146de378"
+        "id": "s2_1_animated_accumulation_5_circles_observation_b16",
+        "_notion_block_id": "34f5917e-ac52-815e-867f-fc9a089b2c1d"
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "equal_groups_circles",
-            "description": "5 circles, each with 2 dots.",
+            "description": "Equal groups visualization showing 5 circles, each containing 2 dots.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 5,
-            "items_per_container": 2
+            "items_per_container": 2,
+            "container_style": "circles"
           },
           {
             "tangible_id": "equation_builder_accumulation",
-            "description": "Equation Builder showing 5 × 2 = 10.",
+            "description": "Equation Builder displaying 5 × 2 = 10.",
             "tangible_type": "equation_builder",
-            "expression": [
+            "template": [
               "5",
               "×",
               "2",
               "=",
               "10"
-            ]
+            ],
+            "style": "equation"
           }
         ],
-        "id": "s2_1_animated_accumulation_5_circles_observation_b26",
-        "_notion_block_id": "3485917e-ac52-818c-9850-dd20c2ca06f0",
-        "_toml_key": "step_105_animated_accumulation_5_circles_observation"
+        "id": "s2_1_animated_accumulation_5_circles_observation_b17",
+        "_notion_block_id": "34f5917e-ac52-81f4-bd3e-d1f8a5dd7054"
       },
       {
         "type": "scene",
@@ -656,73 +482,112 @@
         "tangible_id": "products_strip",
         "tangible_type": "image",
         "params": {
-          "description": "Products Strip appears below circles: [ 2 ] [ 4 ] [ 6 ] [ 8 ] [ 10 ]."
+          "description": "Products strip appears below showing the sequence: 2, 4, 6, 8, 10."
         },
-        "id": "s2_1_animated_accumulation_5_circles_observation_b27",
-        "_notion_block_id": "3485917e-ac52-8135-baf0-ed878da03ef6"
+        "id": "s2_1_animated_accumulation_5_circles_observation_b18",
+        "_notion_block_id": "34f5917e-ac52-8191-bfb3-e8fe3416517e"
       },
       {
         "type": "dialogue",
         "text": "5 groups of 2 gave us these products: 2, 4, 6, 8, 10.",
-        "id": "s2_1_animated_accumulation_5_circles_observation_b28",
-        "_notion_block_id": "3485917e-ac52-81f8-9aee-f3f681a6cf72"
+        "id": "s2_1_animated_accumulation_5_circles_observation_b19",
+        "_notion_block_id": "34f5917e-ac52-817a-b831-c8aa56cfe3e1"
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "equal_groups_circles",
-            "description": "5 circles, each with 2 dots.",
+            "description": "Equal groups visualization showing 5 circles, each containing 2 dots.",
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 5,
-            "items_per_container": 2
+            "items_per_container": 2,
+            "container_style": "circles"
           },
           {
             "tangible_id": "equation_builder_accumulation",
-            "description": "Equation Builder showing 5 × 2 = 10.",
+            "description": "Equation Builder displaying 5 × 2 = 10.",
             "tangible_type": "equation_builder",
-            "expression": [
+            "template": [
               "5",
               "×",
               "2",
               "=",
               "10"
-            ]
+            ],
+            "style": "equation"
           },
           {
             "tangible_id": "products_strip",
-            "description": "Products Strip showing [ 2 ] [ 4 ] [ 6 ] [ 8 ] [ 10 ].",
+            "description": "Products strip displaying the sequence: 2, 4, 6, 8, 10.",
             "tangible_type": "image"
           }
         ],
-        "id": "s2_1_animated_accumulation_5_circles_observation_b29",
-        "_toml_key": "step_106_animated_accumulation_5_circles_observation"
+        "id": "s2_1_animated_accumulation_5_circles_observation_b20"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:34.002397+00:00",
-    "_notion_block_id": "3485917e-ac52-817b-97e5-c301d4483453",
-    "_toml_key": "section_101_animated_accumulation_5_circles_observation"
+    "_generated_at": "2026-04-27T15:53:31.703090+00:00",
+    "_notion_block_id": "34f5917e-ac52-8134-9480-eed46e9a134e"
   },
   {
     "id": "s2_2_bridge_lesson",
     "type": "transition",
     "beats": [
       {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equal_groups_circles",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_style": "circles",
+          "container_count": 5,
+          "items_per_container": 2,
+          "description": "5 circles remain on screen, each containing 2 items."
+        },
+        "id": "s2_2_bridge_lesson_b0",
+        "_notion_block_id": "34f5917e-ac52-8185-be28-e335841392ba"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "products_strip",
+        "tangible_type": "image",
+        "params": {
+          "description": "Products strip showing sequence: 2, 4, 6, 8, 10."
+        },
+        "id": "s2_2_bridge_lesson_b1",
+        "_notion_block_id": "34f5917e-ac52-81bc-8322-c28635ffbf08"
+      },
+      {
         "type": "dialogue",
         "text": "Interesting, right? You've been building expressions. Now you're going to find out what they EQUAL. And there are some cool patterns hiding in the answers. Let's keep going.",
-        "id": "s2_2_bridge_lesson_b0",
-        "_notion_block_id": "3485917e-ac52-812c-8de8-ed35b6dbd2a8"
+        "id": "s2_2_bridge_lesson_b2",
+        "_notion_block_id": "34f5917e-ac52-8100-965e-ea5922549bc6"
       },
       {
         "type": "current_scene",
-        "elements": [],
-        "id": "s2_2_bridge_lesson_b1",
-        "_toml_key": "step_107_bridge_lesson"
+        "elements": [
+          {
+            "tangible_id": "equal_groups_circles",
+            "description": "5 circles on screen, each containing 2 items.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_style": "circles",
+            "container_count": 5,
+            "items_per_container": 2
+          },
+          {
+            "tangible_id": "products_strip",
+            "description": "Products strip displaying: 2, 4, 6, 8, 10.",
+            "tangible_type": "image"
+          }
+        ],
+        "id": "s2_2_bridge_lesson_b3"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:36.973565+00:00",
-    "_notion_block_id": "3485917e-ac52-8164-9a4f-d5312ee3288f",
-    "_toml_key": "section_102_bridge_lesson"
+    "_generated_at": "2026-04-27T15:53:50.793787+00:00",
+    "_notion_block_id": "34f5917e-ac52-81e6-838c-c6cf95a4f2c0"
   }
 ]

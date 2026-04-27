@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:00:17.590986
+# Generated: 2026-04-27T10:54:07.762146
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1865,15 +1869,21 @@ Cacheable: Yes
           "Tennis",
           "Swimming"
         ],
+        "values": [
+          12,
+          7,
+          6,
+          11
+        ],
         "scale": 2,
         "title": "After-School Activities",
-        "description": "Horizontal bar graph appears. After-School Activities data. Soccer=12, Basketball=7, Tennis=6, Swimming=11. Scale of 2."
+        "description": "Horizontal bar graph appears. After-School Activities data. Soccer=12, Basketball=7, Tennis=6, Swimming=11. Scale of 2: each axis mark shows 2 students."
       },
       "id": "s1_1_graph_reading_with_scale_2_b0"
     },
     {
       "type": "dialogue",
-      "text": "Let's warm up your graph skills. Here's a bar graph. Check the scale.",
+      "text": "Let's warm up your graph skills. Here's a bar graph. Check the scale. How many students chose soccer?",
       "id": "s1_1_graph_reading_with_scale_2_b1"
     },
     {
@@ -1892,7 +1902,7 @@ Cacheable: Yes
           "condition": {
             "selected": 12
           },
-          "description": "Student answered 12, correct",
+          "description": "Student selected 12, correct",
           "is_correct": true,
           "beats": [
             {
@@ -1909,7 +1919,7 @@ Cacheable: Yes
             },
             {
               "type": "dialogue",
-              "text": "Right. 12 students. The scale goes by 2s. Each mark on the axis shows 2 students.",
+              "text": "That's it. 12 students. The scale goes by 2s, so each mark shows 2 students.",
               "id": "s1_1_graph_reading_with_scale_2_b2_v0_b1"
             }
           ]
@@ -1922,7 +1932,7 @@ Cacheable: Yes
       "elements": [
         {
           "tangible_id": "bar_graph_activities",
-          "description": "Horizontal bar graph in reading mode. After-School Activities data. Soccer bar highlighted. Scale of 2.",
+          "description": "Horizontal bar graph in reading mode. After-School Activities data. Scale of 2. Soccer bar highlighted.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "horizontal",
@@ -1932,6 +1942,12 @@ Cacheable: Yes
             "Tennis",
             "Swimming"
           ],
+          "values": [
+            12,
+            7,
+            6,
+            11
+          ],
           "scale": 2,
           "title": "After-School Activities"
         }
@@ -1939,7 +1955,7 @@ Cacheable: Yes
       "id": "s1_1_graph_reading_with_scale_2_b3"
     }
   ],
-  "_generated_at": "2026-04-20T16:59:28.795522+00:00"
+  "_generated_at": "2026-04-27T15:52:59.801081+00:00"
 }
 </input>
 

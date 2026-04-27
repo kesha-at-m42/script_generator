@@ -190,7 +190,7 @@ def run_new_mode(args) -> None:
             versions = [latest]
 
         dest = TRACKED_DIR / unit_short / f"m{args.module}" / script_type
-        print(f"\n{script_type}: {' + '.join(versions)} → {dest.relative_to(project_root)}")
+        print(f"\n{script_type}: {' + '.join(versions)} -> {dest.relative_to(project_root)}")
         _stitch(pipeline_dir, versions, dest)
 
     print("\nDone.")

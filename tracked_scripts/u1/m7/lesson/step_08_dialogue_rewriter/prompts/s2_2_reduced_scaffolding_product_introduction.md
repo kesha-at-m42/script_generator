@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:15.365034
+# Generated: 2026-04-27T10:58:03.774637
 ======================================================================
 
 ## API Parameters
@@ -948,7 +948,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "3 groups of 3. That's 3 times 3. And here's something new: the answer to a multiplication problem is called the product. 3 times 3 equals 9. 9 is the product. You have 9 dots altogether.",
+      "text": "3 groups of 3. That's 3 × 3. And here's something new: the answer to a multiplication problem is called the product. 3 × 3 = 9. 9 is the product. You have 9 dots altogether.",
       "context": "on_correct"
     }
   ]

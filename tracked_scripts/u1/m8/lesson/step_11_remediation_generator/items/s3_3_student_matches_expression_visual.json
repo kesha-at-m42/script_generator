@@ -4,19 +4,19 @@
     [
       {
         "condition": {
-          "selected": "B"
+          "selected": "Option B"
         },
-        "description": "Student selected option B: 3 bags of 5 (reversed the numbers)",
+        "description": "Student selected Option B: reversed the numbers, showing 3 groups of 5 instead of 5 groups of 3",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "equation_builder_match",
+              "tangible_id": "equation_builder",
               "params": {
                 "highlight_slot": 0,
-                "description": "First slot (5) highlights in the expression."
+                "description": "First number in expression highlights."
               }
             },
             {
@@ -28,24 +28,24 @@
       },
       {
         "condition": {
-          "selected": "C"
+          "selected": "Option C"
         },
-        "description": "Student selected option C: scattered items with no groups",
+        "description": "Student selected Option C: scattered items with no equal group structure",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "equation_builder_match",
+              "tangible_id": "equal_groups_option_a",
               "params": {
-                "highlight_expression": true,
-                "description": "The expression 5 × 3 highlights."
+                "highlight": true,
+                "description": "Option A highlights showing clear group structure."
               }
             },
             {
               "type": "dialogue",
-              "text": "Multiplication shows equal groups. Look for a picture with groups, not scattered items. How many groups do you see in the expression?"
+              "text": "Multiplication shows equal groups. The items need to be organized into groups with the same number in each. Which picture shows that?"
             }
           ]
         ]
@@ -63,17 +63,33 @@
               "params": {
                 "event": "highlight_containers_sequentially",
                 "status": "confirmed",
-                "description": "Option A bags highlight one by one as system counts."
+                "description": "Bags in Option A highlight one by one showing 5 groups."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. The expression says 5 times 3. The first number, 5, tells us how many groups. Count the bags in Option A: 1, 2, 3, 4, 5. Five groups. The second number, 3, tells us how many in each group. Look inside any bag: 3 items. Option A matches because it shows 5 groups with 3 in each. That is what 5 times 3 means."
+              "text": "Let me show you. The first number is groups. 5 times 3 means 5 groups. Count the bags in Option A."
+            }
+          ],
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equal_groups_option_a",
+              "params": {
+                "event": "highlight_items_in_one_container",
+                "status": "confirmed",
+                "description": "Items in one bag highlight showing 3 items."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "1, 2, 3, 4, 5. Five bags. The second number is how many in each group. Look inside one bag. 1, 2, 3. Three items. Option A shows 5 groups with 3 in each. That's what 5 times 3 means."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:06:54.738679+00:00"
+  "_generated_at": "2026-04-27T16:01:46.395481+00:00"
 }

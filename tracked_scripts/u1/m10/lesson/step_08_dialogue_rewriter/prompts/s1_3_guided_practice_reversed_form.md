@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:06:22.480191
+# Generated: 2026-04-27T11:00:59.462783
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,7 @@ Cacheable: Yes
   "id": "s1_3_guided_practice_reversed_form",
   "dialogues": [
     {
-      "text": "Here's something different. The template is flipped — product comes first this time. Remember, equals means same value as, so the product can go on either side. Build this equation with the product first.",
+      "text": "Here's something different. The template is flipped — product comes FIRST this time. Remember, equals means same value as, so the product can go on either side. Build this equation with the product first.",
       "context": "lesson"
     },
     {

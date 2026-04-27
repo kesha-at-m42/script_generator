@@ -2,7 +2,7 @@
 ======================================================================
 RUNNING PIPELINE
 Steps: 13
-Output Directory: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0
+Output Directory: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1
 ======================================================================
 
 [STEP 1/13] [FORMATTING] split_spec
@@ -19,7 +19,7 @@ Output Directory: C:\git\script_generator\outputs\unit1\exitcheck_generator_dial
 [STEP 2/13] [AI] starterpack_parser
   [DIR] step_02_starterpack_parser
   [AUTO-CHAIN] Using previous step output: step_01_split_spec\split_spec.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_01_split_spec\split_spec.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_01_split_spec\split_spec.json
   [DEBUG] File size: 7556 bytes
   [DEBUG] Read 7451 chars from 7556 bytes
   [OK] Loaded 7451 chars
@@ -38,7 +38,7 @@ Building prompt: starterpack_parser
   [OK] Loaded STARTERPACK_PARSER_PROMPT
   [OK] Built prompt with 3 system blocks
   [OK] Prefill: 41 chars
-  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_02_starterpack_parser\prompts\s1_0_transition_into_exit_check.md
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_02_starterpack_parser\prompts\s1_0_transition_into_exit_check.md
 
 ======================================================================
 USAGE STATS
@@ -73,7 +73,7 @@ Building prompt: starterpack_parser
   [OK] Loaded STARTERPACK_PARSER_PROMPT
   [OK] Built prompt with 3 system blocks
   [OK] Prefill: 53 chars
-  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_02_starterpack_parser\prompts\s1_1_build_complete_equation_variety_visual.md
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_02_starterpack_parser\prompts\s1_1_build_complete_equation_variety_visual.md
 
 ======================================================================
 USAGE STATS
@@ -108,7 +108,7 @@ Building prompt: starterpack_parser
   [OK] Loaded STARTERPACK_PARSER_PROMPT
   [OK] Built prompt with 3 system blocks
   [OK] Prefill: 50 chars
-  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_02_starterpack_parser\prompts\s1_2_solve_product_unknown_reversed_form.md
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_02_starterpack_parser\prompts\s1_2_solve_product_unknown_reversed_form.md
 
 ======================================================================
 USAGE STATS
@@ -143,14 +143,14 @@ Building prompt: starterpack_parser
   [OK] Loaded STARTERPACK_PARSER_PROMPT
   [OK] Built prompt with 3 system blocks
   [OK] Prefill: 39 chars
-  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_02_starterpack_parser\prompts\s1_3_solve_1st_factor_unknown.md
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_02_starterpack_parser\prompts\s1_3_solve_1st_factor_unknown.md
 
 ======================================================================
 USAGE STATS
 ======================================================================
   input_tokens: 861
-  output_tokens: 740
-  total_tokens: 1601
+  output_tokens: 745
+  total_tokens: 1606
   requests: 1
   cache_creation_tokens: 0
   cache_read_tokens: 1420
@@ -178,7 +178,7 @@ Building prompt: starterpack_parser
   [OK] Loaded STARTERPACK_PARSER_PROMPT
   [OK] Built prompt with 3 system blocks
   [OK] Prefill: 33 chars
-  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_02_starterpack_parser\prompts\s1_4_exit_check_closure.md
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_02_starterpack_parser\prompts\s1_4_exit_check_closure.md
 
 ======================================================================
 USAGE STATS
@@ -221,9 +221,9 @@ Building prompt: starterpack_parser
 [STEP 3/13] [FORMATTING] load_specs_for_lesson
   [DIR] step_03_load_specs_for_lesson
   [AUTO-CHAIN] Using previous step output: step_02_starterpack_parser\starterpack_parser.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_02_starterpack_parser\starterpack_parser.json
-  [DEBUG] File size: 6988 bytes
-  [DEBUG] Read 6875 chars from 6988 bytes
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_02_starterpack_parser\starterpack_parser.json
+  [DEBUG] File size: 7003 bytes
+  [DEBUG] Read 6890 chars from 7003 bytes
   [OK] Loaded and parsed JSON
   [EXEC] Running formatting function...
   [EXEC] Passing module_number=10
@@ -240,8 +240,8 @@ Building prompt: starterpack_parser
   [s1_2_solve_product_unknown_reversed_form] toys=['equal_groups', 'equation_builder']  tools=['place_tile']
     [AI fallback] Unmatched phrases: ['Equal Groups with Pictures in Construction Mode', 'Construction area starts empty']
     [AI] 'Equal Groups with Pictures in Construction Mode' → equal_groups
-    [AI] 'Construction area starts empty' → equal_groups
-  [s1_3_solve_1st_factor_unknown] toys=['equal_groups', 'equation_builder']  tools=['multiple_choice']
+    [UNRESOLVED] 'Construction area starts empty' — no matching spec
+  [s1_3_solve_1st_factor_unknown] toys=['equal_groups', 'equation_builder']  tools=['multiple_choice']  unresolved=['Construction area starts empty']
   [s1_4_exit_check_closure] toys=[]  tools=[]
   [OK] Formatting complete
   [SAVE] Saved JSON to: step_03_load_specs_for_lesson\load_specs_for_lesson.json
@@ -249,27 +249,27 @@ Building prompt: starterpack_parser
 [STEP 4/13] [FORMATTING] check_glossary_drift
   [DIR] step_04_check_glossary_drift
   [AUTO-CHAIN] Using previous step output: step_03_load_specs_for_lesson\load_specs_for_lesson.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_03_load_specs_for_lesson\load_specs_for_lesson.json
-  [DEBUG] File size: 7681 bytes
-  [DEBUG] Read 7530 chars from 7681 bytes
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_03_load_specs_for_lesson\load_specs_for_lesson.json
+  [DEBUG] File size: 7771 bytes
+  [DEBUG] Read 7617 chars from 7771 bytes
   [OK] Loaded and parsed JSON
   [EXEC] Running formatting function...
   [EXEC] Passing module_number=10
   [EXEC] Passing unit_number=1
   [EXEC] Passing verbose=True
-  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_04_check_glossary_drift\check_glossary_drift.json
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_04_check_glossary_drift\check_glossary_drift.json
   [EXEC] Passing input to parameter 'input_data'
-  [DRIFT] Report → C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_04_check_glossary_drift\drift_report.md  |  unresolved=0  missing=0  fallback=0  deprecated=2
+  [DRIFT] Report → C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_04_check_glossary_drift\drift_report.md  |  unresolved=1  missing=0  fallback=0  deprecated=2
   [OK] Formatting complete
   [SAVE] Saved JSON to: step_04_check_glossary_drift\check_glossary_drift.json
 
 [STEP 5/13] [AI] section_structurer
   [DIR] step_05_section_structurer
   [AUTO-CHAIN] Using previous step output: step_04_check_glossary_drift\check_glossary_drift.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_04_check_glossary_drift\check_glossary_drift.json
-  [DEBUG] File size: 7681 bytes
-  [DEBUG] Read 7530 chars from 7681 bytes
-  [OK] Loaded 7530 chars
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_04_check_glossary_drift\check_glossary_drift.json
+  [DEBUG] File size: 7771 bytes
+  [DEBUG] Read 7617 chars from 7771 bytes
+  [OK] Loaded 7617 chars
   [BATCH] Processing items individually...
   [DEBUG] Parsed 5 items from JSON array
 
@@ -283,11 +283,18 @@ Building prompt: section_structurer
 ======================================================================
   Loading prompt definition: section_structurer
   [OK] Loaded SECTION_STRUCTURER_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
     Resolving doc: glossary.md
     [OK] Loaded from: C:\git\script_generator\units\unit1\glossary.md
   [OK] Built prompt with 4 system blocks
   [OK] Prefill: 1 chars
-  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_05_section_structurer\prompts\s1_0_transition_into_exit_check.md
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_05_section_structurer\prompts\s1_0_transition_into_exit_check.md
 
 ======================================================================
 USAGE STATS
@@ -297,19 +304,27 @@ USAGE STATS
   total_tokens: 359
   requests: 1
   cache_creation_tokens: 0
-  cache_read_tokens: 11054
-  cache_savings: 90% (saved 11054 tokens)
+  cache_read_tokens: 11479
+  cache_savings: 90% (saved 11479 tokens)
 
 ======================================================================
 Building prompt: section_structurer
 ======================================================================
   Loading prompt definition: section_structurer
   [OK] Loaded SECTION_STRUCTURER_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
     Resolving doc: glossary.md
     [OK] Loaded from: C:\git\script_generator\units\unit1\glossary.md
   [OK] Built prompt with 4 system blocks
   [OK] Prefill: 1 chars
     [SKIP] No validation prompt defined
+    [CONTEXT] section_context.md updated (1 sections)
     [OK] Completed
 
   [BATCH 2/5] s1_1_build_complete_equation_variety_visual
@@ -322,33 +337,48 @@ Building prompt: section_structurer
 ======================================================================
   Loading prompt definition: section_structurer
   [OK] Loaded SECTION_STRUCTURER_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
     Resolving doc: glossary.md
     [OK] Loaded from: C:\git\script_generator\units\unit1\glossary.md
   [OK] Built prompt with 4 system blocks
   [OK] Prefill: 1 chars
-  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_05_section_structurer\prompts\s1_1_build_complete_equation_variety_visual.md
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_05_section_structurer\prompts\s1_1_build_complete_equation_variety_visual.md
 
 ======================================================================
 USAGE STATS
 ======================================================================
-  input_tokens: 560
-  output_tokens: 886
-  total_tokens: 1446
+  input_tokens: 745
+  output_tokens: 815
+  total_tokens: 1560
   requests: 1
   cache_creation_tokens: 0
-  cache_read_tokens: 11054
-  cache_savings: 90% (saved 11054 tokens)
+  cache_read_tokens: 11479
+  cache_savings: 90% (saved 11479 tokens)
 
 ======================================================================
 Building prompt: section_structurer
 ======================================================================
   Loading prompt definition: section_structurer
   [OK] Loaded SECTION_STRUCTURER_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
     Resolving doc: glossary.md
     [OK] Loaded from: C:\git\script_generator\units\unit1\glossary.md
   [OK] Built prompt with 4 system blocks
   [OK] Prefill: 1 chars
     [SKIP] No validation prompt defined
+    [CONTEXT] section_context.md updated (2 sections)
     [OK] Completed
 
   [BATCH 3/5] s1_2_solve_product_unknown_reversed_form
@@ -361,33 +391,48 @@ Building prompt: section_structurer
 ======================================================================
   Loading prompt definition: section_structurer
   [OK] Loaded SECTION_STRUCTURER_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
     Resolving doc: glossary.md
     [OK] Loaded from: C:\git\script_generator\units\unit1\glossary.md
   [OK] Built prompt with 4 system blocks
   [OK] Prefill: 1 chars
-  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_05_section_structurer\prompts\s1_2_solve_product_unknown_reversed_form.md
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_05_section_structurer\prompts\s1_2_solve_product_unknown_reversed_form.md
 
 ======================================================================
 USAGE STATS
 ======================================================================
-  input_tokens: 649
-  output_tokens: 806
-  total_tokens: 1455
+  input_tokens: 1136
+  output_tokens: 878
+  total_tokens: 2014
   requests: 1
   cache_creation_tokens: 0
-  cache_read_tokens: 11054
-  cache_savings: 90% (saved 11054 tokens)
+  cache_read_tokens: 11479
+  cache_savings: 90% (saved 11479 tokens)
 
 ======================================================================
 Building prompt: section_structurer
 ======================================================================
   Loading prompt definition: section_structurer
   [OK] Loaded SECTION_STRUCTURER_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
     Resolving doc: glossary.md
     [OK] Loaded from: C:\git\script_generator\units\unit1\glossary.md
   [OK] Built prompt with 4 system blocks
   [OK] Prefill: 1 chars
     [SKIP] No validation prompt defined
+    [CONTEXT] section_context.md updated (3 sections)
     [OK] Completed
 
   [BATCH 4/5] s1_3_solve_1st_factor_unknown
@@ -400,33 +445,48 @@ Building prompt: section_structurer
 ======================================================================
   Loading prompt definition: section_structurer
   [OK] Loaded SECTION_STRUCTURER_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
     Resolving doc: glossary.md
     [OK] Loaded from: C:\git\script_generator\units\unit1\glossary.md
   [OK] Built prompt with 4 system blocks
   [OK] Prefill: 1 chars
-  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_05_section_structurer\prompts\s1_3_solve_1st_factor_unknown.md
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_05_section_structurer\prompts\s1_3_solve_1st_factor_unknown.md
 
 ======================================================================
 USAGE STATS
 ======================================================================
-  input_tokens: 851
-  output_tokens: 842
-  total_tokens: 1693
+  input_tokens: 1641
+  output_tokens: 1028
+  total_tokens: 2669
   requests: 1
   cache_creation_tokens: 0
-  cache_read_tokens: 11054
-  cache_savings: 90% (saved 11054 tokens)
+  cache_read_tokens: 11479
+  cache_savings: 90% (saved 11479 tokens)
 
 ======================================================================
 Building prompt: section_structurer
 ======================================================================
   Loading prompt definition: section_structurer
   [OK] Loaded SECTION_STRUCTURER_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
     Resolving doc: glossary.md
     [OK] Loaded from: C:\git\script_generator\units\unit1\glossary.md
   [OK] Built prompt with 4 system blocks
   [OK] Prefill: 1 chars
     [SKIP] No validation prompt defined
+    [CONTEXT] section_context.md updated (4 sections)
     [OK] Completed
 
   [BATCH 5/5] s1_4_exit_check_closure
@@ -439,33 +499,48 @@ Building prompt: section_structurer
 ======================================================================
   Loading prompt definition: section_structurer
   [OK] Loaded SECTION_STRUCTURER_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
     Resolving doc: glossary.md
     [OK] Loaded from: C:\git\script_generator\units\unit1\glossary.md
   [OK] Built prompt with 4 system blocks
   [OK] Prefill: 1 chars
-  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_05_section_structurer\prompts\s1_4_exit_check_closure.md
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_05_section_structurer\prompts\s1_4_exit_check_closure.md
 
 ======================================================================
 USAGE STATS
 ======================================================================
-  input_tokens: 142
+  input_tokens: 1249
   output_tokens: 89
-  total_tokens: 231
+  total_tokens: 1338
   requests: 1
   cache_creation_tokens: 0
-  cache_read_tokens: 11054
-  cache_savings: 90% (saved 11054 tokens)
+  cache_read_tokens: 11479
+  cache_savings: 90% (saved 11479 tokens)
 
 ======================================================================
 Building prompt: section_structurer
 ======================================================================
   Loading prompt definition: section_structurer
   [OK] Loaded SECTION_STRUCTURER_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
     Resolving doc: glossary.md
     [OK] Loaded from: C:\git\script_generator\units\unit1\glossary.md
   [OK] Built prompt with 4 system blocks
   [OK] Prefill: 1 chars
     [SKIP] No validation prompt defined
+    [CONTEXT] section_context.md updated (5 sections)
     [OK] Completed
 
   [BATCH COMPLETE]
@@ -477,12 +552,12 @@ Building prompt: section_structurer
 [STEP 6/13] [FORMATTING] stamp_ids
   [DIR] step_06_stamp_ids
   [AUTO-CHAIN] Using previous step output: step_05_section_structurer\section_structurer.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_05_section_structurer\section_structurer.json
-  [DEBUG] File size: 10850 bytes
-  [DEBUG] Read 10470 chars from 10850 bytes
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_05_section_structurer\section_structurer.json
+  [DEBUG] File size: 11632 bytes
+  [DEBUG] Read 11220 chars from 11632 bytes
   [OK] Loaded and parsed JSON
   [EXEC] Running formatting function...
-  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_06_stamp_ids\stamp_ids.json
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_06_stamp_ids\stamp_ids.json
   [EXEC] Passing input to parameter 'data'
   [OK] Formatting complete
   [SAVE] Saved JSON to: step_06_stamp_ids\stamp_ids.json
@@ -490,9 +565,9 @@ Building prompt: section_structurer
 [STEP 7/13] [FORMATTING] extract_dialogues
   [DIR] step_07_extract_dialogues
   [AUTO-CHAIN] Using previous step output: step_06_stamp_ids\stamp_ids.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_06_stamp_ids\stamp_ids.json
-  [DEBUG] File size: 12376 bytes
-  [DEBUG] Read 11971 chars from 12376 bytes
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_06_stamp_ids\stamp_ids.json
+  [DEBUG] File size: 13144 bytes
+  [DEBUG] Read 12707 chars from 13144 bytes
   [OK] Loaded and parsed JSON
   [EXEC] Running formatting function...
   [EXEC] Passing input to parameter 'data'
@@ -502,10 +577,10 @@ Building prompt: section_structurer
 [STEP 8/13] [AI] dialogue_rewriter
   [DIR] step_08_dialogue_rewriter
   [AUTO-CHAIN] Using previous step output: step_07_extract_dialogues\extract_dialogues.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_07_extract_dialogues\extract_dialogues.json
-  [DEBUG] File size: 1477 bytes
-  [DEBUG] Read 1417 chars from 1477 bytes
-  [OK] Loaded 1417 chars
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_07_extract_dialogues\extract_dialogues.json
+  [DEBUG] File size: 1420 bytes
+  [DEBUG] Read 1360 chars from 1420 bytes
+  [OK] Loaded 1360 chars
   [BATCH] Processing items individually...
   [DEBUG] Parsed 5 items from JSON array
 
@@ -528,7 +603,7 @@ Building prompt: dialogue_rewriter
     [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
   [OK] Built prompt with 4 system blocks
   [OK] Prefill: 56 chars
-  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_08_dialogue_rewriter\prompts\s1_0_transition_into_exit_check.md
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_08_dialogue_rewriter\prompts\s1_0_transition_into_exit_check.md
 
 ======================================================================
 USAGE STATS
@@ -577,7 +652,7 @@ Building prompt: dialogue_rewriter
     [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
   [OK] Built prompt with 4 system blocks
   [OK] Prefill: 68 chars
-  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_08_dialogue_rewriter\prompts\s1_1_build_complete_equation_variety_visual.md
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_08_dialogue_rewriter\prompts\s1_1_build_complete_equation_variety_visual.md
 
 ======================================================================
 USAGE STATS
@@ -626,7 +701,7 @@ Building prompt: dialogue_rewriter
     [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
   [OK] Built prompt with 4 system blocks
   [OK] Prefill: 65 chars
-  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_08_dialogue_rewriter\prompts\s1_2_solve_product_unknown_reversed_form.md
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_08_dialogue_rewriter\prompts\s1_2_solve_product_unknown_reversed_form.md
 
 ======================================================================
 USAGE STATS
@@ -657,7 +732,7 @@ Building prompt: dialogue_rewriter
     [OK] Completed
 
   [BATCH 4/5] s1_3_solve_1st_factor_unknown
-    Variables: {'id': 's1_3_solve_1st_factor_unknown', 'dialogues': [{'text': 'How many stacks of 5 make 15? Pick the number.', 'context': 'lesson'}, {'text': "3 stacks of 5 equals 15. That's how you find the missing factor by skip counting.", 'context': 'on_correct'}]}...
+    Variables: {'id': 's1_3_solve_1st_factor_unknown', 'dialogues': [{'text': 'How many stacks of 5 make 15? Pick the number.', 'context': 'lesson'}, {'text': '3 stacks of 5 equals 15.', 'context': 'on_correct'}]}...
   Loading prompt definition: dialogue_rewriter
   [OK] Loaded DIALOGUE_REWRITER_PROMPT
 
@@ -675,14 +750,14 @@ Building prompt: dialogue_rewriter
     [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
   [OK] Built prompt with 4 system blocks
   [OK] Prefill: 54 chars
-  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_08_dialogue_rewriter\prompts\s1_3_solve_1st_factor_unknown.md
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_08_dialogue_rewriter\prompts\s1_3_solve_1st_factor_unknown.md
 
 ======================================================================
 USAGE STATS
 ======================================================================
-  input_tokens: 152
-  output_tokens: 54
-  total_tokens: 206
+  input_tokens: 140
+  output_tokens: 44
+  total_tokens: 184
   requests: 1
   cache_creation_tokens: 0
   cache_read_tokens: 9124
@@ -724,7 +799,7 @@ Building prompt: dialogue_rewriter
     [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
   [OK] Built prompt with 4 system blocks
   [OK] Prefill: 48 chars
-  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_08_dialogue_rewriter\prompts\s1_4_exit_check_closure.md
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_08_dialogue_rewriter\prompts\s1_4_exit_check_closure.md
 
 ======================================================================
 USAGE STATS
@@ -763,12 +838,12 @@ Building prompt: dialogue_rewriter
 [STEP 9/13] [FORMATTING] merge_dialogues
   [DIR] step_09_merge_dialogues
   [AUTO-CHAIN] Using previous step output: step_08_dialogue_rewriter\dialogue_rewriter.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_08_dialogue_rewriter\dialogue_rewriter.json
-  [DEBUG] File size: 1317 bytes
-  [DEBUG] Read 1278 chars from 1317 bytes
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_08_dialogue_rewriter\dialogue_rewriter.json
+  [DEBUG] File size: 1264 bytes
+  [DEBUG] Read 1225 chars from 1264 bytes
   [OK] Loaded and parsed JSON
   [EXEC] Running formatting function...
-  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_09_merge_dialogues\merge_dialogues.json
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_09_merge_dialogues\merge_dialogues.json
   [EXEC] Passing input to parameter 'data'
   [OK] Formatting complete
   [SAVE] Saved JSON to: step_09_merge_dialogues\merge_dialogues.json
@@ -776,9 +851,9 @@ Building prompt: dialogue_rewriter
 [STEP 10/13] [FORMATTING] filter_sections
   [DIR] step_10_filter_sections
   [AUTO-CHAIN] Using previous step output: step_09_merge_dialogues\merge_dialogues.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_09_merge_dialogues\merge_dialogues.json
-  [DEBUG] File size: 12402 bytes
-  [DEBUG] Read 11999 chars from 12402 bytes
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_09_merge_dialogues\merge_dialogues.json
+  [DEBUG] File size: 13174 bytes
+  [DEBUG] Read 12739 chars from 13174 bytes
   [OK] Loaded and parsed JSON
   [EXEC] Running formatting function...
   [EXEC] Passing input to parameter 'data'
@@ -788,179 +863,182 @@ Building prompt: dialogue_rewriter
 [STEP 11/13] [AI] remediation_generator
   [DIR] step_11_remediation_generator
   [AUTO-CHAIN] Using previous step output: step_10_filter_sections\filter_sections.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_10_filter_sections\filter_sections.json
-  [DEBUG] File size: 13363 bytes
-  [DEBUG] Read 12953 chars from 13363 bytes
-  [OK] Loaded 12953 chars
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_10_filter_sections\filter_sections.json
+  [DEBUG] File size: 14175 bytes
+  [DEBUG] Read 13733 chars from 14175 bytes
+  [OK] Loaded 13733 chars
   [BATCH-OVERRIDE] Applied ['batch_only_items'] from prev step output
   [BATCH] Processing items individually...
   [DEBUG] Parsed 5 items from JSON array
   [SKIP 1/5] s1_0_transition_into_exit_check (not in only_items)
 
   [BATCH 2/5] s1_1_build_complete_equation_variety_visual
-    Variables: {'id': 's1_1_build_complete_equation_variety_visual', 'beats': [{'type': 'scene', 'method': 'add', 'tangible_id': 'equal_groups_pencils', 'tangible_type': 'equal_groups', 'params': {'mode': 'reading', 'container_count': 3, 'items_per_container': 6, 'item_type': 'pencils', 'arrangement': 'horizontal_rows', 'description': 'Equal groups visual appears. 3 rows of 6 pencils on a desk. Pencils arranged in clear horizontal rows.'}, 'id': 's1_1_build_complete_equation_variety_visual_b0'}, {'type': 'scene', 'method': 'add', 'tangible_id': 'equation_builder_pencils', 'tangible_type': 'equation_builder', 'params': {'template': ['__', 'x', '__', '=', '__'], 'palette': [2, 3, 4, 5, 6, 9, 12, 15, 18, 20], 'description': 'Equation Builder appears below. Template shows three blank slots with multiplication and equals symbols. Tile palette displays: 2, 3, 4, 5, 6, 9, 12, 15, 18, 20.'}, 'id': 's1_1_build_complete_equation_variety_visual_b1'}, {'type': 'dialogue', 'text': 'Rows of pencils. Build the equation.', 'id': 's1_1_build_complete_equation_variety_visual_b2'}, {'type': 'prompt', 'text': 'Build the equation.', 'tool': 'place_tile', 'target': 'equation_builder_pencils', 'validator': [{'condition_id': 'correct', 'condition': {'groups': 3, 'items': 6, 'total': 18}, 'description': 'Student placed 3 × 6 = 18, correct', 'is_correct': True, 'beats': [{'type': 'scene', 'method': 'animate', 'tangible_id': 'equation_builder_pencils', 'params': {'event': 'confirm_equation', 'status': 'confirmed', 'description': 'Equation 3 × 6 = 18 confirms.'}, 'id': 's1_1_build_complete_equation_variety_visual_b3_v0_b0'}, {'type': 'dialogue', 'text': "That's it. 3 times 6 equals 18.", 'id': 's1_1_build_complete_equation_variety_visual_b3_v0_b1'}]}], 'id': 's1_1_build_complete_equation_variety_visual_b3'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'equal_groups_pencils', 'description': 'Equal groups visual. 3 rows of 6 pencils on a desk.', 'tangible_type': 'equal_groups', 'mode': 'reading', 'container_count': 3, 'items_per_container': 6, 'item_type': 'pencils', 'arrangement': 'horizontal_rows'}, {'tangible_id': 'equation_builder_pencils', 'description': 'Equation Builder showing confirmed equation 3 × 6 = 18.', 'tangible_type': 'equation_builder', 'template': ['__', 'x', '__', '=', '__'], 'palette': [2, 3, 4, 5, 6, 9, 12, 15, 18, 20]}], 'id': 's1_1_build_complete_equation_variety_visual_b4'}], '_generated_at': '2026-04-20T17:00:52.409741+00:00'}...
+    Variables: {'id': 's1_1_build_complete_equation_variety_visual', 'beats': [{'type': 'scene', 'method': 'add', 'tangible_id': 'equal_groups_pencils', 'tangible_type': 'equal_groups', 'params': {'mode': 'reading', 'container_count': 3, 'items_per_container': 6, 'item_type': 'pencils', 'arrangement': 'rows', 'description': 'Equal groups visual appears. 3 horizontal rows of 6 pencils on a desk. Pencils arranged in clear horizontal rows.'}, 'id': 's1_1_build_complete_equation_variety_visual_b0'}, {'type': 'scene', 'method': 'add', 'tangible_id': 'equation_builder_pencils', 'tangible_type': 'equation_builder', 'params': {'template': ['__', '×', '__', '=', '__'], 'tile_palette': [2, 3, 4, 5, 6, 9, 12, 15, 18, 20], 'description': 'Equation Builder appears below the visual. Template shows three blanks with multiplication and equals symbols. Tile palette displays numbers 2, 3, 4, 5, 6, 9, 12, 15, 18, 20.'}, 'id': 's1_1_build_complete_equation_variety_visual_b1'}, {'type': 'dialogue', 'text': 'Rows of pencils. Build the equation.', 'id': 's1_1_build_complete_equation_variety_visual_b2'}, {'type': 'prompt', 'text': 'Build the equation.', 'tool': 'place_tile', 'target': 'equation_builder_pencils', 'validator': [{'condition_id': 'correct', 'condition': {'placed': {'groups': 3, 'items': 6, 'total': 18}}, 'description': 'Student placed 3 × 6 = 18, correct', 'is_correct': True, 'beats': [{'type': 'dialogue', 'text': "That's it. 3 times 6 equals 18.", 'id': 's1_1_build_complete_equation_variety_visual_b3_v0_b0'}]}], 'id': 's1_1_build_complete_equation_variety_visual_b3'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'equal_groups_pencils', 'description': 'Equal groups visual showing 3 horizontal rows of 6 pencils on a desk.', 'tangible_type': 'equal_groups', 'mode': 'reading', 'container_count': 3, 'items_per_container': 6, 'item_type': 'pencils', 'arrangement': 'rows'}, {'tangible_id': 'equation_builder_pencils', 'description': 'Equation Builder with template and tile palette. Student may place tiles into the three blanks.', 'tangible_type': 'equation_builder', 'template': ['__', '×', '__', '=', '__'], 'tile_palette': [2, 3, 4, 5, 6, 9, 12, 15, 18, 20]}], 'id': 's1_1_build_complete_equation_variety_visual_b4'}], '_generated_at': '2026-04-27T15:53:34.101576+00:00'}...
   Loading prompt definition: remediation_generator
   [OK] Loaded REMEDIATION_GENERATOR_PROMPT
-  [WARN] context_files: no dir ending in _section_structurer in C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_10\v1
 
 ======================================================================
 Building prompt: remediation_generator
 ======================================================================
   Loading prompt definition: remediation_generator
   [OK] Loaded REMEDIATION_GENERATOR_PROMPT
-  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
      [OK] Fetched 'misconceptions'
      [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
      [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [WARN] Field 'scope_fence.advanced_concepts' not found
      [OK] Fetched 'vocabulary'
      [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
     Resolving doc: remediation_design_ref.md
     [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
     Resolving doc: references/lesson_script_schema_guide.md
     [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
-  [OK] Built prompt with 5 system blocks
+  [OK] Built prompt with 6 system blocks
   [OK] Prefill: 69 chars
-  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_11_remediation_generator\prompts\s1_1_build_complete_equation_variety_visual.md
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_11_remediation_generator\prompts\s1_1_build_complete_equation_variety_visual.md
 
 ======================================================================
 USAGE STATS
 ======================================================================
-  input_tokens: 1187
-  output_tokens: 1007
-  total_tokens: 2194
+  input_tokens: 1085
+  output_tokens: 553
+  total_tokens: 1638
   requests: 1
-  cache_creation_tokens: 0
-  cache_read_tokens: 20666
-  cache_savings: 90% (saved 20666 tokens)
+  cache_creation_tokens: 23126
+  cache_read_tokens: 20848
+  cache_savings: 90% (saved 20848 tokens)
 
 ======================================================================
 Building prompt: remediation_generator
 ======================================================================
   Loading prompt definition: remediation_generator
   [OK] Loaded REMEDIATION_GENERATOR_PROMPT
-  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
      --> Skipping 'misconceptions' (already provided)
      --> Skipping 'forbidden_phrases' (already provided)
      --> Skipping 'required_phrases' (already provided)
+     [WARN] Field 'scope_fence.advanced_concepts' not found
      --> Skipping 'vocabulary' (already provided)
      --> Skipping 'the_one_thing' (already provided)
     Resolving doc: remediation_design_ref.md
     [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
     Resolving doc: references/lesson_script_schema_guide.md
     [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
-  [OK] Built prompt with 5 system blocks
+  [OK] Built prompt with 6 system blocks
   [OK] Prefill: 69 chars
     [SKIP] No validation prompt defined
     [OK] Completed
 
   [BATCH 3/5] s1_2_solve_product_unknown_reversed_form
-    Variables: {'id': 's1_2_solve_product_unknown_reversed_form', 'beats': [{'type': 'scene', 'method': 'add', 'tangible_id': 'equal_groups_flowers', 'tangible_type': 'equal_groups', 'params': {'mode': 'reading', 'container_count': 4, 'items_per_container': 7, 'item_type': 'flowers', 'container_style': 'circled', 'description': 'Equal groups visual appears: 4 circled clusters of flowers, 7 flowers in each cluster.'}, 'id': 's1_2_solve_product_unknown_reversed_form_b0'}, {'type': 'scene', 'method': 'add', 'tangible_id': 'equation_builder_reversed', 'tangible_type': 'equation_builder', 'params': {'template': ['__', '=', '4', 'x', '7'], 'palette': [11, 21, 24, 28], 'description': 'Equation builder appears with reversed form: blank equals 4 times 7. Answer palette shows tiles 11, 21, 24, 28.'}, 'id': 's1_2_solve_product_unknown_reversed_form_b1'}, {'type': 'dialogue', 'text': '4 groups of 7 flowers. The equation is flipped. Total goes first. Find the total and place it.', 'id': 's1_2_solve_product_unknown_reversed_form_b2'}, {'type': 'prompt', 'text': '☐ = 4 × 7. Find the total.', 'tool': 'place_tile', 'target': 'equation_builder_reversed', 'validator': [{'condition_id': 'correct', 'condition': {'total': 28}, 'description': 'Student placed 28 in the blank, correct product', 'is_correct': True, 'beats': [{'type': 'scene', 'method': 'animate', 'tangible_id': 'equation_builder_reversed', 'params': {'event': 'tile_placed', 'status': 'confirmed', 'description': '28 tile locks into blank slot, equation complete: 28 = 4 × 7.'}, 'id': 's1_2_solve_product_unknown_reversed_form_b3_v0_b0'}, {'type': 'dialogue', 'text': "That's it. 28 equals 4 times 7. Same value, both sides.", 'id': 's1_2_solve_product_unknown_reversed_form_b3_v0_b1'}]}], 'id': 's1_2_solve_product_unknown_reversed_form_b3'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'equal_groups_flowers', 'description': 'Equal groups visual showing 4 circled clusters of 7 flowers each.', 'tangible_type': 'equal_groups', 'mode': 'reading', 'container_count': 4, 'items_per_container': 7}, {'tangible_id': 'equation_builder_reversed', 'description': 'Equation builder showing completed reversed equation: 28 = 4 × 7.', 'tangible_type': 'equation_builder', 'template': ['28', '=', '4', 'x', '7']}], 'id': 's1_2_solve_product_unknown_reversed_form_b4'}], '_generated_at': '2026-04-20T17:01:04.849149+00:00'}...
+    Variables: {'id': 's1_2_solve_product_unknown_reversed_form', 'beats': [{'type': 'scene', 'method': 'add', 'tangible_id': 'equal_groups_flowers', 'tangible_type': 'equal_groups', 'params': {'mode': 'reading', 'container_count': 4, 'items_per_container': 7, 'item_type': 'flowers', 'arrangement': 'horizontal_rows', 'description': 'Equal groups visual appears: 4 groups of 7 flowers, flowers in circled clusters arranged horizontally.'}, 'id': 's1_2_solve_product_unknown_reversed_form_b0'}, {'type': 'scene', 'method': 'add', 'tangible_id': 'equation_builder_flowers', 'tangible_type': 'equation_builder', 'params': {'template': 'reversed_product_unknown', 'structure': ['__', '=', '4', '×', '7'], 'palette': [11, 21, 24, 28], 'description': 'Equation builder appears with reversed pre-filled equation: ☐ = 4 × 7. Palette shows tiles 11, 21, 24, 28.'}, 'id': 's1_2_solve_product_unknown_reversed_form_b1'}, {'type': 'dialogue', 'text': '4 groups of 7 flowers. The equation is flipped. Total goes first. Find the total and place it.', 'id': 's1_2_solve_product_unknown_reversed_form_b2'}, {'type': 'prompt', 'text': '☐ = 4 × 7. Find the total.', 'tool': 'place_tile', 'target': 'equation_builder_flowers', 'validator': [{'condition_id': 'correct', 'condition': {'placed': {'product': 28}}, 'description': 'Student placed 28 in the product slot, correct', 'is_correct': True, 'beats': [{'type': 'scene', 'method': 'animate', 'tangible_id': 'equation_builder_flowers', 'params': {'event': 'tile_locks_in_slot', 'status': 'confirmed', 'description': 'Tile 28 locks into the product slot, completing the equation ☐ = 4 × 7.'}, 'id': 's1_2_solve_product_unknown_reversed_form_b3_v0_b0'}, {'type': 'dialogue', 'text': "That's it. 28 equals 4 times 7. Same value, both sides.", 'id': 's1_2_solve_product_unknown_reversed_form_b3_v0_b1'}]}], 'id': 's1_2_solve_product_unknown_reversed_form_b3'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'equal_groups_flowers', 'description': 'Equal groups visual: 4 groups of 7 flowers in circled clusters, horizontal arrangement.', 'tangible_type': 'equal_groups', 'mode': 'reading', 'container_count': 4, 'items_per_container': 7, 'item_type': 'flowers'}, {'tangible_id': 'equation_builder_flowers', 'description': 'Equation builder showing completed equation: 28 = 4 × 7. Product tile 28 placed in first slot.', 'tangible_type': 'equation_builder', 'template': 'reversed_product_unknown', 'structure': ['28', '=', '4', '×', '7']}], 'id': 's1_2_solve_product_unknown_reversed_form_b4'}], '_generated_at': '2026-04-27T15:53:57.458966+00:00'}...
   Loading prompt definition: remediation_generator
   [OK] Loaded REMEDIATION_GENERATOR_PROMPT
-  [WARN] context_files: no dir ending in _section_structurer in C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_10\v1
 
 ======================================================================
 Building prompt: remediation_generator
 ======================================================================
   Loading prompt definition: remediation_generator
   [OK] Loaded REMEDIATION_GENERATOR_PROMPT
-  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
      [OK] Fetched 'misconceptions'
      [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
      [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [WARN] Field 'scope_fence.advanced_concepts' not found
      [OK] Fetched 'vocabulary'
      [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
     Resolving doc: remediation_design_ref.md
     [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
     Resolving doc: references/lesson_script_schema_guide.md
     [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
-  [OK] Built prompt with 5 system blocks
+  [OK] Built prompt with 6 system blocks
   [OK] Prefill: 66 chars
-  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_11_remediation_generator\prompts\s1_2_solve_product_unknown_reversed_form.md
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_11_remediation_generator\prompts\s1_2_solve_product_unknown_reversed_form.md
 
 ======================================================================
 USAGE STATS
 ======================================================================
-  input_tokens: 1089
-  output_tokens: 439
-  total_tokens: 1528
+  input_tokens: 1160
+  output_tokens: 491
+  total_tokens: 1651
   requests: 1
   cache_creation_tokens: 0
-  cache_read_tokens: 20666
-  cache_savings: 90% (saved 20666 tokens)
+  cache_read_tokens: 43974
+  cache_savings: 90% (saved 43974 tokens)
 
 ======================================================================
 Building prompt: remediation_generator
 ======================================================================
   Loading prompt definition: remediation_generator
   [OK] Loaded REMEDIATION_GENERATOR_PROMPT
-  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
      --> Skipping 'misconceptions' (already provided)
      --> Skipping 'forbidden_phrases' (already provided)
      --> Skipping 'required_phrases' (already provided)
+     [WARN] Field 'scope_fence.advanced_concepts' not found
      --> Skipping 'vocabulary' (already provided)
      --> Skipping 'the_one_thing' (already provided)
     Resolving doc: remediation_design_ref.md
     [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
     Resolving doc: references/lesson_script_schema_guide.md
     [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
-  [OK] Built prompt with 5 system blocks
+  [OK] Built prompt with 6 system blocks
   [OK] Prefill: 66 chars
     [SKIP] No validation prompt defined
     [OK] Completed
 
   [BATCH 4/5] s1_3_solve_1st_factor_unknown
-    Variables: {'id': 's1_3_solve_1st_factor_unknown', 'beats': [{'type': 'scene', 'method': 'add', 'tangible_id': 'equal_groups_stacks', 'tangible_type': 'equal_groups', 'params': {'mode': 'building', 'container_count': 0, 'items_per_container': 5, 'context': 'stacks', 'description': 'Equal groups construction area appears, empty. Control panel shows +/- group buttons. Each new group will have 5 items. Running total display shows Total: 0.'}, 'id': 's1_3_solve_1st_factor_unknown_b0'}, {'type': 'scene', 'method': 'add', 'tangible_id': 'equation_builder_factor', 'tangible_type': 'equation_builder', 'params': {'template': ['__', '×', '5', '=', '15'], 'style': 'equation', 'description': 'Equation builder appears with pre-filled template: blank × 5 = 15. First position is fillable slot, 5 and 15 are visible.'}, 'id': 's1_3_solve_1st_factor_unknown_b1'}, {'type': 'dialogue', 'text': 'How many stacks of 5 make 15? Pick the number.', 'id': 's1_3_solve_1st_factor_unknown_b2'}, {'type': 'prompt', 'text': '☐ × 5 = 15. How many stacks?', 'tool': 'multiple_choice', 'options': [2, 3, 4, 5], 'validator': [{'condition_id': 'correct', 'condition': {'selected': 3}, 'description': 'Student selected 3, correct answer', 'is_correct': True, 'beats': [{'type': 'scene', 'method': 'animate', 'tangible_id': 'equal_groups_stacks', 'params': {'event': 'build_groups_sequentially', 'status': 'confirmed', 'description': '3 stacks of 5 items appear, building one stack at a time. Running total updates: 5, 10, 15.'}, 'id': 's1_3_solve_1st_factor_unknown_b3_v0_b0'}, {'type': 'dialogue', 'text': "Right. 3 stacks of 5 equals 15. That's how you find the missing factor by skip counting.", 'id': 's1_3_solve_1st_factor_unknown_b3_v0_b1'}]}], 'id': 's1_3_solve_1st_factor_unknown_b3'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'equal_groups_stacks', 'description': 'Equal groups construction area showing 3 stacks of 5 items. Running total display shows Total: 15.', 'tangible_type': 'equal_groups', 'mode': 'building', 'container_count': 3, 'items_per_container': 5, 'context': 'stacks'}, {'tangible_id': 'equation_builder_factor', 'description': 'Equation builder showing completed equation: 3 × 5 = 15.', 'tangible_type': 'equation_builder', 'template': ['3', '×', '5', '=', '15'], 'style': 'equation'}], 'id': 's1_3_solve_1st_factor_unknown_b4'}], '_generated_at': '2026-04-20T17:01:19.051479+00:00'}...
+    Variables: {'id': 's1_3_solve_1st_factor_unknown', 'beats': [{'type': 'scene', 'method': 'add', 'tangible_id': 'equal_groups_stacks', 'tangible_type': 'equal_groups', 'params': {'mode': 'building', 'orientation': 'horizontal', 'item_type': 'generic_items', 'container_count': 0, 'items_per_container': 5, 'context': 'stacks', 'description': 'Equal groups visual in building mode. Construction area starts empty. Item type: generic items. Items per container pre-set to 5. Running total display shows Total: 0.'}, 'id': 's1_3_solve_1st_factor_unknown_b0'}, {'type': 'scene', 'method': 'add', 'tangible_id': 'equation_builder_stacks', 'tangible_type': 'equation_builder', 'params': {'template': ['__', '×', '5', '=', '15'], 'palette': [2, 3, 4, 5], 'description': 'Equation builder with pre-filled template: blank × 5 = 15. Tile palette shows options 2, 3, 4, 5.'}, 'id': 's1_3_solve_1st_factor_unknown_b1'}, {'type': 'dialogue', 'text': 'How many stacks of 5 make 15? Pick the number.', 'id': 's1_3_solve_1st_factor_unknown_b2'}, {'type': 'prompt', 'text': '☐ × 5 = 15. How many stacks?', 'tool': 'multiple_choice', 'options': [2, 3, 4, 5], 'validator': [{'condition_id': 'correct', 'condition': {'selected': 3}, 'description': 'Student selected 3, correct (3 × 5 = 15; skip-count by 5s: 5, 10, 15 — three counts)', 'is_correct': True, 'beats': [{'type': 'scene', 'method': 'animate', 'tangible_id': 'equal_groups_stacks', 'params': {'event': 'build_groups_sequentially', 'status': 'confirmed', 'description': '3 stacks of 5 items build one at a time. First stack appears with 5 items, then second stack with 5 items, then third stack with 5 items. Running total updates: Total: 5, Total: 10, Total: 15.'}, 'id': 's1_3_solve_1st_factor_unknown_b3_v0_b0'}, {'type': 'scene', 'method': 'update', 'tangible_id': 'equation_builder_stacks', 'params': {'template': ['3', '×', '5', '=', '15'], 'description': 'Tile 3 locks into the blank slot, completing the equation: 3 × 5 = 15.'}, 'id': 's1_3_solve_1st_factor_unknown_b3_v0_b1'}, {'type': 'dialogue', 'text': "That's it. 3 stacks of 5 equals 15.", 'id': 's1_3_solve_1st_factor_unknown_b3_v0_b2'}]}], 'id': 's1_3_solve_1st_factor_unknown_b3'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'equal_groups_stacks', 'description': 'Equal groups visual showing 3 stacks of 5 items each. Total: 15.', 'tangible_type': 'equal_groups', 'mode': 'building', 'orientation': 'horizontal', 'item_type': 'generic_items', 'container_count': 3, 'items_per_container': 5, 'context': 'stacks'}, {'tangible_id': 'equation_builder_stacks', 'description': 'Equation builder showing completed equation: 3 × 5 = 15.', 'tangible_type': 'equation_builder', 'template': ['3', '×', '5', '=', '15']}], 'id': 's1_3_solve_1st_factor_unknown_b4'}], '_generated_at': '2026-04-27T15:54:24.471820+00:00'}...
   Loading prompt definition: remediation_generator
   [OK] Loaded REMEDIATION_GENERATOR_PROMPT
-  [WARN] context_files: no dir ending in _section_structurer in C:\git\script_generator\outputs\unit1\lesson_generator_dialogue_pass_module_10\v1
 
 ======================================================================
 Building prompt: remediation_generator
 ======================================================================
   Loading prompt definition: remediation_generator
   [OK] Loaded REMEDIATION_GENERATOR_PROMPT
-  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
      [OK] Fetched 'misconceptions'
      [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
      [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [WARN] Field 'scope_fence.advanced_concepts' not found
      [OK] Fetched 'vocabulary'
      [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
     Resolving doc: remediation_design_ref.md
     [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
     Resolving doc: references/lesson_script_schema_guide.md
     [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
-  [OK] Built prompt with 5 system blocks
+  [OK] Built prompt with 6 system blocks
   [OK] Prefill: 55 chars
-  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_11_remediation_generator\prompts\s1_3_solve_1st_factor_unknown.md
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_11_remediation_generator\prompts\s1_3_solve_1st_factor_unknown.md
 
 ======================================================================
 USAGE STATS
 ======================================================================
-  input_tokens: 1115
-  output_tokens: 752
-  total_tokens: 1867
+  input_tokens: 1357
+  output_tokens: 965
+  total_tokens: 2322
   requests: 1
   cache_creation_tokens: 0
-  cache_read_tokens: 20666
-  cache_savings: 90% (saved 20666 tokens)
+  cache_read_tokens: 43974
+  cache_savings: 90% (saved 43974 tokens)
 
 ======================================================================
 Building prompt: remediation_generator
 ======================================================================
   Loading prompt definition: remediation_generator
   [OK] Loaded REMEDIATION_GENERATOR_PROMPT
-  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
      --> Skipping 'misconceptions' (already provided)
      --> Skipping 'forbidden_phrases' (already provided)
      --> Skipping 'required_phrases' (already provided)
+     [WARN] Field 'scope_fence.advanced_concepts' not found
      --> Skipping 'vocabulary' (already provided)
      --> Skipping 'the_one_thing' (already provided)
     Resolving doc: remediation_design_ref.md
     [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
     Resolving doc: references/lesson_script_schema_guide.md
     [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
-  [OK] Built prompt with 5 system blocks
+  [OK] Built prompt with 6 system blocks
   [OK] Prefill: 55 chars
     [SKIP] No validation prompt defined
     [OK] Completed
@@ -975,12 +1053,12 @@ Building prompt: remediation_generator
 [STEP 12/13] [FORMATTING] merge_remediation
   [DIR] step_12_merge_remediation
   [AUTO-CHAIN] Using previous step output: step_11_remediation_generator\remediation_generator.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_11_remediation_generator\remediation_generator.json
-  [DEBUG] File size: 11830 bytes
-  [DEBUG] Read 11455 chars from 11830 bytes
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_11_remediation_generator\remediation_generator.json
+  [DEBUG] File size: 10112 bytes
+  [DEBUG] Read 9812 chars from 10112 bytes
   [OK] Loaded and parsed JSON
   [EXEC] Running formatting function...
-  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_12_merge_remediation\merge_remediation.json
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_12_merge_remediation\merge_remediation.json
   [EXEC] Passing input to parameter 'data'
   [OK] Formatting complete
   [SAVE] Saved JSON to: step_12_merge_remediation\merge_remediation.json
@@ -988,16 +1066,17 @@ Building prompt: remediation_generator
 [STEP 13/13] [FORMATTING] push
   [DIR] step_13_push
   [AUTO-CHAIN] Using previous step output: step_12_merge_remediation\merge_remediation.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_12_merge_remediation\merge_remediation.json
-  [DEBUG] File size: 24215 bytes
-  [DEBUG] Read 23498 chars from 24215 bytes
+  [LOAD] Reading: C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_12_merge_remediation\merge_remediation.json
+  [DEBUG] File size: 24026 bytes
+  [DEBUG] Read 23337 chars from 24026 bytes
   [OK] Loaded and parsed JSON
   [EXEC] Running formatting function...
   [EXEC] Passing module_number=10
   [EXEC] Passing path_letter=None
   [EXEC] Passing unit_number=1
-  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v0\step_13_push\push.json
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit1\exitcheck_generator_dialogue_pass_module_10\v1\step_13_push\push.json
   [EXEC] Passing input to parameter 'data'
+Updating existing page: https://notion.so/3485917eac5281209fa0edb30f834700
 
   [NOTION] Pushed -> https://notion.so/3485917eac5281209fa0edb30f834700
   [NOTION] Tagged 5 sections + 14 beats → merge_remediation.json
@@ -1006,8 +1085,8 @@ Building prompt: remediation_generator
 
 ======================================================================
 PIPELINE COMPLETE
-Version: v0
+Version: v1
 Status: draft
-Duration: 136.9s
+Duration: 205.7s
 Output: outputs/exitcheck_generator_dialogue_pass_module_10/latest/
 ======================================================================

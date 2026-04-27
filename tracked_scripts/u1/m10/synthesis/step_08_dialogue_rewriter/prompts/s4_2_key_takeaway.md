@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:02:34.972360
+# Generated: 2026-04-27T10:55:43.867395
 ======================================================================
 
 ## API Parameters
@@ -948,7 +948,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "Same value as — that's the equals sign's job. You'll use that in every equation from now on.",
+      "text": "Same value as—that's the equals sign's job. You'll use that in every equation from now on.",
       "context": "on_correct"
     },
     {
@@ -956,7 +956,7 @@ Cacheable: Yes
       "context": "on_correct"
     },
     {
-      "text": "Rows, stacks, groups — different pictures, same math underneath.",
+      "text": "Rows, stacks, groups—different pictures, same math underneath.",
       "context": "on_correct"
     }
   ]

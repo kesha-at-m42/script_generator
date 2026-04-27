@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:21.652050
+# Generated: 2026-04-27T10:58:27.795057
 ======================================================================
 
 ## API Parameters
@@ -952,7 +952,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "Total green and yellow first. That's how you start a two-step problem.",
+      "text": "Total green and yellow first.",
       "context": "on_correct"
     },
     {

@@ -4,21 +4,22 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equal_groups_context",
+      "tangible_id": "equal_groups_6x2",
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
         "container_count": 6,
         "items_per_container": 2,
-        "description": "6 groups appear, each containing 2 dots."
+        "description": "Context visualization appears: 6 groups with 2 dots each."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder_main",
+      "tangible_id": "equation_builder_6x2",
       "tangible_type": "equation_builder",
       "params": {
+        "mode": "building",
         "template": [
           "__",
           "×",
@@ -26,7 +27,7 @@
           "=",
           "__"
         ],
-        "tile_palette": [
+        "palette": [
           2,
           4,
           5,
@@ -36,7 +37,7 @@
           12,
           14
         ],
-        "description": "Equation builder appears below the visual. Three empty slots. Tile palette shows 2, 4, 5, 6, 8, 10, 12, 14."
+        "description": "Equation Builder appears below the visual. All three slots empty. Tile palette shows 2, 4, 5, 6, 8, 10, 12, 14."
       }
     },
     {
@@ -47,7 +48,8 @@
       "type": "prompt",
       "text": "Build the equation represented by this picture.",
       "tool": "place_tile",
-      "target": "equation_builder_main",
+      "target": "equation_builder_6x2",
+      "variable_answer": false,
       "validator": [
         {
           "condition_id": "correct",
@@ -62,6 +64,16 @@
           "is_correct": true,
           "beats": [
             {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_6x2",
+              "params": {
+                "event": "confirm_equation",
+                "status": "confirmed",
+                "description": "Equation 6 × 2 = 12 confirms."
+              }
+            },
+            {
               "type": "dialogue",
               "text": "6 groups of 2 is 6 times 2 which equals 12."
             }
@@ -73,17 +85,18 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equal_groups_context",
-          "description": "6 groups with 2 dots each visible on screen.",
+          "tangible_id": "equal_groups_6x2",
+          "description": "Context visualization: 6 groups with 2 dots each.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 6,
           "items_per_container": 2
         },
         {
-          "tangible_id": "equation_builder_main",
-          "description": "Equation builder with three empty slots. Tile palette active.",
+          "tangible_id": "equation_builder_6x2",
+          "description": "Equation Builder with confirmed equation 6 × 2 = 12. Palette: 2, 4, 5, 6, 8, 10, 12, 14.",
           "tangible_type": "equation_builder",
+          "mode": "building",
           "template": [
             "__",
             "×",
@@ -91,7 +104,7 @@
             "=",
             "__"
           ],
-          "tile_palette": [
+          "palette": [
             2,
             4,
             5,
@@ -105,5 +118,5 @@
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:00:30.249835+00:00"
+  "_generated_at": "2026-04-27T15:53:48.006849+00:00"
 }

@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:00:45.958956
+# Generated: 2026-04-27T10:54:00.636938
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1860,15 +1864,15 @@ Cacheable: Yes
         "mode": "reading",
         "container_count": 4,
         "items_per_container": 2,
-        "container_type": "bag",
-        "description": "4 bags appear, each containing 2 items."
+        "container_style": "bag",
+        "description": "4 bags appear. Each bag contains 2 items."
       },
       "id": "s1_1_expression_callback_activation_b0"
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder",
+      "tangible_id": "equation_builder_warmup",
       "tangible_type": "equation_builder",
       "params": {
         "template": [
@@ -1876,7 +1880,14 @@ Cacheable: Yes
           "×",
           "__"
         ],
-        "description": "Equation builder appears alongside bags. Two empty slots separated by multiplication symbol. No equals sign. M8 expression format."
+        "style": "equation",
+        "tile_palette": [
+          2,
+          4,
+          6,
+          8
+        ],
+        "description": "Equation Builder appears alongside bags. Two empty slots with multiplication symbol between them. Tile palette shows 2, 4, 6, 8."
       },
       "id": "s1_1_expression_callback_activation_b1"
     },
@@ -1889,7 +1900,7 @@ Cacheable: Yes
       "type": "prompt",
       "text": "Build the expression for 4 groups of 2.",
       "tool": "place_tile",
-      "target": "equation_builder",
+      "target": "equation_builder_warmup",
       "validator": [
         {
           "condition_id": "correct",
@@ -1899,13 +1910,24 @@ Cacheable: Yes
               "items": 2
             }
           },
-          "description": "Student placed 4 × 2, correct",
+          "description": "Student placed 4 in first slot and 2 in second slot",
           "is_correct": true,
           "beats": [
             {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_warmup",
+              "params": {
+                "event": "confirm_placement",
+                "status": "confirmed",
+                "description": "Placed tiles 4 and 2 confirm in slots."
+              },
+              "id": "s1_1_expression_callback_activation_b3_v0_b0"
+            },
+            {
               "type": "dialogue",
               "text": "Right. 4 times 2. You know how to show groups with expressions.",
-              "id": "s1_1_expression_callback_activation_b3_v0_b0"
+              "id": "s1_1_expression_callback_activation_b3_v0_b1"
             }
           ]
         }
@@ -1921,24 +1943,24 @@ Cacheable: Yes
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 4,
-          "items_per_container": 2,
-          "container_type": "bag"
+          "items_per_container": 2
         },
         {
-          "tangible_id": "equation_builder",
-          "description": "Equation builder with 4 × 2 placed in slots.",
+          "tangible_id": "equation_builder_warmup",
+          "description": "Equation Builder showing 4 × 2 expression. Tiles placed and confirmed.",
           "tangible_type": "equation_builder",
           "template": [
-            "__",
+            "4",
             "×",
-            "__"
-          ]
+            "2"
+          ],
+          "style": "equation"
         }
       ],
       "id": "s1_1_expression_callback_activation_b4"
     }
   ],
-  "_generated_at": "2026-04-20T17:00:06.091512+00:00"
+  "_generated_at": "2026-04-27T15:53:06.455348+00:00"
 }
 </input>
 

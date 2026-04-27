@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:00:38.108272
+# Generated: 2026-04-27T10:54:01.032091
 ======================================================================
 
 ## API Parameters
@@ -948,7 +948,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "That's right—4 groups with 2 in each.",
+      "text": "That's right—4 groups with 2 in each. That's what 4 times 2 shows.",
       "context": "on_correct"
     }
   ]

@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:50.070797
+# Generated: 2026-04-27T11:00:38.633273
 ======================================================================
 
 ## API Parameters
@@ -948,12 +948,16 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
+      "text": "Click Scale of 10 to see what happens.",
+      "context": "lesson"
+    },
+    {
       "text": "Look at that—only 9 tick marks now instead of 17. Much cleaner!",
       "context": "on_correct"
     },
     {
       "text": "All the data fits, and the graph is easier to read.",
-      "context": "on_correct"
+      "context": "lesson"
     }
   ]
 }

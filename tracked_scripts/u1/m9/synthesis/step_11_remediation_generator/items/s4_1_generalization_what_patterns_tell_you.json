@@ -6,7 +6,7 @@
         "condition": {
           "selected": "The answer could be even or odd"
         },
-        "description": "Student selected B: The answer could be even or odd",
+        "description": "Student selected 'could be even or odd', missing that 2 guarantees evenness",
         "is_correct": false,
         "steps": [
           [
@@ -15,15 +15,15 @@
               "method": "update",
               "tangible_id": "equation_builder_7x2",
               "params": {
-                "highlight_components": [
-                  "factor_2"
+                "highlight_terms": [
+                  "2"
                 ],
-                "description": "The 2 in the equation highlights."
+                "description": "The factor 2 highlights."
               }
             },
             {
               "type": "dialogue",
-              "text": "Look at the second factor: 2. When you multiply any number by 2, you're counting by 2s. What kind of numbers do you get when you count by 2s?"
+              "text": "Look at the 2. When you multiply any number by 2, you're skip-counting by 2s. What kind of numbers do you land on when you count by 2s?"
             }
           ]
         ]
@@ -32,7 +32,7 @@
         "condition": {
           "selected": "The answer is definitely odd"
         },
-        "description": "Student selected C: The answer is definitely odd",
+        "description": "Student selected 'definitely odd', reversing the even-times-anything pattern",
         "is_correct": false,
         "steps": [
           [
@@ -41,15 +41,15 @@
               "method": "update",
               "tangible_id": "equation_builder_7x2",
               "params": {
-                "highlight_components": [
-                  "factor_2"
+                "highlight_terms": [
+                  "2"
                 ],
-                "description": "The 2 in the equation highlights."
+                "description": "The factor 2 highlights."
               }
             },
             {
               "type": "dialogue",
-              "text": "Think about what times 2 means. You're multiplying by 2, which means counting by 2s. When you count by 2s, do you ever land on odd numbers?"
+              "text": "The 2 tells you you're skip-counting by 2s. When you count by 2s, every number you land on is even. Does that pattern change when you multiply by 7?"
             }
           ]
         ]
@@ -65,19 +65,20 @@
               "method": "animate",
               "tangible_id": "equation_builder_7x2",
               "params": {
-                "event": "highlight_pattern",
+                "event": "highlight_factor",
                 "status": "confirmed",
-                "description": "The factor 2 pulses, then a visual shows counting by 2s: 2, 4, 6, 8, 10, 12, 14."
+                "description": "System highlights the factor 2 and demonstrates the pattern.",
+                "term": "2"
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you the pattern. When you multiply by 2, you're skip-counting by 2s. Look: 2, 4, 6, 8, 10, 12, 14. Every number in that count is even. So 7 times 2 has to be even. The answer is definitely even. That's what the pattern tells you before you even compute."
+              "text": "Let me show you. When you see a 2 in a multiplication, you know you're skip-counting by 2s. That means every answer you land on is even. 7 times 2 has to be even because the 2 controls the pattern. The answer is definitely even."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:02:56.013499+00:00"
+  "_generated_at": "2026-04-27T15:56:56.095813+00:00"
 }

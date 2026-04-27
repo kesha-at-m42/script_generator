@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T11:58:41.611656
+# Generated: 2026-04-27T10:52:52.508026
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -817,14 +833,15 @@ Cacheable: Yes
   "student_action": "Explore all four scales freely\n  * Scale of 1: ✓ All fit (but lots of tick marks!)\n  * Scale of 2: ✓ All fit\n  * Scale of 5: ✓ All fit\n  * Scale of 10: ✓ All fit",
   "guide_3": "(after exploration) \"All four scales work for this data! You have choices.\"",
   "engagement_anchor": "Choice/Agency (student controls exploration)",
-  "_generated_at": "2026-04-20T16:58:20.147229+00:00",
+  "_generated_at": "2026-04-27T15:52:23.926909+00:00",
   "workspace_specs": {
     "toys": [
       "bar_graph",
       "data_table"
     ],
     "tools": []
-  }
+  },
+  "prior_section_summaries": "## s1_1_data_collection_game\n# Section Summary: s1_1_data_collection_game\n\n**VISUAL STATE:** An animated data collection game (\"data_collection_game_blocks\") displays on screen featuring Minis characters with colored blocks. The game presents four categories: Red blocks, Blue blocks, Green blocks, and Yellow blocks. Valid count values are multiples of 5 ranging from 10 to 45 (10, 15, 20, 25, 30, 35, 40, 45). The game runs for 60 seconds and concludes with all four category counts confirmed and recorded.\n\n**CONTENT:** Students were introduced to data collection through an interactive counting activity. The lesson practiced counting and recording discrete data across multiple categories, establishing foundational skills for organizing information before graphing.\n\n**STUDENT ACTION:** The student engaged with the animated counting game by counting blocks in each of the four color categories and confirming their counts. Upon game completion, the student's recorded data became ready for visualization in a subsequent graph."
 }
 </input>
 

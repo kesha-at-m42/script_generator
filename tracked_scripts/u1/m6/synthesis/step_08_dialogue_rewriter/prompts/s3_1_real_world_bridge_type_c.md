@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:01:04.985236
+# Generated: 2026-04-27T10:54:42.882622
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,7 @@ Cacheable: Yes
   "id": "s3_1_real_world_bridge_type_c",
   "dialogues": [
     {
-      "text": "This kind of thinking shows up all the time—not just in math problems.",
+      "text": "This kind of thinking shows up all the time, not just in math problems. What would you need to do to answer all of these?",
       "context": "lesson"
     },
     {

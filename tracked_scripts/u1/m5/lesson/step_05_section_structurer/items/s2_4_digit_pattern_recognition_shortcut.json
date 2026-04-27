@@ -4,19 +4,19 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "dataset_a",
+      "tangible_id": "image_dataset_a",
       "tangible_type": "image",
       "params": {
-        "description": "Data Set A displayed on left side. Values: 20, 35, 55, 80. Label: 'Ones digits: 0 or 5'."
+        "description": "Left panel labeled 'Data Set A' displays numbers 20, 35, 55, 80 vertically with label beneath: 'Ones digits: 0 or 5'."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "dataset_b",
+      "tangible_id": "image_dataset_b",
       "tangible_type": "image",
       "params": {
-        "description": "Data Set B displayed on right side. Values: 7, 12, 19, 23. Label: 'Ones digits: 7, 2, 9, 3'."
+        "description": "Right panel labeled 'Data Set B' displays numbers 7, 12, 19, 23 vertically with label beneath: 'Ones digits: 7, 2, 9, 3'."
       }
     },
     {
@@ -34,18 +34,18 @@
     {
       "type": "prompt",
       "text": "Which data set has last digits that are NOT 0 or 5?",
-      "tool": "multiple_choice",
-      "options": [
-        "Data Set A",
-        "Data Set B"
+      "tool": "click_tangible",
+      "target": [
+        "image_dataset_a",
+        "image_dataset_b"
       ],
       "validator": [
         {
           "condition_id": "correct",
           "condition": {
-            "selected": "Data Set B"
+            "selected": "image_dataset_b"
           },
-          "description": "Student selected Data Set B (7, 12, 19, 23), correct",
+          "description": "Student clicked Data Set B, correct",
           "is_correct": true,
           "beats": [
             {
@@ -60,17 +60,17 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "dataset_a",
-          "description": "Data Set A on left. Values: 20, 35, 55, 80. Label: 'Ones digits: 0 or 5'.",
+          "tangible_id": "image_dataset_a",
+          "description": "Left panel labeled 'Data Set A' with numbers 20, 35, 55, 80 and label 'Ones digits: 0 or 5'.",
           "tangible_type": "image"
         },
         {
-          "tangible_id": "dataset_b",
-          "description": "Data Set B on right. Values: 7, 12, 19, 23. Label: 'Ones digits: 7, 2, 9, 3'.",
+          "tangible_id": "image_dataset_b",
+          "description": "Right panel labeled 'Data Set B' with numbers 7, 12, 19, 23 and label 'Ones digits: 7, 2, 9, 3'.",
           "tangible_type": "image"
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:01:48.193876+00:00"
+  "_generated_at": "2026-04-27T15:57:28.425848+00:00"
 }

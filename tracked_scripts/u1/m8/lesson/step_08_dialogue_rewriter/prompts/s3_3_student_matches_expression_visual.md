@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:05:22.366808
+# Generated: 2026-04-27T10:59:58.020500
 ======================================================================
 
 ## API Parameters
@@ -948,7 +948,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "That's the one—5 groups with 3 in each. That's what 5 times 3 means.",
+      "text": "That's the one—5 groups with 3 in each.",
       "context": "on_correct"
     }
   ]

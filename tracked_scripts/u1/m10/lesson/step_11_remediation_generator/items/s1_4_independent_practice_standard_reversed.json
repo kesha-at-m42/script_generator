@@ -12,7 +12,7 @@
           [
             {
               "type": "dialogue",
-              "text": "Not quite. Count the bags, then count what's in each bag."
+              "text": "Check the picture. Count the bags. Count what's in each bag."
             }
           ]
         ]
@@ -27,17 +27,16 @@
           [
             {
               "type": "scene",
-              "method": "animate",
+              "method": "update",
               "tangible_id": "equal_groups_bags",
               "params": {
-                "event": "highlight_containers_sequential",
-                "status": "proposed",
-                "description": "Bags highlight one at a time in sequence: 1, 2, 3, 4."
+                "highlight_containers": true,
+                "description": "All 4 bags highlight to show the group count."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let's count together. Four bags. Now count the marbles in one bag. How many do you see in each?"
+              "text": "Here's a hint: I see 4 bags. That's 4 groups. Count the marbles in one bag. That number goes in the middle. Then skip-count by that number 4 times to find the product."
             }
           ]
         ]
@@ -51,21 +50,26 @@
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equal_groups_bags",
+              "tangible_id": "equation_builder_main",
               "params": {
-                "event": "highlight_containers_sequential",
+                "event": "demonstrate_tile_placement",
                 "status": "confirmed",
-                "description": "Bags highlight sequentially as guide counts: 1, 2, 3, 4."
+                "description": "System demonstrates placing tiles: 4 in groups slot, 6 in items slot, 24 in product slot.",
+                "placed_values": {
+                  "groups": 4,
+                  "items": 6,
+                  "total": 24
+                }
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. First, count the bags: 1, 2, 3, 4. Four bags, that's the first number. Now look inside one bag and count: 1, 2, 3, 4, 5, 6. Six marbles in each bag, that's the second number. Four groups of 6. Now multiply: 4 times 6 equals 24. The equation is 4 times 6 equals 24."
+              "text": "Let me show you how this works. First, I count the bags. That's the number of groups: 4. Then I count the marbles in one bag: 6. So I've got 4 groups of 6. Now I skip-count by 6 four times: 6, 12, 18, 24. The product is 24. The equation is 4 times 6 equals 24. Four bags of 6 marbles means the same value as 24 total marbles."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:08:00.835928+00:00"
+  "_generated_at": "2026-04-27T16:02:27.861901+00:00"
 }

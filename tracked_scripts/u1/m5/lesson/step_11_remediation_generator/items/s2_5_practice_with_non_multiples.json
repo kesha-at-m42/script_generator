@@ -11,24 +11,8 @@
         "steps": [
           [
             {
-              "type": "scene",
-              "method": "add",
-              "tangible_id": "bar_graph_points_preview",
-              "tangible_type": "bar_graph",
-              "params": {
-                "mode": "reading",
-                "orientation": "vertical",
-                "scale": 1,
-                "axis_range": [
-                  0,
-                  31
-                ],
-                "description": "Preview of Scale of 1 appears showing 32 tick marks from 0 to 31."
-              }
-            },
-            {
               "type": "dialogue",
-              "text": "Scale of 1 works for showing exact values. But count those marks: 32 lines to reach 31. That's a lot. Is there a cleaner way?"
+              "text": "Scale of 1 shows exact values, but count how many marks you'd need to reach 31."
             }
           ]
         ]
@@ -56,7 +40,7 @@
             },
             {
               "type": "dialogue",
-              "text": "Look at 22, 8, 31. Their ones place digits are 2, 8, 1. None are 0 or 5, so they won't land exactly on Scale of 5. Which scale shows any whole number exactly?"
+              "text": "Look at 22, 8, and 31. Do they end in 0 or 5? Those numbers won't land exactly on a line with Scale of 5."
             }
           ]
         ]
@@ -76,15 +60,16 @@
               "params": {
                 "highlight_values": [
                   22,
+                  15,
                   8,
                   31
                 ],
-                "description": "Values 22, 8, and 31 highlight in the data table."
+                "description": "All four values highlight in the data table."
               }
             },
             {
               "type": "dialogue",
-              "text": "Scale of 10 is clean, but look at 22, 8, 31. None end in 0 or 5, so they won't land exactly on the tick marks. We need a scale that shows any whole number exactly."
+              "text": "Check the ones place: 2, 5, 8, 1. Only 15 ends in 0 or 5. Scale of 10 won't show the others exactly."
             }
           ]
         ]
@@ -97,46 +82,22 @@
           [
             {
               "type": "scene",
-              "method": "add",
-              "tangible_id": "bar_graph_points",
-              "tangible_type": "bar_graph",
-              "params": {
-                "mode": "reading",
-                "orientation": "vertical",
-                "categories": [
-                  "Round 1",
-                  "Round 2",
-                  "Round 3",
-                  "Round 4"
-                ],
-                "values": [
-                  22,
-                  15,
-                  8,
-                  31
-                ],
-                "scale": 2,
-                "description": "Bar graph with Scale of 2 appears. All four bars displayed at correct heights."
-              }
-            },
-            {
-              "type": "scene",
               "method": "animate",
-              "tangible_id": "bar_graph_points",
+              "tangible_id": "data_table",
               "params": {
-                "event": "highlight_exact_placements",
+                "event": "highlight_ones_digits",
                 "status": "confirmed",
-                "description": "Each bar pulses to show it lands exactly on a line or halfway between lines. 22 is at 22 (on the line), 15 is halfway between 14 and 16, 8 is at 8 (on the line), 31 is halfway between 30 and 32."
+                "description": "The ones place digits 2, 5, 8, 1 highlight sequentially in the data table."
               }
             },
             {
               "type": "dialogue",
-              "text": "The answer is Scale of 2. Here's why: when values don't end in 0 or 5, Scale of 2 shows them exactly. Half of 2 is 1, so every whole number lands either on a line or exactly halfway between. 22 is on the line at 22. 15 is exactly halfway between 14 and 16. 8 is on the line at 8. 31 is exactly halfway between 30 and 32. Scale of 2 works for any whole number."
+              "text": "Let me show you. Check each ones place digit: 2, 5, 8, 1. Three of them aren't 0 or 5, so they aren't multiples of 5. Scale of 2 lets us show any whole number exactly because half of 2 is 1. The answer is Scale of 2."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:05:34.031054+00:00"
+  "_generated_at": "2026-04-27T16:02:46.786332+00:00"
 }

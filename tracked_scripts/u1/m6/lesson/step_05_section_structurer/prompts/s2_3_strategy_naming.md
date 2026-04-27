@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:01:28.032403
+# Generated: 2026-04-27T10:55:20.561872
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -819,7 +835,7 @@ Cacheable: Yes
   "on_correct": "\"Find the total by adding. That's always our first step when we see 'combined.'\"",
   "on_incorrect": "\"When the question says 'combined,' we add those categories first. That's our first step.\"",
   "design_note": "Explicit strategy naming. The strategy is stated, displayed, and verified. This is the key learning of M6.",
-  "_generated_at": "2026-04-20T16:59:22.969832+00:00",
+  "_generated_at": "2026-04-27T15:52:50.755528+00:00",
   "workspace_specs": {
     "toys": [],
     "tools": [
@@ -829,7 +845,8 @@ Cacheable: Yes
       "Strategy statement",
       "Find the combined total first"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_1_transition_warmup\n# Section Summary: s1_1_transition_warmup\n\n**VISUAL STATE:** A horizontal bar graph titled \"Favorite Lunch Foods\" is displayed in reading mode with a scale of 5. The graph contains four categories with the following values: Pizza = 45, Tacos = 25, Salad = 10, and Burgers = 15.\n\n**CONTENT:** This transition section bridges prior graph-reading skills (learned in Warmup) to problem-solving applications using graphs. Students are introduced to the context of using data visualization to answer questions, with no new vocabulary formally introduced.\n\n**STUDENT ACTION:** The student passively viewed the bar graph display as the instructor introduced the lesson transition and prepared for an upcoming comprehension check on previously learned material.\n\n---\n\n## s1_2_single_step_activation\n# Section Summary: s1_2_single_step_activation\n\n**VISUAL STATE:** A horizontal bar graph titled \"Favorite Lunch Foods\" is displayed in reading mode with scale 5. The graph contains four categories with exact values: Pizza=45, Tacos=25, Salad=10, Burgers=15. A multiple-choice tool is active on screen.\n\n**CONTENT:** Students practiced interpreting bar graph data and performing comparison subtraction. The phrase \"how many more\" was formally introduced as a signal to subtract when comparing two quantities from a graph.\n\n**STUDENT ACTION:** The student answered a multiple-choice question asking \"How many more students chose pizza than salad?\" by selecting 35 (the correct answer derived from 45 − 10). Upon correct selection, feedback reinforced the subtraction strategy and the meaning of \"how many more\" as a comparison operation.\n\n---\n\n## s1_3_section_transition\n# Section Summary: s1_3_section_transition\n\n**VISUAL STATE:**\nA horizontal bar graph titled \"Favorite Lunch Foods\" is displayed in reading mode with a scale of 5. The graph shows four categories with their exact values: Pizza = 45, Tacos = 25, Salad = 10, and Burgers = 15.\n\n**CONTENT:**\nThe instructor reinforced that \"how many more\" problems require comparison through subtraction, then introduced the new concept of comparing across multiple categories within a single dataset rather than just two values.\n\n**STUDENT ACTION:**\nNo direct student interaction occurred in this transition beat; the student listened to instruction while viewing the multi-category graph as preparation for upcoming comparison tasks.\n\n---\n\n## s2_1_return_warmup_question\n# Section Summary: s2_1_return_warmup_question\n\n**VISUAL STATE:** A horizontal bar graph titled \"Favorite Lunch Foods\" (scale 5) displays four categories with their values: Pizza=45, Tacos=25, Salad=10, Burgers=15. The graph is in reading mode. A multi-select tool appears with all four category options (Pizza, Tacos, Salad, Burgers) available for selection, along with the question: \"How many more students chose pizza than tacos and salad together?\"\n\n**CONTENT:** Students practiced multi-step problem decomposition by identifying which data categories are relevant to answering a comparison question. The lesson introduced the concept that not all available data categories are needed for every question—students learned to distinguish between relevant and irrelevant information (Burgers was irrelevant to this question).\n\n**STUDENT ACTION:** Students selected three categories (Pizza, Tacos, and Salad) from a multi-select prompt asking \"Which categories do we need?\" They correctly identified the three categories mentioned in the question while excluding Burgers, receiving confirmation that their selection was correct.\n\n---\n\n## s2_2_worked_example_with_think_aloud\n# Section Summary: Worked Example with Think-Aloud\n\n**VISUAL STATE:** A horizontal bar graph titled \"Favorite Lunch Foods\" is displayed in reading mode with a scale of 5. The graph contains four categories with exact values: Pizza (45), Tacos (25), Salad (10), and Burgers (15). By section end, the Pizza bar is highlighted, and a comparison animation shows 45 versus 35.\n\n**CONTENT:** This section modeled multi-step problem-solving using a think-aloud strategy. The instructor demonstrated how to identify the keyword \"together\" to recognize when addition is needed, then how to use that intermediate sum (35) as a basis for comparison. The concept of \"how many more\" (requiring subtraction) was practiced, along with the vocabulary term \"combined.\"\n\n**STUDENT ACTION:** The student observed the instructor's reasoning process rather than performing independent actions. The instructor highlighted relevant bars (Tacos and Salad together, then Pizza), displayed calculations (25 + 10 = 35), and showed the final comparison (45 − 35 = 10) through animations to model the complete solution pathway."
 }
 </input>
 

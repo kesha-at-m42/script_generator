@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:02:52.881635
+# Generated: 2026-04-27T10:56:02.024609
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1877,7 +1881,7 @@ Cacheable: Yes
       "tangible_id": "image_butterflies",
       "tangible_type": "image",
       "params": {
-        "description": "Image 3: 4 groups of 2 butterflies in circled clusters"
+        "description": "Image 3: 4 groups of 2 butterflies (circled clusters)"
       },
       "id": "s2_1_context_variety_same_structure_b2"
     },
@@ -1894,7 +1898,7 @@ Cacheable: Yes
           "=",
           "8"
         ],
-        "description": "One equation below all three images: 4 × 2 = 8"
+        "description": "Equation displayed below all three images: 4 × 2 = 8"
       },
       "id": "s2_1_context_variety_same_structure_b3"
     },
@@ -1926,7 +1930,7 @@ Cacheable: Yes
               }
             ]
           },
-          "description": "Student selected both A and B, correct",
+          "description": "Student selected A and B only, both true",
           "is_correct": true,
           "beats": [
             {
@@ -1945,28 +1949,35 @@ Cacheable: Yes
         {
           "tangible_id": "image_books",
           "tangible_type": "image",
-          "description": "Image showing 4 rows of 2 books on shelves"
+          "description": "Image 1: 4 rows of 2 books on shelves"
         },
         {
           "tangible_id": "image_cups",
           "tangible_type": "image",
-          "description": "Image showing 4 stacks of 2 cups"
+          "description": "Image 2: 4 stacks of 2 cups"
         },
         {
           "tangible_id": "image_butterflies",
           "tangible_type": "image",
-          "description": "Image showing 4 groups of 2 butterflies in circled clusters"
+          "description": "Image 3: 4 groups of 2 butterflies (circled clusters)"
         },
         {
           "tangible_id": "equation_shared",
           "tangible_type": "equation",
-          "description": "Equation displayed below all three images: 4 × 2 = 8"
+          "description": "Equation displayed below all three images: 4 × 2 = 8",
+          "expression": [
+            "4",
+            "x",
+            "2",
+            "=",
+            "8"
+          ]
         }
       ],
       "id": "s2_1_context_variety_same_structure_b6"
     }
   ],
-  "_generated_at": "2026-04-20T17:01:37.403028+00:00"
+  "_generated_at": "2026-04-27T15:54:14.471130+00:00"
 }
 </input>
 

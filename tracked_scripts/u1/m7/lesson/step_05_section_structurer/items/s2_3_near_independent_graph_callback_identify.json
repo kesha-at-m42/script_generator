@@ -8,11 +8,11 @@
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
+        "container_type": "circles",
         "container_count": 4,
         "items_per_container": 5,
-        "container_type": "circle",
-        "item_type": "dot",
-        "description": "4 circles appear, each containing 5 dots. Same structure as the Warmup graph: 4 groups of 5."
+        "orientation": "horizontal",
+        "description": "4 circles arranged horizontally, each containing 5 dots."
       }
     },
     {
@@ -20,25 +20,54 @@
       "text": "You know this already. You did something like this in the graph."
     },
     {
-      "type": "dialogue",
-      "text": "What do you see?"
+      "type": "prompt",
+      "text": "What do you see?",
+      "tool": "multiple_choice",
+      "options": [
+        "2 groups of 4",
+        "4 groups of 5",
+        "5 groups of 4",
+        "4 groups of 4"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "4 groups of 5"
+          },
+          "description": "Student identified 4 groups of 5, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "4 groups of 5. Just like the graph. 4 symbols, each worth 5. Here, 4 circles, 5 dots each."
+            }
+          ]
+        }
+      ]
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "equal_groups_circles",
-          "description": "4 circles, each containing 5 dots. Equal groups structure visible.",
+          "description": "4 circles arranged horizontally in reading mode, each containing 5 dots.",
           "tangible_type": "equal_groups",
           "mode": "reading",
+          "container_type": "circles",
           "container_count": 4,
-          "items_per_container": 5
+          "items_per_container": 5,
+          "orientation": "horizontal"
         }
       ]
     },
     {
       "type": "dialogue",
       "text": "That's multiplication."
+    },
+    {
+      "type": "dialogue",
+      "text": "Which expression matches?"
     },
     {
       "type": "prompt",
@@ -72,14 +101,16 @@
       "elements": [
         {
           "tangible_id": "equal_groups_circles",
-          "description": "4 circles, each containing 5 dots. Multiple choice options displayed.",
+          "description": "4 circles arranged horizontally in reading mode, each containing 5 dots.",
           "tangible_type": "equal_groups",
           "mode": "reading",
+          "container_type": "circles",
           "container_count": 4,
-          "items_per_container": 5
+          "items_per_container": 5,
+          "orientation": "horizontal"
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:02:33.272961+00:00"
+  "_generated_at": "2026-04-27T15:57:00.586160+00:00"
 }

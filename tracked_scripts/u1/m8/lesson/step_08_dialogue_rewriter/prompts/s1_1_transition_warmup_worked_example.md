@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:04:59.030583
+# Generated: 2026-04-27T10:59:32.233685
 ======================================================================
 
 ## API Parameters
@@ -960,7 +960,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "1, 2, 3. Three apples. Let me check another...",
+      "text": "1, 2, 3. Three apples. Let me check another.",
       "context": "lesson"
     },
     {
@@ -980,7 +980,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "I built 4 times 3. This is called an EXPRESSION. An expression uses numbers and symbols to show the math. No equal sign — just the numbers and the times symbol.",
+      "text": "I built 4 times 3. This is called an EXPRESSION. An expression uses numbers and symbols to show the math. No equal sign, just the numbers and the times symbol.",
       "context": "lesson"
     }
   ]

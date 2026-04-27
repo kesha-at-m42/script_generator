@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:15.198410
+# Generated: 2026-04-27T10:58:22.393590
 ======================================================================
 
 ## API Parameters
@@ -945,6 +945,10 @@ Cacheable: Yes
   "dialogues": [
     {
       "text": "One more. Think about what to do first.",
+      "context": "lesson"
+    },
+    {
+      "text": "How many more dogs are there than fish and birds combined?",
       "context": "lesson"
     },
     {

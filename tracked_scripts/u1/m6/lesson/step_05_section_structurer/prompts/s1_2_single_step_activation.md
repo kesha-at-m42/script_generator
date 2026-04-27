@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:00:51.042580
+# Generated: 2026-04-27T10:54:19.020507
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -816,11 +832,11 @@ Cacheable: Yes
   "options": "[A) 55, B) 35, C) 30, D) 15]",
   "correct_answer": "B (45 - 10 = 35)",
   "on_correct": "\"35 more. 'How many more' means compare—we subtract. Pizza is 45, salad is 10, so 45 minus 10 is 35.\"",
-  "on_incorrect_a_added": "\"'How many more' means compare, not combine. When we compare, we subtract to find the difference.\"",
-  "on_incorrect_c_or_d_read_wrong_value": "\"Check the bars again. Pizza is 45, salad is 10. 'How many more' means subtract: 45 minus 10.\"",
+  "on_incorrect": "(A - added) \"'How many more' means compare, not combine. When we compare, we subtract to find the difference.\"",
+  "on_incorrect_2": "(C or D - read wrong value) \"Check the bars again. Pizza is 45, salad is 10. 'How many more' means subtract: 45 minus 10.\"",
   "remediation": "Light only (this is activation, not new teaching)",
   "design_note": "This verifies M1 foundation. If students struggle here, the issue is prior knowledge, not M6 content. Light remediation only.",
-  "_generated_at": "2026-04-20T16:59:05.887884+00:00",
+  "_generated_at": "2026-04-27T15:52:27.202182+00:00",
   "workspace_specs": {
     "toys": [
       "bar_graph",
@@ -830,7 +846,8 @@ Cacheable: Yes
       "multiple_choice"
     ],
     "workspace_carry_over": true
-  }
+  },
+  "prior_section_summaries": "## s1_1_transition_warmup\n# Section Summary: s1_1_transition_warmup\n\n**VISUAL STATE:** A horizontal bar graph titled \"Favorite Lunch Foods\" is displayed in reading mode with a scale of 5. The graph contains four categories with the following values: Pizza = 45, Tacos = 25, Salad = 10, and Burgers = 15.\n\n**CONTENT:** This transition section bridges prior graph-reading skills (learned in Warmup) to problem-solving applications using graphs. Students are introduced to the context of using data visualization to answer questions, with no new vocabulary formally introduced.\n\n**STUDENT ACTION:** The student passively viewed the bar graph display as the instructor introduced the lesson transition and prepared for an upcoming comprehension check on previously learned material."
 }
 </input>
 

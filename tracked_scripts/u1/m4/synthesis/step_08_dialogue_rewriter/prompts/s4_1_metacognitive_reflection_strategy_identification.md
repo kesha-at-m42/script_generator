@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T11:58:43.602625
+# Generated: 2026-04-27T10:54:38.400249
 ======================================================================
 
 ## API Parameters
@@ -956,7 +956,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "You learned to read values at the lines AND between the lines. You used 'half of 10 is 5' to figure out tricky values.",
+      "text": "You learned to read values at the lines AND between the lines. You used half of 10 is 5 to figure out tricky values.",
       "context": "lesson"
     },
     {

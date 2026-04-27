@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:01:11.637360
+# Generated: 2026-04-27T10:54:43.385435
 ======================================================================
 
 ## API Parameters
@@ -948,15 +948,15 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "The egg carton. 2 rows of 6 eggs. That's 2 times 6. Equal groups in the grocery store.",
+      "text": "The egg carton: 2 rows of 6 eggs. That's 2 times 6. Equal groups in the grocery store.",
       "context": "on_correct"
     },
     {
-      "text": "The parking lot. 3 rows of 4 cars. That's 3 times 4. Equal groups at the mall.",
+      "text": "The parking lot: 3 rows of 4 cars. That's 3 times 4. Equal groups at the mall.",
       "context": "on_correct"
     },
     {
-      "text": "The bookshelf. 5 shelves with 3 books each. That's 5 times 3. Equal groups in your room.",
+      "text": "The bookshelf: 5 shelves with 3 books each. That's 5 times 3. Equal groups in your room.",
       "context": "on_correct"
     }
   ]

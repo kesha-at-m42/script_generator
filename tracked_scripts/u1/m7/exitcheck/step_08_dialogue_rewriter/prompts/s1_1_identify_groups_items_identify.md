@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:00:17.768816
+# Generated: 2026-04-27T10:53:51.211491
 ======================================================================
 
 ## API Parameters
@@ -956,11 +956,11 @@ Cacheable: Yes
       "context": "on_correct"
     },
     {
-      "text": "Now how many in each group?",
+      "text": "How many in each group?",
       "context": "lesson"
     },
     {
-      "text": "5 markers in each box. 3 groups of 5. That is how you identify groups and items.",
+      "text": "5 markers in each box. 3 groups of 5.",
       "context": "on_correct"
     }
   ]

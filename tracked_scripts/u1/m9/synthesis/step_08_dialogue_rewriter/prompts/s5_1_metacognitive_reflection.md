@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:02:20.006438
+# Generated: 2026-04-27T10:56:14.669941
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,11 @@ Cacheable: Yes
   "id": "s5_1_metacognitive_reflection",
   "dialogues": [
     {
-      "text": "You just practiced comparing data on bar graphs. You read the bars, found their heights, and compared the values. That's how you use bar graphs to answer questions about data.",
+      "text": "You have been practicing multiplication with 2, 5, and 10. You used patterns to check your work and predict answers. You connected picture graphs, skip-counting, and equations.",
+      "context": "lesson"
+    },
+    {
+      "text": "Those patterns are your toolkit. They help you work faster and check your thinking.",
       "context": "lesson"
     }
   ]

@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:00:19.793590
+# Generated: 2026-04-27T10:53:31.121382
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -821,7 +837,7 @@ Cacheable: Yes
   "remediation": "Pipeline",
   "remediation_note": "If student misidentifies factors, prompt: first factor = number of groups (6), second factor = items in each group (2). Then skip-count by 2s six times for product (12).",
   "design_note": "Most complex problem — tile placement instead of MC. Student must extract factors from visual, compute, AND place all three tiles. Tests ×2 family. ×2 computation was taught in Lesson 2.1-2.2 (MC method); visual-to-equation from W.1 and 3.4; tile placement was practiced with ×5 and ×10 (2.3, 3.1-3.3). EC.2 combines a practiced family (×2) with a practiced method (tiles) in a new pairing — appropriate for assessment. Per SME feedback: giving factors verbally while calling this a \"harder\" problem is backwards — extracting factors from a visual is the genuinely harder demand, which is why EC.2 uses a visual while EC.3 drops to verbal only.",
-  "_generated_at": "2026-04-20T16:59:52.336797+00:00",
+  "_generated_at": "2026-04-27T15:52:49.275090+00:00",
   "workspace_specs": {
     "toys": [
       "equation_builder"
@@ -829,7 +845,8 @@ Cacheable: Yes
     "tools": [
       "place_tile"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_0_transition_into_exit_check\n# Section Summary: s1_0_transition_into_exit_check\n\n**VISUAL STATE:** No tangible visuals or data displays remain on screen at section end; the scene is blank/cleared.\n\n**CONTENT:** This transition section bridges the prior work on building equations for multiplication patterns (specifically the 2s, 5s, and 10s times tables) into an assessment phase. No new vocabulary or concepts are formally introduced; instead, the section signals a shift from guided practice to knowledge verification.\n\n**STUDENT ACTION:** The student did not perform an interactive action in this section. This is a dialogue-only transition that sets expectations for the upcoming exit check assessment.\n\n---\n\n## s1_1_compute_5_product_identify\n# Section Summary: s1_1_compute_5_product_identify\n\n**VISUAL STATE:** An equation builder tangible (equation_builder_7x5) displays the multiplication expression \"7 × 5 = __\" in reading mode. The factors 7 and 5 are pre-filled in their respective slots. The product slot is blank with four multiple-choice options displayed: 12, 30, 35, 40.\n\n**CONTENT:** Students practiced identifying the product of a multiplication expression (7 × 5). The vocabulary term \"product\" was formally introduced as the result of multiplication. The lesson reinforced that multiples of 5 end in 5, supporting the correct answer identification.\n\n**STUDENT ACTION:** The student selected the correct multiple-choice answer (35) from the four available options (12, 30, 35, 40) to complete the equation 7 × 5 = 35."
 }
 </input>
 

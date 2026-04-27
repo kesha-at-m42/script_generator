@@ -11,24 +11,27 @@
         "container_count": 8,
         "items_per_container": 4,
         "item_type": "plates",
-        "container_style": "stacks",
-        "description": "8 stacks of 4 plates appear. Plates clearly stacked."
+        "containers_visible": true,
+        "description": "Equal groups visualization appears. 8 stacks of 4 plates. Plates are clearly stacked and separated."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder_product",
+      "tangible_id": "equation_builder",
       "tangible_type": "equation_builder",
       "params": {
-        "template": "standard_form",
-        "expression": [
+        "template": [
           "8",
           "×",
           "4",
           "=",
           "__"
         ],
+        "prefilled_slots": {
+          "groups": 8,
+          "items": 4
+        },
         "palette": [
           28,
           30,
@@ -46,24 +49,24 @@
       "type": "prompt",
       "text": "8 × 4 = ☐. Find the product. Place the number.",
       "tool": "place_tile",
-      "target": "equation_builder_product",
+      "target": "equation_builder",
       "validator": [
         {
           "condition_id": "correct",
           "condition": {
             "total": 32
           },
-          "description": "Student placed 32 in the product slot",
+          "description": "Student placed 32 in the product slot, correct",
           "is_correct": true,
           "beats": [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equation_builder_product",
+              "tangible_id": "equation_builder",
               "params": {
-                "event": "tile_locks_in_slot",
+                "event": "confirm_tile_placement",
                 "status": "confirmed",
-                "description": "32 tile locks into the product slot, completing the equation."
+                "description": "The 32 tile locks into the product slot, equation now complete: 8 × 4 = 32."
               }
             },
             {
@@ -79,20 +82,33 @@
       "elements": [
         {
           "tangible_id": "equal_groups_plates",
-          "description": "8 stacks of 4 plates. Equal groups representation with plates clearly stacked.",
+          "description": "Equal groups showing 8 stacks of 4 plates, plates clearly stacked and separated.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 8,
-          "items_per_container": 4
+          "items_per_container": 4,
+          "item_type": "plates",
+          "containers_visible": true
         },
         {
-          "tangible_id": "equation_builder_product",
-          "description": "Equation Builder showing completed equation: 8 × 4 = 32. Product slot filled.",
+          "tangible_id": "equation_builder",
+          "description": "Equation Builder displaying completed equation 8 × 4 = 32. Product slot filled with 32.",
           "tangible_type": "equation_builder",
-          "template": "standard_form"
+          "template": [
+            "8",
+            "×",
+            "4",
+            "=",
+            "32"
+          ],
+          "placed_values": {
+            "groups": 8,
+            "items": 4,
+            "total": 32
+          }
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:04:15.887902+00:00"
+  "_generated_at": "2026-04-27T15:58:00.433782+00:00"
 }

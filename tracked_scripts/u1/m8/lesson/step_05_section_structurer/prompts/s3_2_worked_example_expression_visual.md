@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:03:31.562094
+# Generated: 2026-04-27T10:57:24.880968
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -822,14 +838,15 @@ Cacheable: Yes
   "guide_5": "\"The expression tells you what to look for. 2 times 6 MEANS 2 groups with 6 in each.\"",
   "student_action": "Observation only (no response required). Worked example—demonstration of reverse direction thinking.",
   "design_note": "Reverse direction confirms that expressions represent meaning, not just symbol patterns. Options include: correct (2 × 6), reversal (6 × 2), sum of factors (8 items scattered), and product-same-wrong-expression (3 bags of 4 items, also totals 12).",
-  "_generated_at": "2026-04-20T17:00:14.100578+00:00",
+  "_generated_at": "2026-04-27T15:53:19.765135+00:00",
   "workspace_specs": {
     "toys": [
       "equal_groups",
       "equation_builder"
     ],
     "tools": []
-  }
+  },
+  "prior_section_summaries": "## s1_1_transition_warmup_worked_example\n# Section Summary: s1_1_transition_warmup_worked_example\n\n**VISUAL STATE AT SECTION END:**\nTwo tangibles are on screen: (1) Equal groups visualization showing 4 bags with 3 apples each, in reading mode, full separation, context \"bags_apples\"; (2) Equation builder displaying the completed expression \"4 × 3\" with template slots filled as [4, ×, 3].\n\n**CONTENT:**\nThis worked example introduced the concept of building multiplication expressions from equal groups representations. The guide demonstrated a two-step process: identifying the number of groups (4 bags) and the number of items in each group (3 apples per bag), then translating this into symbolic form. The vocabulary term **EXPRESSION** was formally introduced, defined as numbers and symbols showing math without an equal sign—specifically using the times symbol (×).\n\n**STUDENT ACTION:**\nThe student observed a guided demonstration rather than performing independent actions. The guide modeled clicking to fill the equation builder slots: first entering 4 (number of groups) in slot 0, then entering 3 (items per group) in slot 2, resulting in the complete expression 4 × 3.\n\n---\n\n## s1_2_student_builds_with_method\n# Section Summary: s1_2_student_builds_with_method\n\n**VISUAL STATE:** Two tangibles appear on screen at section end: (1) Equal groups visualization labeled \"equal_groups_bags\" displaying 3 bags with 6 items each in reading mode with full separation; (2) Equation builder labeled \"equation_builder\" showing the completed expression \"3 × 6\" (three slots: \"3\", \"×\", \"6\").\n\n**CONTENT:** This section introduced the skill of translating equal groups visual representations into multiplicative expressions. The vocabulary \"groups\" and \"in each group\" were formally used to decompose the structure of multiplication, establishing that 3 × 6 means \"3 groups of 6.\"\n\n**STUDENT ACTION:** The student answered two sequential multiple-choice questions identifying the number of groups (3) and items per group (6), then selected the correct expression \"3 × 6\" from four options. Upon correct selection, the equation builder dynamically filled with the values, visually confirming the student's construction of the expression.\n\n---\n\n## s2_1_show_pattern_bags_boxes\n# Section Summary: s2_1_show_pattern_bags_boxes\n\n## VISUAL STATE\nTwo side-by-side equal groups visualizations are displayed at section end:\n- **Left (equal_groups_bags)**: 2 bags, 5 items per bag, reading mode, full separation, with label \"2 groups\" and equation \"2 × 5\" below\n- **Right (equal_groups_boxes)**: 2 boxes, 5 items per box, reading mode, full separation, with label \"2 groups\" and equation \"2 × 5\" below\n\n## CONTENT\nThe section introduces the concept that **equal groups follow the same mathematical structure regardless of the container type**. Students learned that different concrete contexts (bags vs. boxes) can represent identical abstract structures: both visualizations show 2 groups of 5 items, both express as 2 × 5. The vocabulary \"groups\" and the multiplication expression notation (2 × 5) were formally highlighted.\n\n## STUDENT ACTION\nThis is a transition/demonstration section with no direct student interaction. The student observed animations highlighting containers and items, read labels as they appeared, and listened to dialogue explaining the structural equivalence between the two representations.\n\n---\n\n## s2_2_equal_vs_unequal_groups_can\n# Section Summary: Equal vs. Unequal Groups\n\n**VISUAL STATE:** Four equal_groups tangibles displayed in reading mode with full separation, each showing bags with items:\n- **Option A** (selected): 3 bags, 4 items per bag\n- **Option B** (not selected): 3 bags, 4/2/6 items respectively\n- **Option C** (selected): 4 bags, 3 items per bag\n- **Option D** (not selected): 4 bags, 3/3/1/5 items respectively\n\n**CONTENT:** Students learned the foundational concept that **multiplication represents equal groups**—each container must hold the same quantity. The vocabulary distinction between \"equal groups\" (can be expressed as multiplication) and \"unequal groups\" (cannot) was formally introduced.\n\n**STUDENT ACTION:** Student completed a multi-select prompt identifying which pictures show equal groups, correctly selecting options A and C. Feedback reinforced that A represents \"3 times 4\" and C represents \"4 times 3,\" while B and D contain unequal quantities and cannot be written as multiplication expressions.\n\n---\n\n## s2_3_introducing_methods_c_d_tile\n# Section Summary: s2_3_introducing_methods_c_d_tile\n\n**VISUAL STATE AT SECTION END:**\nTwo tangibles are on screen: (1) Equal groups visualization displaying 5 boxes with 2 items each, in reading mode with full separation and boxes_items context; (2) Equation builder showing the completed expression \"5 × 2\" with both slots filled, tile palette range 1–10 visible below.\n\n**CONTENT:**\nThis section introduced the tile-building method for constructing multiplication expressions. Students learned that equal groups are fundamental to multiplication and that the container type doesn't matter—only the group structure. The formal process taught: identify the number of groups (first slot), then identify items per group (second slot), building the expression piece by piece using number tiles rather than selecting pre-made expressions.\n\n**STUDENT ACTION:**\nThe student observed a guided demonstration where the instructor dragged the 5 tile into the first slot (representing 5 groups of boxes) and the 2 tile into the second slot (representing 2 items per box), completing the expression 5 × 2. The section ends with an invitation for the student to practice this tile-placement method independently.\n\n---\n\n## s2_4_student_builds_with_tiles_decomposed\n# Section Summary: s2_4_student_builds_with_tiles_decomposed\n\n**VISUAL STATE:** Two tangibles appear on screen at section end: (1) Equal groups visualization displaying 2 bags with 4 items each in reading mode with full separation; (2) Equation builder showing the completed expression \"2 × 4\" with both slots filled and tiles locked in place, tile palette range 1–10 visible below.\n\n**CONTENT:** Students practiced translating a visual equal groups representation into multiplicative notation. The concept introduced is that multiplication expressions (groups × items per group) directly represent equal groups structures. Vocabulary: \"groups,\" \"items per group,\" and the multiplication symbol (×) as representing \"times\" or \"groups of.\"\n\n**STUDENT ACTION:** Student placed tiles into the equation builder's two empty slots to build the expression matching the visual model—placing \"2\" in the first slot (number of groups) and \"4\" in the second slot (items per group)—correctly constructing 2 × 4.\n\n---\n\n## s3_1_independent_tile_building\n# Section Summary: s3_1_independent_tile_building\n\n**VISUAL STATE:** Two tangibles are displayed at section end. (1) Equal groups visualization showing 3 boxes, each containing 5 items, in reading mode with full separation and boxes_items context. (2) Equation builder displaying the completed expression \"3 × 5\" with both slots filled; tile palette remains visible showing options: 2, 3, 5, 8, 9, 12, 15.\n\n**CONTENT:** Students practiced translating a visual equal groups representation into multiplicative notation by identifying two key quantities: the number of groups (3) and the quantity per group (5). The vocabulary reinforced was the multiplication expression \"3 times 5\" as a symbolic representation of the concrete model.\n\n**STUDENT ACTION:** The student placed tiles into the equation builder's two empty slots, correctly selecting 3 for the first slot (number of groups) and 5 for the second slot (items per group), forming the expression 3 × 5."
 }
 </input>
 

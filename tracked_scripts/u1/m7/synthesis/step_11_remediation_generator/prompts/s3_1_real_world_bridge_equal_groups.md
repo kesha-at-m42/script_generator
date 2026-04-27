@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:01:28.794787
+# Generated: 2026-04-27T10:55:15.298240
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1858,7 +1862,7 @@ Cacheable: Yes
       "tangible_type": "word_problem_area",
       "params": {
         "stem": "A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes.",
-        "description": "Text scenario appears: A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes."
+        "description": "Text scenario appears describing store shelf with juice box packs."
       },
       "id": "s3_1_real_world_bridge_equal_groups_b0"
     },
@@ -1872,8 +1876,8 @@ Cacheable: Yes
       "elements": [
         {
           "tangible_id": "word_problem_real_world",
-          "description": "Text scenario displayed: A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes.",
-          "tangible_type": "word_problem_area"
+          "tangible_type": "word_problem_area",
+          "description": "Text scenario on screen: store shelf with 4 packs of juice boxes, 6 per pack."
         }
       ],
       "id": "s3_1_real_world_bridge_equal_groups_b2"
@@ -1881,11 +1885,11 @@ Cacheable: Yes
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equal_groups_juice",
+      "tangible_id": "equal_groups_shelf",
       "tangible_type": "equal_groups",
       "params": {
         "mode": "building",
-        "description": "Equal groups building interface appears. Empty workspace ready for student to set container count."
+        "description": "Equal groups builder appears. Empty workspace ready for student to build the shelf scene."
       },
       "id": "s3_1_real_world_bridge_equal_groups_b3"
     },
@@ -1895,10 +1899,15 @@ Cacheable: Yes
       "id": "s3_1_real_world_bridge_equal_groups_b4"
     },
     {
+      "type": "dialogue",
+      "text": "How many groups? Set the packs.",
+      "id": "s3_1_real_world_bridge_equal_groups_b5"
+    },
+    {
       "type": "prompt",
       "text": "How many groups? Set the packs.",
       "tool": "set_container_count",
-      "target": "equal_groups_juice",
+      "target": "equal_groups_shelf",
       "validator": [
         {
           "condition_id": "correct",
@@ -1910,42 +1919,41 @@ Cacheable: Yes
           "beats": [
             {
               "type": "dialogue",
-              "text": "Right. 4 packs.",
-              "id": "s3_1_real_world_bridge_equal_groups_b5_v0_b0"
+              "text": "That's it. 4 packs.",
+              "id": "s3_1_real_world_bridge_equal_groups_b6_v0_b0"
             }
           ]
         }
       ],
-      "id": "s3_1_real_world_bridge_equal_groups_b5"
+      "id": "s3_1_real_world_bridge_equal_groups_b6"
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "word_problem_real_world",
-          "description": "Text scenario: A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes.",
-          "tangible_type": "word_problem_area"
+          "tangible_type": "word_problem_area",
+          "description": "Text scenario remains visible."
         },
         {
-          "tangible_id": "equal_groups_juice",
-          "description": "Equal groups in building mode. 4 empty containers displayed. Ready for items per container.",
+          "tangible_id": "equal_groups_shelf",
           "tangible_type": "equal_groups",
           "mode": "building",
-          "container_count": 4
+          "description": "Equal groups builder with 4 empty containers displayed, awaiting items-per-container setting."
         }
       ],
-      "id": "s3_1_real_world_bridge_equal_groups_b6"
+      "id": "s3_1_real_world_bridge_equal_groups_b7"
     },
     {
       "type": "dialogue",
       "text": "How many in each pack? Add the juice boxes.",
-      "id": "s3_1_real_world_bridge_equal_groups_b7"
+      "id": "s3_1_real_world_bridge_equal_groups_b8"
     },
     {
       "type": "prompt",
       "text": "How many in each pack? Add the juice boxes.",
       "tool": "set_items_per_container",
-      "target": "equal_groups_juice",
+      "target": "equal_groups_shelf",
       "validator": [
         {
           "condition_id": "correct",
@@ -1957,59 +1965,55 @@ Cacheable: Yes
           "beats": [
             {
               "type": "dialogue",
-              "text": "That's it. 4 packs, 6 in each. Equal groups, right there on a store shelf.",
-              "id": "s3_1_real_world_bridge_equal_groups_b8_v0_b0"
+              "text": "Right. 4 packs, 6 in each. Equal groups, right there on a store shelf.",
+              "id": "s3_1_real_world_bridge_equal_groups_b9_v0_b0"
             }
           ]
-        }
-      ],
-      "id": "s3_1_real_world_bridge_equal_groups_b8"
-    },
-    {
-      "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "word_problem_real_world",
-          "description": "Text scenario: A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes.",
-          "tangible_type": "word_problem_area"
-        },
-        {
-          "tangible_id": "equal_groups_juice",
-          "description": "Equal groups showing 4 containers, each containing 6 items. Complete representation of the juice box scenario.",
-          "tangible_type": "equal_groups",
-          "mode": "building",
-          "container_count": 4,
-          "items_per_container": 6
         }
       ],
       "id": "s3_1_real_world_bridge_equal_groups_b9"
     },
     {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "word_problem_real_world",
+          "tangible_type": "word_problem_area",
+          "description": "Text scenario remains visible."
+        },
+        {
+          "tangible_id": "equal_groups_shelf",
+          "tangible_type": "equal_groups",
+          "mode": "building",
+          "description": "4 containers, each containing 6 items. Complete equal groups representation of the store shelf."
+        }
+      ],
+      "id": "s3_1_real_world_bridge_equal_groups_b10"
+    },
+    {
       "type": "dialogue",
       "text": "4 groups of 6. That's 4 × 6. Any time you see the same number in each container, packs, bags, boxes, cartons, that's equal groups. It's multiplication, even outside math class.",
-      "id": "s3_1_real_world_bridge_equal_groups_b10"
+      "id": "s3_1_real_world_bridge_equal_groups_b11"
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "word_problem_real_world",
-          "description": "Text scenario: A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes.",
-          "tangible_type": "word_problem_area"
+          "tangible_type": "word_problem_area",
+          "description": "Text scenario remains visible."
         },
         {
-          "tangible_id": "equal_groups_juice",
-          "description": "Equal groups showing 4 containers, each containing 6 items. Represents the completed real-world scenario.",
+          "tangible_id": "equal_groups_shelf",
           "tangible_type": "equal_groups",
           "mode": "building",
-          "container_count": 4,
-          "items_per_container": 6
+          "description": "Completed equal groups showing 4 packs with 6 juice boxes each."
         }
       ],
-      "id": "s3_1_real_world_bridge_equal_groups_b11"
+      "id": "s3_1_real_world_bridge_equal_groups_b12"
     }
   ],
-  "_generated_at": "2026-04-20T17:00:34.105941+00:00"
+  "_generated_at": "2026-04-27T15:54:11.896253+00:00"
 }
 </input>
 

@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:46.797059
+# Generated: 2026-04-27T11:00:35.027918
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,7 @@ Cacheable: Yes
   "id": "s1_2_when_scale_needs_too_many",
   "dialogues": [
     {
-      "text": "Here's data about how many books four students read this month. Dana read the most—80 books!",
+      "text": "Here's data about how many books four students read this month. Dana read the most: 80 books!",
       "context": "lesson"
     },
     {
@@ -956,15 +956,19 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "I could make the graph taller to fit 80. Let's see... I'd need 55, 60, 65, 70, 75, 80...",
+      "text": "I COULD make the graph taller to fit 80. Let's see. I'd need 55, 60, 65, 70, 75, 80.",
       "context": "lesson"
     },
     {
-      "text": "That's a lot of numbers on the axis. 0, 5, 10, 15, 20... all the way up to 80. That's 17 tick marks!",
+      "text": "That's a LOT of numbers on the axis. 0, 5, 10, 15, 20, all the way up to 80. That's 17 tick marks!",
       "context": "lesson"
     },
     {
-      "text": "It works... but is there a better way? When one scale needs too many tick marks, try a bigger scale.",
+      "text": "It works, but is there a better way?",
+      "context": "lesson"
+    },
+    {
+      "text": "When one scale needs too many tick marks, try a bigger scale.",
       "context": "lesson"
     }
   ]

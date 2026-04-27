@@ -12,7 +12,7 @@
           [
             {
               "type": "dialogue",
-              "text": "Look closely at the bags. Count how many bags, then count what's in each bag."
+              "text": "Not quite. Count the bags. That's the first factor. Count the circles in each bag. That's the second factor."
             }
           ]
         ]
@@ -30,12 +30,13 @@
               "method": "update",
               "tangible_id": "equal_groups_bags",
               "params": {
-                "description": "The 9 bags highlight. Then one bag highlights individually, showing the 5 items inside clearly."
+                "highlight_all": true,
+                "description": "All 9 bags highlight. Circles within each bag also highlight."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let's think about this together. You have 9 bags. Each bag contains 5 items. That's 9 groups of 5. Skip count by 5s nine times to find the product. Place all three tiles."
+              "text": "Let's think about this together. There are 9 bags. Each bag has 5 circles. So it's 9 groups of 5. Place those two factors first, then skip count by 5s nine times to find the product."
             }
           ]
         ]
@@ -49,21 +50,36 @@
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equation_builder",
+              "tangible_id": "equal_groups_bags",
               "params": {
-                "event": "model_tile_placement",
+                "event": "skip_count_highlight_sequence",
                 "status": "confirmed",
-                "description": "System places 9 in first slot, 5 in second slot, 45 in product slot. Each tile locks into position sequentially."
+                "description": "Bags highlight sequentially as system counts by 5s. Numbers 5, 10, 15, 20, 25, 30, 35, 40, 45 appear above bags in sequence."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder_9x5",
+              "params": {
+                "template": [
+                  "9",
+                  "×",
+                  "5",
+                  "=",
+                  "45"
+                ],
+                "description": "System completes equation: 9 × 5 = 45."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you how this works. I count the bags: 9 bags. That's my first factor. I count what's in each bag: 5 items. That's my second factor. Now I skip count by 5s, nine times: 5, 10, 15, 20, 25, 30, 35, 40, 45. The product is 45. The complete equation is 9 times 5 equals 45."
+              "text": "Let me show you how to build it. I count the bags: 9 bags. That's the first factor. I count the circles in each bag: 5 circles. That's the second factor. Now I skip count by 5s, nine times: 5, 10, 15, 20, 25, 30, 35, 40, 45. The product is 45. The complete equation is 9 times 5 equals 45."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:06:42.582556+00:00"
+  "_generated_at": "2026-04-27T16:02:02.095187+00:00"
 }

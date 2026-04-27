@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:01:53.973375
+# Generated: 2026-04-27T10:55:41.710790
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -825,7 +841,13 @@ Cacheable: Yes
   "remediation": "Pipeline",
   "remediation_note": "Distractor B (5 × 2) targets reversal of groups and items. Distractor C/D (addition) targets the misconception that equal groups are added rather than multiplied. For either error, redirect to the structure: \"How many groups? (2) How many in each? (5) Groups first: 2 × 5.\"",
   "design_note": "This interaction combines Identify + Expression Selection, preparing students for Section 3's MC recognition tasks. The visual and language are familiar (same context as 1.2); the novelty is selecting from four options that include reversal and addition distractors. If students have internalized \"groups first,\" they should succeed here.",
-  "_generated_at": "2026-04-20T16:59:44.141406+00:00",
+  "divider": "### [SECTION TRANSITION]",
+  "visual_2": "Section divider or brief transition screen.",
+  "guide_3": "\"You found equal groups in bags and boxes. Now let's see if the same thinking works in circles.\"",
+  "voice_note": "Brief, welcoming. No overpraising the Section 1 work. Transition suggests Section 2 will be similar (\"same thinking\") but with a new look (\"circles\").",
+  "divider_2": "## 1.7.2 LESSON SECTION 2: Circles — Transfer + Fading",
+  "purpose_2": "Transfer the two-step routine to a new abstraction level (circles instead of concrete containers). Reduce Guide scaffolding (students are more independent now). Introduce \"product\" vocabulary lightly. Include one callback to graphs to connect this to Warmup's revelation.",
+  "_generated_at": "2026-04-27T15:53:04.459329+00:00",
   "workspace_specs": {
     "toys": [
       "equal_groups"
@@ -833,7 +855,8 @@ Cacheable: Yes
     "tools": [
       "multiple_choice"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_1_transition_warmup_worked_example_worked\n# Section Summary: s1_1_transition_warmup_worked_example_worked\n\n**VISUAL STATE:** At section end, two tangibles are on screen: (1) an equal_groups visualization showing 3 bags (container_type: bags, container_count: 3, items_per_container: 4) in reading mode, and (2) an equation displaying \"3 × 4\" positioned below the bags.\n\n**CONTENT:** This worked example introduces the concept of equal groups and the multiplication symbol (×). Students learned formal vocabulary: \"groups\" (the number of containers), \"in each group\" (items per container), and the phrase \"three groups of four.\" The multiplication symbol (×) was presented as a notation for expressing equal groups in written form.\n\n**STUDENT ACTION:** Students engaged passively as the instructor modeled the problem-solving process: counting containers (3 bags), counting items within one container (4 items), verbalizing the relationship (\"three groups of four\"), and connecting it to the symbolic notation (3 × 4). Students were prompted to repeat the phrase \"three groups of four\" aloud.\n\n---\n\n## s1_2_student_identifies_example_problem_pair\n# Section Summary: s1_2_student_identifies_example_problem_pair\n\n**VISUAL STATE:** An equal groups visualization (tangible_id: equal_groups_boxes) displays 2 boxes in reading mode, with 5 items in each box. This tangible remains on screen throughout the section.\n\n**CONTENT:** The section introduces the concept of **equal groups**—collections with the same number of items in each group. Students practiced identifying the number of groups, the quantity per group, and verbalizing the relationship using the phrase \"X groups of Y.\" The vocabulary term **\"equal groups\"** was formally introduced, with emphasis that equal groups contain the same number in each one.\n\n**STUDENT ACTION:** The student answered three multiple-choice prompts: (1) identified 2 as the number of groups, (2) identified 5 as the number of items in each group, and (3) selected \"2 groups of 5\" to complete the sentence structure \"__ groups of __.\"\n\n---\n\n## s1_3_student_builds_first_build_mode\n# Section Summary: s1_3_student_builds_first_build_mode\n\n**VISUAL STATE:** An equal_groups tangible in building mode displays 3 bags (container_type: bags), each containing 4 items. The interface shows a complete equal groups visualization with container_count = 3 and items_per_container = 4, oriented horizontally in the workspace.\n\n**CONTENT:** Students practiced constructing equal groups by decomposing a multiplication scenario (\"3 groups of 4\") into two sequential steps: first determining the number of groups, then determining the quantity per group. The vocabulary \"groups\" and \"in each group\" was reinforced through dialogue.\n\n**STUDENT ACTION:** The student used the set_container_count tool to input 3 groups, then used the set_items_per_container tool to input 4 items per group, building the complete equal groups model interactively.\n\n---\n\n## s1_4_student_builds_notation_shown_build\n# Section Summary: s1_4_student_builds_notation_shown_build\n\n**VISUAL STATE:** Two tangibles are on screen at section end: (1) Equal groups model (tangible_id: equal_groups_build) displaying 4 bags in horizontal orientation, building mode, with 3 items per bag; (2) Equation display (tangible_id: equation_display) showing the expression \"4 × 3\" positioned below the model.\n\n**CONTENT:** This section introduced multiplication notation using the × symbol. The core concept taught is that multiplication represents counting equal groups, with the first number indicating the number of groups and the second number indicating items per group. The vocabulary formally introduced includes the × symbol and the phrase \"4 groups of 3\" as equivalent to \"4 × 3.\"\n\n**STUDENT ACTION:** The student built an equal groups model by first setting the container count to 4 (creating 4 bags), then setting items per container to 3 (placing 3 items in each bag). The student then observed the corresponding multiplication notation (4 × 3) displayed below their model, connecting the concrete representation to symbolic form."
 }
 </input>
 

@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:01:36.146688
+# Generated: 2026-04-27T10:55:08.558373
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1854,45 +1858,41 @@ Cacheable: Yes
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equal_groups_scenarios",
+      "tangible_id": "real_world_scenarios",
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
         "scenarios": [
           {
-            "id": "scenario_a",
-            "label": "A",
-            "description": "Egg carton with 2 rows, 6 eggs each",
+            "id": "A",
+            "description": "Egg carton: 2 rows, 6 eggs each",
             "container_count": 2,
             "items_per_container": 6,
-            "visual_type": "egg_carton"
+            "visual": "egg_carton"
           },
           {
-            "id": "scenario_b",
-            "label": "B",
-            "description": "Parking lot with 3 rows, 4 cars each",
+            "id": "B",
+            "description": "Parking lot: 3 rows, 4 cars each",
             "container_count": 3,
             "items_per_container": 4,
-            "visual_type": "parking_lot"
+            "visual": "parking_lot"
           },
           {
-            "id": "scenario_c",
-            "label": "C",
-            "description": "Bookshelf with 5 shelves, 3 books each",
+            "id": "C",
+            "description": "Bookshelf: 5 shelves, 3 books each",
             "container_count": 5,
             "items_per_container": 3,
-            "visual_type": "bookshelf"
+            "visual": "bookshelf"
           },
           {
-            "id": "scenario_d",
-            "label": "D",
-            "description": "Park benches with varying numbers of people, not equal groups",
+            "id": "D",
+            "description": "Park bench: 4 benches, varying people (NOT equal groups)",
             "container_count": 4,
             "items_per_container": "varying",
-            "visual_type": "park_benches"
+            "visual": "park_bench"
           }
         ],
-        "description": "Four real-world scenario illustrations appear. A: Egg carton (2 rows, 6 eggs each). B: Parking lot (3 rows, 4 cars each). C: Bookshelf (5 shelves, 3 books each). D: Park benches (4 benches, varying people)."
+        "description": "Four real-world scenario illustrations displayed. A: Egg carton with 2 rows of 6 eggs each. B: Parking lot with 3 rows of 4 cars each. C: Bookshelf with 5 shelves of 3 books each. D: Park bench with 4 benches showing varying numbers of people."
       },
       "id": "s1_2_real_world_bridge_where_do_b0"
     },
@@ -1917,22 +1917,22 @@ Cacheable: Yes
           "condition": {
             "selected": "A"
           },
-          "description": "Student selected scenario A: egg carton, 2 rows of 6 eggs",
+          "description": "Student selected A (egg carton), correct",
           "is_correct": true,
           "beats": [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "equal_groups_scenarios",
+              "tangible_id": "real_world_scenarios",
               "params": {
-                "highlight_scenario": "scenario_a",
-                "description": "Scenario A (egg carton) highlights."
+                "highlight_scenario": "A",
+                "description": "Egg carton scenario A highlights to confirm selection."
               },
               "id": "s1_2_real_world_bridge_where_do_b2_v0_b0"
             },
             {
               "type": "dialogue",
-              "text": "Right. The egg carton. 2 rows of 6 eggs. That's 2 times 6. Equal groups in the grocery store.",
+              "text": "Right. The egg carton: 2 rows of 6 eggs. That's 2 times 6. Equal groups in the grocery store.",
               "id": "s1_2_real_world_bridge_where_do_b2_v0_b1"
             }
           ]
@@ -1942,22 +1942,22 @@ Cacheable: Yes
           "condition": {
             "selected": "B"
           },
-          "description": "Student selected scenario B: parking lot, 3 rows of 4 cars",
+          "description": "Student selected B (parking lot), correct",
           "is_correct": true,
           "beats": [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "equal_groups_scenarios",
+              "tangible_id": "real_world_scenarios",
               "params": {
-                "highlight_scenario": "scenario_b",
-                "description": "Scenario B (parking lot) highlights."
+                "highlight_scenario": "B",
+                "description": "Parking lot scenario B highlights to confirm selection."
               },
               "id": "s1_2_real_world_bridge_where_do_b2_v1_b0"
             },
             {
               "type": "dialogue",
-              "text": "Yes. The parking lot. 3 rows of 4 cars. That's 3 times 4. Equal groups at the mall.",
+              "text": "That's it. The parking lot: 3 rows of 4 cars. That's 3 times 4. Equal groups at the mall.",
               "id": "s1_2_real_world_bridge_where_do_b2_v1_b1"
             }
           ]
@@ -1967,22 +1967,22 @@ Cacheable: Yes
           "condition": {
             "selected": "C"
           },
-          "description": "Student selected scenario C: bookshelf, 5 shelves with 3 books each",
+          "description": "Student selected C (bookshelf), correct",
           "is_correct": true,
           "beats": [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "equal_groups_scenarios",
+              "tangible_id": "real_world_scenarios",
               "params": {
-                "highlight_scenario": "scenario_c",
-                "description": "Scenario C (bookshelf) highlights."
+                "highlight_scenario": "C",
+                "description": "Bookshelf scenario C highlights to confirm selection."
               },
               "id": "s1_2_real_world_bridge_where_do_b2_v2_b0"
             },
             {
               "type": "dialogue",
-              "text": "Exactly. The bookshelf. 5 shelves with 3 books each. That's 5 times 3. Equal groups in your room.",
+              "text": "You got it. The bookshelf: 5 shelves with 3 books each. That's 5 times 3. Equal groups in your room.",
               "id": "s1_2_real_world_bridge_where_do_b2_v2_b1"
             }
           ]
@@ -1994,8 +1994,8 @@ Cacheable: Yes
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equal_groups_scenarios",
-          "description": "Four real-world scenario illustrations in reading mode. Multiple choice tool active. A: Egg carton (2 rows, 6 eggs each). B: Parking lot (3 rows, 4 cars each). C: Bookshelf (5 shelves, 3 books each). D: Park benches (varying people).",
+          "tangible_id": "real_world_scenarios",
+          "description": "Four real-world scenario illustrations displayed. A: Egg carton with 2 rows of 6 eggs each. B: Parking lot with 3 rows of 4 cars each. C: Bookshelf with 5 shelves of 3 books each. D: Park bench with 4 benches showing varying numbers of people. Multiple choice tool active.",
           "tangible_type": "equal_groups",
           "mode": "reading"
         }
@@ -2003,7 +2003,7 @@ Cacheable: Yes
       "id": "s1_2_real_world_bridge_where_do_b3"
     }
   ],
-  "_generated_at": "2026-04-20T17:00:44.095319+00:00"
+  "_generated_at": "2026-04-27T15:53:59.231131+00:00"
 }
 </input>
 

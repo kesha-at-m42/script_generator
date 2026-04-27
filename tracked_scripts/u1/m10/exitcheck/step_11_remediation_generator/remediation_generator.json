@@ -14,7 +14,7 @@
         "id": "s1_0_transition_into_exit_check_b1"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:39.876335+00:00"
+    "_generated_at": "2026-04-27T15:53:18.154150+00:00"
   },
   {
     "id": "s1_1_build_complete_equation_variety_visual",
@@ -22,36 +22,24 @@
       [
         {
           "condition": {
-            "and": [
+            "incorrect_count": 1
+          },
+          "description": "Student placed incorrect equation on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
               {
-                "or": [
-                  {
-                    "groups": 6,
-                    "items": 3
-                  },
-                  {
-                    "groups": 6,
-                    "total": 18
-                  },
-                  {
-                    "items": 3,
-                    "total": 18
-                  }
-                ]
-              },
-              {
-                "or": [
-                  {
-                    "incorrect_count": 1
-                  },
-                  {
-                    "incorrect_count": 2
-                  }
-                ]
+                "type": "dialogue",
+                "text": "Not quite. Count the rows, then count how many in each row."
               }
             ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
           },
-          "description": "Student reversed groups and items (placed 6 × 3 or partial reversal) on first or second attempt",
+          "description": "Student placed incorrect equation on second attempt",
           "is_correct": false,
           "steps": [
             [
@@ -60,96 +48,17 @@
                 "method": "update",
                 "tangible_id": "equal_groups_pencils",
                 "params": {
-                  "highlight_containers": true,
-                  "description": "The 3 rows highlight."
+                  "highlight_containers": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "description": "All 3 rows highlight."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "You're right that there are 3 and 6. But count how many rows there are. Is it 6?"
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "and": [
-              {
-                "incorrect_count": 1
-              },
-              {
-                "not": {
-                  "or": [
-                    {
-                      "groups": 6,
-                      "items": 3
-                    },
-                    {
-                      "groups": 6,
-                      "total": 18
-                    },
-                    {
-                      "items": 3,
-                      "total": 18
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          "description": "Student placed incorrect equation on first attempt (not a reversal)",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "dialogue",
-                "text": "Not quite. Count the rows. Then count how many pencils are in each row."
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {
-            "and": [
-              {
-                "incorrect_count": 2
-              },
-              {
-                "not": {
-                  "or": [
-                    {
-                      "groups": 6,
-                      "items": 3
-                    },
-                    {
-                      "groups": 6,
-                      "total": 18
-                    },
-                    {
-                      "items": 3,
-                      "total": 18
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          "description": "Student placed incorrect equation on second attempt (not a reversal)",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "equal_groups_pencils",
-                "params": {
-                  "highlight_containers": true,
-                  "description": "The 3 rows highlight."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "Here's what helps: count the rows first. That number goes in the first slot. Then count the pencils in one row. How many are in each row?"
+                "text": "Look at the rows. There are 3 rows. Each row has the same number. Count one row: how many pencils?"
               }
             ]
           ]
@@ -163,23 +72,33 @@
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equation_builder_pencils",
+                "tangible_id": "equal_groups_pencils",
                 "params": {
-                  "event": "place_tiles",
+                  "event": "highlight_containers_sequential",
                   "status": "confirmed",
-                  "description": "System places tiles into equation: 3 in first slot, 6 in second slot, 18 in third slot. Equation becomes 3 × 6 = 18."
+                  "description": "Rows highlight one at a time as guide counts: 1, 2, 3."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you how this works. I count the rows. There are 3 rows. That's my first number. Then I count the pencils in one row. There are 6 pencils. That's my second number. 3 times 6 equals 18. The equation is 3 times 6 equals 18."
+                "text": "Let me show you. I count the rows: 1, 2, 3. Three rows. Now I count one row: 1, 2, 3, 4, 5, 6. Six pencils. So it's 3 groups of 6. The product? 3 times 6 equals 18. That's the equation: 3 times 6 equals 18."
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_builder_pencils",
+                "params": {
+                  "event": "tiles_place_sequentially",
+                  "status": "confirmed",
+                  "description": "Tiles place into equation: 3 × 6 = 18 appears."
+                }
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:01:49.481186+00:00"
+    "_generated_at": "2026-04-27T15:54:56.164563+00:00"
   },
   {
     "id": "s1_2_solve_product_unknown_reversed_form",
@@ -189,13 +108,13 @@
           "condition": {
             "incorrect_count": 1
           },
-          "description": "Student placed wrong tile on first attempt",
+          "description": "Student placed a wrong number tile on first attempt",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "dialogue",
-                "text": "Not quite. Count the total flowers in all 4 groups."
+                "text": "Not quite. Count all the flowers. How many total?"
               }
             ]
           ]
@@ -204,28 +123,7 @@
           "condition": {
             "incorrect_count": 2
           },
-          "description": "Student placed wrong tile on second attempt",
-          "is_correct": false,
-          "steps": [
-            [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "equal_groups_flowers",
-                "params": {
-                  "description": "One group highlights to show 7 flowers."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "Each group has 7 flowers. 4 groups means you count 7 four times. Count them all and place that number."
-              }
-            ]
-          ]
-        },
-        {
-          "condition": {},
-          "description": "Student placed wrong tile three or more times. System models the answer.",
+          "description": "Student placed a wrong number tile on second attempt",
           "is_correct": false,
           "steps": [
             [
@@ -234,21 +132,44 @@
                 "method": "animate",
                 "tangible_id": "equal_groups_flowers",
                 "params": {
-                  "event": "count_all",
+                  "event": "highlight_containers_sequential",
                   "status": "confirmed",
-                  "description": "Each group lights up as the guide counts: 7, 14, 21, 28."
+                  "description": "Groups highlight one at a time: 7, 14, 21, 28."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. I count each group: 7, 14, 21, 28. Four groups of 7 equals 28 total. The total is 28, so 28 equals 4 times 7."
+                "text": "Skip count by 7s: 7, 14, 21, 28. Four groups of 7. What's the total?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student placed a wrong number tile three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equal_groups_flowers",
+                "params": {
+                  "event": "highlight_containers_sequential",
+                  "status": "confirmed",
+                  "description": "Groups highlight one at a time as guide counts: 7, 14, 21, 28."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. I count the groups: 1, 2, 3, 4 groups. Each group has 7 flowers. Skip count by 7s: 7, 14, 21, 28. Four groups of 7 makes 28 total. The product is 28. That's the same value as 4 times 7."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:01:57.452381+00:00"
+    "_generated_at": "2026-04-27T15:55:06.029644+00:00"
   },
   {
     "id": "s1_3_solve_1st_factor_unknown",
@@ -258,7 +179,7 @@
           "condition": {
             "selected": 2
           },
-          "description": "Student selected 2: undercounted the groups needed",
+          "description": "Student selected 2 (2 × 5 = 10, not 15)",
           "is_correct": false,
           "steps": [
             [
@@ -269,12 +190,12 @@
                 "params": {
                   "event": "build_groups_sequentially",
                   "status": "proposed",
-                  "description": "2 stacks of 5 items appear. Running total shows 10."
+                  "description": "2 stacks of 5 items appear. Running total shows: Total: 5, Total: 10."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "2 stacks of 5 gives us 10, not 15. We need more stacks. Skip count by 5s until you reach 15."
+                "text": "2 stacks of 5 makes 10, not 15. Skip count by 5s until you reach 15. How many times did you count?"
               }
             ]
           ]
@@ -283,7 +204,7 @@
           "condition": {
             "selected": 4
           },
-          "description": "Student selected 4: overcounted the groups needed",
+          "description": "Student selected 4 (4 × 5 = 20, not 15)",
           "is_correct": false,
           "steps": [
             [
@@ -294,12 +215,12 @@
                 "params": {
                   "event": "build_groups_sequentially",
                   "status": "proposed",
-                  "description": "4 stacks of 5 items appear. Running total shows 20."
+                  "description": "4 stacks of 5 items appear. Running total shows: Total: 5, Total: 10, Total: 15, Total: 20."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "4 stacks of 5 gives us 20, too many. We need exactly 15. Count by 5s: 5, 10, and then what?"
+                "text": "4 stacks of 5 makes 20, too many. We need 15. How many 5s does it take to reach exactly 15?"
               }
             ]
           ]
@@ -308,21 +229,23 @@
           "condition": {
             "selected": 5
           },
-          "description": "Student selected 5: likely confused the factor with the group size",
+          "description": "Student selected 5 (5 × 5 = 25, not 15; may have confused items per stack with number of stacks)",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
-                "method": "update",
-                "tangible_id": "equation_builder_factor",
+                "method": "animate",
+                "tangible_id": "equal_groups_stacks",
                 "params": {
-                  "description": "The 5 in the equation pulses to highlight it."
+                  "event": "build_groups_sequentially",
+                  "status": "proposed",
+                  "description": "5 stacks of 5 items appear. Running total shows: Total: 5, Total: 10, Total: 15, Total: 20, Total: 25."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "5 is the size of each stack, not how many stacks we need. The blank is asking how many groups of 5 make 15."
+                "text": "5 stacks of 5 makes 25, not 15. The unknown is how many stacks you need. Skip count by 5s and stop at 15. How many times did you count?"
               }
             ]
           ]
@@ -340,19 +263,19 @@
                 "params": {
                   "event": "build_groups_sequentially",
                   "status": "confirmed",
-                  "description": "3 stacks of 5 items appear one by one. Running total updates: 5, 10, 15."
+                  "description": "System demonstrates skip counting. First stack appears: 5. Second stack appears: 10. Third stack appears: 15. Final groups show 3 stacks of 5."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. We skip count by 5s: 5, 10, 15. That's 3 jumps, so 3 stacks of 5 make 15. The answer is 3 stacks. That's how we find the missing factor."
+                "text": "Let me show you. Skip count by 5s. First stack: 5. Second stack: 10. Third stack: 15. I counted three times. 3 stacks of 5 equals 15. That's the unknown."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:02:09.648570+00:00"
+    "_generated_at": "2026-04-27T15:55:19.577454+00:00"
   },
   {
     "id": "s1_4_exit_check_closure",
@@ -369,6 +292,6 @@
         "id": "s1_4_exit_check_closure_b1"
       }
     ],
-    "_generated_at": "2026-04-20T17:01:21.948898+00:00"
+    "_generated_at": "2026-04-27T15:54:31.027376+00:00"
   }
 ]

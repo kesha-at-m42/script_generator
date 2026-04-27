@@ -7,30 +7,45 @@
       "tangible_id": "data_table",
       "tangible_type": "data_table",
       "params": {
-        "description": "Horizontal data table appears. Art Supplies Collected data. Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55."
-      }
-    },
-    {
-      "type": "scene",
-      "method": "add",
-      "tangible_id": "bar_graph_art_supplies",
-      "tangible_type": "bar_graph",
-      "params": {
-        "mode": "building",
-        "orientation": "vertical",
-        "scale": 10,
-        "axis_range": [
-          0,
-          60
-        ],
+        "orientation": "horizontal",
         "categories": [
           "Markers",
           "Crayons",
           "Paintbrushes",
           "Glue Sticks"
         ],
-        "snap_to": 5,
-        "description": "Vertical bar graph appears in building mode. Scale of 10, axis 0-60. No bars pre-filled. Ghost gridlines at 5s visible. Snap-to-5 enabled."
+        "values": [
+          30,
+          45,
+          20,
+          55
+        ],
+        "description": "Horizontal data table appears showing Art Supplies Collected data: Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_supplies",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "building",
+        "orientation": "vertical",
+        "title": "Art Supplies Collected",
+        "categories": [
+          "Markers",
+          "Crayons",
+          "Paintbrushes",
+          "Glue Sticks"
+        ],
+        "scale": 10,
+        "axis_range": [
+          0,
+          60
+        ],
+        "ghost_gridlines": true,
+        "snap_to_5": true,
+        "description": "Vertical bar graph appears with no bars filled. Scale of 10, axis 0–60. Ghost gridlines visible at 5s. Snap-to-5 enabled."
       }
     },
     {
@@ -41,7 +56,7 @@
       "type": "prompt",
       "text": "Complete the graph.",
       "tool": "click_to_set_height",
-      "target": "bar_graph_art_supplies",
+      "target": "bar_graph_supplies",
       "validator": [
         {
           "condition_id": "correct",
@@ -79,11 +94,21 @@
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "bar_graph_art_supplies",
+              "tangible_id": "bar_graph_supplies",
               "params": {
-                "event": "confirm_bars",
+                "event": "highlight_bars_at_lines",
                 "status": "confirmed",
-                "description": "All four bars confirm placement."
+                "description": "Markers and Paintbrushes bars highlight to confirm they align with axis lines."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_supplies",
+              "params": {
+                "event": "highlight_bars_between_lines",
+                "status": "confirmed",
+                "description": "Crayons and Glue Sticks bars highlight to confirm they fall between axis lines."
               }
             },
             {
@@ -99,29 +124,43 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Horizontal data table showing Art Supplies Collected values.",
-          "tangible_type": "data_table"
-        },
-        {
-          "tangible_id": "bar_graph_art_supplies",
-          "description": "Vertical bar graph in building mode. Scale 10, axis 0-60. All four bars set: Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55.",
-          "tangible_type": "bar_graph",
-          "mode": "building",
-          "orientation": "vertical",
-          "scale": 10,
-          "axis_range": [
-            0,
-            60
-          ],
+          "description": "Horizontal data table showing Art Supplies Collected: Markers=30, Crayons=45, Paintbrushes=20, Glue Sticks=55.",
+          "tangible_type": "data_table",
+          "orientation": "horizontal",
           "categories": [
             "Markers",
             "Crayons",
             "Paintbrushes",
             "Glue Sticks"
+          ],
+          "values": [
+            30,
+            45,
+            20,
+            55
+          ]
+        },
+        {
+          "tangible_id": "bar_graph_supplies",
+          "description": "Vertical bar graph showing Art Supplies Collected data. All four bars correctly placed: Markers at 30, Crayons at 45, Paintbrushes at 20, Glue Sticks at 55. Bars at lines and between lines highlighted.",
+          "tangible_type": "bar_graph",
+          "mode": "building",
+          "orientation": "vertical",
+          "title": "Art Supplies Collected",
+          "categories": [
+            "Markers",
+            "Crayons",
+            "Paintbrushes",
+            "Glue Sticks"
+          ],
+          "scale": 10,
+          "axis_range": [
+            0,
+            60
           ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T16:58:15.464113+00:00"
+  "_generated_at": "2026-04-27T15:53:47.877315+00:00"
 }

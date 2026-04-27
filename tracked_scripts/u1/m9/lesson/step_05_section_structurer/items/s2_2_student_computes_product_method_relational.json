@@ -10,7 +10,9 @@
         "mode": "reading",
         "container_count": 8,
         "items_per_container": 2,
-        "description": "8 bags appear, each containing 2 items. Context visualization for 8 × 2."
+        "container_type": "bags",
+        "item_type": "circles",
+        "description": "8 bags appear, each containing 2 items. Reading mode."
       }
     },
     {
@@ -19,14 +21,18 @@
       "tangible_id": "equation_builder_8x2",
       "tangible_type": "equation_builder",
       "params": {
-        "expression": [
-          "8",
+        "template": [
+          "__",
           "×",
-          "2",
+          "__",
           "=",
           "__"
         ],
-        "description": "Equation Builder appears: 8 × 2 = [___]. Product slot empty, awaiting student answer."
+        "prefilled_slots": {
+          "slot_0": 8,
+          "slot_2": 2
+        },
+        "description": "Equation Builder appears showing 8 × 2 = [___]. Product slot is blank with multiple choice options 10, 14, 16, 18."
       }
     },
     {
@@ -49,7 +55,7 @@
           "condition": {
             "selected": 16
           },
-          "description": "Student selected 16, correct product of 8 × 2",
+          "description": "Student selected 16, the correct product of 8 × 2",
           "is_correct": true,
           "beats": [
             {
@@ -57,44 +63,17 @@
               "method": "update",
               "tangible_id": "equation_builder_8x2",
               "params": {
-                "expression": [
-                  "8",
-                  "×",
-                  "2",
-                  "=",
-                  "16"
-                ],
-                "description": "16 fills the product slot in the equation."
+                "prefilled_slots": {
+                  "slot_0": 8,
+                  "slot_2": 2,
+                  "slot_4": 16
+                },
+                "description": "Product slot fills with 16, completing the equation 8 × 2 = 16."
               }
             },
             {
               "type": "dialogue",
               "text": "8 times 2 equals 16. Notice that it's even — fits the 2s pattern. You built the equation."
-            },
-            {
-              "type": "current_scene",
-              "elements": [
-                {
-                  "tangible_id": "equal_groups_bags",
-                  "description": "8 bags with 2 items each. Context visualization for 8 × 2.",
-                  "tangible_type": "equal_groups",
-                  "mode": "reading",
-                  "container_count": 8,
-                  "items_per_container": 2
-                },
-                {
-                  "tangible_id": "equation_builder_8x2",
-                  "description": "Equation Builder showing completed equation: 8 × 2 = 16.",
-                  "tangible_type": "equation_builder",
-                  "expression": [
-                    "8",
-                    "×",
-                    "2",
-                    "=",
-                    "16"
-                  ]
-                }
-              ]
             }
           ]
         }
@@ -105,7 +84,7 @@
       "elements": [
         {
           "tangible_id": "equal_groups_bags",
-          "description": "8 bags with 2 items each. Context visualization for 8 × 2.",
+          "description": "8 bags, each containing 2 items. Reading mode.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 8,
@@ -113,18 +92,23 @@
         },
         {
           "tangible_id": "equation_builder_8x2",
-          "description": "Equation Builder: 8 × 2 = [___]. Product slot has MC options 10, 14, 16, 18.",
+          "description": "Equation Builder showing completed equation 8 × 2 = 16.",
           "tangible_type": "equation_builder",
-          "expression": [
-            "8",
+          "template": [
+            "__",
             "×",
-            "2",
+            "__",
             "=",
             "__"
-          ]
+          ],
+          "prefilled_slots": {
+            "slot_0": 8,
+            "slot_2": 2,
+            "slot_4": 16
+          }
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:02:37.556155+00:00"
+  "_generated_at": "2026-04-27T15:56:24.715458+00:00"
 }

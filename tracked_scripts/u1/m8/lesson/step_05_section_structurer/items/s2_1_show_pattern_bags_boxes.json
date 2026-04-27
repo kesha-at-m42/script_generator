@@ -9,12 +9,11 @@
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
-        "container_type": "bags",
         "container_count": 2,
         "items_per_container": 5,
-        "expression": "2 × 5",
-        "screen_position": "left",
-        "description": "Left side: 2 bags, 5 items in each bag. Expression 2 × 5 shown below."
+        "container_style": "bags",
+        "separation": "full",
+        "description": "Left side: Equal groups visualization showing 2 bags with 5 items each. Concrete context: bags."
       }
     },
     {
@@ -24,42 +23,37 @@
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
-        "container_type": "boxes",
         "container_count": 2,
         "items_per_container": 5,
-        "expression": "2 × 5",
-        "screen_position": "right",
-        "description": "Right side: 2 boxes, 5 items in each box. Expression 2 × 5 shown below."
+        "container_style": "boxes",
+        "separation": "full",
+        "description": "Right side: Equal groups visualization showing 2 boxes with 5 items each. Concrete context: boxes."
       }
     },
     {
       "type": "dialogue",
-      "text": "Look at these two. On the left, bags. On the right, boxes."
+      "text": "Look at these two. On the left—bags. On the right—boxes."
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "equal_groups_bags",
-          "description": "Left side: 2 bags, 5 items in each bag. Expression 2 × 5 shown below.",
+          "description": "Left side: 2 bags with 5 items each in reading mode.",
           "tangible_type": "equal_groups",
           "mode": "reading",
-          "container_type": "bags",
           "container_count": 2,
           "items_per_container": 5,
-          "expression": "2 × 5",
-          "screen_position": "left"
+          "container_style": "bags"
         },
         {
           "tangible_id": "equal_groups_boxes",
-          "description": "Right side: 2 boxes, 5 items in each box. Expression 2 × 5 shown below.",
+          "description": "Right side: 2 boxes with 5 items each in reading mode.",
           "tangible_type": "equal_groups",
           "mode": "reading",
-          "container_type": "boxes",
           "container_count": 2,
           "items_per_container": 5,
-          "expression": "2 × 5",
-          "screen_position": "right"
+          "container_style": "boxes"
         }
       ]
     },
@@ -70,7 +64,7 @@
       "params": {
         "event": "highlight_containers",
         "status": "confirmed",
-        "description": "Bags highlight."
+        "description": "Bags highlight briefly."
       }
     },
     {
@@ -80,7 +74,7 @@
       "params": {
         "event": "highlight_containers",
         "status": "confirmed",
-        "description": "Boxes highlight."
+        "description": "Boxes highlight briefly."
       }
     },
     {
@@ -92,25 +86,21 @@
       "elements": [
         {
           "tangible_id": "equal_groups_bags",
-          "description": "Left side: 2 bags highlighted, 5 items in each bag. Expression 2 × 5 shown below.",
+          "description": "Left side: 2 bags with 5 items each.",
           "tangible_type": "equal_groups",
           "mode": "reading",
-          "container_type": "bags",
           "container_count": 2,
           "items_per_container": 5,
-          "expression": "2 × 5",
-          "screen_position": "left"
+          "container_style": "bags"
         },
         {
           "tangible_id": "equal_groups_boxes",
-          "description": "Right side: 2 boxes highlighted, 5 items in each box. Expression 2 × 5 shown below.",
+          "description": "Right side: 2 boxes with 5 items each.",
           "tangible_type": "equal_groups",
           "mode": "reading",
-          "container_type": "boxes",
           "container_count": 2,
           "items_per_container": 5,
-          "expression": "2 × 5",
-          "screen_position": "right"
+          "container_style": "boxes"
         }
       ]
     },
@@ -120,7 +110,7 @@
       "tangible_id": "equal_groups_bags",
       "params": {
         "show_label": "2 groups",
-        "description": "Label '2 groups' appears on bags visual."
+        "description": "Label '2 groups' appears on bags visualization."
       }
     },
     {
@@ -129,7 +119,7 @@
       "tangible_id": "equal_groups_boxes",
       "params": {
         "show_label": "2 groups",
-        "description": "Label '2 groups' appears on boxes visual."
+        "description": "Label '2 groups' appears on boxes visualization."
       }
     },
     {
@@ -141,27 +131,21 @@
       "elements": [
         {
           "tangible_id": "equal_groups_bags",
-          "description": "Left side: 2 bags, 5 items in each. Label '2 groups' shown. Expression 2 × 5 below.",
+          "description": "Left side: 2 bags with 5 items each. Label '2 groups' visible.",
           "tangible_type": "equal_groups",
           "mode": "reading",
-          "container_type": "bags",
           "container_count": 2,
           "items_per_container": 5,
-          "expression": "2 × 5",
-          "screen_position": "left",
-          "show_label": "2 groups"
+          "container_style": "bags"
         },
         {
           "tangible_id": "equal_groups_boxes",
-          "description": "Right side: 2 boxes, 5 items in each. Label '2 groups' shown. Expression 2 × 5 below.",
+          "description": "Right side: 2 boxes with 5 items each. Label '2 groups' visible.",
           "tangible_type": "equal_groups",
           "mode": "reading",
-          "container_type": "boxes",
           "container_count": 2,
           "items_per_container": 5,
-          "expression": "2 × 5",
-          "screen_position": "right",
-          "show_label": "2 groups"
+          "container_style": "boxes"
         }
       ]
     },
@@ -170,8 +154,9 @@
       "method": "animate",
       "tangible_id": "equal_groups_bags",
       "params": {
-        "event": "highlight_items_in_one_container",
+        "event": "highlight_items_in_container",
         "status": "confirmed",
+        "container_index": 0,
         "description": "Items in one bag highlight."
       }
     },
@@ -180,8 +165,9 @@
       "method": "animate",
       "tangible_id": "equal_groups_boxes",
       "params": {
-        "event": "highlight_items_in_one_container",
+        "event": "highlight_items_in_container",
         "status": "confirmed",
+        "container_index": 0,
         "description": "Items in one box highlight."
       }
     },
@@ -194,76 +180,106 @@
       "elements": [
         {
           "tangible_id": "equal_groups_bags",
-          "description": "Left side: 2 bags, items in one bag highlighted, showing 5 per group. Expression 2 × 5 below.",
+          "description": "Left side: 2 bags with 5 items each. Label '2 groups' visible.",
           "tangible_type": "equal_groups",
           "mode": "reading",
-          "container_type": "bags",
           "container_count": 2,
           "items_per_container": 5,
-          "expression": "2 × 5",
-          "screen_position": "left"
+          "container_style": "bags"
         },
         {
           "tangible_id": "equal_groups_boxes",
-          "description": "Right side: 2 boxes, items in one box highlighted, showing 5 per group. Expression 2 × 5 below.",
+          "description": "Right side: 2 boxes with 5 items each. Label '2 groups' visible.",
           "tangible_type": "equal_groups",
           "mode": "reading",
-          "container_type": "boxes",
           "container_count": 2,
           "items_per_container": 5,
-          "expression": "2 × 5",
-          "screen_position": "right"
+          "container_style": "boxes"
         }
       ]
     },
     {
       "type": "scene",
-      "method": "animate",
-      "tangible_id": "equal_groups_bags",
+      "method": "add",
+      "tangible_id": "equation_bags",
+      "tangible_type": "equation",
       "params": {
-        "event": "highlight_expression",
-        "status": "confirmed",
-        "description": "Expression 2 × 5 highlights on bags visual."
+        "expression": [
+          "2",
+          "×",
+          "5"
+        ],
+        "description": "Expression '2 × 5' appears below bags visualization."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_boxes",
+      "tangible_type": "equation",
+      "params": {
+        "expression": [
+          "2",
+          "×",
+          "5"
+        ],
+        "description": "Expression '2 × 5' appears below boxes visualization."
       }
     },
     {
       "type": "scene",
       "method": "animate",
-      "tangible_id": "equal_groups_boxes",
+      "tangible_id": "equation_bags",
       "params": {
         "event": "highlight_expression",
         "status": "confirmed",
-        "description": "Expression 2 × 5 highlights on boxes visual."
+        "description": "Expression '2 × 5' highlights below bags."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "equation_boxes",
+      "params": {
+        "event": "highlight_expression",
+        "status": "confirmed",
+        "description": "Expression '2 × 5' highlights below boxes."
       }
     },
     {
       "type": "dialogue",
-      "text": "Different containers, bags or boxes, but the SAME structure. Both are 2 groups of 5. Both build the same expression: 2 times 5."
+      "text": "Different containers—bags or boxes—but the SAME structure. Both are 2 groups of 5. Both build the same expression: 2 times 5."
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "equal_groups_bags",
-          "description": "Left side: 2 bags, 5 items in each. Expression 2 × 5 highlighted.",
+          "description": "Left side: 2 bags with 5 items each. Label '2 groups' visible. Expression '2 × 5' below.",
           "tangible_type": "equal_groups",
           "mode": "reading",
-          "container_type": "bags",
           "container_count": 2,
           "items_per_container": 5,
-          "expression": "2 × 5",
-          "screen_position": "left"
+          "container_style": "bags"
         },
         {
           "tangible_id": "equal_groups_boxes",
-          "description": "Right side: 2 boxes, 5 items in each. Expression 2 × 5 highlighted.",
+          "description": "Right side: 2 boxes with 5 items each. Label '2 groups' visible. Expression '2 × 5' below.",
           "tangible_type": "equal_groups",
           "mode": "reading",
-          "container_type": "boxes",
           "container_count": 2,
           "items_per_container": 5,
-          "expression": "2 × 5",
-          "screen_position": "right"
+          "container_style": "boxes"
+        },
+        {
+          "tangible_id": "equation_bags",
+          "description": "Expression '2 × 5' displayed below bags visualization.",
+          "tangible_type": "equation"
+        },
+        {
+          "tangible_id": "equation_boxes",
+          "description": "Expression '2 × 5' displayed below boxes visualization.",
+          "tangible_type": "equation"
         }
       ]
     },
@@ -276,28 +292,34 @@
       "elements": [
         {
           "tangible_id": "equal_groups_bags",
-          "description": "Left side: 2 bags, 5 items in each. Expression 2 × 5 shown below.",
+          "description": "Left side: 2 bags with 5 items each. Label '2 groups' visible. Expression '2 × 5' below.",
           "tangible_type": "equal_groups",
           "mode": "reading",
-          "container_type": "bags",
           "container_count": 2,
           "items_per_container": 5,
-          "expression": "2 × 5",
-          "screen_position": "left"
+          "container_style": "bags"
         },
         {
           "tangible_id": "equal_groups_boxes",
-          "description": "Right side: 2 boxes, 5 items in each. Expression 2 × 5 shown below.",
+          "description": "Right side: 2 boxes with 5 items each. Label '2 groups' visible. Expression '2 × 5' below.",
           "tangible_type": "equal_groups",
           "mode": "reading",
-          "container_type": "boxes",
           "container_count": 2,
           "items_per_container": 5,
-          "expression": "2 × 5",
-          "screen_position": "right"
+          "container_style": "boxes"
+        },
+        {
+          "tangible_id": "equation_bags",
+          "description": "Expression '2 × 5' displayed below bags visualization.",
+          "tangible_type": "equation"
+        },
+        {
+          "tangible_id": "equation_boxes",
+          "description": "Expression '2 × 5' displayed below boxes visualization.",
+          "tangible_type": "equation"
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:02:23.989572+00:00"
+  "_generated_at": "2026-04-27T15:55:52.541019+00:00"
 }

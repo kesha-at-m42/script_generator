@@ -4,9 +4,9 @@
     [
       {
         "condition": {
-          "selected": "Scale of 10"
+          "selected": "Scale of 1"
         },
-        "description": "Student selected Scale of 10 for data with non-multiples of 5",
+        "description": "Student selected Scale of 1",
         "is_correct": false,
         "steps": [
           [
@@ -17,15 +17,16 @@
               "params": {
                 "highlight_values": [
                   27,
-                  33,
-                  41
+                  14,
+                  41,
+                  33
                 ],
-                "description": "Values 27, 33, and 41 highlight in the table."
+                "description": "All four values highlight in the data table."
               }
             },
             {
               "type": "dialogue",
-              "text": "Look at 27, 33, and 41. Those numbers don't end in 0 or 5. Scale of 10 won't show them exactly. Which scale shows any whole number?"
+              "text": "Scale of 1 would need 41 tick marks to reach the biggest number. That's a lot of lines. Look at the ones place digits: 7, 4, 1, 3. Which scale shows any whole number exactly without too many marks?"
             }
           ]
         ]
@@ -34,7 +35,7 @@
         "condition": {
           "selected": "Scale of 5"
         },
-        "description": "Student selected Scale of 5 for data with non-multiples of 5",
+        "description": "Student selected Scale of 5",
         "is_correct": false,
         "steps": [
           [
@@ -45,24 +46,25 @@
               "params": {
                 "highlight_values": [
                   27,
-                  33,
-                  41
+                  14,
+                  41,
+                  33
                 ],
-                "description": "Values 27, 33, and 41 highlight in the table."
+                "description": "All four values highlight in the data table."
               }
             },
             {
               "type": "dialogue",
-              "text": "Check those ones place digits: 7, 3, 1. None are 0 or 5, so Scale of 5 won't show them exactly. Which scale can show every whole number?"
+              "text": "Look at the ones place: 7, 4, 1, 3. None are 0 or 5. Scale of 5 won't land exactly for these numbers. Which scale shows any whole number clearly?"
             }
           ]
         ]
       },
       {
         "condition": {
-          "selected": "Scale of 1"
+          "selected": "Scale of 10"
         },
-        "description": "Student selected Scale of 1 when the largest value is 41",
+        "description": "Student selected Scale of 10",
         "is_correct": false,
         "steps": [
           [
@@ -72,14 +74,17 @@
               "tangible_id": "data_table",
               "params": {
                 "highlight_values": [
-                  41
+                  27,
+                  14,
+                  41,
+                  33
                 ],
-                "description": "Value 41 highlights in the table."
+                "description": "All four values highlight in the data table."
               }
             },
             {
               "type": "dialogue",
-              "text": "Scale of 1 works, but count to 41. That's over 40 tick marks on the axis. For numbers this big, which scale shows them exactly without too many marks?"
+              "text": "Check the ones place digits: 7, 4, 1, 3. None end in 0 or 5, so Scale of 10 won't show exact values. Which scale works for any whole number?"
             }
           ]
         ]
@@ -95,69 +100,20 @@
               "method": "animate",
               "tangible_id": "data_table",
               "params": {
-                "event": "check_ones_digits",
+                "event": "highlight_ones_digits",
                 "status": "confirmed",
-                "description": "System highlights ones place digits: 7, 4, 1, 3. None are 0 or 5."
+                "description": "Ones place digits (7, 4, 1, 3) highlight in sequence."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. Look at the ones place: 7, 4, 1, 3. None are 0 or 5, so these aren't multiples of 5. Scale of 2 works because half of 2 is 1. That means we can show any whole number exactly. The answer is Scale of 2."
+              "text": "Let me show you. First, I check the ones place digits: 7, 4, 1, 3. None are 0 or 5, so these aren't multiples of 5. Scale of 2 works for any whole number. Half of 2 is 1, so every number lands exactly on a line or halfway between. The answer is Scale of 2."
             }
           ]
         ]
       }
     ],
     [
-      {
-        "condition": {
-          "and": [
-            {
-              "Guitar": 27
-            },
-            {
-              "or": [
-                {
-                  "Piano": {
-                    "not": 14
-                  }
-                },
-                {
-                  "Violin": {
-                    "not": 41
-                  }
-                },
-                {
-                  "Drums": {
-                    "not": 33
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        "description": "Student set Guitar correctly but one or more other bars incorrectly",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "bar_graph_practice",
-              "params": {
-                "highlight_categories": [
-                  "Guitar"
-                ],
-                "description": "Guitar bar highlights at 27."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "Guitar is right at 27. Check the data table for the other instruments. Where should each bar end?"
-            }
-          ]
-        ]
-      },
       {
         "condition": {
           "incorrect_count": 1
@@ -168,7 +124,7 @@
           [
             {
               "type": "dialogue",
-              "text": "Check the data table. Look at the gridlines. Where should each bar end?"
+              "text": "Not quite. Look at the data table. Count up by 2s from zero to match each value."
             }
           ]
         ]
@@ -186,14 +142,13 @@
               "method": "update",
               "tangible_id": "bar_graph_practice",
               "params": {
-                "show_target_heights": true,
                 "highlight_gridlines": true,
-                "description": "Target heights appear as dashed lines. Gridlines highlight at each tick mark."
+                "description": "Gridlines at each tick mark highlight to show counting points."
               }
             },
             {
               "type": "dialogue",
-              "text": "With Scale of 2, each gridline is 2 apart. Guitar is 27, halfway between 26 and 28. Piano is 14, right on the line. Find where each value lands on the grid."
+              "text": "Here's what helps: each line on the axis goes up by 2. Find your value in the table, then count by 2s on the graph. Guitar is 27, so count 0, 2, 4, 6... up to 26, then one more to the halfway mark."
             }
           ]
         ]
@@ -211,17 +166,17 @@
               "params": {
                 "event": "demonstrate_bar_placement",
                 "status": "confirmed",
-                "description": "System demonstrates placing each bar. Piano: 14, right on the line. Guitar: 27, halfway between 26 and 28. Drums: 33, halfway between 32 and 34. Violin: 41, halfway between 40 and 42."
+                "description": "System demonstrates placing each bar in sequence: Piano at 14, Guitar at 27 (halfway between 26 and 28), Drums at 33 (halfway between 32 and 34), Violin at 41 (halfway between 40 and 42)."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. Piano is 14, right on a line. Guitar is 27, halfway between 26 and 28. Drums is 33, halfway between 32 and 34. Violin is 41, halfway between 40 and 42. With Scale of 2, half of 2 is 1, so every whole number lands exactly on a line or halfway between. The bars are: Guitar 27, Piano 14, Violin 41, Drums 33."
+              "text": "Let me walk you through this. Piano is 14, right on the line. Guitar is 27, halfway between 26 and 28. Drums is 33, halfway between 32 and 34. Violin is 41, halfway between 40 and 42. With Scale of 2, odd numbers land halfway and even numbers land exactly on lines. That's how the bar graph shows Minutes of Practice correctly."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:06:29.358720+00:00"
+  "_generated_at": "2026-04-27T16:03:39.947461+00:00"
 }

@@ -10,14 +10,15 @@
         "mode": "reading",
         "container_count": 2,
         "items_per_container": 4,
-        "container_style": "bags",
-        "description": "2 bags with 4 items each appear on screen."
+        "separation": "full",
+        "context": "bags_items",
+        "description": "Equal groups visualization appears. 2 bags with 4 items each. Full separation."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder_bags",
+      "tangible_id": "equation_builder",
       "tangible_type": "equation_builder",
       "params": {
         "template": [
@@ -29,7 +30,7 @@
           1,
           10
         ],
-        "description": "Equation builder appears below equal groups. Two blank slots with multiplication symbol between them. Tile palette shows numbers 1 through 10."
+        "description": "Equation builder appears below. Empty slots with times symbol. Tile palette showing 1 through 10."
       }
     },
     {
@@ -40,20 +41,32 @@
       "type": "prompt",
       "text": "Build the expression.",
       "tool": "place_tile",
-      "target": "equation_builder_bags",
+      "target": "equation_builder",
       "validator": [
         {
           "condition_id": "correct",
           "condition": {
-            "groups": 2,
-            "items": 4
+            "placed": {
+              "groups": 2,
+              "items": 4
+            }
           },
-          "description": "Student placed 2 × 4",
+          "description": "Student placed 2 in first slot and 4 in second slot, building 2 × 4",
           "is_correct": true,
           "beats": [
             {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder",
+              "params": {
+                "event": "confirm_placement",
+                "status": "confirmed",
+                "description": "Equation builder confirms 2 × 4 with both tiles locked in place."
+              }
+            },
+            {
               "type": "dialogue",
-              "text": "You built it—2 times 4 shows 2 groups of 4."
+              "text": "You built it. 2 times 4 shows 2 groups of 4."
             }
           ]
         }
@@ -64,21 +77,22 @@
       "elements": [
         {
           "tangible_id": "equal_groups_bags",
-          "description": "2 bags with 4 items each.",
+          "description": "Equal groups visualization showing 2 bags with 4 items each. Reading mode, full separation.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 2,
           "items_per_container": 4,
-          "container_style": "bags"
+          "separation": "full",
+          "context": "bags_items"
         },
         {
-          "tangible_id": "equation_builder_bags",
-          "description": "Equation builder showing 2 × 4. Both slots filled.",
+          "tangible_id": "equation_builder",
+          "description": "Equation builder displaying completed expression 2 × 4 with both slots filled. Tile palette visible.",
           "tangible_type": "equation_builder",
           "template": [
-            "__",
+            "2",
             "×",
-            "__"
+            "4"
           ],
           "palette_range": [
             1,
@@ -88,5 +102,5 @@
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:03:21.591029+00:00"
+  "_generated_at": "2026-04-27T15:57:09.346799+00:00"
 }

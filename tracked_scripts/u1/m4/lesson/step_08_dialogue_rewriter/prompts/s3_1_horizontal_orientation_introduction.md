@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:37.542020
+# Generated: 2026-04-27T11:01:31.842775
 ======================================================================
 
 ## API Parameters
@@ -944,11 +944,11 @@ Cacheable: Yes
   "id": "s3_1_horizontal_orientation_introduction",
   "dialogues": [
     {
-      "text": "This bar graph is HORIZONTAL. The bars go sideways, but you read them the same way — finding where the bar ends on the scale.",
+      "text": "This bar graph is HORIZONTAL. The bars go sideways, but you read them the same way—finding where the bar ends on the scale.",
       "context": "lesson"
     },
     {
-      "text": "Zoo's bar extends to 45. Between 40 and 50 — halfway. What value does the Museum bar show?",
+      "text": "Zoo's bar extends to 45. Between 40 and 50—halfway. What value does the Museum bar show?",
       "context": "lesson"
     },
     {

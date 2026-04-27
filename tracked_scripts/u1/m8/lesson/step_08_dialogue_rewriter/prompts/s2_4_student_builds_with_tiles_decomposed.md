@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:05:15.098656
+# Generated: 2026-04-27T10:59:50.131049
 ======================================================================
 
 ## API Parameters
@@ -948,7 +948,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "You built it—2 times 4 shows 2 groups of 4.",
+      "text": "You built it. 2 times 4 shows 2 groups of 4.",
       "context": "on_correct"
     }
   ]

@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T11:59:48.354243
+# Generated: 2026-04-27T10:53:33.241481
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -817,7 +833,7 @@ Cacheable: Yes
   "guide_3": "\"See that word 'together'? This question needs more than one step. We'll come back to THIS question in the lesson—and you'll be able to answer it.\"",
   "no_student_action": "(bridge only—Lesson 2.2 resolves this)",
   "design_note": "The exact question from W.4 becomes the worked example in Lesson 2.2. Students experience the full arc: \"I couldn't answer this → Guide showed me how → Now I can.\"",
-  "_generated_at": "2026-04-20T16:59:14.480967+00:00",
+  "_generated_at": "2026-04-27T15:52:40.215352+00:00",
   "workspace_specs": {
     "toys": [
       "bar_graph",
@@ -825,7 +841,8 @@ Cacheable: Yes
     ],
     "tools": [],
     "workspace_carry_over": true
-  }
+  },
+  "prior_section_summaries": "## s1_1_graph_reading_with_scale_2\n# Section Summary: s1_1_graph_reading_with_scale_2\n\n**VISUAL STATE:** A horizontal bar graph titled \"After-School Activities\" is displayed in reading mode with scale 2 (each axis mark = 2 students). Four categories are shown: Soccer (value 12), Basketball (value 7), Tennis (value 6), and Swimming (value 11). At section end, the Soccer bar is highlighted to confirm the correct answer.\n\n**CONTENT:** Students practiced reading bar graphs with scaled axes. The concept of scale was formally introduced: \"Scale of 2\" means each mark on the axis represents 2 students, requiring students to interpret axis values rather than count individual units.\n\n**STUDENT ACTION:** The student answered a multiple-choice question asking \"How many students chose soccer?\" and selected the correct answer of 12 from options [6, 10, 12, 24].\n\n---\n\n## s2_1_comparison_question_single_step\n# Section Summary: s2_1_comparison_question_single_step\n\n**VISUAL STATE:** A horizontal bar graph titled \"After-School Activities\" is displayed in reading mode with scale 2. The graph contains four categories with exact values: Soccer (12), Basketball (7), Tennis (6), and Swimming (11). A multiple-choice prompt with options [18, 12, 6, 3] is active on screen. Upon correct selection of 6, the Soccer and Tennis bars highlight to confirm the answer.\n\n**CONTENT:** Students practiced comparison reasoning using subtraction to find the difference between two data values. The vocabulary \"how many more\" was reinforced as a comparison operation requiring subtraction (larger value minus smaller value).\n\n**STUDENT ACTION:** The student answered a multiple-choice question by selecting 6 as the correct answer to \"How many more students chose soccer than tennis?\" (12 − 6 = 6), demonstrating understanding of data comparison in a bar graph context.\n\n---\n\n## s3_1_quick_scale_check_lesson_context\n# Section Summary: s3_1_quick_scale_check_lesson_context\n\n**VISUAL STATE:** A vertical bar graph titled \"Favorite Lunch\" is displayed in reading mode with a scale of 5. The graph contains four categories—Pizza (45), Tacos (25), Salad (10), and Burgers (15)—with the Pizza bar highlighted to confirm the correct answer.\n\n**CONTENT:** This section reinforced scale interpretation on bar graphs, specifically practicing the skill of reading values by multiplying axis marks by the scale factor (9 marks × 5 = 45). No new vocabulary was formally introduced; the focus was on applying prior knowledge of scales to a new dataset.\n\n**STUDENT ACTION:** The student answered a multiple-choice question asking \"How many students chose pizza?\" by selecting 45 from options [9, 25, 45, 50], demonstrating correct understanding of scale-based value calculation."
 }
 </input>
 

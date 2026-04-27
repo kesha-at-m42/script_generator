@@ -1,13 +1,73 @@
 {
   "id": "s2_1_all_scales_fit_small_data",
   "incorrects": [
-    [],
     [
       {
         "condition": {
-          "not": {
-            "selected": 1
-          },
+          "incorrect_count": 1
+        },
+        "description": "Student has not yet clicked all four scale buttons on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Keep going. Try all the scale buttons to see which ones work."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student has not yet clicked all four scale buttons on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_marbles",
+              "params": {
+                "highlight_scale_buttons": true,
+                "description": "All four scale buttons highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Click each of the four scale buttons. We need to check if 23 fits on each one."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student has not clicked all four scale buttons after three attempts. System models the exploration.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_marbles",
+              "params": {
+                "event": "demonstrate_scale_exploration",
+                "status": "confirmed",
+                "description": "System demonstrates clicking each scale button in sequence: 1, 2, 5, 10. Each displays briefly with checkmark."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. I click each scale button to see if 23 fits. Scale of 1 works. Scale of 2 works. Scale of 5 works. Scale of 10 works. All four scales can show 23. That's the answer."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
           "incorrect_count": 1
         },
         "description": "Student clicked a scale other than 1 on first attempt",
@@ -16,16 +76,13 @@
           [
             {
               "type": "dialogue",
-              "text": "That one works too. Now click Scale of 1."
+              "text": "Not quite. Which scale shows every single number from 0 to 23?"
             }
           ]
         ]
       },
       {
         "condition": {
-          "not": {
-            "selected": 1
-          },
           "incorrect_count": 2
         },
         "description": "Student clicked a scale other than 1 on second attempt",
@@ -43,14 +100,14 @@
             },
             {
               "type": "dialogue",
-              "text": "We want to see what Scale of 1 looks like. It's the button on the left. Click it."
+              "text": "Think about which scale counts by 1. That scale will have a mark for every number. Which button is that?"
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student clicked a scale other than 1 three or more times. System models the action.",
+        "description": "Student clicked a scale other than 1 after three attempts. System models the correct answer.",
         "is_correct": false,
         "steps": [
           [
@@ -59,20 +116,19 @@
               "method": "animate",
               "tangible_id": "bar_graph_marbles",
               "params": {
-                "event": "click_scale_button",
+                "event": "select_scale",
                 "status": "confirmed",
-                "scale": 1,
-                "description": "System clicks Scale of 1 button. Graph updates to show Scale of 1."
+                "description": "System clicks Scale of 1 button. Graph updates to show scale of 1 with 24 tick marks."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me click Scale of 1 for us. The button on the left selects Scale of 1. When I click it, the graph updates to show what the data looks like with that scale. The axis now shows tick marks at every whole number from 0 to 23. That's 24 tick marks total. Scale of 1 shows every value exactly, but it creates a lot of marks on the axis for this data."
+              "text": "Here's how to think about it. Scale of 1 counts by 1, so every whole number from 0 to 23 gets its own tick mark. That's 24 marks total. The answer is Scale of 1."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:04:57.198242+00:00"
+  "_generated_at": "2026-04-27T16:01:59.381557+00:00"
 }

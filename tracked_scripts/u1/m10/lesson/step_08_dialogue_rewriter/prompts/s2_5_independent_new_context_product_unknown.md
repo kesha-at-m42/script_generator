@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:06:44.650621
+# Generated: 2026-04-27T11:01:18.903932
 ======================================================================
 
 ## API Parameters
@@ -953,7 +953,7 @@ Cacheable: Yes
     },
     {
       "text": "Same value — both ways.",
-      "context": "on_correct"
+      "context": "lesson"
     }
   ]
 }

@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:04.400818
+# Generated: 2026-04-27T10:58:10.140456
 ======================================================================
 
 ## API Parameters
@@ -944,15 +944,15 @@ Cacheable: Yes
   "id": "s2_3_strategy_naming",
   "dialogues": [
     {
-      "text": "Here's the strategy: When you see combined or together or altogether, find the total of those categories first. Then compare to the other given category.",
+      "text": "Here's the strategy: When you see 'combined' or 'together' or 'altogether,' find the total of those categories FIRST. Then compare to the other given category.",
       "context": "lesson"
     },
     {
-      "text": "Find the combined total first, then compare. That's the key to these problems.",
+      "text": "Find the combined total first, then compare. That's the key to these problems. What do we find first when we see 'combined'?",
       "context": "lesson"
     },
     {
-      "text": "Find the total by adding. That's always our first step when we see combined.",
+      "text": "Find the total by adding. That's always our first step when we see 'combined.'",
       "context": "on_correct"
     }
   ]

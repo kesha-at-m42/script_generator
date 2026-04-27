@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:01:26.368313
+# Generated: 2026-04-27T10:54:58.890518
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -826,7 +842,7 @@ Cacheable: Yes
   "remediation_2": "Pipeline",
   "remediation_note_2": "If student reverses (enters 3 instead of 4), redirect: \"3 was your GROUP COUNT. This step sets ITEMS IN EACH. Each bag holds 4 items inside.\"",
   "design_note": "Build Mode enforces the two-step structure. Student cannot create a representation until both steps are completed. The UI makes the sequence unambiguous: groups first, then items. Reversal attempts are caught immediately (step feedback prevents student from proceeding to step 2 with wrong group count). This interaction is NOT asking for independent identification—it's practicing the routine with the UI scaffolding the structure.",
-  "_generated_at": "2026-04-20T16:59:29.982795+00:00",
+  "_generated_at": "2026-04-27T15:52:49.344600+00:00",
   "workspace_specs": {
     "toys": [],
     "tools": [],
@@ -834,7 +850,8 @@ Cacheable: Yes
       "Build Mode Interface",
       "Empty workspace"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_1_transition_warmup_worked_example_worked\n# Section Summary: s1_1_transition_warmup_worked_example_worked\n\n**VISUAL STATE:** At section end, two tangibles are on screen: (1) an equal_groups visualization showing 3 bags (container_type: bags, container_count: 3, items_per_container: 4) in reading mode, and (2) an equation displaying \"3 × 4\" positioned below the bags.\n\n**CONTENT:** This worked example introduces the concept of equal groups and the multiplication symbol (×). Students learned formal vocabulary: \"groups\" (the number of containers), \"in each group\" (items per container), and the phrase \"three groups of four.\" The multiplication symbol (×) was presented as a notation for expressing equal groups in written form.\n\n**STUDENT ACTION:** Students engaged passively as the instructor modeled the problem-solving process: counting containers (3 bags), counting items within one container (4 items), verbalizing the relationship (\"three groups of four\"), and connecting it to the symbolic notation (3 × 4). Students were prompted to repeat the phrase \"three groups of four\" aloud.\n\n---\n\n## s1_2_student_identifies_example_problem_pair\n# Section Summary: s1_2_student_identifies_example_problem_pair\n\n**VISUAL STATE:** An equal groups visualization (tangible_id: equal_groups_boxes) displays 2 boxes in reading mode, with 5 items in each box. This tangible remains on screen throughout the section.\n\n**CONTENT:** The section introduces the concept of **equal groups**—collections with the same number of items in each group. Students practiced identifying the number of groups, the quantity per group, and verbalizing the relationship using the phrase \"X groups of Y.\" The vocabulary term **\"equal groups\"** was formally introduced, with emphasis that equal groups contain the same number in each one.\n\n**STUDENT ACTION:** The student answered three multiple-choice prompts: (1) identified 2 as the number of groups, (2) identified 5 as the number of items in each group, and (3) selected \"2 groups of 5\" to complete the sentence structure \"__ groups of __.\""
 }
 </input>
 

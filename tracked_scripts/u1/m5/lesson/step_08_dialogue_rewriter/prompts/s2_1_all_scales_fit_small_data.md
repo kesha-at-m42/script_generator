@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:55.358471
+# Generated: 2026-04-27T11:00:45.029770
 ======================================================================
 
 ## API Parameters
@@ -948,19 +948,19 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "This graph is horizontal — the bars go sideways. Let's check: which scales fit? Try clicking each scale.",
+      "text": "This graph is horizontal. The bars go sideways. Let's check which scales fit. Try clicking each scale.",
       "context": "lesson"
     },
     {
-      "text": "All four scales fit!",
+      "text": "All four scales fit! Let's look at Scale of 1.",
       "context": "on_correct"
     },
     {
-      "text": "Let's look at Scale of 1.",
+      "text": "Click Scale of 1 to see what it looks like.",
       "context": "lesson"
     },
     {
-      "text": "It works — every number lands exactly. But look at all those lines on the side! Small data means all scales fit. But some are cleaner than others.",
+      "text": "It works. Every number lands exactly. But look at all those lines on the side!",
       "context": "on_correct"
     }
   ]

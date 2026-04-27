@@ -4,24 +4,105 @@
     [
       {
         "condition": {
-          "incorrect_count": 1
+          "and": [
+            {
+              "placed": {
+                "groups": 6,
+                "items": 5
+              }
+            },
+            {
+              "not": {
+                "placed": {
+                  "total": 30
+                }
+              }
+            },
+            {
+              "incorrect_count": 1
+            }
+          ]
         },
-        "description": "Student placed incorrect tiles on first attempt",
+        "description": "Student placed correct factors (6 and 5) but wrong product on first attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "dialogue",
-              "text": "Not quite. Look at the bags. How many bags do you see, and how many items in each bag?"
+              "text": "You have the factors right: 6 groups of 5. Now skip-count by 5s six times to find the product."
             }
           ]
         ]
       },
       {
         "condition": {
-          "incorrect_count": 2
+          "and": [
+            {
+              "placed": {
+                "total": 30
+              }
+            },
+            {
+              "not": {
+                "placed": {
+                  "groups": 6,
+                  "items": 5
+                }
+              }
+            },
+            {
+              "incorrect_count": 1
+            }
+          ]
         },
-        "description": "Student placed incorrect tiles on second attempt",
+        "description": "Student placed correct product (30) but wrong factors on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "The product is right, but check the factors. The problem says 6 groups of 5."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student placed incorrect equation on first attempt (neither factors nor product correct)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. The problem says 6 groups of 5. Start with those factors."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "placed": {
+                "groups": 6,
+                "items": 5
+              }
+            },
+            {
+              "not": {
+                "placed": {
+                  "total": 30
+                }
+              }
+            },
+            {
+              "incorrect_count": 2
+            }
+          ]
+        },
+        "description": "Student placed correct factors (6 and 5) but wrong product on second attempt",
         "is_correct": false,
         "steps": [
           [
@@ -30,19 +111,90 @@
               "method": "update",
               "tangible_id": "equation_builder_6x5",
               "params": {
-                "description": "The first slot highlights, then the second slot highlights, then the product slot highlights in sequence."
+                "highlight_slots": [
+                  "slot_0",
+                  "slot_2"
+                ],
+                "description": "Factor slots (6 and 5) highlight briefly."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let's think about this together. First slot shows how many groups. Count the bags. Second slot shows the size of each group. Count the items in one bag. Then skip-count by that number to find the product."
+              "text": "Your factors are correct: 6 times 5. Now look at the 5s pattern you learned. Skip-count: 5, 10, 15, 20, 25. What comes next?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "placed": {
+                "total": 30
+              }
+            },
+            {
+              "not": {
+                "placed": {
+                  "groups": 6,
+                  "items": 5
+                }
+              }
+            },
+            {
+              "incorrect_count": 2
+            }
+          ]
+        },
+        "description": "Student placed correct product (30) but wrong factors on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder_6x5",
+              "params": {
+                "highlight_slots": [
+                  "slot_4"
+                ],
+                "description": "Product slot (30) highlights briefly."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found the right product: 30. But the factors need to match the problem. Read it again: 6 groups of 5. Which number is the groups? Which is the size of each group?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student placed incorrect equation on second attempt (neither factors nor product correct)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_builder_6x5",
+              "params": {
+                "show_hint": "6 groups of 5",
+                "description": "Text hint '6 groups of 5' appears above equation builder."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. 6 groups of 5 means the first factor is 6, the second is 5. Then skip-count by 5s six times: 5, 10, 15, 20, 25, 30."
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student placed incorrect tiles three or more times. System models the answer.",
+        "description": "Student answered incorrectly three or more times. System models the answer.",
         "is_correct": false,
         "steps": [
           [
@@ -51,19 +203,19 @@
               "method": "animate",
               "tangible_id": "equation_builder_6x5",
               "params": {
-                "event": "model_tile_placement",
+                "event": "model_placement",
                 "status": "confirmed",
-                "description": "Tiles animate into position: 6 slides into first slot, 5 into second slot, 30 into product slot."
+                "description": "System demonstrates placing tiles: 6 in first slot, 5 in second slot, 30 in product slot. Each placement pauses briefly."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. There are 6 bags, so 6 is the first factor. Each bag has 5 items, so 5 is the second factor. Now I skip-count by 5s, six times: 5, 10, 15, 20, 25, 30. The product is 30. The equation is 6 times 5 equals 30."
+              "text": "Let me show you. 6 groups of 5. First factor: 6. Second factor: 5. Now I skip-count by 5s, six times: 5, 10, 15, 20, 25, 30. The product is 30. So the complete equation is 6 times 5 equals 30, which follows the 5s pattern because it ends in 0."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:05:59.222151+00:00"
+  "_generated_at": "2026-04-27T16:01:12.522271+00:00"
 }

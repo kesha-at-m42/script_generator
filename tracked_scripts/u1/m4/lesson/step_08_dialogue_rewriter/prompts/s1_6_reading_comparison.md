@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:13.788065
+# Generated: 2026-04-27T11:01:06.661353
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,11 @@ Cacheable: Yes
   "id": "s1_6_reading_comparison",
   "dialogues": [
     {
-      "text": "Here's the completed graph. Use it to answer a question. How many MORE books were Nonfiction than Comics?",
+      "text": "Here's the completed graph. Use it to answer a question.",
+      "context": "lesson"
+    },
+    {
+      "text": "How many MORE books were Nonfiction than Comics?",
       "context": "lesson"
     },
     {

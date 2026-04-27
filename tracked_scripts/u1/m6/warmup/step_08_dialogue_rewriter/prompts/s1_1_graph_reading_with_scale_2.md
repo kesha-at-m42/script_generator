@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T11:59:59.622623
+# Generated: 2026-04-27T10:53:55.644614
 ======================================================================
 
 ## API Parameters
@@ -944,11 +944,11 @@ Cacheable: Yes
   "id": "s1_1_graph_reading_with_scale_2",
   "dialogues": [
     {
-      "text": "Let's warm up your graph skills. Here's a bar graph. Check the scale.",
+      "text": "Let's warm up your graph skills. Here's a bar graph. Check the scale. How many students chose soccer?",
       "context": "lesson"
     },
     {
-      "text": "12 students. Scale of 2. Each mark on the axis shows 2 students. That's how you read the scale.",
+      "text": "12 students. Scale of 2. Each mark on the axis shows 2 students.",
       "context": "on_correct"
     }
   ]

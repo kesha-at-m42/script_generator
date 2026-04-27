@@ -4,13 +4,13 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equal_groups_six_groups",
+      "tangible_id": "equal_groups_6x5",
       "tangible_type": "equal_groups",
       "params": {
         "mode": "reading",
         "container_count": 6,
         "items_per_container": 5,
-        "description": "Left panel: 6 groups of 5 dots appear."
+        "description": "Left panel: 6 groups of 5 dots displayed as context visualization for 6 × 5."
       }
     },
     {
@@ -19,37 +19,52 @@
       "tangible_id": "skip_count_display",
       "tangible_type": "image",
       "params": {
-        "description": "Center panel: Skip-counting sequence displays: 5, 10, 15, 20, 25, 30 with six counts highlighted."
+        "description": "Center panel: Skip-counting sequence 5, 10, 15, 20, 25, 30 displayed with six counts highlighted."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "repeated_addition_display",
-      "tangible_type": "image",
-      "params": {
-        "description": "Right panel: Repeated addition expression displays: 5 + 5 + 5 + 5 + 5 + 5 = 30."
-      }
-    },
-    {
-      "type": "scene",
-      "method": "add",
-      "tangible_id": "equation_display",
+      "tangible_id": "repeated_addition",
       "tangible_type": "equation",
       "params": {
         "expression": [
-          "6",
-          "x",
+          "5",
+          "+",
+          "5",
+          "+",
+          "5",
+          "+",
+          "5",
+          "+",
+          "5",
+          "+",
           "5",
           "=",
           "30"
         ],
-        "description": "Below all three panels: The equation 6 × 5 = 30 displays."
+        "description": "Right panel: Repeated addition equation 5 + 5 + 5 + 5 + 5 + 5 = 30."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_6x5",
+      "tangible_type": "equation",
+      "params": {
+        "expression": [
+          "6",
+          "×",
+          "5",
+          "=",
+          "30"
+        ],
+        "description": "Below all three panels: equation 6 × 5 = 30."
       }
     },
     {
       "type": "dialogue",
-      "text": "Three ways to find 6 times 5 equals 30. You can look at the groups and count. You can skip-count: 5, 10, 15, 20, 25, 30. Or you can add: 5 plus 5 plus 5 plus 5 plus 5 plus 30. Same answer — all three work."
+      "text": "Three ways to find 6 times 5 equals 30. You can look at the groups and count. You can skip-count: 5, 10, 15, 20, 25, 30. Or you can add: 5 plus 5 plus 5 plus 5 plus 5 plus 5 equals 30. Same answer. All three work."
     },
     {
       "type": "dialogue",
@@ -64,20 +79,18 @@
         "Skip-counting",
         "Repeated addition"
       ],
-      "branching": true,
       "validator": [
         {
           "condition_id": "selected_groups",
           "condition": {
             "selected": "Looking at the groups"
           },
-          "description": "Student selected Looking at the groups",
+          "description": "Student selected looking at the groups",
           "is_correct": true,
-          "branch": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "Seeing the groups makes it real — you can count each one. And notice: counting those groups by 5s IS skip-counting. The picture and the counting go together."
+              "text": "Seeing the groups makes it real. You can count each one. And notice: counting those groups by 5s IS skip-counting. The picture and the counting go together."
             }
           ]
         },
@@ -86,9 +99,8 @@
           "condition": {
             "selected": "Skip-counting"
           },
-          "description": "Student selected Skip-counting",
+          "description": "Student selected skip-counting",
           "is_correct": true,
-          "branch": true,
           "beats": [
             {
               "type": "dialogue",
@@ -101,9 +113,8 @@
           "condition": {
             "selected": "Repeated addition"
           },
-          "description": "Student selected Repeated addition",
+          "description": "Student selected repeated addition",
           "is_correct": true,
-          "branch": true,
           "beats": [
             {
               "type": "dialogue",
@@ -117,8 +128,8 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equal_groups_six_groups",
-          "description": "Left panel: 6 groups of 5 dots.",
+          "tangible_id": "equal_groups_6x5",
+          "description": "Left panel: 6 groups of 5 dots in reading mode.",
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 6,
@@ -126,28 +137,21 @@
         },
         {
           "tangible_id": "skip_count_display",
-          "description": "Center panel: Skip-counting sequence: 5, 10, 15, 20, 25, 30 with six counts highlighted.",
+          "description": "Center panel: Skip-counting sequence 5, 10, 15, 20, 25, 30.",
           "tangible_type": "image"
         },
         {
-          "tangible_id": "repeated_addition_display",
-          "description": "Right panel: Repeated addition: 5 + 5 + 5 + 5 + 5 + 5 = 30.",
-          "tangible_type": "image"
+          "tangible_id": "repeated_addition",
+          "description": "Right panel: Repeated addition 5 + 5 + 5 + 5 + 5 + 5 = 30.",
+          "tangible_type": "equation"
         },
         {
-          "tangible_id": "equation_display",
+          "tangible_id": "equation_6x5",
           "description": "Below panels: 6 × 5 = 30.",
-          "tangible_type": "equation",
-          "expression": [
-            "6",
-            "x",
-            "5",
-            "=",
-            "30"
-          ]
+          "tangible_type": "equation"
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:01:32.063185+00:00"
+  "_generated_at": "2026-04-27T15:55:00.675206+00:00"
 }

@@ -6,7 +6,7 @@
         "condition": {
           "selected": 2
         },
-        "description": "Student selected 2: undercounted the groups needed",
+        "description": "Student selected 2 (2 × 5 = 10, not 15)",
         "is_correct": false,
         "steps": [
           [
@@ -17,12 +17,12 @@
               "params": {
                 "event": "build_groups_sequentially",
                 "status": "proposed",
-                "description": "2 stacks of 5 items appear. Running total shows 10."
+                "description": "2 stacks of 5 items appear. Running total shows: Total: 5, Total: 10."
               }
             },
             {
               "type": "dialogue",
-              "text": "2 stacks of 5 gives us 10, not 15. We need more stacks. Skip count by 5s until you reach 15."
+              "text": "2 stacks of 5 makes 10, not 15. Skip count by 5s until you reach 15. How many times did you count?"
             }
           ]
         ]
@@ -31,7 +31,7 @@
         "condition": {
           "selected": 4
         },
-        "description": "Student selected 4: overcounted the groups needed",
+        "description": "Student selected 4 (4 × 5 = 20, not 15)",
         "is_correct": false,
         "steps": [
           [
@@ -42,12 +42,12 @@
               "params": {
                 "event": "build_groups_sequentially",
                 "status": "proposed",
-                "description": "4 stacks of 5 items appear. Running total shows 20."
+                "description": "4 stacks of 5 items appear. Running total shows: Total: 5, Total: 10, Total: 15, Total: 20."
               }
             },
             {
               "type": "dialogue",
-              "text": "4 stacks of 5 gives us 20, too many. We need exactly 15. Count by 5s: 5, 10, and then what?"
+              "text": "4 stacks of 5 makes 20, too many. We need 15. How many 5s does it take to reach exactly 15?"
             }
           ]
         ]
@@ -56,21 +56,23 @@
         "condition": {
           "selected": 5
         },
-        "description": "Student selected 5: likely confused the factor with the group size",
+        "description": "Student selected 5 (5 × 5 = 25, not 15; may have confused items per stack with number of stacks)",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
-              "method": "update",
-              "tangible_id": "equation_builder_factor",
+              "method": "animate",
+              "tangible_id": "equal_groups_stacks",
               "params": {
-                "description": "The 5 in the equation pulses to highlight it."
+                "event": "build_groups_sequentially",
+                "status": "proposed",
+                "description": "5 stacks of 5 items appear. Running total shows: Total: 5, Total: 10, Total: 15, Total: 20, Total: 25."
               }
             },
             {
               "type": "dialogue",
-              "text": "5 is the size of each stack, not how many stacks we need. The blank is asking how many groups of 5 make 15."
+              "text": "5 stacks of 5 makes 25, not 15. The unknown is how many stacks you need. Skip count by 5s and stop at 15. How many times did you count?"
             }
           ]
         ]
@@ -88,17 +90,17 @@
               "params": {
                 "event": "build_groups_sequentially",
                 "status": "confirmed",
-                "description": "3 stacks of 5 items appear one by one. Running total updates: 5, 10, 15."
+                "description": "System demonstrates skip counting. First stack appears: 5. Second stack appears: 10. Third stack appears: 15. Final groups show 3 stacks of 5."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. We skip count by 5s: 5, 10, 15. That's 3 jumps, so 3 stacks of 5 make 15. The answer is 3 stacks. That's how we find the missing factor."
+              "text": "Let me show you. Skip count by 5s. First stack: 5. Second stack: 10. Third stack: 15. I counted three times. 3 stacks of 5 equals 15. That's the unknown."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:02:09.648570+00:00"
+  "_generated_at": "2026-04-27T15:55:19.577454+00:00"
 }

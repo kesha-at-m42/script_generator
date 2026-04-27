@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:02:27.053157
+# Generated: 2026-04-27T10:55:03.289407
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -834,13 +850,14 @@ Cacheable: Yes
   "on_correct_2": "\"5 times 9 equals 45. Five bags, 9 in each, same value as 45.\"",
   "visual_on_correct_2": "Reversed version appears: `45 = 5 × 9`. Guide: \"Both ways work.\"",
   "design_note_2": "Fading begins. Guide gives brief instruction (\"Same idea... Build the equation\") rather than full narration. Student has seen two full models (1.1 worked example + 1.2 first attempt). Structure language compressed to interaction-level teaching.",
-  "_generated_at": "2026-04-20T17:00:16.410616+00:00",
+  "_generated_at": "2026-04-27T15:52:49.204988+00:00",
   "workspace_specs": {
     "toys": [],
     "tools": [
       "place_tile"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_1_quick_equation_build_setup_sign\n# Section Summary: s1_1_quick_equation_build_setup_sign\n\n**VISUAL STATE:**\nTwo tangibles are on screen: (1) Equal Groups visualization showing 3 containers with 4 apples each, mode \"reading,\" containers visible and clearly separated; (2) Equation Builder displaying the completed equation \"3 × 4 = 12\" with the equals sign subtly highlighted, template filled with values 3, ×, 4, =, 12.\n\n**CONTENT:**\nStudents practiced translating a concrete equal-groups representation into multiplication equation form. The section introduced formal attention to the equals sign as a symbol of balance/equivalence, moving beyond simple equation-building mechanics.\n\n**STUDENT ACTION:**\nStudent placed number tiles (3, 4, and 12) into the equation builder template to construct \"3 × 4 = 12\" matching the visual model, then received confirmation and dialogue directing focus to the equals sign's meaning."
 }
 </input>
 

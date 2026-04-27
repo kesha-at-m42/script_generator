@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:01:28.294592
+# Generated: 2026-04-27T10:55:12.698240
 ======================================================================
 
 ## API Parameters
@@ -1538,6 +1538,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1648,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1800,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1857,17 +1861,18 @@ Cacheable: Yes
       "tangible_id": "sorting_area",
       "tangible_type": "sorting_area",
       "params": {
+        "description": "Sorting workspace appears. Left side shows three draggable problem cards: (1) 'How many more chose pizza than tacos?', (2) 'How many more chose pizza and tacos combined than salad?', (3) 'How many fewer chose burgers and hot dogs together than pizza?' Right side shows two drop zones labeled 'JUST COMPARE' and 'COMBINE FIRST, THEN COMPARE'.",
         "items": [
           {
-            "id": "q1",
+            "id": "problem_1",
             "text": "How many more chose pizza than tacos?"
           },
           {
-            "id": "q2",
+            "id": "problem_2",
             "text": "How many more chose pizza and tacos combined than salad?"
           },
           {
-            "id": "q3",
+            "id": "problem_3",
             "text": "How many fewer chose burgers and hot dogs together than pizza?"
           }
         ],
@@ -1880,8 +1885,7 @@ Cacheable: Yes
             "id": "combine_first",
             "label": "COMBINE FIRST, THEN COMPARE"
           }
-        ],
-        "description": "Sorting area appears. Three question cards on left. Two drop zones on right labeled JUST COMPARE and COMBINE FIRST, THEN COMPARE."
+        ]
       },
       "id": "s2_1_consolidation_type_b_sorting_problems_b0"
     },
@@ -1901,32 +1905,21 @@ Cacheable: Yes
           "condition": {
             "placed": {
               "just_compare": [
-                "q1"
+                "problem_1"
               ],
               "combine_first": [
-                "q2",
-                "q3"
+                "problem_2",
+                "problem_3"
               ]
             }
           },
-          "description": "Student sorted all three questions correctly: q1 to just_compare, q2 and q3 to combine_first",
+          "description": "Student sorted all problems correctly: problem 1 to JUST COMPARE, problems 2 and 3 to COMBINE FIRST",
           "is_correct": true,
           "beats": [
             {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "sorting_area",
-              "params": {
-                "event": "confirm_placement",
-                "status": "confirmed",
-                "description": "All three cards lock into their zones to confirm correct sorting."
-              },
-              "id": "s2_1_consolidation_type_b_sorting_problems_b2_v0_b0"
-            },
-            {
               "type": "dialogue",
-              "text": "You sorted them all. Words like combined and together tell you to find a total first.",
-              "id": "s2_1_consolidation_type_b_sorting_problems_b2_v0_b1"
+              "text": "You sorted them all. Words like 'combined' and 'together' tell you to find a total first.",
+              "id": "s2_1_consolidation_type_b_sorting_problems_b2_v0_b0"
             }
           ]
         }
@@ -1938,7 +1931,7 @@ Cacheable: Yes
       "elements": [
         {
           "tangible_id": "sorting_area",
-          "description": "Sorting area with three question cards and two drop zones. drag_to_sort tool active.",
+          "description": "Sorting workspace with three problem cards draggable to two zones: JUST COMPARE and COMBINE FIRST, THEN COMPARE. Drag-to-sort tool active.",
           "tangible_type": "sorting_area"
         }
       ],
@@ -1946,10 +1939,10 @@ Cacheable: Yes
     },
     {
       "type": "scene",
-      "method": "remove",
+      "method": "update",
       "tangible_id": "sorting_area",
       "params": {
-        "description": "Sorting area clears."
+        "description": "Sorting area fades. Problem cards are no longer draggable."
       },
       "id": "s2_1_consolidation_type_b_sorting_problems_b4"
     },
@@ -1964,7 +1957,7 @@ Cacheable: Yes
       "tool": "multiple_choice",
       "options": [
         "What's the biggest number?",
-        "Does it say combined or together?",
+        "Does it say 'combined' or 'together'?",
         "How many categories are there?",
         "Should I add or subtract?"
       ],
@@ -1972,9 +1965,9 @@ Cacheable: Yes
         {
           "condition_id": "correct",
           "condition": {
-            "selected": "Does it say combined or together?"
+            "selected": "Does it say 'combined' or 'together'?"
           },
-          "description": "Student selected option B, correct",
+          "description": "Student selected option B, the correct key question",
           "is_correct": true,
           "beats": [
             {
@@ -1989,7 +1982,13 @@ Cacheable: Yes
     },
     {
       "type": "current_scene",
-      "elements": [],
+      "elements": [
+        {
+          "tangible_id": "sorting_area",
+          "description": "Sorting workspace inactive. Multiple choice options visible: 'What's the biggest number?', 'Does it say 'combined' or 'together'?', 'How many categories are there?', 'Should I add or subtract?'",
+          "tangible_type": "sorting_area"
+        }
+      ],
       "id": "s2_1_consolidation_type_b_sorting_problems_b7"
     },
     {
@@ -1999,11 +1998,17 @@ Cacheable: Yes
     },
     {
       "type": "current_scene",
-      "elements": [],
+      "elements": [
+        {
+          "tangible_id": "sorting_area",
+          "description": "Sorting workspace remains on screen, interaction complete.",
+          "tangible_type": "sorting_area"
+        }
+      ],
       "id": "s2_1_consolidation_type_b_sorting_problems_b9"
     }
   ],
-  "_generated_at": "2026-04-20T17:00:23.183639+00:00"
+  "_generated_at": "2026-04-27T15:53:54.505521+00:00"
 }
 </input>
 

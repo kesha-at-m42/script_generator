@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:04:29.634770
+# Generated: 2026-04-27T10:59:18.724559
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,7 @@ Cacheable: Yes
   "id": "s2_1_worked_example_first_full_equation",
   "dialogues": [
     {
-      "text": "You discovered that multiples of 2 are always even. Now let me show you something new. I already know the expression: 7 times 2. But now I want to find what it equals — the total.",
+      "text": "You discovered that multiples of 2 are always even. Now let me show you something new. I already know the expression: 7 times 2. But now I want to find what it EQUALS — the total.",
       "context": "lesson"
     },
     {
@@ -952,7 +952,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "Now I skip-count by 2s, seven times: 2... 4... 6... 8... 10... 12... 14.",
+      "text": "Now I skip-count by 2s, seven times: 2, 4, 6, 8, 10, 12, 14.",
       "context": "lesson"
     },
     {

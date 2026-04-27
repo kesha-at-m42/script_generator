@@ -1,7 +1,71 @@
 {
   "id": "s2_2_but_which_is_best_efficiency",
   "incorrects": [
-    []
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student clicked a wrong scale button on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. We want to compare Scale of 10 to Scale of 1."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student clicked a wrong scale button on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_marbles",
+              "params": {
+                "highlight_scale_button": 10,
+                "description": "Scale of 10 button highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's see what happens with Scale of 10. Look for the button that shows 10."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student clicked a wrong scale button three or more times. System demonstrates the correct action.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_marbles",
+              "params": {
+                "event": "select_scale",
+                "status": "confirmed",
+                "scale": 10,
+                "description": "System clicks Scale of 10 button. Graph updates to show scale of 10 with axis marks at 0, 10, 20, 30."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "I'll click Scale of 10 for us. Now you can see the axis shows 0, 10, 20, 30. That's what we wanted to compare."
+            }
+          ]
+        ]
+      }
+    ]
   ],
-  "_generated_at": "2026-04-20T17:05:00.743519+00:00"
+  "_generated_at": "2026-04-27T16:02:09.010079+00:00"
 }

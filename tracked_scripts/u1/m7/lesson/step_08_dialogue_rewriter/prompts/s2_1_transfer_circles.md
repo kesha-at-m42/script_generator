@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:12.111293
+# Generated: 2026-04-27T10:58:01.002377
 ======================================================================
 
 ## API Parameters
@@ -960,11 +960,11 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "2 dots in each. So you have...",
+      "text": "2 dots in each.",
       "context": "on_correct"
     },
     {
-      "text": "Say it.",
+      "text": "So you have...",
       "context": "lesson"
     },
     {

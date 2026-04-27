@@ -6,31 +6,7 @@
         "condition": {
           "selected": "The containers (bags/boxes/circles)"
         },
-        "description": "Student selected 'The containers (bags/boxes/circles)': focused on what changes rather than what stays the same",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "equation_shared",
-              "params": {
-                "highlight": true,
-                "description": "Expression 2 × 5 highlights."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "The containers do change. bags, boxes, circles. But look at the expression below. What does 2 × 5 tell us about the groups?"
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "selected": "The items inside"
-        },
-        "description": "Student selected 'The items inside': focused on visual details rather than mathematical structure",
+        "description": "Student selected 'The containers', which is what changes, not what stays the same",
         "is_correct": false,
         "steps": [
           [
@@ -39,13 +15,67 @@
               "method": "update",
               "tangible_id": "equal_groups_bags",
               "params": {
-                "highlight_groups": true,
-                "description": "Groups in bags highlight."
+                "description": "Bags container type briefly highlights."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "description": "Boxes container type briefly highlights."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "description": "Circles container type briefly highlights."
               }
             },
             {
               "type": "dialogue",
-              "text": "The items might look different. But count the groups in each picture. How many groups? How many in each group? That's what matters."
+              "text": "The containers are different. Bags, then boxes, then circles. That's what changes. We're looking for what stays the same across all three pictures."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "The items inside"
+        },
+        "description": "Student selected 'The items inside', focusing on objects rather than structure",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_bags",
+              "params": {
+                "description": "Items inside bags pulse."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_boxes",
+              "params": {
+                "description": "Items inside boxes pulse."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equal_groups_circles",
+              "params": {
+                "description": "Dots inside circles pulse."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The objects are different too. Look past what's in each container. Count the containers and how many are in each one. Does that pattern stay the same?"
             }
           ]
         ]
@@ -54,22 +84,13 @@
         "condition": {
           "selected": "The colors or shapes"
         },
-        "description": "Student selected 'The colors or shapes': focused on surface features rather than mathematical structure",
+        "description": "Student selected 'The colors or shapes', focusing on surface features",
         "is_correct": false,
         "steps": [
           [
             {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "equation_shared",
-              "params": {
-                "highlight": true,
-                "description": "Expression 2 × 5 highlights."
-              }
-            },
-            {
               "type": "dialogue",
-              "text": "Colors and shapes can change, but the multiplication stays the same. Look at 2 × 5. Count the groups and what's in each group across all three pictures."
+              "text": "Colors and shapes are surface details. They change from picture to picture. Look at the structure underneath. How many groups are there? How many in each group? That's what the expression captures."
             }
           ]
         ]
@@ -87,7 +108,7 @@
               "params": {
                 "event": "highlight_structure",
                 "status": "confirmed",
-                "description": "System highlights 2 groups with 5 items in bags."
+                "description": "2 groups with 5 in each structure highlights on bags."
               }
             },
             {
@@ -97,7 +118,7 @@
               "params": {
                 "event": "highlight_structure",
                 "status": "confirmed",
-                "description": "System highlights 2 groups with 5 items in boxes."
+                "description": "2 groups with 5 in each structure highlights on boxes."
               }
             },
             {
@@ -107,17 +128,17 @@
               "params": {
                 "event": "highlight_structure",
                 "status": "confirmed",
-                "description": "System highlights 2 groups with 5 items in circles."
+                "description": "2 groups with 5 in each structure highlights on circles."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. In the bags: 2 groups, 5 in each. In the boxes: 2 groups, 5 in each. In the circles: 2 groups, 5 in each. The containers change, but the structure stays the same. 2 groups with 5 in each. That's what 2 × 5 means."
+              "text": "Let me show you. Bags: 2 groups, 5 in each. Boxes: 2 groups, 5 in each. Circles: 2 groups, 5 in each. The containers change, but the structure doesn't. 2 groups with 5 in each. That's what stays the same. That's what the expression 2 times 5 represents."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:01:35.767192+00:00"
+  "_generated_at": "2026-04-27T15:55:08.276261+00:00"
 }

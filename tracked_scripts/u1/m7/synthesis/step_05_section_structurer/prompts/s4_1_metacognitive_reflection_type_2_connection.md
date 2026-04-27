@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:00:34.655744
+# Generated: 2026-04-27T10:54:12.421121
 ======================================================================
 
 ## API Parameters
@@ -249,6 +249,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -437,6 +443,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -700,6 +708,14 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -813,19 +829,20 @@ Cacheable: Yes
   "purpose": "Help students articulate the graph-to-multiplication connection that M7 revealed. This is M7's biggest conceptual contribution: the realization that everything students did in M1-M6 (scaled graphs) was multiplication in disguise. Type 2 (Connection Recognition) is appropriate at M7 per Playbook: \"Introduce Types 2 and 4 for Modules 7-12.\"",
   "visual": "Simple split display — left side shows a picture graph (scale of 5, briefly), right side shows bags (equal groups). Both are small, iconic — not interactive.",
   "guide": "\"Here's something to think about. Today's work connects to something you've been doing for a while. Did you notice a connection?\"",
-  "options": "A) Yes — reading graph scales was like finding equal groups\n\t- B) Kind of — some parts felt similar\n\t- C) Not really — this felt brand new",
+  "options": "A) Yes — reading graph scales was like finding equal groups\nB) Kind of — some parts felt similar\nC) Not really — this felt brand new",
   "on_selection_a": "\"You spotted it. Every time you read a scale-of-5 graph, you were counting groups of 5. Graph scales were equal groups the whole time.\"",
   "on_selection_b": "\"Good noticing. The counting-by-5s and counting-by-2s from graphs — that was groups all along. The connection gets clearer over time.\"",
   "on_selection_c": "\"That makes sense — the × symbol and 'equal groups' are new. But remember the Warmup graph? Those symbols were holding groups inside. You'll see more connections as we keep going.\"",
   "design_note": "All three responses are validated equally — no wrong answers in reflection. Each response gets a connection-specific reply that gently reinforces the graph-to-multiplication bridge, regardless of what the student selected. The visual serves as a quiet reminder of both worlds (graphs and groups) without requiring interaction.",
-  "_generated_at": "2026-04-20T16:59:37.231484+00:00",
+  "_generated_at": "2026-04-27T15:53:05.614661+00:00",
   "workspace_specs": {
     "toys": [
       "equal_groups",
       "picture_graph"
     ],
     "tools": []
-  }
+  },
+  "prior_section_summaries": "## s1_1_pattern_discovery_what_makes_groups\n# Section Summary: s1_1_pattern_discovery_what_makes_groups\n\n**VISUAL STATE:** A 2×2 grid display (equal_groups tangible, reading mode) showing four options: Option A displays 3 bags with 4 items each; Option B displays 4 circles with 2 dots each; Option C displays 2 boxes with unequal contents (3 items in one, 5 in the other); Option D displays 5 bags with 3 items each. Option C is highlighted to confirm selection.\n\n**CONTENT:** Students were introduced to the concept of **equal groups**—a foundational multiplication concept where every container or group must hold the same quantity. The formal vocabulary term \"equal groups\" was explicitly defined: for groups to be equal, every container needs the same number inside. Students practiced distinguishing equal from unequal groupings.\n\n**STUDENT ACTION:** The student answered a multiple-choice question identifying which visualization does NOT show equal groups, correctly selecting Option C (the boxes with 3 and 5 items). The system confirmed the correct answer and provided explanatory feedback about why C violates the equal groups principle while A, B, and D all satisfy it.\n\n---\n\n## s2_1_representation_transfer_same_multiplication_three\n# Section Summary: s2_1_representation_transfer_same_multiplication_three\n\n**VISUAL STATE:**\nThree side-by-side representations are displayed: (1) Equal groups tangible with 3 bags, 5 items per bag, reading mode; (2) Equal groups tangible with 3 circles, 5 dots per circle, reading mode; (3) Picture graph with 3 symbols (Symbol1, Symbol2, Symbol3), vertical orientation, scale of 5, reading mode. All three visuals remain on screen at section end.\n\n**CONTENT:**\nThe section introduced the core concept that **multiplication describes the same pattern across different visual representations**. Students learned that \"3 groups of 5\" is structurally identical whether shown as bags, circles, or graph symbols, and that this pattern is expressed as the multiplication equation 3 × 5. The vocabulary \"groups of\" and the notation \"3 × 5\" were formalized in this context.\n\n**STUDENT ACTION:**\nThe student answered a multiple-choice question identifying what all three pictures show, selecting \"3 groups of 5\" from four options (3 groups of 5, 5 groups of 3, 3 + 5, 15 things with no groups). Upon correct selection, confirmatory dialogue reinforced that different containers represent the same multiplicative structure.\n\n---\n\n## s3_1_real_world_bridge_equal_groups\n# Section Summary: Real-World Bridge to Equal Groups\n\n**VISUAL STATE AT SECTION END:**\nTwo tangibles appear on screen: (1) a word problem area displaying the text \"A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes,\" and (2) an equal groups builder in building mode showing 4 containers, each containing 6 items, representing the juice box packs on the shelf.\n\n**CONTENT:**\nThis section introduced the concept that equal groups exist in real-world contexts beyond abstract math problems—specifically in packaged goods on store shelves. The vocabulary \"equal groups\" was reinforced alongside the multiplication expression \"4 × 6,\" establishing the connection that whenever the same quantity appears in multiple containers (packs, bags, boxes, cartons), that structure represents multiplication.\n\n**STUDENT ACTION:**\nThe student built an equal groups representation by performing two sequential actions: (1) setting the container count to 4 (representing the four packs), and (2) setting the items per container to 6 (representing the juice boxes in each pack), thereby constructing a visual model of the store shelf scenario."
 }
 </input>
 

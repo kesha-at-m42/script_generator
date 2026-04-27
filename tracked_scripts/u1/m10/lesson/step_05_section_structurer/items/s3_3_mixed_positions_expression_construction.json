@@ -4,34 +4,31 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equation_builder_unknown_second",
+      "tangible_id": "equation_builder",
       "tangible_type": "equation_builder",
       "params": {
-        "mode": "reading",
-        "template": "equation_style",
-        "expression": [
+        "template": [
           "5",
-          "x",
+          "×",
           "__",
           "=",
           "30"
         ],
-        "description": "Equation Builder displays: 5 × ☐ = 30. Unknown second factor position."
+        "mode": "building",
+        "description": "Equation Builder displays 5 × ☐ = 30. First factor 5 and product 30 filled; second factor slot empty."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equal_groups_construction",
+      "tangible_id": "equal_groups",
       "tangible_type": "equal_groups",
       "params": {
         "mode": "building",
         "container_count": 5,
         "items_per_container": 0,
-        "locked_container_count": true,
-        "show_running_total": true,
-        "current_total": 0,
-        "description": "Equal Groups with Pictures in Construction Mode. 5 empty groups displayed. Group count locked at 5. Per-group +/- controls. Running total: Total: 0."
+        "containers_visible": true,
+        "description": "Equal Groups in building mode. 5 empty containers displayed. Group count locked at 5. Per-group +/- controls active. Running total displays: Total: 0."
       }
     },
     {
@@ -42,12 +39,19 @@
       "type": "prompt",
       "text": "5 × ☐ = 30. Build 5 equal groups that make 30 total.",
       "tool": "set_items_per_container",
-      "target": "equal_groups_construction",
+      "target": "equal_groups",
       "validator": [
         {
-          "condition_id": "correct",
+          "condition_id": "correct_answer",
           "condition": {
-            "items_per_container": 6
+            "and": [
+              {
+                "items_per_container": 6
+              },
+              {
+                "total": 30
+              }
+            ]
           },
           "description": "Student built 5 equal groups of 6, total = 30",
           "is_correct": true,
@@ -55,36 +59,32 @@
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "equal_groups_construction",
+              "tangible_id": "equal_groups",
               "params": {
-                "event": "confirm_completion",
+                "event": "highlight_all_groups",
                 "status": "confirmed",
-                "description": "Equal groups construction completes. 5 groups of 6 items each confirmed."
+                "description": "All 5 groups highlight to confirm equality and correct total."
               }
             },
             {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "equation_builder_unknown_second",
-              "params": {
-                "expression": [
-                  "5",
-                  "x",
-                  "6",
-                  "=",
-                  "30"
-                ],
-                "description": "Equation Builder updates: 5 × 6 = 30. Second factor filled."
-              }
+              "type": "dialogue",
+              "text": "5 times 6 equals 30. You started with the equation and built the answer. That's exactly what equations are for — they tell you how the numbers connect."
             }
           ]
         },
         {
-          "condition_id": "total_30_unequal",
+          "condition_id": "total_30_unequal_groups",
           "condition": {
-            "current_total": 30
+            "and": [
+              {
+                "total": 30
+              },
+              {
+                "items_per_container_unequal": true
+              }
+            ]
           },
-          "description": "Total reached 30 but groups are unequal",
+          "description": "Student reached total 30 but groups are not equal",
           "is_correct": false,
           "beats": [
             {
@@ -94,9 +94,18 @@
           ]
         },
         {
-          "condition_id": "equal_wrong_total",
-          "condition": {},
-          "description": "Groups are equal but total is not 30",
+          "condition_id": "equal_groups_wrong_total",
+          "condition": {
+            "and": [
+              {
+                "items_per_container_equal": true
+              },
+              {
+                "total_not": 30
+              }
+            ]
+          },
+          "description": "Student built equal groups but total is not 30",
           "is_correct": false,
           "beats": [
             {
@@ -111,81 +120,93 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equation_builder_unknown_second",
-          "description": "Equation Builder displays: 5 × ☐ = 30. Unknown second factor position.",
+          "tangible_id": "equation_builder",
+          "description": "Equation Builder displaying 5 × ☐ = 30 with second factor slot empty.",
           "tangible_type": "equation_builder",
-          "mode": "reading",
-          "template": "equation_style",
-          "expression": [
+          "template": [
             "5",
-            "x",
+            "×",
             "__",
             "=",
             "30"
-          ]
+          ],
+          "mode": "building"
         },
         {
-          "tangible_id": "equal_groups_construction",
-          "description": "Equal Groups Construction Mode. 5 empty groups. Group count locked at 5. Per-group +/- controls active. Running total: Total: 0.",
+          "tangible_id": "equal_groups",
+          "description": "Equal Groups in building mode. 5 containers with 6 items each. Running total: 30. set_items_per_container tool active.",
           "tangible_type": "equal_groups",
           "mode": "building",
           "container_count": 5,
-          "items_per_container": 0,
-          "locked_container_count": true,
-          "show_running_total": true,
-          "current_total": 0
+          "items_per_container": 6
         }
       ]
     },
     {
       "type": "scene",
       "method": "update",
-      "tangible_id": "equation_builder_unknown_second",
+      "tangible_id": "equation_builder",
       "params": {
-        "expression": [
-          "30",
-          "=",
-          "5",
-          "x",
-          "6"
-        ],
-        "description": "Equation Builder updates to reversed form: 30 = 5 × 6."
+        "placed_values": {
+          "items": 6
+        },
+        "description": "Second factor slot fills with 6. Equation Builder now shows complete equation: 5 × 6 = 30."
       }
     },
     {
-      "type": "dialogue",
-      "text": "5 times 6 equals 30. You started with the equation and BUILT the answer. That's exactly what equations are for — they tell you how the numbers connect."
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_reversed",
+      "tangible_type": "equation",
+      "params": {
+        "template": [
+          "30",
+          "=",
+          "5",
+          "×",
+          "6"
+        ],
+        "description": "Static equation appears displaying reversed form: 30 = 5 × 6."
+      }
     },
     {
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "equation_builder_unknown_second",
-          "description": "Equation Builder displays reversed form: 30 = 5 × 6.",
+          "tangible_id": "equation_builder",
+          "description": "Equation Builder displaying completed equation 5 × 6 = 30.",
           "tangible_type": "equation_builder",
-          "mode": "reading",
-          "template": "equation_style",
-          "expression": [
-            "30",
-            "=",
+          "template": [
             "5",
-            "x",
-            "6"
-          ]
+            "×",
+            "6",
+            "=",
+            "30"
+          ],
+          "mode": "building"
         },
         {
-          "tangible_id": "equal_groups_construction",
-          "description": "Equal Groups Construction Mode showing completed solution: 5 groups of 6 items each. Running total: Total: 30.",
+          "tangible_id": "equal_groups",
+          "description": "Equal Groups showing 5 containers with 6 items each. Total: 30.",
           "tangible_type": "equal_groups",
           "mode": "building",
           "container_count": 5,
-          "items_per_container": 6,
-          "locked_container_count": true,
-          "show_running_total": true,
-          "current_total": 30
+          "items_per_container": 6
+        },
+        {
+          "tangible_id": "equation_reversed",
+          "description": "Static equation showing reversed form: 30 = 5 × 6.",
+          "tangible_type": "equation",
+          "template": [
+            "30",
+            "=",
+            "5",
+            "×",
+            "6"
+          ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:06:12.958861+00:00"
+  "_generated_at": "2026-04-27T16:00:44.226627+00:00"
 }

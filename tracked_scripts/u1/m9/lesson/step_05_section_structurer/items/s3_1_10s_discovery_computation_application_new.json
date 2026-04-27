@@ -5,24 +5,28 @@
       "type": "scene",
       "method": "add",
       "tangible_id": "products_strip_10s",
-      "tangible_type": "image",
+      "tangible_type": "products_strip",
       "params": {
-        "description": "Products Strip appears showing multiples of 10: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100. Label: Multiples of 10."
+        "mode": "reading",
+        "values": [
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80,
+          90,
+          100
+        ],
+        "label": "Multiples of 10",
+        "description": "Products Strip appears showing ten values: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100. Label: Multiples of 10."
       }
     },
     {
       "type": "dialogue",
-      "text": "One more family — 10s. Here are the multiples of 10: 10, 20, 30, 40, 50... all the way to 100. See the pattern?"
-    },
-    {
-      "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "products_strip_10s",
-          "tangible_type": "image",
-          "description": "Products Strip showing multiples of 10 from 10 to 100. Label: Multiples of 10."
-        }
-      ]
+      "text": "One more family. 10s. Here are the multiples of 10: 10, 20, 30, 40, 50 all the way to 100. See the pattern?"
     },
     {
       "type": "scene",
@@ -31,42 +35,68 @@
       "params": {
         "event": "highlight_ones_digit",
         "status": "confirmed",
-        "description": "The 0 in the ones digit highlights across all products on the strip: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100."
+        "description": "The 0 in the ones digit of all numbers highlights sequentially across the strip."
       }
-    },
-    {
-      "type": "dialogue",
-      "text": "The products ALL end in zero."
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "products_strip_10s",
-          "tangible_type": "image",
-          "description": "Products Strip with ones digit 0 highlighted across all multiples of 10."
+          "description": "Products Strip showing Multiples of 10: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100. Ones digits (all 0s) highlighted.",
+          "tangible_type": "products_strip",
+          "mode": "reading",
+          "values": [
+            10,
+            20,
+            30,
+            40,
+            50,
+            60,
+            70,
+            80,
+            90,
+            100
+          ],
+          "label": "Multiples of 10"
         }
       ]
     },
     {
       "type": "scene",
-      "method": "update",
+      "method": "animate",
       "tangible_id": "products_strip_10s",
       "params": {
+        "event": "show_factors",
+        "status": "confirmed",
         "description": "Factors appear above each product on the strip: 1 × 10, 2 × 10, 3 × 10, 4 × 10, 5 × 10, 6 × 10, 7 × 10, 8 × 10, 9 × 10, 10 × 10."
       }
     },
     {
       "type": "dialogue",
-      "text": "See the factor multiplied by 10 with the product? Multiplying by 10 just puts a zero at the end of the other factor. 4 times 10? 4 with a zero — 40."
+      "text": "The products ALL end in zero. See the factor multiplied by 10 with the product? Multiplying by 10 just puts a zero at the end of the other factor. 4 times 10? 4 with a zero. 40."
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "products_strip_10s",
-          "tangible_type": "image",
-          "description": "Products Strip showing multiples of 10 with factors displayed above: 1 × 10 = 10, 2 × 10 = 20, etc."
+          "description": "Products Strip showing Multiples of 10 with factors displayed above each product: 1 × 10 = 10, 2 × 10 = 20, through 10 × 10 = 100. Ones digits highlighted.",
+          "tangible_type": "products_strip",
+          "mode": "reading",
+          "values": [
+            10,
+            20,
+            30,
+            40,
+            50,
+            60,
+            70,
+            80,
+            90,
+            100
+          ],
+          "label": "Multiples of 10"
         }
       ]
     },
@@ -76,14 +106,24 @@
       "tangible_id": "equation_builder_7x10",
       "tangible_type": "equation_builder",
       "params": {
+        "mode": "building",
         "template": [
           "__",
-          "x",
+          "×",
           "__",
           "=",
           "__"
         ],
-        "palette": [
+        "description": "Equation Builder appears below Products Strip. Three empty slots with multiplication template. Tile palette shows: 4, 7, 10, 40, 50, 60, 70."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "tile_palette_7x10",
+      "tangible_type": "tile_palette",
+      "params": {
+        "tiles": [
           4,
           7,
           10,
@@ -92,7 +132,7 @@
           60,
           70
         ],
-        "description": "Equation Builder appears below Products Strip. Three blanks with multiplication and equals symbols. Palette contains tiles: 4, 7, 10, 40, 50, 60, 70."
+        "description": "Tile palette appears with options: 4, 7, 10, 40, 50, 60, 70."
       }
     },
     {
@@ -108,16 +148,28 @@
         {
           "condition_id": "correct",
           "condition": {
-            "groups": 7,
-            "items": 10,
-            "total": 70
+            "placed": {
+              "groups": 7,
+              "items": 10,
+              "total": 70
+            }
           },
           "description": "Student placed 7 × 10 = 70, correct",
           "is_correct": true,
           "beats": [
             {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_builder_7x10",
+              "params": {
+                "event": "pulse_equation",
+                "status": "confirmed",
+                "description": "Equation 7 × 10 = 70 pulses to confirm correctness."
+              }
+            },
+            {
               "type": "dialogue",
-              "text": "7 times 10 equals 70. 7 with a zero — the pattern works."
+              "text": "7 times 10 equals 70. 7 with a zero. The pattern works."
             }
           ]
         }
@@ -128,32 +180,43 @@
       "elements": [
         {
           "tangible_id": "products_strip_10s",
-          "tangible_type": "image",
-          "description": "Products Strip showing multiples of 10 with factors above each product."
-        },
-        {
-          "tangible_id": "equation_builder_7x10",
-          "tangible_type": "equation_builder",
-          "description": "Equation Builder with three blanks. Palette: 4, 7, 10, 40, 50, 60, 70. place_tile tool active.",
-          "template": [
-            "__",
-            "x",
-            "__",
-            "=",
-            "__"
-          ],
-          "palette": [
-            4,
-            7,
+          "description": "Products Strip showing Multiples of 10 with factors displayed above each product. Values: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100.",
+          "tangible_type": "products_strip",
+          "mode": "reading",
+          "values": [
             10,
+            20,
+            30,
             40,
             50,
             60,
-            70
+            70,
+            80,
+            90,
+            100
+          ],
+          "label": "Multiples of 10"
+        },
+        {
+          "tangible_id": "equation_builder_7x10",
+          "description": "Equation Builder showing completed equation 7 × 10 = 70 with all three slots filled.",
+          "tangible_type": "equation_builder",
+          "mode": "building",
+          "template": [
+            "7",
+            "×",
+            "10",
+            "=",
+            "70"
           ]
+        },
+        {
+          "tangible_id": "tile_palette_7x10",
+          "description": "Tile palette with options: 4, 7, 10, 40, 50, 60, 70.",
+          "tangible_type": "tile_palette"
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:03:40.457302+00:00"
+  "_generated_at": "2026-04-27T15:58:02.633980+00:00"
 }

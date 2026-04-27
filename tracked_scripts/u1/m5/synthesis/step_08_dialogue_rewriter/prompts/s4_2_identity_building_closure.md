@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:00:16.216292
+# Generated: 2026-04-27T10:55:14.994263
 ======================================================================
 
 ## API Parameters
@@ -944,7 +944,7 @@ Cacheable: Yes
   "id": "s4_2_identity_building_closure",
   "dialogues": [
     {
-      "text": "You learned to CHOOSE scales, not just use them. You check if the biggest number fits. You check the last digits to look for multiples of 5. Then you pick what's easiest to read without too many lines.",
+      "text": "You learned to CHOOSE scales. Not just use them. You check if the biggest number fits. You check the last digits to look for multiples of 5. Then you pick what's easiest to read without too many lines.",
       "context": "lesson"
     },
     {

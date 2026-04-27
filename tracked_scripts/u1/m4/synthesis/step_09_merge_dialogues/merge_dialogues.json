@@ -5,7 +5,7 @@
     "beats": [
       {
         "type": "dialogue",
-        "text": "You read and created bar graphs with scale of 10. You figured out values at the lines AND between the lines. Let's look at some patterns you discovered.",
+        "text": "You read and created bar graphs with scale of 10. You figured out values at the lines and between the lines. Let's look at some patterns you discovered.",
         "id": "s1_0_opening_frame_b0"
       },
       {
@@ -14,7 +14,7 @@
         "id": "s1_0_opening_frame_b1"
       }
     ],
-    "_generated_at": "2026-04-20T16:57:34.036683+00:00"
+    "_generated_at": "2026-04-27T15:52:53.419562+00:00"
   },
   {
     "id": "s1_1_scale_progression_pattern_type_pattern",
@@ -28,14 +28,17 @@
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Scale 1"
+            "Data"
+          ],
+          "values": [
+            20
           ],
           "scale": 1,
           "axis_range": [
             0,
             20
           ],
-          "description": "Vertical bar graph appears on left. Scale of 1. Axis shows 0, 1, 2, 3... 20. Bar reaches 20. 20 axis lines visible."
+          "description": "Vertical bar graph with scale of 1. Single bar showing value of 20. Axis shows 0, 1, 2, 3... up to 20. 20 gridlines visible."
         },
         "id": "s1_1_scale_progression_pattern_type_pattern_b0"
       },
@@ -48,14 +51,17 @@
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Scale 2"
+            "Data"
+          ],
+          "values": [
+            20
           ],
           "scale": 2,
           "axis_range": [
             0,
             20
           ],
-          "description": "Vertical bar graph appears second from left. Scale of 2. Axis shows 0, 2, 4, 6... 20. Bar reaches 20. 10 axis lines visible."
+          "description": "Vertical bar graph with scale of 2. Single bar showing value of 20. Axis shows 0, 2, 4, 6... up to 20. 10 gridlines visible."
         },
         "id": "s1_1_scale_progression_pattern_type_pattern_b1"
       },
@@ -68,14 +74,17 @@
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Scale 5"
+            "Data"
+          ],
+          "values": [
+            20
           ],
           "scale": 5,
           "axis_range": [
             0,
             20
           ],
-          "description": "Vertical bar graph appears third from left. Scale of 5. Axis shows 0, 5, 10, 15, 20. Bar reaches 20. 4 axis lines visible."
+          "description": "Vertical bar graph with scale of 5. Single bar showing value of 20. Axis shows 0, 5, 10, 15, 20. 4 gridlines visible."
         },
         "id": "s1_1_scale_progression_pattern_type_pattern_b2"
       },
@@ -88,14 +97,17 @@
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Scale 10"
+            "Data"
+          ],
+          "values": [
+            20
           ],
           "scale": 10,
           "axis_range": [
             0,
             20
           ],
-          "description": "Vertical bar graph appears on right. Scale of 10. Axis shows 0, 10, 20. Bar reaches 20. 2 axis lines visible."
+          "description": "Vertical bar graph with scale of 10. Single bar showing value of 20. Axis shows 0, 10, 20. 2 gridlines visible."
         },
         "id": "s1_1_scale_progression_pattern_type_pattern_b3"
       },
@@ -107,15 +119,20 @@
       {
         "type": "prompt",
         "text": "Which scale uses the fewest lines to show the same amount?",
-        "tool": "click_category",
-        "target": "bar_graph_scale_10",
+        "tool": "click_tangible",
+        "target": [
+          "bar_graph_scale_1",
+          "bar_graph_scale_2",
+          "bar_graph_scale_5",
+          "bar_graph_scale_10"
+        ],
         "validator": [
           {
             "condition_id": "correct",
             "condition": {
-              "selected": "Scale 10"
+              "selected": "bar_graph_scale_10"
             },
-            "description": "Student clicked scale of 10 graph, correct",
+            "description": "Student clicked scale of 10 graph (rightmost), correct",
             "is_correct": true,
             "beats": [
               {
@@ -123,10 +140,9 @@
                 "method": "animate",
                 "tangible_id": "bar_graph_scale_10",
                 "params": {
-                  "event": "highlight_category",
+                  "event": "highlight_graph",
                   "status": "confirmed",
-                  "description": "Scale of 10 graph highlights to confirm selection.",
-                  "category": "Scale 10"
+                  "description": "Scale of 10 graph highlights to confirm selection."
                 },
                 "id": "s1_1_scale_progression_pattern_type_pattern_b5_v0_b0"
               },
@@ -145,45 +161,45 @@
         "elements": [
           {
             "tangible_id": "bar_graph_scale_1",
-            "description": "Vertical bar graph. Scale of 1. Axis: 0, 1, 2... 20. Bar at 20. 20 axis lines.",
+            "description": "Vertical bar graph with scale of 1. Single bar at value 20. Axis shows 0 through 20 with 20 gridlines.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Scale 1"
+              "Data"
             ],
             "scale": 1
           },
           {
             "tangible_id": "bar_graph_scale_2",
-            "description": "Vertical bar graph. Scale of 2. Axis: 0, 2, 4... 20. Bar at 20. 10 axis lines.",
+            "description": "Vertical bar graph with scale of 2. Single bar at value 20. Axis shows 0, 2, 4... 20 with 10 gridlines.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Scale 2"
+              "Data"
             ],
             "scale": 2
           },
           {
             "tangible_id": "bar_graph_scale_5",
-            "description": "Vertical bar graph. Scale of 5. Axis: 0, 5, 10, 15, 20. Bar at 20. 4 axis lines.",
+            "description": "Vertical bar graph with scale of 5. Single bar at value 20. Axis shows 0, 5, 10, 15, 20 with 4 gridlines.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Scale 5"
+              "Data"
             ],
             "scale": 5
           },
           {
             "tangible_id": "bar_graph_scale_10",
-            "description": "Vertical bar graph highlighted. Scale of 10. Axis: 0, 10, 20. Bar at 20. 2 axis lines.",
+            "description": "Vertical bar graph with scale of 10. Single bar at value 20. Axis shows 0, 10, 20 with 2 gridlines. Graph highlighted.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Scale 10"
+              "Data"
             ],
             "scale": 10
           }
@@ -200,45 +216,45 @@
         "elements": [
           {
             "tangible_id": "bar_graph_scale_1",
-            "description": "Vertical bar graph. Scale of 1. Axis: 0, 1, 2... 20. Bar at 20. 20 axis lines.",
+            "description": "Vertical bar graph with scale of 1. Single bar at value 20. Axis shows 0 through 20 with 20 gridlines.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Scale 1"
+              "Data"
             ],
             "scale": 1
           },
           {
             "tangible_id": "bar_graph_scale_2",
-            "description": "Vertical bar graph. Scale of 2. Axis: 0, 2, 4... 20. Bar at 20. 10 axis lines.",
+            "description": "Vertical bar graph with scale of 2. Single bar at value 20. Axis shows 0, 2, 4... 20 with 10 gridlines.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Scale 2"
+              "Data"
             ],
             "scale": 2
           },
           {
             "tangible_id": "bar_graph_scale_5",
-            "description": "Vertical bar graph. Scale of 5. Axis: 0, 5, 10, 15, 20. Bar at 20. 4 axis lines.",
+            "description": "Vertical bar graph with scale of 5. Single bar at value 20. Axis shows 0, 5, 10, 15, 20 with 4 gridlines.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Scale 5"
+              "Data"
             ],
             "scale": 5
           },
           {
             "tangible_id": "bar_graph_scale_10",
-            "description": "Vertical bar graph highlighted. Scale of 10. Axis: 0, 10, 20. Bar at 20. 2 axis lines.",
+            "description": "Vertical bar graph with scale of 10. Single bar at value 20. Axis shows 0, 10, 20 with 2 gridlines. Graph highlighted.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Scale 10"
+              "Data"
             ],
             "scale": 10
           }
@@ -246,7 +262,7 @@
         "id": "s1_1_scale_progression_pattern_type_pattern_b8"
       }
     ],
-    "_generated_at": "2026-04-20T16:57:53.837596+00:00"
+    "_generated_at": "2026-04-27T15:53:19.018284+00:00"
   },
   {
     "id": "s2_1_orientation_transfer_type_d_representation",
@@ -259,24 +275,22 @@
         "params": {
           "mode": "reading",
           "orientation": "vertical",
-          "categories": [
-            "Category A",
-            "Category B",
-            "Category C",
-            "Category D"
-          ],
           "scale": 10,
           "axis_range": [
             0,
             50
           ],
-          "values": {
-            "Category A": 20,
-            "Category B": 35,
-            "Category C": 40,
-            "Category D": 15
-          },
-          "description": "Vertical bar graph appears on left side. Scale of 10. Category B bar reaches 35, positioned between 30 and 40 gridlines."
+          "categories": [
+            "Category A",
+            "Category B",
+            "Category C"
+          ],
+          "values": [
+            35,
+            20,
+            40
+          ],
+          "description": "Vertical bar graph appears on left. Scale of 10. Category A bar ends at 35, between gridlines 30 and 40. Category B at 20, Category C at 40."
         },
         "id": "s2_1_orientation_transfer_type_d_representation_b0"
       },
@@ -288,31 +302,53 @@
         "params": {
           "mode": "reading",
           "orientation": "horizontal",
-          "categories": [
-            "Category A",
-            "Category B",
-            "Category C",
-            "Category D"
-          ],
           "scale": 10,
           "axis_range": [
             0,
             50
           ],
-          "values": {
-            "Category A": 20,
-            "Category B": 35,
-            "Category C": 40,
-            "Category D": 15
-          },
-          "description": "Horizontal bar graph appears on right side. Same data, same scale of 10. Category B bar reaches 35, positioned between 30 and 40 gridlines."
+          "categories": [
+            "Category A",
+            "Category B",
+            "Category C"
+          ],
+          "values": [
+            35,
+            20,
+            40
+          ],
+          "description": "Horizontal bar graph appears on right. Same data, same scale of 10. Category A bar ends at 35, between gridlines 30 and 40. Category B at 20, Category C at 40."
         },
         "id": "s2_1_orientation_transfer_type_d_representation_b1"
       },
       {
-        "type": "dialogue",
-        "text": "Here's the same data shown two ways, vertical and horizontal. Find the category with 35 in BOTH graphs.",
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_vertical",
+        "params": {
+          "highlight_categories": [
+            "Category A"
+          ],
+          "description": "Category A bar highlights in vertical graph."
+        },
         "id": "s2_1_orientation_transfer_type_d_representation_b2"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_horizontal",
+        "params": {
+          "highlight_categories": [
+            "Category A"
+          ],
+          "description": "Category A bar highlights in horizontal graph."
+        },
+        "id": "s2_1_orientation_transfer_type_d_representation_b3"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's the same data shown two ways: vertical and horizontal. Find the category with 35 in BOTH graphs.",
+        "id": "s2_1_orientation_transfer_type_d_representation_b4"
       },
       {
         "type": "prompt",
@@ -321,137 +357,169 @@
         "target": "bar_graph_vertical",
         "validator": [
           {
-            "condition_id": "correct",
+            "condition_id": "clicked_vertical",
             "condition": {
-              "selected": "Category B"
+              "selected": "Category A"
             },
-            "description": "Student clicked Category B in vertical graph, correct",
+            "description": "Student clicked Category A in vertical graph",
             "is_correct": true,
             "beats": [
               {
                 "type": "scene",
-                "method": "update",
+                "method": "animate",
                 "tangible_id": "bar_graph_vertical",
                 "params": {
-                  "highlight_categories": [
-                    "Category B"
-                  ],
-                  "description": "Category B bar highlights in vertical graph."
+                  "event": "highlight_category",
+                  "status": "confirmed",
+                  "category": "Category A",
+                  "description": "Category A bar in vertical graph confirms with highlight animation."
                 },
-                "id": "s2_1_orientation_transfer_type_d_representation_b3_v0_b0"
+                "id": "s2_1_orientation_transfer_type_d_representation_b5_v0_b0"
               }
             ]
           }
         ],
-        "id": "s2_1_orientation_transfer_type_d_representation_b3"
+        "id": "s2_1_orientation_transfer_type_d_representation_b5"
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "bar_graph_vertical",
-            "description": "Vertical bar graph. Category B highlighted, value 35. Scale of 10.",
+            "description": "Vertical bar graph on left. Category A highlighted and confirmed. Scale 10. Category A=35, Category B=20, Category C=40.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
+            "scale": 10,
             "categories": [
               "Category A",
               "Category B",
-              "Category C",
-              "Category D"
+              "Category C"
             ]
           },
           {
             "tangible_id": "bar_graph_horizontal",
-            "description": "Horizontal bar graph showing same data. Scale of 10.",
+            "description": "Horizontal bar graph on right. Category A highlighted. Same data, scale 10. Category A=35, Category B=20, Category C=40.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "horizontal",
+            "scale": 10,
             "categories": [
               "Category A",
               "Category B",
-              "Category C",
-              "Category D"
-            ]
-          }
-        ],
-        "id": "s2_1_orientation_transfer_type_d_representation_b4"
-      },
-      {
-        "type": "dialogue",
-        "text": "Now find 35 in the horizontal graph.",
-        "id": "s2_1_orientation_transfer_type_d_representation_b5"
-      },
-      {
-        "type": "prompt",
-        "text": "Click on the bar showing 35 in the horizontal graph.",
-        "tool": "click_category",
-        "target": "bar_graph_horizontal",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": "Category B"
-            },
-            "description": "Student clicked Category B in horizontal graph, correct",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_horizontal",
-                "params": {
-                  "highlight_categories": [
-                    "Category B"
-                  ],
-                  "description": "Category B bar highlights in horizontal graph."
-                },
-                "id": "s2_1_orientation_transfer_type_d_representation_b6_v0_b0"
-              },
-              {
-                "type": "dialogue",
-                "text": "That's it. Same value, same position between the lines, just different directions. The axis works the same way whether bars go up or sideways. The math doesn't change, only the direction.",
-                "id": "s2_1_orientation_transfer_type_d_representation_b6_v0_b1"
-              }
+              "Category C"
             ]
           }
         ],
         "id": "s2_1_orientation_transfer_type_d_representation_b6"
       },
       {
-        "type": "current_scene",
-        "elements": [
+        "type": "prompt",
+        "text": "Now click Category A in the horizontal graph.",
+        "tool": "click_category",
+        "target": "bar_graph_horizontal",
+        "validator": [
           {
-            "tangible_id": "bar_graph_vertical",
-            "description": "Vertical bar graph. Category B highlighted, value 35. Scale of 10.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Category A",
-              "Category B",
-              "Category C",
-              "Category D"
-            ]
-          },
-          {
-            "tangible_id": "bar_graph_horizontal",
-            "description": "Horizontal bar graph. Category B highlighted, value 35. Scale of 10.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "horizontal",
-            "categories": [
-              "Category A",
-              "Category B",
-              "Category C",
-              "Category D"
+            "condition_id": "clicked_horizontal",
+            "condition": {
+              "selected": "Category A"
+            },
+            "description": "Student clicked Category A in horizontal graph",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_horizontal",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "confirmed",
+                  "category": "Category A",
+                  "description": "Category A bar in horizontal graph confirms with highlight animation."
+                },
+                "id": "s2_1_orientation_transfer_type_d_representation_b7_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Right. Same value, same position between the lines, just different directions.",
+                "id": "s2_1_orientation_transfer_type_d_representation_b7_v0_b1"
+              }
             ]
           }
         ],
         "id": "s2_1_orientation_transfer_type_d_representation_b7"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_vertical",
+            "description": "Vertical bar graph on left. Category A highlighted. Scale 10. Category A=35, Category B=20, Category C=40.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10,
+            "categories": [
+              "Category A",
+              "Category B",
+              "Category C"
+            ]
+          },
+          {
+            "tangible_id": "bar_graph_horizontal",
+            "description": "Horizontal bar graph on right. Category A highlighted and confirmed. Same data, scale 10. Category A=35, Category B=20, Category C=40.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 10,
+            "categories": [
+              "Category A",
+              "Category B",
+              "Category C"
+            ]
+          }
+        ],
+        "id": "s2_1_orientation_transfer_type_d_representation_b8"
+      },
+      {
+        "type": "dialogue",
+        "text": "The axis works the same way whether bars go up or sideways. The math doesn't change, only the direction.",
+        "id": "s2_1_orientation_transfer_type_d_representation_b9"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_vertical",
+            "description": "Vertical bar graph on left. Category A highlighted. Scale 10. Category A=35, Category B=20, Category C=40.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10,
+            "categories": [
+              "Category A",
+              "Category B",
+              "Category C"
+            ]
+          },
+          {
+            "tangible_id": "bar_graph_horizontal",
+            "description": "Horizontal bar graph on right. Category A highlighted. Same data, scale 10. Category A=35, Category B=20, Category C=40.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 10,
+            "categories": [
+              "Category A",
+              "Category B",
+              "Category C"
+            ]
+          }
+        ],
+        "id": "s2_1_orientation_transfer_type_d_representation_b10"
       }
     ],
-    "_generated_at": "2026-04-20T16:58:08.932654+00:00"
+    "_generated_at": "2026-04-27T15:53:43.203716+00:00"
   },
   {
     "id": "s3_1_real_world_connection_type_c",
@@ -459,17 +527,37 @@
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "scenario_images",
+        "tangible_id": "image_money",
         "tangible_type": "image",
         "params": {
-          "description": "Three real-world scenario images appear. A: Counting money (stacks of 10 dollar bills). B: Measuring height (ruler marked in 10s of centimeters). C: Counting items one by one."
+          "description": "Image A: Stacks of 10 dollar bills, labeled A."
         },
         "id": "s3_1_real_world_connection_type_c_b0"
       },
       {
-        "type": "dialogue",
-        "text": "Scale of 10 is useful when numbers are bigger. Where might you see counting by 10s outside of math class?",
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "image_ruler",
+        "tangible_type": "image",
+        "params": {
+          "description": "Image B: Ruler marked in 10s of centimeters, labeled B."
+        },
         "id": "s3_1_real_world_connection_type_c_b1"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "image_counting_ones",
+        "tangible_type": "image",
+        "params": {
+          "description": "Image C: Counting items one by one, labeled C."
+        },
+        "id": "s3_1_real_world_connection_type_c_b2"
+      },
+      {
+        "type": "dialogue",
+        "text": "A scale of 10 is useful when numbers are bigger. Where might you see counting by 10s outside of math class?",
+        "id": "s3_1_real_world_connection_type_c_b3"
       },
       {
         "type": "prompt",
@@ -498,47 +586,66 @@
             "beats": [
               {
                 "type": "dialogue",
-                "text": "Right. Money and measuring often use 10s. That's why scale of 10 feels natural for bigger amounts.",
-                "id": "s3_1_real_world_connection_type_c_b2_v0_b0"
+                "text": "Right. Money and measuring often use 10s. That's why a scale of 10 feels natural for bigger amounts.",
+                "id": "s3_1_real_world_connection_type_c_b4_v0_b0"
               }
             ]
           }
         ],
-        "id": "s3_1_real_world_connection_type_c_b2"
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "scenario_images",
-            "description": "Three real-world scenario images. A: Counting money (stacks of 10 dollar bills). B: Measuring height (ruler marked in 10s of centimeters). C: Counting items one by one.",
-            "tangible_type": "image"
-          }
-        ],
-        "id": "s3_1_real_world_connection_type_c_b3"
-      },
-      {
-        "type": "dialogue",
-        "text": "You already know how to count by 10s. Bar graphs use the same skill you use with money and measuring.",
         "id": "s3_1_real_world_connection_type_c_b4"
       },
       {
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "scenario_images",
-            "description": "Three real-world scenario images. A: Counting money (stacks of 10 dollar bills). B: Measuring height (ruler marked in 10s of centimeters). C: Counting items one by one.",
+            "tangible_id": "image_money",
+            "description": "Image A: Stacks of 10 dollar bills.",
+            "tangible_type": "image"
+          },
+          {
+            "tangible_id": "image_ruler",
+            "description": "Image B: Ruler marked in 10s of centimeters.",
+            "tangible_type": "image"
+          },
+          {
+            "tangible_id": "image_counting_ones",
+            "description": "Image C: Counting items one by one.",
             "tangible_type": "image"
           }
         ],
         "id": "s3_1_real_world_connection_type_c_b5"
+      },
+      {
+        "type": "dialogue",
+        "text": "You already know how to count by 10s. Bar graphs use the same skill you use with money and measuring.",
+        "id": "s3_1_real_world_connection_type_c_b6"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "image_money",
+            "description": "Image A: Stacks of 10 dollar bills.",
+            "tangible_type": "image"
+          },
+          {
+            "tangible_id": "image_ruler",
+            "description": "Image B: Ruler marked in 10s of centimeters.",
+            "tangible_type": "image"
+          },
+          {
+            "tangible_id": "image_counting_ones",
+            "description": "Image C: Counting items one by one.",
+            "tangible_type": "image"
+          }
+        ],
+        "id": "s3_1_real_world_connection_type_c_b7"
       }
     ],
-    "_generated_at": "2026-04-20T16:58:17.877335+00:00"
+    "_generated_at": "2026-04-27T15:54:02.891037+00:00"
   },
   {
     "id": "s4_1_metacognitive_reflection_strategy_identification",
-    "type": "transition",
     "beats": [
       {
         "type": "scene",
@@ -549,17 +656,21 @@
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Example"
+            "Data"
           ],
           "scale": 10,
           "axis_range": [
             0,
             50
           ],
+          "values": {
+            "Data": 45
+          },
           "highlight_categories": [
-            "Example"
+            "Data"
           ],
-          "description": "Vertical bar graph appears. Single bar highlighted, ending at 45 between 40 and 50 gridlines. Ghost gridlines at 5s visible."
+          "ghost_gridlines_visible": true,
+          "description": "Vertical bar graph appears. Single bar labeled Data ends at 45, between 40 and 50 gridlines. Bar highlighted. Ghost gridlines at 5s visible, showing halfway marks between each pair of labeled gridlines."
         },
         "id": "s4_1_metacognitive_reflection_strategy_identification_b0"
       },
@@ -584,7 +695,7 @@
             "condition": {
               "selected": "I found halfway—that's always 5 more"
             },
-            "description": "Student selected the halfway pattern strategy",
+            "description": "Student selected the halfway strategy, recognizing the pattern that halfway between lines on scale 10 is always 5 more",
             "is_correct": true,
             "beats": [
               {
@@ -602,12 +713,12 @@
         "elements": [
           {
             "tangible_id": "bar_graph_reflection",
-            "description": "Vertical bar graph. Single bar highlighted at 45. Ghost gridlines at 5s visible.",
+            "description": "Vertical bar graph in reading mode. Single Data bar at value 45, highlighted. Ghost gridlines visible at 5s between labeled gridlines at 10s.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Example"
+              "Data"
             ],
             "scale": 10,
             "axis_range": [
@@ -628,12 +739,12 @@
         "elements": [
           {
             "tangible_id": "bar_graph_reflection",
-            "description": "Vertical bar graph. Single bar highlighted at 45. Ghost gridlines at 5s visible.",
+            "description": "Vertical bar graph in reading mode. Single Data bar at value 45, highlighted. Ghost gridlines visible at 5s.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Example"
+              "Data"
             ],
             "scale": 10,
             "axis_range": [
@@ -646,46 +757,25 @@
       },
       {
         "type": "dialogue",
-        "text": "You learned to read values at the lines and between the lines. You used 'half of 10 is 5' to figure out tricky values.",
+        "text": "You learned to read values at the lines and between the lines. You used half of 10 is 5 to figure out tricky values.",
         "id": "s4_1_metacognitive_reflection_strategy_identification_b6"
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "bar_graph_reflection",
-            "description": "Vertical bar graph. Single bar highlighted at 45. Ghost gridlines at 5s visible.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Example"
-            ],
-            "scale": 10,
-            "axis_range": [
-              0,
-              50
-            ]
-          }
-        ],
-        "id": "s4_1_metacognitive_reflection_strategy_identification_b7"
       },
       {
         "type": "dialogue",
         "text": "That pattern-finding will help you when we look at all the scales together next time. You'll be able to pick the best one for any data.",
-        "id": "s4_1_metacognitive_reflection_strategy_identification_b8"
+        "id": "s4_1_metacognitive_reflection_strategy_identification_b7"
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "bar_graph_reflection",
-            "description": "Vertical bar graph. Single bar highlighted at 45. Ghost gridlines at 5s visible.",
+            "description": "Vertical bar graph in reading mode. Single Data bar at value 45, highlighted. Ghost gridlines visible at 5s.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Example"
+              "Data"
             ],
             "scale": 10,
             "axis_range": [
@@ -694,9 +784,9 @@
             ]
           }
         ],
-        "id": "s4_1_metacognitive_reflection_strategy_identification_b9"
+        "id": "s4_1_metacognitive_reflection_strategy_identification_b8"
       }
     ],
-    "_generated_at": "2026-04-20T16:58:31.192099+00:00"
+    "_generated_at": "2026-04-27T15:54:26.505920+00:00"
   }
 ]
