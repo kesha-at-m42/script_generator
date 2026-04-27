@@ -1,0 +1,366 @@
+[
+  {
+    "id": "s1_0_opening_frame",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You made graphs with scale of 5. Let's connect what you learned to the world around you.",
+        "id": "s1_0_opening_frame_b0",
+        "_notion_block_id": "3485917e-ac52-8148-87c9-d390047f70a9"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_opening_frame_b1"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:56:21.596127+00:00",
+    "_notion_block_id": "3485917e-ac52-81ad-95e8-f7f8c2dc58d9"
+  },
+  {
+    "id": "s1_1_real_world_bridge_type_c",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "real_world_images",
+        "tangible_type": "image",
+        "params": {
+          "description": "Four real-world images displayed: a hand showing 5 fingers, tally marks grouped by 5s, nickels worth 5 cents each, and a clock face with marks every 5 minutes."
+        },
+        "id": "s1_1_real_world_bridge_type_c_b0",
+        "_notion_block_id": "3485917e-ac52-811e-95c2-c253f75cba5d"
+      },
+      {
+        "type": "dialogue",
+        "text": "You've been grouping by 5s all lesson. But 5s show up everywhere in real life! Which of these uses groups of 5?",
+        "id": "s1_1_real_world_bridge_type_c_b1",
+        "_notion_block_id": "3485917e-ac52-81e7-8900-ee4bec24b6c1"
+      },
+      {
+        "type": "prompt",
+        "text": "Which of these uses groups of 5? Select all that apply.",
+        "tool": "multi_select",
+        "options": [
+          "Hand",
+          "Tally marks",
+          "Nickels",
+          "Clock"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "selected": "Hand"
+                },
+                {
+                  "selected": "Tally marks"
+                },
+                {
+                  "selected": "Nickels"
+                },
+                {
+                  "selected": "Clock"
+                }
+              ]
+            },
+            "description": "Student selected all four options, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. All of them! Hands have 5 fingers. Tallies group by 5s. Nickels are worth 5 cents. Clocks mark every 5 minutes. Grouping by 5s is everywhere, and now you use it for graphs too.",
+                "id": "s1_1_real_world_bridge_type_c_b2_v0_b0",
+                "_notion_block_id": "3485917e-ac52-81f4-b614-ef439fea2f2d"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student has not selected all correct answers (first attempt)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Look at each image carefully. Do they all show groups of 5?",
+                "id": "s1_1_real_world_bridge_type_c_b2_v1_b0",
+                "_notion_block_id": "3485917e-ac52-8105-aa2a-c6f3975a5716"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student has not selected all correct answers (second attempt)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "real_world_images",
+                "params": {
+                  "description": "All four images pulse to draw attention."
+                },
+                "id": "s1_1_real_world_bridge_type_c_b2_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this together. Count the fingers on a hand. Look at how tally marks group. Check what a nickel is worth. Count the spaces between clock marks.",
+                "id": "s1_1_real_world_bridge_type_c_b2_v2_b1",
+                "_notion_block_id": "3485917e-ac52-818b-9335-fde180c31bc8"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly three or more times. System models the answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "real_world_images",
+                "params": {
+                  "event": "highlight_all",
+                  "status": "confirmed",
+                  "description": "All four images highlight in sequence, showing the 5s connection."
+                },
+                "id": "s1_1_real_world_bridge_type_c_b2_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. A hand has 5 fingers. Tally marks bundle by 5s. A nickel equals 5 cents. A clock face marks every 5 minutes. All four use groups of 5. That's what makes counting by 5s so useful. It shows up everywhere.",
+                "id": "s1_1_real_world_bridge_type_c_b2_v3_b1",
+                "_notion_block_id": "3485917e-ac52-8177-81db-fbb6d4143dc0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_real_world_bridge_type_c_b2",
+        "_notion_block_id": "3485917e-ac52-81bc-9c30-c7e82d3e6755"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "real_world_images",
+            "description": "Four real-world images: hand, tally marks, nickels, clock face. All four selected and confirmed.",
+            "tangible_type": "image"
+          }
+        ],
+        "id": "s1_1_real_world_bridge_type_c_b3"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:56:29.344849+00:00",
+    "_notion_block_id": "3485917e-ac52-8116-bace-ebc758032e63"
+  },
+  {
+    "id": "s2_1_metacognitive_reflection_two_scales_your",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You now know TWO scales for making graphs. If you had to show 30 items on a graph, which scale would need fewer symbols?",
+        "id": "s2_1_metacognitive_reflection_two_scales_your_b0",
+        "_notion_block_id": "3485917e-ac52-81f0-ad90-c1226ec43406"
+      },
+      {
+        "type": "prompt",
+        "text": "If you had to show 30 items on a graph, which scale would need fewer symbols?",
+        "tool": "multiple_choice",
+        "options": [
+          "Scale of 2",
+          "Scale of 5",
+          "They'd need the same"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "Scale of 5"
+            },
+            "description": "Student selected Scale of 5, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's right. Scale of 5. You'd need 6 symbols instead of 15. Bigger scale, fewer symbols.",
+                "id": "s2_1_metacognitive_reflection_two_scales_your_b1_v0_b0",
+                "_notion_block_id": "3485917e-ac52-816f-ae8c-e3c8fa3ab18e"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "Scale of 2"
+            },
+            "description": "Student selected Scale of 2, thinking it needs fewer symbols",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Think about how many symbols you'd need. With Scale of 2, each symbol is 2 items. How many symbols would you need to show 30 items?",
+                "id": "s2_1_metacognitive_reflection_two_scales_your_b1_v1_b0",
+                "_notion_block_id": "3485917e-ac52-81a1-beb8-d2705cf51467"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "They'd need the same"
+            },
+            "description": "Student selected they'd need the same number of symbols",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Let's compare. Scale of 2 means each symbol stands for 2 items. Scale of 5 means each symbol stands for 5 items. Which one covers more items per symbol?",
+                "id": "s2_1_metacognitive_reflection_two_scales_your_b1_v2_b0",
+                "_notion_block_id": "3485917e-ac52-81ba-a1c0-cc1645e89b1d"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Let me show you how to think about this. With Scale of 2, each symbol is 2 items, so 30 items needs 15 symbols. With Scale of 5, each symbol is 5 items, so 30 items needs only 6 symbols. The bigger the scale, the fewer symbols you need. The answer is Scale of 5.",
+                "id": "s2_1_metacognitive_reflection_two_scales_your_b1_v3_b0",
+                "_notion_block_id": "3485917e-ac52-8140-b890-f7db361d8b9b"
+              }
+            ]
+          }
+        ],
+        "id": "s2_1_metacognitive_reflection_two_scales_your_b1",
+        "_notion_block_id": "3485917e-ac52-81b9-8a4c-f8049b0295c1"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s2_1_metacognitive_reflection_two_scales_your_b2",
+        "_notion_block_id": "3485917e-ac52-8171-b990-d836b6132b34"
+      },
+      {
+        "type": "dialogue",
+        "text": "You're building a toolkit. Scale of 2 works. Scale of 5 works. Soon you'll learn when to use each one.",
+        "id": "s2_1_metacognitive_reflection_two_scales_your_b3",
+        "_notion_block_id": "3485917e-ac52-8112-9394-d93dc2e74ec0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s2_1_metacognitive_reflection_two_scales_your_b4"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:56:34.710551+00:00",
+    "_notion_block_id": "3485917e-ac52-811e-8d90-fdbbdf19b930"
+  },
+  {
+    "id": "s3_1_identity_building_closure_bridge_m4",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "picture_graph_representative",
+        "tangible_type": "picture_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Category A",
+            "Category B",
+            "Category C"
+          ],
+          "description": "Horizontal picture graph appears. Representative data from lesson. Scale of 5 visible in key."
+        },
+        "id": "s3_1_identity_building_closure_bridge_m4_b0",
+        "_notion_block_id": "3485917e-ac52-8187-b872-d3d4eefc9295"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_representative",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 5,
+          "categories": [
+            "Category A",
+            "Category B",
+            "Category C"
+          ],
+          "description": "Horizontal bar graph appears alongside picture graph. Same representative data. Vertical axis shows scale of 5."
+        },
+        "id": "s3_1_identity_building_closure_bridge_m4_b1",
+        "_notion_block_id": "3485917e-ac52-811a-8672-eeb8779c4e62"
+      },
+      {
+        "type": "dialogue",
+        "text": "You started this unit knowing scale of 2. Now you can make graphs with scale of 5 too.",
+        "id": "s3_1_identity_building_closure_bridge_m4_b2",
+        "_notion_block_id": "3485917e-ac52-8168-be12-fa7487fa16b4"
+      },
+      {
+        "type": "dialogue",
+        "text": "And you made BOTH picture graphs AND bar graphs. Two formats, both showing the same data.",
+        "id": "s3_1_identity_building_closure_bridge_m4_b3",
+        "_notion_block_id": "3485917e-ac52-812b-a5b4-cabfdc710cc0"
+      },
+      {
+        "type": "dialogue",
+        "text": "Two scales in your toolkit. Two formats you can create. You're ready for more.",
+        "id": "s3_1_identity_building_closure_bridge_m4_b4",
+        "_notion_block_id": "3485917e-ac52-819d-b853-f8ee98f94650"
+      },
+      {
+        "type": "dialogue",
+        "text": "You started with scale of 1, then 2, now 5. Next time, we'll add scale of 10 to your toolkit.",
+        "id": "s3_1_identity_building_closure_bridge_m4_b5",
+        "_notion_block_id": "3485917e-ac52-818f-9d08-d6f6c4c4e505"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_representative",
+            "description": "Horizontal picture graph. Representative lesson data with scale of 5.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Category A",
+              "Category B",
+              "Category C"
+            ]
+          },
+          {
+            "tangible_id": "bar_graph_representative",
+            "description": "Horizontal bar graph alongside picture graph. Same data, scale of 5 on vertical axis.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 5,
+            "categories": [
+              "Category A",
+              "Category B",
+              "Category C"
+            ]
+          }
+        ],
+        "id": "s3_1_identity_building_closure_bridge_m4_b6"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:56:45.453975+00:00",
+    "_notion_block_id": "3485917e-ac52-8179-8af6-c7548cc16ce8"
+  }
+]

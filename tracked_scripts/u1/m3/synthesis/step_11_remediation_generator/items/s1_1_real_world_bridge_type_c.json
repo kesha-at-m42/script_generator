@@ -1,0 +1,69 @@
+{
+  "id": "s1_1_real_world_bridge_type_c",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student has not selected all correct answers (first attempt)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Look at each image carefully. Do they all show groups of 5?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student has not selected all correct answers (second attempt)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "real_world_images",
+              "params": {
+                "description": "All four images pulse to draw attention."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. Count the fingers on a hand. Look at how tally marks group. Check what a nickel is worth. Count the spaces between clock marks."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "real_world_images",
+              "params": {
+                "event": "highlight_all",
+                "status": "confirmed",
+                "description": "All four images highlight in sequence, showing the 5s connection."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. A hand has 5 fingers. Tally marks bundle by 5s. A nickel equals 5 cents. A clock face marks every 5 minutes. All four use groups of 5. That's what makes counting by 5s so useful. It shows up everywhere."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T16:57:05.355092+00:00"
+}

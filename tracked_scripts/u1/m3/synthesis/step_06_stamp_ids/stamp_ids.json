@@ -1,0 +1,240 @@
+[
+  {
+    "id": "s1_0_opening_frame",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You made graphs with scale of 5. Let's connect what you learned to the world around you.",
+        "id": "s1_0_opening_frame_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_opening_frame_b1"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:56:21.596127+00:00"
+  },
+  {
+    "id": "s1_1_real_world_bridge_type_c",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "real_world_images",
+        "tangible_type": "image",
+        "params": {
+          "description": "Four real-world images displayed: a hand showing 5 fingers, tally marks grouped by 5s, nickels worth 5 cents each, and a clock face with marks every 5 minutes."
+        },
+        "id": "s1_1_real_world_bridge_type_c_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "You've been grouping by 5s all lesson. But 5s show up everywhere in real life! Which of these uses groups of 5?",
+        "id": "s1_1_real_world_bridge_type_c_b1"
+      },
+      {
+        "type": "prompt",
+        "text": "Which of these uses groups of 5? Select all that apply.",
+        "tool": "multi_select",
+        "options": [
+          "Hand",
+          "Tally marks",
+          "Nickels",
+          "Clock"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "selected": "Hand"
+                },
+                {
+                  "selected": "Tally marks"
+                },
+                {
+                  "selected": "Nickels"
+                },
+                {
+                  "selected": "Clock"
+                }
+              ]
+            },
+            "description": "Student selected all four options, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "All of them! Hands have 5 fingers. Tallies group by 5s. Nickels are worth 5 cents. Clocks mark every 5 minutes. Grouping by 5s is everywhere—and now you use it for graphs too.",
+                "id": "s1_1_real_world_bridge_type_c_b2_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_real_world_bridge_type_c_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "real_world_images",
+            "description": "Four real-world images: hand, tally marks, nickels, clock face. All four selected and confirmed.",
+            "tangible_type": "image"
+          }
+        ],
+        "id": "s1_1_real_world_bridge_type_c_b3"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:56:29.344849+00:00"
+  },
+  {
+    "id": "s2_1_metacognitive_reflection_two_scales_your",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You now know TWO scales for making graphs. If you had to show 30 items on a graph, which scale would need fewer symbols?",
+        "id": "s2_1_metacognitive_reflection_two_scales_your_b0"
+      },
+      {
+        "type": "prompt",
+        "text": "If you had to show 30 items on a graph, which scale would need fewer symbols?",
+        "tool": "multiple_choice",
+        "options": [
+          "Scale of 2",
+          "Scale of 5",
+          "They'd need the same"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "Scale of 5"
+            },
+            "description": "Student selected Scale of 5, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Scale of 5. You'd need 6 symbols instead of 15. Bigger scale, fewer symbols.",
+                "id": "s2_1_metacognitive_reflection_two_scales_your_b1_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s2_1_metacognitive_reflection_two_scales_your_b1"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s2_1_metacognitive_reflection_two_scales_your_b2"
+      },
+      {
+        "type": "dialogue",
+        "text": "You're building a toolkit. Scale of 2 works. Scale of 5 works. Soon you'll learn when to use each one.",
+        "id": "s2_1_metacognitive_reflection_two_scales_your_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s2_1_metacognitive_reflection_two_scales_your_b4"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:56:34.710551+00:00"
+  },
+  {
+    "id": "s3_1_identity_building_closure_bridge_m4",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "picture_graph_representative",
+        "tangible_type": "picture_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Category A",
+            "Category B",
+            "Category C"
+          ],
+          "description": "Horizontal picture graph appears. Representative data from lesson. Scale of 5 visible in key."
+        },
+        "id": "s3_1_identity_building_closure_bridge_m4_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_representative",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 5,
+          "categories": [
+            "Category A",
+            "Category B",
+            "Category C"
+          ],
+          "description": "Horizontal bar graph appears alongside picture graph. Same representative data. Vertical axis shows scale of 5."
+        },
+        "id": "s3_1_identity_building_closure_bridge_m4_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "You started this unit knowing scale of 2. Now you can make graphs with scale of 5 too.",
+        "id": "s3_1_identity_building_closure_bridge_m4_b2"
+      },
+      {
+        "type": "dialogue",
+        "text": "And you made BOTH picture graphs AND bar graphs. Two formats, both showing the same data.",
+        "id": "s3_1_identity_building_closure_bridge_m4_b3"
+      },
+      {
+        "type": "dialogue",
+        "text": "Two scales in your toolkit. Two formats you can create. You're ready for more.",
+        "id": "s3_1_identity_building_closure_bridge_m4_b4"
+      },
+      {
+        "type": "dialogue",
+        "text": "You started with scale of 1, then 2, now 5. Next time, we'll add scale of 10 to your toolkit.",
+        "id": "s3_1_identity_building_closure_bridge_m4_b5"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_representative",
+            "description": "Horizontal picture graph. Representative lesson data with scale of 5.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Category A",
+              "Category B",
+              "Category C"
+            ]
+          },
+          {
+            "tangible_id": "bar_graph_representative",
+            "description": "Horizontal bar graph alongside picture graph. Same data, scale of 5 on vertical axis.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 5,
+            "categories": [
+              "Category A",
+              "Category B",
+              "Category C"
+            ]
+          }
+        ],
+        "id": "s3_1_identity_building_closure_bridge_m4_b6"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:56:45.453975+00:00"
+  }
+]

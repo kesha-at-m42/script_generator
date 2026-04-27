@@ -88,11 +88,30 @@ def _find_pipeline_dir(unit: str, module: str, script_type: str) -> Path | None:
     return None
 
 
+def _has_successful_push(version_dir: Path) -> bool:
+    """Return True if this version has a push step with a notion_url in its output."""
+    for step_dir in version_dir.iterdir():
+        if not step_dir.is_dir() or not step_dir.name.endswith("_push"):
+            continue
+        for f in step_dir.glob("*.json"):
+            try:
+                data = json.loads(f.read_text(encoding="utf-8"))
+                if isinstance(data, dict) and "notion_url" in data:
+                    return True
+            except Exception:
+                pass
+    return False
+
+
 def _latest_version(pipeline_dir: Path) -> str | None:
     versions = sorted(
         [d for d in pipeline_dir.iterdir() if d.is_dir() and re.match(r"^v\d+$", d.name)],
         key=lambda d: int(d.name[1:]),
+        reverse=True,
     )
+    for v_dir in versions:
+        if _has_successful_push(v_dir):
+            return v_dir.name
     return versions[-1].name if versions else None
 
 

@@ -1,0 +1,153 @@
+{
+  "id": "s3_1_efficiency_discovery",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_scale2",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "scale": 2,
+        "description": "Picture graph appears on left side showing data with scale of 2. Each symbol represents 2 items."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_scale5",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "scale": 5,
+        "description": "Picture graph appears on right side showing same data with scale of 5. Each symbol represents 5 items."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "picture_graph_scale2",
+      "params": {
+        "event": "highlight_category_symbols",
+        "status": "confirmed",
+        "description": "Symbols in one category highlight on scale of 2 graph, showing total count."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Look at this category. It has this many items."
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "picture_graph_scale2",
+      "params": {
+        "event": "count_symbols",
+        "status": "confirmed",
+        "description": "Symbols count sequentially, showing how many symbols needed with scale of 2."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "With scale of 2, that takes this many symbols."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_scale2",
+          "description": "Picture graph on left with scale of 2. One category's symbols highlighted and counted.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 2
+        },
+        {
+          "tangible_id": "picture_graph_scale5",
+          "description": "Picture graph on right with scale of 5. Same data displayed.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 5
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "picture_graph_scale5",
+      "params": {
+        "event": "highlight_category_symbols",
+        "status": "confirmed",
+        "description": "Same category highlights on scale of 5 graph."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "picture_graph_scale5",
+      "params": {
+        "event": "count_symbols",
+        "status": "confirmed",
+        "description": "Symbols count sequentially, showing fewer symbols needed with scale of 5."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "With scale of 5, that's only this many symbols."
+    },
+    {
+      "type": "dialogue",
+      "text": "Which scale is more efficient for showing this many items?"
+    },
+    {
+      "type": "prompt",
+      "text": "Which scale is more efficient?",
+      "tool": "multiple_choice",
+      "options": [
+        "Scale of 2",
+        "Scale of 5"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "Scale of 5"
+          },
+          "description": "Student selected Scale of 5, correct answer",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Scale of 5. When numbers get bigger, scale of 5 saves space. Fewer symbols, same information."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_scale2",
+          "description": "Picture graph on left with scale of 2. Category symbols highlighted showing more symbols needed.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 2
+        },
+        {
+          "tangible_id": "picture_graph_scale5",
+          "description": "Picture graph on right with scale of 5. Same category highlighted showing fewer symbols needed. Multiple choice active.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 5
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:57:07.624582+00:00"
+}

@@ -1,0 +1,96 @@
+{
+  "id": "s1_2_create_picture_graph_create",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Data table appears showing Favorite Drinks data: Juice=25, Lemonade=20, Milk=15, Water=30."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_drinks",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "building",
+        "orientation": "vertical",
+        "categories": [
+          "Juice",
+          "Lemonade",
+          "Milk",
+          "Water"
+        ],
+        "scale": 5,
+        "pre_filled": {
+          "Juice": 5,
+          "Lemonade": 4
+        },
+        "description": "Vertical picture graph appears. Favorite Drinks. Juice column has 5 symbols, Lemonade has 4 symbols. Milk and Water columns empty. Key visible: each star = 5."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Complete the rest of the graph."
+    },
+    {
+      "type": "prompt",
+      "text": "Set the heights for Milk and Water.",
+      "tool": "click_to_set_height",
+      "target": "picture_graph_drinks",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "category": "Milk",
+                "symbols_placed": 3
+              },
+              {
+                "category": "Water",
+                "symbols_placed": 6
+              }
+            ]
+          },
+          "description": "Student set Milk to 3 symbols (15) and Water to 6 symbols (30), correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You built the graph. Each symbol represents 5."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Favorite Drinks data: Juice=25, Lemonade=20, Milk=15, Water=30.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "picture_graph_drinks",
+          "description": "Vertical picture graph. Favorite Drinks. All columns filled: Juice=5, Lemonade=4, Milk=3, Water=6. Key: each star = 5.",
+          "tangible_type": "picture_graph",
+          "mode": "building",
+          "orientation": "vertical",
+          "categories": [
+            "Juice",
+            "Lemonade",
+            "Milk",
+            "Water"
+          ],
+          "scale": 5
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:56:47.299443+00:00"
+}
