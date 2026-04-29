@@ -1,0 +1,94 @@
+
+======================================================================
+RUNNING PIPELINE
+Steps: 13
+Output Directory: C:\git\script_generator\outputs\unit100\lesson_generator_dialogue_pass_module_1\v0
+======================================================================
+
+[STEP 1/13] [FORMATTING] split_spec
+  [DIR] step_01_split_spec
+  [LOAD] Reading: C:\git\script_generator\units\unit100\module1\lesson.md
+  [DEBUG] File size: 24953 bytes
+  [DEBUG] Read 24351 chars from 24953 bytes
+  [OK] Loaded as text
+  [EXEC] Running formatting function...
+  [EXEC] Passing input to parameter 'input_data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_01_split_spec\split_spec.json
+
+[STEP 2/13] [AI] starterpack_parser
+  [DIR] step_02_starterpack_parser
+  [AUTO-CHAIN] Using previous step output: step_01_split_spec\split_spec.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\lesson_generator_dialogue_pass_module_1\v0\step_01_split_spec\split_spec.json
+  [DEBUG] File size: 2 bytes
+  [DEBUG] Read 2 chars from 2 bytes
+  [OK] Loaded 2 chars
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 0 items from JSON array
+
+  [BATCH COMPLETE]
+    Processed: 0/0
+    Skipped: 0
+    Errors: 0
+  [SAVE] Saved 0 items to: step_02_starterpack_parser\starterpack_parser.json
+
+[STEP 3/13] [FORMATTING] load_specs_for_lesson
+  [DIR] step_03_load_specs_for_lesson
+  [AUTO-CHAIN] Using previous step output: step_02_starterpack_parser\starterpack_parser.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\lesson_generator_dialogue_pass_module_1\v0\step_02_starterpack_parser\starterpack_parser.json
+  [DEBUG] File size: 2 bytes
+  [DEBUG] Read 2 chars from 2 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing module_number=1
+  [EXEC] Passing unit_number=100
+  [EXEC] Passing verbose=True
+  [EXEC] Passing input to parameter 'input_data'
+  [WARN] toy_specs directory not found: C:\git\script_generator\units\unit100\toy_specs
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_03_load_specs_for_lesson\load_specs_for_lesson.json
+
+[STEP 4/13] [FORMATTING] check_glossary_drift
+  [DIR] step_04_check_glossary_drift
+  [AUTO-CHAIN] Using previous step output: step_03_load_specs_for_lesson\load_specs_for_lesson.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\lesson_generator_dialogue_pass_module_1\v0\step_03_load_specs_for_lesson\load_specs_for_lesson.json
+  [DEBUG] File size: 42 bytes
+  [DEBUG] Read 39 chars from 42 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing module_number=1
+  [EXEC] Passing unit_number=100
+  [EXEC] Passing verbose=True
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit100\lesson_generator_dialogue_pass_module_1\v0\step_04_check_glossary_drift\check_glossary_drift.json
+  [EXEC] Passing input to parameter 'input_data'
+  [DRIFT] glossary.md not found — skipping drift check
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_04_check_glossary_drift\check_glossary_drift.json
+
+[STEP 5/13] [AI] section_structurer
+  [DIR] step_05_section_structurer
+  [AUTO-CHAIN] Using previous step output: step_04_check_glossary_drift\check_glossary_drift.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\lesson_generator_dialogue_pass_module_1\v0\step_04_check_glossary_drift\check_glossary_drift.json
+  [DEBUG] File size: 42 bytes
+  [DEBUG] Read 39 chars from 42 bytes
+  [OK] Loaded 39 chars
+  [BATCH] Processing items individually...
+  [ERROR] Failed to parse input as JSON array: Batch mode requires input to be a JSON array
+
+Error: Batch mode requires input to be a JSON array
+Traceback (most recent call last):
+  File "C:\git\script_generator\cli\run_pipeline.py", line 142, in <module>
+    results = run_pipeline_from_config(
+        steps_config=steps_config,
+    ...<8 lines>...
+        end_at_step=end_at,
+    )
+  File "C:\git\script_generator\core\pipelines.py", line 114, in run_pipeline_from_config
+    results = run_pipeline(
+        steps=steps,
+    ...<4 lines>...
+        **kwargs,
+    )
+  File "C:\git\script_generator\core\pipeline.py", line 865, in run_pipeline
+    raise ValueError("Batch mode requires input to be a JSON array")
+ValueError: Batch mode requires input to be a JSON array
