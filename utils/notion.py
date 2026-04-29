@@ -41,6 +41,8 @@ from typing import Any
 
 from notion_client import Client
 
+from utils.notion_codecs import BEAT_CODECS, BeatCodec  # noqa: E402
+
 # ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
@@ -599,11 +601,13 @@ def _tag_section(section: dict, heading_block_id: str, beat_blocks: list[dict]) 
     - current_scene beat["_notion_block_id"]   = matching · · · paragraph block ID
     - validator state dialogue["_notion_block_id"] = matching 💬 callout inside toggle
     """
+    from steps.formatting.id_stamper import _flatten_validator_beats, flatten_beats
+
     section["_notion_block_id"] = heading_block_id
 
-    beats = section.get("beats", [])
-    editable_beats = [b for b in beats if b.get("type") in {"scene", "dialogue", "prompt"}]
-    current_scene_beats = [b for b in beats if b.get("type") == "current_scene"]
+    all_beats = flatten_beats(section)
+    editable_beats = [b for b in all_beats if BEAT_CODECS.get(b.get("type")) is not None]
+    current_scene_beats = [b for b in all_beats if b.get("type") == "current_scene"]
 
     editable_ptr = 0
     cs_ptr = 0
@@ -612,8 +616,7 @@ def _tag_section(section: dict, heading_block_id: str, beat_blocks: list[dict]) 
         btype = block.get("type")
 
         if btype == "callout":
-            emoji = block.get("callout", {}).get("icon", {}).get("emoji")
-            if emoji not in {"🎬", "💬", "❔"}:
+            if BEAT_CODECS.identify(block) is None:
                 continue
             if editable_ptr >= len(editable_beats):
                 continue
@@ -630,7 +633,7 @@ def _tag_section(section: dict, heading_block_id: str, beat_blocks: list[dict]) 
                         break
                     toggle_children = beat_blocks[j].get("toggle", {}).get("children", [])
                     state_dialogue = [
-                        sb for sb in state.get("beats", []) if sb.get("type") == "dialogue"
+                        sb for sb in _flatten_validator_beats(state) if sb.get("type") == "dialogue"
                     ]
                     toggle_dialogue = [
                         c
@@ -648,30 +651,17 @@ def _tag_section(section: dict, heading_block_id: str, beat_blocks: list[dict]) 
                 cs_ptr += 1
 
 
-def tag_notion_ids(client: Client, page_id: str, sections: list) -> list:
-    """Fetch Notion block IDs and write ``_notion_block_id`` back onto each section and beat.
+def _tag_sections_from_blocks(sections: list, blocks: list[dict]) -> list:
+    """Stamp ``_notion_block_id`` onto *sections* using pre-fetched *blocks*.
 
-    Supports both flat headings (beats are page-level siblings after the H2) and
-    toggle headings (beats are children of the H2).
-
-    After a push Notion assigns block IDs to each heading and callout.
-    This function stores them:
-    - section["_notion_block_id"]                   = heading_2 block ID
-    - editable beat["_notion_block_id"]             = matching 💬/🎬/❔ callout block ID
-    - current_scene beat["_notion_block_id"]        = matching · · · paragraph block ID
-    - validator state dialogue["_notion_block_id"]  = matching 💬 inside validator toggle
-
-    Returns a modified deep copy of *sections* with ``_notion_block_id`` added.
+    Same logic as ``tag_notion_ids`` but accepts already-fetched blocks so no
+    network call is needed. Mutates *sections* in place and also returns it.
     """
-    sections = copy.deepcopy(sections)
     section_by_id = {s["id"]: s for s in sections if isinstance(s, dict) and "id" in s}
-
-    # recursive=True fetches children for toggle headings
-    blocks = _all_blocks(client, page_id, recursive=True)
 
     current_section_id: str | None = None
     flat_beats: list[dict] = []
-    h2_by_section: dict[str, dict] = {}  # section_id → h2 block
+    h2_by_section: dict[str, dict] = {}
 
     def _flush_flat() -> None:
         if current_section_id and current_section_id in h2_by_section:
@@ -690,13 +680,12 @@ def tag_notion_ids(client: Client, page_id: str, sections: list) -> list:
             current_section_id = sid
             if sid:
                 h2_by_section[sid] = block
-                # Toggle heading: beats are children — tag immediately
                 children = block.get("heading_2", {}).get("children", [])
                 if children:
                     section = section_by_id.get(sid)
                     if section:
                         _tag_section(section, block["id"], children)
-                    current_section_id = None  # already handled
+                    current_section_id = None
         elif btype == "divider":
             _flush_flat()
             flat_beats = []
@@ -704,9 +693,29 @@ def tag_notion_ids(client: Client, page_id: str, sections: list) -> list:
         elif current_section_id:
             flat_beats.append(block)
 
-    _flush_flat()  # flush last section if page ends without a divider
+    _flush_flat()
 
     return sections
+
+
+def tag_notion_ids(client: Client, page_id: str, sections: list) -> list:
+    """Fetch Notion block IDs and write ``_notion_block_id`` back onto each section and beat.
+
+    Supports both flat headings (beats are page-level siblings after the H2) and
+    toggle headings (beats are children of the H2).
+
+    After a push Notion assigns block IDs to each heading and callout.
+    This function stores them:
+    - section["_notion_block_id"]                   = heading_2 block ID
+    - editable beat["_notion_block_id"]             = matching 💬/🎬/❔ callout block ID
+    - current_scene beat["_notion_block_id"]        = matching · · · paragraph block ID
+    - validator state dialogue["_notion_block_id"]  = matching 💬 inside validator toggle
+
+    Returns a modified deep copy of *sections* with ``_notion_block_id`` added.
+    """
+    sections = copy.deepcopy(sections)
+    blocks = _all_blocks(client, page_id, recursive=True)
+    return _tag_sections_from_blocks(sections, blocks)
 
 
 def _render_section_children(section: dict) -> list[dict]:
@@ -756,14 +765,11 @@ def _render_section_children(section: dict) -> list[dict]:
 
 def _beat_content_matches(beat: dict, section_id: str, notion_block: dict) -> bool:
     """Return True if the beat's rendered text matches the Notion callout block."""
-    if beat.get("type") not in ("dialogue", "scene", "prompt"):
+    codec = BEAT_CODECS.get(beat.get("type", ""))
+    if codec is None:
         return True  # non-editable beats are always replaced
-    rendered = _render_beat(beat, section_id)
-    if not rendered:
-        return True
-    rendered_text = _extract_rt(rendered[0].get("callout", {}).get("rich_text", []))
     notion_text = _extract_rt(notion_block.get("callout", {}).get("rich_text", []))
-    return rendered_text == notion_text
+    return codec.encoded_text(beat) == notion_text
 
 
 def _section_needs_push(
@@ -1230,12 +1236,72 @@ def _fetch_all_block_comments(client: Client, block_id: str) -> list[dict]:
     return comments
 
 
-def fetch_lesson_comments(page_id: str, sections: list) -> list[dict]:
+def _build_block_to_section_map(blocks: list[dict]) -> dict[str, str]:
+    """Return {block_id: section_id} by walking the page-level block tree.
+
+    Uses H2 headings to delimit sections (same logic as _tag_sections_from_blocks).
+    Covers every block in the tree, including ones not stamped with _notion_block_id.
+    """
+    result: dict[str, str] = {}
+    current_sid: str | None = None
+
+    def _register(block: dict) -> None:
+        bid = block.get("id")
+        if bid and current_sid:
+            result[bid] = current_sid
+        for child in block.get("heading_2", {}).get("children", []):
+            if child.get("id") and current_sid:
+                result[child["id"]] = current_sid
+
+    for block in blocks:
+        btype = block.get("type")
+        if btype == "heading_2":
+            rt = _extract_rt(block.get("heading_2", {}).get("rich_text", []))
+            m = re.search(r"\[([^\]]+)\]\s*$", rt)
+            current_sid = m.group(1) if m else None
+            if block.get("id") and current_sid:
+                result[block["id"]] = current_sid
+            for child in block.get("heading_2", {}).get("children", []):
+                cid = child.get("id")
+                if cid and current_sid:
+                    result[cid] = current_sid
+        elif btype == "divider":
+            current_sid = None
+        elif current_sid:
+            _register(block)
+            for child in block.get(btype, {}).get("children", []) if isinstance(block.get(btype), dict) else []:
+                cid = child.get("id")
+                if cid:
+                    result[cid] = current_sid
+
+    return result
+
+
+def _all_block_ids_from_tree(blocks: list[dict], acc: list | None = None) -> list[str]:
+    """Recursively collect every block ID from a blocks tree."""
+    if acc is None:
+        acc = []
+    for block in blocks:
+        bid = block.get("id")
+        if bid and bid not in acc:
+            acc.append(bid)
+        btype = block.get("type")
+        children = block.get(btype, {}).get("children", []) if isinstance(block.get(btype), dict) else []
+        _all_block_ids_from_tree(children, acc)
+    return acc
+
+
+def fetch_lesson_comments(
+    page_id: str, sections: list, blocks: list[dict] | None = None
+) -> list[dict]:
     """Fetch all Notion comment threads that mention @claude.
 
-    Checks every block tagged with _notion_block_id in sections, plus the page
-    itself. When any message in a thread mentions @claude, the entire thread is
-    returned so the caller has full context.
+    When *blocks* (the raw page block tree) is provided, checks every block on
+    the page — not just ones stamped with _notion_block_id — so no comment can
+    slip through due to a tagging gap. Section attribution falls back to an H2
+    heading scan of the blocks tree for any block not in the beat map.
+
+    When *blocks* is omitted, falls back to checking only tagged blocks.
 
     Each returned dict:
       discussion_id, block_id, section_id, beat_description, beat,
@@ -1243,27 +1309,41 @@ def fetch_lesson_comments(page_id: str, sections: list) -> list[dict]:
     """
     client = get_notion_client()
     block_to_beat = _build_block_to_beat_map(sections)
-    all_block_ids = [page_id] + _collect_notion_block_ids(sections)
 
+    if blocks is not None:
+        all_block_ids = [page_id] + _all_block_ids_from_tree(blocks)
+        block_to_section = _build_block_to_section_map(blocks)
+    else:
+        all_block_ids = [page_id] + _collect_notion_block_ids(sections)
+        block_to_section = {}
+
+    seen_discussions: set[str] = set()
     results: list[dict] = []
+
     for bid in all_block_ids:
         all_comments = _fetch_all_block_comments(client, bid)
         if not all_comments:
             continue
 
-        # Group into threads by discussion_id, preserving chronological order.
         threads: dict[str, list[dict]] = {}
         for comment in all_comments:
             did = comment.get("discussion_id") or comment.get("id", "")
             threads.setdefault(did, []).append(comment)
 
         ctx = block_to_beat.get(bid, {})
+        # Fall back to section-level context for blocks not in beat map
+        if not ctx and bid in block_to_section:
+            ctx = {"section_id": block_to_section[bid], "beat_description": None, "beat": None}
+
         for did, thread_comments in threads.items():
+            if did in seen_discussions:
+                continue
             if not any(
                 "@claude" in _extract_comment_text(c.get("rich_text", [])).lower()
                 for c in thread_comments
             ):
                 continue
+            seen_discussions.add(did)
             results.append(
                 {
                     "discussion_id": did,
@@ -1320,53 +1400,6 @@ def _section_label(section_id: str) -> tuple[str, str]:
 # ---------------------------------------------------------------------------
 
 
-def _render_dialogue(beat: dict) -> list[dict]:
-    text = beat.get("text", "")
-    tags = beat.get("tags", [])
-    tag_str = f"  [{', '.join(tags)}]" if tags else ""
-    return [_callout(f'"{text}"{tag_str}', "💬")]
-
-
-def _render_scene(beat: dict) -> list[dict]:
-    method = beat.get("method", "").lower()
-    tid = beat.get("tangible_id", "")
-    params = beat.get("params", {})
-    description = params.get("description", "").strip() if params else ""
-
-    if method == "update":
-        skip = {"description"}
-        changed = {k: v for k, v in (params or {}).items() if k not in skip}
-        if changed:
-            params_str = ", ".join(f"{k}: {v}" for k, v in changed.items())
-            fields_part = f" [{params_str}]"
-        else:
-            fields_part = ""
-
-        if description:
-            text = description
-        else:
-            text = f"Update {tid}{fields_part}" if fields_part else f"Update {tid}"
-        return [_callout(text, "🎬")]
-
-    if method == "show":
-        action = f"Show {tid}"
-    elif method == "hide":
-        action = f"Hide {tid}"
-    elif method == "remove":
-        action = f"Remove {tid}"
-    elif method == "lock":
-        action = f"Lock {tid}"
-    elif method == "unlock":
-        action = f"Unlock {tid}"
-    elif method == "animate":
-        action = f"Animate {tid}"
-    elif method == "add":
-        action = f"Add {tid}"
-    else:
-        action = f"{method.upper()} {tid}"
-
-    text = description if description else action
-    return [_callout(text, "🎬")]
 
 
 def _condition_summary(condition: dict) -> str:
@@ -1436,33 +1469,6 @@ def _render_validator(validator: list, section_id: str) -> list[dict]:
     return blocks
 
 
-def _render_prompt(beat: dict, section_id: str) -> list[dict]:
-    text = beat.get("text", "")
-    tool = beat.get("tool", "")
-    target = beat.get("target")
-    options = beat.get("options", [])
-    validator = beat.get("validator", [])
-
-    blocks: list[dict] = []
-
-    parts = [f"tool: {tool}"]
-    if target is not None:
-        if isinstance(target, list):
-            parts.append("target: " + ", ".join(str(t) for t in target))
-        elif isinstance(target, dict):
-            parts.append(f"target: {target.get('type', '?')} (all)")
-        else:
-            parts.append(f"target: {target}")
-    if options:
-        parts.append("options: " + json.dumps(options, ensure_ascii=False))
-
-    callout_lines = ["  ".join(parts), f'"{text}"']
-    blocks.append(_callout("\n".join(callout_lines), "❔"))
-
-    if isinstance(validator, list):
-        blocks.extend(_render_validator(validator, section_id))
-
-    return blocks
 
 
 _CURRENT_SCENE_TOGGLE_PREFIX = "⏭️"
@@ -1498,20 +1504,19 @@ def _render_beat(
     beat: dict, section_id: str, nested: bool = False, after_prompt: bool = False
 ) -> list[dict]:
     t = beat.get("type", "")
-    if t == "dialogue":
-        return _render_dialogue(beat)
-    elif t == "scene":
-        return _render_scene(beat)
-    elif t == "current_scene":
+    if t == "current_scene":
         if nested:
             return []
         return _render_current_scene(beat, after_prompt=after_prompt)
-    elif t == "prompt":
-        return _render_prompt(beat, section_id)
-    elif t in ("empty", "unparsed"):
+    if t in ("empty", "unparsed"):
         return []
-    else:
+    codec = BEAT_CODECS.get(t)
+    if codec is None:
         return [_paragraph(str(beat))]
+    blocks = codec.encode(beat)
+    if t == "prompt" and isinstance(beat.get("validator"), list):
+        blocks = blocks + _render_validator(beat["validator"], section_id)
+    return blocks
 
 
 # ---------------------------------------------------------------------------
@@ -1609,9 +1614,6 @@ def lesson_to_blocks(lesson: dict | list, reviewer_user_id: str | None = None) -
 # ---------------------------------------------------------------------------
 
 _HEADING2_ID_RE = re.compile(r"\[([^\]]+)\]\s*$")
-_EDITABLE_BEAT_TYPES = {"dialogue", "scene", "prompt"}
-_EDITABLE_CALLOUT_EMOJIS = {"💬", "🎬", "❔"}
-_EMOJI_TO_BEAT_TYPE = {"💬": "dialogue", "🎬": "scene", "❔": "prompt"}
 
 # Matches the paragraph rendered for a validator state with no child beats:
 #   "✅ 🔀 {description} — student moves forward"
@@ -1620,14 +1622,6 @@ _VALIDATOR_STATE_PARA_RE = re.compile(
     r"^(?:✅|❌|◻️)\s.*—\s*student moves forward$",
     re.DOTALL,
 )
-
-
-def _callout_emoji(block: dict) -> str | None:
-    """Return the emoji of a callout block, or None if not a callout."""
-    if block.get("type") != "callout":
-        return None
-    icon = block.get("callout", {}).get("icon", {})
-    return icon.get("emoji") if icon.get("type") == "emoji" else None
 
 
 def _section_blocks_map(blocks: list[dict]) -> dict[str, list[dict]]:
@@ -1668,159 +1662,23 @@ def _section_blocks_map(blocks: list[dict]) -> dict[str, list[dict]]:
     return mapping
 
 
-def _strip_dialogue_text(text: str) -> str:
-    """Strip surrounding quotes and trailing tag annotation from a dialogue callout text."""
-    s = text
-    if s.startswith('"'):
-        s = s[1:]
-    s = re.sub(r'"\s*\[[^\]]*\]\s*$', "", s)
-    if s.endswith('"'):
-        s = s[:-1]
-    return s
-
-
-def _parse_prompt_fields(text: str) -> dict:
-    """Parse a ❔ callout text into prompt field updates (tool, target, options, text)."""
-    all_lines = text.split("\n")
-    first_line = all_lines[0].strip() if all_lines else ""
-
-    kv: dict = {}
-    for pair in re.split(r"  +", first_line):
-        if ": " in pair:
-            k, v = pair.split(": ", 1)
-            kv[k.strip()] = v.strip()
-
-    fields: dict = {}
-    if "tool" in kv:
-        fields["tool"] = kv["tool"]
-    if "target" in kv:
-        raw = kv["target"]
-        if raw.endswith(" (all)"):
-            fields["target"] = {"type": raw[:-6].strip()}
-        elif ", " in raw:
-            fields["target"] = [t.strip() for t in raw.split(", ")]
-        else:
-            fields["target"] = raw
-    if "options" in kv:
-        raw_opts = kv["options"].strip()
-        try:
-            fields["options"] = json.loads(raw_opts)
-        except (json.JSONDecodeError, ValueError):
-            parsed_opts = []
-            for o in raw_opts.split(", "):
-                o = o.strip()
-                try:
-                    parsed_opts.append(int(o))
-                except ValueError:
-                    try:
-                        parsed_opts.append(float(o))
-                    except ValueError:
-                        parsed_opts.append(o)
-            fields["options"] = parsed_opts
-
-    fields["text"] = all_lines[1].strip().strip('"') if len(all_lines) >= 2 else text.strip('"')
-    return fields
-
-
-_NEW_BEAT_TAG = re.compile(r"\s*\[new beat\]\s*", re.IGNORECASE)
-
-
-def _scene_rendered_text(beat: dict) -> str:
-    """Return the text that _render_scene would display for this beat (description or fallback)."""
-    method = beat.get("method", "").lower()
-    tid = beat.get("tangible_id", "")
-    params = beat.get("params", {})
-    description = params.get("description", "").strip() if params else ""
-    if description:
-        return description
-    if method == "update":
-        skip = {"description"}
-        changed = {k: v for k, v in (params or {}).items() if k not in skip}
-        if changed:
-            params_str = ", ".join(f"{k}: {v}" for k, v in changed.items())
-            return f"Update {tid} [{params_str}]"
-        return f"Update {tid}"
-    action_map = {
-        "show": f"Show {tid}",
-        "hide": f"Hide {tid}",
-        "remove": f"Remove {tid}",
-        "lock": f"Lock {tid}",
-        "unlock": f"Unlock {tid}",
-        "animate": f"Animate {tid}",
-        "add": f"Add {tid}",
-    }
-    return action_map.get(method, f"{method.upper()} {tid}")
-
-
-_DIALOGUE_MATCH_COVERAGE = 0.6  # minimum fraction of Notion words found in the JSON beat
 _LEGACY_MATCH_WINDOW = 3  # only look this many positions ahead in the pool
 
 
-def _legacy_pool_match(pool: list[dict], emoji: str, text: str) -> int | None:
-    """Scan a LEGACY positional pool for the best content match for a Notion callout.
+def _codec_pool_match(codec: BeatCodec, pool: list[dict], block: dict) -> int | None:
+    """Scan pool for the best content match for a Notion block via codec.match_score.
 
     Only examines the next _LEGACY_MATCH_WINDOW entries so a misaligned beat
     far ahead in the pool cannot steal a match from a closer one.
-    Returns the pool index of the match, or None (→ treat callout as new beat).
-
-    Content keys by type:
-    - scene (🎬):    "{method} {tangible_id}" prefix match on first callout line
-    - dialogue (💬): coverage (Notion words found in JSON beat) ≥ _DIALOGUE_MATCH_COVERAGE
-    - prompt (❔):   tool type must appear in callout text
+    Returns the pool index of the best match, or None (→ treat block as new beat).
     """
-    first_line = text.split("\n")[0].strip()
-    best_dialogue: tuple[float, int] | None = None  # (coverage, index)
-
+    best: tuple[float, int] | None = None
     for i, candidate in enumerate(pool[: _LEGACY_MATCH_WINDOW + 1]):
-        c_type = candidate.get("type", "")
-        if emoji == "🎬" and c_type == "scene":
-            key = (
-                f"{candidate.get('method', '')} {candidate.get('tangible_id', '')}".strip().lower()
-            )
-            if first_line.lower().startswith(key):
-                return i
-        elif emoji == "💬" and c_type == "dialogue":
-            wa = [re.sub(r"[^\w]", "", w) for w in _strip_dialogue_text(text).lower().split()]
-            wb = [re.sub(r"[^\w]", "", w) for w in (candidate.get("text") or "").lower().split()]
-            wa = [w for w in wa if w]
-            wb = [w for w in wb if w]
-            if not wa:
-                continue
-            sm = difflib.SequenceMatcher(None, wa, wb)
-            matched = sum(block.size for block in sm.get_matching_blocks())
-            coverage = matched / len(wa)
-            if coverage >= _DIALOGUE_MATCH_COVERAGE:
-                if best_dialogue is None or coverage > best_dialogue[0]:
-                    best_dialogue = (coverage, i)
-        elif emoji == "❔" and c_type == "prompt":
-            tool = candidate.get("tool", "")
-            if tool and f"tool: {tool}" in first_line:
-                return i
-
-    if best_dialogue is not None:
-        return best_dialogue[1]
-
-    return None
-
-
-def _parse_new_beat(emoji: str, text: str) -> dict:
-    """Convert an unmatched Notion callout into a suggested beat."""
-    if emoji == "💬":
-        return {"type": "dialogue", "text": _strip_dialogue_text(text), "notion_flag": "suggested"}
-    if emoji == "🎬":
-        return {
-            "type": "scene",
-            "method": "PLACEHOLDER",
-            "tangible_id": "PLACEHOLDER",
-            "params": {"description": text.strip()},
-            "notion_flag": "suggested",
-        }
-    if emoji == "❔":
-        beat: dict = {"type": "prompt", "notion_flag": "suggested"}
-        beat.update(_parse_prompt_fields(text))
-        beat.setdefault("tool", "PLACEHOLDER")
-        return beat
-    return {"type": "unknown", "text": text, "notion_flag": "suggested"}
+        score = codec.match_score(candidate, block)
+        if score is not None:
+            if best is None or score > best[0]:
+                best = (score, i)
+    return best[1] if best is not None else None
 
 
 def _is_step_break(block: dict) -> bool:
@@ -1847,9 +1705,9 @@ def _is_step_break(block: dict) -> bool:
 def _patch_validator_state(state: dict, toggle_block: dict) -> None:
     """Rebuild a validator state's beats from its Notion toggle (Notion is source of truth).
 
-    Processes all 💬/🎬/❔ callouts in the toggle in Notion page order:
+    Processes all editable callouts in the toggle in Notion page order via codecs:
       Layer 1 — ID match (_notion_block_id)
-      Layer 2 — LEGACY content match (coverage for dialogue, key prefix for scene)
+      Layer 2 — LEGACY content match (codec.match_score)
       Layer 3 — positional fallback (safe: pool is scoped to this one state)
       Layer 4 — new beat (reviewer added it in Notion)
 
@@ -1864,71 +1722,45 @@ def _patch_validator_state(state: dict, toggle_block: dict) -> None:
     id_to_beat: dict[str, dict] = {
         sb["_notion_block_id"]: sb
         for sb in state_beats
-        if "_notion_block_id" in sb and sb.get("type") in _EDITABLE_BEAT_TYPES
+        if "_notion_block_id" in sb and sb.get("type") in BEAT_CODECS.beat_types
     }
     positional_pools: dict[str, list] = {
         beat_type: [
             b for b in state_beats if b.get("type") == beat_type and "_notion_block_id" not in b
         ]
-        for beat_type in _EDITABLE_BEAT_TYPES
+        for beat_type in BEAT_CODECS.beat_types
     }
 
     new_beats: list[dict] = []
     for child in toggle_children:
         if child.get("type") != "callout":
             continue
-        emoji = _callout_emoji(child)
-        if emoji not in _EDITABLE_CALLOUT_EMOJIS:
+        codec = BEAT_CODECS.identify(child)
+        if codec is None:
             continue
-        child_id = child["id"]
-        text = _extract_rt(child.get("callout", {}).get("rich_text", []))
-        text = _NEW_BEAT_TAG.sub("", text).strip()
+        child_id = child.get("id", "")
 
         if child_id in id_to_beat:
             beat = id_to_beat[child_id]
-            _apply_callout_text(beat, text)
+            codec.apply_edit(beat, child)
             new_beats.append(beat)
         else:
-            beat_type = _EMOJI_TO_BEAT_TYPE.get(emoji)
-            pool = positional_pools.get(beat_type, []) if beat_type else []
-            idx = _legacy_pool_match(pool, emoji, text)
+            pool = positional_pools.get(codec.beat_type, [])
+            idx = _codec_pool_match(codec, pool, child)
             if idx is None and pool:
                 idx = 0  # positional fallback: pool is scoped to this state
             if idx is not None:
                 beat = pool.pop(idx)
-                _apply_callout_text(beat, text)
+                codec.apply_edit(beat, child)
                 beat["_notion_block_id"] = child_id  # back-fill
                 new_beats.append(beat)
             else:
-                new_beats.append(_parse_new_beat(emoji, text))
+                new_beat = codec.decode_new(child)
+                new_beat["_notion_block_id"] = child_id
+                new_beats.append(new_beat)
 
     state["beats"] = new_beats
     state.pop("steps", None)
-
-
-def _apply_callout_text(beat: dict, text: str) -> bool:
-    """Apply callout text to a beat in place. Returns True if the beat is a prompt."""
-    beat_type = beat.get("type")
-    if beat_type == "dialogue":
-        beat["text"] = _strip_dialogue_text(text)
-    elif beat_type == "scene":
-        if text != _scene_rendered_text(beat):
-            original_desc = (beat.get("params") or {}).get("description", "").strip()
-            beat.setdefault("params", {})["description"] = text
-            beat["_original_description"] = original_desc
-            beat["notion_flag"] = "updated"
-    elif beat_type == "prompt":
-        original_options = list(beat.get("options") or [])
-        beat.update(_parse_prompt_fields(text))
-        if len(beat.get("options") or []) != len(original_options):
-            beat["options"] = original_options
-            beat["notion_flag"] = "options_parse_failed"
-            beat["_original_options"] = original_options
-            first_line = text.split("\n")[0]
-            m = re.search(r"options:\s*(.+?)(?:  |$)", first_line)
-            beat["_notion_options_text"] = m.group(1).strip() if m else first_line
-        return True
-    return False
 
 
 def _patch_section_beats(section: dict, section_blocks: list[dict]) -> None:
@@ -1956,7 +1788,7 @@ def _patch_section_beats(section: dict, section_blocks: list[dict]) -> None:
     id_to_beat: dict[str, dict] = {
         b["_notion_block_id"]: b
         for b in json_beats
-        if "_notion_block_id" in b and b.get("type") in _EDITABLE_BEAT_TYPES
+        if "_notion_block_id" in b and b.get("type") in BEAT_CODECS.beat_types
     }
     id_to_current_scene: dict[str, dict] = {
         b["_notion_block_id"]: b
@@ -1964,13 +1796,11 @@ def _patch_section_beats(section: dict, section_blocks: list[dict]) -> None:
         if "_notion_block_id" in b and b.get("type") == "current_scene"
     }
     # LEGACY: positional pools for beats that were never ID-tagged.
-    # Split by beat type so that a 💬 callout only matches dialogue beats,
-    # 🎬 only matches scene beats, ❔ only matches prompt beats.
     positional_pools: dict[str, list] = {
         beat_type: [
             b for b in json_beats if b.get("type") == beat_type and "_notion_block_id" not in b
         ]
-        for beat_type in _EDITABLE_BEAT_TYPES
+        for beat_type in BEAT_CODECS.beat_types
     }
 
     cs_positional_pool = [
@@ -2009,33 +1839,31 @@ def _patch_section_beats(section: dict, section_blocks: list[dict]) -> None:
             continue
 
         if btype == "callout":
-            emoji = _callout_emoji(block)
+            codec = BEAT_CODECS.identify(block)
             last_prompt_beat = None
             validator_state_idx = 0
 
-            if emoji not in _EDITABLE_CALLOUT_EMOJIS:
+            if codec is None:
                 result.append(
                     {"type": "unparsed", "_notion_block_id": block_id, "notion_type": btype}
                 )
                 continue
 
-            text = _extract_rt(block.get("callout", {}).get("rich_text", []))
-            text = _NEW_BEAT_TAG.sub("", text).strip()
-
             if block_id in id_to_beat:
                 beat = id_to_beat[block_id]
             else:  # LEGACY: content-match scan (for files pushed before ID-tagging)
-                beat_type = _EMOJI_TO_BEAT_TYPE.get(emoji)
-                pool = positional_pools.get(beat_type, []) if beat_type else []
-                idx = _legacy_pool_match(pool, emoji, text)
+                pool = positional_pools.get(codec.beat_type, [])
+                idx = _codec_pool_match(codec, pool, block)
                 if idx is not None:
                     beat = pool.pop(idx)
                     beat["_notion_block_id"] = block_id  # back-fill so future pulls use ID match
                 else:
-                    result.append(_parse_new_beat(emoji, text))
+                    new_beat = codec.decode_new(block)
+                    new_beat["_notion_block_id"] = block_id
+                    result.append(new_beat)
                     continue
 
-            is_prompt = _apply_callout_text(beat, text)
+            is_prompt = codec.apply_edit(beat, block)
             if is_prompt:
                 last_prompt_beat = beat
                 validator_state_idx = 0
@@ -2080,7 +1908,7 @@ def _patch_section_beats(section: dict, section_blocks: list[dict]) -> None:
                         for b in positional_pools.get(bt, [])
                         if b.get("branch_name") == branch_name
                     ]
-                    for bt in _EDITABLE_BEAT_TYPES
+                    for bt in BEAT_CODECS.beat_types
                 }
 
                 for child in col_children[content_start:]:
@@ -2099,32 +1927,29 @@ def _patch_section_beats(section: dict, section_blocks: list[dict]) -> None:
 
                     if child_type != "callout":
                         continue
-                    emoji = _callout_emoji(child)
-                    if emoji not in _EDITABLE_CALLOUT_EMOJIS:
+                    codec = BEAT_CODECS.identify(child)
+                    if codec is None:
                         continue
-
-                    text = _extract_rt(child.get("callout", {}).get("rich_text", []))
-                    text = _NEW_BEAT_TAG.sub("", text).strip()
 
                     if child_id in id_to_beat:
                         beat = id_to_beat[child_id]
+                        codec.apply_edit(beat, child)
                     else:
-                        bt_key = _EMOJI_TO_BEAT_TYPE.get(emoji)
-                        pool = branch_pools.get(bt_key, []) if bt_key else []
-                        idx = _legacy_pool_match(pool, emoji, text)
+                        pool = branch_pools.get(codec.beat_type, [])
+                        idx = _codec_pool_match(codec, pool, child)
                         if idx is None and pool:
                             idx = 0  # positional fallback scoped to this branch
                         if idx is not None:
                             beat = pool.pop(idx)
                             # Remove from the shared positional pool too
-                            main_pool = positional_pools.get(bt_key, [])
+                            main_pool = positional_pools.get(codec.beat_type, [])
                             if beat in main_pool:
                                 main_pool.remove(beat)
                             beat["_notion_block_id"] = child_id
+                            codec.apply_edit(beat, child)
                         else:
-                            beat = _parse_new_beat(emoji, text)
+                            beat = codec.decode_new(child)
 
-                    _apply_callout_text(beat, text)
                     if branch_name and not beat.get("branch_name"):
                         beat["branch_name"] = branch_name
                     result.append(beat)
@@ -2378,6 +2203,7 @@ def push_lesson(
     file_path: Path | None = None,
     reviewer_user_id: str | None = None,
     sections: list[str] | None = None,
+    page_id: str | None = None,
 ) -> str:
     """Push lesson data to Notion section by section. Returns the page ID.
 
@@ -2400,7 +2226,7 @@ def push_lesson(
         all_sections = data.get("sections", [])
 
     # Detect existing page first so we can check actual page state below
-    existing_page_id: str | None = None
+    existing_page_id: str | None = page_id or None
     if file_path is not None:
         entry = get_registry_entry(file_path)
         if entry:
