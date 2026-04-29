@@ -1,9 +1,5 @@
 # Prompt: remediation_generator
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
 # Generated: 2026-04-20T12:05:17.894040
-========
-# Generated: 2026-04-20T11:57:48.562462
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
 ======================================================================
 
 ## API Parameters
@@ -1857,119 +1853,8 @@ Cacheable: Yes
 <lesson_sections>
 [
   {
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
     "id": "s1_1_transition_warmup",
     "type": "transition",
-========
-    "id": "s1_1_building_on_scale_comparison",
-    "beats": [
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "picture_graph_scale_2",
-        "tangible_type": "picture_graph",
-        "params": {
-          "mode": "reading",
-          "orientation": "vertical",
-          "scale": 2,
-          "description": "Vertical picture graph appears on left. Scale of 2. Same data as warmup."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "picture_graph_scale_5",
-        "tangible_type": "picture_graph",
-        "params": {
-          "mode": "reading",
-          "orientation": "vertical",
-          "scale": 5,
-          "description": "Vertical picture graph appears on right. Scale of 5. Same data as warmup. Key highlighted: Each star = 5."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "In Warmup, you saw something important. Same data, but the scale-of-5 graph needed fewer symbols. That's because each symbol represents MORE."
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "picture_graph_scale_2",
-            "description": "Vertical picture graph. Scale of 2. Same data as warmup.",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "scale": 2
-          },
-          {
-            "tangible_id": "picture_graph_scale_5",
-            "description": "Vertical picture graph. Scale of 5. Same data as warmup. Key highlighted: Each star = 5.",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "scale": 5
-          }
-        ]
-      },
-      {
-        "type": "dialogue",
-        "text": "Same data, fewer symbols. That's why scale of 5 is useful when numbers get bigger. What does each symbol represent when the scale is 5?"
-      },
-      {
-        "type": "prompt",
-        "text": "What does each symbol represent when the scale is 5?",
-        "tool": "multiple_choice",
-        "options": [
-          2,
-          5,
-          10,
-          1
-        ],
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": 5
-            },
-            "description": "Student selected 5, correct",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Each symbol represents 5 items. That's the scale."
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "picture_graph_scale_2",
-            "description": "Vertical picture graph. Scale of 2. Same data as warmup.",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "scale": 2
-          },
-          {
-            "tangible_id": "picture_graph_scale_5",
-            "description": "Vertical picture graph. Scale of 5. Same data as warmup. Key highlighted: Each star = 5.",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "scale": 5
-          }
-        ]
-      }
-    ],
-    "_generated_at": "2026-04-20T15:44:56.780918+00:00"
-  },
-  {
-    "id": "s1_2_grouping_animation_groups_5_worked",
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
     "beats": [
       {
         "type": "scene",
@@ -1977,16 +1862,11 @@ Cacheable: Yes
         "tangible_id": "scale_preview_warmup",
         "tangible_type": "image",
         "params": {
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
           "description": "Scale Preview System from Warmup appears. Student's data visible. All four scale options (1, 2, 5, 10) showing checkmarks."
-========
-          "description": "Data table appears. Favorite Playground Activities: Swings 20, Slides 15, Monkey Bars 25, Sandbox 10. Vertical orientation."
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
         }
       },
       {
         "type": "dialogue",
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
         "text": "In Warmup, all four scales worked for your data. You had options!"
       },
       {
@@ -1998,185 +1878,26 @@ Cacheable: Yes
             "tangible_type": "image"
           }
         ]
-========
-        "text": "Let's see how 20 items become symbols when the scale is 5. Watch—we'll group by 5s."
-      },
-      {
-        "type": "scene",
-        "method": "animate",
-        "tangible_id": "data_table",
-        "params": {
-          "event": "grouping_animation_swings",
-          "status": "proposed",
-          "description": "20 items appear for Swings category."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "animate",
-        "tangible_id": "data_table",
-        "params": {
-          "event": "grouping_animation_swings",
-          "status": "confirmed",
-          "description": "Items form 4 groups of 5. Groups transform into 4 symbols stacking upward on picture graph."
-        }
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
       },
       {
         "type": "dialogue",
         "text": "But what happens when the numbers are bigger? Let's find out."
       },
       {
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "scale_preview_warmup",
             "description": "Scale Preview System from Warmup. Student's data with all four scales showing checkmarks.",
             "tangible_type": "image"
-========
-        "type": "dialogue",
-        "text": "20 items equals 4 symbols. Each symbol shows 5."
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing Favorite Playground Activities. Picture graph column for Swings displays 4 symbols. Other columns empty. Key visible: Each star = 5.",
-            "tangible_type": "data_table"
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
           }
         ]
       }
     ],
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
     "_generated_at": "2026-04-20T17:00:06.557511+00:00"
   },
   {
     "id": "s1_2_when_scale_needs_too_many",
-========
-    "_generated_at": "2026-04-20T15:45:06.510651+00:00"
-  },
-  {
-    "id": "s1_3_skip_counting_connection",
-    "beats": [
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "picture_graph_swings",
-        "tangible_type": "picture_graph",
-        "params": {
-          "mode": "reading",
-          "orientation": "vertical",
-          "categories": [
-            "Swings",
-            "Slide",
-            "Monkey Bars",
-            "Sandbox"
-          ],
-          "scale": 5,
-          "description": "Vertical picture graph appears. Swings column has 4 star symbols. Other columns empty. Key visible: Each star = 5."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "data_table",
-        "tangible_type": "data_table",
-        "params": {
-          "description": "Data table appears alongside graph showing same playground equipment data."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "It is easier to read this picture graph if you can count by 5s. That's exactly what we do with scale of 5."
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "picture_graph_swings",
-            "description": "Vertical picture graph. Swings column has 4 star symbols. Other columns empty. Key: Each star = 5.",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Swings",
-              "Slide",
-              "Monkey Bars",
-              "Sandbox"
-            ],
-            "scale": 5
-          },
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing playground equipment values.",
-            "tangible_type": "data_table"
-          }
-        ]
-      },
-      {
-        "type": "dialogue",
-        "text": "Let's check: does the picture graph match our data table? 4 symbols, scale of 5. Count by 5s with me. 4 symbols, counting by 5s. What's the total?"
-      },
-      {
-        "type": "prompt",
-        "text": "What is the total represented by the picture graph?",
-        "tool": "multiple_choice",
-        "options": [
-          4,
-          9,
-          15,
-          20
-        ],
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": 20
-            },
-            "description": "Student selected 20, correct answer using skip-counting by 5s",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "20 items. 5, 10, 15, 20. Skip-counting tells you the total in the picture graph and that matches the value in the data table."
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "picture_graph_swings",
-            "description": "Vertical picture graph. Swings column has 4 star symbols. Other columns empty. Key: Each star = 5. Multiple choice tool active.",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Swings",
-              "Slide",
-              "Monkey Bars",
-              "Sandbox"
-            ],
-            "scale": 5
-          },
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing playground equipment values alongside graph.",
-            "tangible_type": "data_table"
-          }
-        ]
-      }
-    ],
-    "_generated_at": "2026-04-20T15:45:17.815755+00:00"
-  },
-  {
-    "id": "s1_4_your_turn_guided_creation",
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
     "beats": [
       {
         "type": "scene",
@@ -2184,839 +1905,13 @@ Cacheable: Yes
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
           "description": "Data table appears. Books Read This Month. Aisha: 20, Ben: 35, Carlos: 55, Dana: 80."
-========
-          "description": "Data table appears. Playground Equipment data. Swings=20, Slides=15, Monkey Bars=25, Sandbox=10. All values visible."
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
         }
       },
       {
         "type": "scene",
         "method": "add",
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
         "tangible_id": "bar_graph_books",
-========
-        "tangible_id": "picture_graph_playground",
-        "tangible_type": "picture_graph",
-        "params": {
-          "mode": "building",
-          "orientation": "vertical",
-          "categories": [
-            "Swings",
-            "Slides",
-            "Monkey Bars",
-            "Sandbox"
-          ],
-          "description": "Vertical picture graph appears. Playground Equipment. Swings column pre-filled with 4 symbols. Slides, Monkey Bars, Sandbox columns empty. Key visible: each symbol = 5 votes."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "Slides has 15. How many symbols is that?"
-      },
-      {
-        "type": "dialogue",
-        "text": "Think: count by 5s until you reach 15. How many 5s? Click to set the height of the Slides."
-      },
-      {
-        "type": "prompt",
-        "text": "Set the number of symbols for Slides.",
-        "tool": "click_to_set_height",
-        "target": "picture_graph_playground",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "symbols_placed": 3
-            },
-            "description": "Student clicked to place 3 symbols in Slides column, correct",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_playground",
-                "params": {
-                  "event": "confirm_symbol_placement",
-                  "status": "confirmed",
-                  "description": "3 symbols fill Slides column to confirm placement.",
-                  "category": "Slides"
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "3 symbols. 5, 10, 15. You used skip-counting to figure it out."
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing Playground Equipment values. Swings=20, Slides=15, Monkey Bars=25, Sandbox=10.",
-            "tangible_type": "data_table"
-          },
-          {
-            "tangible_id": "picture_graph_playground",
-            "description": "Vertical picture graph in building mode. Playground Equipment. Swings column has 4 symbols. Slides column now has 3 symbols. Monkey Bars and Sandbox columns empty. Key: each symbol = 5 votes.",
-            "tangible_type": "picture_graph",
-            "mode": "building",
-            "orientation": "vertical",
-            "categories": [
-              "Swings",
-              "Slides",
-              "Monkey Bars",
-              "Sandbox"
-            ]
-          }
-        ]
-      }
-    ],
-    "_generated_at": "2026-04-20T15:45:29.051057+00:00"
-  },
-  {
-    "id": "s1_5_complete_graph",
-    "beats": [
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "picture_graph_playground",
-        "tangible_type": "picture_graph",
-        "params": {
-          "mode": "building",
-          "orientation": "vertical",
-          "categories": [
-            "Swings",
-            "Slides",
-            "Monkey Bars",
-            "Sandbox"
-          ],
-          "scale": 5,
-          "description": "Vertical picture graph appears. Favorite Playground Equipment. Swings has 4 symbols (20), Slides has 3 symbols (15), Monkey Bars and Sandbox empty. Key visible: each symbol = 5 votes."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "data_table",
-        "tangible_type": "data_table",
-        "params": {
-          "description": "Data table appears alongside graph, showing Swings=20, Slides=15, Monkey Bars=25, Sandbox=10."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "Monkey Bars has 25. That's a bigger number. Click to set the height of Monkey Bars."
-      },
-      {
-        "type": "prompt",
-        "text": "Set the height for Monkey Bars.",
-        "tool": "click_to_set_height",
-        "target": "picture_graph_playground",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "symbols_placed": 5,
-              "category": "Monkey Bars"
-            },
-            "description": "Student placed 5 symbols for Monkey Bars, correct",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_playground",
-                "params": {
-                  "event": "place_symbols_sequence",
-                  "status": "confirmed",
-                  "description": "5 symbols appear in Monkey Bars column, counting by 5s: 5, 10, 15, 20, 25.",
-                  "category": "Monkey Bars",
-                  "count": 5
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "5 symbols for 25. You counted: 5, 10, 15, 20, 25."
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "picture_graph_playground",
-            "description": "Vertical picture graph. Swings=4 symbols (20), Slides=3 symbols (15), Monkey Bars=5 symbols (25), Sandbox empty. Key shows each symbol = 5 votes.",
-            "tangible_type": "picture_graph",
-            "mode": "building",
-            "orientation": "vertical",
-            "categories": [
-              "Swings",
-              "Slides",
-              "Monkey Bars",
-              "Sandbox"
-            ],
-            "scale": 5
-          },
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing Favorite Playground Equipment values.",
-            "tangible_type": "data_table"
-          }
-        ]
-      }
-    ],
-    "_generated_at": "2026-04-20T15:45:41.121003+00:00"
-  },
-  {
-    "id": "s1_6_continue_building_sandbox",
-    "beats": [
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "picture_graph_playground",
-        "tangible_type": "picture_graph",
-        "params": {
-          "mode": "building",
-          "orientation": "vertical",
-          "categories": [
-            "Swings",
-            "Slides",
-            "Monkey Bars",
-            "Sandbox"
-          ],
-          "scale": 5,
-          "description": "Vertical picture graph appears. Favorite Playground Equipment data. Swings column has 4 symbols, Slides has 3 symbols, Monkey Bars has 5 symbols. Sandbox column empty. Key: each symbol = 5 votes."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "data_table",
-        "tangible_type": "data_table",
-        "params": {
-          "description": "Data table appears alongside graph showing Favorite Playground Equipment values: Swings=20, Slides=15, Monkey Bars=25, Sandbox=10."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "Let's complete the picture graph. Sandbox has 10. That's the smallest number. Click to set the height for Sandbox."
-      },
-      {
-        "type": "prompt",
-        "text": "Set the height for Sandbox.",
-        "tool": "click_to_set_height",
-        "target": "picture_graph_playground",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "symbols_placed": 2,
-              "category": "Sandbox"
-            },
-            "description": "Student placed 2 symbols for Sandbox, correct for scale of 5",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_playground",
-                "params": {
-                  "event": "confirm_symbol_placement",
-                  "status": "confirmed",
-                  "category": "Sandbox",
-                  "description": "2 symbols appear in Sandbox column to confirm placement."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "2 symbols for 10. Count by 5s: 5, 10. That's how you build to the right height."
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "picture_graph_playground",
-            "description": "Vertical picture graph showing Favorite Playground Equipment. Swings=4 symbols, Slides=3 symbols, Monkey Bars=5 symbols, Sandbox=2 symbols. All columns complete.",
-            "tangible_type": "picture_graph",
-            "mode": "building",
-            "orientation": "vertical",
-            "categories": [
-              "Swings",
-              "Slides",
-              "Monkey Bars",
-              "Sandbox"
-            ],
-            "scale": 5
-          },
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing Favorite Playground Equipment values: Swings=20, Slides=15, Monkey Bars=25, Sandbox=10.",
-            "tangible_type": "data_table"
-          }
-        ]
-      }
-    ],
-    "_generated_at": "2026-04-20T15:45:52.245052+00:00"
-  },
-  {
-    "id": "s1_7_reading_your_graph_most_least",
-    "beats": [
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "picture_graph_playground",
-        "tangible_type": "picture_graph",
-        "params": {
-          "mode": "reading",
-          "orientation": "vertical",
-          "categories": [
-            "Swings",
-            "Slides",
-            "Monkey Bars",
-            "Sandbox"
-          ],
-          "scale": 5,
-          "description": "Vertical picture graph appears. Favorite Playground Activity data. Swings=4 symbols, Slides=3 symbols, Monkey Bars=5 symbols, Sandbox=2 symbols. Key visible: each star symbol = 5 votes."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "You made a scaled picture graph. Let's read it. Which activity is the most popular?"
-      },
-      {
-        "type": "prompt",
-        "text": "Click on the activity that is most popular.",
-        "tool": "click_category",
-        "target": "picture_graph_playground",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": "Monkey Bars"
-            },
-            "description": "Student clicked Monkey Bars, correct, 5 symbols = 25 votes",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_playground",
-                "params": {
-                  "event": "highlight_category",
-                  "status": "confirmed",
-                  "category": "Monkey Bars",
-                  "description": "Monkey Bars column highlights to confirm selection."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "Monkey Bars has 5 symbols, that's 25. The tallest column has the most votes."
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "picture_graph_playground",
-            "description": "Vertical picture graph in reading mode. Favorite Playground Activity data. Monkey Bars column highlighted. Key: each star = 5 votes.",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Swings",
-              "Slides",
-              "Monkey Bars",
-              "Sandbox"
-            ],
-            "scale": 5
-          }
-        ]
-      },
-      {
-        "type": "scene",
-        "method": "update",
-        "tangible_id": "picture_graph_playground",
-        "params": {
-          "highlight_categories": [],
-          "description": "Monkey Bars highlight clears."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "And which got the fewest?"
-      },
-      {
-        "type": "prompt",
-        "text": "Click on the category with the fewest.",
-        "tool": "click_category",
-        "target": "picture_graph_playground",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": "Sandbox"
-            },
-            "description": "Student clicked Sandbox, correct, 2 symbols = 10 votes",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_playground",
-                "params": {
-                  "event": "highlight_category",
-                  "status": "confirmed",
-                  "category": "Sandbox",
-                  "description": "Sandbox column highlights to confirm selection."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "Sandbox has only 2 symbols, that's 10 votes."
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "picture_graph_playground",
-            "description": "Vertical picture graph in reading mode. Favorite Playground Activity data. Sandbox column highlighted. Key: each star = 5 votes.",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Swings",
-              "Slides",
-              "Monkey Bars",
-              "Sandbox"
-            ],
-            "scale": 5
-          }
-        ]
-      }
-    ],
-    "_generated_at": "2026-04-20T15:46:05.906860+00:00"
-  },
-  {
-    "id": "s1_8_section_transition",
-    "type": "transition",
-    "beats": [
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "picture_graph_pets",
-        "tangible_type": "picture_graph",
-        "params": {
-          "mode": "reading",
-          "orientation": "vertical",
-          "categories": [
-            "Dogs",
-            "Cats",
-            "Fish",
-            "Birds",
-            "Lizards"
-          ],
-          "scale": 5,
-          "description": "Vertical picture graph appears on left side of screen. Favorite Pets data with scale of 5. Dogs=20, Cats=15, Fish=10, Birds=5, Lizards=0. Key: each pet symbol = 5 votes."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "You made a picture graph with scale of 5. Now let's see ANOTHER way to show the exact same data."
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "picture_graph_pets",
-            "description": "Vertical picture graph on left side of screen. Favorite Pets data with scale of 5.",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Dogs",
-              "Cats",
-              "Fish",
-              "Birds",
-              "Lizards"
-            ],
-            "scale": 5
-          }
-        ]
-      }
-    ],
-    "_generated_at": "2026-04-20T15:46:11.763441+00:00"
-  },
-  {
-    "id": "s2_1_two_ways_show_scale_5",
-    "beats": [
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "picture_graph_playground",
-        "tangible_type": "picture_graph",
-        "params": {
-          "mode": "reading",
-          "orientation": "vertical",
-          "categories": [
-            "Swings",
-            "Slides",
-            "Monkey Bars",
-            "Sandbox"
-          ],
-          "description": "Vertical picture graph appears. Favorite Playground Activities data. Swings=4 symbols, Slides=3, Monkey Bars=5, Sandbox=2. Key visible: Each star = 5."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "You've read bar graphs before. Here's the same Playground data as a bar graph."
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "picture_graph_playground",
-            "description": "Vertical picture graph. Favorite Playground Activities data. Swings=4 symbols, Slides=3, Monkey Bars=5, Sandbox=2. Key: Each star = 5.",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Swings",
-              "Slides",
-              "Monkey Bars",
-              "Sandbox"
-            ]
-          }
-        ]
-      },
-      {
-        "type": "scene",
-        "method": "animate",
-        "tangible_id": "picture_graph_playground",
-        "params": {
-          "event": "transform_to_bar_graph",
-          "status": "confirmed",
-          "description": "Picture graph transforms into bar graph. Vertical bar graph appears. Categories: Swings=20, Slides=15, Monkey Bars=25, Sandbox=10. Axis labeled 0-30 in 5s. All 4 bars pre-filled."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "bar_graph_playground",
-        "tangible_type": "bar_graph",
-        "params": {
-          "mode": "reading",
-          "orientation": "vertical",
-          "categories": [
-            "Swings",
-            "Slides",
-            "Monkey Bars",
-            "Sandbox"
-          ],
-          "axis_range": [
-            0,
-            30
-          ],
-          "axis_interval": 5,
-          "description": "Vertical bar graph appears side-by-side with picture graph. Playground Activities data. Swings=20, Slides=15, Monkey Bars=25, Sandbox=10. Axis labeled 0-30 in 5s."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "data_table",
-        "tangible_type": "data_table",
-        "params": {
-          "description": "Data table appears alongside both graphs, showing same Playground Activities values."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "In a picture graph, you count by 5s using SYMBOLS: 5, 10, 15, 20, 25."
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "picture_graph_playground",
-            "description": "Vertical picture graph. Favorite Playground Activities. Swings=4 symbols, Slides=3, Monkey Bars=5, Sandbox=2. Key: Each star = 5.",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Swings",
-              "Slides",
-              "Monkey Bars",
-              "Sandbox"
-            ]
-          },
-          {
-            "tangible_id": "bar_graph_playground",
-            "description": "Vertical bar graph showing same Playground Activities data. Swings=20, Slides=15, Monkey Bars=25, Sandbox=10. Axis labeled 0-30 in 5s.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Swings",
-              "Slides",
-              "Monkey Bars",
-              "Sandbox"
-            ],
-            "axis_range": [
-              0,
-              30
-            ],
-            "axis_interval": 5
-          },
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing Playground Activities values.",
-            "tangible_type": "data_table"
-          }
-        ]
-      },
-      {
-        "type": "dialogue",
-        "text": "In a bar graph, you count by 5s using the numbers written along the side of the graph on the AXIS. Look—5, 10, 15, 20, 25, 30. Same skip-counting, just written on the side. Both graphs count by 5s."
-      },
-      {
-        "type": "dialogue",
-        "text": "Where do you see the 5s on the bar graph?"
-      },
-      {
-        "type": "prompt",
-        "text": "Where do you see the 5s on the bar graph?",
-        "tool": "multiple_choice",
-        "options": [
-          "In the symbols",
-          "On the axis",
-          "In the title"
-        ],
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": "On the axis"
-            },
-            "description": "Student selected On the axis, correct",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "The axis shows the skip-counting: 5, 10, 15, 20, 25, 30. That's your scale of 5—built right into the side of the graph."
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "picture_graph_playground",
-            "description": "Vertical picture graph. Favorite Playground Activities. Swings=4 symbols, Slides=3, Monkey Bars=5, Sandbox=2. Key: Each star = 5.",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Swings",
-              "Slides",
-              "Monkey Bars",
-              "Sandbox"
-            ]
-          },
-          {
-            "tangible_id": "bar_graph_playground",
-            "description": "Vertical bar graph showing same Playground Activities data. Swings=20, Slides=15, Monkey Bars=25, Sandbox=10. Axis labeled 0-30 in 5s.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Swings",
-              "Slides",
-              "Monkey Bars",
-              "Sandbox"
-            ],
-            "axis_range": [
-              0,
-              30
-            ],
-            "axis_interval": 5
-          },
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing Playground Activities values.",
-            "tangible_type": "data_table"
-          }
-        ]
-      }
-    ],
-    "_generated_at": "2026-04-20T15:46:30.278561+00:00"
-  },
-  {
-    "id": "s2_2_reading_bar_height",
-    "beats": [
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "picture_graph_recess",
-        "tangible_type": "picture_graph",
-        "params": {
-          "mode": "reading",
-          "orientation": "vertical",
-          "categories": [
-            "Swings",
-            "Slides",
-            "Jungle Gym"
-          ],
-          "description": "Vertical picture graph appears on left. Favorite Recess Activities. Swings=4 symbols, Slides=3 symbols, Jungle Gym=5 symbols. Key: each symbol = 5 votes."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "bar_graph_recess",
-        "tangible_type": "bar_graph",
-        "params": {
-          "mode": "reading",
-          "orientation": "vertical",
-          "categories": [
-            "Swings",
-            "Slides",
-            "Jungle Gym"
-          ],
-          "axis_range": [
-            0,
-            25
-          ],
-          "scale": 5,
-          "description": "Vertical bar graph appears on right. Same Favorite Recess Activities data. Swings=20, Slides=15, Jungle Gym=25."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "update",
-        "tangible_id": "picture_graph_recess",
-        "params": {
-          "highlight_categories": [
-            "Slides"
-          ],
-          "description": "Slides category highlights on picture graph."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "update",
-        "tangible_id": "bar_graph_recess",
-        "params": {
-          "highlight_categories": [
-            "Slides"
-          ],
-          "description": "Slides bar highlights on bar graph."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "In a bar graph, you read the HEIGHT, where the bar ENDS on the axis. Look at Slides. What's the HEIGHT of the Slides bar? Where does it end?"
-      },
-      {
-        "type": "prompt",
-        "text": "What's the HEIGHT of the Slides bar?",
-        "tool": "multiple_choice",
-        "options": [
-          3,
-          10,
-          15,
-          20
-        ],
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": 15
-            },
-            "description": "Student answered 15, correct bar height",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "15. The bar's HEIGHT is 15. It ends at 15 on the axis. Same as 3 symbols on the picture graph. Both show 15."
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "picture_graph_recess",
-            "description": "Vertical picture graph. Slides category highlighted. Favorite Recess Activities. 3 symbols in Slides column.",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Swings",
-              "Slides",
-              "Jungle Gym"
-            ]
-          },
-          {
-            "tangible_id": "bar_graph_recess",
-            "description": "Vertical bar graph. Slides bar highlighted, height 15. Favorite Recess Activities data.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Swings",
-              "Slides",
-              "Jungle Gym"
-            ],
-            "axis_range": [
-              0,
-              25
-            ],
-            "scale": 5
-          }
-        ]
-      }
-    ],
-    "_generated_at": "2026-04-20T15:46:44.179538+00:00"
-  },
-  {
-    "id": "s2_3_reading_axis_scale_5",
-    "beats": [
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "data_table",
-        "tangible_type": "data_table",
-        "params": {
-          "description": "Data table appears. Favorite Lunch Foods data. Pizza=20, Tacos=30, Salad=15, Pasta=25, Sandwiches=15."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "bar_graph_lunch",
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
         "tangible_type": "bar_graph",
         "params": {
           "mode": "building",
@@ -3031,62 +1926,13 @@ Cacheable: Yes
             0,
             50
           ],
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
           "scale": 5,
           "description": "Vertical bar graph appears. Books Read This Month. Axis 0-50. Scale of 5 pre-selected. Graph initially empty."
-========
-          "axis_interval": 5,
-          "description": "Vertical bar graph appears. Axis labeled 0 to 35 in 5s. Tacos bar pre-filled at 30, Sandwiches bar pre-filled at 15. Pizza, Salad, Pasta bars empty."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "update",
-        "tangible_id": "bar_graph_lunch",
-        "params": {
-          "highlight_axis": true,
-          "description": "Axis numbers highlight."
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
         }
       },
       {
         "type": "dialogue",
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
         "text": "Here's data about how many books four students read this month. Dana read the most—80 books!"
-========
-        "text": "Before you create the bars, look at the numbers on the axis."
-      },
-      {
-        "type": "dialogue",
-        "text": "These numbers count by 5s, just like you did with symbols. The axis does the skip-counting for you. What comes after 20 on this axis?"
-      },
-      {
-        "type": "prompt",
-        "text": "What comes after 20 on this axis?",
-        "tool": "multiple_choice",
-        "options": [
-          21,
-          25,
-          30,
-          22
-        ],
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": 25
-            },
-            "description": "Student selected 25, correct",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "25. The axis counts by 5s: 5, 10, 15, 20, 25, 30. Same skip-counting you used for symbols, just written on the side."
-              }
-            ]
-          }
-        ]
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
       },
       {
         "type": "current_scene",
@@ -3097,18 +1943,12 @@ Cacheable: Yes
             "tangible_type": "data_table"
           },
           {
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
             "tangible_id": "bar_graph_books",
             "description": "Vertical bar graph. Books Read This Month. Axis 0-50. Scale of 5 selected. Graph empty.",
-========
-            "tangible_id": "bar_graph_lunch",
-            "description": "Vertical bar graph. Axis labeled 0 to 35 in 5s, axis numbers highlighted. Tacos bar at 30, Sandwiches bar at 15. Pizza, Salad, Pasta bars empty.",
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
             "tangible_type": "bar_graph",
             "mode": "building",
             "orientation": "vertical",
             "categories": [
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
               "Aisha",
               "Ben",
               "Carlos",
@@ -3311,249 +2151,11 @@ Cacheable: Yes
               80
             ],
             "scale": 5
-========
-              "Pizza",
-              "Tacos",
-              "Salad",
-              "Pasta",
-              "Sandwiches"
-            ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T15:46:54.236996+00:00"
-  },
-  {
-    "id": "s2_4_your_turn_create_bar",
-    "beats": [
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "data_table",
-        "tangible_type": "data_table",
-        "params": {
-          "description": "Data table appears showing Favorite Lunch Foods values: Tacos=30, Sandwiches=15, Pizza=20, Salad=10, Pasta=25."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "bar_graph_lunch",
-        "tangible_type": "bar_graph",
-        "params": {
-          "mode": "building",
-          "orientation": "vertical",
-          "categories": [
-            "Tacos",
-            "Sandwiches",
-            "Pizza",
-            "Salad",
-            "Pasta"
-          ],
-          "scale": 5,
-          "axis_range": [
-            0,
-            30
-          ],
-          "bar_heights": {
-            "Tacos": 30,
-            "Sandwiches": 15,
-            "Pizza": 0,
-            "Salad": 0,
-            "Pasta": 0
-          },
-          "description": "Vertical bar graph appears in building mode. Favorite Lunch Foods. Tacos bar filled to 30, Sandwiches bar filled to 15. Pizza, Salad, Pasta bars empty. Vertical axis labeled 0 to 30, skip-counting by 5. Click-to-set-height tool active."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "Pizza has 20 votes. You found 20 on the axis. Set the height for Pizza to show 20."
-      },
-      {
-        "type": "prompt",
-        "text": "Set the height for Pizza to show 20.",
-        "tool": "click_to_set_height",
-        "target": "bar_graph_lunch",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "category": "Pizza",
-              "bar_height": 20
-            },
-            "description": "Student set Pizza bar to height 20, correct",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "bar_graph_lunch",
-                "params": {
-                  "event": "confirm_bar_height",
-                  "status": "confirmed",
-                  "category": "Pizza",
-                  "description": "Pizza bar confirms at height 20."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "The bar ends at 20, right on the axis. The skip-counting is already there. You just match the height."
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing Favorite Lunch Foods values.",
-            "tangible_type": "data_table"
-          },
-          {
-            "tangible_id": "bar_graph_lunch",
-            "description": "Vertical bar graph in building mode. Tacos=30, Sandwiches=15, Pizza=20 (just set), Salad and Pasta empty. Click-to-set-height tool active.",
-            "tangible_type": "bar_graph",
-            "mode": "building",
-            "orientation": "vertical",
-            "categories": [
-              "Tacos",
-              "Sandwiches",
-              "Pizza",
-              "Salad",
-              "Pasta"
-            ],
-            "scale": 5,
-            "axis_range": [
-              0,
-              30
-            ],
-            "bar_heights": {
-              "Tacos": 30,
-              "Sandwiches": 15,
-              "Pizza": 20,
-              "Salad": 0,
-              "Pasta": 0
-            }
-          }
-        ]
-      }
-    ],
-    "_generated_at": "2026-04-20T15:47:06.675792+00:00"
-  },
-  {
-    "id": "s2_5_complete_bar_graph",
-    "beats": [
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "bar_graph_foods",
-        "tangible_type": "bar_graph",
-        "params": {
-          "mode": "building",
-          "orientation": "vertical",
-          "categories": [
-            "Pizza",
-            "Tacos",
-            "Sandwiches",
-            "Salad",
-            "Pasta"
-          ],
-          "values": {
-            "Pizza": 20,
-            "Tacos": 30,
-            "Sandwiches": 15,
-            "Salad": 0,
-            "Pasta": 0
-          },
-          "axis_range": [
-            0,
-            35
-          ],
-          "description": "Vertical bar graph appears. Favorite Foods data. Pizza bar at 20, Tacos at 30, Sandwiches at 15. Salad and Pasta bars empty, awaiting student input."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "Finish the graph. Salad has 15, Pasta has 25. Set the heights for Salad and Pasta."
-      },
-      {
-        "type": "prompt",
-        "text": "Set the heights for Salad and Pasta.",
-        "tool": "click_to_set_height",
-        "target": "bar_graph_foods",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "and": [
-                {
-                  "bar_height": {
-                    "category": "Salad",
-                    "value": 15
-                  }
-                },
-                {
-                  "bar_height": {
-                    "category": "Pasta",
-                    "value": 25
-                  }
-                }
-              ]
-            },
-            "description": "Student set Salad to 15 and Pasta to 25, both correct",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "bar_graph_foods",
-                "params": {
-                  "event": "confirm_bar_placement",
-                  "status": "confirmed",
-                  "description": "Salad and Pasta bars lock into place at their correct heights."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "You built the bar graph. Each bar shows exactly how many votes that food got."
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "bar_graph_foods",
-            "description": "Vertical bar graph. Favorite Foods data. Pizza=20, Tacos=30, Sandwiches=15, Salad=15, Pasta=25. All bars complete.",
-            "tangible_type": "bar_graph",
-            "mode": "building",
-            "orientation": "vertical",
-            "categories": [
-              "Pizza",
-              "Tacos",
-              "Sandwiches",
-              "Salad",
-              "Pasta"
-            ],
-            "axis_range": [
-              0,
-              35
-            ]
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
-          }
-        ]
-      }
-    ],
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
     "_generated_at": "2026-04-20T17:00:28.286959+00:00"
-========
-    "_generated_at": "2026-04-20T15:47:16.792556+00:00"
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
   },
   {
     "id": "s1_3_trying_bigger_scale",
@@ -3567,7 +2169,6 @@ Cacheable: Yes
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
             "Mystery",
             "Fantasy",
             "Science",
@@ -3579,28 +2180,6 @@ Cacheable: Yes
           ],
           "scale": 5,
           "description": "Vertical bar graph appears. Books Read data. Mystery=35, Fantasy=55, Science=20, History=75. Current scale is 5, showing 17 tick marks (0, 5, 10...85). Scale Preview System interactive, Scale of 5 currently selected."
-========
-            "Pizza",
-            "Tacos",
-            "Pasta",
-            "Salad"
-          ],
-          "axis_range": [
-            0,
-            30
-          ],
-          "category_values": {
-            "Pizza": 25,
-            "Tacos": 30,
-            "Pasta": 20,
-            "Salad": 15
-          },
-          "highlight_categories": [
-            "Tacos",
-            "Salad"
-          ],
-          "description": "Vertical bar graph appears. Favorite Lunch Foods data. Tacos bar at 30, Salad bar at 15. Both bars highlighted."
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
         }
       },
       {
@@ -3609,439 +2188,7 @@ Cacheable: Yes
       },
       {
         "type": "prompt",
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
         "text": "Click 'Scale of 10' to see what happens.",
-========
-        "text": "How many MORE students chose Tacos than Salad?",
-        "tool": "multiple_choice",
-        "options": [
-          10,
-          15,
-          30,
-          45
-        ],
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": 15
-            },
-            "description": "Student answered 15, correct difference between Tacos and Salad",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "15 more. Tacos has 30, Salad has 15. The difference is 15."
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "bar_graph_lunch",
-            "description": "Vertical bar graph. Favorite Lunch Foods data. Tacos bar at 30 and Salad bar at 15, both highlighted.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Pizza",
-              "Tacos",
-              "Pasta",
-              "Salad"
-            ],
-            "axis_range": [
-              0,
-              30
-            ],
-            "category_values": {
-              "Pizza": 25,
-              "Tacos": 30,
-              "Pasta": 20,
-              "Salad": 15
-            },
-            "highlight_categories": [
-              "Tacos",
-              "Salad"
-            ]
-          }
-        ]
-      }
-    ],
-    "_generated_at": "2026-04-20T15:48:34.269621+00:00"
-  },
-  {
-    "id": "s2_8_section_transition",
-    "type": "transition",
-    "beats": [
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "data_table",
-        "tangible_type": "data_table",
-        "params": {
-          "description": "Data table appears showing numeric values only."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "So far, some parts of the graphs were already filled in for you. Now let's see if you can build a whole graph on your own."
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing numeric values only.",
-            "tangible_type": "data_table"
-          }
-        ]
-      }
-    ],
-    "_generated_at": "2026-04-20T15:48:39.233435+00:00"
-  },
-  {
-    "id": "s3_1_picture_graph_no_scaffolding_horizontal",
-    "beats": [
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "data_table",
-        "tangible_type": "data_table",
-        "params": {
-          "description": "Vertical data table appears. Books Read This Month data. Liam=35, Emma=20, Noah=25, Olivia=40."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "picture_graph_books",
-        "tangible_type": "picture_graph",
-        "params": {
-          "mode": "building",
-          "orientation": "horizontal",
-          "categories": [
-            "Liam",
-            "Emma",
-            "Noah",
-            "Olivia"
-          ],
-          "scale": 5,
-          "description": "Horizontal picture graph appears in building mode. Books Read This Month. Empty rows for 4 categories. Key visible: Each ⭐ = 5 books."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "This graph goes sideways—horizontal. Same idea, you just click for the length for the number of symbols instead of height."
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "data_table",
-            "description": "Vertical data table showing Books Read This Month. Liam=35, Emma=20, Noah=25, Olivia=40.",
-            "tangible_type": "data_table"
-          },
-          {
-            "tangible_id": "picture_graph_books",
-            "description": "Horizontal picture graph in building mode. Empty rows for Liam, Emma, Noah, Olivia. Key: Each ⭐ = 5 books.",
-            "tangible_type": "picture_graph",
-            "mode": "building",
-            "orientation": "horizontal",
-            "categories": [
-              "Liam",
-              "Emma",
-              "Noah",
-              "Olivia"
-            ],
-            "scale": 5
-          }
-        ]
-      },
-      {
-        "type": "dialogue",
-        "text": "Make a picture graph. Start with Liam. He read 35 books. Set the number of symbols for Liam."
-      },
-      {
-        "type": "prompt",
-        "text": "Set the number of symbols for Liam.",
-        "tool": "click_to_place",
-        "target": "picture_graph_books",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "symbols_placed": 7
-            },
-            "description": "Student placed 7 symbols for Liam, correct for 35 books at scale 5",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_books",
-                "params": {
-                  "event": "confirm_symbols_placed",
-                  "status": "confirmed",
-                  "description": "7 stars appear in Liam's row, confirmed.",
-                  "category": "Liam"
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "7 symbols for 35 books. 5, 10, 15, 20, 25, 30, 35."
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "data_table",
-            "description": "Vertical data table showing Books Read This Month. Liam=35, Emma=20, Noah=25, Olivia=40.",
-            "tangible_type": "data_table"
-          },
-          {
-            "tangible_id": "picture_graph_books",
-            "description": "Horizontal picture graph. Liam row has 7 stars (35 books). Emma, Noah, Olivia rows empty. Key: Each ⭐ = 5 books.",
-            "tangible_type": "picture_graph",
-            "mode": "building",
-            "orientation": "horizontal",
-            "categories": [
-              "Liam",
-              "Emma",
-              "Noah",
-              "Olivia"
-            ],
-            "scale": 5
-          }
-        ]
-      }
-    ],
-    "_generated_at": "2026-04-20T15:48:53.016433+00:00"
-  },
-  {
-    "id": "s3_2_complete_picture_graph",
-    "beats": [
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "picture_graph_jump_rope",
-        "tangible_type": "picture_graph",
-        "params": {
-          "mode": "building",
-          "orientation": "horizontal",
-          "categories": [
-            "Liam",
-            "Emma",
-            "Noah",
-            "Olivia"
-          ],
-          "scale": 5,
-          "description": "Horizontal picture graph appears. Jump Rope Contest data. Key: each symbol = 5 jumps. Liam row complete with 7 symbols (35 jumps). Emma, Noah, Olivia rows empty and ready for building."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "data_table",
-        "tangible_type": "data_table",
-        "params": {
-          "description": "Data table appears alongside graph showing Jump Rope Contest values: Liam 35, Emma 20, Noah 25, Olivia 40."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "Finish the picture graph. Use the data table and complete the graph."
-      },
-      {
-        "type": "prompt",
-        "text": "Set the lengths for all remaining categories.",
-        "tool": "click_to_place",
-        "target": "picture_graph_jump_rope",
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "and": [
-                {
-                  "category": "Emma",
-                  "symbols_placed": 4
-                },
-                {
-                  "category": "Noah",
-                  "symbols_placed": 5
-                },
-                {
-                  "category": "Olivia",
-                  "symbols_placed": 8
-                }
-              ]
-            },
-            "description": "Student correctly placed Emma 4 symbols, Noah 5 symbols, Olivia 8 symbols",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "You built the whole graph. Each symbol shows 5, and you used skip-counting to figure out how many."
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "picture_graph_jump_rope",
-            "description": "Horizontal picture graph in building mode. Jump Rope Contest data. All rows complete: Liam 7 symbols, Emma 4 symbols, Noah 5 symbols, Olivia 8 symbols. Key shows each symbol = 5 jumps.",
-            "tangible_type": "picture_graph",
-            "mode": "building",
-            "orientation": "horizontal",
-            "categories": [
-              "Liam",
-              "Emma",
-              "Noah",
-              "Olivia"
-            ],
-            "scale": 5
-          },
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing Jump Rope Contest values: Liam 35, Emma 20, Noah 25, Olivia 40.",
-            "tangible_type": "data_table"
-          }
-        ]
-      }
-    ],
-    "_generated_at": "2026-04-20T15:49:03.349499+00:00"
-  },
-  {
-    "id": "s3_3_comparison_question",
-    "beats": [
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "picture_graph_books",
-        "tangible_type": "picture_graph",
-        "params": {
-          "mode": "reading",
-          "orientation": "horizontal",
-          "categories": [
-            "Liam",
-            "Emma",
-            "Noah",
-            "Olivia"
-          ],
-          "description": "Horizontal picture graph appears. Books Read This Month data. Liam=7 symbols (35), Emma=4 symbols (20), Noah=5 symbols (25), Olivia=8 symbols (40). Key visible: each book symbol = 5 books."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "Use your graph to find how many FEWER books Emma read than Olivia."
-      },
-      {
-        "type": "prompt",
-        "text": "How many FEWER books did Emma read compared to Olivia?",
-        "tool": "multiple_choice",
-        "options": [
-          15,
-          20,
-          40,
-          60
-        ],
-        "validator": [
-          {
-            "condition_id": "correct",
-            "condition": {
-              "selected": 20
-            },
-            "description": "Student selected 20, correct answer",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "picture_graph_books",
-                "params": {
-                  "highlight_categories": [
-                    "Emma",
-                    "Olivia"
-                  ],
-                  "description": "Emma and Olivia rows highlight to confirm comparison."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "20 fewer. Olivia read 40. Emma read 20. The difference is 20."
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "picture_graph_books",
-            "description": "Horizontal picture graph in reading mode. Books Read This Month data. Liam=7 symbols (35), Emma=4 symbols (20), Noah=5 symbols (25), Olivia=8 symbols (40). Key visible. multiple_choice tool active.",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "horizontal",
-            "categories": [
-              "Liam",
-              "Emma",
-              "Noah",
-              "Olivia"
-            ]
-          }
-        ]
-      }
-    ],
-    "_generated_at": "2026-04-20T15:49:12.316133+00:00"
-  },
-  {
-    "id": "s3_4_three_scale_toggle_same_data",
-    "beats": [
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "picture_graph_books",
-        "tangible_type": "picture_graph",
-        "params": {
-          "mode": "reading",
-          "orientation": "horizontal",
-          "categories": [
-            "Liam",
-            "Emma",
-            "Noah",
-            "Olivia"
-          ],
-          "scale": 5,
-          "description": "Horizontal picture graph appears. Books Read data. Liam=35 (7 symbols), Emma=20 (4 symbols), Noah=25 (5 symbols), Olivia=40 (8 symbols). Key shows each star = 5 books. Scale toggle control visible with three options: scale of 1, 2, 5. Currently set to 5."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "data_table",
-        "tangible_type": "data_table",
-        "params": {
-          "description": "Data table appears alongside graph, showing Books Read values: Liam=35, Emma=20, Noah=25, Olivia=40."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "You built this graph with scale of 5. But what would it look like with a different scale? Try it."
-      },
-      {
-        "type": "prompt",
-        "text": "Toggle the scale to 1. What happens?",
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
         "tool": "click_scale_button",
         "target": "bar_graph_books",
         "validator": [
@@ -4330,18 +2477,12 @@ Cacheable: Yes
                 "method": "update",
                 "tangible_id": "bar_graph_marbles",
                 "params": {
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
                   "scale": 1,
                   "axis_range": [
                     0,
                     23
                   ],
                   "description": "Bar graph displays with Scale of 1. All bars fit. Axis shows 24 tick marks (0 through 23)."
-========
-                  "event": "scale_change",
-                  "status": "confirmed",
-                  "description": "Graph animates as symbols multiply. Olivia: 8 symbols → 40 symbols. Liam: 7 → 35. Noah: 5 → 25. Emma: 4 → 20. Key updates to show each star = 1 book."
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
                 }
               },
               {
@@ -4356,7 +2497,6 @@ Cacheable: Yes
         "type": "current_scene",
         "elements": [
           {
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
             "tangible_id": "data_table",
             "description": "Data table showing Marbles in Jars values.",
             "tangible_type": "data_table"
@@ -4365,11 +2505,6 @@ Cacheable: Yes
             "tangible_id": "bar_graph_marbles",
             "description": "Horizontal bar graph. Scale of 1. Bars for Jar A: 7, Jar B: 12, Jar C: 19, Jar D: 23. Axis displays 24 tick marks (0-23).",
             "tangible_type": "bar_graph",
-========
-            "tangible_id": "picture_graph_books",
-            "description": "Horizontal picture graph. Books Read data. Scale of 1. Liam=35 (35 symbols), Emma=20 (20 symbols), Noah=25 (25 symbols), Olivia=40 (40 symbols). Key shows each star = 1 book. Scale toggle active.",
-            "tangible_type": "picture_graph",
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
             "mode": "reading",
             "orientation": "horizontal",
             "categories": [
@@ -4378,7 +2513,6 @@ Cacheable: Yes
               "Jar C",
               "Jar D"
             ],
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
             "scale": 1,
             "axis_range": [
               0,
@@ -4472,9 +2606,6 @@ Cacheable: Yes
               0,
               24
             ]
-========
-            "scale": 1
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
           },
           {
             "tangible_id": "data_table",
@@ -4601,12 +2732,8 @@ Cacheable: Yes
                 "params": {
                   "event": "preview_scale_transition",
                   "status": "confirmed",
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
                   "new_scale": 2,
                   "description": "Scale transitions to 2. All bars land exactly on tick marks. Green checkmark indicator appears. No warnings."
-========
-                  "description": "Graph animates as symbols reduce. Olivia: 40 symbols → 20 symbols. Liam: 35 → 17.5 (half symbol appears). Noah: 25 → 12.5 (half symbol appears). Emma: 20 → 10. Key updates to show each star = 2 books."
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
                 }
               },
               {
@@ -4646,15 +2773,9 @@ Cacheable: Yes
         "type": "current_scene",
         "elements": [
           {
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
             "tangible_id": "bar_graph_marbles",
             "description": "Vertical bar graph in reading mode. Marbles data showing Scale of 10. Scale selector active with Scale of 2 option available.",
             "tangible_type": "bar_graph",
-========
-            "tangible_id": "picture_graph_books",
-            "description": "Horizontal picture graph. Books Read data. Scale of 2. Liam=35 (17.5 symbols), Emma=20 (10 symbols), Noah=25 (12.5 symbols), Olivia=40 (20 symbols). Key shows each star = 2 books. Scale toggle active.",
-            "tangible_type": "picture_graph",
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
@@ -4663,7 +2784,6 @@ Cacheable: Yes
               "Green",
               "Yellow"
             ],
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
             "values": [
               7,
               12,
@@ -4672,14 +2792,6 @@ Cacheable: Yes
             ],
             "current_scale": 10,
             "scale_selector_active": true
-========
-            "scale": 2
-          },
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing Books Read values: Liam=35, Emma=20, Noah=25, Olivia=40.",
-            "tangible_type": "data_table"
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
           }
         ]
       },
@@ -4754,18 +2866,12 @@ Cacheable: Yes
       },
       {
         "type": "prompt",
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
         "text": "Which data set has last digits that are NOT 0 or 5?",
         "tool": "multiple_choice",
         "options": [
           "Data Set A",
           "Data Set B"
         ],
-========
-        "text": "Toggle the scale to 5.",
-        "tool": "click_scale_button",
-        "target": "picture_graph_books",
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
         "validator": [
           {
             "condition_id": "correct",
@@ -4776,19 +2882,8 @@ Cacheable: Yes
             "is_correct": true,
             "beats": [
               {
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
                 "type": "dialogue",
                 "text": "Right. Look at those last digits: 7, 2, 9, 3. None are 0 or 5—that's your Scale of 2 signal."
-========
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_books",
-                "params": {
-                  "event": "scale_change",
-                  "status": "confirmed",
-                  "description": "Graph animates back to original state. Olivia: 20 symbols → 8 symbols. Liam: 17.5 → 7. Noah: 12.5 → 5. Emma: 10 → 4. Key updates to show each star = 5 books."
-                }
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
               }
             ]
           }
@@ -4798,24 +2893,9 @@ Cacheable: Yes
         "type": "current_scene",
         "elements": [
           {
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
             "tangible_id": "dataset_a",
             "description": "Data Set A on left. Values: 20, 35, 55, 80. Label: 'Ones digits: 0 or 5'.",
             "tangible_type": "image"
-========
-            "tangible_id": "picture_graph_books",
-            "description": "Horizontal picture graph. Books Read data. Scale of 5. Liam=35 (7 symbols), Emma=20 (4 symbols), Noah=25 (5 symbols), Olivia=40 (8 symbols). Key shows each star = 5 books. Scale toggle active.",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "horizontal",
-            "categories": [
-              "Liam",
-              "Emma",
-              "Noah",
-              "Olivia"
-            ],
-            "scale": 5
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
           },
           {
             "tangible_id": "dataset_b",
@@ -4967,23 +3047,6 @@ Cacheable: Yes
         "type": "current_scene",
         "elements": [
           {
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
-========
-            "tangible_id": "picture_graph_books",
-            "description": "Horizontal picture graph. Books Read data. Scale of 5. Liam=35 (7 symbols), Emma=20 (4 symbols), Noah=25 (5 symbols), Olivia=40 (8 symbols). Key shows each star = 5 books. Scale toggle inactive after question answered.",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "horizontal",
-            "categories": [
-              "Liam",
-              "Emma",
-              "Noah",
-              "Olivia"
-            ],
-            "scale": 5
-          },
-          {
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
             "tangible_id": "data_table",
             "description": "Vertical data table showing Points Scored data. Round 1: 22, Round 2: 15, Round 3: 8, Round 4: 31.",
             "tangible_type": "data_table",
@@ -5036,34 +3099,22 @@ Cacheable: Yes
         "type": "current_scene",
         "elements": [
           {
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
             "tangible_id": "data_table",
             "description": "Vertical data table showing Points Scored data. Round 1: 22, Round 2: 15, Round 3: 8, Round 4: 31.",
             "tangible_type": "data_table",
             "orientation": "vertical",
-========
-            "tangible_id": "picture_graph_books",
-            "description": "Horizontal picture graph. Books Read data. Scale of 5. Liam=35 (7 symbols), Emma=20 (4 symbols), Noah=25 (5 symbols), Olivia=40 (8 symbols). Key shows each star = 5 books.",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "horizontal",
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
             "categories": [
               "Round 1",
               "Round 2",
               "Round 3",
               "Round 4"
             ],
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
             "values": [
               22,
               15,
               8,
               31
             ]
-========
-            "scale": 5
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
           },
           {
             "tangible_id": "bar_graph_points",
@@ -5108,11 +3159,7 @@ Cacheable: Yes
         ]
       }
     ],
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
     "_generated_at": "2026-04-20T17:02:07.520089+00:00"
-========
-    "_generated_at": "2026-04-20T15:49:38.490559+00:00"
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
   },
   {
     "id": "s2_6_very_small_data_scale_1",
@@ -5123,11 +3170,7 @@ Cacheable: Yes
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
           "description": "Vertical data table appears. Stickers Earned Today. Mia: 9, Noah: 5, Olivia: 7, Pete: 3."
-========
-          "description": "Data table appears. Weekend Screen Time (minutes). Saturday=35, Sunday=30, Monday=40, Tuesday=25."
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
         }
       },
       {
@@ -5144,21 +3187,11 @@ Cacheable: Yes
             "Olivia",
             "Pete"
           ],
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
           "description": "Vertical bar graph appears. Stickers Earned Today. Scale Preview System available. No bars showing yet."
-========
-          "axis_range": [
-            0,
-            45
-          ],
-          "axis_interval": 5,
-          "description": "Horizontal bar graph appears. Weekend Screen Time data. Axis along bottom, labeled 0 to 45 in 5s. All 4 bars empty."
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
         }
       },
       {
         "type": "dialogue",
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
         "text": "Look at these numbers: 9, 5, 7, 3. They're really small!"
       },
       {
@@ -5191,9 +3224,6 @@ Cacheable: Yes
       {
         "type": "dialogue",
         "text": "Click Scale of 10."
-========
-        "text": "This bar graph is horizontal. The bars go sideways. But look at the axis along the bottom. Same skip-counting by 5s. What comes after 35 on this axis?"
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
       },
       {
         "type": "prompt",
@@ -5566,11 +3596,7 @@ Cacheable: Yes
             "beats": [
               {
                 "type": "dialogue",
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
                 "text": "Good choice."
-========
-                "text": "40. The axis counts by 5s: 5, 10, 15, 35, 40, 45. Same pattern, just running sideways."
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
               }
             ]
           }
@@ -5581,7 +3607,6 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
             "description": "Vertical data table showing Favorite Fruits data: Dates 60, Cherries 45, Bananas 30, Apples 15.",
             "tangible_type": "data_table",
             "orientation": "horizontal",
@@ -5618,62 +3643,6 @@ Cacheable: Yes
             ]
           }
         ]
-========
-            "description": "Data table showing Weekend Screen Time values.",
-            "tangible_type": "data_table"
-          },
-          {
-            "tangible_id": "bar_graph_screen_time",
-            "description": "Horizontal bar graph in building mode. Weekend Screen Time data. Axis labeled 0 to 45 in 5s. All bars empty.",
-            "tangible_type": "bar_graph",
-            "mode": "building",
-            "orientation": "horizontal",
-            "categories": [
-              "Saturday",
-              "Sunday",
-              "Monday",
-              "Tuesday"
-            ]
-          }
-        ]
-      }
-    ],
-    "_generated_at": "2026-04-20T15:49:46.576086+00:00"
-  },
-  {
-    "id": "s3_6_bar_graph_independent_creation_horizontal",
-    "beats": [
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "data_table",
-        "tangible_type": "data_table",
-        "params": {
-          "description": "Data table appears. Weekend Screen Time (minutes). Saturday=35, Sunday=30, Monday=40, Tuesday=25."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "bar_graph_screen_time",
-        "tangible_type": "bar_graph",
-        "params": {
-          "mode": "building",
-          "orientation": "horizontal",
-          "categories": [
-            "Saturday",
-            "Sunday",
-            "Monday",
-            "Tuesday"
-          ],
-          "axis_range": [
-            0,
-            45
-          ],
-          "scale": 5,
-          "description": "Empty horizontal bar graph template appears. Weekend Screen Time. Scale marked 0, 5, 10, 15, 20, 25, 30, 35, 40, 45."
-        }
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
       },
       {
         "type": "dialogue",
@@ -5708,11 +3677,7 @@ Cacheable: Yes
                 }
               ]
             },
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
             "description": "Student selected all four options, correct",
-========
-            "description": "Student set all four bars correctly: Saturday=35, Sunday=30, Monday=40, Tuesday=25",
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
             "is_correct": true,
             "beats": [
               {
@@ -6116,7 +4081,6 @@ Cacheable: Yes
             "orientation": "horizontal",
             "scale": 10,
             "categories": [
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
               "Red Team",
               "Green Team",
               "Yellow Team",
@@ -6124,57 +4088,6 @@ Cacheable: Yes
             ]
           }
         ]
-========
-              "Saturday",
-              "Sunday",
-              "Monday",
-              "Tuesday"
-            ],
-            "axis_range": [
-              0,
-              45
-            ],
-            "scale": 5
-          }
-        ]
-      }
-    ],
-    "_generated_at": "2026-04-20T15:49:57.153756+00:00"
-  },
-  {
-    "id": "s3_7_reading_totals",
-    "beats": [
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "bar_graph_screen_time",
-        "tangible_type": "bar_graph",
-        "params": {
-          "mode": "reading",
-          "orientation": "horizontal",
-          "categories": [
-            "Saturday",
-            "Sunday",
-            "Monday",
-            "Tuesday"
-          ],
-          "values": {
-            "Saturday": 35,
-            "Sunday": 30,
-            "Monday": 40,
-            "Tuesday": 25
-          },
-          "highlight_categories": [
-            "Saturday",
-            "Sunday"
-          ],
-          "description": "Horizontal bar graph appears showing Weekend Screen Time data. Saturday bar at 35, Sunday bar at 30, Monday bar at 40, Tuesday bar at 25. Saturday and Sunday bars highlighted."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "How many minutes of screen time on Saturday and Sunday in all?"
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
       },
       {
         "type": "prompt",
@@ -6188,11 +4101,7 @@ Cacheable: Yes
               "bar_height": 40,
               "category": "Blue Team"
             },
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
             "description": "Student set Blue Team bar to 40",
-========
-            "description": "Student selected 65, correct answer",
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
             "is_correct": true,
             "beats": [
               {
@@ -6209,11 +4118,7 @@ Cacheable: Yes
               },
               {
                 "type": "dialogue",
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
                 "text": "Right on 40."
-========
-                "text": "65 minutes in all. Saturday has 35, Sunday has 30. 35 plus 30 is 65."
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
               }
             ]
           }
@@ -6223,7 +4128,6 @@ Cacheable: Yes
         "type": "current_scene",
         "elements": [
           {
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
             "tangible_id": "data_table",
             "description": "Data table showing Team Scores.",
             "tangible_type": "data_table",
@@ -6255,74 +4159,6 @@ Cacheable: Yes
             ]
           }
         ]
-========
-            "tangible_id": "bar_graph_screen_time",
-            "description": "Horizontal bar graph showing Weekend Screen Time. Saturday and Sunday bars highlighted. Multiple choice options visible.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "horizontal",
-            "categories": [
-              "Saturday",
-              "Sunday",
-              "Monday",
-              "Tuesday"
-            ],
-            "values": {
-              "Saturday": 35,
-              "Sunday": 30,
-              "Monday": 40,
-              "Tuesday": 25
-            }
-          }
-        ]
-      }
-    ],
-    "_generated_at": "2026-04-20T15:50:04.737633+00:00"
-  },
-  {
-    "id": "s3_8_final_check_what_s_same",
-    "beats": [
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "picture_graph_books",
-        "tangible_type": "picture_graph",
-        "params": {
-          "mode": "reading",
-          "orientation": "horizontal",
-          "categories": [
-            "Mystery",
-            "Fantasy",
-            "Adventure",
-            "Science",
-            "Biography"
-          ],
-          "description": "Horizontal picture graph appears. Favorite Books data. Completed graph with all categories showing their symbol counts. Scale of 5 visible in key."
-        }
-      },
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "bar_graph_screen_time",
-        "tangible_type": "bar_graph",
-        "params": {
-          "mode": "reading",
-          "orientation": "horizontal",
-          "categories": [
-            "Games",
-            "Videos",
-            "Reading",
-            "Music",
-            "Drawing"
-          ],
-          "scale": 5,
-          "description": "Horizontal bar graph appears. Screen Time data. Completed graph with all bars set to their final heights. Vertical axis shows scale of 5."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "You made both kinds of graphs today. Here's one last question. Picture graphs use symbols. Bar graphs use bars. What do these graphs have in common?"
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
       },
       {
         "type": "prompt",
@@ -6363,7 +4199,6 @@ Cacheable: Yes
         "type": "current_scene",
         "elements": [
           {
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
             "tangible_id": "data_table",
             "description": "Data table showing Team Scores.",
             "tangible_type": "data_table",
@@ -6383,30 +4218,11 @@ Cacheable: Yes
           {
             "tangible_id": "bar_graph_team_scores",
             "description": "Horizontal bar graph with scale of 10. Red Team at 25, Blue Team at 40, Green Team at 55. Yellow Team bar empty.",
-========
-            "tangible_id": "picture_graph_books",
-            "description": "Horizontal picture graph. Favorite Books data. Completed graph showing all categories with their symbol counts.",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "horizontal",
-            "categories": [
-              "Mystery",
-              "Fantasy",
-              "Adventure",
-              "Science",
-              "Biography"
-            ]
-          },
-          {
-            "tangible_id": "bar_graph_screen_time",
-            "description": "Horizontal bar graph. Screen Time data. Completed graph with all bars at their final heights. Scale of 5 visible on vertical axis.",
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
             "tangible_type": "bar_graph",
             "mode": "building",
             "orientation": "horizontal",
             "scale": 10,
             "categories": [
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
               "Red Team",
               "Green Team",
               "Yellow Team",
@@ -6462,13 +4278,6 @@ Cacheable: Yes
               "Green Team",
               "Yellow Team",
               "Blue Team"
-========
-              "Games",
-              "Videos",
-              "Reading",
-              "Music",
-              "Drawing"
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
             ],
             "values": [
               25,
@@ -6534,11 +4343,7 @@ Cacheable: Yes
         ]
       }
     ],
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
     "_generated_at": "2026-04-20T17:03:37.378095+00:00"
-========
-    "_generated_at": "2026-04-20T15:50:14.764981+00:00"
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
   },
   {
     "id": "s3_4_bridge_exit_check",
@@ -6558,11 +4363,7 @@ Cacheable: Yes
             "Green",
             "Yellow"
           ],
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
           "description": "Vertical bar graph appears. Favorite Colors data from previous sections."
-========
-          "description": "Vertical bar graph appears briefly. Scale of 5."
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
         }
       },
       {
@@ -6573,27 +4374,16 @@ Cacheable: Yes
         "type": "current_scene",
         "elements": [
           {
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
             "tangible_id": "bar_graph_colors",
             "description": "Vertical bar graph showing Favorite Colors data.",
-========
-            "tangible_id": "bar_graph_final",
-            "description": "Vertical bar graph visible. Scale of 5.",
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
               "Red",
               "Blue",
               "Green",
               "Yellow"
-========
-              "Category A",
-              "Category B",
-              "Category C"
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
             ]
           }
         ]
@@ -6615,11 +4405,7 @@ Cacheable: Yes
         "elements": []
       }
     ],
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
     "_generated_at": "2026-04-20T17:03:43.985718+00:00"
-========
-    "_generated_at": "2026-04-20T15:50:20.268470+00:00"
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
   }
 ]
 </lesson_sections>
@@ -6630,16 +4416,11 @@ Cacheable: Yes
 
 <input>
 {
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
   "id": "s2_5_practice_with_non_multiples",
-========
-  "id": "s1_3_read_total_value_identify",
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
   "beats": [
     {
       "type": "scene",
       "method": "add",
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
       "tangible_id": "data_table",
       "tangible_type": "data_table",
       "params": {
@@ -6665,74 +4446,11 @@ Cacheable: Yes
       "type": "dialogue",
       "text": "Here's data from a game. Four rounds of points: 22, 15, 8, 31.",
       "id": "s2_5_practice_with_non_multiples_b1"
-========
-      "tangible_id": "picture_graph_drinks",
-      "tangible_type": "picture_graph",
-      "params": {
-        "mode": "reading",
-        "orientation": "vertical",
-        "categories": [
-          "Juice",
-          "Milk",
-          "Water",
-          "Lemonade"
-        ],
-        "description": "Vertical picture graph appears. Favorite Drinks data. Juice has 5 symbols, Milk has 3 symbols, Water has 6 symbols, Lemonade has 4 symbols. Key: each symbol = 5 students."
-      },
-      "id": "s1_3_read_total_value_identify_b0"
-    },
-    {
-      "type": "dialogue",
-      "text": "Look at the completed graph. How many students chose Water?",
-      "id": "s1_3_read_total_value_identify_b1"
-    },
-    {
-      "type": "prompt",
-      "text": "How many students chose Water?",
-      "tool": "multiple_choice",
-      "options": [
-        6,
-        25,
-        30,
-        35
-      ],
-      "validator": [
-        {
-          "condition_id": "correct",
-          "condition": {
-            "selected": 30
-          },
-          "description": "Student selected 30, correct. 6 symbols times 5 equals 30.",
-          "is_correct": true,
-          "beats": [
-            {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "picture_graph_drinks",
-              "params": {
-                "event": "highlight_category",
-                "status": "confirmed",
-                "category": "Water",
-                "description": "Water column highlights to confirm selection."
-              },
-              "id": "s1_3_read_total_value_identify_b2_v0_b0"
-            },
-            {
-              "type": "dialogue",
-              "text": "Right. 30 students. 6 symbols, each worth 5. Count by 5s: 5, 10, 15, 20, 25, 30. That's how you read a scaled graph.",
-              "id": "s1_3_read_total_value_identify_b2_v0_b1"
-            }
-          ]
-        }
-      ],
-      "id": "s1_3_read_total_value_identify_b2"
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
     },
     {
       "type": "current_scene",
       "elements": [
         {
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
           "tangible_id": "data_table",
           "description": "Vertical data table showing Points Scored data. Round 1: 22, Round 2: 15, Round 3: 8, Round 4: 31.",
           "tangible_type": "data_table",
@@ -6963,25 +4681,6 @@ Cacheable: Yes
     }
   ],
   "_generated_at": "2026-04-20T17:02:07.520089+00:00"
-========
-          "tangible_id": "picture_graph_drinks",
-          "description": "Vertical picture graph in reading mode. Favorite Drinks data. Juice has 5 symbols, Milk has 3 symbols, Water has 6 symbols, Lemonade has 4 symbols. Key: each symbol = 5 students. Multiple choice tool active.",
-          "tangible_type": "picture_graph",
-          "mode": "reading",
-          "orientation": "vertical",
-          "categories": [
-            "Juice",
-            "Milk",
-            "Water",
-            "Lemonade"
-          ]
-        }
-      ],
-      "id": "s1_3_read_total_value_identify_b3"
-    }
-  ],
-  "_generated_at": "2026-04-20T16:56:56.811595+00:00"
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
 }
 </input>
 
@@ -6989,9 +4688,5 @@ Cacheable: Yes
 
 ## Prefill
 
-<<<<<<<< HEAD:tracked_scripts/u1/m5/lesson/step_11_remediation_generator/prompts/s2_5_practice_with_non_multiples.md
 {"id": "s2_5_practice_with_non_multiples", "incorrects": [
-========
-{"id": "s1_3_read_total_value_identify", "incorrects": [
->>>>>>>> new-script-ui:tracked_scripts/u1/m3/exitcheck/step_11_remediation_generator/prompts/s1_3_read_total_value_identify.md
 

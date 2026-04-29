@@ -1,9 +1,5 @@
 # Prompt: dialogue_rewriter
-<<<<<<< HEAD
 # Generated: 2026-04-20T12:03:27.342650
-=======
-# Generated: 2026-04-27T11:01:21.948722
->>>>>>> new-script-ui
 ======================================================================
 
 ## API Parameters
@@ -952,11 +948,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-<<<<<<< HEAD
       "text": "35. Between 30 and 40, right in the middle.",
-=======
-      "text": "35. Between 30 and 40—right in the middle.",
->>>>>>> new-script-ui
       "context": "on_correct"
     }
   ]

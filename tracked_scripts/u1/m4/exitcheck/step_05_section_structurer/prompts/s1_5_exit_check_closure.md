@@ -1,9 +1,5 @@
 # Prompt: section_structurer
-<<<<<<< HEAD
 # Generated: 2026-04-20T11:58:23.375013
-=======
-# Generated: 2026-04-27T10:54:05.182328
->>>>>>> new-script-ui
 ======================================================================
 
 ## API Parameters
@@ -253,15 +249,6 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
-<<<<<<< HEAD
-=======
-It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
-- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
-- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
-- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
-When `prior_section_summaries` is absent (first section), treat the screen as empty.
-
->>>>>>> new-script-ui
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -451,11 +438,6 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
 
-<<<<<<< HEAD
-=======
-**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
-
->>>>>>> new-script-ui
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
 
@@ -718,17 +700,6 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
-<<<<<<< HEAD
-=======
-## SCOPE CONSTRAINTS
-
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
-
-These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
-
----
-
->>>>>>> new-script-ui
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -842,23 +813,14 @@ Cacheable: Yes
   "visual": "Completed graph remains briefly, then clears.",
   "guide": "\"You can read bar graphs with scale of 10—even values between the lines. You're ready to practice.\"",
   "voice_note": "Brief, warm. No overpraise. Transition to Practice.",
-<<<<<<< HEAD
   "_generated_at": "2026-04-20T16:57:26.769658+00:00",
-=======
-  "_generated_at": "2026-04-27T15:52:32.110906+00:00",
->>>>>>> new-script-ui
   "workspace_specs": {
     "toys": [
       "bar_graph"
     ],
     "tools": [],
     "workspace_carry_over": true
-<<<<<<< HEAD
   }
-=======
-  },
-  "prior_section_summaries": "## s1_0_transition_into_exit_check\n# Section Summary: s1_0_transition_into_exit_check\n\n**VISUAL STATE:** No tangible visuals or graphs are displayed on screen at section end; the scene is empty.\n\n**CONTENT:** This transition reviews two key skills practiced in the preceding lesson: (1) constructing bar graphs using a scale of 10, and (2) reading bar graph values both at gridlines and at intermediate points between gridlines. The section serves as a bridge into an exit check assessment.\n\n**STUDENT ACTION:** The student did not perform an interactive action in this section; this is a dialogue-only transition that sets expectations for the upcoming assessment task.\n\n---\n\n## s1_1_read_value_at_axis_line\n# Section Summary: s1_1_read_value_at_axis_line\n\n**VISUAL STATE:** A vertical bar graph titled \"Books Checked Out\" is displayed in reading mode. The graph contains four categories (Nonfiction, Fiction, Comics, Poetry) with values 30, 40, 50, and 20 respectively. The scale is 10 with axis range 0–60. A horizontal guideline has been drawn from the top of the Fiction bar to the vertical axis, highlighting the value 40.\n\n**CONTENT:** Students learned to read bar graph values by identifying where a bar aligns with axis gridlines. The skill practiced is locating the exact numerical value a bar represents by tracing to the corresponding axis line.\n\n**STUDENT ACTION:** The student answered a multiple-choice question identifying the Fiction bar's value, selecting 40 from options [4, 35, 40, 45]. Upon correct selection, a guideline animation confirmed the bar's alignment with the 40 axis line.\n\n---\n\n## s1_2_read_value_between_lines_interpolation\n# Section Summary: Reading Values Between Lines (Interpolation)\n\n**VISUAL STATE:** A vertical bar graph titled \"Points Earned\" displays four bars representing Team A (35), Team B (50), Team C (25), and Team D (40) on a scale of 10 with axis range 0–60. Ghost gridlines appear at 5-unit intervals. At section end, Team A's bar is highlighted with a horizontal guideline drawn from the bar's top to the vertical axis at the value 35.\n\n**CONTENT:** Students learned to read and interpolate values that fall between marked gridlines on a bar graph. The concept introduced is that when a bar ends between two gridlines, the value can be determined by identifying the midpoint—specifically, that halfway between 30 and 40 equals 35, and half of the scale interval (10) is 5.\n\n**STUDENT ACTION:** The student answered a multiple-choice question identifying Team A's value as 35 (selecting from options: 30, 34, 35, 40), demonstrating understanding of reading intermediate values on a scaled graph.\n\n---\n\n## s1_3_create_bar_graph_with_mixed\n# Section Summary: s1_3_create_bar_graph_with_mixed\n\n**VISUAL STATE:** Two tangibles are on screen: (1) A horizontal data table labeled \"Art Supplies Collected\" with categories Markers, Crayons, Paintbrushes, Glue Sticks and values 30, 45, 20, 55 respectively. (2) A vertical bar graph titled \"Art Supplies Collected\" in building mode with the same four categories, scale of 10, axis range 0–60, all four bars correctly placed at heights 30, 45, 20, and 55, with bars at gridlines (Markers, Paintbrushes) and between gridlines (Crayons, Glue Sticks) highlighted.\n\n**CONTENT:** Students practiced reading data from a table and translating it into a bar graph, with emphasis on distinguishing between values that align with axis gridlines versus those that fall between them. The concept of snap-to-5 gridlines and precise bar placement was reinforced through visual feedback.\n\n**STUDENT ACTION:** The student clicked to set the height of each of the four bars on the graph, successfully placing Markers at 30, Crayons at 45, Paintbrushes at 20, and Glue Sticks at 55, completing the graph correctly.\n\n---\n\n## s1_4_comparison_problem_compare\n# Section Summary: s1_4_comparison_problem_compare\n\n**VISUAL STATE:** A vertical bar graph titled \"Art Supplies Collected\" is displayed in reading mode with four categories—Markers (30), Crayons (45), Paintbrushes (20), and Glue Sticks (55)—on a scale of 10 with axis range 0–60. The Glue Sticks and Markers bars are highlighted to confirm the comparison.\n\n**CONTENT:** Students practiced comparing quantities using bar graphs by finding the difference between two values. The skill of subtraction in context (55 − 30 = 25) was reinforced to answer \"how many MORE\" comparison questions.\n\n**STUDENT ACTION:** The student selected the correct multiple-choice answer (25) to the question \"How many MORE art supplies does Glue Sticks have than Markers?\" The system confirmed correctness and highlighted the relevant bars on the graph."
->>>>>>> new-script-ui
 }
 </input>
 

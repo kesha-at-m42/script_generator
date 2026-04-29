@@ -1,9 +1,5 @@
 # Prompt: remediation_generator
-<<<<<<< HEAD
 # Generated: 2026-04-20T12:01:01.525042
-=======
-# Generated: 2026-04-27T10:53:36.551659
->>>>>>> new-script-ui
 ======================================================================
 
 ## API Parameters
@@ -1542,11 +1538,6 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
-<<<<<<< HEAD
-=======
-**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
-
->>>>>>> new-script-ui
 ---
 
 ## OUTPUT FORMAT
@@ -1656,11 +1647,6 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
 
-<<<<<<< HEAD
-=======
-**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
-
->>>>>>> new-script-ui
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
 One **Medium** per distractor: scene beat required. Dialogue names the error and redirects to the correct concept or tool. Close with a pointed question or specific imperative.
@@ -1810,11 +1796,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-<<<<<<< HEAD
 Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
-=======
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
->>>>>>> new-script-ui
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1878,15 +1860,9 @@ Cacheable: Yes
         "mode": "reading",
         "container_count": 5,
         "items_per_container": 2,
-<<<<<<< HEAD
         "visual_style": "pictures",
         "container_type": "bags",
         "description": "Equal groups visual appears: 5 bags with 2 items each."
-=======
-        "container_type": "bags",
-        "item_type": "pictures",
-        "description": "Equal groups visual appears. 5 bags with 2 items each."
->>>>>>> new-script-ui
       },
       "id": "s1_1_equation_building_callback_activation_b0"
     },
@@ -1903,11 +1879,7 @@ Cacheable: Yes
           "=",
           "__"
         ],
-<<<<<<< HEAD
         "palette": [
-=======
-        "tile_palette": [
->>>>>>> new-script-ui
           1,
           2,
           3,
@@ -1919,11 +1891,7 @@ Cacheable: Yes
           9,
           10
         ],
-<<<<<<< HEAD
         "description": "Equation builder appears alongside with full equation template and tile palette 1 through 10."
-=======
-        "description": "Equation Builder appears alongside equal groups. Full equation template with three blanks. Tile palette shows numbers 1 through 10."
->>>>>>> new-script-ui
       },
       "id": "s1_1_equation_building_callback_activation_b1"
     },
@@ -1941,17 +1909,9 @@ Cacheable: Yes
         {
           "condition_id": "correct",
           "condition": {
-<<<<<<< HEAD
             "groups": 5,
             "items": 2,
             "total": 10
-=======
-            "placed": {
-              "groups": 5,
-              "items": 2,
-              "total": 10
-            }
->>>>>>> new-script-ui
           },
           "description": "Student placed 5 × 2 = 10, correct",
           "is_correct": true,
@@ -1971,30 +1931,17 @@ Cacheable: Yes
       "elements": [
         {
           "tangible_id": "equal_groups_bags",
-<<<<<<< HEAD
           "description": "Equal groups visual: 5 bags with 2 items each.",
-=======
-          "description": "Equal groups visual. 5 bags with 2 items each.",
->>>>>>> new-script-ui
           "tangible_type": "equal_groups",
           "mode": "reading",
           "container_count": 5,
           "items_per_container": 2,
-<<<<<<< HEAD
           "visual_style": "pictures",
           "container_type": "bags"
         },
         {
           "tangible_id": "equation_builder_warmup",
           "description": "Equation builder with template [___] × [___] = [___] and tile palette 1-10. Place_tile tool active.",
-=======
-          "container_type": "bags",
-          "item_type": "pictures"
-        },
-        {
-          "tangible_id": "equation_builder_warmup",
-          "description": "Equation Builder with completed equation 5 × 2 = 10.",
->>>>>>> new-script-ui
           "tangible_type": "equation_builder",
           "template": [
             "__",
@@ -2003,11 +1950,7 @@ Cacheable: Yes
             "=",
             "__"
           ],
-<<<<<<< HEAD
           "palette": [
-=======
-          "tile_palette": [
->>>>>>> new-script-ui
             1,
             2,
             3,
@@ -2024,11 +1967,7 @@ Cacheable: Yes
       "id": "s1_1_equation_building_callback_activation_b4"
     }
   ],
-<<<<<<< HEAD
   "_generated_at": "2026-04-20T17:00:30.488251+00:00"
-=======
-  "_generated_at": "2026-04-27T15:53:06.908414+00:00"
->>>>>>> new-script-ui
 }
 </input>
 
