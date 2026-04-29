@@ -9,8 +9,14 @@
       "params": {
         "mode": "reading",
         "orientation": "vertical",
+        "categories": [
+          "Red Items",
+          "Blue Items",
+          "Yellow Items",
+          "Green Items"
+        ],
         "scale": 5,
-        "description": "Left vertical picture graph appears. Student's data shown with scale of 5. Key: each star symbol = 5."
+        "description": "Vertical picture graph appears on left. Student's data from counting game. Each star symbol = 5. Red Items=20, Blue Items=30, Yellow Items=40, Green Items=50. Key visible: Each ⭐ = 5."
       }
     },
     {
@@ -21,8 +27,14 @@
       "params": {
         "mode": "reading",
         "orientation": "vertical",
+        "categories": [
+          "Red Items",
+          "Blue Items",
+          "Yellow Items",
+          "Green Items"
+        ],
         "scale": 10,
-        "description": "Right vertical picture graph appears. Same data shown with scale of 10. Key: each star symbol = 10."
+        "description": "Vertical picture graph appears on right. Same data as left graph. Each star symbol = 10. Red Items=20, Blue Items=30, Yellow Items=40, Green Items=50. Key visible: Each ⭐ = 10."
       }
     },
     {
@@ -32,18 +44,18 @@
     {
       "type": "prompt",
       "text": "Which graph uses FEWER symbols to show the same data?",
-      "tool": "multiple_choice",
-      "options": [
-        "Left graph (scale of 5)",
-        "Right graph (scale of 10)"
+      "tool": "click_tangible",
+      "target": [
+        "picture_graph_scale_5",
+        "picture_graph_scale_10"
       ],
       "validator": [
         {
           "condition_id": "correct",
           "condition": {
-            "selected": "Right graph (scale of 10)"
+            "selected": "picture_graph_scale_10"
           },
-          "description": "Student selected the 1:10 graph, correct",
+          "description": "Student clicked the right graph with scale of 10, correct",
           "is_correct": true,
           "beats": [
             {
@@ -51,7 +63,7 @@
               "method": "animate",
               "tangible_id": "picture_graph_scale_10",
               "params": {
-                "event": "highlight_graph",
+                "event": "highlight_tangible",
                 "status": "confirmed",
                 "description": "Right graph highlights to confirm selection."
               }
@@ -69,18 +81,30 @@
       "elements": [
         {
           "tangible_id": "picture_graph_scale_5",
-          "description": "Left vertical picture graph. Student's data with scale of 5. Key: each star = 5.",
+          "description": "Vertical picture graph on left. Scale of 5. Student's data from counting game. Key: Each ⭐ = 5.",
           "tangible_type": "picture_graph",
           "mode": "reading",
           "orientation": "vertical",
+          "categories": [
+            "Red Items",
+            "Blue Items",
+            "Yellow Items",
+            "Green Items"
+          ],
           "scale": 5
         },
         {
           "tangible_id": "picture_graph_scale_10",
-          "description": "Right vertical picture graph highlighted. Same data with scale of 10. Key: each star = 10.",
+          "description": "Vertical picture graph on right. Scale of 10. Same data. Key: Each ⭐ = 10. Highlighted.",
           "tangible_type": "picture_graph",
           "mode": "reading",
           "orientation": "vertical",
+          "categories": [
+            "Red Items",
+            "Blue Items",
+            "Yellow Items",
+            "Green Items"
+          ],
           "scale": 10
         }
       ]
@@ -94,22 +118,34 @@
       "elements": [
         {
           "tangible_id": "picture_graph_scale_5",
-          "description": "Left vertical picture graph. Student's data with scale of 5. Key: each star = 5.",
+          "description": "Vertical picture graph on left. Scale of 5. Student's data from counting game. Key: Each ⭐ = 5.",
           "tangible_type": "picture_graph",
           "mode": "reading",
           "orientation": "vertical",
+          "categories": [
+            "Red Items",
+            "Blue Items",
+            "Yellow Items",
+            "Green Items"
+          ],
           "scale": 5
         },
         {
           "tangible_id": "picture_graph_scale_10",
-          "description": "Right vertical picture graph. Same data with scale of 10. Key: each star = 10.",
+          "description": "Vertical picture graph on right. Scale of 10. Same data. Key: Each ⭐ = 10. Highlighted.",
           "tangible_type": "picture_graph",
           "mode": "reading",
           "orientation": "vertical",
+          "categories": [
+            "Red Items",
+            "Blue Items",
+            "Yellow Items",
+            "Green Items"
+          ],
           "scale": 10
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T16:57:49.722385+00:00"
+  "_generated_at": "2026-04-27T20:08:45.060209+00:00"
 }

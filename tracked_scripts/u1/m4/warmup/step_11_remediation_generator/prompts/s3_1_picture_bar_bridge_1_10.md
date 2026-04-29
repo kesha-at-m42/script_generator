@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T11:58:40.829795
+# Generated: 2026-04-27T15:13:42.326968
 ======================================================================
 
 ## API Parameters
@@ -31,7 +31,7 @@ Cacheable: Yes
 
 **Version:** 3.2
 **Last Updated:** April 2026
-**Purpose:** Authoritative guide for all remediation across learning modules
+**Purpose:** Authoritative guide for **branching remediation requirements** across learning modules — defines what feedback to serve and when. This document does not govern validation. Validator coverage is intentionally broader than remediation branching; the goal is to diagnose the cause of student error from accumulated data, not to presume it in advance.
 
 ---
 
@@ -100,6 +100,21 @@ PATTERN DETECTION (Background)
 - **Progressive support:** Each level provides meaningfully more help
 - **System takeover:** After Heavy, system moves student forward
 
+### 1.5 Branching vs. Validation: Separate Concerns
+
+These are two independent systems with different scopes:
+
+| Concern | What it governs | Coverage |
+| :---- | :---- | :---- |
+| **Branching (this document)** | What remediation to serve and when | Only the cases worth targeted feedback |
+| **Validation (separate)** | What error patterns to log for tracking | Intentionally broader — captures cases not covered by branching |
+
+**The distinction matters.** A wrong answer that receives generic L-M-H feedback can still receive a precise validator tag. Validators are not constrained by what the remediation structure handles. We expect to capture more error patterns than we intend to remediate. The tracking system accumulates data so that error causes are diagnosed from evidence, not assumed in advance.
+
+Do not design validator tags based on what remediations exist. Design them based on what error patterns are worth understanding.
+
+---
+
 ### 1.4 What Changed from v2
 
 | v2 (Old) | v3 (New) |
@@ -115,7 +130,7 @@ PATTERN DETECTION (Background)
 
 ### 2.1 Overview
 
-For all non-multiple-choice interactions (shading, partitioning, placing on number lines, dragging, build-mode, etc.), the generic L-M-H is always present. **The validator still tags the probable error type** for misconception tracking, but the student receives generic feedback for any wrong answer — regardless of detected error type. Note: if more conditions are defined in the spec than have remediations designed, those conditions still fall through to the generic L-M-H.
+For all non-multiple-choice interactions (shading, partitioning, placing on number lines, dragging, build-mode, etc.), the generic L-M-H is always present. **The validator still tags the probable error type** for misconception tracking, but the student receives generic feedback for any wrong answer — regardless of detected error type. Note: if more conditions are defined in the spec than have remediations designed, those conditions still fall through to the generic L-M-H. This is also true for validation: validators may tag error types that have no corresponding specific-condition state. Validator coverage is not bounded by the branching structure — they are separate authoring decisions.
 
 When the spec identifies one or more specific known wrong-answer conditions, one targeted Medium per condition is added before the generic states. These specific condition states are a special case of the generic structure — see Section 2.5.
 
@@ -617,7 +632,7 @@ Never repeat the same error signal phrase within 3 interactions. Rotate through:
 
 ### 9.1 How Tracking Works
 
-Even though non-MC remediation is generic, **validators tag the probable error type** for every wrong answer. This feeds the misconception tracking system.
+Even though non-MC remediation is generic, **validators tag the probable error type** for every wrong answer. This feeds the misconception tracking system. Validators are not limited to the error types that branching addresses — they may tag patterns that have no dedicated remediation state. The tracking system is designed to learn from data, not to confirm assumptions built into the remediation structure. Capturing a pattern without remediating it directly is intentional: if the data shows a pattern is real, that informs a future spec decision or intervention. Do not infer validator scope from branching scope.
 
 ```
 Student makes error → Generic remediation served
@@ -947,7 +962,7 @@ These aggregate to the misconception level for Intervention triggers.
 
 ## END OF DOCUMENT
 
-**Version:** 3.1
+**Version:** 3.2
 **Document Type:** Authoritative reference for script writers
 **Major Changes from v2.0:**
 
@@ -956,6 +971,12 @@ These aggregate to the misconception level for Intervention triggers.
 - Added Misconception Tracking & Intervention system overview
 - Reduced content creation burden significantly
 - Clarified MC structure (Medium per distractor \+ single Heavy)
+
+**Major Changes from v3.1:**
+
+- Clarified document scope: branching remediation requirements only, not validation requirements (Sections 1.5, 2.1, 9.1)
+- Added explicit branching vs. validation distinction (Section 1.5): validator coverage is intentionally broader than branching; error causes are diagnosed from data, not assumed in advance
+- Fixed version number discrepancy (header/footer now consistent)
 
 **Major Changes from v3.0:**
 
@@ -1538,6 +1559,8 @@ The section to process is in `<input>`. Walk its `beats` array and find every `p
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
 
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
+
 ---
 
 ## OUTPUT FORMAT
@@ -1646,6 +1669,8 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 ## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
 
 See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
 
@@ -1796,7 +1821,7 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
 
@@ -1854,123 +1879,148 @@ Cacheable: Yes
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "picture_graph_w2",
+      "tangible_id": "picture_graph_scale_10",
       "tangible_type": "picture_graph",
       "params": {
         "mode": "reading",
         "orientation": "vertical",
         "categories": [
-          "Dogs",
-          "Cats",
-          "Fish",
-          "Birds"
+          "Red Items",
+          "Blue Items",
+          "Yellow Items",
+          "Green Items"
         ],
         "scale": 10,
-        "description": "Vertical picture graph appears on left. Scale 1:10. Dogs=60 (6 symbols), Cats=40 (4 symbols), Fish=30 (3 symbols), Birds=50 (5 symbols). Key: each symbol = 10 votes."
+        "description": "Vertical picture graph appears on left side. Scale of 10. Red Items=2 symbols, Blue Items=3 symbols, Yellow Items=4 symbols, Green Items=5 symbols. Key: Each ⭐ = 10."
       },
       "id": "s3_1_picture_bar_bridge_1_10_b0"
     },
     {
-      "type": "dialogue",
-      "text": "Now watch this. Here's the SAME data as a bar graph.",
-      "id": "s3_1_picture_bar_bridge_1_10_b1"
-    },
-    {
       "type": "scene",
       "method": "add",
-      "tangible_id": "bar_graph_pets",
+      "tangible_id": "bar_graph_scale_10",
       "tangible_type": "bar_graph",
       "params": {
         "mode": "reading",
         "orientation": "vertical",
         "categories": [
-          "Dogs",
-          "Cats",
-          "Fish",
-          "Birds"
-        ],
-        "axis_range": [
-          0,
-          60
+          "Red Items",
+          "Blue Items",
+          "Yellow Items",
+          "Green Items"
         ],
         "scale": 10,
-        "description": "Vertical bar graph appears on right. Same Pet Preference data. Dogs=60, Cats=40, Fish=30, Birds=50. Vertical axis shows scale of 10: 0, 10, 20, 30, 40, 50, 60."
+        "axis_range": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60
+        ],
+        "description": "Vertical bar graph appears on right side. Scale of 10. Axis shows 0, 10, 20, 30, 40, 50, 60. Red Items bar to 20, Blue Items bar to 30, Yellow Items bar to 40, Green Items bar to 50."
       },
+      "id": "s3_1_picture_bar_bridge_1_10_b1"
+    },
+    {
+      "type": "dialogue",
+      "text": "Now watch this. Here's the same data as a bar graph.",
       "id": "s3_1_picture_bar_bridge_1_10_b2"
     },
     {
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "picture_graph_w2",
-          "description": "Vertical picture graph on left. Scale 1:10. Pet Preference data. Dogs=60 (6 symbols), Cats=40 (4 symbols), Fish=30 (3 symbols), Birds=50 (5 symbols).",
+          "tangible_id": "picture_graph_scale_10",
+          "description": "Vertical picture graph on left. Scale of 10. Red Items=2 symbols, Blue Items=3 symbols, Yellow Items=4 symbols, Green Items=5 symbols.",
           "tangible_type": "picture_graph",
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Dogs",
-            "Cats",
-            "Fish",
-            "Birds"
+            "Red Items",
+            "Blue Items",
+            "Yellow Items",
+            "Green Items"
           ],
           "scale": 10
         },
         {
-          "tangible_id": "bar_graph_pets",
-          "description": "Vertical bar graph on right showing same Pet Preference data. Dogs=60, Cats=40, Fish=30, Birds=50. Axis scale of 10.",
+          "tangible_id": "bar_graph_scale_10",
+          "description": "Vertical bar graph on right. Scale of 10. Axis 0-60. Bars: Red=20, Blue=30, Yellow=40, Green=50.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Dogs",
-            "Cats",
-            "Fish",
-            "Birds"
+            "Red Items",
+            "Blue Items",
+            "Yellow Items",
+            "Green Items"
           ],
+          "scale": 10,
           "axis_range": [
             0,
+            10,
+            20,
+            30,
+            40,
+            50,
             60
-          ],
-          "scale": 10
+          ]
         }
       ],
       "id": "s3_1_picture_bar_bridge_1_10_b3"
     },
     {
       "type": "dialogue",
-      "text": "This category has 40. The picture graph shows 4 symbols. The bar graph shows a bar up to 40. Both graphs show 50 for Birds. Can you find where?",
+      "text": "This category has 30. The picture graph shows 3 symbols. The bar graph shows a bar up to 30. Both graphs show 40 for Yellow Items. Can you find where?",
       "id": "s3_1_picture_bar_bridge_1_10_b4"
     },
     {
       "type": "prompt",
-      "text": "Both graphs show 50 for Birds. Can you find where?",
+      "text": "Both graphs show 40 for Yellow Items. Can you find where?",
       "tool": "click_category",
-      "target": "picture_graph_w2",
+      "target": [
+        "picture_graph_scale_10",
+        "bar_graph_scale_10"
+      ],
       "validator": [
         {
-          "condition_id": "clicked_pg_birds",
+          "condition_id": "correct",
           "condition": {
-            "selected": "Birds"
+            "selected": "Yellow Items"
           },
-          "description": "Student clicked Birds on picture graph, correct, 50 votes shown as 5 symbols",
+          "description": "Student clicked Yellow Items on either graph, correct, 40",
           "is_correct": true,
           "beats": [
             {
               "type": "scene",
-              "method": "animate",
-              "tangible_id": "picture_graph_w2",
+              "method": "update",
+              "tangible_id": "picture_graph_scale_10",
               "params": {
-                "event": "highlight_category",
-                "status": "confirmed",
-                "category": "Birds",
-                "description": "Birds column highlights on picture graph."
+                "highlight_categories": [
+                  "Yellow Items"
+                ],
+                "description": "Yellow Items category highlights on picture graph."
               },
               "id": "s3_1_picture_bar_bridge_1_10_b5_v0_b0"
             },
             {
-              "type": "dialogue",
-              "text": "That's it. Picture graphs use symbols. Bar graphs use bars. Both show 50.",
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_scale_10",
+              "params": {
+                "highlight_categories": [
+                  "Yellow Items"
+                ],
+                "description": "Yellow Items bar highlights on bar graph."
+              },
               "id": "s3_1_picture_bar_bridge_1_10_b5_v0_b1"
+            },
+            {
+              "type": "dialogue",
+              "text": "Right. Same data! Picture graphs use symbols. Bar graphs use bars. Both show 40.",
+              "id": "s3_1_picture_bar_bridge_1_10_b5_v0_b2"
             }
           ]
         }
@@ -1978,124 +2028,98 @@ Cacheable: Yes
       "id": "s3_1_picture_bar_bridge_1_10_b5"
     },
     {
-      "type": "prompt",
-      "text": "Both graphs show 50 for Birds. Can you find where?",
-      "tool": "click_category",
-      "target": "bar_graph_pets",
-      "validator": [
+      "type": "current_scene",
+      "elements": [
         {
-          "condition_id": "clicked_bg_birds",
-          "condition": {
-            "selected": "Birds"
-          },
-          "description": "Student clicked Birds on bar graph, correct, bar height at 50",
-          "is_correct": true,
-          "beats": [
-            {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "bar_graph_pets",
-              "params": {
-                "event": "highlight_category",
-                "status": "confirmed",
-                "category": "Birds",
-                "description": "Birds bar highlights on bar graph."
-              },
-              "id": "s3_1_picture_bar_bridge_1_10_b6_v0_b0"
-            },
-            {
-              "type": "dialogue",
-              "text": "That's it. Picture graphs use symbols. Bar graphs use bars. Both show 50.",
-              "id": "s3_1_picture_bar_bridge_1_10_b6_v0_b1"
-            }
+          "tangible_id": "picture_graph_scale_10",
+          "description": "Vertical picture graph on left. Yellow Items category highlighted. Scale of 10. Red Items=2 symbols, Blue Items=3 symbols, Yellow Items=4 symbols, Green Items=5 symbols.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Red Items",
+            "Blue Items",
+            "Yellow Items",
+            "Green Items"
+          ],
+          "scale": 10
+        },
+        {
+          "tangible_id": "bar_graph_scale_10",
+          "description": "Vertical bar graph on right. Yellow Items bar highlighted. Scale of 10. Axis 0-60. Bars: Red=20, Blue=30, Yellow=40, Green=50.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Red Items",
+            "Blue Items",
+            "Yellow Items",
+            "Green Items"
+          ],
+          "scale": 10,
+          "axis_range": [
+            0,
+            10,
+            20,
+            30,
+            40,
+            50,
+            60
           ]
         }
       ],
       "id": "s3_1_picture_bar_bridge_1_10_b6"
     },
     {
-      "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "picture_graph_w2",
-          "description": "Vertical picture graph on left. Scale 1:10. Pet Preference data. Birds column highlighted showing 5 symbols (50 votes).",
-          "tangible_type": "picture_graph",
-          "mode": "reading",
-          "orientation": "vertical",
-          "categories": [
-            "Dogs",
-            "Cats",
-            "Fish",
-            "Birds"
-          ],
-          "scale": 10
-        },
-        {
-          "tangible_id": "bar_graph_pets",
-          "description": "Vertical bar graph on right. Same data. Birds bar highlighted at height 50.",
-          "tangible_type": "bar_graph",
-          "mode": "reading",
-          "orientation": "vertical",
-          "categories": [
-            "Dogs",
-            "Cats",
-            "Fish",
-            "Birds"
-          ],
-          "axis_range": [
-            0,
-            60
-          ],
-          "scale": 10
-        }
-      ],
+      "type": "dialogue",
+      "text": "Bar graphs are really useful with scale of 10. You read the height instead of counting symbols.",
       "id": "s3_1_picture_bar_bridge_1_10_b7"
     },
     {
-      "type": "dialogue",
-      "text": "Bar graphs are really useful with scale of 10. You read the HEIGHT instead of counting symbols.",
-      "id": "s3_1_picture_bar_bridge_1_10_b8"
-    },
-    {
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "picture_graph_w2",
-          "description": "Vertical picture graph on left. Scale 1:10. Pet Preference data. Dogs=60, Cats=40, Fish=30, Birds=50.",
+          "tangible_id": "picture_graph_scale_10",
+          "description": "Vertical picture graph on left. Yellow Items category highlighted. Scale of 10. Red Items=2 symbols, Blue Items=3 symbols, Yellow Items=4 symbols, Green Items=5 symbols.",
           "tangible_type": "picture_graph",
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Dogs",
-            "Cats",
-            "Fish",
-            "Birds"
+            "Red Items",
+            "Blue Items",
+            "Yellow Items",
+            "Green Items"
           ],
           "scale": 10
         },
         {
-          "tangible_id": "bar_graph_pets",
-          "description": "Vertical bar graph on right showing same Pet Preference data. Dogs=60, Cats=40, Fish=30, Birds=50. Axis scale of 10.",
+          "tangible_id": "bar_graph_scale_10",
+          "description": "Vertical bar graph on right. Yellow Items bar highlighted. Scale of 10. Axis 0-60. Bars: Red=20, Blue=30, Yellow=40, Green=50.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Dogs",
-            "Cats",
-            "Fish",
-            "Birds"
+            "Red Items",
+            "Blue Items",
+            "Yellow Items",
+            "Green Items"
           ],
+          "scale": 10,
           "axis_range": [
             0,
+            10,
+            20,
+            30,
+            40,
+            50,
             60
-          ],
-          "scale": 10
+          ]
         }
       ],
-      "id": "s3_1_picture_bar_bridge_1_10_b9"
+      "id": "s3_1_picture_bar_bridge_1_10_b8"
     }
   ],
-  "_generated_at": "2026-04-20T16:58:10.156261+00:00"
+  "_generated_at": "2026-04-27T20:09:10.844861+00:00"
 }
 </input>
 

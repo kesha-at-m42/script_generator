@@ -9,19 +9,20 @@
         "tangible_id": "data_collection_game_minis",
         "tangible_type": "data_collection_game",
         "params": {
+          "theme": "minis_collecting",
           "categories": [
-            "Red Minis",
-            "Blue Minis",
-            "Green Minis",
-            "Yellow Minis"
+            "Red Items",
+            "Blue Items",
+            "Yellow Items",
+            "Green Items"
           ],
           "target_values": [
             20,
-            40,
             30,
+            40,
             50
           ],
-          "description": "Animated Minis characters appear collecting items. Four categories visible: Red, Blue, Green, and Yellow Minis."
+          "description": "Animated Minis characters appear collecting items across four categories. Counting scenario begins."
         },
         "id": "s1_1_data_collection_game_b0"
       },
@@ -35,42 +36,66 @@
         "method": "animate",
         "tangible_id": "data_collection_game_minis",
         "params": {
-          "event": "count_items",
-          "status": "confirmed",
-          "description": "Student counts items across categories. Results: Red Minis 20, Blue Minis 40, Green Minis 30, Yellow Minis 50. Values display as multiples of 10 with clear differences."
+          "event": "run_counting_game",
+          "status": "proposed",
+          "description": "Student counts Minis and items across 3-4 categories. Game generates results in multiples of 10 ranging from 20 to 60. Values show clear differences for later comparison."
         },
         "id": "s1_1_data_collection_game_b2"
-      },
-      {
-        "type": "dialogue",
-        "text": "You counted the items. That's a lot! Let's see how to show this data.",
-        "id": "s1_1_data_collection_game_b3"
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "data_collection_game_minis",
-            "description": "Completed counting game showing results. Red Minis: 20, Blue Minis: 40, Green Minis: 30, Yellow Minis: 50.",
+            "description": "Data collection game active. Minis characters collecting items. Student counting in progress.",
             "tangible_type": "data_collection_game",
+            "theme": "minis_collecting",
             "categories": [
-              "Red Minis",
-              "Blue Minis",
-              "Green Minis",
-              "Yellow Minis"
-            ],
-            "values": [
-              20,
-              40,
-              30,
-              50
+              "Red Items",
+              "Blue Items",
+              "Yellow Items",
+              "Green Items"
             ]
           }
         ],
+        "id": "s1_1_data_collection_game_b3"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "data_collection_game_minis",
+        "params": {
+          "event": "run_counting_game",
+          "status": "confirmed",
+          "description": "Counting complete. Results revealed across all categories."
+        },
         "id": "s1_1_data_collection_game_b4"
+      },
+      {
+        "type": "dialogue",
+        "text": "You counted all the items the Minis found. That's a lot! Let's see how to show this data.",
+        "id": "s1_1_data_collection_game_b5"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_collection_game_minis",
+            "description": "Data collection game complete. Final counts displayed for Red Items, Blue Items, Yellow Items, and Green Items. All values are multiples of 10 in the 20-60 range.",
+            "tangible_type": "data_collection_game",
+            "theme": "minis_collecting",
+            "categories": [
+              "Red Items",
+              "Blue Items",
+              "Yellow Items",
+              "Green Items"
+            ]
+          }
+        ],
+        "id": "s1_1_data_collection_game_b6"
       }
     ],
-    "_generated_at": "2026-04-20T16:57:37.337163+00:00"
+    "_generated_at": "2026-04-27T20:08:25.152373+00:00"
   },
   {
     "id": "s2_1_scale_comparison_1_5_vs",
@@ -83,8 +108,14 @@
         "params": {
           "mode": "reading",
           "orientation": "vertical",
+          "categories": [
+            "Red Items",
+            "Blue Items",
+            "Yellow Items",
+            "Green Items"
+          ],
           "scale": 5,
-          "description": "Left vertical picture graph appears. Student's data shown with scale of 5. Key: each star symbol = 5."
+          "description": "Vertical picture graph appears on left. Student's data from counting game. Each star symbol = 5. Red Items=20, Blue Items=30, Yellow Items=40, Green Items=50. Key visible: Each ⭐ = 5."
         },
         "id": "s2_1_scale_comparison_1_5_vs_b0"
       },
@@ -96,8 +127,14 @@
         "params": {
           "mode": "reading",
           "orientation": "vertical",
+          "categories": [
+            "Red Items",
+            "Blue Items",
+            "Yellow Items",
+            "Green Items"
+          ],
           "scale": 10,
-          "description": "Right vertical picture graph appears. Same data shown with scale of 10. Key: each star symbol = 10."
+          "description": "Vertical picture graph appears on right. Same data as left graph. Each star symbol = 10. Red Items=20, Blue Items=30, Yellow Items=40, Green Items=50. Key visible: Each ⭐ = 10."
         },
         "id": "s2_1_scale_comparison_1_5_vs_b1"
       },
@@ -109,18 +146,18 @@
       {
         "type": "prompt",
         "text": "Which graph uses FEWER symbols to show the same data?",
-        "tool": "multiple_choice",
-        "options": [
-          "Left graph (scale of 5)",
-          "Right graph (scale of 10)"
+        "tool": "click_tangible",
+        "target": [
+          "picture_graph_scale_5",
+          "picture_graph_scale_10"
         ],
         "validator": [
           {
             "condition_id": "correct",
             "condition": {
-              "selected": "Right graph (scale of 10)"
+              "selected": "picture_graph_scale_10"
             },
-            "description": "Student selected the 1:10 graph, correct",
+            "description": "Student clicked the right graph with scale of 10, correct",
             "is_correct": true,
             "beats": [
               {
@@ -128,7 +165,7 @@
                 "method": "animate",
                 "tangible_id": "picture_graph_scale_10",
                 "params": {
-                  "event": "highlight_graph",
+                  "event": "highlight_tangible",
                   "status": "confirmed",
                   "description": "Right graph highlights to confirm selection."
                 },
@@ -149,18 +186,30 @@
         "elements": [
           {
             "tangible_id": "picture_graph_scale_5",
-            "description": "Left vertical picture graph. Student's data with scale of 5. Key: each star = 5.",
+            "description": "Vertical picture graph on left. Scale of 5. Student's data from counting game. Key: Each ⭐ = 5.",
             "tangible_type": "picture_graph",
             "mode": "reading",
             "orientation": "vertical",
+            "categories": [
+              "Red Items",
+              "Blue Items",
+              "Yellow Items",
+              "Green Items"
+            ],
             "scale": 5
           },
           {
             "tangible_id": "picture_graph_scale_10",
-            "description": "Right vertical picture graph highlighted. Same data with scale of 10. Key: each star = 10.",
+            "description": "Vertical picture graph on right. Scale of 10. Same data. Key: Each ⭐ = 10. Highlighted.",
             "tangible_type": "picture_graph",
             "mode": "reading",
             "orientation": "vertical",
+            "categories": [
+              "Red Items",
+              "Blue Items",
+              "Yellow Items",
+              "Green Items"
+            ],
             "scale": 10
           }
         ],
@@ -176,25 +225,37 @@
         "elements": [
           {
             "tangible_id": "picture_graph_scale_5",
-            "description": "Left vertical picture graph. Student's data with scale of 5. Key: each star = 5.",
+            "description": "Vertical picture graph on left. Scale of 5. Student's data from counting game. Key: Each ⭐ = 5.",
             "tangible_type": "picture_graph",
             "mode": "reading",
             "orientation": "vertical",
+            "categories": [
+              "Red Items",
+              "Blue Items",
+              "Yellow Items",
+              "Green Items"
+            ],
             "scale": 5
           },
           {
             "tangible_id": "picture_graph_scale_10",
-            "description": "Right vertical picture graph. Same data with scale of 10. Key: each star = 10.",
+            "description": "Vertical picture graph on right. Scale of 10. Same data. Key: Each ⭐ = 10. Highlighted.",
             "tangible_type": "picture_graph",
             "mode": "reading",
             "orientation": "vertical",
+            "categories": [
+              "Red Items",
+              "Blue Items",
+              "Yellow Items",
+              "Green Items"
+            ],
             "scale": 10
           }
         ],
         "id": "s2_1_scale_comparison_1_5_vs_b6"
       }
     ],
-    "_generated_at": "2026-04-20T16:57:49.722385+00:00"
+    "_generated_at": "2026-04-27T20:08:45.060209+00:00"
   },
   {
     "id": "s3_1_picture_bar_bridge_1_10",
@@ -202,123 +263,148 @@
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "picture_graph_w2",
+        "tangible_id": "picture_graph_scale_10",
         "tangible_type": "picture_graph",
         "params": {
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Dogs",
-            "Cats",
-            "Fish",
-            "Birds"
+            "Red Items",
+            "Blue Items",
+            "Yellow Items",
+            "Green Items"
           ],
           "scale": 10,
-          "description": "Vertical picture graph appears on left. Scale 1:10. Dogs=60 (6 symbols), Cats=40 (4 symbols), Fish=30 (3 symbols), Birds=50 (5 symbols). Key: each symbol = 10 votes."
+          "description": "Vertical picture graph appears on left side. Scale of 10. Red Items=2 symbols, Blue Items=3 symbols, Yellow Items=4 symbols, Green Items=5 symbols. Key: Each ⭐ = 10."
         },
         "id": "s3_1_picture_bar_bridge_1_10_b0"
       },
       {
-        "type": "dialogue",
-        "text": "Now watch this. Here's the SAME data as a bar graph.",
-        "id": "s3_1_picture_bar_bridge_1_10_b1"
-      },
-      {
         "type": "scene",
         "method": "add",
-        "tangible_id": "bar_graph_pets",
+        "tangible_id": "bar_graph_scale_10",
         "tangible_type": "bar_graph",
         "params": {
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Dogs",
-            "Cats",
-            "Fish",
-            "Birds"
-          ],
-          "axis_range": [
-            0,
-            60
+            "Red Items",
+            "Blue Items",
+            "Yellow Items",
+            "Green Items"
           ],
           "scale": 10,
-          "description": "Vertical bar graph appears on right. Same Pet Preference data. Dogs=60, Cats=40, Fish=30, Birds=50. Vertical axis shows scale of 10: 0, 10, 20, 30, 40, 50, 60."
+          "axis_range": [
+            0,
+            10,
+            20,
+            30,
+            40,
+            50,
+            60
+          ],
+          "description": "Vertical bar graph appears on right side. Scale of 10. Axis shows 0, 10, 20, 30, 40, 50, 60. Red Items bar to 20, Blue Items bar to 30, Yellow Items bar to 40, Green Items bar to 50."
         },
+        "id": "s3_1_picture_bar_bridge_1_10_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "Now watch this. Here's the SAME data as a bar graph.",
         "id": "s3_1_picture_bar_bridge_1_10_b2"
       },
       {
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "picture_graph_w2",
-            "description": "Vertical picture graph on left. Scale 1:10. Pet Preference data. Dogs=60 (6 symbols), Cats=40 (4 symbols), Fish=30 (3 symbols), Birds=50 (5 symbols).",
+            "tangible_id": "picture_graph_scale_10",
+            "description": "Vertical picture graph on left. Scale of 10. Red Items=2 symbols, Blue Items=3 symbols, Yellow Items=4 symbols, Green Items=5 symbols.",
             "tangible_type": "picture_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Dogs",
-              "Cats",
-              "Fish",
-              "Birds"
+              "Red Items",
+              "Blue Items",
+              "Yellow Items",
+              "Green Items"
             ],
             "scale": 10
           },
           {
-            "tangible_id": "bar_graph_pets",
-            "description": "Vertical bar graph on right showing same Pet Preference data. Dogs=60, Cats=40, Fish=30, Birds=50. Axis scale of 10.",
+            "tangible_id": "bar_graph_scale_10",
+            "description": "Vertical bar graph on right. Scale of 10. Axis 0-60. Bars: Red=20, Blue=30, Yellow=40, Green=50.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Dogs",
-              "Cats",
-              "Fish",
-              "Birds"
+              "Red Items",
+              "Blue Items",
+              "Yellow Items",
+              "Green Items"
             ],
+            "scale": 10,
             "axis_range": [
               0,
+              10,
+              20,
+              30,
+              40,
+              50,
               60
-            ],
-            "scale": 10
+            ]
           }
         ],
         "id": "s3_1_picture_bar_bridge_1_10_b3"
       },
       {
         "type": "dialogue",
-        "text": "This category has 40. The picture graph shows 4 symbols. The bar graph shows a bar up to 40. Both graphs show 50 for Birds. Can you find where?",
+        "text": "This category has 30. The picture graph shows 3 symbols. The bar graph shows a bar up to 30. Both graphs show 40 for Yellow Items. Can you find where?",
         "id": "s3_1_picture_bar_bridge_1_10_b4"
       },
       {
         "type": "prompt",
-        "text": "Both graphs show 50 for Birds. Can you find where?",
+        "text": "Both graphs show 40 for Yellow Items. Can you find where?",
         "tool": "click_category",
-        "target": "picture_graph_w2",
+        "target": [
+          "picture_graph_scale_10",
+          "bar_graph_scale_10"
+        ],
         "validator": [
           {
-            "condition_id": "clicked_pg_birds",
+            "condition_id": "correct",
             "condition": {
-              "selected": "Birds"
+              "selected": "Yellow Items"
             },
-            "description": "Student clicked Birds on picture graph, correct, 50 votes shown as 5 symbols",
+            "description": "Student clicked Yellow Items on either graph, correct, 40",
             "is_correct": true,
             "beats": [
               {
                 "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_w2",
+                "method": "update",
+                "tangible_id": "picture_graph_scale_10",
                 "params": {
-                  "event": "highlight_category",
-                  "status": "confirmed",
-                  "category": "Birds",
-                  "description": "Birds column highlights on picture graph."
+                  "highlight_categories": [
+                    "Yellow Items"
+                  ],
+                  "description": "Yellow Items category highlights on picture graph."
                 },
                 "id": "s3_1_picture_bar_bridge_1_10_b5_v0_b0"
               },
               {
-                "type": "dialogue",
-                "text": "Same data! Picture graphs use symbols. Bar graphs use bars. Both show 50.",
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_scale_10",
+                "params": {
+                  "highlight_categories": [
+                    "Yellow Items"
+                  ],
+                  "description": "Yellow Items bar highlights on bar graph."
+                },
                 "id": "s3_1_picture_bar_bridge_1_10_b5_v0_b1"
+              },
+              {
+                "type": "dialogue",
+                "text": "Same data! Picture graphs use symbols. Bar graphs use bars. Both show 40.",
+                "id": "s3_1_picture_bar_bridge_1_10_b5_v0_b2"
               }
             ]
           }
@@ -326,124 +412,98 @@
         "id": "s3_1_picture_bar_bridge_1_10_b5"
       },
       {
-        "type": "prompt",
-        "text": "Both graphs show 50 for Birds. Can you find where?",
-        "tool": "click_category",
-        "target": "bar_graph_pets",
-        "validator": [
+        "type": "current_scene",
+        "elements": [
           {
-            "condition_id": "clicked_bg_birds",
-            "condition": {
-              "selected": "Birds"
-            },
-            "description": "Student clicked Birds on bar graph, correct, bar height at 50",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "bar_graph_pets",
-                "params": {
-                  "event": "highlight_category",
-                  "status": "confirmed",
-                  "category": "Birds",
-                  "description": "Birds bar highlights on bar graph."
-                },
-                "id": "s3_1_picture_bar_bridge_1_10_b6_v0_b0"
-              },
-              {
-                "type": "dialogue",
-                "text": "Same data! Picture graphs use symbols. Bar graphs use bars. Both show 50.",
-                "id": "s3_1_picture_bar_bridge_1_10_b6_v0_b1"
-              }
+            "tangible_id": "picture_graph_scale_10",
+            "description": "Vertical picture graph on left. Yellow Items category highlighted. Scale of 10. Red Items=2 symbols, Blue Items=3 symbols, Yellow Items=4 symbols, Green Items=5 symbols.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Red Items",
+              "Blue Items",
+              "Yellow Items",
+              "Green Items"
+            ],
+            "scale": 10
+          },
+          {
+            "tangible_id": "bar_graph_scale_10",
+            "description": "Vertical bar graph on right. Yellow Items bar highlighted. Scale of 10. Axis 0-60. Bars: Red=20, Blue=30, Yellow=40, Green=50.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Red Items",
+              "Blue Items",
+              "Yellow Items",
+              "Green Items"
+            ],
+            "scale": 10,
+            "axis_range": [
+              0,
+              10,
+              20,
+              30,
+              40,
+              50,
+              60
             ]
           }
         ],
         "id": "s3_1_picture_bar_bridge_1_10_b6"
       },
       {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "picture_graph_w2",
-            "description": "Vertical picture graph on left. Scale 1:10. Pet Preference data. Birds column highlighted showing 5 symbols (50 votes).",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Dogs",
-              "Cats",
-              "Fish",
-              "Birds"
-            ],
-            "scale": 10
-          },
-          {
-            "tangible_id": "bar_graph_pets",
-            "description": "Vertical bar graph on right. Same data. Birds bar highlighted at height 50.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Dogs",
-              "Cats",
-              "Fish",
-              "Birds"
-            ],
-            "axis_range": [
-              0,
-              60
-            ],
-            "scale": 10
-          }
-        ],
+        "type": "dialogue",
+        "text": "Bar graphs are really useful with scale of 10. You read the HEIGHT instead of counting symbols.",
         "id": "s3_1_picture_bar_bridge_1_10_b7"
       },
       {
-        "type": "dialogue",
-        "text": "Bar graphs are really useful with scale of 10. You read the HEIGHT instead of counting symbols.",
-        "id": "s3_1_picture_bar_bridge_1_10_b8"
-      },
-      {
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "picture_graph_w2",
-            "description": "Vertical picture graph on left. Scale 1:10. Pet Preference data. Dogs=60, Cats=40, Fish=30, Birds=50.",
+            "tangible_id": "picture_graph_scale_10",
+            "description": "Vertical picture graph on left. Yellow Items category highlighted. Scale of 10. Red Items=2 symbols, Blue Items=3 symbols, Yellow Items=4 symbols, Green Items=5 symbols.",
             "tangible_type": "picture_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Dogs",
-              "Cats",
-              "Fish",
-              "Birds"
+              "Red Items",
+              "Blue Items",
+              "Yellow Items",
+              "Green Items"
             ],
             "scale": 10
           },
           {
-            "tangible_id": "bar_graph_pets",
-            "description": "Vertical bar graph on right showing same Pet Preference data. Dogs=60, Cats=40, Fish=30, Birds=50. Axis scale of 10.",
+            "tangible_id": "bar_graph_scale_10",
+            "description": "Vertical bar graph on right. Yellow Items bar highlighted. Scale of 10. Axis 0-60. Bars: Red=20, Blue=30, Yellow=40, Green=50.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Dogs",
-              "Cats",
-              "Fish",
-              "Birds"
+              "Red Items",
+              "Blue Items",
+              "Yellow Items",
+              "Green Items"
             ],
+            "scale": 10,
             "axis_range": [
               0,
+              10,
+              20,
+              30,
+              40,
+              50,
               60
-            ],
-            "scale": 10
+            ]
           }
         ],
-        "id": "s3_1_picture_bar_bridge_1_10_b9"
+        "id": "s3_1_picture_bar_bridge_1_10_b8"
       }
     ],
-    "_generated_at": "2026-04-20T16:58:10.156261+00:00"
+    "_generated_at": "2026-04-27T20:09:10.844861+00:00"
   },
   {
     "id": "s4_1_bridge_lesson",
@@ -452,23 +512,34 @@
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "bar_graph_colors",
+        "tangible_id": "bar_graph_mini_items",
         "tangible_type": "bar_graph",
         "params": {
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Red",
-            "Blue",
-            "Yellow",
-            "Green"
+            "Red Items",
+            "Blue Items",
+            "Yellow Items",
+            "Green Items"
           ],
           "axis_range": [
             0,
+            10,
+            20,
+            30,
+            40,
+            50,
             60
           ],
           "scale": 10,
-          "description": "Vertical bar graph appears. Favorite Colors data with scale of 10. Red=30, Blue=50, Yellow=60, Green=40."
+          "values": {
+            "Red Items": 20,
+            "Blue Items": 30,
+            "Yellow Items": 40,
+            "Green Items": 50
+          },
+          "description": "Vertical bar graph appears in reading mode. Mini Items data with scale 10. Red Items=20, Blue Items=30, Yellow Items=40, Green Items=50. Axis increments: 0–10–20–30–40–50–60."
         },
         "id": "s4_1_bridge_lesson_b0"
       },
@@ -481,20 +552,16 @@
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "bar_graph_colors",
-            "description": "Vertical bar graph in reading mode. Favorite Colors data with scale of 10.",
+            "tangible_id": "bar_graph_mini_items",
+            "description": "Vertical bar graph in reading mode. Mini Items data with scale 10. Red Items=20, Blue Items=30, Yellow Items=40, Green Items=50.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Red",
-              "Blue",
-              "Yellow",
-              "Green"
-            ],
-            "axis_range": [
-              0,
-              60
+              "Red Items",
+              "Blue Items",
+              "Yellow Items",
+              "Green Items"
             ],
             "scale": 10
           }
@@ -510,20 +577,16 @@
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "bar_graph_colors",
-            "description": "Vertical bar graph in reading mode. Favorite Colors data with scale of 10.",
+            "tangible_id": "bar_graph_mini_items",
+            "description": "Vertical bar graph in reading mode. Mini Items data with scale 10. Red Items=20, Blue Items=30, Yellow Items=40, Green Items=50.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Red",
-              "Blue",
-              "Yellow",
-              "Green"
-            ],
-            "axis_range": [
-              0,
-              60
+              "Red Items",
+              "Blue Items",
+              "Yellow Items",
+              "Green Items"
             ],
             "scale": 10
           }
@@ -539,20 +602,16 @@
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "bar_graph_colors",
-            "description": "Vertical bar graph in reading mode. Favorite Colors data with scale of 10.",
+            "tangible_id": "bar_graph_mini_items",
+            "description": "Vertical bar graph in reading mode. Mini Items data with scale 10. Red Items=20, Blue Items=30, Yellow Items=40, Green Items=50.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Red",
-              "Blue",
-              "Yellow",
-              "Green"
-            ],
-            "axis_range": [
-              0,
-              60
+              "Red Items",
+              "Blue Items",
+              "Yellow Items",
+              "Green Items"
             ],
             "scale": 10
           }
@@ -560,6 +619,6 @@
         "id": "s4_1_bridge_lesson_b6"
       }
     ],
-    "_generated_at": "2026-04-20T16:58:18.139145+00:00"
+    "_generated_at": "2026-04-27T20:09:23.671607+00:00"
   }
 ]

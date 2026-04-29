@@ -272,129 +272,154 @@
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "picture_graph_w2",
+        "tangible_id": "picture_graph_scale_10",
         "tangible_type": "picture_graph",
         "params": {
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Dogs",
-            "Cats",
-            "Fish",
-            "Birds"
+            "Red Items",
+            "Blue Items",
+            "Yellow Items",
+            "Green Items"
           ],
           "scale": 10,
-          "description": "Vertical picture graph appears on left. Scale 1:10. Dogs=60 (6 symbols), Cats=40 (4 symbols), Fish=30 (3 symbols), Birds=50 (5 symbols). Key: each symbol = 10 votes."
+          "description": "Vertical picture graph appears on left side. Scale of 10. Red Items=2 symbols, Blue Items=3 symbols, Yellow Items=4 symbols, Green Items=5 symbols. Key: Each ⭐ = 10."
         },
         "id": "s3_1_picture_bar_bridge_1_10_b0",
-        "_notion_block_id": "3485917e-ac52-81c5-aaa9-ec238ddebd1d"
-      },
-      {
-        "type": "dialogue",
-        "text": "Now watch this. Here's the SAME data as a bar graph.",
-        "id": "s3_1_picture_bar_bridge_1_10_b1",
-        "_notion_block_id": "3485917e-ac52-8102-bd25-d2eb52bb60f9"
+        "_notion_block_id": "34f5917e-ac52-81c5-bd2d-fd4eac97b61e"
       },
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "bar_graph_pets",
+        "tangible_id": "bar_graph_scale_10",
         "tangible_type": "bar_graph",
         "params": {
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Dogs",
-            "Cats",
-            "Fish",
-            "Birds"
-          ],
-          "axis_range": [
-            0,
-            60
+            "Red Items",
+            "Blue Items",
+            "Yellow Items",
+            "Green Items"
           ],
           "scale": 10,
-          "description": "Vertical bar graph appears on right. Same Pet Preference data. Dogs=60, Cats=40, Fish=30, Birds=50. Vertical axis shows scale of 10: 0, 10, 20, 30, 40, 50, 60."
+          "axis_range": [
+            0,
+            10,
+            20,
+            30,
+            40,
+            50,
+            60
+          ],
+          "description": "Vertical bar graph appears on right side. Scale of 10. Axis shows 0, 10, 20, 30, 40, 50, 60. Red Items bar to 20, Blue Items bar to 30, Yellow Items bar to 40, Green Items bar to 50."
         },
+        "id": "s3_1_picture_bar_bridge_1_10_b1",
+        "_notion_block_id": "34f5917e-ac52-81e3-814a-c0397b854ab5"
+      },
+      {
+        "type": "dialogue",
+        "text": "Now watch this. Here's the same data as a bar graph.",
         "id": "s3_1_picture_bar_bridge_1_10_b2",
-        "_notion_block_id": "3485917e-ac52-81ad-bba4-ec7f0dc6ae31"
+        "_notion_block_id": "34f5917e-ac52-81ba-ae56-e7d796383d98"
       },
       {
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "picture_graph_w2",
-            "description": "Vertical picture graph on left. Scale 1:10. Pet Preference data. Dogs=60 (6 symbols), Cats=40 (4 symbols), Fish=30 (3 symbols), Birds=50 (5 symbols).",
+            "tangible_id": "picture_graph_scale_10",
+            "description": "Vertical picture graph on left. Scale of 10. Red Items=2 symbols, Blue Items=3 symbols, Yellow Items=4 symbols, Green Items=5 symbols.",
             "tangible_type": "picture_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Dogs",
-              "Cats",
-              "Fish",
-              "Birds"
+              "Red Items",
+              "Blue Items",
+              "Yellow Items",
+              "Green Items"
             ],
             "scale": 10
           },
           {
-            "tangible_id": "bar_graph_pets",
-            "description": "Vertical bar graph on right showing same Pet Preference data. Dogs=60, Cats=40, Fish=30, Birds=50. Axis scale of 10.",
+            "tangible_id": "bar_graph_scale_10",
+            "description": "Vertical bar graph on right. Scale of 10. Axis 0-60. Bars: Red=20, Blue=30, Yellow=40, Green=50.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Dogs",
-              "Cats",
-              "Fish",
-              "Birds"
+              "Red Items",
+              "Blue Items",
+              "Yellow Items",
+              "Green Items"
             ],
+            "scale": 10,
             "axis_range": [
               0,
+              10,
+              20,
+              30,
+              40,
+              50,
               60
-            ],
-            "scale": 10
+            ]
           }
         ],
         "id": "s3_1_picture_bar_bridge_1_10_b3",
-        "_notion_block_id": "3485917e-ac52-81ad-80a1-e846b5c765e8"
+        "_notion_block_id": "34f5917e-ac52-811a-a62b-f895c42226ba"
       },
       {
         "type": "dialogue",
-        "text": "This category has 40. The picture graph shows 4 symbols. The bar graph shows a bar up to 40. Both graphs show 50 for Birds. Can you find where?",
+        "text": "This category has 30. The picture graph shows 3 symbols. The bar graph shows a bar up to 30. Both graphs show 40 for Yellow Items. Can you find where?",
         "id": "s3_1_picture_bar_bridge_1_10_b4",
-        "_notion_block_id": "3485917e-ac52-8141-b4c4-ceb1de309a03"
+        "_notion_block_id": "34f5917e-ac52-810a-80af-cef63a00fbb7"
       },
       {
         "type": "prompt",
-        "text": "Both graphs show 50 for Birds. Can you find where?",
+        "text": "Both graphs show 40 for Yellow Items. Can you find where?",
         "tool": "click_category",
-        "target": "picture_graph_w2",
+        "target": [
+          "picture_graph_scale_10",
+          "bar_graph_scale_10"
+        ],
         "validator": [
           {
-            "condition_id": "clicked_pg_birds",
+            "condition_id": "correct",
             "condition": {
-              "selected": "Birds"
+              "selected": "Yellow Items"
             },
-            "description": "Student clicked Birds on picture graph, correct, 50 votes shown as 5 symbols",
+            "description": "Student clicked Yellow Items on either graph, correct, 40",
             "is_correct": true,
             "beats": [
               {
                 "type": "scene",
-                "method": "animate",
-                "tangible_id": "picture_graph_w2",
+                "method": "update",
+                "tangible_id": "picture_graph_scale_10",
                 "params": {
-                  "event": "highlight_category",
-                  "status": "confirmed",
-                  "category": "Birds",
-                  "description": "Birds column highlights on picture graph."
+                  "highlight_categories": [
+                    "Yellow Items"
+                  ],
+                  "description": "Yellow Items category highlights on picture graph."
                 },
                 "id": "s3_1_picture_bar_bridge_1_10_b5_v0_b0"
               },
               {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_scale_10",
+                "params": {
+                  "highlight_categories": [
+                    "Yellow Items"
+                  ],
+                  "description": "Yellow Items bar highlights on bar graph."
+                },
+                "id": "s3_1_picture_bar_bridge_1_10_b5_v0_b1"
+              },
+              {
                 "type": "dialogue",
-                "text": "That's it. Picture graphs use symbols. Bar graphs use bars. Both show 50.",
-                "id": "s3_1_picture_bar_bridge_1_10_b5_v0_b1",
-                "_notion_block_id": "3485917e-ac52-814a-a60f-f4a87566a93c"
+                "text": "Right. Same data! Picture graphs use symbols. Bar graphs use bars. Both show 40.",
+                "id": "s3_1_picture_bar_bridge_1_10_b5_v0_b2",
+                "_notion_block_id": "34f5917e-ac52-81e2-93d1-c3bb5b7ec2ae"
               }
             ]
           },
@@ -402,14 +427,14 @@
             "condition": {
               "incorrect_count": 1
             },
-            "description": "Student clicked a wrong category on picture graph, first attempt",
+            "description": "Student clicked a wrong category on first attempt",
             "is_correct": false,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "Check the key. How many symbols show 50?",
+                "text": "Not quite. Look at the picture graph. How many symbols does Yellow Items have?",
                 "id": "s3_1_picture_bar_bridge_1_10_b5_v1_b0",
-                "_notion_block_id": "3485917e-ac52-81d9-a7e9-f9fcafc4086b"
+                "_notion_block_id": "34f5917e-ac52-8113-8545-e574b5619e66"
               }
             ]
           },
@@ -417,248 +442,177 @@
             "condition": {
               "incorrect_count": 2
             },
-            "description": "Student clicked a wrong category on picture graph, second attempt",
+            "description": "Student clicked a wrong category on second attempt",
             "is_correct": false,
             "beats": [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "picture_graph_w2",
+                "tangible_id": "picture_graph_scale_10",
                 "params": {
                   "highlight_categories": [
-                    "Birds"
+                    "Yellow Items"
                   ],
-                  "description": "Birds column highlights on picture graph."
+                  "description": "Yellow Items category highlights on picture graph."
                 },
                 "id": "s3_1_picture_bar_bridge_1_10_b5_v2_b0"
               },
               {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_scale_10",
+                "params": {
+                  "highlight_categories": [
+                    "Yellow Items"
+                  ],
+                  "description": "Yellow Items bar highlights on bar graph."
+                },
+                "id": "s3_1_picture_bar_bridge_1_10_b5_v2_b1"
+              },
+              {
                 "type": "dialogue",
-                "text": "The key says each symbol equals 10. Count the Birds column: 5 symbols. How much is that?",
-                "id": "s3_1_picture_bar_bridge_1_10_b5_v2_b1",
-                "_notion_block_id": "3485917e-ac52-8168-90f8-efa0b7e32a94"
+                "text": "Look at Yellow Items. The picture graph shows 4 symbols. Each symbol stands for 10. The bar graph shows a bar to 40. Both show the same value.",
+                "id": "s3_1_picture_bar_bridge_1_10_b5_v2_b2",
+                "_notion_block_id": "34f5917e-ac52-814d-b630-c7dfa7c28aa5"
               }
             ]
           },
           {
             "condition": {},
-            "description": "Student clicked a wrong category on picture graph three or more times. System models the answer.",
+            "description": "Student clicked a wrong category three or more times. System models the answer.",
             "is_correct": false,
             "beats": [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "picture_graph_w2",
+                "tangible_id": "picture_graph_scale_10",
                 "params": {
                   "event": "highlight_category",
                   "status": "confirmed",
-                  "category": "Birds",
-                  "description": "Birds column highlights on picture graph."
+                  "description": "Yellow Items category highlights on picture graph with confirmed animation.",
+                  "category": "Yellow Items"
                 },
                 "id": "s3_1_picture_bar_bridge_1_10_b5_v3_b0"
               },
               {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_scale_10",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "confirmed",
+                  "description": "Yellow Items bar highlights on bar graph with confirmed animation.",
+                  "category": "Yellow Items"
+                },
+                "id": "s3_1_picture_bar_bridge_1_10_b5_v3_b1"
+              },
+              {
                 "type": "dialogue",
-                "text": "Let me show you. The key tells us each symbol equals 10. I count the Birds column: 1, 2, 3, 4, 5 symbols. That's 5 times 10, which equals 50. Birds shows 50.",
-                "id": "s3_1_picture_bar_bridge_1_10_b5_v3_b1",
-                "_notion_block_id": "3485917e-ac52-81b0-bbe2-c49f2309e966"
+                "text": "Let me show you. Yellow Items on the picture graph has 4 symbols. Each symbol equals 10, so that is 40 total. Yellow Items on the bar graph reaches to 40 on the axis. Both graphs show 40 for Yellow Items. That is how we know they show the same data.",
+                "id": "s3_1_picture_bar_bridge_1_10_b5_v3_b2",
+                "_notion_block_id": "34f5917e-ac52-8175-ad33-c57500664b75"
               }
             ]
           }
         ],
         "id": "s3_1_picture_bar_bridge_1_10_b5",
-        "_notion_block_id": "3485917e-ac52-81dd-b03b-d5cae7f041aa"
+        "_notion_block_id": "34f5917e-ac52-819b-a0e4-d71dcb95c151"
       },
       {
-        "type": "prompt",
-        "text": "Both graphs show 50 for Birds. Can you find where?",
-        "tool": "click_category",
-        "target": "bar_graph_pets",
-        "validator": [
+        "type": "current_scene",
+        "elements": [
           {
-            "condition_id": "clicked_bg_birds",
-            "condition": {
-              "selected": "Birds"
-            },
-            "description": "Student clicked Birds on bar graph, correct, bar height at 50",
-            "is_correct": true,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "bar_graph_pets",
-                "params": {
-                  "event": "highlight_category",
-                  "status": "confirmed",
-                  "category": "Birds",
-                  "description": "Birds bar highlights on bar graph."
-                },
-                "id": "s3_1_picture_bar_bridge_1_10_b6_v0_b0"
-              },
-              {
-                "type": "dialogue",
-                "text": "That's it. Picture graphs use symbols. Bar graphs use bars. Both show 50.",
-                "id": "s3_1_picture_bar_bridge_1_10_b6_v0_b1",
-                "_notion_block_id": "3485917e-ac52-810d-93f0-fc3f7a2cc7c1"
-              }
-            ]
+            "tangible_id": "picture_graph_scale_10",
+            "description": "Vertical picture graph on left. Yellow Items category highlighted. Scale of 10. Red Items=2 symbols, Blue Items=3 symbols, Yellow Items=4 symbols, Green Items=5 symbols.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Red Items",
+              "Blue Items",
+              "Yellow Items",
+              "Green Items"
+            ],
+            "scale": 10
           },
           {
-            "condition": {
-              "incorrect_count": 1
-            },
-            "description": "Student clicked a wrong category on bar graph, first attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "dialogue",
-                "text": "Look at the heights. Which bar reaches 50?",
-                "id": "s3_1_picture_bar_bridge_1_10_b6_v1_b0",
-                "_notion_block_id": "3485917e-ac52-8128-852c-fbf36a3583d1"
-              }
-            ]
-          },
-          {
-            "condition": {
-              "incorrect_count": 2
-            },
-            "description": "Student clicked a wrong category on bar graph, second attempt",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "update",
-                "tangible_id": "bar_graph_pets",
-                "params": {
-                  "highlight_categories": [
-                    "Birds"
-                  ],
-                  "description": "Birds bar highlights on bar graph."
-                },
-                "id": "s3_1_picture_bar_bridge_1_10_b6_v2_b0"
-              },
-              {
-                "type": "dialogue",
-                "text": "The axis shows 0, 10, 20, 30, 40, 50, 60. Follow the Birds bar up to the top. What number does it reach?",
-                "id": "s3_1_picture_bar_bridge_1_10_b6_v2_b1",
-                "_notion_block_id": "3485917e-ac52-81c6-aa60-df0cdbc643b3"
-              }
-            ]
-          },
-          {
-            "condition": {},
-            "description": "Student clicked a wrong category on bar graph three or more times. System models the answer.",
-            "is_correct": false,
-            "beats": [
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "bar_graph_pets",
-                "params": {
-                  "event": "highlight_category",
-                  "status": "confirmed",
-                  "category": "Birds",
-                  "description": "Birds bar highlights on bar graph."
-                },
-                "id": "s3_1_picture_bar_bridge_1_10_b6_v3_b0"
-              },
-              {
-                "type": "dialogue",
-                "text": "Here's how to read bar graphs. I look at the vertical axis: 0, 10, 20, 30, 40, 50, 60. Then I follow the Birds bar to its top. It stops at 50. That's how bar graphs show the count. Birds has 50.",
-                "id": "s3_1_picture_bar_bridge_1_10_b6_v3_b1",
-                "_notion_block_id": "3485917e-ac52-8159-9caa-e0b893f0550f"
-              }
+            "tangible_id": "bar_graph_scale_10",
+            "description": "Vertical bar graph on right. Yellow Items bar highlighted. Scale of 10. Axis 0-60. Bars: Red=20, Blue=30, Yellow=40, Green=50.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Red Items",
+              "Blue Items",
+              "Yellow Items",
+              "Green Items"
+            ],
+            "scale": 10,
+            "axis_range": [
+              0,
+              10,
+              20,
+              30,
+              40,
+              50,
+              60
             ]
           }
         ],
         "id": "s3_1_picture_bar_bridge_1_10_b6",
-        "_notion_block_id": "3485917e-ac52-814a-a4af-fc9543f3e2ef"
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "picture_graph_w2",
-            "description": "Vertical picture graph on left. Scale 1:10. Pet Preference data. Birds column highlighted showing 5 symbols (50 votes).",
-            "tangible_type": "picture_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Dogs",
-              "Cats",
-              "Fish",
-              "Birds"
-            ],
-            "scale": 10
-          },
-          {
-            "tangible_id": "bar_graph_pets",
-            "description": "Vertical bar graph on right. Same data. Birds bar highlighted at height 50.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Dogs",
-              "Cats",
-              "Fish",
-              "Birds"
-            ],
-            "axis_range": [
-              0,
-              60
-            ],
-            "scale": 10
-          }
-        ],
-        "id": "s3_1_picture_bar_bridge_1_10_b7",
-        "_notion_block_id": "3485917e-ac52-812c-bfe2-c42963539f64"
+        "_notion_block_id": "34f5917e-ac52-8189-a920-c4683812a396"
       },
       {
         "type": "dialogue",
-        "text": "Bar graphs are really useful with scale of 10. You read the HEIGHT instead of counting symbols.",
-        "id": "s3_1_picture_bar_bridge_1_10_b8",
-        "_notion_block_id": "3485917e-ac52-81c3-8b3c-d6e507aa2773"
+        "text": "Bar graphs are really useful with scale of 10. You read the height instead of counting symbols.",
+        "id": "s3_1_picture_bar_bridge_1_10_b7",
+        "_notion_block_id": "34f5917e-ac52-810a-808b-fa570ec4c357"
       },
       {
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "picture_graph_w2",
-            "description": "Vertical picture graph on left. Scale 1:10. Pet Preference data. Dogs=60, Cats=40, Fish=30, Birds=50.",
+            "tangible_id": "picture_graph_scale_10",
+            "description": "Vertical picture graph on left. Yellow Items category highlighted. Scale of 10. Red Items=2 symbols, Blue Items=3 symbols, Yellow Items=4 symbols, Green Items=5 symbols.",
             "tangible_type": "picture_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Dogs",
-              "Cats",
-              "Fish",
-              "Birds"
+              "Red Items",
+              "Blue Items",
+              "Yellow Items",
+              "Green Items"
             ],
             "scale": 10
           },
           {
-            "tangible_id": "bar_graph_pets",
-            "description": "Vertical bar graph on right showing same Pet Preference data. Dogs=60, Cats=40, Fish=30, Birds=50. Axis scale of 10.",
+            "tangible_id": "bar_graph_scale_10",
+            "description": "Vertical bar graph on right. Yellow Items bar highlighted. Scale of 10. Axis 0-60. Bars: Red=20, Blue=30, Yellow=40, Green=50.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Dogs",
-              "Cats",
-              "Fish",
-              "Birds"
+              "Red Items",
+              "Blue Items",
+              "Yellow Items",
+              "Green Items"
             ],
+            "scale": 10,
             "axis_range": [
               0,
+              10,
+              20,
+              30,
+              40,
+              50,
               60
-            ],
-            "scale": 10
+            ]
           }
         ],
-        "id": "s3_1_picture_bar_bridge_1_10_b9"
+        "id": "s3_1_picture_bar_bridge_1_10_b8"
       }
     ],
-    "_generated_at": "2026-04-20T16:58:10.156261+00:00",
+    "_generated_at": "2026-04-27T20:09:10.844861+00:00",
     "_notion_block_id": "3485917e-ac52-8109-8c5e-f23a0f7563d4"
   },
   {

@@ -8,19 +8,20 @@
       "tangible_id": "data_collection_game_minis",
       "tangible_type": "data_collection_game",
       "params": {
+        "theme": "minis_collecting",
         "categories": [
-          "Red Minis",
-          "Blue Minis",
-          "Green Minis",
-          "Yellow Minis"
+          "Red Items",
+          "Blue Items",
+          "Yellow Items",
+          "Green Items"
         ],
         "target_values": [
           20,
-          40,
           30,
+          40,
           50
         ],
-        "description": "Animated Minis characters appear collecting items. Four categories visible: Red, Blue, Green, and Yellow Minis."
+        "description": "Animated Minis characters appear collecting items across four categories. Counting scenario begins."
       }
     },
     {
@@ -32,37 +33,59 @@
       "method": "animate",
       "tangible_id": "data_collection_game_minis",
       "params": {
-        "event": "count_items",
-        "status": "confirmed",
-        "description": "Student counts items across categories. Results: Red Minis 20, Blue Minis 40, Green Minis 30, Yellow Minis 50. Values display as multiples of 10 with clear differences."
+        "event": "run_counting_game",
+        "status": "proposed",
+        "description": "Student counts Minis and items across 3-4 categories. Game generates results in multiples of 10 ranging from 20 to 60. Values show clear differences for later comparison."
       }
-    },
-    {
-      "type": "dialogue",
-      "text": "You counted the items. That's a lot! Let's see how to show this data."
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "data_collection_game_minis",
-          "description": "Completed counting game showing results. Red Minis: 20, Blue Minis: 40, Green Minis: 30, Yellow Minis: 50.",
+          "description": "Data collection game active. Minis characters collecting items. Student counting in progress.",
           "tangible_type": "data_collection_game",
+          "theme": "minis_collecting",
           "categories": [
-            "Red Minis",
-            "Blue Minis",
-            "Green Minis",
-            "Yellow Minis"
-          ],
-          "values": [
-            20,
-            40,
-            30,
-            50
+            "Red Items",
+            "Blue Items",
+            "Yellow Items",
+            "Green Items"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "data_collection_game_minis",
+      "params": {
+        "event": "run_counting_game",
+        "status": "confirmed",
+        "description": "Counting complete. Results revealed across all categories."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "You counted all the items the Minis found. That's a lot! Let's see how to show this data."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_collection_game_minis",
+          "description": "Data collection game complete. Final counts displayed for Red Items, Blue Items, Yellow Items, and Green Items. All values are multiples of 10 in the 20-60 range.",
+          "tangible_type": "data_collection_game",
+          "theme": "minis_collecting",
+          "categories": [
+            "Red Items",
+            "Blue Items",
+            "Yellow Items",
+            "Green Items"
           ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T16:57:37.337163+00:00"
+  "_generated_at": "2026-04-27T20:08:25.152373+00:00"
 }

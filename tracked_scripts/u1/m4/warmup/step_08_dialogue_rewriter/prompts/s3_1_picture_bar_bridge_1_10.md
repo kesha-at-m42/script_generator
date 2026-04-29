@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T11:58:25.570228
+# Generated: 2026-04-27T15:13:36.585472
 ======================================================================
 
 ## API Parameters
@@ -948,15 +948,11 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "This category has 40. The picture graph shows 4 symbols. The bar graph shows a bar up to 40. Both graphs show 50 for Birds. Can you find where?",
+      "text": "This category has 30. The picture graph shows 3 symbols. The bar graph shows a bar up to 30. Both graphs show 40 for Yellow Items. Can you find where?",
       "context": "lesson"
     },
     {
-      "text": "Same data! Picture graphs use symbols. Bar graphs use bars. Both show 50.",
-      "context": "on_correct"
-    },
-    {
-      "text": "Same data! Picture graphs use symbols. Bar graphs use bars. Both show 50.",
+      "text": "Same data! Picture graphs use symbols. Bar graphs use bars. Both show 40.",
       "context": "on_correct"
     },
     {

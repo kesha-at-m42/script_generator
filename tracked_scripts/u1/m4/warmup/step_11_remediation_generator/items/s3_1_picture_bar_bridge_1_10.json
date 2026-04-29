@@ -6,13 +6,13 @@
         "condition": {
           "incorrect_count": 1
         },
-        "description": "Student clicked a wrong category on picture graph, first attempt",
+        "description": "Student clicked a wrong category on first attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "dialogue",
-              "text": "Check the key. How many symbols show 50?"
+              "text": "Not quite. Look at the picture graph. How many symbols does Yellow Items have?"
             }
           ]
         ]
@@ -21,120 +21,75 @@
         "condition": {
           "incorrect_count": 2
         },
-        "description": "Student clicked a wrong category on picture graph, second attempt",
+        "description": "Student clicked a wrong category on second attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "picture_graph_w2",
+              "tangible_id": "picture_graph_scale_10",
               "params": {
                 "highlight_categories": [
-                  "Birds"
+                  "Yellow Items"
                 ],
-                "description": "Birds column highlights on picture graph."
+                "description": "Yellow Items category highlights on picture graph."
               }
             },
-            {
-              "type": "dialogue",
-              "text": "The key says each symbol equals 10. Count the Birds column: 5 symbols. How much is that?"
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {},
-        "description": "Student clicked a wrong category on picture graph three or more times. System models the answer.",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "picture_graph_w2",
-              "params": {
-                "event": "highlight_category",
-                "status": "confirmed",
-                "category": "Birds",
-                "description": "Birds column highlights on picture graph."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "Let me show you. The key tells us each symbol equals 10. I count the Birds column: 1, 2, 3, 4, 5 symbols. That's 5 times 10, which equals 50. Birds shows 50."
-            }
-          ]
-        ]
-      }
-    ],
-    [
-      {
-        "condition": {
-          "incorrect_count": 1
-        },
-        "description": "Student clicked a wrong category on bar graph, first attempt",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "dialogue",
-              "text": "Look at the heights. Which bar reaches 50?"
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "incorrect_count": 2
-        },
-        "description": "Student clicked a wrong category on bar graph, second attempt",
-        "is_correct": false,
-        "steps": [
-          [
             {
               "type": "scene",
               "method": "update",
-              "tangible_id": "bar_graph_pets",
+              "tangible_id": "bar_graph_scale_10",
               "params": {
                 "highlight_categories": [
-                  "Birds"
+                  "Yellow Items"
                 ],
-                "description": "Birds bar highlights on bar graph."
+                "description": "Yellow Items bar highlights on bar graph."
               }
             },
             {
               "type": "dialogue",
-              "text": "The axis shows 0, 10, 20, 30, 40, 50, 60. Follow the Birds bar up to the top. What number does it reach?"
+              "text": "Look at Yellow Items. The picture graph shows 4 symbols. Each symbol stands for 10. The bar graph shows a bar to 40. Both show the same value."
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student clicked a wrong category on bar graph three or more times. System models the answer.",
+        "description": "Student clicked a wrong category three or more times. System models the answer.",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "bar_graph_pets",
+              "tangible_id": "picture_graph_scale_10",
               "params": {
                 "event": "highlight_category",
                 "status": "confirmed",
-                "category": "Birds",
-                "description": "Birds bar highlights on bar graph."
+                "description": "Yellow Items category highlights on picture graph with confirmed animation.",
+                "category": "Yellow Items"
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_scale_10",
+              "params": {
+                "event": "highlight_category",
+                "status": "confirmed",
+                "description": "Yellow Items bar highlights on bar graph with confirmed animation.",
+                "category": "Yellow Items"
               }
             },
             {
               "type": "dialogue",
-              "text": "Here's how to read bar graphs. I look at the vertical axis: 0, 10, 20, 30, 40, 50, 60. Then I follow the Birds bar to its top. It stops at 50. That's how bar graphs show the count. Birds has 50."
+              "text": "Let me show you. Yellow Items on the picture graph has 4 symbols. Each symbol equals 10, so that is 40 total. Yellow Items on the bar graph reaches to 40 on the axis. Both graphs show 40 for Yellow Items. That is how we know they show the same data."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T16:58:53.331552+00:00"
+  "_generated_at": "2026-04-27T20:13:54.361062+00:00"
 }
