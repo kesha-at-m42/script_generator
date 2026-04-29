@@ -1,5 +1,9 @@
 # Prompt: dialogue_rewriter
+<<<<<<< HEAD
 # Generated: 2026-04-20T12:00:58.170675
+=======
+# Generated: 2026-04-27T10:53:33.577009
+>>>>>>> new-script-ui
 ======================================================================
 
 ## API Parameters
@@ -964,7 +968,11 @@ Cacheable: Yes
       "context": "on_correct"
     },
     {
+<<<<<<< HEAD
       "text": "You can build equations. But today, equations have some surprises. You'll see them in new ways and figure out missing numbers.",
+=======
+      "text": "You can build equations. But equations have some surprises. You'll see them in new ways and figure out missing numbers.",
+>>>>>>> new-script-ui
       "context": "lesson"
     }
   ]

@@ -1,0 +1,110 @@
+{
+  "id": "s1_1_symbol_count_calculation_identify",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 25
+        },
+        "description": "Student selected 25: confused the total value with the number of symbols needed",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_categories": [
+                  "Juice"
+                ],
+                "description": "Juice category highlights on data table."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The key says each symbol equals 5. How many 5s make 25? Count by 5s."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 4
+        },
+        "description": "Student selected 4: stopped one group short of the total",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_categories": [
+                  "Juice"
+                ],
+                "description": "Juice category highlights on data table."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're close. Count by 5s all the way to 25. Does 4 groups of 5 reach 25?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 30
+        },
+        "description": "Student selected 30: chose the next category's value instead of calculating symbols for 25",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "data_table",
+              "params": {
+                "highlight_categories": [
+                  "Juice"
+                ],
+                "description": "Juice category highlights on data table."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "We're working with Juice, which has 25 votes. Each symbol stands for 5. How many 5s are in 25?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "data_table",
+              "params": {
+                "event": "demonstrate_skip_counting",
+                "status": "confirmed",
+                "description": "System demonstrates skip-counting by 5s: 5, 10, 15, 20, 25. Five groups highlight sequentially.",
+                "category": "Juice"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. When the scale is 5, count by 5s to reach 25. That's 5, 10, 15, 20, 25. Five groups of 5 equals 25. So you need 5 symbols for 25 votes. The answer is 5 because counting by 5s five times gives you the total."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T16:57:30.914090+00:00"
+}

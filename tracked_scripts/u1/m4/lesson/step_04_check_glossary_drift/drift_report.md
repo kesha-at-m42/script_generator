@@ -1,6 +1,10 @@
 # UX/Script Terminology Drift Report
 
+<<<<<<< HEAD
 Generated: 2026-04-20 11:59  
+=======
+Generated: 2026-04-27 10:54  
+>>>>>>> new-script-ui
 Source: `check_glossary_drift.json`  
 Scope: Unit 1, Module 4
 

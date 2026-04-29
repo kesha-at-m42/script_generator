@@ -9,12 +9,17 @@
       "params": {
         "mode": "reading",
         "orientation": "vertical",
+<<<<<<< HEAD
+=======
+        "title": "Minutes of Reading",
+>>>>>>> new-script-ui
         "categories": [
           "Monday",
           "Tuesday",
           "Wednesday",
           "Thursday"
         ],
+<<<<<<< HEAD
         "scale": 10,
         "values": {
           "Monday": 40,
@@ -23,6 +28,20 @@
           "Thursday": 25
         },
         "description": "Vertical bar graph appears. Minutes of Reading data. Scale of 10. Monday=40 (at line), Tuesday=35 (between lines), Wednesday=50 (at line), Thursday=25 (between lines)."
+=======
+        "values": [
+          40,
+          35,
+          50,
+          25
+        ],
+        "scale": 10,
+        "axis_range": [
+          0,
+          60
+        ],
+        "description": "Vertical bar graph titled Minutes of Reading appears. Four bars: Monday=40 (at line), Tuesday=35 (between lines), Wednesday=50 (at line), Thursday=25 (between lines). Scale of 10, axis range 0-60."
+>>>>>>> new-script-ui
       }
     },
     {
@@ -45,10 +64,29 @@
           "condition": {
             "selected": 75
           },
+<<<<<<< HEAD
           "description": "Student selected 75, correct total",
           "is_correct": true,
           "beats": [
             {
+=======
+          "description": "Student selected 75, correct total for Monday (40) plus Tuesday (35)",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_reading",
+              "params": {
+                "highlight_categories": [
+                  "Monday",
+                  "Tuesday"
+                ],
+                "description": "Monday and Tuesday bars highlight to confirm selection."
+              }
+            },
+            {
+>>>>>>> new-script-ui
               "type": "dialogue",
               "text": "75 minutes total. Monday is 40, Tuesday is 35. 40 plus 35 is 75."
             }
@@ -61,7 +99,11 @@
       "elements": [
         {
           "tangible_id": "bar_graph_reading",
+<<<<<<< HEAD
           "description": "Vertical bar graph. Minutes of Reading data. Scale of 10. Monday=40, Tuesday=35, Wednesday=50, Thursday=25.",
+=======
+          "description": "Vertical bar graph titled Minutes of Reading. Monday and Tuesday bars highlighted. Four bars showing Monday=40, Tuesday=35, Wednesday=50, Thursday=25.",
+>>>>>>> new-script-ui
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -71,10 +113,28 @@
             "Wednesday",
             "Thursday"
           ],
+<<<<<<< HEAD
           "scale": 10
+=======
+          "values": [
+            40,
+            35,
+            50,
+            25
+          ],
+          "scale": 10,
+          "axis_range": [
+            0,
+            60
+          ]
+>>>>>>> new-script-ui
         }
       ]
     }
   ],
+<<<<<<< HEAD
   "_generated_at": "2026-04-20T17:01:59.708718+00:00"
+=======
+  "_generated_at": "2026-04-27T15:58:52.151883+00:00"
+>>>>>>> new-script-ui
 }

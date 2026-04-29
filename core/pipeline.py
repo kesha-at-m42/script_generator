@@ -6,6 +6,7 @@ Supports both AI steps (Claude API) and deterministic formatting steps (Python f
 """
 
 import json
+import re
 import shutil
 import sys
 from datetime import datetime
@@ -67,7 +68,12 @@ from json_utils import extract_json, parse_json  # noqa: E402
 from output_validator import validate_ai_output_structure  # noqa: E402
 
 # Import refactored modules
-from path_manager import find_step_directory_by_name, get_step_directory, get_step_output_paths, resolve_input_path  # noqa: E402
+from path_manager import (  # noqa: E402
+    find_step_directory_by_name,
+    get_step_directory,
+    get_step_output_paths,
+    resolve_input_path,
+)
 from pipeline_executor import flatten_dict, run_formatting_step  # noqa: E402
 from template_utils import get_template_by_id  # noqa: E402
 from version_manager import (  # noqa: E402
@@ -155,6 +161,8 @@ class Step:
         batch_skip_items: List[str] = None,
         batch_stop_on_error: bool = False,
         stop_on_validation_failure: bool = True,
+        batch_continuous: bool = False,
+        batch_continuous_summary_prompt: str = None,
         context_files: dict = None,
     ):
         """
@@ -205,6 +213,8 @@ class Step:
         self.batch_skip_items = batch_skip_items or []
         self.batch_stop_on_error = batch_stop_on_error
         self.stop_on_validation_failure = stop_on_validation_failure
+        self.batch_continuous = batch_continuous
+        self.batch_continuous_summary_prompt = batch_continuous_summary_prompt or ""
         self.context_files = context_files or {}
 
         # Validation
@@ -907,6 +917,45 @@ def run_pipeline(
 
             total_items = len(items)
 
+            # batch_continuous: growing section-context document + dedicated summary client
+            _batch_context_doc: list[str] = []
+            _batch_summary_client = None
+            if step.batch_continuous and step.batch_continuous_summary_prompt:
+                from claude_client import ClaudeClient as _CC
+                _batch_summary_client = _CC()
+
+            # batch_continuous: pre-load prior context from the most recent version that has
+            # a section_context.md, scanning backwards across all versions. This ensures
+            # partial reruns get the same sequential context the original run would have built.
+            if step.batch_continuous and base_step_dir is not None and batch_filter:
+                _context_path = None
+                _pipeline_dir = Path(base_step_dir).parent.parent
+                _step_dir_name = Path(base_step_dir).name
+                _all_versions = sorted(
+                    [d for d in _pipeline_dir.iterdir() if d.is_dir() and re.match(r"^v\d+$", d.name)],
+                    key=lambda d: int(d.name[1:]),
+                    reverse=True,
+                )
+                for _vdir in _all_versions:
+                    _candidate = _vdir / _step_dir_name / "section_context.md"
+                    if _candidate.exists():
+                        _context_path = _candidate
+                        break
+                if _context_path:
+                    _raw_entries = re.split(
+                        r"\n\n(?=## )", _context_path.read_text(encoding="utf-8").strip()
+                    )
+                    _rerun_ids = set(batch_filter)
+                    for _entry in _raw_entries:
+                        _id_match = re.match(r"## (\S+)", _entry)
+                        if _id_match and _id_match.group(1) in _rerun_ids:
+                            break
+                        if _id_match:
+                            _batch_context_doc.append(_entry)
+                    if _batch_context_doc and verbose:
+                        _ctx_version = _context_path.parent.parent.name
+                        print(f"  [CONTEXT] Pre-loaded {len(_batch_context_doc)} prior section(s) from {_ctx_version}")
+
             for item_idx, item in enumerate(items, 1):
                 # Get item ID (with composite key support for multi-step items)
                 if step.batch_id_field and isinstance(item, dict):
@@ -939,6 +988,10 @@ def run_pipeline(
                     print(f"\n  [BATCH {item_idx}/{total_items}] {item_id}")
 
                 try:
+                    # batch_continuous: inject the full section-context document into this item
+                    if step.batch_continuous and _batch_context_doc:
+                        item = {**item, "prior_section_summaries": "\n\n---\n\n".join(_batch_context_doc)}
+
                     # Flatten item to variables
                     item_vars = flatten_dict(item)
                     # Keep both original and flattened versions for prefill compatibility
@@ -1357,6 +1410,28 @@ Review your original instructions and schemas to ensure the regenerated output f
                             output_file_path=step_paths["main_output"],
                             rerun_items=rerun_items,
                         )
+
+                    # batch_continuous: summarize this section and append to the context document
+                    if step.batch_continuous and _batch_summary_client and isinstance(item_result, dict):
+                        try:
+                            section_summary = _batch_summary_client.generate(
+                                system=step.batch_continuous_summary_prompt,
+                                user_message=json.dumps(item_result, indent=2, ensure_ascii=False),
+                                model="claude-haiku-4-5-20251001",
+                                temperature=0.0,
+                                max_tokens=500,
+                            )
+                            section_id = item_result.get("id", f"section_{item_idx}")
+                            _batch_context_doc.append(f"## {section_id}\n{section_summary.strip()}")
+                            context_path = step_paths["items_dir"].parent / "section_context.md"
+                            context_path.write_text(
+                                "\n\n".join(_batch_context_doc), encoding="utf-8"
+                            )
+                            if verbose:
+                                print(f"    [CONTEXT] section_context.md updated ({len(_batch_context_doc)} sections)")
+                        except Exception as _ce:
+                            if verbose:
+                                print(f"    [WARN] batch_continuous summary failed: {_ce}")
 
                     # Add result to batch processor (handles collation and ID assignment).
                     # Must happen BEFORE saving the file so the batch-assigned sequential

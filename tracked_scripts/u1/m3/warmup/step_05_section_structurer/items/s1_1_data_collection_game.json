@@ -1,0 +1,69 @@
+{
+  "id": "s1_1_data_collection_game",
+  "type": "warmup",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_collection_game_minis",
+      "tangible_type": "data_collection_game",
+      "params": {
+        "style": "Mario Party-style counting game",
+        "categories": [
+          "Red Minis",
+          "Blue Minis",
+          "Green Minis"
+        ],
+        "value_range": [
+          10,
+          15,
+          20,
+          25,
+          30
+        ],
+        "value_constraint": "multiples of 5 only",
+        "duration_seconds": 60,
+        "description": "Minis characters appear in animated counting scenario. Student will count items for each of 3 categories."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "The Minis are having a busy day! Help count what they're up to."
+    },
+    {
+      "type": "prompt",
+      "text": "Count the items and confirm the count for each category.",
+      "tool": "data_collection_interaction",
+      "target": "data_collection_game_minis",
+      "validator": [
+        {
+          "condition_id": "game_complete",
+          "condition": {},
+          "description": "Student completed counting activity for all 3 categories",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "empty"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_collection_game_minis",
+          "description": "Data collection game completed. Counts recorded for Red Minis, Blue Minis, Green Minis. Values are multiples of 5 in range 10-30.",
+          "tangible_type": "data_collection_game",
+          "categories": [
+            "Red Minis",
+            "Blue Minis",
+            "Green Minis"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:56:37.383777+00:00"
+}

@@ -1,0 +1,83 @@
+{
+  "id": "s1_3_read_total_value_identify",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "picture_graph_drinks",
+      "tangible_type": "picture_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Juice",
+          "Milk",
+          "Water",
+          "Lemonade"
+        ],
+        "description": "Vertical picture graph appears. Favorite Drinks data. Juice has 5 symbols, Milk has 3 symbols, Water has 6 symbols, Lemonade has 4 symbols. Key: each symbol = 5 students."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Look at the completed graph. How many students chose Water?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many students chose Water?",
+      "tool": "multiple_choice",
+      "options": [
+        6,
+        25,
+        30,
+        35
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 30
+          },
+          "description": "Student selected 30, correct. 6 symbols times 5 equals 30.",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_drinks",
+              "params": {
+                "event": "highlight_category",
+                "status": "confirmed",
+                "category": "Water",
+                "description": "Water column highlights to confirm selection."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "30 students. 6 symbols, each worth 5. Count by 5s: 5, 10, 15, 20, 25, 30. That's how you read a scaled graph."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "picture_graph_drinks",
+          "description": "Vertical picture graph in reading mode. Favorite Drinks data. Juice has 5 symbols, Milk has 3 symbols, Water has 6 symbols, Lemonade has 4 symbols. Key: each symbol = 5 students. Multiple choice tool active.",
+          "tangible_type": "picture_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Juice",
+            "Milk",
+            "Water",
+            "Lemonade"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:56:56.811595+00:00"
+}

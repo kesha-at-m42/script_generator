@@ -1,0 +1,366 @@
+[
+  {
+    "id": "s1_1_data_collection_game",
+    "type": "warmup",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "data_collection_game_minis",
+        "tangible_type": "data_collection_game",
+        "params": {
+          "style": "Mario Party-style counting game",
+          "categories": [
+            "Red Minis",
+            "Blue Minis",
+            "Green Minis"
+          ],
+          "value_range": [
+            10,
+            15,
+            20,
+            25,
+            30
+          ],
+          "value_constraint": "multiples of 5 only",
+          "duration_seconds": 60,
+          "description": "Minis characters appear in animated counting scenario. Student will count items for each of 3 categories."
+        },
+        "id": "s1_1_data_collection_game_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "The Minis are having a busy day! Help count what they're up to.",
+        "id": "s1_1_data_collection_game_b1"
+      },
+      {
+        "type": "prompt",
+        "text": "Count the items and confirm the count for each category.",
+        "tool": "data_collection_interaction",
+        "target": "data_collection_game_minis",
+        "validator": [
+          {
+            "condition_id": "game_complete",
+            "condition": {},
+            "description": "Student completed counting activity for all 3 categories",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "empty",
+                "id": "s1_1_data_collection_game_b2_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_data_collection_game_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_collection_game_minis",
+            "description": "Data collection game completed. Counts recorded for Red Minis, Blue Minis, Green Minis. Values are multiples of 5 in range 10-30.",
+            "tangible_type": "data_collection_game",
+            "categories": [
+              "Red Minis",
+              "Blue Minis",
+              "Green Minis"
+            ]
+          }
+        ],
+        "id": "s1_1_data_collection_game_b3"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:56:37.383777+00:00"
+  },
+  {
+    "id": "s2_1_scale_comparison_display_key_moment",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "The scale-of-5 graph has more symbols"
+          },
+          "description": "Student selected that scale-of-5 graph has more symbols (opposite of correct)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_scale_2",
+                "params": {
+                  "description": "Left graph pulses to draw attention to symbol count."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_scale_5",
+                "params": {
+                  "description": "Right graph pulses to draw attention to symbol count."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Count the symbols in each graph. The left graph has many small-value symbols. The right graph has fewer large-value symbols. Which graph has fewer symbols?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "They have the same number of symbols"
+          },
+          "description": "Student selected that graphs have same number of symbols",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_scale_2",
+                "params": {
+                  "description": "Left graph symbols pulse individually."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_scale_5",
+                "params": {
+                  "description": "Right graph symbols pulse individually."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Count the symbols in the Books column of each graph. The left graph needs more symbols because each one only shows 2. Which graph uses fewer symbols to show the same total?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "The graphs show different data"
+          },
+          "description": "Student selected that graphs show different data",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_scale_2",
+                "params": {
+                  "highlight_categories": [
+                    "Books"
+                  ],
+                  "description": "Books column highlights on left graph."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_scale_5",
+                "params": {
+                  "highlight_categories": [
+                    "Books"
+                  ],
+                  "description": "Books column highlights on right graph."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at Books on both graphs. The left shows 10 items with 5 symbols. The right shows 10 items with 2 symbols. Same data, different scale. What do you notice about how many symbols each graph needs?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_scale_2",
+                "params": {
+                  "event": "highlight_all_symbols",
+                  "status": "confirmed",
+                  "description": "All symbols on left graph highlight sequentially, showing many symbols."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_scale_5",
+                "params": {
+                  "event": "highlight_all_symbols",
+                  "status": "confirmed",
+                  "description": "All symbols on right graph highlight sequentially, showing fewer symbols."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The left graph uses many symbols because each one only shows 2 items. The right graph uses fewer symbols because each one shows 5 items. When each symbol shows more, you need fewer of them to show the same data. The scale-of-5 graph has fewer symbols."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T16:57:40.165050+00:00"
+  },
+  {
+    "id": "s3_1_efficiency_discovery",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "Scale of 2"
+          },
+          "description": "Student selected Scale of 2, believing more symbols means more efficiency",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "picture_graph_scale5",
+                "params": {
+                  "description": "Scale of 5 graph highlights to show fewer symbols."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Scale of 2 uses more symbols to show the same amount. Efficient means fewer symbols. Look at how many symbols the scale of 5 graph needs."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_scale5",
+                "params": {
+                  "event": "highlight_category_symbols",
+                  "status": "confirmed",
+                  "description": "Scale of 5 graph highlights, showing fewer symbols represent the same data."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. Both graphs show the same number of items. But scale of 5 uses fewer symbols. That's what makes it more efficient. When we have bigger numbers, scale of 5 saves space. The answer is Scale of 5."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-20T16:57:47.241983+00:00"
+  },
+  {
+    "id": "s4_1_bridge_lesson",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "picture_graph_scale5",
+        "tangible_type": "picture_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 5,
+          "description": "Horizontal picture graph with scale of 5 appears. Data from W.2."
+        },
+        "id": "s4_1_bridge_lesson_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "You discovered something important: Scale of 5 uses fewer symbols for the same data.",
+        "id": "s4_1_bridge_lesson_b1"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_scale5",
+            "description": "Horizontal picture graph with scale of 5. Data from W.2.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 5
+          }
+        ],
+        "id": "s4_1_bridge_lesson_b2"
+      },
+      {
+        "type": "dialogue",
+        "text": "But how do you know how many symbols to use? There's a skill that helps.",
+        "id": "s4_1_bridge_lesson_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_scale5",
+            "description": "Horizontal picture graph with scale of 5. Data from W.2.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 5
+          }
+        ],
+        "id": "s4_1_bridge_lesson_b4"
+      },
+      {
+        "type": "dialogue",
+        "text": "Do you remember how to count by 5s?",
+        "id": "s4_1_bridge_lesson_b5"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_scale5",
+            "description": "Horizontal picture graph with scale of 5. Data from W.2.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 5
+          }
+        ],
+        "id": "s4_1_bridge_lesson_b6"
+      },
+      {
+        "type": "dialogue",
+        "text": "Let's learn how skip-counting and scale of 5 work together.",
+        "id": "s4_1_bridge_lesson_b7"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_scale5",
+            "description": "Horizontal picture graph with scale of 5. Data from W.2.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 5
+          }
+        ],
+        "id": "s4_1_bridge_lesson_b8"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:57:14.949683+00:00"
+  }
+]

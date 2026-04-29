@@ -16,14 +16,56 @@ notion-client is not installed.  Returns data unchanged.
 After a successful push the step also pulls Notion block IDs and writes
 ``_notion_block_id`` back onto each beat in the source data file, enabling
 ID-based sync on subsequent pushes.
+
+After a confirmed push the step auto-stitches the current version into
+tracked_scripts/ so they stay current without a manual stitch run.
+
+Rate-limit errors are retried up to 3 times (60 / 120 / 180 s backoff)
+before the failure is logged as non-fatal.
 """
 
 from __future__ import annotations
 
 import json
 import os
+import subprocess
+import sys
+import time
 from pathlib import Path
 from typing import Any
+
+_RETRY_DELAYS = [60, 120, 180]
+
+_PIPELINE_NAME_TO_STITCH_TYPE: dict[str, str] = {
+    "lesson": "lesson",
+    "warmup": "warmup",
+    "exit check": "exitcheck",
+    "synthesis": "synthesis",
+}
+
+
+def _auto_stitch(unit_number: int | None, module_number: int | None, pipeline_name: str | None) -> None:
+    stitch_type = _PIPELINE_NAME_TO_STITCH_TYPE.get((pipeline_name or "").lower())
+    if not stitch_type or not module_number:
+        return
+
+    project_root = Path(__file__).parent.parent.parent
+    stitch_script = project_root / "fixes" / "stitch_pipeline_outputs.py"
+    unit_str = f"unit{unit_number or 1}"
+
+    try:
+        result = subprocess.run(
+            [sys.executable, str(stitch_script), "--unit", unit_str, "--module", str(module_number), "--type", stitch_type],
+            capture_output=True,
+            text=True,
+            cwd=str(project_root),
+        )
+        if result.returncode == 0:
+            print(f"  [STITCH] Auto-stitched {stitch_type} m{module_number} -> tracked_scripts/u{unit_number or 1}/m{module_number}/{stitch_type}")
+        else:
+            print(f"  [STITCH] Auto-stitch failed (non-fatal):\n{result.stderr.strip()[:300]}")
+    except Exception as exc:
+        print(f"  [STITCH] Auto-stitch error (non-fatal): {exc}")
 
 
 def push(
@@ -80,13 +122,28 @@ def push(
         if rerun_items:
             print(f"  [NOTION] Rerun mode — pushing only: {rerun_items}")
 
-        page_id = push_lesson(
-            data=data,
-            title=title,
-            file_path=None if test_push else output_file_path,
-            reviewer_user_id=reviewer_user_id,
-            sections=rerun_items if rerun_items else None,
-        )
+        # Push with retry on rate limit
+        page_id = None
+        last_exc = None
+        for attempt in range(len(_RETRY_DELAYS) + 1):
+            try:
+                page_id = push_lesson(
+                    data=data,
+                    title=title,
+                    file_path=None if test_push else output_file_path,
+                    reviewer_user_id=reviewer_user_id,
+                    sections=rerun_items if rerun_items else None,
+                )
+                break
+            except Exception as exc:
+                last_exc = exc
+                if "rate limit" in str(exc).lower() and attempt < len(_RETRY_DELAYS):
+                    delay = _RETRY_DELAYS[attempt]
+                    print(f"\n  [NOTION] Rate limited — retrying in {delay}s (attempt {attempt + 1}/{len(_RETRY_DELAYS)})...")
+                    time.sleep(delay)
+                else:
+                    raise
+
         url = get_page_url(page_id)
         print(f"\n  [NOTION] Pushed -> {url}")
 
@@ -112,9 +169,13 @@ def push(
                         for b in s.get("beats", [])
                         if b.get("_notion_block_id")
                     )
-                    print(f"  [NOTION] Tagged {n_sections} sections + {n_beats} beats → {source_file.name}")
+                    print(f"  [NOTION] Tagged {n_sections} sections + {n_beats} beats -> {source_file.name}")
             except Exception as exc:
                 print(f"  [NOTION] Tag-back failed (non-fatal): {exc}")
+
+        # Auto-stitch into tracked_scripts/
+        if not test_push:
+            _auto_stitch(unit_number, module_number, pipeline_name)
 
         return {"notion_url": url}
 

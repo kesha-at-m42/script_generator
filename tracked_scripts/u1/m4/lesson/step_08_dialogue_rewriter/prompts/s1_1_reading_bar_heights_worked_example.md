@@ -1,5 +1,9 @@
 # Prompt: dialogue_rewriter
+<<<<<<< HEAD
 # Generated: 2026-04-20T12:03:00.718802
+=======
+# Generated: 2026-04-27T11:00:52.091980
+>>>>>>> new-script-ui
 ======================================================================
 
 ## API Parameters
@@ -948,11 +952,19 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
+<<<<<<< HEAD
       "text": "See these numbers along the side? They show the scale—10, 20, 30, 40... That's counting by 10s!",
       "context": "lesson"
     },
     {
       "text": "Red has 40. The HEIGHT OF THE BAR ends at the 40 line.",
+=======
+      "text": "See these numbers along the side? They show the scale. 10, 20, 30, 40. That's counting by 10s!",
+      "context": "lesson"
+    },
+    {
+      "text": "Red has 40. The height of the bar ends at the 40 line.",
+>>>>>>> new-script-ui
       "context": "lesson"
     },
     {

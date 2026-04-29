@@ -1,0 +1,515 @@
+[
+  {
+    "id": "s1_1_data_collection_game",
+    "type": "warmup",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "data_collection_game_minis",
+        "tangible_type": "data_collection_game",
+        "params": {
+          "style": "Mario Party-style counting game",
+          "categories": [
+            "Red Minis",
+            "Blue Minis",
+            "Green Minis"
+          ],
+          "value_range": [
+            10,
+            15,
+            20,
+            25,
+            30
+          ],
+          "value_constraint": "multiples of 5 only",
+          "duration_seconds": 60,
+          "description": "Minis characters appear in animated counting scenario. Student will count items for each of 3 categories."
+        },
+        "id": "s1_1_data_collection_game_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "The Minis are having a busy day! Help count what they're up to.",
+        "id": "s1_1_data_collection_game_b1"
+      },
+      {
+        "type": "prompt",
+        "text": "Count the items and confirm the count for each category.",
+        "tool": "data_collection_interaction",
+        "target": "data_collection_game_minis",
+        "validator": [
+          {
+            "condition_id": "game_complete",
+            "condition": {},
+            "description": "Student completed counting activity for all 3 categories",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "empty",
+                "id": "s1_1_data_collection_game_b2_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_data_collection_game_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_collection_game_minis",
+            "description": "Data collection game completed. Counts recorded for Red Minis, Blue Minis, Green Minis. Values are multiples of 5 in range 10-30.",
+            "tangible_type": "data_collection_game",
+            "categories": [
+              "Red Minis",
+              "Blue Minis",
+              "Green Minis"
+            ]
+          }
+        ],
+        "id": "s1_1_data_collection_game_b3"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:56:37.383777+00:00"
+  },
+  {
+    "id": "s2_1_scale_comparison_display_key_moment",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "picture_graph_scale_2",
+        "tangible_type": "picture_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Books",
+            "Pencils",
+            "Crayons",
+            "Erasers"
+          ],
+          "scale": 2,
+          "description": "Vertical picture graph appears on left. Scale of 2 graph. Each star symbol = 2 items. Half-symbols visible. Key shows Each ⭐ = 2."
+        },
+        "id": "s2_1_scale_comparison_display_key_moment_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's your data with scale of 2. Each symbol shows 2 items.",
+        "id": "s2_1_scale_comparison_display_key_moment_b1"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_scale_2",
+            "description": "Vertical picture graph on left. Scale of 2. Each star symbol = 2 items. Key visible: Each ⭐ = 2.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Books",
+              "Pencils",
+              "Crayons",
+              "Erasers"
+            ],
+            "scale": 2
+          }
+        ],
+        "id": "s2_1_scale_comparison_display_key_moment_b2"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "picture_graph_scale_5",
+        "tangible_type": "picture_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Books",
+            "Pencils",
+            "Crayons",
+            "Erasers"
+          ],
+          "scale": 5,
+          "description": "Vertical picture graph appears on right. Scale of 5 graph. Same data, noticeably fewer symbols. Key shows Each ⭐ = 5."
+        },
+        "id": "s2_1_scale_comparison_display_key_moment_b3"
+      },
+      {
+        "type": "dialogue",
+        "text": "And here's the SAME data with scale of 5. Each symbol shows 5 items.",
+        "id": "s2_1_scale_comparison_display_key_moment_b4"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_scale_2",
+            "description": "Vertical picture graph on left. Scale of 2. Each star symbol = 2 items. Key visible: Each ⭐ = 2.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Books",
+              "Pencils",
+              "Crayons",
+              "Erasers"
+            ],
+            "scale": 2
+          },
+          {
+            "tangible_id": "picture_graph_scale_5",
+            "description": "Vertical picture graph on right. Scale of 5. Each star symbol = 5 items. Fewer symbols than left graph. Key visible: Each ⭐ = 5.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Books",
+              "Pencils",
+              "Crayons",
+              "Erasers"
+            ],
+            "scale": 5
+          }
+        ],
+        "id": "s2_1_scale_comparison_display_key_moment_b5"
+      },
+      {
+        "type": "dialogue",
+        "text": "Same data. Same totals. But look at the graphs. What do you notice about the two graphs?",
+        "id": "s2_1_scale_comparison_display_key_moment_b6"
+      },
+      {
+        "type": "prompt",
+        "text": "What do you notice about the two graphs?",
+        "tool": "multiple_choice",
+        "options": [
+          "The scale-of-5 graph has fewer symbols",
+          "The scale-of-5 graph has more symbols",
+          "They have the same number of symbols",
+          "The graphs show different data"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "The scale-of-5 graph has fewer symbols"
+            },
+            "description": "Student selected that scale-of-5 graph has fewer symbols, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. Fewer symbols for the same data. When each symbol shows MORE, you need FEWER of them.",
+                "id": "s2_1_scale_comparison_display_key_moment_b7_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s2_1_scale_comparison_display_key_moment_b7"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_scale_2",
+            "description": "Vertical picture graph on left. Scale of 2. Each star symbol = 2 items. Key visible: Each ⭐ = 2.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Books",
+              "Pencils",
+              "Crayons",
+              "Erasers"
+            ],
+            "scale": 2
+          },
+          {
+            "tangible_id": "picture_graph_scale_5",
+            "description": "Vertical picture graph on right. Scale of 5. Each star symbol = 5 items. Fewer symbols than left graph. Key visible: Each ⭐ = 5.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Books",
+              "Pencils",
+              "Crayons",
+              "Erasers"
+            ],
+            "scale": 5
+          }
+        ],
+        "id": "s2_1_scale_comparison_display_key_moment_b8"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:56:52.524813+00:00"
+  },
+  {
+    "id": "s3_1_efficiency_discovery",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "picture_graph_scale2",
+        "tangible_type": "picture_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 2,
+          "description": "Picture graph appears on left side showing data with scale of 2. Each symbol represents 2 items."
+        },
+        "id": "s3_1_efficiency_discovery_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "picture_graph_scale5",
+        "tangible_type": "picture_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 5,
+          "description": "Picture graph appears on right side showing same data with scale of 5. Each symbol represents 5 items."
+        },
+        "id": "s3_1_efficiency_discovery_b1"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "picture_graph_scale2",
+        "params": {
+          "event": "highlight_category_symbols",
+          "status": "confirmed",
+          "description": "Symbols in one category highlight on scale of 2 graph, showing total count."
+        },
+        "id": "s3_1_efficiency_discovery_b2"
+      },
+      {
+        "type": "dialogue",
+        "text": "Look at this category. It has this many items.",
+        "id": "s3_1_efficiency_discovery_b3"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "picture_graph_scale2",
+        "params": {
+          "event": "count_symbols",
+          "status": "confirmed",
+          "description": "Symbols count sequentially, showing how many symbols needed with scale of 2."
+        },
+        "id": "s3_1_efficiency_discovery_b4"
+      },
+      {
+        "type": "dialogue",
+        "text": "With scale of 2, that takes this many symbols.",
+        "id": "s3_1_efficiency_discovery_b5"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_scale2",
+            "description": "Picture graph on left with scale of 2. One category's symbols highlighted and counted.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 2
+          },
+          {
+            "tangible_id": "picture_graph_scale5",
+            "description": "Picture graph on right with scale of 5. Same data displayed.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 5
+          }
+        ],
+        "id": "s3_1_efficiency_discovery_b6"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "picture_graph_scale5",
+        "params": {
+          "event": "highlight_category_symbols",
+          "status": "confirmed",
+          "description": "Same category highlights on scale of 5 graph."
+        },
+        "id": "s3_1_efficiency_discovery_b7"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "picture_graph_scale5",
+        "params": {
+          "event": "count_symbols",
+          "status": "confirmed",
+          "description": "Symbols count sequentially, showing fewer symbols needed with scale of 5."
+        },
+        "id": "s3_1_efficiency_discovery_b8"
+      },
+      {
+        "type": "dialogue",
+        "text": "With scale of 5, that's only this many symbols.",
+        "id": "s3_1_efficiency_discovery_b9"
+      },
+      {
+        "type": "dialogue",
+        "text": "Which scale is more efficient for showing this many items?",
+        "id": "s3_1_efficiency_discovery_b10"
+      },
+      {
+        "type": "prompt",
+        "text": "Which scale is more efficient?",
+        "tool": "multiple_choice",
+        "options": [
+          "Scale of 2",
+          "Scale of 5"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "Scale of 5"
+            },
+            "description": "Student selected Scale of 5, correct answer",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's right. Scale of 5. When numbers get bigger, scale of 5 saves space. Fewer symbols, same information.",
+                "id": "s3_1_efficiency_discovery_b11_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s3_1_efficiency_discovery_b11"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_scale2",
+            "description": "Picture graph on left with scale of 2. Category symbols highlighted showing more symbols needed.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 2
+          },
+          {
+            "tangible_id": "picture_graph_scale5",
+            "description": "Picture graph on right with scale of 5. Same category highlighted showing fewer symbols needed. Multiple choice active.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 5
+          }
+        ],
+        "id": "s3_1_efficiency_discovery_b12"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:57:07.624582+00:00"
+  },
+  {
+    "id": "s4_1_bridge_lesson",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "picture_graph_scale5",
+        "tangible_type": "picture_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 5,
+          "description": "Horizontal picture graph with scale of 5 appears. Data from W.2."
+        },
+        "id": "s4_1_bridge_lesson_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "You discovered something important: Scale of 5 uses fewer symbols for the same data.",
+        "id": "s4_1_bridge_lesson_b1"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_scale5",
+            "description": "Horizontal picture graph with scale of 5. Data from W.2.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 5
+          }
+        ],
+        "id": "s4_1_bridge_lesson_b2"
+      },
+      {
+        "type": "dialogue",
+        "text": "But how do you know how many symbols to use? There's a skill that helps.",
+        "id": "s4_1_bridge_lesson_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_scale5",
+            "description": "Horizontal picture graph with scale of 5. Data from W.2.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 5
+          }
+        ],
+        "id": "s4_1_bridge_lesson_b4"
+      },
+      {
+        "type": "dialogue",
+        "text": "Do you remember how to count by 5s?",
+        "id": "s4_1_bridge_lesson_b5"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_scale5",
+            "description": "Horizontal picture graph with scale of 5. Data from W.2.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 5
+          }
+        ],
+        "id": "s4_1_bridge_lesson_b6"
+      },
+      {
+        "type": "dialogue",
+        "text": "Let's learn how skip-counting and scale of 5 work together.",
+        "id": "s4_1_bridge_lesson_b7"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_scale5",
+            "description": "Horizontal picture graph with scale of 5. Data from W.2.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 5
+          }
+        ],
+        "id": "s4_1_bridge_lesson_b8"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:57:14.949683+00:00"
+  }
+]

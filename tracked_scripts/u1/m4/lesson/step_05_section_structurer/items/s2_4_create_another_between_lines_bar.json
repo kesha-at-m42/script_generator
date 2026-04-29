@@ -7,7 +7,24 @@
       "tangible_id": "data_table",
       "tangible_type": "data_table",
       "params": {
+<<<<<<< HEAD
         "description": "Data table appears. Laps Completed data: Runner A=20, Runner B=50, Runner C=35, Runner D=45. Horizontal layout."
+=======
+        "categories": [
+          "Runner A",
+          "Runner B",
+          "Runner C",
+          "Runner D"
+        ],
+        "values": [
+          20,
+          50,
+          35,
+          45
+        ],
+        "orientation": "horizontal",
+        "description": "Data table appears. Laps Completed data. Runner A=20, Runner B=50, Runner C=35, Runner D=45. Horizontal layout."
+>>>>>>> new-script-ui
       }
     },
     {
@@ -18,26 +35,44 @@
       "params": {
         "mode": "building",
         "orientation": "vertical",
+<<<<<<< HEAD
         "scale": 10,
         "axis_range": [
           0,
           60
         ],
+=======
+>>>>>>> new-script-ui
         "categories": [
           "Runner A",
           "Runner B",
           "Runner C",
           "Runner D"
         ],
+<<<<<<< HEAD
+=======
+        "scale": 10,
+        "axis_range": [
+          0,
+          60
+        ],
+>>>>>>> new-script-ui
         "bars": {
           "Runner A": 20,
           "Runner B": 50,
           "Runner C": 0,
           "Runner D": 45
         },
+<<<<<<< HEAD
         "snap_to": 5,
         "ghost_gridlines": true,
         "description": "Vertical bar graph appears. Scale of 10, axis 0–60. Three bars pre-filled: Runner A at 20, Runner B at 50, Runner D at 45. Runner C bar empty. Ghost gridlines at 5s visible. Snap-to-5 enabled."
+=======
+        "ghost_gridlines": true,
+        "gridline_interval": 5,
+        "snap_to": 5,
+        "description": "Vertical bar graph appears. Laps Completed. Scale of 10, axis 0–60. Three bars pre-filled: Runner A=20, Runner B=50, Runner D=45. Runner C bar empty. Ghost gridlines at 5s visible. Snap-to-5 enabled."
+>>>>>>> new-script-ui
       }
     },
     {
@@ -53,6 +88,7 @@
         {
           "condition_id": "correct",
           "condition": {
+<<<<<<< HEAD
             "category": "Runner C",
             "bar_height": 35
           },
@@ -62,6 +98,28 @@
             {
               "type": "dialogue",
               "text": "35. Between 30 and 40, right in the middle."
+=======
+            "bar": "Runner C",
+            "height": 35
+          },
+          "description": "Student set Runner C bar to height 35, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_laps",
+              "params": {
+                "event": "confirm_bar_height",
+                "status": "confirmed",
+                "category": "Runner C",
+                "description": "Runner C bar confirms at height 35."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "35. Between 30 and 40—right in the middle."
+>>>>>>> new-script-ui
             }
           ]
         }
@@ -72,6 +130,7 @@
       "elements": [
         {
           "tangible_id": "data_table",
+<<<<<<< HEAD
           "description": "Data table showing Laps Completed data: Runner A=20, Runner B=50, Runner C=35, Runner D=45.",
           "tangible_type": "data_table"
         },
@@ -86,15 +145,50 @@
             0,
             60
           ],
+=======
+          "description": "Data table showing Laps Completed values. Runner A=20, Runner B=50, Runner C=35, Runner D=45.",
+          "tangible_type": "data_table",
+>>>>>>> new-script-ui
           "categories": [
             "Runner A",
             "Runner B",
             "Runner C",
             "Runner D"
+<<<<<<< HEAD
+=======
+          ],
+          "values": [
+            20,
+            50,
+            35,
+            45
+          ]
+        },
+        {
+          "tangible_id": "bar_graph_laps",
+          "description": "Vertical bar graph in building mode. Laps Completed. All four bars complete: Runner A=20, Runner B=50, Runner C=35, Runner D=45. Scale of 10, axis 0–60. Ghost gridlines at 5s visible.",
+          "tangible_type": "bar_graph",
+          "mode": "building",
+          "orientation": "vertical",
+          "categories": [
+            "Runner A",
+            "Runner B",
+            "Runner C",
+            "Runner D"
+          ],
+          "scale": 10,
+          "axis_range": [
+            0,
+            60
+>>>>>>> new-script-ui
           ]
         }
       ]
     }
   ],
+<<<<<<< HEAD
   "_generated_at": "2026-04-20T17:01:41.507357+00:00"
+=======
+  "_generated_at": "2026-04-27T15:58:16.754954+00:00"
+>>>>>>> new-script-ui
 }

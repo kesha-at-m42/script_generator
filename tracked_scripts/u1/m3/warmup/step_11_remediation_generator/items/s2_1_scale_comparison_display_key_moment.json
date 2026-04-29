@@ -1,0 +1,140 @@
+{
+  "id": "s2_1_scale_comparison_display_key_moment",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "The scale-of-5 graph has more symbols"
+        },
+        "description": "Student selected that scale-of-5 graph has more symbols (opposite of correct)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_scale_2",
+              "params": {
+                "description": "Left graph pulses to draw attention to symbol count."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_scale_5",
+              "params": {
+                "description": "Right graph pulses to draw attention to symbol count."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Count the symbols in each graph. The left graph has many small-value symbols. The right graph has fewer large-value symbols. Which graph has fewer symbols?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "They have the same number of symbols"
+        },
+        "description": "Student selected that graphs have same number of symbols",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_scale_2",
+              "params": {
+                "description": "Left graph symbols pulse individually."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_scale_5",
+              "params": {
+                "description": "Right graph symbols pulse individually."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Count the symbols in the Books column of each graph. The left graph needs more symbols because each one only shows 2. Which graph uses fewer symbols to show the same total?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "The graphs show different data"
+        },
+        "description": "Student selected that graphs show different data",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_scale_2",
+              "params": {
+                "highlight_categories": [
+                  "Books"
+                ],
+                "description": "Books column highlights on left graph."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_scale_5",
+              "params": {
+                "highlight_categories": [
+                  "Books"
+                ],
+                "description": "Books column highlights on right graph."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at Books on both graphs. The left shows 10 items with 5 symbols. The right shows 10 items with 2 symbols. Same data, different scale. What do you notice about how many symbols each graph needs?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_scale_2",
+              "params": {
+                "event": "highlight_all_symbols",
+                "status": "confirmed",
+                "description": "All symbols on left graph highlight sequentially, showing many symbols."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_scale_5",
+              "params": {
+                "event": "highlight_all_symbols",
+                "status": "confirmed",
+                "description": "All symbols on right graph highlight sequentially, showing fewer symbols."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. The left graph uses many symbols because each one only shows 2 items. The right graph uses fewer symbols because each one shows 5 items. When each symbol shows more, you need fewer of them to show the same data. The scale-of-5 graph has fewer symbols."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T16:57:40.165050+00:00"
+}

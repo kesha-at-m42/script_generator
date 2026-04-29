@@ -1,0 +1,69 @@
+{
+  "id": "s1_1_real_world_bridge_type_c",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "real_world_images",
+      "tangible_type": "image",
+      "params": {
+        "description": "Four real-world images displayed: a hand showing 5 fingers, tally marks grouped by 5s, nickels worth 5 cents each, and a clock face with marks every 5 minutes."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "You've been grouping by 5s all lesson. But 5s show up everywhere in real life! Which of these uses groups of 5?"
+    },
+    {
+      "type": "prompt",
+      "text": "Which of these uses groups of 5? Select all that apply.",
+      "tool": "multi_select",
+      "options": [
+        "Hand",
+        "Tally marks",
+        "Nickels",
+        "Clock"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "selected": "Hand"
+              },
+              {
+                "selected": "Tally marks"
+              },
+              {
+                "selected": "Nickels"
+              },
+              {
+                "selected": "Clock"
+              }
+            ]
+          },
+          "description": "Student selected all four options, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "All of them! Hands have 5 fingers. Tallies group by 5s. Nickels are worth 5 cents. Clocks mark every 5 minutes. Grouping by 5s is everywhere—and now you use it for graphs too."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "real_world_images",
+          "description": "Four real-world images: hand, tally marks, nickels, clock face. All four selected and confirmed.",
+          "tangible_type": "image"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:56:29.344849+00:00"
+}

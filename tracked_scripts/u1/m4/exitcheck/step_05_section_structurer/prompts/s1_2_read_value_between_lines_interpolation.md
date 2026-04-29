@@ -1,5 +1,9 @@
 # Prompt: section_structurer
+<<<<<<< HEAD
 # Generated: 2026-04-20T11:57:55.005328
+=======
+# Generated: 2026-04-27T10:53:12.979483
+>>>>>>> new-script-ui
 ======================================================================
 
 ## API Parameters
@@ -249,6 +253,15 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+<<<<<<< HEAD
+=======
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
+>>>>>>> new-script-ui
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -438,6 +451,11 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
 
+<<<<<<< HEAD
+=======
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
+
+>>>>>>> new-script-ui
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
 
@@ -700,6 +718,17 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+<<<<<<< HEAD
+=======
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
+>>>>>>> new-script-ui
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -815,11 +844,19 @@ Cacheable: Yes
   "prompt": "\"What is the value represented for Team A?\"",
   "student_action": "[Multiple choice: 30, 34, 35, 40]",
   "correct_answer": "35",
+<<<<<<< HEAD
   "answer_rationale": "35 = Correct (halfway between 30 and 40)\n  - 30 = Read lower line only (Misconception #5)\n  - 34 = Random guess\n  - 40 = Read upper line only",
   "on_correct": "\"35. It's halfway between 30 and 40. Half of 10 is 5.\"",
   "on_incorrect": "[Remediation Pipeline]",
   "divider": "**Alignment:** Tests same skill as Lesson 2.1-2.2 (reading interpolated value using \"half of 10 = 5\").",
   "_generated_at": "2026-04-20T16:57:14.136052+00:00",
+=======
+  "answer_rationale": "35 = Correct (halfway between 30 and 40)\n30 = Read lower line only (Misconception #5)\n34 = Random guess\n40 = Read upper line only",
+  "on_correct": "\"35. It's halfway between 30 and 40. Half of 10 is 5.\"",
+  "on_incorrect": "[Remediation Pipeline]",
+  "divider": "Alignment: Tests same skill as Lesson 2.1-2.2 (reading interpolated value using \"half of 10 = 5\").",
+  "_generated_at": "2026-04-27T15:52:17.015608+00:00",
+>>>>>>> new-script-ui
   "workspace_specs": {
     "toys": [
       "bar_graph"
@@ -827,7 +864,12 @@ Cacheable: Yes
     "tools": [
       "multiple_choice"
     ]
+<<<<<<< HEAD
   }
+=======
+  },
+  "prior_section_summaries": "## s1_0_transition_into_exit_check\n# Section Summary: s1_0_transition_into_exit_check\n\n**VISUAL STATE:** No tangible visuals or graphs are displayed on screen at section end; the scene is empty.\n\n**CONTENT:** This transition reviews two key skills practiced in the preceding lesson: (1) constructing bar graphs using a scale of 10, and (2) reading bar graph values both at gridlines and at intermediate points between gridlines. The section serves as a bridge into an exit check assessment.\n\n**STUDENT ACTION:** The student did not perform an interactive action in this section; this is a dialogue-only transition that sets expectations for the upcoming assessment task.\n\n---\n\n## s1_1_read_value_at_axis_line\n# Section Summary: s1_1_read_value_at_axis_line\n\n**VISUAL STATE:** A vertical bar graph titled \"Books Checked Out\" is displayed in reading mode. The graph contains four categories (Nonfiction, Fiction, Comics, Poetry) with values 30, 40, 50, and 20 respectively. The scale is 10 with axis range 0–60. A horizontal guideline has been drawn from the top of the Fiction bar to the vertical axis, highlighting the value 40.\n\n**CONTENT:** Students learned to read bar graph values by identifying where a bar aligns with axis gridlines. The skill practiced is locating the exact numerical value a bar represents by tracing to the corresponding axis line.\n\n**STUDENT ACTION:** The student answered a multiple-choice question identifying the Fiction bar's value, selecting 40 from options [4, 35, 40, 45]. Upon correct selection, a guideline animation confirmed the bar's alignment with the 40 axis line."
+>>>>>>> new-script-ui
 }
 </input>
 

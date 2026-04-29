@@ -11,9 +11,15 @@
           "mode": "reading",
           "container_count": 5,
           "items_per_container": 2,
+<<<<<<< HEAD
           "visual_style": "pictures",
           "container_type": "bags",
           "description": "Equal groups visual appears: 5 bags with 2 items each."
+=======
+          "container_type": "bags",
+          "item_type": "pictures",
+          "description": "Equal groups visual appears. 5 bags with 2 items each."
+>>>>>>> new-script-ui
         }
       },
       {
@@ -29,7 +35,11 @@
             "=",
             "__"
           ],
+<<<<<<< HEAD
           "palette": [
+=======
+          "tile_palette": [
+>>>>>>> new-script-ui
             1,
             2,
             3,
@@ -41,7 +51,11 @@
             9,
             10
           ],
+<<<<<<< HEAD
           "description": "Equation builder appears alongside with full equation template and tile palette 1 through 10."
+=======
+          "description": "Equation Builder appears alongside equal groups. Full equation template with three blanks. Tile palette shows numbers 1 through 10."
+>>>>>>> new-script-ui
         }
       },
       {
@@ -57,9 +71,17 @@
           {
             "condition_id": "correct",
             "condition": {
+<<<<<<< HEAD
               "groups": 5,
               "items": 2,
               "total": 10
+=======
+              "placed": {
+                "groups": 5,
+                "items": 2,
+                "total": 10
+              }
+>>>>>>> new-script-ui
             },
             "description": "Student placed 5 × 2 = 10, correct",
             "is_correct": true,
@@ -77,17 +99,30 @@
         "elements": [
           {
             "tangible_id": "equal_groups_bags",
+<<<<<<< HEAD
             "description": "Equal groups visual: 5 bags with 2 items each.",
+=======
+            "description": "Equal groups visual. 5 bags with 2 items each.",
+>>>>>>> new-script-ui
             "tangible_type": "equal_groups",
             "mode": "reading",
             "container_count": 5,
             "items_per_container": 2,
+<<<<<<< HEAD
             "visual_style": "pictures",
             "container_type": "bags"
           },
           {
             "tangible_id": "equation_builder_warmup",
             "description": "Equation builder with template [___] × [___] = [___] and tile palette 1-10. Place_tile tool active.",
+=======
+            "container_type": "bags",
+            "item_type": "pictures"
+          },
+          {
+            "tangible_id": "equation_builder_warmup",
+            "description": "Equation Builder with completed equation 5 × 2 = 10.",
+>>>>>>> new-script-ui
             "tangible_type": "equation_builder",
             "template": [
               "__",
@@ -96,7 +131,11 @@
               "=",
               "__"
             ],
+<<<<<<< HEAD
             "palette": [
+=======
+            "tile_palette": [
+>>>>>>> new-script-ui
               1,
               2,
               3,
@@ -112,7 +151,11 @@
         ]
       }
     ],
+<<<<<<< HEAD
     "_generated_at": "2026-04-20T17:00:30.488251+00:00"
+=======
+    "_generated_at": "2026-04-27T15:53:06.908414+00:00"
+>>>>>>> new-script-ui
   },
   {
     "id": "s2_1_reversed_equation_judgment_task_curiosity",
@@ -120,6 +163,7 @@
       {
         "type": "scene",
         "method": "add",
+<<<<<<< HEAD
         "tangible_id": "equation_student_built",
         "tangible_type": "equation",
         "params": {
@@ -131,6 +175,36 @@
             "10"
           ],
           "description": "Static equation appears: 5 × 2 = 10. Student's equation from previous section, now read-only."
+=======
+        "tangible_id": "equal_groups_bags",
+        "tangible_type": "equal_groups",
+        "params": {
+          "mode": "reading",
+          "container_count": 5,
+          "items_per_container": 2,
+          "description": "Equal groups visual showing 5 bags, each containing 2 picture items."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_builder_warmup",
+        "tangible_type": "equation_builder",
+        "params": {
+          "template": [
+            "__",
+            "×",
+            "__",
+            "=",
+            "__"
+          ],
+          "placed_tiles": {
+            "groups": 5,
+            "items": 2,
+            "total": 10
+          },
+          "description": "Equation builder showing completed equation 5 × 2 = 10."
+>>>>>>> new-script-ui
         }
       },
       {
@@ -139,6 +213,7 @@
         "tangible_id": "equation_reversed",
         "tangible_type": "equation",
         "params": {
+<<<<<<< HEAD
           "expression": [
             "10",
             "=",
@@ -147,6 +222,16 @@
             "2"
           ],
           "description": "Second equation appears alongside or below first: 10 = 5 × 2. Reversed orientation."
+=======
+          "template": [
+            "10",
+            "=",
+            "5",
+            "×",
+            "2"
+          ],
+          "description": "Static equation appears showing 10 = 5 × 2."
+>>>>>>> new-script-ui
         }
       },
       {
@@ -165,11 +250,19 @@
         ],
         "validator": [
           {
+<<<<<<< HEAD
             "condition_id": "both_sides_10",
             "condition": {
               "selected": "It's true — both sides are 10"
             },
             "description": "Student chose option A — checked both sides",
+=======
+            "condition_id": "option_a",
+            "condition": {
+              "selected": "It's true — both sides are 10"
+            },
+            "description": "Student chose option A: both sides are 10",
+>>>>>>> new-script-ui
             "is_correct": true,
             "beats": [
               {
@@ -179,11 +272,19 @@
             ]
           },
           {
+<<<<<<< HEAD
             "condition_id": "just_flipped",
             "condition": {
               "selected": "It's true — it's just written differently"
             },
             "description": "Student chose option B — noticed it's the same equation flipped",
+=======
+            "condition_id": "option_b",
+            "condition": {
+              "selected": "It's true — it's just written differently"
+            },
+            "description": "Student chose option B: same equation flipped",
+>>>>>>> new-script-ui
             "is_correct": true,
             "beats": [
               {
@@ -193,11 +294,19 @@
             ]
           },
           {
+<<<<<<< HEAD
             "condition_id": "answer_last",
             "condition": {
               "selected": "It's wrong — the answer should come last"
             },
             "description": "Student chose option C — thinks answer must come last",
+=======
+            "condition_id": "option_c",
+            "condition": {
+              "selected": "It's wrong — the answer should come last"
+            },
+            "description": "Student chose option C: answer should come last",
+>>>>>>> new-script-ui
             "is_correct": true,
             "beats": [
               {
@@ -207,11 +316,19 @@
             ]
           },
           {
+<<<<<<< HEAD
             "condition_id": "not_sure",
             "condition": {
               "selected": "I'm not sure"
             },
             "description": "Student chose option D — uncertain",
+=======
+            "condition_id": "option_d",
+            "condition": {
+              "selected": "I'm not sure"
+            },
+            "description": "Student chose option D: not sure",
+>>>>>>> new-script-ui
             "is_correct": true,
             "beats": [
               {
@@ -226,6 +343,7 @@
         "type": "current_scene",
         "elements": [
           {
+<<<<<<< HEAD
             "tangible_id": "equation_student_built",
             "description": "Static equation: 5 × 2 = 10.",
             "tangible_type": "equation",
@@ -246,6 +364,41 @@
               "=",
               "5",
               "x",
+=======
+            "tangible_id": "equal_groups_bags",
+            "description": "Equal groups visual showing 5 bags, each containing 2 picture items.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 5,
+            "items_per_container": 2
+          },
+          {
+            "tangible_id": "equation_builder_warmup",
+            "description": "Equation builder showing completed equation 5 × 2 = 10.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "__",
+              "×",
+              "__",
+              "=",
+              "__"
+            ],
+            "placed_tiles": {
+              "groups": 5,
+              "items": 2,
+              "total": 10
+            }
+          },
+          {
+            "tangible_id": "equation_reversed",
+            "description": "Static equation showing 10 = 5 × 2.",
+            "tangible_type": "equation",
+            "template": [
+              "10",
+              "=",
+              "5",
+              "×",
+>>>>>>> new-script-ui
               "2"
             ]
           }
@@ -253,12 +406,17 @@
       },
       {
         "type": "dialogue",
+<<<<<<< HEAD
         "text": "You can build equations. But today, equations have some surprises. You'll see them in new ways and figure out missing numbers."
+=======
+        "text": "You can build equations. But equations have some surprises. You'll see them in new ways and figure out missing numbers."
+>>>>>>> new-script-ui
       },
       {
         "type": "current_scene",
         "elements": [
           {
+<<<<<<< HEAD
             "tangible_id": "equation_student_built",
             "description": "Static equation: 5 × 2 = 10. Remains visible through transition.",
             "tangible_type": "equation",
@@ -279,12 +437,51 @@
               "=",
               "5",
               "x",
+=======
+            "tangible_id": "equal_groups_bags",
+            "description": "Equal groups visual showing 5 bags, each containing 2 picture items.",
+            "tangible_type": "equal_groups",
+            "mode": "reading",
+            "container_count": 5,
+            "items_per_container": 2
+          },
+          {
+            "tangible_id": "equation_builder_warmup",
+            "description": "Equation builder showing completed equation 5 × 2 = 10.",
+            "tangible_type": "equation_builder",
+            "template": [
+              "__",
+              "×",
+              "__",
+              "=",
+              "__"
+            ],
+            "placed_tiles": {
+              "groups": 5,
+              "items": 2,
+              "total": 10
+            }
+          },
+          {
+            "tangible_id": "equation_reversed",
+            "description": "Static equation showing 10 = 5 × 2.",
+            "tangible_type": "equation",
+            "template": [
+              "10",
+              "=",
+              "5",
+              "×",
+>>>>>>> new-script-ui
               "2"
             ]
           }
         ]
       }
     ],
+<<<<<<< HEAD
     "_generated_at": "2026-04-20T17:00:54.934441+00:00"
+=======
+    "_generated_at": "2026-04-27T15:53:29.927478+00:00"
+>>>>>>> new-script-ui
   }
 ]

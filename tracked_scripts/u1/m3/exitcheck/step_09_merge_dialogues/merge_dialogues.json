@@ -1,0 +1,330 @@
+[
+  {
+    "id": "s1_0_transition_into_exit_check",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You made picture graphs with scale of 5. You used skip-counting to figure out how many symbols. Let's see what you know.",
+        "id": "s1_0_transition_into_exit_check_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_transition_into_exit_check_b1"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:56:30.690586+00:00"
+  },
+  {
+    "id": "s1_1_symbol_count_calculation_identify",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "data_table",
+        "tangible_type": "data_table",
+        "params": {
+          "description": "Horizontal data table appears. Favorite Drinks data. Juice=25, Milk=15, Water=30, Lemonade=20. Four categories visible."
+        },
+        "id": "s1_1_symbol_count_calculation_identify_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "This table shows how many students voted for each drink choice. Juice has 25 votes. How many symbols do you need for 25?",
+        "id": "s1_1_symbol_count_calculation_identify_b1"
+      },
+      {
+        "type": "prompt",
+        "text": "How many symbols do you need for 25?",
+        "tool": "multiple_choice",
+        "options": [
+          4,
+          5,
+          25,
+          30
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 5
+            },
+            "description": "Student answered 5, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's right. 5 symbols. Count by 5s: 5, 10, 15, 20, 25.",
+                "id": "s1_1_symbol_count_calculation_identify_b2_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_symbol_count_calculation_identify_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Horizontal data table showing Favorite Drinks values. Juice=25, Milk=15, Water=30, Lemonade=20.",
+            "tangible_type": "data_table"
+          }
+        ],
+        "id": "s1_1_symbol_count_calculation_identify_b3"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:56:37.134361+00:00"
+  },
+  {
+    "id": "s1_2_create_picture_graph_create",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "data_table",
+        "tangible_type": "data_table",
+        "params": {
+          "description": "Data table appears showing Favorite Drinks data: Juice=25, Lemonade=20, Milk=15, Water=30."
+        },
+        "id": "s1_2_create_picture_graph_create_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "picture_graph_drinks",
+        "tangible_type": "picture_graph",
+        "params": {
+          "mode": "building",
+          "orientation": "vertical",
+          "categories": [
+            "Juice",
+            "Lemonade",
+            "Milk",
+            "Water"
+          ],
+          "scale": 5,
+          "pre_filled": {
+            "Juice": 5,
+            "Lemonade": 4
+          },
+          "description": "Vertical picture graph appears. Favorite Drinks. Juice column has 5 symbols, Lemonade has 4 symbols. Milk and Water columns empty. Key visible: each star = 5."
+        },
+        "id": "s1_2_create_picture_graph_create_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "Complete the rest of the graph.",
+        "id": "s1_2_create_picture_graph_create_b2"
+      },
+      {
+        "type": "prompt",
+        "text": "Set the heights for Milk and Water.",
+        "tool": "click_to_set_height",
+        "target": "picture_graph_drinks",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "category": "Milk",
+                  "symbols_placed": 3
+                },
+                {
+                  "category": "Water",
+                  "symbols_placed": 6
+                }
+              ]
+            },
+            "description": "Student set Milk to 3 symbols (15) and Water to 6 symbols (30), correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Nice. You built the graph. Each symbol represents 5.",
+                "id": "s1_2_create_picture_graph_create_b3_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_2_create_picture_graph_create_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing Favorite Drinks data: Juice=25, Lemonade=20, Milk=15, Water=30.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "picture_graph_drinks",
+            "description": "Vertical picture graph. Favorite Drinks. All columns filled: Juice=5, Lemonade=4, Milk=3, Water=6. Key: each star = 5.",
+            "tangible_type": "picture_graph",
+            "mode": "building",
+            "orientation": "vertical",
+            "categories": [
+              "Juice",
+              "Lemonade",
+              "Milk",
+              "Water"
+            ],
+            "scale": 5
+          }
+        ],
+        "id": "s1_2_create_picture_graph_create_b4"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:56:47.299443+00:00"
+  },
+  {
+    "id": "s1_3_read_total_value_identify",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "picture_graph_drinks",
+        "tangible_type": "picture_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Juice",
+            "Milk",
+            "Water",
+            "Lemonade"
+          ],
+          "description": "Vertical picture graph appears. Favorite Drinks data. Juice has 5 symbols, Milk has 3 symbols, Water has 6 symbols, Lemonade has 4 symbols. Key: each symbol = 5 students."
+        },
+        "id": "s1_3_read_total_value_identify_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "Look at the completed graph. How many students chose Water?",
+        "id": "s1_3_read_total_value_identify_b1"
+      },
+      {
+        "type": "prompt",
+        "text": "How many students chose Water?",
+        "tool": "multiple_choice",
+        "options": [
+          6,
+          25,
+          30,
+          35
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": 30
+            },
+            "description": "Student selected 30, correct. 6 symbols times 5 equals 30.",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "picture_graph_drinks",
+                "params": {
+                  "event": "highlight_category",
+                  "status": "confirmed",
+                  "category": "Water",
+                  "description": "Water column highlights to confirm selection."
+                },
+                "id": "s1_3_read_total_value_identify_b2_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Right. 30 students. 6 symbols, each worth 5. Count by 5s: 5, 10, 15, 20, 25, 30. That's how you read a scaled graph.",
+                "id": "s1_3_read_total_value_identify_b2_v0_b1"
+              }
+            ]
+          }
+        ],
+        "id": "s1_3_read_total_value_identify_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "picture_graph_drinks",
+            "description": "Vertical picture graph in reading mode. Favorite Drinks data. Juice has 5 symbols, Milk has 3 symbols, Water has 6 symbols, Lemonade has 4 symbols. Key: each symbol = 5 students. Multiple choice tool active.",
+            "tangible_type": "picture_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Juice",
+              "Milk",
+              "Water",
+              "Lemonade"
+            ]
+          }
+        ],
+        "id": "s1_3_read_total_value_identify_b3"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:56:56.811595+00:00"
+  },
+  {
+    "id": "s1_4_exit_check_closure",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_colors",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Red",
+            "Blue",
+            "Green",
+            "Yellow"
+          ],
+          "axis_range": [
+            0,
+            30
+          ],
+          "scale": 5,
+          "description": "Vertical bar graph in reading mode. Favorite Colors data with scale of 5. Red=25, Blue=15, Green=10, Yellow=20."
+        },
+        "id": "s1_4_exit_check_closure_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "You understand scale of 5. Let's connect what you learned.",
+        "id": "s1_4_exit_check_closure_b1"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "bar_graph_colors",
+            "description": "Vertical bar graph showing Favorite Colors data with scale of 5.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Red",
+              "Blue",
+              "Green",
+              "Yellow"
+            ],
+            "axis_range": [
+              0,
+              30
+            ],
+            "scale": 5
+          }
+        ],
+        "id": "s1_4_exit_check_closure_b2"
+      }
+    ],
+    "_generated_at": "2026-04-20T16:57:01.839137+00:00"
+  }
+]

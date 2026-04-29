@@ -1,0 +1,110 @@
+{
+  "id": "s1_3_read_total_value_identify",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": 6
+        },
+        "description": "Student selected 6, the number of symbols instead of the total value",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_drinks",
+              "params": {
+                "highlight_categories": [
+                  "Water"
+                ],
+                "description": "Water column highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You counted 6 symbols. But each symbol stands for 5 students. Look at the key. What does each symbol represent?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 25
+        },
+        "description": "Student selected 25, stopped skip-counting one step too early",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_drinks",
+              "params": {
+                "highlight_categories": [
+                  "Water"
+                ],
+                "description": "Water column highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're using skip-counting. Count all 6 symbols by 5s: 5, 10, 15, 20, 25, and one more. What comes next?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": 35
+        },
+        "description": "Student selected 35, counted one symbol too many",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_drinks",
+              "params": {
+                "highlight_categories": [
+                  "Water"
+                ],
+                "description": "Water column highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You're skip-counting by 5s. Count the symbols in the Water column carefully. How many symbols do you see?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_drinks",
+              "params": {
+                "event": "highlight_category",
+                "status": "confirmed",
+                "category": "Water",
+                "description": "Water column highlights. System counts each symbol: 5, 10, 15, 20, 25, 30."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. Water has 6 symbols. Each symbol represents 5 students. I count by 5s: 5, 10, 15, 20, 25, 30. Six symbols at a scale of 5 equals 30 students. The key tells you what each symbol is worth, then you skip-count to find the total."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T16:57:59.324969+00:00"
+}

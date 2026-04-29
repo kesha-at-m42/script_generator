@@ -1,5 +1,9 @@
 # Prompt: dialogue_rewriter
+<<<<<<< HEAD
 # Generated: 2026-04-20T12:03:42.923945
+=======
+# Generated: 2026-04-27T11:01:38.890639
+>>>>>>> new-script-ui
 ======================================================================
 
 ## API Parameters
@@ -948,7 +952,11 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
+<<<<<<< HEAD
       "text": "Ava at 50, right at the line. Kai, Noah, and Zoe all between the lines.",
+=======
+      "text": "Ava at 50—right at the line. Kai, Noah, and Zoe—all between the lines.",
+>>>>>>> new-script-ui
       "context": "on_correct"
     }
   ]

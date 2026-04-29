@@ -130,6 +130,19 @@ These two tools are always used in sequence within a building section: `set_cont
 | `drag_tile` | `place_tile` |
 | `equation builder methods c/d` | `place_tile` |
 | `methods c/d` | `place_tile` |
+| `multiple_choice` | `select_one_option` |
+| `multi_select` | `select_all_options` |
+
+> **⚠ Naming review needed:** The `u1_toy_glossary.md` uses more intent-readable names for several of these tools and may be a better canonical. Consider renaming:
+>
+> | Current canonical | Proposed name | Rationale |
+> |---|---|---|
+> | `click_to_place` | `build_category` | Describes the student goal (build a category), not the gesture |
+> | `click_to_set_height` | `build_bar` | Same — "set height" is implementation detail |
+> | `click_tangible` | `select_toy` | "Select" is clearer than "click" for touch/pointer-agnostic contexts |
+> | `click_scale_button` | `select_scale` | Describes what the student is choosing, not the UI element |
+>
+> Also consider adding `select_category` (select multiple categories that all apply) — currently unlisted.
 
 ---
 

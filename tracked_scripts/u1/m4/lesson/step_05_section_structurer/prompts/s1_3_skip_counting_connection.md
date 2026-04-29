@@ -1,5 +1,9 @@
 # Prompt: section_structurer
+<<<<<<< HEAD
 # Generated: 2026-04-20T12:00:07.812824
+=======
+# Generated: 2026-04-27T10:55:32.533594
+>>>>>>> new-script-ui
 ======================================================================
 
 ## API Parameters
@@ -249,6 +253,15 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+<<<<<<< HEAD
+=======
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
+>>>>>>> new-script-ui
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -438,6 +451,11 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
 
+<<<<<<< HEAD
+=======
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
+
+>>>>>>> new-script-ui
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
 
@@ -700,6 +718,17 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+<<<<<<< HEAD
+=======
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
+>>>>>>> new-script-ui
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -818,8 +847,13 @@ Cacheable: Yes
   "student_action": "[Multiple choice: 2, 12, 20, 25]",
   "correct_answer": "20",
   "on_correct": "\"20. Two jumps of 10: 10, 20.\"",
+<<<<<<< HEAD
   "remediation_light": "\"Start at 0. Count by 10s until you reach the top of the bar.\"",
   "_generated_at": "2026-04-20T16:57:15.581673+00:00",
+=======
+  "remediation": "(Light) \"Start at 0. Count by 10s until you reach the top of the bar.\"",
+  "_generated_at": "2026-04-27T15:52:22.023155+00:00",
+>>>>>>> new-script-ui
   "workspace_specs": {
     "toys": [
       "bar_graph"
@@ -828,7 +862,12 @@ Cacheable: Yes
       "multiple_choice"
     ],
     "workspace_carry_over": true
+<<<<<<< HEAD
   }
+=======
+  },
+  "prior_section_summaries": "## s1_1_reading_bar_heights_worked_example\n# Section Summary: Reading Bar Heights – Worked Example\n\n**VISUAL STATE:** A vertical bar graph titled \"Favorite Colors\" is displayed in reading mode. Four bars represent categories Red, Blue, Green, and Yellow with values 40, 30, 50, and 20 respectively. The vertical axis is labeled 0–60 in intervals of 10. Throughout the section, the Red bar (value 40) is highlighted with a horizontal guideline drawn from its top to the axis at the 40 mark.\n\n**CONTENT:** This section introduced the skill of reading bar graph heights by matching bar tops to axis values. Students learned that the vertical axis shows a scale counting by 10s (10, 20, 30, 40, 50, 60), and that a bar's height corresponds to its numerical value. The worked example demonstrated using a guideline and counting by 10s as strategies to accurately read a bar's value.\n\n**STUDENT ACTION:** The student observed a guided demonstration; no interactive input was required. They watched animations highlighting the Red bar, the axis scale, and a counting-by-10s sequence to reinforce how to determine that Red = 40.\n\n---\n\n## s1_2_reading_bar_height\n# Section Summary: s1_2_reading_bar_height\n\n**VISUAL STATE:** A vertical bar graph titled \"Favorite Colors\" is displayed in reading mode. The graph contains four categories (Red, Blue, Green, Yellow) with values 40, 30, 50, and 20 respectively. The y-axis ranges from 0 to 60 with intervals of 10. The Blue bar is highlighted, showing its height at 30 on the axis.\n\n**CONTENT:** Students practiced reading bar graph heights by identifying the value a bar represents based on where it ends on the y-axis. The concept that bar height corresponds to a specific numerical value on the axis was reinforced, with a connection made to picture graphs (3 symbols × 10 = 30).\n\n**STUDENT ACTION:** The student answered a multiple-choice question asking what value the Blue bar's height shows, selecting the correct answer of 30 from options [3, 20, 30, 35]."
+>>>>>>> new-script-ui
 }
 </input>
 

@@ -2,7 +2,7 @@
 
 **Version:** 3.2
 **Last Updated:** April 2026
-**Purpose:** Authoritative guide for all remediation across learning modules
+**Purpose:** Authoritative guide for **branching remediation requirements** across learning modules — defines what feedback to serve and when. This document does not govern validation. Validator coverage is intentionally broader than remediation branching; the goal is to diagnose the cause of student error from accumulated data, not to presume it in advance.
 
 ---
 
@@ -17,11 +17,9 @@
 **SECTION 6** \- Heavy Remediation Language Patterns
 **SECTION 7** \- Post-Modeling Language
 **SECTION 8** \- Error Signal Strategy
-**SECTION 9** \- Misconception Tracking & Intervention Triggers
-**SECTION 10** \- Intervention Activity Overview
-**SECTION 11** \- Remediation by Phase
-**SECTION 12** \- Quality Checklist
-**SECTION 13** \- Output Format Examples
+**SECTION 9** \- Remediation by Phase
+**SECTION 10** \- Quality Checklist
+**SECTION 11** \- Output Format Examples
 
 ---
 
@@ -82,11 +80,28 @@ PATTERN DETECTION (Background)
 
 ---
 
+### 1.5 Branching vs. Validation: Separate Concerns
+
+These are two independent systems with different scopes:
+
+| Concern | What it governs | Coverage |
+| :---- | :---- | :---- |
+| **Branching (this document)** | What remediation to serve and when | Only the cases worth targeted feedback |
+| **Validation (separate)** | What error patterns to log for tracking | Intentionally broader — captures cases not covered by branching |
+
+**The distinction matters.** A wrong answer that receives generic L-M-H feedback can still receive a precise validator tag. Validators are not constrained by what the remediation structure handles. We expect to capture more error patterns than we intend to remediate. The tracking system accumulates data so that error causes are diagnosed from evidence, not assumed in advance — a detected pattern may indicate a misconception, a skill gap, or something else entirely. The cause is a question for the data to answer, not a label to apply upfront.
+
+Do not design validator tags based on what remediations exist. Design them based on what error patterns are worth understanding.
+
+**Validation design is a separate effort from remediation design — and should be treated differently.** Remediation branching is relatively stable once written: changing it means authoring new feedback states and updating production content. Validation should be flexible and subject to ongoing iteration. Validator tags can be added, renamed, split, or retired as understanding of student error patterns develops. The two should not be versioned or locked together. Build remediation to last; build validation to learn.
+
+---
+
 ## SECTION 2: Non-MC Remediation
 
 ### 2.1 Overview
 
-For all non-multiple-choice interactions (shading, partitioning, placing on number lines, dragging, build-mode, etc.), the generic L-M-H is always present. **The validator still tags the probable error type** for misconception tracking, but the student receives generic feedback for any wrong answer — regardless of detected error type. Note: if more conditions are defined in the spec than have remediations designed, those conditions still fall through to the generic L-M-H.
+For all non-multiple-choice interactions (shading, partitioning, placing on number lines, dragging, build-mode, etc.), the generic L-M-H is always present. **The validator still tags the probable error type** for misconception tracking, but the student receives generic feedback for any wrong answer — regardless of detected error type. Note: if more conditions are defined in the spec than have remediations designed, those conditions still fall through to the generic L-M-H. This is also true for validation: validators may tag error types that have no corresponding specific-condition state. Validator coverage is not bounded by the branching structure — they are separate authoring decisions.
 
 When the spec identifies one or more specific known wrong-answer conditions, one targeted Medium per condition is added before the generic states. These specific condition states are a special case of the generic structure — see Section 2.5.
 
@@ -584,102 +599,13 @@ Never repeat the same error signal phrase within 3 interactions. Rotate through:
 
 ---
 
-## SECTION 9: Misconception Tracking & Intervention Triggers
-
-### 9.1 How Tracking Works
-
-Even though non-MC remediation is generic, **validators tag the probable error type** for every wrong answer. This feeds the misconception tracking system.
-
-```
-Student makes error → Generic remediation served
-                   → Validator logs: "Probable Misconception #3"
-                   → Running count updated
-
-[After phase transition]
-System checks: Has any misconception hit threshold?
-    YES → Queue Intervention Activity
-    NO → Continue normal flow
-```
-
-### 9.2 Tracking Parameters
-
-| Parameter | Value | Notes |
-| :---- | :---- | :---- |
-| **Trigger threshold** | 5 errors (placeholder) | TBD with data |
-| **Rolling window** | Last 20 opportunities | Natural decay mechanism |
-| **Window spans** | Lesson, Exit Check, Practice, Spiral Review, Test Prep | Cross-activity tracking |
-| **Check timing** | Phase transitions | Engineer to confirm feasibility |
-| **Post-Intervention threshold** | Window lowers to 15 | Catches continued struggle faster |
-
-### 9.3 What Gets Tracked
-
-**Tracked (feeds Intervention triggers):**
-
-- Misconception indicators (\#1-\#10)
-- Tracked per visual type for accuracy
-- Combined at misconception level for Intervention trigger
-
-**Not Tracked for Intervention:**
-
-- Common procedural errors (counting mistakes, off-by-one)
-- Random/ambiguous errors
-
-### 9.4 Example Tracking Flow
-
-```
-Opportunity 1: Error on Rectangle Bar → Validator: Misconception #3 → Count: 1
-Opportunity 5: Error on Number Line → Validator: Misconception #3 → Count: 2
-Opportunity 9: Error on Rectangle Bar → Validator: Misconception #3 → Count: 3
-Opportunity 14: Error on Grid → Validator: Misconception #3 → Count: 4
-Opportunity 18: Error on Rectangle Bar → Validator: Misconception #3 → Count: 5 ← THRESHOLD
-
-[At next phase transition]
-→ Misconception #3 Intervention queued as next activity
-```
+> **Context — Related Systems (defined separately):** Validator tags feed a background error pattern tracking system that triggers Intervention Activities when patterns reach threshold. A triggered pattern is a hypothesis, not a diagnosis — the cause may be a misconception, a skill gap, or something else. Tracking parameters and intervention design are out of scope here; see the *Error Pattern Tracking Spec* and *Intervention Activity Design Brief*.
 
 ---
 
-## SECTION 10: Intervention Activity Overview
+## SECTION 9: Remediation by Phase
 
-### 10.1 What Interventions Are
-
-Intervention Activities are **standalone instructional sequences** that address a specific misconception directly. They sit outside regular modules and slot into the activity queue when triggered.
-
-### 10.2 Intervention Scope
-
-- **\~10 total** (one per misconception)
-- **Combines visuals** (not visual-specific)
-- **Path-flexible** (may use visuals from multiple paths with worked examples)
-
-### 10.3 Intervention Structure
-
-| Phase | Name | Purpose | Approach |
-| :---- | :---- | :---- | :---- |
-| 1 | **Clarify** | Name the misconception | Metacognitive: "A lot of students think X. Let's look at why that's hard to see..." |
-| 2 | **Model** | Worked examples | Guide demonstrates across 2-3 examples using multiple visuals |
-| 3 | **Confirm** | Independent verification | 2-3 problems student completes independently |
-
-### 10.4 Queue Placement
-
-- Intervention replaces whatever activity would have been next
-- Multiple triggers \= multiple Interventions queued with brain breaks between
-- Follows existing recess/break logic in Activity Queue
-
-### 10.5 After Intervention
-
-- Rolling window lowers to 15 (from 20\)
-- If misconception continues to appear, re-triggers faster
-- Alternative: Queue targeted Practice problems before re-triggering full Intervention
-
-### 10.6 Intervention Design (Separate Document)
-
-Full Intervention Activity design specifications in: **Intervention Activity Design Brief**
-
----
-
-## SECTION 11: Remediation by Phase
-
-### 11.1 Requirements by Phase
+### 9.1 Requirements by Phase
 
 | Phase | Non-MC Requirement | Single-Select MC Requirement | Multiselect MC Requirement | Notes |
 | :---- | :---- | :---- | :---- | :---- |
@@ -690,7 +616,7 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 | Synthesis | Light minimum | Per-distractor Medium \+ Heavy | Per-branch Medium \+ Heavy | Full L-M-H for pattern discovery |
 | Challenge | None | None | None | Assessment mode |
 
-### 11.2 Module Complexity Considerations
+### 9.2 Module Complexity Considerations
 
 **Modules 1-3 (Simple concepts):**
 
@@ -712,9 +638,9 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 
 ---
 
-## SECTION 12: Quality Checklist
+## SECTION 10: Quality Checklist
 
-### 12.1 Non-MC Remediation Checklist
+### 10.1 Non-MC Remediation Checklist
 
 **Track A (ambiguous errors — no specific conditions):**
 - [ ] Generic L-M-H only (no branching by error type)
@@ -733,7 +659,7 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 - [ ] Generic Heavy (`condition: {}`), \[Modeling\] tag REQUIRED, visual REQUIRED
 - [ ] Heavy dialogue ends with closure: names the correct answer and the concept it demonstrates
 
-### 12.2 Single-Select MC Remediation Checklist
+### 10.2 Single-Select MC Remediation Checklist
 
 - [ ] One Medium per distractor (3 distractors \= 3 Mediums)
 - [ ] Each Medium targets specific error that distractor represents
@@ -742,7 +668,7 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 - [ ] Heavy has \[Modeling\] tag
 - [ ] No Light remediation (Single-Select MC skips to Medium)
 
-### 12.2B Multiselect MC Remediation Checklist
+### 10.2B Multiselect MC Remediation Checklist
 
 - [ ] Three Medium remediations — one per error branch (under-selecting, all-wrong, mixed)
 - [ ] Branch 2 Medium (under-selecting) acknowledges correct picks and nudges toward missing answers — near-success tone
@@ -754,7 +680,7 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 - [ ] No Light remediation (Multiselect MC skips to Medium)
 - [ ] Tone varies meaningfully across branches — remediation language does not feel uniform
 
-### 12.3 Variety Checklist (Per Module)
+### 10.3 Variety Checklist (Per Module)
 
 - [ ] Minimum 8 different Light patterns (non-MC)
 - [ ] 4-5 different Medium approaches
@@ -762,7 +688,7 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 - [ ] No exact phrase repeated within 3 problems
 - [ ] Error signals rotated (40-50% with signal)
 
-### 12.4 Structure Violations (Never Include)
+### 10.4 Structure Violations (Never Include)
 
 - ❌ Alternative paths ("Try X or Y")
 - ❌ Light remediation that teaches new content
@@ -773,9 +699,9 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 
 ---
 
-## SECTION 13: Output Format Examples
+## SECTION 11: Output Format Examples
 
-### 13.1 Non-MC Format
+### 11.1 Non-MC Format
 
 ```
 Activity X - [Title]
@@ -801,7 +727,7 @@ Guide: "[Post-modeling acknowledgment]"
 [Validator: Probable error type for tracking - e.g., Misconception_#3]
 ```
 
-### 13.2 Single-Select MC Format
+### 11.2 Single-Select MC Format
 
 ```
 Activity X - [Title] (Multiple Choice)
@@ -836,7 +762,7 @@ ERROR PATHS:
 Guide: "[Post-modeling acknowledgment]"
 ```
 
-### 13.2B Multiselect MC Format
+### 11.2B Multiselect MC Format
 
 ```
 Activity X - [Title] (Multiselect MC — "Select all that apply")
@@ -875,7 +801,7 @@ BRANCH 4 — Mixed (some correct, some incorrect selected):
 Guide: "[Post-modeling acknowledgment]"
 ```
 
-### 13.3 Validator Notation
+### 11.3 Validator Notation
 
 For tracking purposes, include validator notation:
 
@@ -918,7 +844,7 @@ These aggregate to the misconception level for Intervention triggers.
 
 ## END OF DOCUMENT
 
-**Version:** 3.1
+**Version:** 3.2
 **Document Type:** Authoritative reference for script writers
 **Major Changes from v2.0:**
 
@@ -927,6 +853,12 @@ These aggregate to the misconception level for Intervention triggers.
 - Added Misconception Tracking & Intervention system overview
 - Reduced content creation burden significantly
 - Clarified MC structure (Medium per distractor \+ single Heavy)
+
+**Major Changes from v3.1:**
+
+- Clarified document scope: branching remediation requirements only, not validation requirements (Sections 1.5, 2.1, 9.1)
+- Added explicit branching vs. validation distinction (Section 1.5): validator coverage is intentionally broader than branching; error causes are diagnosed from data, not assumed in advance
+- Fixed version number discrepancy (header/footer now consistent)
 
 **Major Changes from v3.0:**
 

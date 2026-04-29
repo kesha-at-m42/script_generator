@@ -1,5 +1,9 @@
 # Prompt: dialogue_rewriter
+<<<<<<< HEAD
 # Generated: 2026-04-20T12:03:49.060352
+=======
+# Generated: 2026-04-27T11:01:44.461989
+>>>>>>> new-script-ui
 ======================================================================
 
 ## API Parameters
@@ -948,10 +952,13 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
+<<<<<<< HEAD
       "text": "All four bars match the data. You built the graph from the table.",
       "context": "on_correct"
     },
     {
+=======
+>>>>>>> new-script-ui
       "text": "How many plants in all for Peppers and Carrots?",
       "context": "lesson"
     },

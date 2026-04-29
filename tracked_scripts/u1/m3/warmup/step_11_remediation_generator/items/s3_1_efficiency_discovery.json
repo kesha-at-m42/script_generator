@@ -1,0 +1,54 @@
+{
+  "id": "s3_1_efficiency_discovery",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "Scale of 2"
+        },
+        "description": "Student selected Scale of 2, believing more symbols means more efficiency",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "picture_graph_scale5",
+              "params": {
+                "description": "Scale of 5 graph highlights to show fewer symbols."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Scale of 2 uses more symbols to show the same amount. Efficient means fewer symbols. Look at how many symbols the scale of 5 graph needs."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "picture_graph_scale5",
+              "params": {
+                "event": "highlight_category_symbols",
+                "status": "confirmed",
+                "description": "Scale of 5 graph highlights, showing fewer symbols represent the same data."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. Both graphs show the same number of items. But scale of 5 uses fewer symbols. That's what makes it more efficient. When we have bigger numbers, scale of 5 saves space. The answer is Scale of 5."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-20T16:57:47.241983+00:00"
+}

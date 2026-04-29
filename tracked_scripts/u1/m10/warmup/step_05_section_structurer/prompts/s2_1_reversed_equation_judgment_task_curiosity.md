@@ -1,5 +1,9 @@
 # Prompt: section_structurer
+<<<<<<< HEAD
 # Generated: 2026-04-20T12:00:31.078801
+=======
+# Generated: 2026-04-27T10:53:07.604782
+>>>>>>> new-script-ui
 ======================================================================
 
 ## API Parameters
@@ -249,6 +253,15 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+<<<<<<< HEAD
+=======
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
+>>>>>>> new-script-ui
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -438,6 +451,11 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
 
+<<<<<<< HEAD
+=======
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
+
+>>>>>>> new-script-ui
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
 
@@ -700,6 +718,17 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+<<<<<<< HEAD
+=======
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
+>>>>>>> new-script-ui
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
@@ -810,6 +839,7 @@ Cacheable: Yes
 <input>
 {
   "id": "s2_1_reversed_equation_judgment_task_curiosity",
+<<<<<<< HEAD
   "purpose": "Present the reversed orientation of the student's own equation as a genuine judgment task. Creates the curiosity gap that Lesson 1.2 will satisfy (\"equals means same value as\"). All responses are valid Warmup responses — none are wrong, because the student's reasoning reveals their current understanding of \\=. The Lesson teaches the concept regardless.",
   "visual": "The equation from W.1 (`5 × 2 = 10`) remains on screen. A second equation appears alongside or below it, reversed: `10 = 5 × 2`.",
   "guide": "\"Now look at this equation. What do you think?\"",
@@ -824,6 +854,22 @@ Cacheable: Yes
   "divider_2": "**No student action**",
   "design_note_2": "Bridge previews all three Lesson demands in compressed form: \"new ways\" (= sign flexibility \\+ context variety) and \"missing numbers\" (unknowns). Session-relative language avoided — no \"today\" in the Guide line, replaced with \"but today\" which functions as a natural conjunction. The preview matches the backbone's specified language: *\"You'll write equations, see them in new ways, and figure out missing numbers.\"* Both equations staying visible through transition creates seamless visual continuity into Lesson 1.1.",
   "_generated_at": "2026-04-20T17:00:13.849920+00:00",
+=======
+  "purpose": "Present the reversed orientation of the student's own equation as a genuine judgment task. Creates the curiosity gap that Lesson 1.2 will satisfy (\"equals means same value as\"). All responses are valid Warmup responses — none are wrong, because the student's reasoning reveals their current understanding of =. The Lesson teaches the concept regardless.",
+  "visual": "The equation from W.1 (`5 × 2 = 10`) remains on screen. A second equation appears alongside or below it, reversed: `10 = 5 × 2`.",
+  "guide": "\"Now look at this equation. What do you think?\"",
+  "prompt": "\"What do you think about 10 = 5 × 2?\"",
+  "method": "MC (4 options — reasoning-based)",
+  "options": "A: \"It's true — both sides are 10\"\nB: \"It's true — it's just written differently\"\nC: \"It's wrong — the answer should come last\"\nD: \"I'm not sure\"\nOn A: \"You checked both sides. Smart thinking. Hold that thought.\"\nOn B: \"You noticed it's the same equation, just flipped. Hold that thought.\"\nOn C: \"Interesting — something looks different about it. Hold that thought.\"\nOn D: \"That's honest — it does look different. Hold that thought.\"",
+  "engagement_anchor": "Curiosity Gap (\"Is this still true?\" — genuine question that creates anticipation for the Lesson's answer)",
+  "design_note": "This is the Warmup's key priming moment. Students who say \"Yes\" may already have flexible = sign understanding — Lesson 1.2 will deepen and formalize it. Students who say \"No\" hold the common misconception (#19: equals means \"answer comes next\") — Lesson 1.2 directly addresses this. Either way, the student has now THOUGHT about what = means before the Lesson teaches it. This is the difference between teaching and priming: the Warmup raises the question, the Lesson provides the answer. Guide says \"Hold that thought\" for both responses — maintaining mystery without validating either answer as correct. No \"You're right\" or \"Not quite\" — that would constitute teaching.",
+  "divider": "Bridge to Lesson:",
+  "visual_2": "Both equations remain visible (`5 × 2 = 10` and `10 = 5 × 2`).",
+  "guide_2": "\"You can build equations. But today, equations have some surprises. You'll see them in new ways and figure out missing numbers.\"",
+  "no_student_action": "",
+  "design_note_2": "Bridge previews all three Lesson demands in compressed form: \"new ways\" (= sign flexibility + context variety) and \"missing numbers\" (unknowns). Session-relative language avoided — no \"today\" in the Guide line, replaced with \"but today\" which functions as a natural conjunction. The preview matches the backbone's specified language: *\"You'll write equations, see them in new ways, and figure out missing numbers.\"* Both equations staying visible through transition creates seamless visual continuity into Lesson 1.1.",
+  "_generated_at": "2026-04-27T15:52:46.352857+00:00",
+>>>>>>> new-script-ui
   "workspace_specs": {
     "toys": [
       "equation_builder"
@@ -832,7 +878,12 @@ Cacheable: Yes
       "multiple_choice"
     ],
     "workspace_carry_over": true
+<<<<<<< HEAD
   }
+=======
+  },
+  "prior_section_summaries": "## s1_1_equation_building_callback_activation\n# Section Summary: s1_1_equation_building_callback_activation\n\n**VISUAL STATE:** Two tangibles are on screen at section end: (1) Equal Groups visual (\"equal_groups_bags\") in reading mode displaying 5 bags, each containing 2 picture items; (2) Equation Builder (\"equation_builder_warmup\") showing the completed equation template with tiles placed as 5 × 2 = 10, with tile palette containing numbers 1–10.\n\n**CONTENT:** This section activates prior knowledge of building multiplication equations from equal groups representations. The vocabulary reinforced includes \"groups,\" \"times,\" and the multiplication equation structure (groups × items per group = total). The concept practiced is translating a visual equal groups model into symbolic multiplication notation.\n\n**STUDENT ACTION:** The student placed number tiles into the three blanks of the equation builder template to construct 5 × 2 = 10, matching the visual representation of 5 groups of 2 items. The validator confirmed correct placement of groups (5), items per group (2), and total (10)."
+>>>>>>> new-script-ui
 }
 </input>
 

@@ -1,5 +1,9 @@
 # Prompt: dialogue_rewriter
+<<<<<<< HEAD
 # Generated: 2026-04-20T12:03:18.912156
+=======
+# Generated: 2026-04-27T11:01:11.824133
+>>>>>>> new-script-ui
 ======================================================================
 
 ## API Parameters
@@ -944,6 +948,7 @@ Cacheable: Yes
   "id": "s2_1_discovering_between_lines_worked_example",
   "dialogues": [
     {
+<<<<<<< HEAD
       "text": "Look at Jake's bar. It doesn't end at a line—it ends between the lines.",
       "context": "lesson"
     },
@@ -953,6 +958,17 @@ Cacheable: Yes
     },
     {
       "text": "Half of 10 is 5. So between 20 and 30, that's 20 + 5 = 25. Jake has 25 stickers.",
+=======
+      "text": "Look at Jake's bar. It doesn't end at a line. It ends BETWEEN THE LINES.",
+      "context": "lesson"
+    },
+    {
+      "text": "Remember half-symbols from scale of 2? Half of 2 was 1. Same idea here. Half of 10 is 5.",
+      "context": "lesson"
+    },
+    {
+      "text": "Half of 10 is 5. So between 20 and 30, that's 20 plus 5 equals 25. Jake has 25 stickers.",
+>>>>>>> new-script-ui
       "context": "lesson"
     }
   ]

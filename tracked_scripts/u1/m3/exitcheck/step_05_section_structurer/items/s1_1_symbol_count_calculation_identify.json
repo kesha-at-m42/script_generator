@@ -1,0 +1,56 @@
+{
+  "id": "s1_1_symbol_count_calculation_identify",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Horizontal data table appears. Favorite Drinks data. Juice=25, Milk=15, Water=30, Lemonade=20. Four categories visible."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "This table shows how many students voted for each drink choice. Juice has 25 votes. How many symbols do you need for 25?"
+    },
+    {
+      "type": "prompt",
+      "text": "How many symbols do you need for 25?",
+      "tool": "multiple_choice",
+      "options": [
+        4,
+        5,
+        25,
+        30
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": 5
+          },
+          "description": "Student answered 5, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "5 symbols. Count by 5s: 5, 10, 15, 20, 25."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Horizontal data table showing Favorite Drinks values. Juice=25, Milk=15, Water=30, Lemonade=20.",
+          "tangible_type": "data_table"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-20T16:56:37.134361+00:00"
+}
