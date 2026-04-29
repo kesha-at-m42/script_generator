@@ -1,0 +1,189 @@
+[
+  {
+    "id": "s1_1_wodb_recognition_exposure",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "wodb_grid",
+        "tangible_type": "multiple_choice",
+        "params": {
+          "layout": "2x2_grid",
+          "description": "Four rectangles appear in a 2×2 grid. Each rectangle is a prebuilt Hundred Grid Mode B observation display showing different row counts, side lengths, or aspect ratios. Build affordances disabled."
+        },
+        "id": "s1_1_wodb_recognition_exposure_b0",
+        "_notion_block_id": "3515917e-ac52-813f-9c83-e6993f3ce940"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "companion_display",
+        "tangible_type": "mode_b_display",
+        "params": {
+          "mode": "observation",
+          "description": "Companion Mode B display appears adjacent to the grid, in observation mode."
+        },
+        "id": "s1_1_wodb_recognition_exposure_b1",
+        "_notion_block_id": "3515917e-ac52-8144-a6a0-f9457180e210"
+      },
+      {
+        "type": "dialogue",
+        "text": "Four rectangles. Three go together. One is different. Which one?",
+        "id": "s1_1_wodb_recognition_exposure_b2",
+        "_notion_block_id": "3515917e-ac52-8152-9f69-eb83894473a5"
+      },
+      {
+        "type": "prompt",
+        "text": "Tap the rectangle that is different.",
+        "tool": "multiple_choice",
+        "target": "wodb_grid",
+        "validator": [
+          {
+            "condition_id": "selected",
+            "condition": {},
+            "description": "Student tapped any rectangle",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "wodb_grid",
+                "params": {
+                  "event": "highlight_selection",
+                  "status": "confirmed",
+                  "description": "Selected rectangle highlights."
+                },
+                "id": "s1_1_wodb_recognition_exposure_b3_v0_b0"
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "companion_display",
+                "params": {
+                  "event": "linked_highlight",
+                  "status": "confirmed",
+                  "description": "Companion display fires linked highlight reflecting student's selection."
+                },
+                "id": "s1_1_wodb_recognition_exposure_b3_v0_b1"
+              },
+              {
+                "type": "dialogue",
+                "text": "You chose that one.",
+                "id": "s1_1_wodb_recognition_exposure_b3_v0_b2",
+                "_notion_block_id": "3515917e-ac52-81ef-81fb-e461f131a414"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_wodb_recognition_exposure_b3",
+        "_notion_block_id": "3515917e-ac52-8192-9fac-fce11dcdbe36"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "wodb_grid",
+            "description": "2×2 grid of four rectangles. Student's selected rectangle highlighted.",
+            "tangible_type": "multiple_choice",
+            "layout": "2x2_grid"
+          },
+          {
+            "tangible_id": "companion_display",
+            "description": "Companion Mode B display with linked highlight reflecting student's selection.",
+            "tangible_type": "mode_b_display",
+            "mode": "observation"
+          }
+        ],
+        "id": "s1_1_wodb_recognition_exposure_b4",
+        "_notion_block_id": "3515917e-ac52-8152-84bd-c0ab825b0d7d"
+      },
+      {
+        "type": "dialogue",
+        "text": "Let's look at what you noticed.",
+        "id": "s1_1_wodb_recognition_exposure_b5",
+        "_notion_block_id": "3515917e-ac52-8172-9219-d2a2d5d84a94"
+      },
+      {
+        "type": "prompt",
+        "text": "I chose ___ because ___",
+        "tool": "fill_in_blank",
+        "target": "reasoning_dropdown",
+        "validator": [
+          {
+            "condition_id": "reasoning_selected",
+            "condition": {},
+            "description": "Student selected reasoning from dropdown",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "empty",
+                "id": "s1_1_wodb_recognition_exposure_b6_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_wodb_recognition_exposure_b6",
+        "_notion_block_id": "3515917e-ac52-8146-9fff-c7e7e35da58a"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "wodb_grid",
+            "description": "2×2 grid of four rectangles. Student's selected rectangle highlighted.",
+            "tangible_type": "multiple_choice",
+            "layout": "2x2_grid"
+          },
+          {
+            "tangible_id": "companion_display",
+            "description": "Companion Mode B display. Linked highlight persists briefly, then clears.",
+            "tangible_type": "mode_b_display",
+            "mode": "observation"
+          }
+        ],
+        "id": "s1_1_wodb_recognition_exposure_b7"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:16:54.736444+00:00",
+    "_notion_block_id": "3515917e-ac52-8172-a9a6-e2cd797fb13c"
+  },
+  {
+    "id": "s2_1_bridge_lesson_bridge",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "hundred_grid_mode_b",
+        "params": {
+          "event": "clear_prebuilt_rectangle",
+          "status": "confirmed",
+          "description": "The prebuilt rectangle on the Hundred Grid Mode B surface disappears, leaving the grid blank and ready for tile placement. Build affordances activate."
+        },
+        "id": "s2_1_bridge_lesson_bridge_b0",
+        "_notion_block_id": "3515917e-ac52-812d-92a7-cd4af03d8819"
+      },
+      {
+        "type": "dialogue",
+        "text": "Now you'll build one.",
+        "id": "s2_1_bridge_lesson_bridge_b1",
+        "_notion_block_id": "3515917e-ac52-8169-a555-dbd222ec3898"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_mode_b",
+            "tangible_type": "hundred_grid_mode_b",
+            "description": "Hundred Grid Mode B surface, blank and ready for student tile placement. Build affordances enabled.",
+            "mode": "build",
+            "snap_state": "off"
+          }
+        ],
+        "id": "s2_1_bridge_lesson_bridge_b2"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:17:02.657242+00:00",
+    "_notion_block_id": "3515917e-ac52-8117-9176-c206e1c900f6"
+  }
+]

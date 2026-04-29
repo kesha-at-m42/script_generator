@@ -1,0 +1,1419 @@
+[
+  {
+    "id": "s1_0_purpose_frame",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You just saw four rectangles and noticed differences between them. Things like how many rows they had or how long each row was. Now you're going to build your own rectangles on the grid, one row at a time. When you tap Check, you'll see how many squares you used. And we'll write a sentence that names what that area means. Everything we do today builds to one sentence: ___ is a multiple of ___ because ___ × ___ = ___. Let's build the first rectangle now.",
+        "id": "s1_0_purpose_frame_b0",
+        "_notion_block_id": "3515917e-ac52-818c-8911-dfa9ea64cbe5"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_purpose_frame_b1"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:17:15.518893+00:00",
+    "_notion_block_id": "3515917e-ac52-81f1-8e03-fde5ef4e0cea"
+  },
+  {
+    "id": "s1_1_free_tile_build_find_rectangle",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "hundred_grid",
+        "tangible_type": "hundred_grid",
+        "params": {
+          "mode": "mode_b",
+          "grid_snap": false,
+          "numeric_labels_visible": false,
+          "side_handles_exposed": false,
+          "description": "Hundred Grid appears in Mode B. Grid-snap off, numeric cell labels hidden, side handles not exposed. Clean surface ready for free tile placement."
+        },
+        "id": "s1_1_free_tile_build_find_rectangle_b0",
+        "_notion_block_id": "3515917e-ac52-81f5-a1d9-c75097d264cf"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "tile_bank",
+        "tangible_type": "tile_bank",
+        "params": {
+          "tile_count": 12,
+          "description": "Tile bank appears with 12 tiles available for placement."
+        },
+        "id": "s1_1_free_tile_build_find_rectangle_b1",
+        "_notion_block_id": "3515917e-ac52-81d7-9d4e-ef74c4c8ff09"
+      },
+      {
+        "type": "dialogue",
+        "text": "You have 12 tiles. Place them on the grid to make a rectangle.",
+        "id": "s1_1_free_tile_build_find_rectangle_b2",
+        "_notion_block_id": "3515917e-ac52-81b9-8be1-eac8b1023cd0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid",
+            "description": "Hundred Grid in Mode B. Grid-snap off, numeric labels hidden, side handles not exposed. Clean surface.",
+            "tangible_type": "hundred_grid",
+            "mode": "mode_b",
+            "grid_snap": false,
+            "numeric_labels_visible": false,
+            "side_handles_exposed": false
+          },
+          {
+            "tangible_id": "tile_bank",
+            "description": "Tile bank with 12 tiles available.",
+            "tangible_type": "tile_bank",
+            "tile_count": 12
+          }
+        ],
+        "id": "s1_1_free_tile_build_find_rectangle_b3",
+        "_notion_block_id": "3515917e-ac52-81b4-8a84-f64ef7b08d6c"
+      },
+      {
+        "type": "dialogue",
+        "text": "When your rectangle is complete, tap Check.",
+        "id": "s1_1_free_tile_build_find_rectangle_b4",
+        "_notion_block_id": "3515917e-ac52-8154-a154-e286a2cc28c1"
+      },
+      {
+        "type": "prompt",
+        "text": "Place 12 tiles to make a rectangle, then tap Check.",
+        "tool": "place_tile",
+        "target": "hundred_grid",
+        "validator": [
+          {
+            "condition_id": "rectangle_formed",
+            "condition": {
+              "shape": "rectangle",
+              "tile_count": 12
+            },
+            "description": "Student formed a valid rectangle with 12 tiles in rows of equal length",
+            "is_correct": true,
+            "variable_answer": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Nice. Your rectangle has tiles in rows.",
+                "id": "s1_1_free_tile_build_find_rectangle_b5_v0_b0",
+                "_notion_block_id": "3515917e-ac52-8169-970d-f7dd4ed7cf66"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student placed tiles but did not form a valid rectangle on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Not quite. A rectangle has rows of equal length.",
+                "id": "s1_1_free_tile_build_find_rectangle_b5_v1_b0",
+                "_notion_block_id": "3515917e-ac52-81a7-92b0-dfaead69074a"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student placed tiles but did not form a valid rectangle on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid",
+                "params": {
+                  "description": "Grid shows example rectangle outline with 3 rows of 4 tiles each."
+                },
+                "id": "s1_1_free_tile_build_find_rectangle_b5_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at this example: 3 rows, 4 tiles in each row. Every row has the same number. Now use your 12 tiles to make rows that match.",
+                "id": "s1_1_free_tile_build_find_rectangle_b5_v2_b1",
+                "_notion_block_id": "3515917e-ac52-81b9-b4f0-fb6f35e3c8d6"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student placed tiles but did not form a valid rectangle. System models a valid arrangement.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "hundred_grid",
+                "params": {
+                  "event": "demonstrate_rectangle",
+                  "status": "confirmed",
+                  "description": "System arranges 12 tiles into 3 rows of 4, demonstrating equal row lengths."
+                },
+                "id": "s1_1_free_tile_build_find_rectangle_b5_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. I'm placing 12 tiles in 3 rows. Each row has 4 tiles. Count them: row 1 has 4, row 2 has 4, row 3 has 4. When every row has the same number, that's a rectangle. The answer is 3 rows of 4.",
+                "id": "s1_1_free_tile_build_find_rectangle_b5_v3_b1",
+                "_notion_block_id": "3515917e-ac52-816f-bbb3-f381fee7b43c"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_free_tile_build_find_rectangle_b5",
+        "_notion_block_id": "3515917e-ac52-8132-8bf5-cfe4568564ff"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid",
+            "description": "Hundred Grid in Mode B with 12 tiles placed in rectangular arrangement. Rows of equal length formed.",
+            "tangible_type": "hundred_grid",
+            "mode": "mode_b",
+            "grid_snap": false,
+            "numeric_labels_visible": false,
+            "side_handles_exposed": false
+          },
+          {
+            "tangible_id": "tile_bank",
+            "description": "Tile bank now empty after all 12 tiles placed.",
+            "tangible_type": "tile_bank",
+            "tile_count": 0
+          }
+        ],
+        "id": "s1_1_free_tile_build_find_rectangle_b6",
+        "_notion_block_id": "3515917e-ac52-81e6-9674-ff6440f9fb02"
+      },
+      {
+        "type": "dialogue",
+        "text": "Now fill in the sentence to describe what you built.",
+        "id": "s1_1_free_tile_build_find_rectangle_b7",
+        "_notion_block_id": "3515917e-ac52-818c-b9b1-fcf64788b8a9"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "concrete_stem",
+        "tangible_type": "sentence_builder",
+        "params": {
+          "template": "My rectangle has ___ tiles in ___ rows.",
+          "description": "Sentence builder appears with two number slots for student to complete."
+        },
+        "id": "s1_1_free_tile_build_find_rectangle_b8",
+        "_notion_block_id": "3515917e-ac52-81ca-b043-d3407118e498"
+      },
+      {
+        "type": "prompt",
+        "text": "Fill in: My rectangle has ___ tiles in ___ rows.",
+        "tool": "fill_number_slot",
+        "target": "concrete_stem",
+        "validator": [
+          {
+            "condition_id": "stem_complete",
+            "condition": {
+              "slots_filled": 2,
+              "total_matches_tile_count": true
+            },
+            "description": "Student filled both slots with values that match their rectangle configuration",
+            "is_correct": true,
+            "variable_answer": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's it. You built rows of equal length. That describes a rectangle.",
+                "id": "s1_1_free_tile_build_find_rectangle_b9_v0_b0",
+                "_notion_block_id": "3515917e-ac52-8144-aab6-d47095e1ecd8"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student filled slots incorrectly on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Check your numbers. Count the total tiles, then count the rows.",
+                "id": "s1_1_free_tile_build_find_rectangle_b9_v1_b0",
+                "_notion_block_id": "3515917e-ac52-81f6-83c5-c77fc170764a"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student filled slots incorrectly on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid",
+                "params": {
+                  "description": "One row of the rectangle highlights."
+                },
+                "id": "s1_1_free_tile_build_find_rectangle_b9_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "The first blank needs the total number of tiles you placed. The second blank needs how many rows you made. Count the rows on your rectangle now.",
+                "id": "s1_1_free_tile_build_find_rectangle_b9_v2_b1",
+                "_notion_block_id": "3515917e-ac52-81f7-97d4-f03733277f4a"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student filled slots incorrectly. System models the correct completion.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "concrete_stem",
+                "params": {
+                  "event": "fill_slots",
+                  "status": "confirmed",
+                  "description": "System fills both slots with values matching the student's built rectangle."
+                },
+                "id": "s1_1_free_tile_build_find_rectangle_b9_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's how to fill it. I count all the tiles: that's 12 total. I count the rows you made: that's the row count. The sentence is: My rectangle has 12 tiles in your-row-count rows. The total goes first, then the row count. That describes what you built.",
+                "id": "s1_1_free_tile_build_find_rectangle_b9_v3_b1",
+                "_notion_block_id": "3515917e-ac52-81a8-9569-d22e221585b7"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_free_tile_build_find_rectangle_b9",
+        "_notion_block_id": "3515917e-ac52-81a9-b797-c004f1250902"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid",
+            "description": "Hundred Grid in Mode B with 12 tiles in rectangular arrangement.",
+            "tangible_type": "hundred_grid",
+            "mode": "mode_b",
+            "grid_snap": false,
+            "numeric_labels_visible": false,
+            "side_handles_exposed": false
+          },
+          {
+            "tangible_id": "tile_bank",
+            "description": "Tile bank empty.",
+            "tangible_type": "tile_bank",
+            "tile_count": 0
+          },
+          {
+            "tangible_id": "concrete_stem",
+            "description": "Sentence builder showing completed stem with student's row count and total tile count.",
+            "tangible_type": "sentence_builder",
+            "template": "My rectangle has ___ tiles in ___ rows."
+          }
+        ],
+        "id": "s1_1_free_tile_build_find_rectangle_b10"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:17:38.591214+00:00",
+    "_notion_block_id": "3515917e-ac52-81c4-b994-fe3ce5b0802c"
+  },
+  {
+    "id": "s2_1_read_built_rectangle_with_concrete",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "Use the checked rectangle to fill the sentence. How many rows do you see? How many squares are in each row?",
+        "id": "s2_1_read_built_rectangle_with_concrete_b0",
+        "_notion_block_id": "3515917e-ac52-8175-90c4-c46287b41217"
+      },
+      {
+        "type": "prompt",
+        "text": "Fill the sentence using the rectangle you built.",
+        "tool": "fill_in_blank",
+        "template": "___ tiles fill ___ rows of ___, so the area is ___ square units",
+        "slots": [
+          {
+            "slot_id": "total_tiles",
+            "position": 1,
+            "type": "number"
+          },
+          {
+            "slot_id": "row_count",
+            "position": 2,
+            "type": "number"
+          },
+          {
+            "slot_id": "row_size",
+            "position": 3,
+            "type": "number"
+          },
+          {
+            "slot_id": "area",
+            "position": 4,
+            "type": "number"
+          }
+        ],
+        "variable_answer": true,
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "slot": "total_tiles",
+                  "matches_rectangle_tile_count": true
+                },
+                {
+                  "slot": "row_count",
+                  "matches_rectangle_rows": true
+                },
+                {
+                  "slot": "row_size",
+                  "matches_rectangle_row_length": true
+                },
+                {
+                  "slot": "area",
+                  "equals_slot": "total_tiles"
+                }
+              ]
+            },
+            "description": "Student filled all slots correctly using their built rectangle's dimensions",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. You tied the built object to the sentence. Row count and row size are separate values.",
+                "id": "s2_1_read_built_rectangle_with_concrete_b1_v0_b0",
+                "_notion_block_id": "3515917e-ac52-817e-8a10-fa5f43a3928f"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "slot": "total_tiles",
+                  "matches_rectangle_tile_count": false
+                },
+                {
+                  "incorrect_count": 1
+                }
+              ]
+            },
+            "description": "Student filled total_tiles slot incorrectly on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Count all the tiles in your rectangle. How many squares did you place?",
+                "id": "s2_1_read_built_rectangle_with_concrete_b1_v1_b0",
+                "_notion_block_id": "3515917e-ac52-81c2-a3e6-ed7acbf46ee6"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "slot": "row_count",
+                  "matches_rectangle_rows": false
+                },
+                {
+                  "incorrect_count": 1
+                }
+              ]
+            },
+            "description": "Student filled row_count slot incorrectly on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Count the rows going across. Each row is one line of tiles.",
+                "id": "s2_1_read_built_rectangle_with_concrete_b1_v2_b0",
+                "_notion_block_id": "3515917e-ac52-819f-bdfa-ca317304b325"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "slot": "row_size",
+                  "matches_rectangle_row_length": false
+                },
+                {
+                  "incorrect_count": 1
+                }
+              ]
+            },
+            "description": "Student filled row_size slot incorrectly on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Pick one row. Count how many squares are in that row.",
+                "id": "s2_1_read_built_rectangle_with_concrete_b1_v3_b0",
+                "_notion_block_id": "3515917e-ac52-81a6-a47e-eb4af7482df2"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "slot": "area",
+                  "equals_slot": "total_tiles"
+                },
+                {
+                  "slot": "area",
+                  "incorrect": true
+                },
+                {
+                  "incorrect_count": 1
+                }
+              ]
+            },
+            "description": "Student filled area slot incorrectly on first attempt (but attempted to match total_tiles logic)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "The area equals the total number of tiles. Check your first number.",
+                "id": "s2_1_read_built_rectangle_with_concrete_b1_v4_b0",
+                "_notion_block_id": "3515917e-ac52-8116-87e6-c86d527e608d"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student filled one or more slots incorrectly on first attempt (generic case)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Look at your rectangle. Count the rows, then count how many tiles are in one row.",
+                "id": "s2_1_read_built_rectangle_with_concrete_b1_v5_b0",
+                "_notion_block_id": "3515917e-ac52-8184-937b-e8018e3ac936"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "slot": "total_tiles",
+                  "matches_rectangle_tile_count": false
+                },
+                {
+                  "incorrect_count": 2
+                }
+              ]
+            },
+            "description": "Student filled total_tiles slot incorrectly on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid",
+                "params": {
+                  "highlight_all_tiles": true,
+                  "description": "All tiles in the rectangle highlight."
+                },
+                "id": "s2_1_read_built_rectangle_with_concrete_b1_v6_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Count every highlighted tile in your rectangle. That number goes in the first blank.",
+                "id": "s2_1_read_built_rectangle_with_concrete_b1_v6_b1",
+                "_notion_block_id": "3515917e-ac52-8123-88cb-cd2b54a9c9ec"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "slot": "row_count",
+                  "matches_rectangle_rows": false
+                },
+                {
+                  "incorrect_count": 2
+                }
+              ]
+            },
+            "description": "Student filled row_count slot incorrectly on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid",
+                "params": {
+                  "highlight_rows": true,
+                  "description": "Each row in the rectangle highlights sequentially to show row structure."
+                },
+                "id": "s2_1_read_built_rectangle_with_concrete_b1_v7_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Count the highlighted rows. Each row is a separate line of tiles. How many rows do you see?",
+                "id": "s2_1_read_built_rectangle_with_concrete_b1_v7_b1",
+                "_notion_block_id": "3515917e-ac52-8172-87d3-fb9c79145b51"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "slot": "row_size",
+                  "matches_rectangle_row_length": false
+                },
+                {
+                  "incorrect_count": 2
+                }
+              ]
+            },
+            "description": "Student filled row_size slot incorrectly on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid",
+                "params": {
+                  "highlight_single_row": true,
+                  "description": "One row in the rectangle highlights."
+                },
+                "id": "s2_1_read_built_rectangle_with_concrete_b1_v8_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at this highlighted row. Count the tiles in just this one row. That number tells you the size of each row.",
+                "id": "s2_1_read_built_rectangle_with_concrete_b1_v8_b1",
+                "_notion_block_id": "3515917e-ac52-8160-8973-da97a362f6ce"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student filled one or more slots incorrectly on second attempt (generic case)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid",
+                "params": {
+                  "highlight_rows": true,
+                  "description": "Rows in the rectangle highlight sequentially."
+                },
+                "id": "s2_1_read_built_rectangle_with_concrete_b1_v9_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's break this down. First count all the tiles. Then count the rows. Then count how many tiles are in one row. The area equals the total tiles.",
+                "id": "s2_1_read_built_rectangle_with_concrete_b1_v9_b1",
+                "_notion_block_id": "3515917e-ac52-81f1-a461-ff4bf2810252"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student filled one or more slots incorrectly after multiple attempts. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "hundred_grid",
+                "params": {
+                  "event": "demonstrate_counting_sequence",
+                  "status": "confirmed",
+                  "description": "System animates counting all tiles, then highlights rows sequentially, then shows one row's tile count, then displays area label."
+                },
+                "id": "s2_1_read_built_rectangle_with_concrete_b1_v10_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's how to read this rectangle. Count all the tiles to get the total. Count the rows by looking at each horizontal line. Pick one row and count its tiles to find the row size. The area equals the total number of tiles because area measures how many square units fill the shape. Now fill in the sentence using those four values.",
+                "id": "s2_1_read_built_rectangle_with_concrete_b1_v10_b1",
+                "_notion_block_id": "3515917e-ac52-815e-9181-cc011d1a5d98"
+              }
+            ]
+          }
+        ],
+        "id": "s2_1_read_built_rectangle_with_concrete_b1",
+        "_notion_block_id": "3515917e-ac52-8188-add8-d886cbdc27d7"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid",
+            "description": "Hundred Grid in Mode B with 12 tiles arranged in a rectangle. Grid snap off, numeric labels hidden, side handles not exposed.",
+            "tangible_type": "hundred_grid",
+            "mode": "mode_b",
+            "grid_snap": false,
+            "numeric_labels_visible": false,
+            "tile_count": 12
+          },
+          {
+            "tangible_id": "tile_bank",
+            "description": "Tile Bank empty, 0 tiles remaining.",
+            "tangible_type": "tile_bank",
+            "tile_count": 0
+          },
+          {
+            "tangible_id": "sentence_builder",
+            "description": "Sentence Builder displaying completed template: '___ tiles fill ___ rows of ___, so the area is ___ square units' with all four slots filled by student.",
+            "tangible_type": "sentence_builder",
+            "template": "___ tiles fill ___ rows of ___, so the area is ___ square units"
+          }
+        ],
+        "id": "s2_1_read_built_rectangle_with_concrete_b2"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:17:54.088923+00:00",
+    "_notion_block_id": "3515917e-ac52-818f-8bb4-cc2cf9f2aae3"
+  },
+  {
+    "id": "s3_1_snap_on_transition_same_rectangle",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "hundred_grid",
+        "params": {
+          "event": "snap_tiles_to_grid",
+          "status": "confirmed",
+          "description": "Student's 12-tile rectangle animates smoothly from free-placed positions to grid-aligned coordinates. Each tile moves to its nearest grid cell. Ambiguous overlaps resolve to one tile per cell; extras removed with undo affordance visible. Grid snap toggles ON."
+        },
+        "id": "s3_1_snap_on_transition_same_rectangle_b0",
+        "_notion_block_id": "3515917e-ac52-818a-94ba-d1350b0a5589"
+      },
+      {
+        "type": "dialogue",
+        "text": "Watch what happens to your rectangle. It's snapping into the grid. Same rectangle, easier to read.",
+        "id": "s3_1_snap_on_transition_same_rectangle_b1",
+        "_notion_block_id": "3515917e-ac52-810d-9a13-cd5e3380e492"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid",
+            "description": "Hundred Grid in Mode B with grid snap ON. 12 tiles arranged in a rectangle, now aligned to grid coordinates. Numeric labels hidden. Side handles not exposed.",
+            "tangible_type": "hundred_grid",
+            "mode": "mode_b",
+            "grid_snap": true,
+            "labels_visible": false,
+            "handles_exposed": false,
+            "tile_count": 12
+          },
+          {
+            "tangible_id": "tile_bank",
+            "description": "Tile Bank empty, 0 tiles remaining.",
+            "tangible_type": "tile_bank",
+            "tiles_remaining": 0
+          },
+          {
+            "tangible_id": "sentence_builder",
+            "description": "Sentence Builder displaying completed template from prior section: '___ tiles fill ___ rows of ___, so the area is ___ square units' with all slots filled.",
+            "tangible_type": "sentence_builder"
+          }
+        ],
+        "id": "s3_1_snap_on_transition_same_rectangle_b2",
+        "_notion_block_id": "3515917e-ac52-8120-bd99-cb3d1058f596"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "hundred_grid",
+        "params": {
+          "highlight_rows": true,
+          "description": "One row of the snapped rectangle highlights to draw attention to row structure."
+        },
+        "id": "s3_1_snap_on_transition_same_rectangle_b3",
+        "_notion_block_id": "3515917e-ac52-8139-b7bc-c80268a45cba"
+      },
+      {
+        "type": "dialogue",
+        "text": "Tap a highlighted row or side to show you see the rows.",
+        "id": "s3_1_snap_on_transition_same_rectangle_b4",
+        "_notion_block_id": "3515917e-ac52-811f-b69d-ea90cce6c3ff"
+      },
+      {
+        "type": "prompt",
+        "text": "Tap a highlighted row or side.",
+        "tool": "click_tangible",
+        "target": {
+          "type": "hundred_grid"
+        },
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {},
+            "description": "Student tapped the highlighted row or grid surface, acknowledging the structure",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "empty",
+                "id": "s3_1_snap_on_transition_same_rectangle_b5_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s3_1_snap_on_transition_same_rectangle_b5",
+        "_notion_block_id": "3515917e-ac52-8175-9d88-db384efc1c10"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid",
+            "description": "Hundred Grid in Mode B with grid snap ON. 12 tiles in rectangle, grid-aligned. One row highlighted. Numeric labels hidden. Side handles not exposed.",
+            "tangible_type": "hundred_grid",
+            "mode": "mode_b",
+            "grid_snap": true,
+            "labels_visible": false,
+            "handles_exposed": false,
+            "tile_count": 12,
+            "highlight_rows": true
+          },
+          {
+            "tangible_id": "tile_bank",
+            "description": "Tile Bank empty, 0 tiles remaining.",
+            "tangible_type": "tile_bank",
+            "tiles_remaining": 0
+          },
+          {
+            "tangible_id": "sentence_builder",
+            "description": "Sentence Builder displaying completed template from prior section.",
+            "tangible_type": "sentence_builder"
+          }
+        ],
+        "id": "s3_1_snap_on_transition_same_rectangle_b6",
+        "_notion_block_id": "3515917e-ac52-81a3-b179-ea5b6b61849e"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "hundred_grid",
+        "params": {
+          "highlight_rows": false,
+          "description": "Row highlight clears."
+        },
+        "id": "s3_1_snap_on_transition_same_rectangle_b7",
+        "_notion_block_id": "3515917e-ac52-8123-9503-c479d391c6d3"
+      },
+      {
+        "type": "dialogue",
+        "text": "Do you see the rows? Every row has the same number of squares.",
+        "id": "s3_1_snap_on_transition_same_rectangle_b8",
+        "_notion_block_id": "3515917e-ac52-81c3-aa8c-cb887cfe3906"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid",
+            "description": "Hundred Grid in Mode B with grid snap ON. 12 tiles in rectangle, grid-aligned. No highlights. Numeric labels hidden. Side handles not exposed.",
+            "tangible_type": "hundred_grid",
+            "mode": "mode_b",
+            "grid_snap": true,
+            "labels_visible": false,
+            "handles_exposed": false,
+            "tile_count": 12
+          },
+          {
+            "tangible_id": "tile_bank",
+            "description": "Tile Bank empty, 0 tiles remaining.",
+            "tangible_type": "tile_bank",
+            "tiles_remaining": 0
+          },
+          {
+            "tangible_id": "sentence_builder",
+            "description": "Sentence Builder displaying completed template from prior section.",
+            "tangible_type": "sentence_builder"
+          }
+        ],
+        "id": "s3_1_snap_on_transition_same_rectangle_b9"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:18:19.434158+00:00",
+    "_notion_block_id": "3515917e-ac52-81d5-967f-f59cc83e9f4e"
+  },
+  {
+    "id": "s4_1_fixed_side_build_row_extension",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "hundred_grid_b",
+        "tangible_type": "hundred_grid",
+        "params": {
+          "mode": "B",
+          "grid_snap": true,
+          "numeric_labels_visible": false,
+          "side_handles_exposed": true,
+          "fixed_side_length": 4,
+          "locked_dimension": "width",
+          "tiles_placed": 0,
+          "description": "Hundred Grid Mode B appears with grid snap ON. No tiles placed yet. Side handle exposed for free dimension (height). Width locked at 4 squares (fixed-side-length lock active). No dimension or area labels visible."
+        },
+        "id": "s4_1_fixed_side_build_row_extension_b0",
+        "_notion_block_id": "3515917e-ac52-817c-a1ad-eee702aaa433"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "tile_bank",
+        "tangible_type": "tile_bank",
+        "params": {
+          "tiles_remaining": 0,
+          "description": "Tile Bank remains on screen, empty."
+        },
+        "id": "s4_1_fixed_side_build_row_extension_b1",
+        "_notion_block_id": "3515917e-ac52-8143-91a8-c0e9c792179a"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "sentence_builder",
+        "tangible_type": "sentence_builder",
+        "params": {
+          "template": "___ tiles fill ___ rows of ___, so the area is ___ square units",
+          "slots_filled": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "description": "Sentence Builder displays completed template from prior section."
+        },
+        "id": "s4_1_fixed_side_build_row_extension_b2",
+        "_notion_block_id": "3515917e-ac52-817f-ab30-f8d65993ce87"
+      },
+      {
+        "type": "dialogue",
+        "text": "Now build a rectangle where one side is 4 squares long. Drag the handle to extend the rectangle, then tap Check.",
+        "id": "s4_1_fixed_side_build_row_extension_b3",
+        "_notion_block_id": "3515917e-ac52-8120-a24b-dcab202e1d8b"
+      },
+      {
+        "type": "prompt",
+        "text": "Drag the side handle to build the rectangle, then tap Check.",
+        "tool": "check",
+        "target": "hundred_grid_b",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {},
+            "description": "Student built a rectangle with fixed width 4 and variable height, then tapped Check",
+            "is_correct": true,
+            "variable_answer": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid_b",
+                "params": {
+                  "dimension_labels_visible": true,
+                  "area_label_visible": true,
+                  "description": "Dimension labels and area label appear on the rectangle after Check."
+                },
+                "id": "s4_1_fixed_side_build_row_extension_b4_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Right. Your rectangle is 4 wide and the height you chose. The area is shown at the center.",
+                "id": "s4_1_fixed_side_build_row_extension_b4_v0_b1",
+                "_notion_block_id": "3515917e-ac52-8150-af05-c85964a59a5a"
+              }
+            ]
+          }
+        ],
+        "id": "s4_1_fixed_side_build_row_extension_b4",
+        "_notion_block_id": "3515917e-ac52-8177-b84e-fa4b67da3e84"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_b",
+            "description": "Hundred Grid Mode B with grid snap ON. Rectangle built with width 4 (locked) and variable height. Dimension labels (W × H) and area label visible at center. No equation overlay shown.",
+            "tangible_type": "hundred_grid",
+            "mode": "B",
+            "grid_snap": true,
+            "numeric_labels_visible": false,
+            "side_handles_exposed": true,
+            "fixed_side_length": 4,
+            "locked_dimension": "width",
+            "dimension_labels_visible": true,
+            "area_label_visible": true
+          },
+          {
+            "tangible_id": "tile_bank",
+            "description": "Tile Bank empty.",
+            "tangible_type": "tile_bank",
+            "tiles_remaining": 0
+          },
+          {
+            "tangible_id": "sentence_builder",
+            "description": "Sentence Builder showing completed template from prior section.",
+            "tangible_type": "sentence_builder",
+            "template": "___ tiles fill ___ rows of ___, so the area is ___ square units",
+            "slots_filled": [
+              true,
+              true,
+              true,
+              true
+            ]
+          }
+        ],
+        "id": "s4_1_fixed_side_build_row_extension_b5"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:18:41.115307+00:00",
+    "_notion_block_id": "3515917e-ac52-8137-9217-dfaf902621ee"
+  },
+  {
+    "id": "s5_1_multiple_statement_stem_first_completion",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "hundred_grid",
+        "params": {
+          "description": "Hundred Grid Mode B displays student-built rectangle with dimension labels (W × H) and area label visible at center. Equation overlay suppressed. Grid snap enabled."
+        },
+        "id": "s5_1_multiple_statement_stem_first_completion_b0",
+        "_notion_block_id": "3515917e-ac52-8168-ac15-e4925fadfccf"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "sentence_builder_multiple",
+        "tangible_type": "sentence_builder",
+        "params": {
+          "template": "___ is a multiple of ___ because ___ × ___ = ___",
+          "description": "Sentence builder appears with 5 blank slots. Some slots pre-filled with linked values from Mode B Check: dimension values and area value auto-pushed. Pre-filled slots visually distinct from empty slots."
+        },
+        "id": "s5_1_multiple_statement_stem_first_completion_b1",
+        "_notion_block_id": "3515917e-ac52-8189-a5f8-de3f8036faa9"
+      },
+      {
+        "type": "dialogue",
+        "text": "Now fill in the sentence about your rectangle.",
+        "id": "s5_1_multiple_statement_stem_first_completion_b2",
+        "_notion_block_id": "3515917e-ac52-811a-909d-ec806d5f421a"
+      },
+      {
+        "type": "prompt",
+        "text": "Tap each blank slot and fill in the sentence.",
+        "tool": "fill_in_blank",
+        "target": "sentence_builder_multiple",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "template_complete": true,
+              "values_match_rectangle": true
+            },
+            "description": "All slots filled correctly: area value in slot 1, fixed side length in slot 2, matching multiplication factors in slots 3-4-5",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "sentence_builder_multiple",
+                "params": {
+                  "event": "confirm_all_slots",
+                  "status": "confirmed",
+                  "description": "All slots confirm. Sentence displays complete."
+                },
+                "id": "s5_1_multiple_statement_stem_first_completion_b3_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Right. Your sentence says the area is a multiple of the fixed side length because width times height equals the area. That matches the rectangle you built.",
+                "id": "s5_1_multiple_statement_stem_first_completion_b3_v0_b1",
+                "_notion_block_id": "3515917e-ac52-81c7-8826-e032139b3c9d"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student filled slots incorrectly on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Look at the area label on your rectangle. That number goes in the first slot.",
+                "id": "s5_1_multiple_statement_stem_first_completion_b3_v1_b0",
+                "_notion_block_id": "3515917e-ac52-81bb-a06a-d8de24b07bc3"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student filled slots incorrectly on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid",
+                "params": {
+                  "highlight_dimension_labels": true,
+                  "highlight_area_label": true,
+                  "description": "Dimension labels and area label highlight on the rectangle."
+                },
+                "id": "s5_1_multiple_statement_stem_first_completion_b3_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the labels on your rectangle. The area goes in slot 1. The fixed side length, 4, goes in slot 2. Then width times height equals that area.",
+                "id": "s5_1_multiple_statement_stem_first_completion_b3_v2_b1",
+                "_notion_block_id": "3515917e-ac52-8199-a10a-cc66129c4d54"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student filled slots incorrectly three or more times. System models the correct completion.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "sentence_builder_multiple",
+                "params": {
+                  "event": "auto_fill_slots",
+                  "status": "confirmed",
+                  "description": "System fills all slots in sequence: area value in slot 1, fixed side 4 in slot 2, width and height in slots 3-4-5 matching the multiplication."
+                },
+                "id": "s5_1_multiple_statement_stem_first_completion_b3_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "The area is a multiple of 4 because when you multiply 4 times the number of rows, you get the area. That is what the sentence names. The area has to be a multiple of 4 because each row adds 4 more squares.",
+                "id": "s5_1_multiple_statement_stem_first_completion_b3_v3_b1",
+                "_notion_block_id": "3515917e-ac52-81f1-9c0d-c3b8a188a1bc"
+              }
+            ]
+          }
+        ],
+        "id": "s5_1_multiple_statement_stem_first_completion_b3",
+        "_notion_block_id": "3515917e-ac52-816a-be75-d87bc3757da1"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid",
+            "description": "Hundred Grid Mode B displays student-built rectangle with dimension labels (W × H) and area label visible. Grid snap enabled. Equation overlay suppressed.",
+            "tangible_type": "hundred_grid",
+            "mode": "mode_b",
+            "grid_snap": true
+          },
+          {
+            "tangible_id": "sentence_builder_multiple",
+            "description": "Sentence builder shows completed template: area is a multiple of fixed side length because width times height equals area. All slots filled and confirmed.",
+            "tangible_type": "sentence_builder",
+            "template": "___ is a multiple of ___ because ___ × ___ = ___",
+            "status": "complete"
+          }
+        ],
+        "id": "s5_1_multiple_statement_stem_first_completion_b4"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:19:01.347945+00:00",
+    "_notion_block_id": "3515917e-ac52-81e7-92c5-e0d2474a494b"
+  },
+  {
+    "id": "s6_1_second_fixed_side_build_varied",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "hundred_grid",
+        "params": {
+          "reset_rectangle": true,
+          "description": "Rectangle clears from grid. Hundred Grid remains in Mode B with grid snap ON. Side handle for width=4 remains locked and exposed."
+        },
+        "id": "s6_1_second_fixed_side_build_varied_b0",
+        "_notion_block_id": "3515917e-ac52-81a9-a52b-c8fe04456103"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "sentence_builder",
+        "params": {
+          "clear_all_slots": true,
+          "description": "All five slots in sentence builder clear, template resets to blank state."
+        },
+        "id": "s6_1_second_fixed_side_build_varied_b1",
+        "_notion_block_id": "3515917e-ac52-81ae-8a22-fc7e62e63962"
+      },
+      {
+        "type": "dialogue",
+        "text": "You built one rectangle with that side length. Now build a different rectangle with the same side length. Drag the handle to a different height.",
+        "id": "s6_1_second_fixed_side_build_varied_b2",
+        "_notion_block_id": "3515917e-ac52-81b8-a3a9-efdca157a524"
+      },
+      {
+        "type": "prompt",
+        "text": "Drag the handle to build a rectangle with the same width but a different number of rows.",
+        "tool": "drag_handle",
+        "target": "hundred_grid.side_handle",
+        "validator": [
+          {
+            "condition_id": "different_height",
+            "condition": {
+              "height_changed": true
+            },
+            "description": "Student built rectangle with same width=4 but different row count than previous rectangle",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "empty",
+                "id": "s6_1_second_fixed_side_build_varied_b3_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s6_1_second_fixed_side_build_varied_b3",
+        "_notion_block_id": "3515917e-ac52-81a7-87e0-d1c1e9d219df"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid",
+            "description": "Hundred Grid Mode B with grid snap ON. Student-built rectangle visible with width locked at 4 squares and student-selected height different from prior section. Side handle active.",
+            "tangible_type": "hundred_grid",
+            "mode": "mode_b",
+            "grid_snap": true,
+            "fixed_width": 4
+          },
+          {
+            "tangible_id": "sentence_builder",
+            "description": "Sentence Builder showing empty template: '___ is a multiple of ___ because ___ × ___ = ___'",
+            "tangible_type": "sentence_builder"
+          }
+        ],
+        "id": "s6_1_second_fixed_side_build_varied_b4",
+        "_notion_block_id": "3515917e-ac52-81bb-b85c-c2bab432d4ff"
+      },
+      {
+        "type": "dialogue",
+        "text": "Now tap Check.",
+        "id": "s6_1_second_fixed_side_build_varied_b5",
+        "_notion_block_id": "3515917e-ac52-81a3-8133-cfdfcc336c9f"
+      },
+      {
+        "type": "prompt",
+        "text": "Tap Check to validate your rectangle.",
+        "tool": "check",
+        "target": "hundred_grid",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {},
+            "description": "Student tapped Check, rectangle validated, dimension and area labels appear",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid",
+                "params": {
+                  "show_dimension_labels": true,
+                  "show_area_label": true,
+                  "description": "Dimension labels (W × H) and area label appear at rectangle center."
+                },
+                "id": "s6_1_second_fixed_side_build_varied_b6_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s6_1_second_fixed_side_build_varied_b6",
+        "_notion_block_id": "3515917e-ac52-81e4-a275-cb4495a10b9d"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid",
+            "description": "Hundred Grid Mode B showing validated rectangle with dimension labels (W × H) and area label visible at center. Width=4 locked, height varied from prior section.",
+            "tangible_type": "hundred_grid",
+            "mode": "mode_b",
+            "grid_snap": true,
+            "fixed_width": 4,
+            "show_dimension_labels": true,
+            "show_area_label": true
+          },
+          {
+            "tangible_id": "sentence_builder",
+            "description": "Sentence Builder showing empty template ready for completion.",
+            "tangible_type": "sentence_builder"
+          }
+        ],
+        "id": "s6_1_second_fixed_side_build_varied_b7",
+        "_notion_block_id": "3515917e-ac52-8113-a95f-e4417254064b"
+      },
+      {
+        "type": "dialogue",
+        "text": "Now complete the sentence with this new area.",
+        "id": "s6_1_second_fixed_side_build_varied_b8",
+        "_notion_block_id": "3515917e-ac52-81b0-901d-d800cb55f4be"
+      },
+      {
+        "type": "prompt",
+        "text": "Fill in all five slots to complete the sentence about this rectangle's area.",
+        "tool": "fill_in_blank",
+        "target": "sentence_builder",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "all_slots_filled": true,
+              "slot_1_equals": "area",
+              "slot_2_equals": 4,
+              "multiplication_correct": true
+            },
+            "description": "Student filled all five slots correctly: area in slot 1, 4 in slot 2, width and height in slots 3-5 matching multiplication",
+            "is_correct": true,
+            "variable_answer": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. You built two different rectangles with the same side length. Both areas are multiples of 4. Every time you add a row of 4, you get the next multiple.",
+                "id": "s6_1_second_fixed_side_build_varied_b9_v0_b0",
+                "_notion_block_id": "3515917e-ac52-8147-94e7-ced0f6ecd00d"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student filled one or more slots incorrectly on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Look at the labels on your rectangle. Which number shows the total area?",
+                "id": "s6_1_second_fixed_side_build_varied_b9_v1_b0",
+                "_notion_block_id": "3515917e-ac52-8164-b63b-ff2b61006a00"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student filled one or more slots incorrectly on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid",
+                "params": {
+                  "highlight_area_label": true,
+                  "description": "Area label at rectangle center highlights."
+                },
+                "id": "s6_1_second_fixed_side_build_varied_b9_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "The area goes in the first blank. The fixed side length, 4, goes in the second blank. Then fill the multiplication to show width times height equals that area.",
+                "id": "s6_1_second_fixed_side_build_varied_b9_v2_b1",
+                "_notion_block_id": "3515917e-ac52-8142-a584-df90cabb1276"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student filled one or more slots incorrectly three or more times. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "sentence_builder",
+                "params": {
+                  "event": "fill_all_slots_sequentially",
+                  "status": "confirmed",
+                  "description": "System fills all five slots in order: area value in slot 1, 4 in slot 2, width in slot 3, height in slot 4, area in slot 5."
+                },
+                "id": "s6_1_second_fixed_side_build_varied_b9_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's how this sentence works. The area is a multiple of 4 because 4 times the number of rows equals the area. The first blank names the area. The second blank names what it's a multiple of. The last three blanks show the multiplication that proves it.",
+                "id": "s6_1_second_fixed_side_build_varied_b9_v3_b1",
+                "_notion_block_id": "3515917e-ac52-8169-9b00-fa087bdf044f"
+              }
+            ]
+          }
+        ],
+        "id": "s6_1_second_fixed_side_build_varied_b9",
+        "_notion_block_id": "3515917e-ac52-8165-9224-ccb7021fce08"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid",
+            "description": "Hundred Grid Mode B showing completed rectangle with dimension and area labels visible.",
+            "tangible_type": "hundred_grid",
+            "mode": "mode_b",
+            "grid_snap": true,
+            "fixed_width": 4,
+            "show_dimension_labels": true,
+            "show_area_label": true
+          },
+          {
+            "tangible_id": "sentence_builder",
+            "description": "Sentence Builder with all five slots completed, expressing that the area is a multiple of 4.",
+            "tangible_type": "sentence_builder",
+            "all_slots_filled": true
+          }
+        ],
+        "id": "s6_1_second_fixed_side_build_varied_b10"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:19:30.271054+00:00",
+    "_notion_block_id": "3515917e-ac52-81a5-9de1-c9176ce354c5"
+  }
+]

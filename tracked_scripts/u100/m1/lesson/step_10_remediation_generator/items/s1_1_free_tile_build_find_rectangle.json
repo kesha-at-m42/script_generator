@@ -1,0 +1,132 @@
+{
+  "id": "s1_1_free_tile_build_find_rectangle",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student placed tiles but did not form a valid rectangle on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. A rectangle has rows of equal length."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student placed tiles but did not form a valid rectangle on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid",
+              "params": {
+                "description": "Grid shows example rectangle outline with 3 rows of 4 tiles each."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at this example: 3 rows, 4 tiles in each row. Every row has the same number. Now use your 12 tiles to make rows that match."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student placed tiles but did not form a valid rectangle. System models a valid arrangement.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "hundred_grid",
+              "params": {
+                "event": "demonstrate_rectangle",
+                "status": "confirmed",
+                "description": "System arranges 12 tiles into 3 rows of 4, demonstrating equal row lengths."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. I'm placing 12 tiles in 3 rows. Each row has 4 tiles. Count them: row 1 has 4, row 2 has 4, row 3 has 4. When every row has the same number, that's a rectangle. The answer is 3 rows of 4."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student filled slots incorrectly on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Check your numbers. Count the total tiles, then count the rows."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student filled slots incorrectly on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid",
+              "params": {
+                "description": "One row of the rectangle highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The first blank needs the total number of tiles you placed. The second blank needs how many rows you made. Count the rows on your rectangle now."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student filled slots incorrectly. System models the correct completion.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "concrete_stem",
+              "params": {
+                "event": "fill_slots",
+                "status": "confirmed",
+                "description": "System fills both slots with values matching the student's built rectangle."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how to fill it. I count all the tiles: that's 12 total. I count the rows you made: that's the row count. The sentence is: My rectangle has 12 tiles in your-row-count rows. The total goes first, then the row count. That describes what you built."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-29T21:20:05.966416+00:00"
+}

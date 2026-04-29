@@ -1,0 +1,69 @@
+{
+  "id": "s1_1_rectangle_recognition_which_is_multiple",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student tapped a wrong rectangle on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Find the area of each rectangle first, then check if it is a multiple of 3."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student tapped a wrong rectangle on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "rectangle_3x4",
+              "params": {
+                "description": "3×4 rectangle highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at this rectangle. It has 3 rows of 4 squares. Count the total: 3 rows of 4 is 12. Is 12 a multiple of 3?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student tapped a wrong rectangle three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "rectangle_3x4",
+              "params": {
+                "event": "highlight_selection",
+                "status": "confirmed",
+                "description": "3×4 rectangle highlights to show the correct answer."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. The 3×4 rectangle has 3 rows of 4 squares. That gives an area of 12. 12 is a multiple of 3 because 3 times 4 equals 12. The answer is the 3×4 rectangle."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-29T21:18:10.089475+00:00"
+}

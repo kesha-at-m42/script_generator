@@ -1,0 +1,84 @@
+{
+  "id": "s2_2_tool_preference_reflection",
+  "type": "transition",
+  "beats": [
+    {
+      "type": "dialogue",
+      "text": "You built rectangles two ways today. First placing tiles freely, then using the handle to extend full rows."
+    },
+    {
+      "type": "prompt",
+      "text": "Which way helped you see the rows more clearly?",
+      "tool": "multiple_choice",
+      "options": [
+        "Placing tiles one by one",
+        "Dragging the handle to extend a full row",
+        "Both ways helped equally",
+        "I'm not sure yet"
+      ],
+      "validator": [
+        {
+          "condition_id": "placed_tiles",
+          "condition": {
+            "selected": "Placing tiles one by one"
+          },
+          "description": "Student selected placing tiles one by one",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "When you placed tiles, you had to decide where each one went. That takes focus. Good to know how you think."
+            }
+          ]
+        },
+        {
+          "condition_id": "dragged_handle",
+          "condition": {
+            "selected": "Dragging the handle to extend a full row"
+          },
+          "description": "Student selected dragging the handle",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Dragging the handle adds a whole row at once. That makes the row structure easier to see."
+            }
+          ]
+        },
+        {
+          "condition_id": "both_ways",
+          "condition": {
+            "selected": "Both ways helped equally"
+          },
+          "description": "Student selected both ways helped equally",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Different moments, different tools. That kind of flexibility helps."
+            }
+          ]
+        },
+        {
+          "condition_id": "not_sure",
+          "condition": {
+            "selected": "I'm not sure yet"
+          },
+          "description": "Student selected not sure yet",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Still figuring it out is fine. You'll notice over time."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": []
+    }
+  ],
+  "_generated_at": "2026-04-29T21:17:42.260342+00:00"
+}

@@ -1,0 +1,1023 @@
+[
+  {
+    "id": "s1_0_transition_frame",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You built rectangles with the same side length and wrote sentences about the areas. Now I want to see what you can do on your own. These three problems are for you to complete independently.",
+        "id": "s1_0_transition_frame_b0",
+        "_notion_block_id": "3515917e-ac52-817d-afeb-ed05f8756977"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_transition_frame_b1"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:16:52.874416+00:00",
+    "_notion_block_id": "3515917e-ac52-817c-8659-d9860c672367"
+  },
+  {
+    "id": "s1_1_rectangle_recognition_which_is_multiple",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "rectangle_3x4",
+        "tangible_type": "rectangle",
+        "params": {
+          "mode": "reading",
+          "rows": 3,
+          "columns": 4,
+          "description": "3×4 rectangle appears. 3 rows of 4 squares. Area = 12. Build affordances disabled."
+        },
+        "id": "s1_1_rectangle_recognition_which_is_multiple_b0",
+        "_notion_block_id": "3515917e-ac52-8119-991d-e3d6d8e59465"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "rectangle_2x5",
+        "tangible_type": "rectangle",
+        "params": {
+          "mode": "reading",
+          "rows": 2,
+          "columns": 5,
+          "description": "2×5 rectangle appears. 2 rows of 5 squares. Area = 10. Build affordances disabled."
+        },
+        "id": "s1_1_rectangle_recognition_which_is_multiple_b1",
+        "_notion_block_id": "3515917e-ac52-810b-b446-e9c16fc1d190"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "rectangle_1x7",
+        "tangible_type": "rectangle",
+        "params": {
+          "mode": "reading",
+          "rows": 1,
+          "columns": 7,
+          "description": "1×7 rectangle appears. 1 row of 7 squares. Area = 7. Build affordances disabled."
+        },
+        "id": "s1_1_rectangle_recognition_which_is_multiple_b2",
+        "_notion_block_id": "3515917e-ac52-8136-9e74-ecd01b8e9017"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here are three rectangles. One of them has an area that is a multiple of 3.",
+        "id": "s1_1_rectangle_recognition_which_is_multiple_b3",
+        "_notion_block_id": "3515917e-ac52-8194-a16c-e1eb76a9094a"
+      },
+      {
+        "type": "prompt",
+        "text": "Tap the rectangle that has an area that is a multiple of 3.",
+        "tool": "click_tangible",
+        "target": [
+          "rectangle_3x4",
+          "rectangle_2x5",
+          "rectangle_1x7"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "rectangle_3x4"
+            },
+            "description": "Student tapped the 3×4 rectangle, correct, area = 12",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "rectangle_3x4",
+                "params": {
+                  "event": "highlight_selection",
+                  "status": "confirmed",
+                  "description": "3×4 rectangle highlights to confirm selection."
+                },
+                "id": "s1_1_rectangle_recognition_which_is_multiple_b4_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Right. Your rectangle has 3 rows of 4 squares. The area is 12. That is a multiple of 3.",
+                "id": "s1_1_rectangle_recognition_which_is_multiple_b4_v0_b1",
+                "_notion_block_id": "3515917e-ac52-813a-a5bf-d6182af5d878"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student tapped a wrong rectangle on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Not quite. Find the area of each rectangle first, then check if it is a multiple of 3.",
+                "id": "s1_1_rectangle_recognition_which_is_multiple_b4_v1_b0",
+                "_notion_block_id": "3515917e-ac52-811c-9382-ed2b50dff022"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student tapped a wrong rectangle on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "rectangle_3x4",
+                "params": {
+                  "description": "3×4 rectangle highlights."
+                },
+                "id": "s1_1_rectangle_recognition_which_is_multiple_b4_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at this rectangle. It has 3 rows of 4 squares. Count the total: 3 rows of 4 is 12. Is 12 a multiple of 3?",
+                "id": "s1_1_rectangle_recognition_which_is_multiple_b4_v2_b1",
+                "_notion_block_id": "3515917e-ac52-813e-af9b-ffd650e21b58"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student tapped a wrong rectangle three or more times. System models the answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "rectangle_3x4",
+                "params": {
+                  "event": "highlight_selection",
+                  "status": "confirmed",
+                  "description": "3×4 rectangle highlights to show the correct answer."
+                },
+                "id": "s1_1_rectangle_recognition_which_is_multiple_b4_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. The 3×4 rectangle has 3 rows of 4 squares. That gives an area of 12. 12 is a multiple of 3 because 3 times 4 equals 12. The answer is the 3×4 rectangle.",
+                "id": "s1_1_rectangle_recognition_which_is_multiple_b4_v3_b1",
+                "_notion_block_id": "3515917e-ac52-8174-a2c2-e5675dc92244"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_rectangle_recognition_which_is_multiple_b4",
+        "_notion_block_id": "3515917e-ac52-8105-a9cd-f366d757faac"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "rectangle_3x4",
+            "description": "3×4 rectangle. 3 rows of 4 squares. Area = 12. Build affordances disabled.",
+            "tangible_type": "rectangle",
+            "mode": "reading",
+            "rows": 3,
+            "columns": 4
+          },
+          {
+            "tangible_id": "rectangle_2x5",
+            "description": "2×5 rectangle. 2 rows of 5 squares. Area = 10. Build affordances disabled.",
+            "tangible_type": "rectangle",
+            "mode": "reading",
+            "rows": 2,
+            "columns": 5
+          },
+          {
+            "tangible_id": "rectangle_1x7",
+            "description": "1×7 rectangle. 1 row of 7 squares. Area = 7. Build affordances disabled.",
+            "tangible_type": "rectangle",
+            "mode": "reading",
+            "rows": 1,
+            "columns": 7
+          }
+        ],
+        "id": "s1_1_rectangle_recognition_which_is_multiple_b5"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:17:07.979599+00:00",
+    "_notion_block_id": "3515917e-ac52-8148-9e93-c1f585e3dec2"
+  },
+  {
+    "id": "s2_1_stem_completion_prebuilt_rectangle_connect",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "hundred_grid_4x6",
+        "tangible_type": "hundred_grid",
+        "params": {
+          "mode": "observation",
+          "width": 4,
+          "height": 6,
+          "area": 24,
+          "labels_visible": true,
+          "build_affordances_disabled": true,
+          "description": "Hundred Grid in observation mode. 4×6 rectangle prebuilt. Labels visible: W=4, H=6, area=24 in center. Build affordances disabled."
+        },
+        "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b0",
+        "_notion_block_id": "3515917e-ac52-811f-a2be-c0e166ead293"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here is a rectangle on the Hundred Grid. Width is 4. Height is 6. Area is 24.",
+        "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b1",
+        "_notion_block_id": "3515917e-ac52-8110-9517-e06baaefcb73"
+      },
+      {
+        "type": "prompt",
+        "text": "Tap Check to confirm what you see.",
+        "tool": "check",
+        "target": "hundred_grid_4x6",
+        "validator": [
+          {
+            "condition_id": "confirmed",
+            "condition": {},
+            "description": "Student tapped Check to confirm observation",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "empty",
+                "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b2_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b2",
+        "_notion_block_id": "3515917e-ac52-81a4-b70a-f5f9af0f9114"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_4x6",
+            "description": "Hundred Grid in observation mode. 4×6 rectangle prebuilt with labels W=4, H=6, area=24 visible.",
+            "tangible_type": "hundred_grid",
+            "mode": "observation",
+            "width": 4,
+            "height": 6,
+            "area": 24,
+            "labels_visible": true,
+            "build_affordances_disabled": true
+          }
+        ],
+        "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b3",
+        "_notion_block_id": "3515917e-ac52-81c0-b7c8-e6794e900d95"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "stem_sentence",
+        "tangible_type": "fill_in_blank",
+        "params": {
+          "template": "___ is a multiple of ___ because ___ × ___ = ___",
+          "description": "Stem sentence appears: ___ is a multiple of ___ because ___ × ___ = ___. Some blanks may be pre-filled via linked values at BASELINE tier."
+        },
+        "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b4",
+        "_notion_block_id": "3515917e-ac52-81aa-b8f5-c27d0f09195d"
+      },
+      {
+        "type": "dialogue",
+        "text": "Use the checked rectangle to fill the sentence.",
+        "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b5",
+        "_notion_block_id": "3515917e-ac52-8194-a5c9-e7abdc0aaa5c"
+      },
+      {
+        "type": "prompt",
+        "text": "Fill the blanks to match the rectangle. Then tap Check.",
+        "tool": "fill_in_blank",
+        "target": "stem_sentence",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "blank": 1,
+                  "value": 24
+                },
+                {
+                  "blank": 2,
+                  "value": 4
+                },
+                {
+                  "blank": 3,
+                  "value": 4
+                },
+                {
+                  "blank": 4,
+                  "value": 6
+                },
+                {
+                  "blank": 5,
+                  "value": 24
+                }
+              ]
+            },
+            "description": "Student filled: 24 is a multiple of 4 because 4 × 6 = 24, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. Your sentence says 24 is a multiple of 4 because 4 times 6 equals 24. That's what the rectangle shows.",
+                "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b6_v0_b0",
+                "_notion_block_id": "3515917e-ac52-8141-9090-ead1392f518f"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "blank": 1,
+                  "value": 4
+                },
+                {
+                  "blank": 2,
+                  "value": 24
+                },
+                {
+                  "blank": 3,
+                  "value": 4
+                },
+                {
+                  "blank": 4,
+                  "value": 6
+                },
+                {
+                  "blank": 5,
+                  "value": 24
+                },
+                {
+                  "or": [
+                    {
+                      "incorrect_count": 1
+                    },
+                    {
+                      "incorrect_count": 2
+                    }
+                  ]
+                }
+              ]
+            },
+            "description": "Student reversed first two blanks: wrote 4 is a multiple of 24",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid_4x6",
+                "params": {
+                  "description": "Area label (24) pulses to emphasize it represents the total."
+                },
+                "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b6_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You wrote 4 is a multiple of 24. But the area is 24, not 4. What number goes in the first blank?",
+                "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b6_v1_b1",
+                "_notion_block_id": "3515917e-ac52-811b-8c49-e2b95a4db40a"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "blank": 3,
+                  "value": 6
+                },
+                {
+                  "blank": 4,
+                  "value": 4
+                },
+                {
+                  "or": [
+                    {
+                      "incorrect_count": 1
+                    },
+                    {
+                      "incorrect_count": 2
+                    }
+                  ]
+                }
+              ]
+            },
+            "description": "Student reversed multiplication blanks: wrote 6 × 4 instead of 4 × 6",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid_4x6",
+                "params": {
+                  "description": "Width label (4) and Height label (6) pulse in sequence."
+                },
+                "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b6_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You wrote 6 times 4. The sentence starts with width times height. Check the labels: which is the width?",
+                "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b6_v2_b1",
+                "_notion_block_id": "3515917e-ac52-8149-a3da-f1a3a3a0e8e6"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "incorrect_count": 1
+                },
+                {
+                  "not": {
+                    "and": [
+                      {
+                        "blank": 1,
+                        "value": 4
+                      },
+                      {
+                        "blank": 2,
+                        "value": 24
+                      },
+                      {
+                        "blank": 3,
+                        "value": 4
+                      },
+                      {
+                        "blank": 4,
+                        "value": 6
+                      },
+                      {
+                        "blank": 5,
+                        "value": 24
+                      }
+                    ]
+                  }
+                },
+                {
+                  "not": {
+                    "and": [
+                      {
+                        "blank": 3,
+                        "value": 6
+                      },
+                      {
+                        "blank": 4,
+                        "value": 4
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "description": "Student filled blanks incorrectly on first attempt, not matching specific conditions",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Check the rectangle labels. What are the width, height, and area?",
+                "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b6_v3_b0",
+                "_notion_block_id": "3515917e-ac52-812f-98ae-f3d5d74bda4b"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "incorrect_count": 2
+                },
+                {
+                  "not": {
+                    "and": [
+                      {
+                        "blank": 1,
+                        "value": 4
+                      },
+                      {
+                        "blank": 2,
+                        "value": 24
+                      },
+                      {
+                        "blank": 3,
+                        "value": 4
+                      },
+                      {
+                        "blank": 4,
+                        "value": 6
+                      },
+                      {
+                        "blank": 5,
+                        "value": 24
+                      }
+                    ]
+                  }
+                },
+                {
+                  "not": {
+                    "and": [
+                      {
+                        "blank": 3,
+                        "value": 6
+                      },
+                      {
+                        "blank": 4,
+                        "value": 4
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "description": "Student filled blanks incorrectly on second attempt, not matching specific conditions",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid_4x6",
+                "params": {
+                  "description": "All three labels pulse: W=4, H=6, area=24."
+                },
+                "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b6_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the labels. The area goes first. Then the width. The multiplication shows width times height equals area. Fill each blank from those labels.",
+                "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b6_v4_b1",
+                "_notion_block_id": "3515917e-ac52-813a-9caa-d7eba78791f0"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student filled blanks incorrectly three or more times. System models the answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "stem_sentence",
+                "params": {
+                  "event": "model_fill",
+                  "status": "confirmed",
+                  "description": "System fills blanks sequentially: 24, 4, 4, 6, 24."
+                },
+                "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b6_v5_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Here is how the sentence matches the rectangle. The area is 24. That is a multiple of the width, 4. Why? Because 4 times 6 equals 24. That is what width times height equals area means. The sentence is: 24 is a multiple of 4 because 4 times 6 equals 24.",
+                "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b6_v5_b1",
+                "_notion_block_id": "3515917e-ac52-819b-a488-c8c94540a55b"
+              }
+            ]
+          }
+        ],
+        "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b6",
+        "_notion_block_id": "3515917e-ac52-810d-ba4b-ed332c4f755f"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_4x6",
+            "description": "Hundred Grid in observation mode. 4×6 rectangle with labels W=4, H=6, area=24 visible.",
+            "tangible_type": "hundred_grid",
+            "mode": "observation",
+            "width": 4,
+            "height": 6,
+            "area": 24,
+            "labels_visible": true,
+            "build_affordances_disabled": true
+          },
+          {
+            "tangible_id": "stem_sentence",
+            "description": "Stem sentence filled: 24 is a multiple of 4 because 4 × 6 = 24.",
+            "tangible_type": "fill_in_blank",
+            "template": "___ is a multiple of ___ because ___ × ___ = ___"
+          }
+        ],
+        "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b7"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:17:29.301929+00:00",
+    "_notion_block_id": "3515917e-ac52-818e-aadf-fba1a0891343"
+  },
+  {
+    "id": "s3_1_build_produce_fixed_side_length",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "hundred_grid_build",
+        "tangible_type": "hundred_grid",
+        "params": {
+          "mode": "building",
+          "width": 5,
+          "height": 1,
+          "fixed_dimension": "width",
+          "fixed_value": 5,
+          "labels_visible": false,
+          "snap_mode": "on",
+          "description": "Hundred grid appears in building mode. Fixed side length of 5 locked horizontally. Height starts at 1. Row-extension handle available. Labels hidden. Snap mode on."
+        },
+        "id": "s3_1_build_produce_fixed_side_length_b0",
+        "_notion_block_id": "3515917e-ac52-8156-ad82-f6f79d24f141"
+      },
+      {
+        "type": "dialogue",
+        "text": "Build a rectangle that has a side length of 5 and an area of 30.",
+        "id": "s3_1_build_produce_fixed_side_length_b1",
+        "_notion_block_id": "3515917e-ac52-81c0-b215-c547b58cabd4"
+      },
+      {
+        "type": "prompt",
+        "text": "Build a rectangle that has a side length of 5 and an area of 30. Tap Check when you are done.",
+        "tool": "build_rectangle",
+        "target": "hundred_grid_build",
+        "validator": [
+          {
+            "condition_id": "correct_build",
+            "condition": {
+              "width": 5,
+              "height": 6,
+              "area": 30
+            },
+            "description": "Student built 5×6 rectangle with area 30",
+            "is_correct": true,
+            "variable_answer": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid_build",
+                "params": {
+                  "labels_visible": true,
+                  "description": "Labels reveal: W=5, H=6, area=30."
+                },
+                "id": "s3_1_build_produce_fixed_side_length_b2_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's it. Your rectangle is 5 squares wide and 6 squares tall. The area is 30.",
+                "id": "s3_1_build_produce_fixed_side_length_b2_v0_b1",
+                "_notion_block_id": "3515917e-ac52-815c-9727-fa64e8294026"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "area": 30
+                },
+                {
+                  "not": {
+                    "width": 5,
+                    "height": 6
+                  }
+                },
+                {
+                  "or": [
+                    {
+                      "incorrect_count": 1
+                    },
+                    {
+                      "incorrect_count": 2
+                    }
+                  ]
+                }
+              ]
+            },
+            "description": "Student built a rectangle with area 30 but dimensions other than 5×6",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid_build",
+                "params": {
+                  "description": "Fixed side length of 5 pulses to draw attention."
+                },
+                "id": "s3_1_build_produce_fixed_side_length_b2_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You have the right area. But one side must be 5. Look at the locked side. How many rows do you need to make 30?",
+                "id": "s3_1_build_produce_fixed_side_length_b2_v1_b1",
+                "_notion_block_id": "3515917e-ac52-8110-91a1-cff591648c7c"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "incorrect_count": 1
+                },
+                {
+                  "not": {
+                    "area": 30
+                  }
+                }
+              ]
+            },
+            "description": "Student built a rectangle with incorrect area on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Not quite. The area needs to be 30. Count the squares in your rectangle.",
+                "id": "s3_1_build_produce_fixed_side_length_b2_v2_b0",
+                "_notion_block_id": "3515917e-ac52-8129-b52e-c024384762fb"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "incorrect_count": 2
+                },
+                {
+                  "not": {
+                    "area": 30
+                  }
+                }
+              ]
+            },
+            "description": "Student built a rectangle with incorrect area on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid_build",
+                "params": {
+                  "description": "Grid highlights row-extension handle."
+                },
+                "id": "s3_1_build_produce_fixed_side_length_b2_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let's think about this together. One side is 5. To get an area of 30, how many groups of 5 do you need? Try adding or removing rows.",
+                "id": "s3_1_build_produce_fixed_side_length_b2_v3_b1",
+                "_notion_block_id": "3515917e-ac52-81c9-857c-d583184dc246"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student built an incorrect rectangle three or more times. System models the answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "hundred_grid_build",
+                "params": {
+                  "event": "build_to_dimensions",
+                  "status": "confirmed",
+                  "description": "Grid animates to show 5×6 rectangle building row by row. Labels reveal: W=5, H=6, area=30.",
+                  "width": 5,
+                  "height": 6
+                },
+                "id": "s3_1_build_produce_fixed_side_length_b2_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. One side is locked at 5. To get area 30, I need 6 rows because 5 times 6 equals 30. The rectangle is 5 wide and 6 tall. That's how we build a rectangle with side length 5 and area 30.",
+                "id": "s3_1_build_produce_fixed_side_length_b2_v4_b1",
+                "_notion_block_id": "3515917e-ac52-81d3-bded-cf23f5b61724"
+              }
+            ]
+          }
+        ],
+        "id": "s3_1_build_produce_fixed_side_length_b2",
+        "_notion_block_id": "3515917e-ac52-81bc-8857-e74aaf9a6528"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_build",
+            "description": "Hundred grid showing completed 5×6 rectangle with area 30. Labels visible: W=5, H=6, area=30.",
+            "tangible_type": "hundred_grid",
+            "mode": "building",
+            "width": 5,
+            "height": 6,
+            "labels_visible": true
+          }
+        ],
+        "id": "s3_1_build_produce_fixed_side_length_b3",
+        "_notion_block_id": "3515917e-ac52-81bd-9b0d-f850f1198d98"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "stem_sentence_build",
+        "tangible_type": "fill_in_blank",
+        "params": {
+          "template": "___ is a multiple of ___ because ___ × ___ = ___",
+          "description": "Fill-in-blank sentence appears: blank is a multiple of blank because blank times blank equals blank."
+        },
+        "id": "s3_1_build_produce_fixed_side_length_b4",
+        "_notion_block_id": "3515917e-ac52-81d2-a053-e823bbdd57cb"
+      },
+      {
+        "type": "dialogue",
+        "text": "Now use the checked rectangle to fill the sentence.",
+        "id": "s3_1_build_produce_fixed_side_length_b5",
+        "_notion_block_id": "3515917e-ac52-8121-bef4-c2bbdb8bd0df"
+      },
+      {
+        "type": "prompt",
+        "text": "Fill in the sentence using the rectangle.",
+        "tool": "fill_in_blank",
+        "target": "stem_sentence_build",
+        "validator": [
+          {
+            "condition_id": "correct_stem",
+            "condition": {
+              "blanks": [
+                30,
+                5,
+                5,
+                6,
+                30
+              ]
+            },
+            "description": "Student filled: 30 is a multiple of 5 because 5 × 6 = 30",
+            "is_correct": true,
+            "variable_answer": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 30 is a multiple of 5 because 5 times 6 equals 30. You built it and you described it.",
+                "id": "s3_1_build_produce_fixed_side_length_b6_v0_b0",
+                "_notion_block_id": "3515917e-ac52-8199-b811-df685a4ef2d3"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "blanks": [
+                    30,
+                    5,
+                    6,
+                    5,
+                    30
+                  ]
+                },
+                {
+                  "or": [
+                    {
+                      "incorrect_count": 1
+                    },
+                    {
+                      "incorrect_count": 2
+                    }
+                  ]
+                }
+              ]
+            },
+            "description": "Student reversed the factors: wrote 6 × 5 instead of 5 × 6",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid_build",
+                "params": {
+                  "description": "Rectangle width label (5) pulses."
+                },
+                "id": "s3_1_build_produce_fixed_side_length_b6_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You have the right numbers, but check the order. The width is 5. Which number should go first in the multiplication?",
+                "id": "s3_1_build_produce_fixed_side_length_b6_v1_b1",
+                "_notion_block_id": "3515917e-ac52-8148-b298-d2728e73409e"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student filled sentence incorrectly on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Look at the labels on the rectangle. Which number is the area? Which are the side lengths?",
+                "id": "s3_1_build_produce_fixed_side_length_b6_v2_b0",
+                "_notion_block_id": "3515917e-ac52-81b3-ba41-cfbc21d8091a"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student filled sentence incorrectly on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid_build",
+                "params": {
+                  "description": "Labels pulse: W=5, H=6, area=30."
+                },
+                "id": "s3_1_build_produce_fixed_side_length_b6_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's a hint: the area is 30. That goes first and last. The width and height multiply to make it. Read the labels and fill them in order.",
+                "id": "s3_1_build_produce_fixed_side_length_b6_v3_b1",
+                "_notion_block_id": "3515917e-ac52-8138-a254-fe97cbcd9446"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student filled sentence incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "stem_sentence_build",
+                "params": {
+                  "event": "fill_blanks",
+                  "status": "confirmed",
+                  "description": "Blanks fill one by one: 30 is a multiple of 5 because 5 × 6 = 30.",
+                  "values": [
+                    30,
+                    5,
+                    5,
+                    6,
+                    30
+                  ]
+                },
+                "id": "s3_1_build_produce_fixed_side_length_b6_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me walk you through this. The area is 30, so that goes in the first blank and the last blank. 30 is a multiple of 5, so 5 goes in the second blank. The rectangle is 5 wide and 6 tall, so 5 times 6 goes in the middle. The sentence is: 30 is a multiple of 5 because 5 times 6 equals 30.",
+                "id": "s3_1_build_produce_fixed_side_length_b6_v4_b1",
+                "_notion_block_id": "3515917e-ac52-81ce-8dce-cb58c29150f6"
+              }
+            ]
+          }
+        ],
+        "id": "s3_1_build_produce_fixed_side_length_b6",
+        "_notion_block_id": "3515917e-ac52-81a0-ba2d-e1d8b04d02a5"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_build",
+            "description": "Hundred grid showing 5×6 rectangle with area 30. Labels visible: W=5, H=6, area=30.",
+            "tangible_type": "hundred_grid",
+            "mode": "building",
+            "width": 5,
+            "height": 6,
+            "labels_visible": true
+          },
+          {
+            "tangible_id": "stem_sentence_build",
+            "description": "Completed fill-in-blank sentence: 30 is a multiple of 5 because 5 × 6 = 30.",
+            "tangible_type": "fill_in_blank",
+            "template": "___ is a multiple of ___ because ___ × ___ = ___",
+            "completed_values": [
+              30,
+              5,
+              5,
+              6,
+              30
+            ]
+          }
+        ],
+        "id": "s3_1_build_produce_fixed_side_length_b7"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:17:51.770344+00:00",
+    "_notion_block_id": "3515917e-ac52-816c-8e4e-d2b96305e7b2"
+  }
+]

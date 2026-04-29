@@ -1,0 +1,111 @@
+{
+  "id": "s1_1_rectangle_recognition_which_is_multiple",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "rectangle_3x4",
+      "tangible_type": "rectangle",
+      "params": {
+        "mode": "reading",
+        "rows": 3,
+        "columns": 4,
+        "description": "3×4 rectangle appears. 3 rows of 4 squares. Area = 12. Build affordances disabled."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "rectangle_2x5",
+      "tangible_type": "rectangle",
+      "params": {
+        "mode": "reading",
+        "rows": 2,
+        "columns": 5,
+        "description": "2×5 rectangle appears. 2 rows of 5 squares. Area = 10. Build affordances disabled."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "rectangle_1x7",
+      "tangible_type": "rectangle",
+      "params": {
+        "mode": "reading",
+        "rows": 1,
+        "columns": 7,
+        "description": "1×7 rectangle appears. 1 row of 7 squares. Area = 7. Build affordances disabled."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Here are three rectangles. One of them has an area that is a multiple of 3."
+    },
+    {
+      "type": "prompt",
+      "text": "Tap the rectangle that has an area that is a multiple of 3.",
+      "tool": "click_tangible",
+      "target": [
+        "rectangle_3x4",
+        "rectangle_2x5",
+        "rectangle_1x7"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "rectangle_3x4"
+          },
+          "description": "Student tapped the 3×4 rectangle, correct, area = 12",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "rectangle_3x4",
+              "params": {
+                "event": "highlight_selection",
+                "status": "confirmed",
+                "description": "3×4 rectangle highlights to confirm selection."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Your rectangle has 3 rows of 4 squares. The area is 12. That is a multiple of 3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "rectangle_3x4",
+          "description": "3×4 rectangle. 3 rows of 4 squares. Area = 12. Build affordances disabled.",
+          "tangible_type": "rectangle",
+          "mode": "reading",
+          "rows": 3,
+          "columns": 4
+        },
+        {
+          "tangible_id": "rectangle_2x5",
+          "description": "2×5 rectangle. 2 rows of 5 squares. Area = 10. Build affordances disabled.",
+          "tangible_type": "rectangle",
+          "mode": "reading",
+          "rows": 2,
+          "columns": 5
+        },
+        {
+          "tangible_id": "rectangle_1x7",
+          "description": "1×7 rectangle. 1 row of 7 squares. Area = 7. Build affordances disabled.",
+          "tangible_type": "rectangle",
+          "mode": "reading",
+          "rows": 1,
+          "columns": 7
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-29T21:17:07.979599+00:00"
+}

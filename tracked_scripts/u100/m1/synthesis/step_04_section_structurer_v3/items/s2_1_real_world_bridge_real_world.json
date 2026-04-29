@@ -1,0 +1,70 @@
+{
+  "id": "s2_1_real_world_bridge_real_world",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "scenario_display",
+      "tangible_type": "scenario_display",
+      "params": {
+        "description": "A bookshelf illustration appears showing rows of books. Each row holds 7 books. Text reads: 'A bookshelf has rows of books. Each row holds 7 books. There are some rows on the shelf. Which of these could be the total number of books on the shelf?'"
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Here's a bookshelf with rows of books. Each row holds 7 books. There are some rows on the shelf."
+    },
+    {
+      "type": "prompt",
+      "text": "Which of these could be the total number of books on the shelf?",
+      "tool": "multiple_choice",
+      "options": [
+        "23 books",
+        "28 books",
+        "31 books",
+        "35 books"
+      ],
+      "validator": [
+        {
+          "condition_id": "selected_28",
+          "condition": {
+            "selected": "28 books"
+          },
+          "description": "Student selected 28 books, which is 4 × 7, a valid multiple of 7",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "28 is a multiple of 7 because 7 × 4 = 28. That could be on the shelf. Multiples of 7 show up everywhere rows of 7 things appear."
+            }
+          ]
+        },
+        {
+          "condition_id": "selected_35",
+          "condition": {
+            "selected": "35 books"
+          },
+          "description": "Student selected 35 books, which is 5 × 7, a valid multiple of 7",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "35 is a multiple of 7 because 7 × 5 = 35. That could be on the shelf. Multiples of 7 show up everywhere rows of 7 things appear."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "scenario_display",
+          "description": "Bookshelf illustration with rows of 7 books. Multiple choice options displayed: 23 books, 28 books, 31 books, 35 books.",
+          "tangible_type": "scenario_display"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-29T21:17:27.121082+00:00"
+}

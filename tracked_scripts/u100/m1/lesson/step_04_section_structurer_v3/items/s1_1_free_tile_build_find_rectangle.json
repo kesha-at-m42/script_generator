@@ -1,0 +1,165 @@
+{
+  "id": "s1_1_free_tile_build_find_rectangle",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "hundred_grid",
+      "tangible_type": "hundred_grid",
+      "params": {
+        "mode": "mode_b",
+        "grid_snap": false,
+        "numeric_labels_visible": false,
+        "side_handles_exposed": false,
+        "description": "Hundred Grid appears in Mode B. Grid-snap off, numeric cell labels hidden, side handles not exposed. Clean surface ready for free tile placement."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "tile_bank",
+      "tangible_type": "tile_bank",
+      "params": {
+        "tile_count": 12,
+        "description": "Tile bank appears with 12 tiles available for placement."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "You have 12 tiles. Place them on the grid to make a rectangle."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid",
+          "description": "Hundred Grid in Mode B. Grid-snap off, numeric labels hidden, side handles not exposed. Clean surface.",
+          "tangible_type": "hundred_grid",
+          "mode": "mode_b",
+          "grid_snap": false,
+          "numeric_labels_visible": false,
+          "side_handles_exposed": false
+        },
+        {
+          "tangible_id": "tile_bank",
+          "description": "Tile bank with 12 tiles available.",
+          "tangible_type": "tile_bank",
+          "tile_count": 12
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "When your rectangle is complete, tap Check."
+    },
+    {
+      "type": "prompt",
+      "text": "Place 12 tiles to make a rectangle, then tap Check.",
+      "tool": "place_tile",
+      "target": "hundred_grid",
+      "validator": [
+        {
+          "condition_id": "rectangle_formed",
+          "condition": {
+            "shape": "rectangle",
+            "tile_count": 12
+          },
+          "description": "Student formed a valid rectangle with 12 tiles in rows of equal length",
+          "is_correct": true,
+          "variable_answer": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Your rectangle has tiles in rows."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid",
+          "description": "Hundred Grid in Mode B with 12 tiles placed in rectangular arrangement. Rows of equal length formed.",
+          "tangible_type": "hundred_grid",
+          "mode": "mode_b",
+          "grid_snap": false,
+          "numeric_labels_visible": false,
+          "side_handles_exposed": false
+        },
+        {
+          "tangible_id": "tile_bank",
+          "description": "Tile bank now empty after all 12 tiles placed.",
+          "tangible_type": "tile_bank",
+          "tile_count": 0
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Now fill in the sentence to describe what you built."
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "concrete_stem",
+      "tangible_type": "sentence_builder",
+      "params": {
+        "template": "My rectangle has ___ tiles in ___ rows.",
+        "description": "Sentence builder appears with two number slots for student to complete."
+      }
+    },
+    {
+      "type": "prompt",
+      "text": "Fill in: My rectangle has ___ tiles in ___ rows.",
+      "tool": "fill_number_slot",
+      "target": "concrete_stem",
+      "validator": [
+        {
+          "condition_id": "stem_complete",
+          "condition": {
+            "slots_filled": 2,
+            "total_matches_tile_count": true
+          },
+          "description": "Student filled both slots with values that match their rectangle configuration",
+          "is_correct": true,
+          "variable_answer": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You built rows of equal length. That describes a rectangle."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid",
+          "description": "Hundred Grid in Mode B with 12 tiles in rectangular arrangement.",
+          "tangible_type": "hundred_grid",
+          "mode": "mode_b",
+          "grid_snap": false,
+          "numeric_labels_visible": false,
+          "side_handles_exposed": false
+        },
+        {
+          "tangible_id": "tile_bank",
+          "description": "Tile bank empty.",
+          "tangible_type": "tile_bank",
+          "tile_count": 0
+        },
+        {
+          "tangible_id": "concrete_stem",
+          "description": "Sentence builder showing completed stem with student's row count and total tile count.",
+          "tangible_type": "sentence_builder",
+          "template": "My rectangle has ___ tiles in ___ rows."
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-29T21:17:38.591214+00:00"
+}

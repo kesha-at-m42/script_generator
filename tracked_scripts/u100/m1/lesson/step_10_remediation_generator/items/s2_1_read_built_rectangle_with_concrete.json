@@ -1,0 +1,262 @@
+{
+  "id": "s2_1_read_built_rectangle_with_concrete",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "slot": "total_tiles",
+              "matches_rectangle_tile_count": false
+            },
+            {
+              "incorrect_count": 1
+            }
+          ]
+        },
+        "description": "Student filled total_tiles slot incorrectly on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Count all the tiles in your rectangle. How many squares did you place?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "slot": "row_count",
+              "matches_rectangle_rows": false
+            },
+            {
+              "incorrect_count": 1
+            }
+          ]
+        },
+        "description": "Student filled row_count slot incorrectly on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Count the rows going across. Each row is one line of tiles."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "slot": "row_size",
+              "matches_rectangle_row_length": false
+            },
+            {
+              "incorrect_count": 1
+            }
+          ]
+        },
+        "description": "Student filled row_size slot incorrectly on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Pick one row. Count how many squares are in that row."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "slot": "area",
+              "equals_slot": "total_tiles"
+            },
+            {
+              "slot": "area",
+              "incorrect": true
+            },
+            {
+              "incorrect_count": 1
+            }
+          ]
+        },
+        "description": "Student filled area slot incorrectly on first attempt (but attempted to match total_tiles logic)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "The area equals the total number of tiles. Check your first number."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student filled one or more slots incorrectly on first attempt (generic case)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Look at your rectangle. Count the rows, then count how many tiles are in one row."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "slot": "total_tiles",
+              "matches_rectangle_tile_count": false
+            },
+            {
+              "incorrect_count": 2
+            }
+          ]
+        },
+        "description": "Student filled total_tiles slot incorrectly on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid",
+              "params": {
+                "highlight_all_tiles": true,
+                "description": "All tiles in the rectangle highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Count every highlighted tile in your rectangle. That number goes in the first blank."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "slot": "row_count",
+              "matches_rectangle_rows": false
+            },
+            {
+              "incorrect_count": 2
+            }
+          ]
+        },
+        "description": "Student filled row_count slot incorrectly on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid",
+              "params": {
+                "highlight_rows": true,
+                "description": "Each row in the rectangle highlights sequentially to show row structure."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Count the highlighted rows. Each row is a separate line of tiles. How many rows do you see?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "slot": "row_size",
+              "matches_rectangle_row_length": false
+            },
+            {
+              "incorrect_count": 2
+            }
+          ]
+        },
+        "description": "Student filled row_size slot incorrectly on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid",
+              "params": {
+                "highlight_single_row": true,
+                "description": "One row in the rectangle highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at this highlighted row. Count the tiles in just this one row. That number tells you the size of each row."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student filled one or more slots incorrectly on second attempt (generic case)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid",
+              "params": {
+                "highlight_rows": true,
+                "description": "Rows in the rectangle highlight sequentially."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's break this down. First count all the tiles. Then count the rows. Then count how many tiles are in one row. The area equals the total tiles."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student filled one or more slots incorrectly after multiple attempts. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "hundred_grid",
+              "params": {
+                "event": "demonstrate_counting_sequence",
+                "status": "confirmed",
+                "description": "System animates counting all tiles, then highlights rows sequentially, then shows one row's tile count, then displays area label."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how to read this rectangle. Count all the tiles to get the total. Count the rows by looking at each horizontal line. Pick one row and count its tiles to find the row size. The area equals the total number of tiles because area measures how many square units fill the shape. Now fill in the sentence using those four values."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-29T21:20:30.229702+00:00"
+}

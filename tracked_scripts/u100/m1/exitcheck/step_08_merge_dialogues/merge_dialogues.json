@@ -1,0 +1,442 @@
+[
+  {
+    "id": "s1_0_transition_frame",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You built rectangles with the same side length and wrote sentences about the areas. Now I want to see what you can do on your own. These three problems are for you to complete independently.",
+        "id": "s1_0_transition_frame_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_transition_frame_b1"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:16:52.874416+00:00"
+  },
+  {
+    "id": "s1_1_rectangle_recognition_which_is_multiple",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "rectangle_3x4",
+        "tangible_type": "rectangle",
+        "params": {
+          "mode": "reading",
+          "rows": 3,
+          "columns": 4,
+          "description": "3×4 rectangle appears. 3 rows of 4 squares. Area = 12. Build affordances disabled."
+        },
+        "id": "s1_1_rectangle_recognition_which_is_multiple_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "rectangle_2x5",
+        "tangible_type": "rectangle",
+        "params": {
+          "mode": "reading",
+          "rows": 2,
+          "columns": 5,
+          "description": "2×5 rectangle appears. 2 rows of 5 squares. Area = 10. Build affordances disabled."
+        },
+        "id": "s1_1_rectangle_recognition_which_is_multiple_b1"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "rectangle_1x7",
+        "tangible_type": "rectangle",
+        "params": {
+          "mode": "reading",
+          "rows": 1,
+          "columns": 7,
+          "description": "1×7 rectangle appears. 1 row of 7 squares. Area = 7. Build affordances disabled."
+        },
+        "id": "s1_1_rectangle_recognition_which_is_multiple_b2"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here are three rectangles. One of them has an area that is a multiple of 3.",
+        "id": "s1_1_rectangle_recognition_which_is_multiple_b3"
+      },
+      {
+        "type": "prompt",
+        "text": "Tap the rectangle that has an area that is a multiple of 3.",
+        "tool": "click_tangible",
+        "target": [
+          "rectangle_3x4",
+          "rectangle_2x5",
+          "rectangle_1x7"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "rectangle_3x4"
+            },
+            "description": "Student tapped the 3×4 rectangle, correct, area = 12",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "rectangle_3x4",
+                "params": {
+                  "event": "highlight_selection",
+                  "status": "confirmed",
+                  "description": "3×4 rectangle highlights to confirm selection."
+                },
+                "id": "s1_1_rectangle_recognition_which_is_multiple_b4_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Right. Your rectangle has 3 rows of 4 squares. The area is 12. That is a multiple of 3.",
+                "id": "s1_1_rectangle_recognition_which_is_multiple_b4_v0_b1"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_rectangle_recognition_which_is_multiple_b4"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "rectangle_3x4",
+            "description": "3×4 rectangle. 3 rows of 4 squares. Area = 12. Build affordances disabled.",
+            "tangible_type": "rectangle",
+            "mode": "reading",
+            "rows": 3,
+            "columns": 4
+          },
+          {
+            "tangible_id": "rectangle_2x5",
+            "description": "2×5 rectangle. 2 rows of 5 squares. Area = 10. Build affordances disabled.",
+            "tangible_type": "rectangle",
+            "mode": "reading",
+            "rows": 2,
+            "columns": 5
+          },
+          {
+            "tangible_id": "rectangle_1x7",
+            "description": "1×7 rectangle. 1 row of 7 squares. Area = 7. Build affordances disabled.",
+            "tangible_type": "rectangle",
+            "mode": "reading",
+            "rows": 1,
+            "columns": 7
+          }
+        ],
+        "id": "s1_1_rectangle_recognition_which_is_multiple_b5"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:17:07.979599+00:00"
+  },
+  {
+    "id": "s2_1_stem_completion_prebuilt_rectangle_connect",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "hundred_grid_4x6",
+        "tangible_type": "hundred_grid",
+        "params": {
+          "mode": "observation",
+          "width": 4,
+          "height": 6,
+          "area": 24,
+          "labels_visible": true,
+          "build_affordances_disabled": true,
+          "description": "Hundred Grid in observation mode. 4×6 rectangle prebuilt. Labels visible: W=4, H=6, area=24 in center. Build affordances disabled."
+        },
+        "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here is a rectangle on the Hundred Grid. Width is 4. Height is 6. Area is 24.",
+        "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b1"
+      },
+      {
+        "type": "prompt",
+        "text": "Tap Check to confirm what you see.",
+        "tool": "check",
+        "target": "hundred_grid_4x6",
+        "validator": [
+          {
+            "condition_id": "confirmed",
+            "condition": {},
+            "description": "Student tapped Check to confirm observation",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "empty",
+                "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b2_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_4x6",
+            "description": "Hundred Grid in observation mode. 4×6 rectangle prebuilt with labels W=4, H=6, area=24 visible.",
+            "tangible_type": "hundred_grid",
+            "mode": "observation",
+            "width": 4,
+            "height": 6,
+            "area": 24,
+            "labels_visible": true,
+            "build_affordances_disabled": true
+          }
+        ],
+        "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b3"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "stem_sentence",
+        "tangible_type": "fill_in_blank",
+        "params": {
+          "template": "___ is a multiple of ___ because ___ × ___ = ___",
+          "description": "Stem sentence appears: ___ is a multiple of ___ because ___ × ___ = ___. Some blanks may be pre-filled via linked values at BASELINE tier."
+        },
+        "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b4"
+      },
+      {
+        "type": "dialogue",
+        "text": "Use the checked rectangle to fill the sentence.",
+        "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b5"
+      },
+      {
+        "type": "prompt",
+        "text": "Fill the blanks to match the rectangle. Then tap Check.",
+        "tool": "fill_in_blank",
+        "target": "stem_sentence",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "blank": 1,
+                  "value": 24
+                },
+                {
+                  "blank": 2,
+                  "value": 4
+                },
+                {
+                  "blank": 3,
+                  "value": 4
+                },
+                {
+                  "blank": 4,
+                  "value": 6
+                },
+                {
+                  "blank": 5,
+                  "value": 24
+                }
+              ]
+            },
+            "description": "Student filled: 24 is a multiple of 4 because 4 × 6 = 24, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. Your sentence says 24 is a multiple of 4 because 4 times 6 equals 24. That's what the rectangle shows.",
+                "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b6_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b6"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_4x6",
+            "description": "Hundred Grid in observation mode. 4×6 rectangle with labels W=4, H=6, area=24 visible.",
+            "tangible_type": "hundred_grid",
+            "mode": "observation",
+            "width": 4,
+            "height": 6,
+            "area": 24,
+            "labels_visible": true,
+            "build_affordances_disabled": true
+          },
+          {
+            "tangible_id": "stem_sentence",
+            "description": "Stem sentence filled: 24 is a multiple of 4 because 4 × 6 = 24.",
+            "tangible_type": "fill_in_blank",
+            "template": "___ is a multiple of ___ because ___ × ___ = ___"
+          }
+        ],
+        "id": "s2_1_stem_completion_prebuilt_rectangle_connect_b7"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:17:29.301929+00:00"
+  },
+  {
+    "id": "s3_1_build_produce_fixed_side_length",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "hundred_grid_build",
+        "tangible_type": "hundred_grid",
+        "params": {
+          "mode": "building",
+          "width": 5,
+          "height": 1,
+          "fixed_dimension": "width",
+          "fixed_value": 5,
+          "labels_visible": false,
+          "snap_mode": "on",
+          "description": "Hundred grid appears in building mode. Fixed side length of 5 locked horizontally. Height starts at 1. Row-extension handle available. Labels hidden. Snap mode on."
+        },
+        "id": "s3_1_build_produce_fixed_side_length_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "Build a rectangle that has a side length of 5 and an area of 30.",
+        "id": "s3_1_build_produce_fixed_side_length_b1"
+      },
+      {
+        "type": "prompt",
+        "text": "Build a rectangle that has a side length of 5 and an area of 30. Tap Check when you are done.",
+        "tool": "build_rectangle",
+        "target": "hundred_grid_build",
+        "validator": [
+          {
+            "condition_id": "correct_build",
+            "condition": {
+              "width": 5,
+              "height": 6,
+              "area": 30
+            },
+            "description": "Student built 5×6 rectangle with area 30",
+            "is_correct": true,
+            "variable_answer": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid_build",
+                "params": {
+                  "labels_visible": true,
+                  "description": "Labels reveal: W=5, H=6, area=30."
+                },
+                "id": "s3_1_build_produce_fixed_side_length_b2_v0_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "That's it. Your rectangle is 5 squares wide and 6 squares tall. The area is 30.",
+                "id": "s3_1_build_produce_fixed_side_length_b2_v0_b1"
+              }
+            ]
+          }
+        ],
+        "id": "s3_1_build_produce_fixed_side_length_b2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_build",
+            "description": "Hundred grid showing completed 5×6 rectangle with area 30. Labels visible: W=5, H=6, area=30.",
+            "tangible_type": "hundred_grid",
+            "mode": "building",
+            "width": 5,
+            "height": 6,
+            "labels_visible": true
+          }
+        ],
+        "id": "s3_1_build_produce_fixed_side_length_b3"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "stem_sentence_build",
+        "tangible_type": "fill_in_blank",
+        "params": {
+          "template": "___ is a multiple of ___ because ___ × ___ = ___",
+          "description": "Fill-in-blank sentence appears: blank is a multiple of blank because blank times blank equals blank."
+        },
+        "id": "s3_1_build_produce_fixed_side_length_b4"
+      },
+      {
+        "type": "dialogue",
+        "text": "Now use the checked rectangle to fill the sentence.",
+        "id": "s3_1_build_produce_fixed_side_length_b5"
+      },
+      {
+        "type": "prompt",
+        "text": "Fill in the sentence using the rectangle.",
+        "tool": "fill_in_blank",
+        "target": "stem_sentence_build",
+        "validator": [
+          {
+            "condition_id": "correct_stem",
+            "condition": {
+              "blanks": [
+                30,
+                5,
+                5,
+                6,
+                30
+              ]
+            },
+            "description": "Student filled: 30 is a multiple of 5 because 5 × 6 = 30",
+            "is_correct": true,
+            "variable_answer": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 30 is a multiple of 5 because 5 times 6 equals 30. You built it and you described it.",
+                "id": "s3_1_build_produce_fixed_side_length_b6_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s3_1_build_produce_fixed_side_length_b6"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_build",
+            "description": "Hundred grid showing 5×6 rectangle with area 30. Labels visible: W=5, H=6, area=30.",
+            "tangible_type": "hundred_grid",
+            "mode": "building",
+            "width": 5,
+            "height": 6,
+            "labels_visible": true
+          },
+          {
+            "tangible_id": "stem_sentence_build",
+            "description": "Completed fill-in-blank sentence: 30 is a multiple of 5 because 5 × 6 = 30.",
+            "tangible_type": "fill_in_blank",
+            "template": "___ is a multiple of ___ because ___ × ___ = ___",
+            "completed_values": [
+              30,
+              5,
+              5,
+              6,
+              30
+            ]
+          }
+        ],
+        "id": "s3_1_build_produce_fixed_side_length_b7"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:17:51.770344+00:00"
+  }
+]

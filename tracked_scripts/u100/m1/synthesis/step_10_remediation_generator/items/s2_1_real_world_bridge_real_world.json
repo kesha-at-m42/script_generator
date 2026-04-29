@@ -1,0 +1,77 @@
+{
+  "id": "s2_1_real_world_bridge_real_world",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "23 books"
+        },
+        "description": "Student selected 23 books, which is not a multiple of 7",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "scenario_display",
+              "params": {
+                "description": "The number 23 is highlighted and shows division: 23 ÷ 7 = 3 remainder 2"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "If you divide 23 by 7, you get 3 rows with 2 books left over. A multiple of 7 divides evenly with no remainder. Try another number."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "31 books"
+        },
+        "description": "Student selected 31 books, which is not a multiple of 7",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "scenario_display",
+              "params": {
+                "description": "The number 31 is highlighted and shows division: 31 ÷ 7 = 4 remainder 3"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "31 divided by 7 gives 4 rows with 3 books left over. The shelf holds complete rows of 7, so the total must divide evenly by 7."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "scenario_display",
+              "params": {
+                "event": "show_multiples",
+                "status": "confirmed",
+                "description": "The bookshelf animates to show 4 rows of 7 books each, counting to 28 total. Text highlights: 7 × 4 = 28"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. Each row holds 7 books. If there are 4 rows, that is 7 × 4, which equals 28. 28 divides evenly by 7, so it is a multiple of 7. The answer is 28 books."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-29T21:18:38.070566+00:00"
+}

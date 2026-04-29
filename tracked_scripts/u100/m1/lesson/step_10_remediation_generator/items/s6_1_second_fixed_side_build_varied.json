@@ -1,0 +1,72 @@
+{
+  "id": "s6_1_second_fixed_side_build_varied",
+  "incorrects": [
+    [],
+    [],
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student filled one or more slots incorrectly on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Look at the labels on your rectangle. Which number shows the total area?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student filled one or more slots incorrectly on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid",
+              "params": {
+                "highlight_area_label": true,
+                "description": "Area label at rectangle center highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The area goes in the first blank. The fixed side length, 4, goes in the second blank. Then fill the multiplication to show width times height equals that area."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student filled one or more slots incorrectly three or more times. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "sentence_builder",
+              "params": {
+                "event": "fill_all_slots_sequentially",
+                "status": "confirmed",
+                "description": "System fills all five slots in order: area value in slot 1, 4 in slot 2, width in slot 3, height in slot 4, area in slot 5."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's how this sentence works. The area is a multiple of 4 because 4 times the number of rows equals the area. The first blank names the area. The second blank names what it's a multiple of. The last three blanks show the multiplication that proves it."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-29T21:20:53.348663+00:00"
+}

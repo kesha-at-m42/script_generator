@@ -1,0 +1,185 @@
+{
+  "id": "s1_1_pattern_across_multiples_pattern_discovery",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "They are all even"
+        },
+        "description": "Student selected 'They are all even': observes surface property but misses the fixed increment pattern",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "statement_row_1",
+              "params": {
+                "highlight_values": [
+                  "12"
+                ],
+                "description": "The number 12 highlights in the first sentence"
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "statement_row_2",
+              "params": {
+                "highlight_values": [
+                  "16"
+                ],
+                "description": "The number 16 highlights in the second sentence"
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "statement_row_3",
+              "params": {
+                "highlight_values": [
+                  "20"
+                ],
+                "description": "The number 20 highlights in the third sentence"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "They are even, yes. But look more closely. What happens from one area to the next? Does it go up by the same amount every time?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "They are all the same"
+        },
+        "description": "Student selected 'They are all the same': misreads the data",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "statement_row_1",
+              "params": {
+                "highlight_values": [
+                  "12"
+                ],
+                "description": "The number 12 highlights in the first sentence"
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "statement_row_2",
+              "params": {
+                "highlight_values": [
+                  "16"
+                ],
+                "description": "The number 16 highlights in the second sentence"
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "statement_row_3",
+              "params": {
+                "highlight_values": [
+                  "20"
+                ],
+                "description": "The number 20 highlights in the third sentence"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at the area numbers: 12, 16, 20. Those are three different numbers. What pattern do you see as they increase?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "I'm not sure"
+        },
+        "description": "Student selected 'I'm not sure': needs pattern support",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "statement_row_1",
+              "params": {
+                "highlight_values": [
+                  "12"
+                ],
+                "description": "The number 12 highlights in the first sentence"
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "statement_row_2",
+              "params": {
+                "highlight_values": [
+                  "16"
+                ],
+                "description": "The number 16 highlights in the second sentence"
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "statement_row_3",
+              "params": {
+                "highlight_values": [
+                  "20"
+                ],
+                "description": "The number 20 highlights in the third sentence"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: compare 12 and 16. How much bigger is 16? Then compare 16 and 20. Do you see a pattern in how much the numbers go up?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "statement_row_1",
+              "params": {
+                "event": "highlight_increment",
+                "status": "confirmed",
+                "description": "Arrow appears from 12 to 16 with +4 label"
+              }
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "statement_row_2",
+              "params": {
+                "event": "highlight_increment",
+                "status": "confirmed",
+                "description": "Arrow appears from 16 to 20 with +4 label"
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. From 12 to 16 is 4 more. From 16 to 20 is 4 more again. Every time we add one more row of 4 squares, the area increases by 4. That fixed jump is what makes these multiples of 4."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-29T21:18:26.558621+00:00"
+}

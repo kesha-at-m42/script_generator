@@ -1,0 +1,599 @@
+[
+  {
+    "id": "s1_0_opening_frame_no_student_action",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "In this module, you built rectangles on the grid and found areas that are multiples of a side length. You filled in sentences like '20 is a multiple of 4 because 4 × 5 = 20.' You built at least two different rectangles. Both times, the area was a multiple of the same side length. Let's look at what that tells us.",
+        "id": "s1_0_opening_frame_no_student_action_b0",
+        "_notion_block_id": "3515917e-ac52-8161-9f61-cd099fc12c5c"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_opening_frame_no_student_action_b1"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:16:55.392063+00:00",
+    "_notion_block_id": "3515917e-ac52-8100-92f6-d71176edc390"
+  },
+  {
+    "id": "s1_1_pattern_across_multiples_pattern_discovery",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "statement_row_1",
+        "tangible_type": "statement_display",
+        "params": {
+          "content": "12 is a multiple of 4 because 4 × 3 = 12",
+          "description": "First completed sentence appears: 12 is a multiple of 4 because 4 × 3 = 12"
+        },
+        "id": "s1_1_pattern_across_multiples_pattern_discovery_b0",
+        "_notion_block_id": "3515917e-ac52-81e6-b5f0-f15236af9fb2"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "statement_row_2",
+        "tangible_type": "statement_display",
+        "params": {
+          "content": "16 is a multiple of 4 because 4 × 4 = 16",
+          "description": "Second completed sentence appears: 16 is a multiple of 4 because 4 × 4 = 16"
+        },
+        "id": "s1_1_pattern_across_multiples_pattern_discovery_b1",
+        "_notion_block_id": "3515917e-ac52-8112-a468-d617c6a2713a"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "statement_row_3",
+        "tangible_type": "statement_display",
+        "params": {
+          "content": "20 is a multiple of 4 because 4 × 5 = 20",
+          "description": "Third completed sentence appears: 20 is a multiple of 4 because 4 × 5 = 20"
+        },
+        "id": "s1_1_pattern_across_multiples_pattern_discovery_b2",
+        "_notion_block_id": "3515917e-ac52-8109-a29f-c4609cd4aa16"
+      },
+      {
+        "type": "dialogue",
+        "text": "Look at all three sentences. What do you notice about the first blank in each one — the area number?",
+        "id": "s1_1_pattern_across_multiples_pattern_discovery_b3",
+        "_notion_block_id": "3515917e-ac52-81c5-b3f1-f33d36400489"
+      },
+      {
+        "type": "prompt",
+        "text": "What do you notice about the area numbers?",
+        "tool": "multiple_choice",
+        "options": [
+          "They all go up by 4",
+          "They are all even",
+          "They are all the same",
+          "I'm not sure"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "They all go up by 4"
+            },
+            "description": "Student selected 'They all go up by 4', correct observation of the multiple pattern",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. Every time you added one more row of 4 squares, the area went up by 4. That's what multiples do — they go up by the same amount each time.",
+                "id": "s1_1_pattern_across_multiples_pattern_discovery_b4_v0_b0",
+                "_notion_block_id": "3515917e-ac52-814a-96e9-d69c48b89a7c"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "They are all even"
+            },
+            "description": "Student selected 'They are all even': observes surface property but misses the fixed increment pattern",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "statement_row_1",
+                "params": {
+                  "highlight_values": [
+                    "12"
+                  ],
+                  "description": "The number 12 highlights in the first sentence"
+                },
+                "id": "s1_1_pattern_across_multiples_pattern_discovery_b4_v1_b0"
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "statement_row_2",
+                "params": {
+                  "highlight_values": [
+                    "16"
+                  ],
+                  "description": "The number 16 highlights in the second sentence"
+                },
+                "id": "s1_1_pattern_across_multiples_pattern_discovery_b4_v1_b1"
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "statement_row_3",
+                "params": {
+                  "highlight_values": [
+                    "20"
+                  ],
+                  "description": "The number 20 highlights in the third sentence"
+                },
+                "id": "s1_1_pattern_across_multiples_pattern_discovery_b4_v1_b2"
+              },
+              {
+                "type": "dialogue",
+                "text": "They are even, yes. But look more closely. What happens from one area to the next? Does it go up by the same amount every time?",
+                "id": "s1_1_pattern_across_multiples_pattern_discovery_b4_v1_b3",
+                "_notion_block_id": "3515917e-ac52-8110-9b10-d540727ca881"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "They are all the same"
+            },
+            "description": "Student selected 'They are all the same': misreads the data",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "statement_row_1",
+                "params": {
+                  "highlight_values": [
+                    "12"
+                  ],
+                  "description": "The number 12 highlights in the first sentence"
+                },
+                "id": "s1_1_pattern_across_multiples_pattern_discovery_b4_v2_b0"
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "statement_row_2",
+                "params": {
+                  "highlight_values": [
+                    "16"
+                  ],
+                  "description": "The number 16 highlights in the second sentence"
+                },
+                "id": "s1_1_pattern_across_multiples_pattern_discovery_b4_v2_b1"
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "statement_row_3",
+                "params": {
+                  "highlight_values": [
+                    "20"
+                  ],
+                  "description": "The number 20 highlights in the third sentence"
+                },
+                "id": "s1_1_pattern_across_multiples_pattern_discovery_b4_v2_b2"
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the area numbers: 12, 16, 20. Those are three different numbers. What pattern do you see as they increase?",
+                "id": "s1_1_pattern_across_multiples_pattern_discovery_b4_v2_b3",
+                "_notion_block_id": "3515917e-ac52-8119-9277-f3e610329b2b"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "I'm not sure"
+            },
+            "description": "Student selected 'I'm not sure': needs pattern support",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "statement_row_1",
+                "params": {
+                  "highlight_values": [
+                    "12"
+                  ],
+                  "description": "The number 12 highlights in the first sentence"
+                },
+                "id": "s1_1_pattern_across_multiples_pattern_discovery_b4_v3_b0"
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "statement_row_2",
+                "params": {
+                  "highlight_values": [
+                    "16"
+                  ],
+                  "description": "The number 16 highlights in the second sentence"
+                },
+                "id": "s1_1_pattern_across_multiples_pattern_discovery_b4_v3_b1"
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "statement_row_3",
+                "params": {
+                  "highlight_values": [
+                    "20"
+                  ],
+                  "description": "The number 20 highlights in the third sentence"
+                },
+                "id": "s1_1_pattern_across_multiples_pattern_discovery_b4_v3_b2"
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's a hint: compare 12 and 16. How much bigger is 16? Then compare 16 and 20. Do you see a pattern in how much the numbers go up?",
+                "id": "s1_1_pattern_across_multiples_pattern_discovery_b4_v3_b3",
+                "_notion_block_id": "3515917e-ac52-815b-9113-df31dd7ab32e"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "statement_row_1",
+                "params": {
+                  "event": "highlight_increment",
+                  "status": "confirmed",
+                  "description": "Arrow appears from 12 to 16 with +4 label"
+                },
+                "id": "s1_1_pattern_across_multiples_pattern_discovery_b4_v4_b0"
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "statement_row_2",
+                "params": {
+                  "event": "highlight_increment",
+                  "status": "confirmed",
+                  "description": "Arrow appears from 16 to 20 with +4 label"
+                },
+                "id": "s1_1_pattern_across_multiples_pattern_discovery_b4_v4_b1"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. From 12 to 16 is 4 more. From 16 to 20 is 4 more again. Every time we add one more row of 4 squares, the area increases by 4. That fixed jump is what makes these multiples of 4.",
+                "id": "s1_1_pattern_across_multiples_pattern_discovery_b4_v4_b2",
+                "_notion_block_id": "3515917e-ac52-818d-971d-e782a954b6d4"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_pattern_across_multiples_pattern_discovery_b4",
+        "_notion_block_id": "3515917e-ac52-81d8-96a1-f3cfab9e5801"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "statement_row_1",
+            "description": "Completed sentence: 12 is a multiple of 4 because 4 × 3 = 12",
+            "tangible_type": "statement_display"
+          },
+          {
+            "tangible_id": "statement_row_2",
+            "description": "Completed sentence: 16 is a multiple of 4 because 4 × 4 = 16",
+            "tangible_type": "statement_display"
+          },
+          {
+            "tangible_id": "statement_row_3",
+            "description": "Completed sentence: 20 is a multiple of 4 because 4 × 5 = 20",
+            "tangible_type": "statement_display"
+          }
+        ],
+        "id": "s1_1_pattern_across_multiples_pattern_discovery_b5"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:17:12.950324+00:00",
+    "_notion_block_id": "3515917e-ac52-81f6-8b12-ca52ad776150"
+  },
+  {
+    "id": "s2_1_real_world_bridge_real_world",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "scenario_display",
+        "tangible_type": "scenario_display",
+        "params": {
+          "description": "A bookshelf illustration appears showing rows of books. Each row holds 7 books. Text reads: 'A bookshelf has rows of books. Each row holds 7 books. There are some rows on the shelf. Which of these could be the total number of books on the shelf?'"
+        },
+        "id": "s2_1_real_world_bridge_real_world_b0",
+        "_notion_block_id": "3515917e-ac52-8152-8a3a-df743f860c13"
+      },
+      {
+        "type": "dialogue",
+        "text": "Here's a bookshelf with rows of books. Each row holds 7 books. There are some rows on the shelf.",
+        "id": "s2_1_real_world_bridge_real_world_b1",
+        "_notion_block_id": "3515917e-ac52-81c5-85df-ed520840fec6"
+      },
+      {
+        "type": "prompt",
+        "text": "Which of these could be the total number of books on the shelf?",
+        "tool": "multiple_choice",
+        "options": [
+          "23 books",
+          "28 books",
+          "31 books",
+          "35 books"
+        ],
+        "validator": [
+          {
+            "condition_id": "selected_28",
+            "condition": {
+              "selected": "28 books"
+            },
+            "description": "Student selected 28 books, which is 4 × 7, a valid multiple of 7",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 28 is a multiple of 7 because 7 × 4 = 28. That could be on the shelf. Multiples of 7 show up everywhere rows of 7 things appear.",
+                "id": "s2_1_real_world_bridge_real_world_b2_v0_b0",
+                "_notion_block_id": "3515917e-ac52-81fe-aedc-ebafe33a232d"
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_35",
+            "condition": {
+              "selected": "35 books"
+            },
+            "description": "Student selected 35 books, which is 5 × 7, a valid multiple of 7",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 35 is a multiple of 7 because 7 × 5 = 35. That could be on the shelf. Multiples of 7 show up everywhere rows of 7 things appear.",
+                "id": "s2_1_real_world_bridge_real_world_b2_v1_b0",
+                "_notion_block_id": "3515917e-ac52-816d-bdfe-dc0275052725"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "23 books"
+            },
+            "description": "Student selected 23 books, which is not a multiple of 7",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "scenario_display",
+                "params": {
+                  "description": "The number 23 is highlighted and shows division: 23 ÷ 7 = 3 remainder 2"
+                },
+                "id": "s2_1_real_world_bridge_real_world_b2_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "If you divide 23 by 7, you get 3 rows with 2 books left over. A multiple of 7 divides evenly with no remainder. Try another number.",
+                "id": "s2_1_real_world_bridge_real_world_b2_v2_b1",
+                "_notion_block_id": "3515917e-ac52-8179-8c5e-c9d02fe59501"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "31 books"
+            },
+            "description": "Student selected 31 books, which is not a multiple of 7",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "scenario_display",
+                "params": {
+                  "description": "The number 31 is highlighted and shows division: 31 ÷ 7 = 4 remainder 3"
+                },
+                "id": "s2_1_real_world_bridge_real_world_b2_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "31 divided by 7 gives 4 rows with 3 books left over. The shelf holds complete rows of 7, so the total must divide evenly by 7.",
+                "id": "s2_1_real_world_bridge_real_world_b2_v3_b1",
+                "_notion_block_id": "3515917e-ac52-81b7-90d6-dbd4ebc7d9ab"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "scenario_display",
+                "params": {
+                  "event": "show_multiples",
+                  "status": "confirmed",
+                  "description": "The bookshelf animates to show 4 rows of 7 books each, counting to 28 total. Text highlights: 7 × 4 = 28"
+                },
+                "id": "s2_1_real_world_bridge_real_world_b2_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. Each row holds 7 books. If there are 4 rows, that is 7 × 4, which equals 28. 28 divides evenly by 7, so it is a multiple of 7. The answer is 28 books.",
+                "id": "s2_1_real_world_bridge_real_world_b2_v4_b1",
+                "_notion_block_id": "3515917e-ac52-8111-adf2-f4f5c6c45bfb"
+              }
+            ]
+          }
+        ],
+        "id": "s2_1_real_world_bridge_real_world_b2",
+        "_notion_block_id": "3515917e-ac52-81e9-bfa4-d0ba0f6743cd"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "scenario_display",
+            "description": "Bookshelf illustration with rows of 7 books. Multiple choice options displayed: 23 books, 28 books, 31 books, 35 books.",
+            "tangible_type": "scenario_display"
+          }
+        ],
+        "id": "s2_1_real_world_bridge_real_world_b3"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:17:27.121082+00:00",
+    "_notion_block_id": "3515917e-ac52-811f-9744-c4988ca6e9ea"
+  },
+  {
+    "id": "s2_2_tool_preference_reflection",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You built rectangles two ways today. First placing tiles freely, then using the handle to extend full rows.",
+        "id": "s2_2_tool_preference_reflection_b0",
+        "_notion_block_id": "3515917e-ac52-812e-9c3b-f9d15a33f6ff"
+      },
+      {
+        "type": "prompt",
+        "text": "Which way helped you see the rows more clearly?",
+        "tool": "multiple_choice",
+        "options": [
+          "Placing tiles one by one",
+          "Dragging the handle to extend a full row",
+          "Both ways helped equally",
+          "I'm not sure yet"
+        ],
+        "validator": [
+          {
+            "condition_id": "placed_tiles",
+            "condition": {
+              "selected": "Placing tiles one by one"
+            },
+            "description": "Student selected placing tiles one by one",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That takes focus. Good to know how you think.",
+                "id": "s2_2_tool_preference_reflection_b1_v0_b0",
+                "_notion_block_id": "3515917e-ac52-81e0-809f-c210721f9c4e"
+              }
+            ]
+          },
+          {
+            "condition_id": "dragged_handle",
+            "condition": {
+              "selected": "Dragging the handle to extend a full row"
+            },
+            "description": "Student selected dragging the handle",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. Dragging the handle adds a whole row at once. That makes the row structure easier to see.",
+                "id": "s2_2_tool_preference_reflection_b1_v1_b0",
+                "_notion_block_id": "3515917e-ac52-8109-b9cf-f1a0d98a7a0f"
+              }
+            ]
+          },
+          {
+            "condition_id": "both_ways",
+            "condition": {
+              "selected": "Both ways helped equally"
+            },
+            "description": "Student selected both ways helped equally",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That kind of flexibility helps.",
+                "id": "s2_2_tool_preference_reflection_b1_v2_b0",
+                "_notion_block_id": "3515917e-ac52-8156-aa7b-f331e83874a9"
+              }
+            ]
+          },
+          {
+            "condition_id": "not_sure",
+            "condition": {
+              "selected": "I'm not sure yet"
+            },
+            "description": "Student selected not sure yet",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Still figuring it out is fine. You'll notice over time.",
+                "id": "s2_2_tool_preference_reflection_b1_v3_b0",
+                "_notion_block_id": "3515917e-ac52-816a-a82f-dfbeab3463b9"
+              }
+            ]
+          }
+        ],
+        "id": "s2_2_tool_preference_reflection_b1",
+        "_notion_block_id": "3515917e-ac52-81e3-b585-ce92492881ae"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s2_2_tool_preference_reflection_b2"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:17:42.260342+00:00",
+    "_notion_block_id": "3515917e-ac52-8153-8154-f188f57625c3"
+  },
+  {
+    "id": "s2_3_identity_building_closure_s_4",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You built rectangles where one side stayed the same, and you found different areas, all multiples of that side length.",
+        "id": "s2_3_identity_building_closure_s_4_b0",
+        "_notion_block_id": "3515917e-ac52-81f6-8ed0-c7de5c9abd30"
+      },
+      {
+        "type": "dialogue",
+        "text": "You can write: ___ is a multiple of ___ because ___ × ___ = ___.",
+        "id": "s2_3_identity_building_closure_s_4_b1",
+        "_notion_block_id": "3515917e-ac52-8119-9d2a-cd78887787e5"
+      },
+      {
+        "type": "dialogue",
+        "text": "In the next module, you're going to look at one of those rectangles one more time and write the same equation in a second way.",
+        "id": "s2_3_identity_building_closure_s_4_b2",
+        "_notion_block_id": "3515917e-ac52-811e-80ec-e8a1d5916518"
+      },
+      {
+        "type": "dialogue",
+        "text": "You'll be ready because you already know what the equation means.",
+        "id": "s2_3_identity_building_closure_s_4_b3",
+        "_notion_block_id": "3515917e-ac52-81d8-adaa-ec095e4d5b51"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s2_3_identity_building_closure_s_4_b4"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:17:55.255595+00:00",
+    "_notion_block_id": "3515917e-ac52-8184-8c1c-efec32cf2b2f"
+  }
+]

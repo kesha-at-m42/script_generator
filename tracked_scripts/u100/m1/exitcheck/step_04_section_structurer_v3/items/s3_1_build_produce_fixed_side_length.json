@@ -1,0 +1,144 @@
+{
+  "id": "s3_1_build_produce_fixed_side_length",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "hundred_grid_build",
+      "tangible_type": "hundred_grid",
+      "params": {
+        "mode": "building",
+        "width": 5,
+        "height": 1,
+        "fixed_dimension": "width",
+        "fixed_value": 5,
+        "labels_visible": false,
+        "snap_mode": "on",
+        "description": "Hundred grid appears in building mode. Fixed side length of 5 locked horizontally. Height starts at 1. Row-extension handle available. Labels hidden. Snap mode on."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Build a rectangle that has a side length of 5 and an area of 30."
+    },
+    {
+      "type": "prompt",
+      "text": "Build a rectangle that has a side length of 5 and an area of 30. Tap Check when you are done.",
+      "tool": "build_rectangle",
+      "target": "hundred_grid_build",
+      "validator": [
+        {
+          "condition_id": "correct_build",
+          "condition": {
+            "width": 5,
+            "height": 6,
+            "area": 30
+          },
+          "description": "Student built 5×6 rectangle with area 30",
+          "is_correct": true,
+          "variable_answer": false,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid_build",
+              "params": {
+                "labels_visible": true,
+                "description": "Labels reveal: W=5, H=6, area=30."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Your rectangle is 5 squares wide and 6 squares tall. The area is 30."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid_build",
+          "description": "Hundred grid showing completed 5×6 rectangle with area 30. Labels visible: W=5, H=6, area=30.",
+          "tangible_type": "hundred_grid",
+          "mode": "building",
+          "width": 5,
+          "height": 6,
+          "labels_visible": true
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "stem_sentence_build",
+      "tangible_type": "fill_in_blank",
+      "params": {
+        "template": "___ is a multiple of ___ because ___ × ___ = ___",
+        "description": "Fill-in-blank sentence appears: blank is a multiple of blank because blank times blank equals blank."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Now use the checked rectangle to fill the sentence."
+    },
+    {
+      "type": "prompt",
+      "text": "Fill in the sentence using the rectangle.",
+      "tool": "fill_in_blank",
+      "target": "stem_sentence_build",
+      "validator": [
+        {
+          "condition_id": "correct_stem",
+          "condition": {
+            "blanks": [
+              30,
+              5,
+              5,
+              6,
+              30
+            ]
+          },
+          "description": "Student filled: 30 is a multiple of 5 because 5 × 6 = 30",
+          "is_correct": true,
+          "variable_answer": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "30 is a multiple of 5 because 5 times 6 equals 30. You built it and you described it."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid_build",
+          "description": "Hundred grid showing 5×6 rectangle with area 30. Labels visible: W=5, H=6, area=30.",
+          "tangible_type": "hundred_grid",
+          "mode": "building",
+          "width": 5,
+          "height": 6,
+          "labels_visible": true
+        },
+        {
+          "tangible_id": "stem_sentence_build",
+          "description": "Completed fill-in-blank sentence: 30 is a multiple of 5 because 5 × 6 = 30.",
+          "tangible_type": "fill_in_blank",
+          "template": "___ is a multiple of ___ because ___ × ___ = ___",
+          "completed_values": [
+            30,
+            5,
+            5,
+            6,
+            30
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-29T21:17:51.770344+00:00"
+}

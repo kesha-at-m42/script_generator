@@ -1,0 +1,146 @@
+{
+  "id": "s3_1_snap_on_transition_same_rectangle",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "hundred_grid",
+      "params": {
+        "event": "snap_tiles_to_grid",
+        "status": "confirmed",
+        "description": "Student's 12-tile rectangle animates smoothly from free-placed positions to grid-aligned coordinates. Each tile moves to its nearest grid cell. Ambiguous overlaps resolve to one tile per cell; extras removed with undo affordance visible. Grid snap toggles ON."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Watch what happens to your rectangle. It's snapping into the grid. Same rectangle, easier to read."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid",
+          "description": "Hundred Grid in Mode B with grid snap ON. 12 tiles arranged in a rectangle, now aligned to grid coordinates. Numeric labels hidden. Side handles not exposed.",
+          "tangible_type": "hundred_grid",
+          "mode": "mode_b",
+          "grid_snap": true,
+          "labels_visible": false,
+          "handles_exposed": false,
+          "tile_count": 12
+        },
+        {
+          "tangible_id": "tile_bank",
+          "description": "Tile Bank empty, 0 tiles remaining.",
+          "tangible_type": "tile_bank",
+          "tiles_remaining": 0
+        },
+        {
+          "tangible_id": "sentence_builder",
+          "description": "Sentence Builder displaying completed template from prior section: '___ tiles fill ___ rows of ___, so the area is ___ square units' with all slots filled.",
+          "tangible_type": "sentence_builder"
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "hundred_grid",
+      "params": {
+        "highlight_rows": true,
+        "description": "One row of the snapped rectangle highlights to draw attention to row structure."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Tap a highlighted row or side to show you see the rows."
+    },
+    {
+      "type": "prompt",
+      "text": "Tap a highlighted row or side.",
+      "tool": "click_tangible",
+      "target": {
+        "type": "hundred_grid"
+      },
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {},
+          "description": "Student tapped the highlighted row or grid surface, acknowledging the structure",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "empty"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid",
+          "description": "Hundred Grid in Mode B with grid snap ON. 12 tiles in rectangle, grid-aligned. One row highlighted. Numeric labels hidden. Side handles not exposed.",
+          "tangible_type": "hundred_grid",
+          "mode": "mode_b",
+          "grid_snap": true,
+          "labels_visible": false,
+          "handles_exposed": false,
+          "tile_count": 12,
+          "highlight_rows": true
+        },
+        {
+          "tangible_id": "tile_bank",
+          "description": "Tile Bank empty, 0 tiles remaining.",
+          "tangible_type": "tile_bank",
+          "tiles_remaining": 0
+        },
+        {
+          "tangible_id": "sentence_builder",
+          "description": "Sentence Builder displaying completed template from prior section.",
+          "tangible_type": "sentence_builder"
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "hundred_grid",
+      "params": {
+        "highlight_rows": false,
+        "description": "Row highlight clears."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Do you see the rows? Every row has the same number of squares."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid",
+          "description": "Hundred Grid in Mode B with grid snap ON. 12 tiles in rectangle, grid-aligned. No highlights. Numeric labels hidden. Side handles not exposed.",
+          "tangible_type": "hundred_grid",
+          "mode": "mode_b",
+          "grid_snap": true,
+          "labels_visible": false,
+          "handles_exposed": false,
+          "tile_count": 12
+        },
+        {
+          "tangible_id": "tile_bank",
+          "description": "Tile Bank empty, 0 tiles remaining.",
+          "tangible_type": "tile_bank",
+          "tiles_remaining": 0
+        },
+        {
+          "tangible_id": "sentence_builder",
+          "description": "Sentence Builder displaying completed template from prior section.",
+          "tangible_type": "sentence_builder"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-29T21:18:19.434158+00:00"
+}

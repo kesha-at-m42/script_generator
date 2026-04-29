@@ -1,0 +1,254 @@
+{
+  "id": "s2_1_stem_completion_prebuilt_rectangle_connect",
+  "incorrects": [
+    [],
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "blank": 1,
+              "value": 4
+            },
+            {
+              "blank": 2,
+              "value": 24
+            },
+            {
+              "blank": 3,
+              "value": 4
+            },
+            {
+              "blank": 4,
+              "value": 6
+            },
+            {
+              "blank": 5,
+              "value": 24
+            },
+            {
+              "or": [
+                {
+                  "incorrect_count": 1
+                },
+                {
+                  "incorrect_count": 2
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Student reversed first two blanks: wrote 4 is a multiple of 24",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid_4x6",
+              "params": {
+                "description": "Area label (24) pulses to emphasize it represents the total."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You wrote 4 is a multiple of 24. But the area is 24, not 4. What number goes in the first blank?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "blank": 3,
+              "value": 6
+            },
+            {
+              "blank": 4,
+              "value": 4
+            },
+            {
+              "or": [
+                {
+                  "incorrect_count": 1
+                },
+                {
+                  "incorrect_count": 2
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Student reversed multiplication blanks: wrote 6 × 4 instead of 4 × 6",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid_4x6",
+              "params": {
+                "description": "Width label (4) and Height label (6) pulse in sequence."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You wrote 6 times 4. The sentence starts with width times height. Check the labels: which is the width?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 1
+            },
+            {
+              "not": {
+                "and": [
+                  {
+                    "blank": 1,
+                    "value": 4
+                  },
+                  {
+                    "blank": 2,
+                    "value": 24
+                  },
+                  {
+                    "blank": 3,
+                    "value": 4
+                  },
+                  {
+                    "blank": 4,
+                    "value": 6
+                  },
+                  {
+                    "blank": 5,
+                    "value": 24
+                  }
+                ]
+              }
+            },
+            {
+              "not": {
+                "and": [
+                  {
+                    "blank": 3,
+                    "value": 6
+                  },
+                  {
+                    "blank": 4,
+                    "value": 4
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "description": "Student filled blanks incorrectly on first attempt, not matching specific conditions",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Check the rectangle labels. What are the width, height, and area?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 2
+            },
+            {
+              "not": {
+                "and": [
+                  {
+                    "blank": 1,
+                    "value": 4
+                  },
+                  {
+                    "blank": 2,
+                    "value": 24
+                  },
+                  {
+                    "blank": 3,
+                    "value": 4
+                  },
+                  {
+                    "blank": 4,
+                    "value": 6
+                  },
+                  {
+                    "blank": 5,
+                    "value": 24
+                  }
+                ]
+              }
+            },
+            {
+              "not": {
+                "and": [
+                  {
+                    "blank": 3,
+                    "value": 6
+                  },
+                  {
+                    "blank": 4,
+                    "value": 4
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "description": "Student filled blanks incorrectly on second attempt, not matching specific conditions",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid_4x6",
+              "params": {
+                "description": "All three labels pulse: W=4, H=6, area=24."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at the labels. The area goes first. Then the width. The multiplication shows width times height equals area. Fill each blank from those labels."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student filled blanks incorrectly three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "stem_sentence",
+              "params": {
+                "event": "model_fill",
+                "status": "confirmed",
+                "description": "System fills blanks sequentially: 24, 4, 4, 6, 24."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here is how the sentence matches the rectangle. The area is 24. That is a multiple of the width, 4. Why? Because 4 times 6 equals 24. That is what width times height equals area means. The sentence is: 24 is a multiple of 4 because 4 times 6 equals 24."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-29T21:18:31.304738+00:00"
+}

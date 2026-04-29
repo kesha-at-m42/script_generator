@@ -1,0 +1,139 @@
+{
+  "id": "s2_1_stem_completion_prebuilt_rectangle_connect",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "hundred_grid_4x6",
+      "tangible_type": "hundred_grid",
+      "params": {
+        "mode": "observation",
+        "width": 4,
+        "height": 6,
+        "area": 24,
+        "labels_visible": true,
+        "build_affordances_disabled": true,
+        "description": "Hundred Grid in observation mode. 4×6 rectangle prebuilt. Labels visible: W=4, H=6, area=24 in center. Build affordances disabled."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Here is a rectangle on the Hundred Grid. Width is 4. Height is 6. Area is 24."
+    },
+    {
+      "type": "prompt",
+      "text": "Tap Check to confirm what you see.",
+      "tool": "check",
+      "target": "hundred_grid_4x6",
+      "validator": [
+        {
+          "condition_id": "confirmed",
+          "condition": {},
+          "description": "Student tapped Check to confirm observation",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "empty"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid_4x6",
+          "description": "Hundred Grid in observation mode. 4×6 rectangle prebuilt with labels W=4, H=6, area=24 visible.",
+          "tangible_type": "hundred_grid",
+          "mode": "observation",
+          "width": 4,
+          "height": 6,
+          "area": 24,
+          "labels_visible": true,
+          "build_affordances_disabled": true
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "stem_sentence",
+      "tangible_type": "fill_in_blank",
+      "params": {
+        "template": "___ is a multiple of ___ because ___ × ___ = ___",
+        "description": "Stem sentence appears: ___ is a multiple of ___ because ___ × ___ = ___. Some blanks may be pre-filled via linked values at BASELINE tier."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Use the checked rectangle to fill the sentence."
+    },
+    {
+      "type": "prompt",
+      "text": "Fill the blanks to match the rectangle. Then tap Check.",
+      "tool": "fill_in_blank",
+      "target": "stem_sentence",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "blank": 1,
+                "value": 24
+              },
+              {
+                "blank": 2,
+                "value": 4
+              },
+              {
+                "blank": 3,
+                "value": 4
+              },
+              {
+                "blank": 4,
+                "value": 6
+              },
+              {
+                "blank": 5,
+                "value": 24
+              }
+            ]
+          },
+          "description": "Student filled: 24 is a multiple of 4 because 4 × 6 = 24, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Your sentence says 24 is a multiple of 4 because 4 times 6 equals 24. That's what the rectangle shows."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid_4x6",
+          "description": "Hundred Grid in observation mode. 4×6 rectangle with labels W=4, H=6, area=24 visible.",
+          "tangible_type": "hundred_grid",
+          "mode": "observation",
+          "width": 4,
+          "height": 6,
+          "area": 24,
+          "labels_visible": true,
+          "build_affordances_disabled": true
+        },
+        {
+          "tangible_id": "stem_sentence",
+          "description": "Stem sentence filled: 24 is a multiple of 4 because 4 × 6 = 24.",
+          "tangible_type": "fill_in_blank",
+          "template": "___ is a multiple of ___ because ___ × ___ = ___"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-29T21:17:29.301929+00:00"
+}

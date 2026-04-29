@@ -1,0 +1,245 @@
+{
+  "id": "s3_1_build_produce_fixed_side_length",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "area": 30
+            },
+            {
+              "not": {
+                "width": 5,
+                "height": 6
+              }
+            },
+            {
+              "or": [
+                {
+                  "incorrect_count": 1
+                },
+                {
+                  "incorrect_count": 2
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Student built a rectangle with area 30 but dimensions other than 5×6",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid_build",
+              "params": {
+                "description": "Fixed side length of 5 pulses to draw attention."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You have the right area. But one side must be 5. Look at the locked side. How many rows do you need to make 30?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 1
+            },
+            {
+              "not": {
+                "area": 30
+              }
+            }
+          ]
+        },
+        "description": "Student built a rectangle with incorrect area on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. The area needs to be 30. Count the squares in your rectangle."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "incorrect_count": 2
+            },
+            {
+              "not": {
+                "area": 30
+              }
+            }
+          ]
+        },
+        "description": "Student built a rectangle with incorrect area on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid_build",
+              "params": {
+                "description": "Grid highlights row-extension handle."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let's think about this together. One side is 5. To get an area of 30, how many groups of 5 do you need? Try adding or removing rows."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student built an incorrect rectangle three or more times. System models the answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "hundred_grid_build",
+              "params": {
+                "event": "build_to_dimensions",
+                "status": "confirmed",
+                "description": "Grid animates to show 5×6 rectangle building row by row. Labels reveal: W=5, H=6, area=30.",
+                "width": 5,
+                "height": 6
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you how this works. One side is locked at 5. To get area 30, I need 6 rows because 5 times 6 equals 30. The rectangle is 5 wide and 6 tall. That's how we build a rectangle with side length 5 and area 30."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "blanks": [
+                30,
+                5,
+                6,
+                5,
+                30
+              ]
+            },
+            {
+              "or": [
+                {
+                  "incorrect_count": 1
+                },
+                {
+                  "incorrect_count": 2
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Student reversed the factors: wrote 6 × 5 instead of 5 × 6",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid_build",
+              "params": {
+                "description": "Rectangle width label (5) pulses."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You have the right numbers, but check the order. The width is 5. Which number should go first in the multiplication?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student filled sentence incorrectly on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Look at the labels on the rectangle. Which number is the area? Which are the side lengths?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student filled sentence incorrectly on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid_build",
+              "params": {
+                "description": "Labels pulse: W=5, H=6, area=30."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Here's a hint: the area is 30. That goes first and last. The width and height multiply to make it. Read the labels and fill them in order."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student filled sentence incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "stem_sentence_build",
+              "params": {
+                "event": "fill_blanks",
+                "status": "confirmed",
+                "description": "Blanks fill one by one: 30 is a multiple of 5 because 5 × 6 = 30.",
+                "values": [
+                  30,
+                  5,
+                  5,
+                  6,
+                  30
+                ]
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me walk you through this. The area is 30, so that goes in the first blank and the last blank. 30 is a multiple of 5, so 5 goes in the second blank. The rectangle is 5 wide and 6 tall, so 5 times 6 goes in the middle. The sentence is: 30 is a multiple of 5 because 5 times 6 equals 30."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-29T21:18:55.754086+00:00"
+}

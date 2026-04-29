@@ -1,0 +1,98 @@
+{
+  "id": "s2_1_read_built_rectangle_with_concrete",
+  "beats": [
+    {
+      "type": "dialogue",
+      "text": "Use the checked rectangle to fill the sentence. How many rows do you see? How many squares are in each row?"
+    },
+    {
+      "type": "prompt",
+      "text": "Fill the sentence using the rectangle you built.",
+      "tool": "fill_in_blank",
+      "template": "___ tiles fill ___ rows of ___, so the area is ___ square units",
+      "slots": [
+        {
+          "slot_id": "total_tiles",
+          "position": 1,
+          "type": "number"
+        },
+        {
+          "slot_id": "row_count",
+          "position": 2,
+          "type": "number"
+        },
+        {
+          "slot_id": "row_size",
+          "position": 3,
+          "type": "number"
+        },
+        {
+          "slot_id": "area",
+          "position": 4,
+          "type": "number"
+        }
+      ],
+      "variable_answer": true,
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "slot": "total_tiles",
+                "matches_rectangle_tile_count": true
+              },
+              {
+                "slot": "row_count",
+                "matches_rectangle_rows": true
+              },
+              {
+                "slot": "row_size",
+                "matches_rectangle_row_length": true
+              },
+              {
+                "slot": "area",
+                "equals_slot": "total_tiles"
+              }
+            ]
+          },
+          "description": "Student filled all slots correctly using their built rectangle's dimensions",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You tied the built object to the sentence. Row count and row size are separate values."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid",
+          "description": "Hundred Grid in Mode B with 12 tiles arranged in a rectangle. Grid snap off, numeric labels hidden, side handles not exposed.",
+          "tangible_type": "hundred_grid",
+          "mode": "mode_b",
+          "grid_snap": false,
+          "numeric_labels_visible": false,
+          "tile_count": 12
+        },
+        {
+          "tangible_id": "tile_bank",
+          "description": "Tile Bank empty, 0 tiles remaining.",
+          "tangible_type": "tile_bank",
+          "tile_count": 0
+        },
+        {
+          "tangible_id": "sentence_builder",
+          "description": "Sentence Builder displaying completed template: '___ tiles fill ___ rows of ___, so the area is ___ square units' with all four slots filled by student.",
+          "tangible_type": "sentence_builder",
+          "template": "___ tiles fill ___ rows of ___, so the area is ___ square units"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-29T21:17:54.088923+00:00"
+}

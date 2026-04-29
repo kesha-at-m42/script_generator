@@ -1,0 +1,71 @@
+{
+  "id": "s5_1_multiple_statement_stem_first_completion",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student filled slots incorrectly on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Look at the area label on your rectangle. That number goes in the first slot."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student filled slots incorrectly on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid",
+              "params": {
+                "highlight_dimension_labels": true,
+                "highlight_area_label": true,
+                "description": "Dimension labels and area label highlight on the rectangle."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at the labels on your rectangle. The area goes in slot 1. The fixed side length, 4, goes in slot 2. Then width times height equals that area."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student filled slots incorrectly three or more times. System models the correct completion.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "sentence_builder_multiple",
+              "params": {
+                "event": "auto_fill_slots",
+                "status": "confirmed",
+                "description": "System fills all slots in sequence: area value in slot 1, fixed side 4 in slot 2, width and height in slots 3-4-5 matching the multiplication."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The area is a multiple of 4 because when you multiply 4 times the number of rows, you get the area. That is what the sentence names. The area has to be a multiple of 4 because each row adds 4 more squares."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-29T21:20:41.949783+00:00"
+}

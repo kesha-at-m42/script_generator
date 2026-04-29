@@ -1,0 +1,318 @@
+[
+  {
+    "id": "s1_0_opening_frame_no_student_action",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "In this module, you built rectangles on the grid and found areas that are multiples of a side length. You filled in sentences like '20 is a multiple of 4 because 4 × 5 = 20.' You built at least two different rectangles. Both times, the area was a multiple of the same side length. Let's look at what that tells us.",
+        "id": "s1_0_opening_frame_no_student_action_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_opening_frame_no_student_action_b1"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:16:55.392063+00:00"
+  },
+  {
+    "id": "s1_1_pattern_across_multiples_pattern_discovery",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "They are all even"
+          },
+          "description": "Student selected 'They are all even': observes surface property but misses the fixed increment pattern",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "statement_row_1",
+                "params": {
+                  "highlight_values": [
+                    "12"
+                  ],
+                  "description": "The number 12 highlights in the first sentence"
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "statement_row_2",
+                "params": {
+                  "highlight_values": [
+                    "16"
+                  ],
+                  "description": "The number 16 highlights in the second sentence"
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "statement_row_3",
+                "params": {
+                  "highlight_values": [
+                    "20"
+                  ],
+                  "description": "The number 20 highlights in the third sentence"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "They are even, yes. But look more closely. What happens from one area to the next? Does it go up by the same amount every time?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "They are all the same"
+          },
+          "description": "Student selected 'They are all the same': misreads the data",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "statement_row_1",
+                "params": {
+                  "highlight_values": [
+                    "12"
+                  ],
+                  "description": "The number 12 highlights in the first sentence"
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "statement_row_2",
+                "params": {
+                  "highlight_values": [
+                    "16"
+                  ],
+                  "description": "The number 16 highlights in the second sentence"
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "statement_row_3",
+                "params": {
+                  "highlight_values": [
+                    "20"
+                  ],
+                  "description": "The number 20 highlights in the third sentence"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the area numbers: 12, 16, 20. Those are three different numbers. What pattern do you see as they increase?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "I'm not sure"
+          },
+          "description": "Student selected 'I'm not sure': needs pattern support",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "statement_row_1",
+                "params": {
+                  "highlight_values": [
+                    "12"
+                  ],
+                  "description": "The number 12 highlights in the first sentence"
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "statement_row_2",
+                "params": {
+                  "highlight_values": [
+                    "16"
+                  ],
+                  "description": "The number 16 highlights in the second sentence"
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "statement_row_3",
+                "params": {
+                  "highlight_values": [
+                    "20"
+                  ],
+                  "description": "The number 20 highlights in the third sentence"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Here's a hint: compare 12 and 16. How much bigger is 16? Then compare 16 and 20. Do you see a pattern in how much the numbers go up?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "statement_row_1",
+                "params": {
+                  "event": "highlight_increment",
+                  "status": "confirmed",
+                  "description": "Arrow appears from 12 to 16 with +4 label"
+                }
+              },
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "statement_row_2",
+                "params": {
+                  "event": "highlight_increment",
+                  "status": "confirmed",
+                  "description": "Arrow appears from 16 to 20 with +4 label"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. From 12 to 16 is 4 more. From 16 to 20 is 4 more again. Every time we add one more row of 4 squares, the area increases by 4. That fixed jump is what makes these multiples of 4."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-29T21:18:26.558621+00:00"
+  },
+  {
+    "id": "s2_1_real_world_bridge_real_world",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "23 books"
+          },
+          "description": "Student selected 23 books, which is not a multiple of 7",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "scenario_display",
+                "params": {
+                  "description": "The number 23 is highlighted and shows division: 23 ÷ 7 = 3 remainder 2"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "If you divide 23 by 7, you get 3 rows with 2 books left over. A multiple of 7 divides evenly with no remainder. Try another number."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "31 books"
+          },
+          "description": "Student selected 31 books, which is not a multiple of 7",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "scenario_display",
+                "params": {
+                  "description": "The number 31 is highlighted and shows division: 31 ÷ 7 = 4 remainder 3"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "31 divided by 7 gives 4 rows with 3 books left over. The shelf holds complete rows of 7, so the total must divide evenly by 7."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "scenario_display",
+                "params": {
+                  "event": "show_multiples",
+                  "status": "confirmed",
+                  "description": "The bookshelf animates to show 4 rows of 7 books each, counting to 28 total. Text highlights: 7 × 4 = 28"
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you how this works. Each row holds 7 books. If there are 4 rows, that is 7 × 4, which equals 28. 28 divides evenly by 7, so it is a multiple of 7. The answer is 28 books."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-29T21:18:38.070566+00:00"
+  },
+  {
+    "id": "s2_2_tool_preference_reflection",
+    "incorrects": [],
+    "_generated_at": "2026-04-29T21:18:40.151580+00:00"
+  },
+  {
+    "id": "s2_3_identity_building_closure_s_4",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You built rectangles where one side stayed the same, and you found different areas, all multiples of that side length.",
+        "id": "s2_3_identity_building_closure_s_4_b0"
+      },
+      {
+        "type": "dialogue",
+        "text": "You can write: ___ is a multiple of ___ because ___ × ___ = ___.",
+        "id": "s2_3_identity_building_closure_s_4_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "In the next module, you're going to look at one of those rectangles one more time and write the same equation in a second way.",
+        "id": "s2_3_identity_building_closure_s_4_b2"
+      },
+      {
+        "type": "dialogue",
+        "text": "You'll be ready because you already know what the equation means.",
+        "id": "s2_3_identity_building_closure_s_4_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s2_3_identity_building_closure_s_4_b4"
+      }
+    ],
+    "_generated_at": "2026-04-29T21:17:55.255595+00:00"
+  }
+]

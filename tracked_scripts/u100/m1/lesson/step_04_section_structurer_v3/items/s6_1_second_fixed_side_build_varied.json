@@ -1,0 +1,168 @@
+{
+  "id": "s6_1_second_fixed_side_build_varied",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "hundred_grid",
+      "params": {
+        "reset_rectangle": true,
+        "description": "Rectangle clears from grid. Hundred Grid remains in Mode B with grid snap ON. Side handle for width=4 remains locked and exposed."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "sentence_builder",
+      "params": {
+        "clear_all_slots": true,
+        "description": "All five slots in sentence builder clear, template resets to blank state."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "You built one rectangle with that side length. Now build a different rectangle with the same side length. Drag the handle to a different height."
+    },
+    {
+      "type": "prompt",
+      "text": "Drag the handle to build a rectangle with the same width but a different number of rows.",
+      "tool": "drag_handle",
+      "target": "hundred_grid.side_handle",
+      "validator": [
+        {
+          "condition_id": "different_height",
+          "condition": {
+            "height_changed": true
+          },
+          "description": "Student built rectangle with same width=4 but different row count than previous rectangle",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "empty"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid",
+          "description": "Hundred Grid Mode B with grid snap ON. Student-built rectangle visible with width locked at 4 squares and student-selected height different from prior section. Side handle active.",
+          "tangible_type": "hundred_grid",
+          "mode": "mode_b",
+          "grid_snap": true,
+          "fixed_width": 4
+        },
+        {
+          "tangible_id": "sentence_builder",
+          "description": "Sentence Builder showing empty template: '___ is a multiple of ___ because ___ × ___ = ___'",
+          "tangible_type": "sentence_builder"
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Now tap Check."
+    },
+    {
+      "type": "prompt",
+      "text": "Tap Check to validate your rectangle.",
+      "tool": "check",
+      "target": "hundred_grid",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {},
+          "description": "Student tapped Check, rectangle validated, dimension and area labels appear",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid",
+              "params": {
+                "show_dimension_labels": true,
+                "show_area_label": true,
+                "description": "Dimension labels (W × H) and area label appear at rectangle center."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid",
+          "description": "Hundred Grid Mode B showing validated rectangle with dimension labels (W × H) and area label visible at center. Width=4 locked, height varied from prior section.",
+          "tangible_type": "hundred_grid",
+          "mode": "mode_b",
+          "grid_snap": true,
+          "fixed_width": 4,
+          "show_dimension_labels": true,
+          "show_area_label": true
+        },
+        {
+          "tangible_id": "sentence_builder",
+          "description": "Sentence Builder showing empty template ready for completion.",
+          "tangible_type": "sentence_builder"
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Now complete the sentence with this new area."
+    },
+    {
+      "type": "prompt",
+      "text": "Fill in all five slots to complete the sentence about this rectangle's area.",
+      "tool": "fill_in_blank",
+      "target": "sentence_builder",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "all_slots_filled": true,
+            "slot_1_equals": "area",
+            "slot_2_equals": 4,
+            "multiplication_correct": true
+          },
+          "description": "Student filled all five slots correctly: area in slot 1, 4 in slot 2, width and height in slots 3-5 matching multiplication",
+          "is_correct": true,
+          "variable_answer": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You built two different rectangles with the same side length. Both areas are multiples of 4. Every time you add a row of 4, you get the next multiple."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid",
+          "description": "Hundred Grid Mode B showing completed rectangle with dimension and area labels visible.",
+          "tangible_type": "hundred_grid",
+          "mode": "mode_b",
+          "grid_snap": true,
+          "fixed_width": 4,
+          "show_dimension_labels": true,
+          "show_area_label": true
+        },
+        {
+          "tangible_id": "sentence_builder",
+          "description": "Sentence Builder with all five slots completed, expressing that the area is a multiple of 4.",
+          "tangible_type": "sentence_builder",
+          "all_slots_filled": true
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-29T21:19:30.271054+00:00"
+}

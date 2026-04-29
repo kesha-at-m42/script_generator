@@ -1,0 +1,129 @@
+{
+  "id": "s1_1_pattern_across_multiples_pattern_discovery",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "statement_row_1",
+      "tangible_type": "statement_display",
+      "params": {
+        "content": "12 is a multiple of 4 because 4 × 3 = 12",
+        "description": "First completed sentence appears: 12 is a multiple of 4 because 4 × 3 = 12"
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "statement_row_2",
+      "tangible_type": "statement_display",
+      "params": {
+        "content": "16 is a multiple of 4 because 4 × 4 = 16",
+        "description": "Second completed sentence appears: 16 is a multiple of 4 because 4 × 4 = 16"
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "statement_row_3",
+      "tangible_type": "statement_display",
+      "params": {
+        "content": "20 is a multiple of 4 because 4 × 5 = 20",
+        "description": "Third completed sentence appears: 20 is a multiple of 4 because 4 × 5 = 20"
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Look at all three sentences. What do you notice about the first blank in each one — the area number?"
+    },
+    {
+      "type": "prompt",
+      "text": "What do you notice about the area numbers?",
+      "tool": "multiple_choice",
+      "options": [
+        "They all go up by 4",
+        "They are all even",
+        "They are all the same",
+        "I'm not sure"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "They all go up by 4"
+          },
+          "description": "Student selected 'They all go up by 4', correct observation of the multiple pattern",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You noticed that every time you added one more row of 4 squares, the area went up by 4. That's what multiples do — they go up by the same amount each time."
+            }
+          ]
+        },
+        {
+          "condition_id": "all_even",
+          "condition": {
+            "selected": "They are all even"
+          },
+          "description": "Student selected 'They are all even', observes surface property but misses the fixed increment pattern",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You noticed that every time you added one more row of 4 squares, the area went up by 4. That's what multiples do — they go up by the same amount each time."
+            }
+          ]
+        },
+        {
+          "condition_id": "all_same",
+          "condition": {
+            "selected": "They are all the same"
+          },
+          "description": "Student selected 'They are all the same', misreads the data",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You noticed that every time you added one more row of 4 squares, the area went up by 4. That's what multiples do — they go up by the same amount each time."
+            }
+          ]
+        },
+        {
+          "condition_id": "not_sure",
+          "condition": {
+            "selected": "I'm not sure"
+          },
+          "description": "Student selected 'I'm not sure', needs pattern support",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You noticed that every time you added one more row of 4 squares, the area went up by 4. That's what multiples do — they go up by the same amount each time."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "statement_row_1",
+          "description": "Completed sentence: 12 is a multiple of 4 because 4 × 3 = 12",
+          "tangible_type": "statement_display"
+        },
+        {
+          "tangible_id": "statement_row_2",
+          "description": "Completed sentence: 16 is a multiple of 4 because 4 × 4 = 16",
+          "tangible_type": "statement_display"
+        },
+        {
+          "tangible_id": "statement_row_3",
+          "description": "Completed sentence: 20 is a multiple of 4 because 4 × 5 = 20",
+          "tangible_type": "statement_display"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-29T21:17:12.950324+00:00"
+}

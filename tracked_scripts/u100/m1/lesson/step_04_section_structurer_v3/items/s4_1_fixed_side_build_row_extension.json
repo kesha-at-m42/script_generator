@@ -1,0 +1,119 @@
+{
+  "id": "s4_1_fixed_side_build_row_extension",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "hundred_grid_b",
+      "tangible_type": "hundred_grid",
+      "params": {
+        "mode": "B",
+        "grid_snap": true,
+        "numeric_labels_visible": false,
+        "side_handles_exposed": true,
+        "fixed_side_length": 4,
+        "locked_dimension": "width",
+        "tiles_placed": 0,
+        "description": "Hundred Grid Mode B appears with grid snap ON. No tiles placed yet. Side handle exposed for free dimension (height). Width locked at 4 squares (fixed-side-length lock active). No dimension or area labels visible."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "tile_bank",
+      "tangible_type": "tile_bank",
+      "params": {
+        "tiles_remaining": 0,
+        "description": "Tile Bank remains on screen, empty."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "sentence_builder",
+      "tangible_type": "sentence_builder",
+      "params": {
+        "template": "___ tiles fill ___ rows of ___, so the area is ___ square units",
+        "slots_filled": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "description": "Sentence Builder displays completed template from prior section."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Now build a rectangle where one side is 4 squares long. Drag the handle to extend the rectangle, then tap Check."
+    },
+    {
+      "type": "prompt",
+      "text": "Drag the side handle to build the rectangle, then tap Check.",
+      "tool": "check",
+      "target": "hundred_grid_b",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {},
+          "description": "Student built a rectangle with fixed width 4 and variable height, then tapped Check",
+          "is_correct": true,
+          "variable_answer": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid_b",
+              "params": {
+                "dimension_labels_visible": true,
+                "area_label_visible": true,
+                "description": "Dimension labels and area label appear on the rectangle after Check."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Your rectangle is 4 wide and the height you chose. The area is shown at the center."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid_b",
+          "description": "Hundred Grid Mode B with grid snap ON. Rectangle built with width 4 (locked) and variable height. Dimension labels (W × H) and area label visible at center. No equation overlay shown.",
+          "tangible_type": "hundred_grid",
+          "mode": "B",
+          "grid_snap": true,
+          "numeric_labels_visible": false,
+          "side_handles_exposed": true,
+          "fixed_side_length": 4,
+          "locked_dimension": "width",
+          "dimension_labels_visible": true,
+          "area_label_visible": true
+        },
+        {
+          "tangible_id": "tile_bank",
+          "description": "Tile Bank empty.",
+          "tangible_type": "tile_bank",
+          "tiles_remaining": 0
+        },
+        {
+          "tangible_id": "sentence_builder",
+          "description": "Sentence Builder showing completed template from prior section.",
+          "tangible_type": "sentence_builder",
+          "template": "___ tiles fill ___ rows of ___, so the area is ___ square units",
+          "slots_filled": [
+            true,
+            true,
+            true,
+            true
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-29T21:18:41.115307+00:00"
+}

@@ -1,0 +1,84 @@
+[
+  {
+    "id": "s1_0_purpose_frame",
+    "divider": "Teacher opens lesson with this frame. No student action — teacher sets context, goal, relevance. Concrete language only. Why today matters.",
+    "guide": "\"You just saw four rectangles and noticed differences between them — things like how many rows they had or how long each row was. Now you're going to build your own rectangles on the grid, one row at a time. When you tap Check, you'll see how many squares you used — and we'll write a sentence that names what that area means. Everything we do today builds to one sentence: ___ is a multiple of ___ because ___ × ___ = ___. Let's build the first rectangle now.\"",
+    "_generated_at": "2026-04-29T21:16:32.466428+00:00"
+  },
+  {
+    "id": "s1_1_free_tile_build_find_rectangle",
+    "setup": "§2.13 Hundred Grid Mode B is active in B-snap-OFF sub-state (numeric cell labels hidden, grid-snap off, side handles not exposed). Tutor prompt: \"You have ___ tiles. Place them on the grid to make a rectangle, then tap Check.\" The tile count is authored (e.g., 12 tiles). No target dimensions specified — the student decides the arrangement. U1.1 detection is active.",
+    "student_action": "Student taps or drags tiles onto the Mode B surface to form a rectangular arrangement with the given tile count. Tiles render at tap location with soft drop-shadow. Placement is not grid-snapped. Student taps Check when the rectangle is complete. If U1.1 detection signal fires (tile-by-tile placement without row structure), the row-structure scaffold activates (Light → Medium → Heavy per §1.4.1).",
+    "teacher_move": "After Check, observe whether rows are formed. If tile-by-tile detection signal fired: redirect via the three-tier remediation ladder (§1.4.1). Do not reveal labels during remediation. Post-Check observable response: \"Your rectangle has ___ tiles in ___ rows. Fill in the sentence.\"",
+    "key_observation": "Student builds rows of equal length rather than placing tiles in arbitrary clusters. The concrete stem completion confirms row-structure reading: the student must distinguish \"how many rows\" from \"how many tiles per row.\"",
+    "common_detour": "Student places tiles in an L-shape or irregular cluster rather than a true rectangle. The Check button should not activate for non-rectangular configurations; the tutor prompts: \"Tap the edge tiles and reshape so each row has the same number of squares.\"",
+    "intervention": "If irregular shape persists, the tutor highlights one correctly formed row (row pulse per §2.13 Mode B) and prompts: \"Make all rows look like this row.\" No equation, no label reveal.",
+    "next_move": "After Check and concrete stem completion, proceed to L.2 (Concrete Readback with the Concrete Stem).",
+    "duration": "2–3 minutes (placement + Check + concrete stem completion).",
+    "_generated_at": "2026-04-29T21:16:37.980720+00:00"
+  },
+  {
+    "id": "s2_1_read_built_rectangle_with_concrete",
+    "setup": "The checked rectangle remains visible. The concrete stem appears via §2.10 Drop Down: `___ tiles fill ___ rows of ___, so the area is ___ square units`. Numeric label reveals are paused at this beat — only the row count and row size are referenced.",
+    "student_action": "Student uses the checked rectangle to fill the stem, selecting or entering the total tiles, number of rows, row size, and area. Student reads the completed stem aloud or silently with the visible rectangle in view.",
+    "teacher_move": "Say: \"Use the checked rectangle to fill the sentence. How many rows do you see? How many squares are in each row?\" Keep the row count and row size separate in the prompts (defeats #M01-2 collapse).",
+    "key_observation": "Student ties the built object to a structured sentence and distinguishes row count from row size. This separation is the M01-2 prevention move — never combine row count and row size into a single prompt.",
+    "common_detour": "Student reverses the row count and row size (puts row count where row size goes), or fills the total slot from memory without referencing the picture.",
+    "intervention": "Point back to the image verbally: \"Count the rows first. Then tell how many squares are in each row.\" Do not advance until the two values are entered in the right slots.",
+    "next_move": "Proceed to L.3 (Snap-On Transition / Beat 3).",
+    "duration": "~2 minutes.",
+    "_generated_at": "2026-04-29T21:16:42.578231+00:00"
+  },
+  {
+    "id": "s3_1_snap_on_transition_same_rectangle",
+    "setup": "The snap-on toggle fires (tutor-commanded). The student's free-placed rectangle re-anchors to grid coordinates through a snap animation. Each tile moves from its loose position to a grid coordinate — smooth movement, not teleport. Ambiguous tile overlaps (if any) resolve to one tile per cell; extras silently removed with undo affordance. After the animation, the same §2.13 Hundred Grid Mode B surface is now in B-snap-ON. U1.1 detection continues active.",
+    "student_action": "Student observes the snap animation. After the animation settles, the tutor highlights one row and prompts the student to tap a highlighted row or side to acknowledge the structure. This is a low-cognitive-load confirmation tap.",
+    "teacher_move": "\"Watch what happens to your rectangle — it's snapping into the grid. Same rectangle, easier to read.\" After the student's acknowledgment tap: \"Do you see the rows? Every row has the same number of squares.\" No new vocabulary. No equation.",
+    "key_observation": "Student's recognition that the snapped rectangle is \"the same one\" is the conceptual payload of this interaction — it establishes continuity between the Concrete (loose tiles) and Relational (grid-snapped) stages. If student expresses surprise at the shape change (e.g., tiles moved slightly), acknowledge it as part of the snap.",
+    "common_detour": "Student expects a new rectangle to appear (thinks the snap is a reset). Reassure: \"Your tiles just lined up — same number of squares, now organized in the grid.\"",
+    "intervention": "No remediation needed for this beat; it is observational and guided. If the student is visibly confused, name continuity: \"It has the same squares as before. Just easier to see now.\"",
+    "next_move": "Proceed to L.4 (Fixed-Side-Length Build, B-snap-ON).",
+    "duration": "45–60 seconds (transition + acknowledgment tap).",
+    "divider": "→ **SECTION 1 COMPLETE. PROCEED TO SECTION 2.**",
+    "divider_2": "### Section 2: Relational Build — Fixed Side Length (RELATIONAL)\n\nThe student builds new rectangles in B-snap-ON with a fixed side length locked. One dimension is locked by the authored activity; the other is student-built using the handle or cell taps. Tiles are grid-snapped. The locked-side label visibility follows the label-visibility flag (OQ-M01-LABELS-V4); the free-side dimension label and area label remain hidden until Check regardless of flag setting. Equation overlays remain SUPPRESSED. After Check, the module stem (Beat 5) unlocks — this is the student's first encounter with the equation form.",
+    "_generated_at": "2026-04-29T21:16:49.339150+00:00"
+  },
+  {
+    "id": "s4_1_fixed_side_build_row_extension",
+    "setup": "§2.13 Hundred Grid Mode B is in B-snap-ON. Fixed-side-length lock is active (one dimension locked per authored task — e.g., side length = 4). Tutor prompt: \"Build a rectangle where one side is ___ squares long. Drag the handle to extend the rectangle, then tap Check.\" Tile placement is grid-snapped. Side handle is exposed (B-snap-ON only). Locked-side label visibility governed by label-visibility flag (OQ-M01-LABELS-V4). Free-side label and area label are hidden until Check. U1.1 detection active.",
+    "student_action": "Student drags the free-side handle (or taps cells) to extend the free dimension, building the rectangle one row at a time. Student taps Check when satisfied. Check reveals dimension labels (W × H) and area label at center. Equation overlay remains SUPPRESSED. Module stem (`___ is a multiple of ___ because ___ × ___ = ___`) unlocks for Interaction L.5.",
+    "teacher_move": "Observe whether student uses the handle (row extension = multiplicative) or taps cells one at a time (tile-by-tile = U1.1 risk). If tile-by-tile detection fires in B-snap-ON: apply U1.1 remediation per §1.4.1 (row highlight + prompt \"How many squares are in each row?\"). Post-Check observable response: \"Your rectangle is ___ wide and ___ tall. The area is ___ square units.\"",
+    "key_observation": "Student uses the handle drag to extend a full row at once — this is the Relational-stage manifestation of row-based thinking. Handle drag is the observable signal that the student is thinking multiplicatively rather than by 1s.",
+    "common_detour": "Student taps cells individually instead of using the handle, triggering U1.1 detection even in B-snap-ON. Apply U1.1 Medium remediation: row ghost-extension preview + scaffold stem.",
+    "intervention": "\"Try dragging the side of the rectangle to make it taller. Each drag adds a whole row at once.\"",
+    "next_move": "Proceed to L.5 (Multiple Statement Stem — Abstract First Encounter).",
+    "duration": "~2 minutes (build + Check).",
+    "divider": "→ **SECTION 2 COMPLETE. PROCEED TO SECTION 3.**\n\n---\n\n### Section 3: Abstract First Encounter — Multiple Statement (ABSTRACT)\n\nThe equation form appears for the first time — inside the companion Drop Down stem, not on the toy surface. The word \"multiple\" is introduced here. Because equations are suppressed on the Hundred Grid Mode B surface even post-Check, the \"because ___ × ___ = ___\" clause in the stem is the student's first encounter with the multiplication equation for this rectangle. The companion Mode B post-Check state (dimension labels + area label visible) remains on screen as reference while the student fills the stem.\n\n---",
+    "_generated_at": "2026-04-29T21:16:56.996635+00:00"
+  },
+  {
+    "id": "s5_1_multiple_statement_stem_first_completion",
+    "setup": "Hundred Grid Mode B is in post-Check state (dimension labels W × H and area label visible; equation overlay SUPPRESSED). The companion §2.10 Drop Down stem has unlocked: `___ is a multiple of ___ because ___ × ___ = ___`. At BASELINE, some slots are pre-filled via linked values from the Mode B Check (dimension values + area value auto-pushed); student confirms or fills remaining slots. At STRETCH/CHALLENGE, slots are blank (full production). Tutor prompt: \"Now fill in the sentence about your rectangle.\"",
+    "student_action": "Student taps each blank slot, selects from dropdown or types a numeric value, and taps Check on the stem. Linked slots (pre-filled values) are visually distinct from student-entered slots. If incorrect: the incorrect blank highlights in a distinct color without revealing the correct answer. Correct: all slots filled; stem confirms. Student reads the completed stem in context of the visible rectangle.",
+    "teacher_move": "Post-Check correct: \"Your sentence says ___ is a multiple of ___ because ___ × ___ = ___. That matches the rectangle you built.\" (Observable only — no \"you understood,\" \"you got it.\") Incorrect slot highlight: \"Check the area of the rectangle. Count the rows of ___.\"",
+    "key_observation": "This is the moment \"multiple\" enters the student's vocabulary, anchored to a concrete artifact. The student should be able to point from the stem to the labeled rectangle: \"The area is the first blank; the fixed side length is the second blank.\"",
+    "common_detour": "Student fills the area blank and the side-length blank in reversed order (M01-3 / slot-filling pattern). Address by pointing to the labeled rectangle: \"The area label is the big number. That's the number that is a multiple.\"",
+    "intervention": "\"Look at the rectangle. The area — the total squares — goes in the first blank. The side length — the fixed one — goes in the second blank. What's the area?\"",
+    "next_move": "BASELINE: Proceed to L.6 (additional fixed-side-length build, varied free dimension). STRETCH: Proceed to blank-build with a different fixed side length. CHALLENGE: Open-ended multiple discovery (find as many areas as possible for the given side length).",
+    "duration": "~2 minutes (stem completion + Check).",
+    "_generated_at": "2026-04-29T21:17:03.405536+00:00"
+  },
+  {
+    "id": "s6_1_second_fixed_side_build_varied",
+    "setup": "Same §2.13 Hundred Grid Mode B surface in B-snap-ON with the same fixed side length locked. Tutor prompt: \"Build a different rectangle with the same side length. Drag the handle to a different height, then tap Check.\" This is the second production cycle; same module stem follows after Check.",
+    "student_action": "Student builds a rectangle with the same fixed side length but a different number of rows — producing a different area. Taps Check; stem unlocks; student completes the stem with the new area and confirms that this area is also a multiple of the same side length.",
+    "teacher_move": "After Check and stem completion: \"You built two different rectangles with the same side length — ___ and ___. Both areas are multiples of ___. Every time you add a row of ___, you get the next multiple.\" (Observable, no inferred states.)",
+    "key_observation": "Student recognizes that the two completed stems name different areas that are both multiples of the same side length. This is the seed of the \"sequence of multiples\" idea that M01 plants without naming it formally.",
+    "common_detour": "Student builds the exact same rectangle dimensions as the first one. Prompt: \"Try adding more rows — or fewer rows — to find a different area.\"",
+    "intervention": "If student cannot vary the height, provide a target area: \"Can you build a rectangle with the same side length and an area of ___?\" (authored target; correct for the fixed side length.)",
+    "next_move": "Proceed to §1.7 Exit Check Transition Frame, then §1.8.",
+    "duration": "~2 minutes (build + Check + stem).",
+    "divider": "→ **SECTION 3 COMPLETE. PROCEED TO EXIT CHECK.**",
+    "_generated_at": "2026-04-29T21:17:08.398184+00:00"
+  }
+]
