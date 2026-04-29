@@ -153,18 +153,18 @@ def _merge_step(dest_step: Path, src_step: Path) -> None:
 
 
 def _stitch(pipeline_dir: Path, versions: list[str], dest: Path) -> None:
-    if dest.exists():
-        shutil.rmtree(dest)
+    dest_existed = dest.exists()
 
     for i, ver in enumerate(versions):
         src = pipeline_dir / ver
         if not src.exists():
             print(f"  [SKIP] {ver} — not found in {pipeline_dir.relative_to(project_root)}")
             continue
-        if i == 0:
+        if i == 0 and not dest_existed:
             shutil.copytree(src, dest, ignore=shutil.ignore_patterns(*_SKIP_FILES))
             print(f"  [BASE]    {ver}")
         else:
+            dest.mkdir(parents=True, exist_ok=True)
             for step_dir in sorted(src.iterdir()):
                 if not step_dir.is_dir() or not _STEP_RE.match(step_dir.name):
                     continue
