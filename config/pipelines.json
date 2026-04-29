@@ -22,7 +22,7 @@
       "name": "starter_pack_json_loader",
       "type": "formatting",
       "function": "starter_pack_json_loader.load",
-      "description": "Extracts structured module metadata from _starter_pack_ref.md \u00e2\u20ac\u201d deterministic first, Claude fallback for missing fields",
+      "description": "Extracts structured module metadata from _starter_pack_ref.md â€” deterministic first, Claude fallback for missing fields",
       "function_args": {},
       "output_file": "starter_pack.json"
     }
@@ -43,7 +43,7 @@
       "name": "remediation_filter",
       "type": "formatting",
       "function": "remediation_filter.filter_sections",
-      "description": "Filters sections array to only those with real prompts \u00e2\u20ac\u201d skips transitions and dialogue-only sections",
+      "description": "Filters sections array to only those with real prompts â€” skips transitions and dialogue-only sections",
       "function_args": {},
       "output_file": "sections_to_remediate.json"
     },
@@ -92,7 +92,7 @@
       "name": "remediation_filter",
       "type": "formatting",
       "function": "remediation_filter.filter_sections",
-      "description": "Filters sections array to only those with real prompts \u00e2\u20ac\u201d skips transitions and dialogue-only sections",
+      "description": "Filters sections array to only those with real prompts â€” skips transitions and dialogue-only sections",
       "function_args": {},
       "output_file": "sections_to_remediate.json"
     },
@@ -141,7 +141,7 @@
       "name": "remediation_filter",
       "type": "formatting",
       "function": "remediation_filter.filter_sections",
-      "description": "Filters sections array to only those with real prompts \u00e2\u20ac\u201d skips transitions and dialogue-only sections",
+      "description": "Filters sections array to only those with real prompts â€” skips transitions and dialogue-only sections",
       "function_args": {},
       "output_file": "sections_to_remediate.json"
     },
@@ -190,7 +190,7 @@
       "name": "remediation_filter",
       "type": "formatting",
       "function": "remediation_filter.filter_sections",
-      "description": "Filters sections array to only those with real prompts \u00e2\u20ac\u201d skips transitions and dialogue-only sections",
+      "description": "Filters sections array to only those with real prompts â€” skips transitions and dialogue-only sections",
       "function_args": {},
       "output_file": "sections_to_remediate.json"
     },
@@ -228,7 +228,7 @@
       "name": "spec_splitter",
       "type": "formatting",
       "function": "spec_splitter.split_spec",
-      "description": "Splits lesson.md into one item per interaction/section \u00e2\u20ac\u201d deterministic, no AI",
+      "description": "Splits lesson.md into one item per interaction/section â€” deterministic, no AI",
       "function_args": {},
       "input_file": "lesson.md",
       "output_file": "split_spec.json"
@@ -237,7 +237,7 @@
       "name": "starterpack_parser",
       "type": "ai",
       "prompt_name": "starterpack_parser",
-      "description": "Extracts fields and generates ID for each pre-split section \u00e2\u20ac\u201d one Claude call per section",
+      "description": "Extracts fields and generates ID for each pre-split section â€” one Claude call per section",
       "variables": {},
       "input_file": "",
       "output_file": "structured_spec.json",
@@ -266,13 +266,15 @@
       "name": "lesson_generator",
       "type": "ai",
       "prompt_name": "section_structurer",
-      "description": "Converts enriched spec into section JSON objects \u00e2\u20ac\u201d functional dialogue only, no voice enhancement",
+      "description": "Converts enriched spec into section JSON objects â€” functional dialogue only, no voice enhancement",
       "variables": {},
       "input_file": "",
       "output_file": "lesson_sections.json",
       "model": "claude-sonnet-4-5-20250929",
       "batch_mode": true,
-      "batch_id_field": "id"
+      "batch_id_field": "id",
+      "batch_continuous": true,
+      "batch_continuous_summary_prompt": "You are summarizing a structured lesson section for use as context by subsequent sections. Given the section JSON below, write a concise summary (3-6 sentences) covering:\n1. VISUAL STATE: What tangibles are on screen at section end? For each, include: type, dataset name, all category names with their exact values, scale, orientation, mode.\n2. CONTENT: What concept or skill was introduced or practiced? Any vocabulary formally introduced?\n3. STUDENT ACTION: What interaction did the student perform (e.g. built a graph, answered MC, filled slots)?\nBe specific with all numbers — list every category value explicitly. This summary accumulates into a reference document that subsequent sections use to resolve vague visual references and understand prior content."
     },
     {
       "name": "id_stamper",
@@ -314,7 +316,7 @@
       "name": "remediation_filter",
       "type": "formatting",
       "function": "remediation_filter.filter_sections",
-      "description": "Filters sections array to only those with real prompts \u00e2\u20ac\u201d skips transitions and dialogue-only sections",
+      "description": "Filters sections array to only those with real prompts â€” skips transitions and dialogue-only sections",
       "function_args": {},
       "output_file": "sections_to_remediate.json"
     },
@@ -355,7 +357,7 @@
       "name": "spec_splitter",
       "type": "formatting",
       "function": "spec_splitter.split_spec",
-      "description": "Splits warmup.md into one item per interaction/section \u00e2\u20ac\u201d deterministic, no AI",
+      "description": "Splits warmup.md into one item per interaction/section â€” deterministic, no AI",
       "function_args": {},
       "input_file": "warmup.md",
       "output_file": "split_spec.json"
@@ -364,7 +366,7 @@
       "name": "starterpack_parser",
       "type": "ai",
       "prompt_name": "starterpack_parser",
-      "description": "Extracts fields and generates ID for each pre-split section \u00e2\u20ac\u201d one Claude call per section",
+      "description": "Extracts fields and generates ID for each pre-split section â€” one Claude call per section",
       "variables": {},
       "input_file": "",
       "output_file": "structured_spec.json",
@@ -393,13 +395,15 @@
       "name": "warmup_generator",
       "type": "ai",
       "prompt_name": "section_structurer",
-      "description": "Converts enriched spec into warmup section JSON objects \u00e2\u20ac\u201d functional dialogue only, no voice enhancement",
+      "description": "Converts enriched spec into warmup section JSON objects â€” functional dialogue only, no voice enhancement",
       "variables": {},
       "input_file": "",
       "output_file": "warmup_sections.json",
       "model": "claude-sonnet-4-5-20250929",
       "batch_mode": true,
-      "batch_id_field": "id"
+      "batch_id_field": "id",
+      "batch_continuous": true,
+      "batch_continuous_summary_prompt": "You are summarizing a structured lesson section for use as context by subsequent sections. Given the section JSON below, write a concise summary (3-6 sentences) covering:\n1. VISUAL STATE: What tangibles are on screen at section end? For each, include: type, dataset name, all category names with their exact values, scale, orientation, mode.\n2. CONTENT: What concept or skill was introduced or practiced? Any vocabulary formally introduced?\n3. STUDENT ACTION: What interaction did the student perform (e.g. built a graph, answered MC, filled slots)?\nBe specific with all numbers — list every category value explicitly. This summary accumulates into a reference document that subsequent sections use to resolve vague visual references and understand prior content."
     },
     {
       "name": "id_stamper",
@@ -441,7 +445,7 @@
       "name": "remediation_filter",
       "type": "formatting",
       "function": "remediation_filter.filter_sections",
-      "description": "Filters sections array to only those with real prompts \u00e2\u20ac\u201d skips transitions and dialogue-only sections",
+      "description": "Filters sections array to only those with real prompts â€” skips transitions and dialogue-only sections",
       "function_args": {},
       "output_file": "sections_to_remediate.json"
     },
@@ -479,7 +483,7 @@
       "name": "spec_splitter",
       "type": "formatting",
       "function": "spec_splitter.split_spec",
-      "description": "Splits exitcheck.md into one item per section \u00e2\u20ac\u201d deterministic, no AI",
+      "description": "Splits exitcheck.md into one item per section â€” deterministic, no AI",
       "function_args": {},
       "input_file": "exitcheck.md",
       "output_file": "split_spec.json"
@@ -488,7 +492,7 @@
       "name": "starterpack_parser",
       "type": "ai",
       "prompt_name": "starterpack_parser",
-      "description": "Extracts fields and generates ID for each pre-split section \u00e2\u20ac\u201d one Claude call per section",
+      "description": "Extracts fields and generates ID for each pre-split section â€” one Claude call per section",
       "variables": {},
       "input_file": "",
       "output_file": "structured_spec.json",
@@ -517,13 +521,15 @@
       "name": "exitcheck_generator",
       "type": "ai",
       "prompt_name": "section_structurer",
-      "description": "Converts enriched spec into exit check section JSON objects \u00e2\u20ac\u201d functional dialogue only, no voice enhancement",
+      "description": "Converts enriched spec into exit check section JSON objects â€” functional dialogue only, no voice enhancement",
       "variables": {},
       "input_file": "",
       "output_file": "exitcheck_sections.json",
       "model": "claude-sonnet-4-5-20250929",
       "batch_mode": true,
-      "batch_id_field": "id"
+      "batch_id_field": "id",
+      "batch_continuous": true,
+      "batch_continuous_summary_prompt": "You are summarizing a structured lesson section for use as context by subsequent sections. Given the section JSON below, write a concise summary (3-6 sentences) covering:\n1. VISUAL STATE: What tangibles are on screen at section end? For each, include: type, dataset name, all category names with their exact values, scale, orientation, mode.\n2. CONTENT: What concept or skill was introduced or practiced? Any vocabulary formally introduced?\n3. STUDENT ACTION: What interaction did the student perform (e.g. built a graph, answered MC, filled slots)?\nBe specific with all numbers — list every category value explicitly. This summary accumulates into a reference document that subsequent sections use to resolve vague visual references and understand prior content."
     },
     {
       "name": "id_stamper",
@@ -565,7 +571,7 @@
       "name": "remediation_filter",
       "type": "formatting",
       "function": "remediation_filter.filter_sections",
-      "description": "Filters sections array to only those with real prompts \u00e2\u20ac\u201d skips transitions and dialogue-only sections",
+      "description": "Filters sections array to only those with real prompts â€” skips transitions and dialogue-only sections",
       "function_args": {},
       "output_file": "sections_to_remediate.json"
     },
@@ -606,7 +612,7 @@
       "name": "spec_splitter",
       "type": "formatting",
       "function": "spec_splitter.split_spec",
-      "description": "Splits synthesis.md into one item per section \u00e2\u20ac\u201d deterministic, no AI",
+      "description": "Splits synthesis.md into one item per section â€” deterministic, no AI",
       "function_args": {},
       "input_file": "synthesis.md",
       "output_file": "split_spec.json"
@@ -615,7 +621,7 @@
       "name": "starterpack_parser",
       "type": "ai",
       "prompt_name": "starterpack_parser",
-      "description": "Extracts fields and generates ID for each pre-split section \u00e2\u20ac\u201d one Claude call per section",
+      "description": "Extracts fields and generates ID for each pre-split section â€” one Claude call per section",
       "variables": {},
       "input_file": "",
       "output_file": "structured_spec.json",
@@ -644,13 +650,15 @@
       "name": "synthesis_generator",
       "type": "ai",
       "prompt_name": "section_structurer",
-      "description": "Converts enriched spec into synthesis section JSON objects \u00e2\u20ac\u201d functional dialogue only, no voice enhancement",
+      "description": "Converts enriched spec into synthesis section JSON objects â€” functional dialogue only, no voice enhancement",
       "variables": {},
       "input_file": "",
       "output_file": "synthesis_sections.json",
       "model": "claude-sonnet-4-5-20250929",
       "batch_mode": true,
-      "batch_id_field": "id"
+      "batch_id_field": "id",
+      "batch_continuous": true,
+      "batch_continuous_summary_prompt": "You are summarizing a structured lesson section for use as context by subsequent sections. Given the section JSON below, write a concise summary (3-6 sentences) covering:\n1. VISUAL STATE: What tangibles are on screen at section end? For each, include: type, dataset name, all category names with their exact values, scale, orientation, mode.\n2. CONTENT: What concept or skill was introduced or practiced? Any vocabulary formally introduced?\n3. STUDENT ACTION: What interaction did the student perform (e.g. built a graph, answered MC, filled slots)?\nBe specific with all numbers — list every category value explicitly. This summary accumulates into a reference document that subsequent sections use to resolve vague visual references and understand prior content."
     },
     {
       "name": "id_stamper",
@@ -692,7 +700,7 @@
       "name": "remediation_filter",
       "type": "formatting",
       "function": "remediation_filter.filter_sections",
-      "description": "Filters sections array to only those with real prompts \u00e2\u20ac\u201d skips transitions and dialogue-only sections",
+      "description": "Filters sections array to only those with real prompts â€” skips transitions and dialogue-only sections",
       "function_args": {},
       "output_file": "sections_to_remediate.json"
     },

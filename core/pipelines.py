@@ -41,6 +41,8 @@ def step_from_config(step_data: dict) -> Step:
         "batch_skip_items",
         "batch_stop_on_error",
         "stop_on_validation_failure",
+        "batch_continuous",
+        "batch_continuous_summary_prompt",
     ):
         if key in step_data:
             batch_kwargs[key] = step_data[key]
