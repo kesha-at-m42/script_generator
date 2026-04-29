@@ -39,7 +39,7 @@ OUTPUTS_DIR = project_root / "outputs"
 TRACKED_DIR = project_root / "tracked_scripts"
 
 _PIPELINE_RE = re.compile(
-    r"^(lesson|warmup|exitcheck|synthesis)_generator_(?:dialogue_pass_)?module_(\d+)$"
+    r"^(lesson|warmup|exitcheck|synthesis)_generator_(?:dialogue_pass_|v\d+_)?module_(\d+)$"
 )
 _STEP_RE = re.compile(r"^step_(\d+)_(.+)$")
 _SCRIPT_TYPES = ("lesson", "warmup", "exitcheck", "synthesis")

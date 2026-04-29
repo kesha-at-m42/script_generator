@@ -211,20 +211,28 @@ def load_specs_for_lesson(
     """
     Main entry point for the v3 pipeline formatting step.
 
-    Reads toy_specs.md from units/unit{N}/toy_specs.md, enriches each
-    section with workspace_specs (toys + student_interactions).
+    Reads toy_specs.md, checking module-level before unit-level:
+      units/unit{N}/module{M}/toy_specs.md  (preferred)
+      units/unit{N}/toy_specs.md            (fallback)
 
     Args:
         input_data: Parsed structured_spec.json (list of section dicts)
         unit_number: Unit number for locating toy_specs.md
-        module_number: Unused in v3 (no per-module glossary lookup)
+        module_number: Module number for module-level toy_specs.md lookup
         verbose: Enable verbose logging
 
     Returns:
         List of sections, each with a workspace_specs field added.
     """
+    toy_specs_path = None
     if unit_number is not None:
-        toy_specs_path = project_root / "units" / f"unit{unit_number}" / "toy_specs.md"
+        unit_dir = project_root / "units" / f"unit{unit_number}"
+        if module_number is not None:
+            candidate = unit_dir / f"module{module_number}" / "toy_specs.md"
+            if candidate.exists():
+                toy_specs_path = candidate
+        if toy_specs_path is None:
+            toy_specs_path = unit_dir / "toy_specs.md"
     else:
         toy_specs_path = project_root / "units" / "toy_specs.md"
 

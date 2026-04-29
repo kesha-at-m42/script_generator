@@ -173,11 +173,25 @@ def push(
             except Exception as exc:
                 print(f"  [NOTION] Tag-back failed (non-fatal): {exc}")
 
+        push_result = {"notion_url": url}
+
+        # Write push result now so the stitch can include the push step directory.
+        # The pipeline runner will write the same content again after we return — that's fine.
+        if not test_push and output_file_path is not None:
+            try:
+                Path(output_file_path).parent.mkdir(parents=True, exist_ok=True)
+                Path(output_file_path).write_text(
+                    json.dumps(push_result, indent=2, ensure_ascii=False) + "\n",
+                    encoding="utf-8",
+                )
+            except Exception:
+                pass
+
         # Auto-stitch into tracked_scripts/
         if not test_push:
             _auto_stitch(unit_number, module_number, pipeline_name)
 
-        return {"notion_url": url}
+        return push_result
 
     except Exception as exc:
         print(f"\n  [NOTION] Push failed (non-fatal): {exc}")

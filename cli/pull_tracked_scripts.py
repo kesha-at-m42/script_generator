@@ -47,7 +47,7 @@ from utils.notion import (  # noqa: E402
 TRACKED_DIR = project_root / "tracked_scripts"
 
 _PIPELINE_RE = re.compile(
-    r"^(lesson|warmup|exitcheck|synthesis)_generator_(?:dialogue_pass_)?module_(\d+)$"
+    r"^(lesson|warmup|exitcheck|synthesis)_generator_(?:dialogue_pass_|v\d+_)?module_(\d+)$"
 )
 _SCRIPT_TYPE_LABELS = {
     "lesson": "lesson",

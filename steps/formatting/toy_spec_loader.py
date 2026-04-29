@@ -370,14 +370,21 @@ def load_specs_for_lesson(
     Args:
         input_data: Parsed structured_spec.json (list of section dicts)
         unit_number: Unit number for locating toy_specs directory and glossary.md
-        module_number: Module number for locating glossary.md
+        module_number: Module number for module-level toy_specs lookup and glossary.md
         verbose: Enable verbose logging
 
     Returns:
         List of sections, each with workspace_specs (toys, tools, and optionally unresolved)
     """
+    toy_specs_dir = None
     if unit_number is not None:
-        toy_specs_dir = project_root / "units" / f"unit{unit_number}" / "toy_specs"
+        unit_dir = project_root / "units" / f"unit{unit_number}"
+        if module_number is not None:
+            candidate = unit_dir / f"module{module_number}" / "toy_specs"
+            if candidate.exists():
+                toy_specs_dir = candidate
+        if toy_specs_dir is None:
+            toy_specs_dir = unit_dir / "toy_specs"
     else:
         toy_specs_dir = project_root / "units" / "toy_specs"
 
