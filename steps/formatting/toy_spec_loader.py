@@ -384,7 +384,13 @@ def load_specs_for_lesson(
     if not toy_specs_dir.exists():
         if verbose:
             print(f"  [WARN] toy_specs directory not found: {toy_specs_dir}")
-        return {"toy_specs": {}, "sections": input_data}
+        if isinstance(input_data, str):
+            import json as _json
+            try:
+                input_data = _json.loads(input_data)
+            except Exception:
+                pass
+        return input_data if isinstance(input_data, list) else input_data.get("sections", [])
 
     available = {p.stem for p in toy_specs_dir.glob("*.md")}
     if verbose:
