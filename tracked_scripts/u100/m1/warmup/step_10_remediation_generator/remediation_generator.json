@@ -1,0 +1,85 @@
+[
+  {
+    "id": "s1_1_re_encounter_4_5_20",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "4 × 5 = 20"
+          },
+          "description": "Student selected first standard-form equation (4 × 5 = 20)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "multiple_choice_equations",
+                "params": {
+                  "highlight_options": [
+                    "20 = 4 × 5"
+                  ],
+                  "description": "Pattern-breaker equation (20 = 4 × 5) highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That one follows the pattern. Look at where the product sits in each equation. Which one is different?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "5 × 4 = 20"
+          },
+          "description": "Student selected second standard-form equation (5 × 4 = 20)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "multiple_choice_equations",
+                "params": {
+                  "highlight_options": [
+                    "20 = 4 × 5"
+                  ],
+                  "description": "Pattern-breaker equation (20 = 4 × 5) highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "That one follows the pattern. Look at where the product sits in each equation. Which one is different?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "multiple_choice_equations",
+                "params": {
+                  "event": "reveal_answer",
+                  "status": "confirmed",
+                  "description": "Pattern-breaker equation (20 = 4 × 5) animates as correct selection."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Three equations show the product on the right: 4 × 5 = 20, 5 × 4 = 20, and 4 × 5 = 20. One shows the product on the left: 20 = 4 × 5. That one breaks the pattern."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-29T19:28:34.392946+00:00"
+  }
+]

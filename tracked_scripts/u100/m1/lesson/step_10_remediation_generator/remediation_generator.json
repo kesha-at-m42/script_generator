@@ -1,0 +1,556 @@
+[
+  {
+    "id": "s1_0_purpose_frame",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "In the last lesson, you built a rectangle with 4 square tiles in each row and 5 rows. You checked it and saw that the area was 20 square tiles. Today you'll look at that same rectangle again and learn two different ways to write what you already know about it. The equal sign is the key. Let's look at what it really means.",
+        "id": "s1_0_purpose_frame_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_purpose_frame_b1"
+      }
+    ],
+    "_generated_at": "2026-04-29T19:28:38.868670+00:00"
+  },
+  {
+    "id": "s1_1_mode_c_first_reveal_balance",
+    "incorrects": [
+      [],
+      [
+        {
+          "condition": {
+            "selected": "the answer goes on the right"
+          },
+          "description": "Student selected 'the answer goes on the right' — computational misconception",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid_mode_b",
+                "params": {
+                  "highlight_panels": [
+                    "left",
+                    "right"
+                  ],
+                  "description": "Both panels highlight to show symmetric relationship."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at both panels. Each one shows the same rectangle. The equal sign does not point to an answer. It shows that both sides have the same value."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "I should multiply"
+          },
+          "description": "Student selected 'I should multiply' — operation cue misconception",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "balance_scale_asset",
+                "params": {
+                  "highlight": true,
+                  "description": "Balance scale asset highlights to reinforce balance metaphor."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The equal sign is not telling you what to do. It is showing a balance. What is on this side has the same value as what is on that side."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "hundred_grid_mode_b",
+                "params": {
+                  "event": "cross_highlight_panels",
+                  "status": "confirmed",
+                  "description": "Both panels animate to highlight the same rectangle, demonstrating equivalence."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at what happens when I tap each panel. Both point to the same rectangle. The equal sign means both sides have the same value. That is what makes it a balance. The correct answer is both sides have the same value."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-29T19:30:51.898944+00:00"
+  },
+  {
+    "id": "s2_1_both_orientations_match_one_rectangle",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "and": [
+              {
+                "or": [
+                  {
+                    "selected": "4 × 5 = 20"
+                  },
+                  {
+                    "selected": "20 = 4 × 5"
+                  }
+                ]
+              },
+              {
+                "not": {
+                  "and": [
+                    {
+                      "selected": "4 × 5 = 20"
+                    },
+                    {
+                      "selected": "20 = 4 × 5"
+                    }
+                  ]
+                }
+              },
+              {
+                "not": {
+                  "or": [
+                    {
+                      "selected": "4 + 5 = 20"
+                    },
+                    {
+                      "selected": "4 × 20 = 5"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "description": "Branch 2: Student selected one correct equation but not both (under-selecting)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid_mode_b",
+                "params": {
+                  "highlight_rectangle": true,
+                  "description": "Rectangle highlights to draw attention to the area."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You chose one correct equation. Look at the rectangle again. Both equations describe this same rectangle. Are there any other equations that show the same value?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "not": {
+              "or": [
+                {
+                  "selected": "4 × 5 = 20"
+                },
+                {
+                  "selected": "20 = 4 × 5"
+                }
+              ]
+            }
+          },
+          "description": "Branch 3: Student selected only incorrect equations (all-wrong)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid_mode_b",
+                "params": {
+                  "highlight_rectangle": true,
+                  "description": "Rectangle highlights to draw attention."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "This rectangle shows multiplication. Count the columns: 4. Count the rows: 5. The total area is 20 square tiles. Which equations use multiplication to show that fact?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "or": [
+                  {
+                    "selected": "4 + 5 = 20"
+                  },
+                  {
+                    "selected": "4 × 20 = 5"
+                  }
+                ]
+              },
+              {
+                "or": [
+                  {
+                    "selected": "4 × 5 = 20"
+                  },
+                  {
+                    "selected": "20 = 4 × 5"
+                  }
+                ]
+              }
+            ]
+          },
+          "description": "Branch 4: Student selected mix of correct and incorrect equations (over-selecting)",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid_mode_b",
+                "params": {
+                  "highlight_rectangle": true,
+                  "description": "Rectangle highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "You found equations that match the rectangle. But one or more of your choices don't fit. Look at the operations in each equation. Does the rectangle show addition, or does it show multiplication?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "hundred_grid_mode_b",
+                "params": {
+                  "event": "highlight_dimensions",
+                  "status": "confirmed",
+                  "description": "System highlights columns (4) and rows (5), then pulses total area (20)."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_checkbox",
+                "params": {
+                  "highlight_correct": [
+                    "4 × 5 = 20",
+                    "20 = 4 × 5"
+                  ],
+                  "description": "Correct equations highlight in the checkbox interface."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "This rectangle has 4 columns and 5 rows. That means 4 times 5 equals 20. You can write that as 4 × 5 = 20 or as 20 = 4 × 5. Both equations describe the same rectangle because the equal sign means both sides have the same value."
+              }
+            ]
+          ]
+        }
+      ],
+      [
+        {
+          "condition": {
+            "selected": "one of them must be wrong",
+            "incorrect_count": 1
+          },
+          "description": "Student selected one of them must be wrong on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Look again at what the equal sign means. Does it mean one side is right and the other is wrong?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "one of them must be wrong",
+            "incorrect_count": 2
+          },
+          "description": "Student selected one of them must be wrong on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid_mode_b",
+                "params": {
+                  "highlight_rectangle": true,
+                  "description": "Rectangle highlights to reinforce reference visual."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The equal sign means both sides have the same value. Both equations are correct because they both describe this rectangle. Which answer says that?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "hundred_grid_mode_b",
+                "params": {
+                  "event": "highlight_area",
+                  "status": "confirmed",
+                  "description": "Rectangle pulses to show the area value."
+                }
+              },
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "drop_down_stem",
+                "params": {
+                  "highlight_correct": "they show two ways to write the same fact",
+                  "description": "Correct option highlights in the fill-in-the-blank interface."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Both equations are correct because they show two ways to write the same fact. 4 × 5 = 20 and 20 = 4 × 5 both describe this rectangle. The equal sign means both sides have the same value, so you can write the equation either way."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-29T19:31:16.752766+00:00"
+  },
+  {
+    "id": "s3_1_operations_both_sides_recognition_hybrid",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "4 × 5 = 5 + 4"
+          },
+          "description": "Student selected 4 × 5 = 5 + 4, confusing multiplication with addition",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "mode_c_paired_display",
+                "params": {
+                  "highlight_panel": "left",
+                  "description": "Left panel 4 × 5 = 20 highlights."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at the left panel. 4 × 5 means 4 times 5, not 4 plus 5. Multiplication and addition are different operations. Which equation uses multiplication on both sides?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "mode_c_paired_display",
+                "params": {
+                  "event": "highlight_correct_equation",
+                  "status": "confirmed",
+                  "description": "Right panel 4 × 5 = 5 × 4 highlights and pulses to confirm it is the correct equation."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The correct equation is 4 × 5 = 5 × 4. Both sides use multiplication. 4 times 5 equals 20, and 5 times 4 also equals 20. The equal sign means both sides have the same value. That is why this equation is correct."
+              }
+            ]
+          ]
+        }
+      ],
+      [
+        {
+          "condition": {
+            "selected": "same number of square tiles only"
+          },
+          "description": "Student selected same number of square tiles only, focusing on physical tiles rather than value concept",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid_mode_b",
+                "params": {
+                  "description": "Rectangle pulses to show it represents a value, not just tiles."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The square tiles help us see the value. But both sides show the same value, 20. What does the equal sign tell us about the two sides?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "same number of rows only"
+          },
+          "description": "Student selected same number of rows only, focusing on one dimension rather than overall value",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "mode_c_paired_display",
+                "params": {
+                  "description": "Both panels pulse to emphasize the complete equations, not just parts."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The number of rows is part of each side. But the equal sign connects the whole side to the whole other side. What does it mean when both sides have the same total?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "mode_c_paired_display",
+                "params": {
+                  "event": "highlight_equal_values",
+                  "status": "confirmed",
+                  "description": "Both panels highlight and a connection animates between them showing 20 = 20."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Both sides of 4 × 5 = 5 × 4 show the same value. The left side equals 20. The right side also equals 20. The equal sign means both sides have the same value. That is the key idea about what the equal sign tells us."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-29T19:31:33.640744+00:00"
+  },
+  {
+    "id": "s4_1_supported_production_both_orientations_relational",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "incorrect_count": 1
+          },
+          "description": "Student filled slots incorrectly on first attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "dialogue",
+                "text": "Look at the panels. What numbers do you see in 4 × 5 = 20?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "incorrect_count": 2
+          },
+          "description": "Student filled slots incorrectly on second attempt",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "mode_c_paired_display",
+                "params": {
+                  "highlight_panels": [
+                    "left",
+                    "right"
+                  ],
+                  "description": "Both panels highlight to draw attention to the numbers."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Write the left panel first: 4 × 5 = 20. Then write the right panel: 20 = 4 × 5. Use the exact numbers you see."
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student filled slots incorrectly three or more times. System models the answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "drop_down_stem",
+                "params": {
+                  "event": "fill_slots_sequentially",
+                  "status": "confirmed",
+                  "description": "System fills slots one by one: 4, 5, 20, then 20, 4, 5. Both equations appear in order."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "The first three slots write 4 × 5 = 20. The next three write 20 = 4 × 5. Both equations describe the same rectangle. The equal sign means both sides have the same value."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-29T19:31:43.759544+00:00"
+  }
+]

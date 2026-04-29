@@ -1,0 +1,255 @@
+{
+  "id": "s2_1_both_orientations_match_one_rectangle",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "and": [
+            {
+              "or": [
+                {
+                  "selected": "4 × 5 = 20"
+                },
+                {
+                  "selected": "20 = 4 × 5"
+                }
+              ]
+            },
+            {
+              "not": {
+                "and": [
+                  {
+                    "selected": "4 × 5 = 20"
+                  },
+                  {
+                    "selected": "20 = 4 × 5"
+                  }
+                ]
+              }
+            },
+            {
+              "not": {
+                "or": [
+                  {
+                    "selected": "4 + 5 = 20"
+                  },
+                  {
+                    "selected": "4 × 20 = 5"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "description": "Branch 2: Student selected one correct equation but not both (under-selecting)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid_mode_b",
+              "params": {
+                "highlight_rectangle": true,
+                "description": "Rectangle highlights to draw attention to the area."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You chose one correct equation. Look at the rectangle again. Both equations describe this same rectangle. Are there any other equations that show the same value?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "not": {
+            "or": [
+              {
+                "selected": "4 × 5 = 20"
+              },
+              {
+                "selected": "20 = 4 × 5"
+              }
+            ]
+          }
+        },
+        "description": "Branch 3: Student selected only incorrect equations (all-wrong)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid_mode_b",
+              "params": {
+                "highlight_rectangle": true,
+                "description": "Rectangle highlights to draw attention."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "This rectangle shows multiplication. Count the columns: 4. Count the rows: 5. The total area is 20 square tiles. Which equations use multiplication to show that fact?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
+              "or": [
+                {
+                  "selected": "4 + 5 = 20"
+                },
+                {
+                  "selected": "4 × 20 = 5"
+                }
+              ]
+            },
+            {
+              "or": [
+                {
+                  "selected": "4 × 5 = 20"
+                },
+                {
+                  "selected": "20 = 4 × 5"
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Branch 4: Student selected mix of correct and incorrect equations (over-selecting)",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid_mode_b",
+              "params": {
+                "highlight_rectangle": true,
+                "description": "Rectangle highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "You found equations that match the rectangle. But one or more of your choices don't fit. Look at the operations in each equation. Does the rectangle show addition, or does it show multiplication?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "hundred_grid_mode_b",
+              "params": {
+                "event": "highlight_dimensions",
+                "status": "confirmed",
+                "description": "System highlights columns (4) and rows (5), then pulses total area (20)."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_checkbox",
+              "params": {
+                "highlight_correct": [
+                  "4 × 5 = 20",
+                  "20 = 4 × 5"
+                ],
+                "description": "Correct equations highlight in the checkbox interface."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "This rectangle has 4 columns and 5 rows. That means 4 times 5 equals 20. You can write that as 4 × 5 = 20 or as 20 = 4 × 5. Both equations describe the same rectangle because the equal sign means both sides have the same value."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": "one of them must be wrong",
+          "incorrect_count": 1
+        },
+        "description": "Student selected one of them must be wrong on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Look again at what the equal sign means. Does it mean one side is right and the other is wrong?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "one of them must be wrong",
+          "incorrect_count": 2
+        },
+        "description": "Student selected one of them must be wrong on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid_mode_b",
+              "params": {
+                "highlight_rectangle": true,
+                "description": "Rectangle highlights to reinforce reference visual."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The equal sign means both sides have the same value. Both equations are correct because they both describe this rectangle. Which answer says that?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "hundred_grid_mode_b",
+              "params": {
+                "event": "highlight_area",
+                "status": "confirmed",
+                "description": "Rectangle pulses to show the area value."
+              }
+            },
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "drop_down_stem",
+              "params": {
+                "highlight_correct": "they show two ways to write the same fact",
+                "description": "Correct option highlights in the fill-in-the-blank interface."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Both equations are correct because they show two ways to write the same fact. 4 × 5 = 20 and 20 = 4 × 5 both describe this rectangle. The equal sign means both sides have the same value, so you can write the equation either way."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-29T19:31:16.752766+00:00"
+}

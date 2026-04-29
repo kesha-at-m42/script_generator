@@ -1,0 +1,126 @@
+{
+  "id": "s3_1_operations_both_sides_recognition_hybrid",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "4 × 5 = 5 + 4"
+        },
+        "description": "Student selected 4 × 5 = 5 + 4, confusing multiplication with addition",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "mode_c_paired_display",
+              "params": {
+                "highlight_panel": "left",
+                "description": "Left panel 4 × 5 = 20 highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at the left panel. 4 × 5 means 4 times 5, not 4 plus 5. Multiplication and addition are different operations. Which equation uses multiplication on both sides?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "mode_c_paired_display",
+              "params": {
+                "event": "highlight_correct_equation",
+                "status": "confirmed",
+                "description": "Right panel 4 × 5 = 5 × 4 highlights and pulses to confirm it is the correct equation."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The correct equation is 4 × 5 = 5 × 4. Both sides use multiplication. 4 times 5 equals 20, and 5 times 4 also equals 20. The equal sign means both sides have the same value. That is why this equation is correct."
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "condition": {
+          "selected": "same number of square tiles only"
+        },
+        "description": "Student selected same number of square tiles only, focusing on physical tiles rather than value concept",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid_mode_b",
+              "params": {
+                "description": "Rectangle pulses to show it represents a value, not just tiles."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The square tiles help us see the value. But both sides show the same value, 20. What does the equal sign tell us about the two sides?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "same number of rows only"
+        },
+        "description": "Student selected same number of rows only, focusing on one dimension rather than overall value",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "mode_c_paired_display",
+              "params": {
+                "description": "Both panels pulse to emphasize the complete equations, not just parts."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The number of rows is part of each side. But the equal sign connects the whole side to the whole other side. What does it mean when both sides have the same total?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "mode_c_paired_display",
+              "params": {
+                "event": "highlight_equal_values",
+                "status": "confirmed",
+                "description": "Both panels highlight and a connection animates between them showing 20 = 20."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Both sides of 4 × 5 = 5 × 4 show the same value. The left side equals 20. The right side also equals 20. The equal sign means both sides have the same value. That is the key idea about what the equal sign tells us."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-29T19:31:33.640744+00:00"
+}

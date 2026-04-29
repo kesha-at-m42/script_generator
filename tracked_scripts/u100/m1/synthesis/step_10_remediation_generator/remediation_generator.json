@@ -1,0 +1,121 @@
+[
+  {
+    "id": "s1_0_opening_frame_no_student_action",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You just wrote the same fact two ways with three different rectangles. Now let's go back to the rectangle you started with, the 4-by-5, and say the One Thing one more time. The equal sign means both sides have the same value. That's true for every fact you write today and every fact you'll write tomorrow.",
+        "id": "s1_0_opening_frame_no_student_action_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_opening_frame_no_student_action_b1"
+      }
+    ],
+    "_generated_at": "2026-04-29T19:28:21.206430+00:00"
+  },
+  {
+    "id": "s1_1_both_forms_closure_generalization",
+    "incorrects": [
+      [
+        {
+          "condition": {
+            "selected": "a wrong one and a right one"
+          },
+          "description": "Student selected 'a wrong one and a right one', thinking one equation is incorrect",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_display_paired",
+                "params": {
+                  "highlight_equations": [
+                    0,
+                    1
+                  ],
+                  "description": "Both equations highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Both equations are true. 4 × 5 equals 20, and 20 equals 4 × 5. They show the same fact. Which choice describes that?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {
+            "selected": "two different facts"
+          },
+          "description": "Student selected 'two different facts', thinking the equations show different information",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "equation_display_paired",
+                "params": {
+                  "highlight_equations": [
+                    0,
+                    1
+                  ],
+                  "description": "Both equations highlight."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Look at both equations. They both use 4, 5, and 20. The numbers are the same, just in different positions. What does that tell you?"
+              }
+            ]
+          ]
+        },
+        {
+          "condition": {},
+          "description": "Student answered incorrectly. System models the correct answer.",
+          "is_correct": false,
+          "steps": [
+            [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "equation_display_paired",
+                "params": {
+                  "event": "show_equivalence",
+                  "status": "confirmed",
+                  "description": "Animation shows 4 × 5 = 20 and 20 = 4 × 5 both evaluate to the same value, demonstrating they are the same fact."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Let me show you. 4 × 5 equals 20. That's true. And 20 equals 4 × 5. That's also true. They're the same fact written two ways. The equal sign means both sides have the same value, so you can write it either way. The answer is 'the same fact written two ways'."
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "_generated_at": "2026-04-29T19:29:00.969940+00:00"
+  },
+  {
+    "id": "s1_2_identity_building_closure_s_2",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You can now write the same fact two ways. That's a skill you'll use in every lesson that comes next. Tomorrow, you'll start finding ALL the rectangles that share the same area, not just one. And every time you check a rectangle, you'll see both ways the equation can be written, just like today. The equal sign means both sides have the same value. Same fact, both ways around. You're ready.",
+        "id": "s1_2_identity_building_closure_s_2_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_2_identity_building_closure_s_2_b1"
+      }
+    ],
+    "_generated_at": "2026-04-29T19:28:41.153545+00:00"
+  }
+]

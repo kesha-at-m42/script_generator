@@ -1,0 +1,162 @@
+[
+  {
+    "id": "s1_1_re_encounter_4_5_20",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "multiple_choice_equations",
+        "tangible_type": "multiple_choice",
+        "params": {
+          "mode": "warmup",
+          "description": "Four equation candidates appear. Three display with product on right (4 × 5 = 20, 5 × 4 = 20, 4 × 5 = 20). One displays with product on left (20 = 4 × 5)."
+        },
+        "id": "s1_1_re_encounter_4_5_20_b0",
+        "_notion_block_id": "3515917e-ac52-81b6-afaa-c5e121c26f1d"
+      },
+      {
+        "type": "dialogue",
+        "text": "Look at the rectangle you built last lesson. Four equations all describe it. Three share a pattern. One breaks it. Which one?",
+        "id": "s1_1_re_encounter_4_5_20_b1",
+        "_notion_block_id": "3515917e-ac52-812d-b26f-cb96909dcd98"
+      },
+      {
+        "type": "prompt",
+        "text": "Tap the equation that breaks the pattern, then tap Check.",
+        "tool": "multiple_choice",
+        "options": [
+          "4 × 5 = 20",
+          "5 × 4 = 20",
+          "4 × 5 = 20",
+          "20 = 4 × 5"
+        ],
+        "validator": [
+          {
+            "condition_id": "selected_pattern_breaker",
+            "condition": {
+              "selected": "20 = 4 × 5"
+            },
+            "description": "Student tapped the pattern-breaker (product on left)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You tapped that one. It looks different from the others. That form is today's topic, and you'll see that it is just as correct as the others. Let's go.",
+                "id": "s1_1_re_encounter_4_5_20_b2_v0_b0",
+                "_notion_block_id": "3515917e-ac52-8153-a5e6-d26070a4479a"
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_standard_form",
+            "condition": {},
+            "description": "Student tapped a standard-orientation equation",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You tapped that one. It looks different from the others. That form is today's topic, and you'll see that it is just as correct as the others. Let's go.",
+                "id": "s1_1_re_encounter_4_5_20_b2_v1_b0",
+                "_notion_block_id": "3515917e-ac52-8115-abb7-c02cf5971016"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "4 × 5 = 20"
+            },
+            "description": "Student selected first standard-form equation (4 × 5 = 20)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "multiple_choice_equations",
+                "params": {
+                  "highlight_options": [
+                    "20 = 4 × 5"
+                  ],
+                  "description": "Pattern-breaker equation (20 = 4 × 5) highlights."
+                },
+                "id": "s1_1_re_encounter_4_5_20_b2_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "That one follows the pattern. Look at where the product sits in each equation. Which one is different?",
+                "id": "s1_1_re_encounter_4_5_20_b2_v2_b1",
+                "_notion_block_id": "3515917e-ac52-81fd-8dc5-fbc93fc522cf"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "selected": "5 × 4 = 20"
+            },
+            "description": "Student selected second standard-form equation (5 × 4 = 20)",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "multiple_choice_equations",
+                "params": {
+                  "highlight_options": [
+                    "20 = 4 × 5"
+                  ],
+                  "description": "Pattern-breaker equation (20 = 4 × 5) highlights."
+                },
+                "id": "s1_1_re_encounter_4_5_20_b2_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "That one follows the pattern. Look at where the product sits in each equation. Which one is different?",
+                "id": "s1_1_re_encounter_4_5_20_b2_v3_b1",
+                "_notion_block_id": "3515917e-ac52-813a-9caa-c70a2c458c6c"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "multiple_choice_equations",
+                "params": {
+                  "event": "reveal_answer",
+                  "status": "confirmed",
+                  "description": "Pattern-breaker equation (20 = 4 × 5) animates as correct selection."
+                },
+                "id": "s1_1_re_encounter_4_5_20_b2_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Three equations show the product on the right: 4 × 5 = 20, 5 × 4 = 20, and 4 × 5 = 20. One shows the product on the left: 20 = 4 × 5. That one breaks the pattern.",
+                "id": "s1_1_re_encounter_4_5_20_b2_v4_b1",
+                "_notion_block_id": "3515917e-ac52-8145-bee5-f3d800ad8915"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_re_encounter_4_5_20_b2",
+        "_notion_block_id": "3515917e-ac52-810d-ae5c-e644f83a8041"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "multiple_choice_equations",
+            "description": "Four equation candidates visible. Student has made a selection.",
+            "tangible_type": "multiple_choice",
+            "mode": "warmup"
+          }
+        ],
+        "id": "s1_1_re_encounter_4_5_20_b3"
+      }
+    ],
+    "_generated_at": "2026-04-29T19:28:21.837203+00:00",
+    "_notion_block_id": "3515917e-ac52-81d0-a3ba-d67da97680b8"
+  }
+]

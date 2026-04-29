@@ -1,0 +1,238 @@
+{
+  "id": "s1_1_mode_c_first_reveal_balance",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "hundred_grid_mode_b",
+      "tangible_type": "hundred_grid",
+      "params": {
+        "mode": "mode_b",
+        "rectangle": {
+          "columns": 4,
+          "rows": 5,
+          "area": 20
+        },
+        "build_disabled": true,
+        "description": "Hundred Grid Mode B appears with canonical 4 × 5 rectangle filled. 20 square tiles visible. Build affordances disabled — student sees rectangle but cannot place tiles."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Here is the rectangle you built last lesson. It has 4 square tiles in each row and 5 rows. The area is 20 square tiles."
+    },
+    {
+      "type": "prompt",
+      "text": "Tap Check to continue.",
+      "tool": "check",
+      "target": "hundred_grid_mode_b",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {},
+          "description": "Student tapped Check, Mode C activates",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "empty"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid_mode_b",
+          "description": "Hundred Grid Mode B with 4 × 5 rectangle. Check button active.",
+          "tangible_type": "hundred_grid",
+          "mode": "mode_b",
+          "rectangle": {
+            "columns": 4,
+            "rows": 5,
+            "area": 20
+          },
+          "build_disabled": true
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "hundred_grid_mode_b",
+      "params": {
+        "mode": "mode_c",
+        "description": "Mode C activates. Two-panel strip appears below rectangle: left panel shows 4 × 5 = 20, right panel shows 20 = 4 × 5. Bridge element (double-headed arrow or =) between panels signals equivalence. Both panels identical font size, background, visual weight."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "balance_scale_asset",
+      "tangible_type": "balance_scale_asset",
+      "params": {
+        "description": "Static balance-scale asset appears in tutor explanation zone alongside Mode C strip. Shows balance beam with equal weight on both sides."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Look at the equal sign. It is not a go button. It is a balance. What is on this side has the same value as what is on that side. The equal sign means both sides have the same value."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid_mode_b",
+          "description": "Hundred Grid Mode C active. Rectangle visible above. Two-panel strip below: left panel 4 × 5 = 20, right panel 20 = 4 × 5, bridge element between. Tap-and-hold enabled on panels.",
+          "tangible_type": "hundred_grid",
+          "mode": "mode_c",
+          "rectangle": {
+            "columns": 4,
+            "rows": 5,
+            "area": 20
+          }
+        },
+        {
+          "tangible_id": "balance_scale_asset",
+          "description": "Balance-scale asset visible in tutor zone.",
+          "tangible_type": "balance_scale_asset"
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "Tap and hold each panel. See what happens."
+    },
+    {
+      "type": "prompt",
+      "text": "Tap and hold the left panel, then the right panel.",
+      "tool": "tap_and_hold",
+      "target": "hundred_grid_mode_b.mode_c_panels",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "tapped": "left_panel"
+              },
+              {
+                "tapped": "right_panel"
+              }
+            ]
+          },
+          "description": "Student tapped and held both panels, observed rectangle highlighting",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "hundred_grid_mode_b",
+              "params": {
+                "event": "cross_highlight_panels",
+                "status": "confirmed",
+                "description": "Both panels cross-highlight rectangle when tapped. Same rectangle highlights for both equations."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Both equations point to the same rectangle. They have the same value."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid_mode_b",
+          "description": "Hundred Grid Mode C. Rectangle visible. Two-panel strip: left 4 × 5 = 20, right 20 = 4 × 5. Tap-and-hold complete, both panels confirmed.",
+          "tangible_type": "hundred_grid",
+          "mode": "mode_c",
+          "rectangle": {
+            "columns": 4,
+            "rows": 5,
+            "area": 20
+          }
+        },
+        {
+          "tangible_id": "balance_scale_asset",
+          "description": "Balance-scale asset remains visible in tutor zone.",
+          "tangible_type": "balance_scale_asset"
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "fill_in_blank_stem",
+      "tangible_type": "fill_in_blank",
+      "params": {
+        "stem": "The equal sign means ___.",
+        "options": [
+          "both sides have the same value",
+          "the answer goes on the right",
+          "I should multiply"
+        ],
+        "description": "Fill-in-the-blank stem appears: The equal sign means ___. Three options visible."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Now finish the sentence. The equal sign means what?"
+    },
+    {
+      "type": "prompt",
+      "text": "Select the correct option.",
+      "tool": "fill_in_blank",
+      "target": "fill_in_blank_stem",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "both sides have the same value"
+          },
+          "description": "Student selected both sides have the same value, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You got it. The equal sign means both sides have the same value. It is a balance, not a go button."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid_mode_b",
+          "description": "Hundred Grid Mode C. Rectangle visible. Two-panel strip: left 4 × 5 = 20, right 20 = 4 × 5.",
+          "tangible_type": "hundred_grid",
+          "mode": "mode_c",
+          "rectangle": {
+            "columns": 4,
+            "rows": 5,
+            "area": 20
+          }
+        },
+        {
+          "tangible_id": "balance_scale_asset",
+          "description": "Balance-scale asset visible in tutor zone.",
+          "tangible_type": "balance_scale_asset"
+        },
+        {
+          "tangible_id": "fill_in_blank_stem",
+          "description": "Fill-in-the-blank stem completed. Correct option both sides have the same value selected.",
+          "tangible_type": "fill_in_blank",
+          "stem": "The equal sign means ___.",
+          "selected": "both sides have the same value"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-29T19:29:10.957067+00:00"
+}

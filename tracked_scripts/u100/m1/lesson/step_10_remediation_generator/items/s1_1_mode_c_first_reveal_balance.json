@@ -1,0 +1,83 @@
+{
+  "id": "s1_1_mode_c_first_reveal_balance",
+  "incorrects": [
+    [],
+    [
+      {
+        "condition": {
+          "selected": "the answer goes on the right"
+        },
+        "description": "Student selected 'the answer goes on the right' — computational misconception",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "hundred_grid_mode_b",
+              "params": {
+                "highlight_panels": [
+                  "left",
+                  "right"
+                ],
+                "description": "Both panels highlight to show symmetric relationship."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at both panels. Each one shows the same rectangle. The equal sign does not point to an answer. It shows that both sides have the same value."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "I should multiply"
+        },
+        "description": "Student selected 'I should multiply' — operation cue misconception",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "balance_scale_asset",
+              "params": {
+                "highlight": true,
+                "description": "Balance scale asset highlights to reinforce balance metaphor."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "The equal sign is not telling you what to do. It is showing a balance. What is on this side has the same value as what is on that side."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "hundred_grid_mode_b",
+              "params": {
+                "event": "cross_highlight_panels",
+                "status": "confirmed",
+                "description": "Both panels animate to highlight the same rectangle, demonstrating equivalence."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at what happens when I tap each panel. Both point to the same rectangle. The equal sign means both sides have the same value. That is what makes it a balance. The correct answer is both sides have the same value."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-29T19:30:51.898944+00:00"
+}

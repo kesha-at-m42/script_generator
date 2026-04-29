@@ -1,0 +1,114 @@
+{
+  "id": "s4_1_supported_production_both_orientations_relational",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "hundred_grid_mode_b",
+      "tangible_type": "hundred_grid",
+      "params": {
+        "mode": "mode_b",
+        "columns": 4,
+        "rows": 5,
+        "total_tiles": 20,
+        "description": "Hundred Grid Mode B displays a 4 × 5 rectangle. 4 columns, 5 rows, 20 total tiles."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "mode_c_paired_display",
+      "tangible_type": "mode_c_display",
+      "params": {
+        "left_panel": "4 × 5 = 20",
+        "right_panel": "20 = 4 × 5",
+        "description": "Mode C paired display shows both equation orientations. Left panel: 4 × 5 = 20. Right panel: 20 = 4 × 5. Equivalence bridge connects them."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "drop_down_stem",
+      "tangible_type": "fill_in_blank",
+      "params": {
+        "stem": "I built a 4-by-5 rectangle, so I can write ___ × ___ = ___ AND ___ = ___ × ___ — they say the same thing, and the equal sign means both sides have the same value.",
+        "slot_count": 6,
+        "description": "Drop Down stem unlocks with six numeric slots. First blank set: 4, 5, 20. Second blank set: 20, 4, 5. Both equation orientations required."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "This rectangle lets you write the same fact in two ways. Finish the sentence using the numbers from both panels."
+    },
+    {
+      "type": "prompt",
+      "text": "Fill in the six slots to write both equations.",
+      "tool": "fill_in_blank",
+      "target": "drop_down_stem",
+      "validator": [
+        {
+          "condition_id": "both_orientations_correct",
+          "condition": {
+            "and": [
+              {
+                "slot_1": 4
+              },
+              {
+                "slot_2": 5
+              },
+              {
+                "slot_3": 20
+              },
+              {
+                "slot_4": 20
+              },
+              {
+                "slot_5": 4
+              },
+              {
+                "slot_6": 5
+              }
+            ]
+          },
+          "description": "Student filled all six slots correctly: 4 × 5 = 20 AND 20 = 4 × 5",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You wrote both of them. 4 × 5 = 20 and 20 = 4 × 5 — the same fact, two ways. The equal sign means both sides have the same value."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid_mode_b",
+          "description": "Hundred Grid Mode B displays a 4 × 5 rectangle. 4 columns, 5 rows, 20 total tiles.",
+          "tangible_type": "hundred_grid",
+          "mode": "mode_b",
+          "columns": 4,
+          "rows": 5,
+          "total_tiles": 20
+        },
+        {
+          "tangible_id": "mode_c_paired_display",
+          "description": "Mode C paired display showing both equation orientations. Left panel: 4 × 5 = 20. Right panel: 20 = 4 × 5.",
+          "tangible_type": "mode_c_display",
+          "left_panel": "4 × 5 = 20",
+          "right_panel": "20 = 4 × 5"
+        },
+        {
+          "tangible_id": "drop_down_stem",
+          "description": "Completed fill-in-the-blank stem showing: I built a 4-by-5 rectangle, so I can write 4 × 5 = 20 AND 20 = 4 × 5 — they say the same thing, and the equal sign means both sides have the same value.",
+          "tangible_type": "fill_in_blank",
+          "stem": "I built a 4-by-5 rectangle, so I can write ___ × ___ = ___ AND ___ = ___ × ___ — they say the same thing, and the equal sign means both sides have the same value.",
+          "slot_count": 6
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-29T19:30:24.417816+00:00"
+}

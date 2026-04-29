@@ -1,11 +1,11 @@
 
 ======================================================================
 RUNNING PIPELINE
-Steps: 13
-Output Directory: C:\git\script_generator\outputs\unit100\synthesis_generator_dialogue_pass_module_1\v0
+Steps: 12
+Output Directory: C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1
 ======================================================================
 
-[STEP 1/13] [FORMATTING] split_spec
+[STEP 1/12] [FORMATTING] split_spec
   [DIR] step_01_split_spec
   [LOAD] Reading: C:\git\script_generator\units\unit100\module1\synthesis.md
   [DEBUG] File size: 18681 bytes
@@ -16,160 +16,671 @@ Output Directory: C:\git\script_generator\outputs\unit100\synthesis_generator_di
   [OK] Formatting complete
   [SAVE] Saved JSON to: step_01_split_spec\split_spec.json
 
-[STEP 2/13] [AI] starterpack_parser
-  [DIR] step_02_starterpack_parser
+[STEP 2/12] [AI] starterpack_parser_v3
+  [DIR] step_02_starterpack_parser_v3
   [AUTO-CHAIN] Using previous step output: step_01_split_spec\split_spec.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit100\synthesis_generator_dialogue_pass_module_1\v0\step_01_split_spec\split_spec.json
-  [DEBUG] File size: 3505 bytes
-  [DEBUG] Read 3454 chars from 3505 bytes
-  [OK] Loaded 3454 chars
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_01_split_spec\split_spec.json
+  [DEBUG] File size: 3697 bytes
+  [DEBUG] Read 3637 chars from 3697 bytes
+  [OK] Loaded 3637 chars
   [BATCH] Processing items individually...
-  [DEBUG] Parsed 2 items from JSON array
+  [DEBUG] Parsed 3 items from JSON array
 
-  [BATCH 1/2] s1_0_opening_frame_no_student_action
+  [BATCH 1/3] s1_0_opening_frame_no_student_action
     Variables: {'id': 's1_0_opening_frame_no_student_action', 'index': 0, 'major': 1}...
-  Loading prompt definition: starterpack_parser
-  [OK] Loaded STARTERPACK_PARSER_PROMPT
+  Loading prompt definition: starterpack_parser_v3
+  [OK] Loaded STARTERPACK_PARSER_V3_PROMPT
 
 ======================================================================
-Building prompt: starterpack_parser
+Building prompt: starterpack_parser_v3
 ======================================================================
-  Loading prompt definition: starterpack_parser
-  [OK] Loaded STARTERPACK_PARSER_PROMPT
+  Loading prompt definition: starterpack_parser_v3
+  [OK] Loaded STARTERPACK_PARSER_V3_PROMPT
   [OK] Built prompt with 3 system blocks
   [OK] Prefill: 46 chars
-  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\synthesis_generator_dialogue_pass_module_1\v0\step_02_starterpack_parser\prompts\s1_0_opening_frame_no_student_action.md
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_02_starterpack_parser_v3\prompts\s1_0_opening_frame_no_student_action.md
 
 ======================================================================
 USAGE STATS
 ======================================================================
-  input_tokens: 688
-  output_tokens: 140
-  total_tokens: 828
-  requests: 1
-  cache_creation_tokens: 1420
-  cache_read_tokens: 0
-  cache_savings: 0%
-
-======================================================================
-Building prompt: starterpack_parser
-======================================================================
-  Loading prompt definition: starterpack_parser
-  [OK] Loaded STARTERPACK_PARSER_PROMPT
-  [OK] Built prompt with 3 system blocks
-  [OK] Prefill: 46 chars
-    [FAIL] Schema validation: AI output missing required fields: ['visual', 'guide']. Expected fields: ['id', 'visual', 'guide']. Got fields: ['id', 'divider', 'tutor_narration']
-    [OK] Completed
-
-  [BATCH 2/2] s1_0_identity_building_closure_s_2
-    Variables: {'id': 's1_0_identity_building_closure_s_2', 'index': 1, 'major': 1}...
-  Loading prompt definition: starterpack_parser
-  [OK] Loaded STARTERPACK_PARSER_PROMPT
-
-======================================================================
-Building prompt: starterpack_parser
-======================================================================
-  Loading prompt definition: starterpack_parser
-  [OK] Loaded STARTERPACK_PARSER_PROMPT
-  [OK] Built prompt with 3 system blocks
-  [OK] Prefill: 44 chars
-  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\synthesis_generator_dialogue_pass_module_1\v0\step_02_starterpack_parser\prompts\s1_0_identity_building_closure_s_2.md
-
-======================================================================
-USAGE STATS
-======================================================================
-  input_tokens: 404
-  output_tokens: 278
-  total_tokens: 682
+  input_tokens: 254
+  output_tokens: 144
+  total_tokens: 398
   requests: 1
   cache_creation_tokens: 0
   cache_read_tokens: 1420
   cache_savings: 90% (saved 1420 tokens)
 
 ======================================================================
-Building prompt: starterpack_parser
+Building prompt: starterpack_parser_v3
 ======================================================================
-  Loading prompt definition: starterpack_parser
-  [OK] Loaded STARTERPACK_PARSER_PROMPT
+  Loading prompt definition: starterpack_parser_v3
+  [OK] Loaded STARTERPACK_PARSER_V3_PROMPT
+  [OK] Built prompt with 3 system blocks
+  [OK] Prefill: 46 chars
+    [FAIL] Schema validation: AI output missing required fields: ['visual', 'guide']. Expected fields: ['id', 'visual', 'guide']. Got fields: ['id', 'divider', 'tutor_narration_student_facing']
+    [OK] Completed
+
+  [BATCH 2/3] s1_1_both_forms_closure_generalization
+    Variables: {'id': 's1_1_both_forms_closure_generalization', 'index': 1, 'major': 1}...
+  Loading prompt definition: starterpack_parser_v3
+  [OK] Loaded STARTERPACK_PARSER_V3_PROMPT
+
+======================================================================
+Building prompt: starterpack_parser_v3
+======================================================================
+  Loading prompt definition: starterpack_parser_v3
+  [OK] Loaded STARTERPACK_PARSER_V3_PROMPT
+  [OK] Built prompt with 3 system blocks
+  [OK] Prefill: 48 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_02_starterpack_parser_v3\prompts\s1_1_both_forms_closure_generalization.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 535
+  output_tokens: 412
+  total_tokens: 947
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 1420
+  cache_savings: 90% (saved 1420 tokens)
+
+======================================================================
+Building prompt: starterpack_parser_v3
+======================================================================
+  Loading prompt definition: starterpack_parser_v3
+  [OK] Loaded STARTERPACK_PARSER_V3_PROMPT
+  [OK] Built prompt with 3 system blocks
+  [OK] Prefill: 48 chars
+    [FAIL] Schema validation: AI output missing required fields: ['visual', 'guide']. Expected fields: ['id', 'visual', 'guide']. Got fields: ['id', 'purpose', 'trigger', 'toy', 'tutor_prompt_student_facing', 'required_closure_stem', 'divider', 'teacher_move', 'duration']
+    [OK] Completed
+
+  [BATCH 3/3] s1_2_identity_building_closure_s_2
+    Variables: {'id': 's1_2_identity_building_closure_s_2', 'index': 2, 'major': 1}...
+  Loading prompt definition: starterpack_parser_v3
+  [OK] Loaded STARTERPACK_PARSER_V3_PROMPT
+
+======================================================================
+Building prompt: starterpack_parser_v3
+======================================================================
+  Loading prompt definition: starterpack_parser_v3
+  [OK] Loaded STARTERPACK_PARSER_V3_PROMPT
   [OK] Built prompt with 3 system blocks
   [OK] Prefill: 44 chars
-    [SKIP] No validation prompt defined
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_02_starterpack_parser_v3\prompts\s1_2_identity_building_closure_s_2.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 404
+  output_tokens: 285
+  total_tokens: 689
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 1420
+  cache_savings: 90% (saved 1420 tokens)
+
+======================================================================
+Building prompt: starterpack_parser_v3
+======================================================================
+  Loading prompt definition: starterpack_parser_v3
+  [OK] Loaded STARTERPACK_PARSER_V3_PROMPT
+  [OK] Built prompt with 3 system blocks
+  [OK] Prefill: 44 chars
+    [FAIL] Schema validation: AI output missing required fields: ['visual', 'guide']. Expected fields: ['id', 'visual', 'guide']. Got fields: ['id', 'divider', 'tutor_narration', 'divider_2']
     [OK] Completed
 
   [BATCH COMPLETE]
-    Processed: 2/2
+    Processed: 3/3
     Skipped: 0
     Errors: 0
 
   [VALIDATION WARNINGS]
-    Items with schema errors: 1
+    Items with schema errors: 3
       - ID s1_0_opening_frame_no_student_action: AI output missing required fields: ['visual', 'guide']. Expected fields: ['id', ...
-    Saved validation errors to: step_02_starterpack_parser\validation_errors.json
+      - ID s1_1_both_forms_closure_generalization: AI output missing required fields: ['visual', 'guide']. Expected fields: ['id', ...
+      - ID s1_2_identity_building_closure_s_2: AI output missing required fields: ['visual', 'guide']. Expected fields: ['id', ...
+    Saved validation errors to: step_02_starterpack_parser_v3\validation_errors.json
 
   [VALIDATION WARNINGS]
-    Total items with validation failures: 1
-    - Schema validation failures: 1
-    Review validation errors in: step_02_starterpack_parser/
+    Total items with validation failures: 3
+    - Schema validation failures: 3
+    Review validation errors in: step_02_starterpack_parser_v3/
     Pipeline will continue...
-  [SAVE] Saved 2 items to: step_02_starterpack_parser\starterpack_parser.json
+  [SAVE] Saved 3 items to: step_02_starterpack_parser_v3\starterpack_parser_v3.json
 
-[STEP 3/13] [FORMATTING] load_specs_for_lesson
+[STEP 3/12] [FORMATTING] load_specs_for_lesson
   [DIR] step_03_load_specs_for_lesson
-  [AUTO-CHAIN] Using previous step output: step_02_starterpack_parser\starterpack_parser.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit100\synthesis_generator_dialogue_pass_module_1\v0\step_02_starterpack_parser\starterpack_parser.json
-  [DEBUG] File size: 1869 bytes
-  [DEBUG] Read 1837 chars from 1869 bytes
+  [AUTO-CHAIN] Using previous step output: step_02_starterpack_parser_v3\starterpack_parser_v3.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_02_starterpack_parser_v3\starterpack_parser_v3.json
+  [DEBUG] File size: 3370 bytes
+  [DEBUG] Read 3312 chars from 3370 bytes
   [OK] Loaded and parsed JSON
   [EXEC] Running formatting function...
   [EXEC] Passing module_number=1
   [EXEC] Passing unit_number=100
   [EXEC] Passing verbose=True
   [EXEC] Passing input to parameter 'input_data'
-  [WARN] toy_specs directory not found: C:\git\script_generator\units\unit100\toy_specs
+  [TOY_SPEC_LOADER_V3] Catalog: ['Hundred Grid Mode C', '§2.10 Drop Down / Fill-in-the-Blank', 'Multiple Choice / Checkbox', 'Balance visual', 'Mode name', 'Phase 6 v4 spec location', 'Trigger', 'Display format', 'Tap interaction', 'Suppression rule — M01', 'Suppression rule — scope', 'Engineering note', 'L.3 recognition variant', 'Balance-scale asset']
+  [TOY_SPEC_LOADER_V3] Beat map: {'W.1': 'Hundred Grid Mode B (canonical 4 × 5 = 20 M01 rectangle reloaded, build affordances DISABLED — observation only)', 'L.1': 'Hundred Grid Mode B + Mode C (canonical 4 × 5 = 20); static balance-scale tutor-layer asset rendered alongside Mode C', 'L.2': 'Multiple Choice / Checkbox; Hundred Grid Mode B companion display showing the canonical 4 × 5 = 20 rectangle (build affordances disabled)', 'L.3 (NEW — OPERATIONS-ON-BOTH-SIDES RECOGNITION)': 'Multiple Choice / Checkbox + Hundred Grid Mode C paired display; canonical 4 × 5 = 20 rectangle visible on Mode B above the paired-equation strip', 'L.4': '§2.10 Drop Down linked to the canonical 4 × 5 = 20 rectangle from Beat 1; Hundred Grid Mode B + Mode C', 'EC.1': 'Hundred Grid Mode B + Mode C companion display; §2.10 Drop Down hosting a 3-item Exit Check sequence', 'S.1': '§2.10 Drop Down closure; Mode C paired display visible above the stem (canonical 4 × 5 = 20)'}
+  [s1_0_opening_frame_no_student_action] toys=[]  student_interactions=[]
+  [s1_1_both_forms_closure_generalization] toys=['§2.10 Drop Down / Fill-in-the-Blank']  student_interactions=[]
+  [s1_2_identity_building_closure_s_2] toys=[]  student_interactions=[]
   [OK] Formatting complete
   [SAVE] Saved JSON to: step_03_load_specs_for_lesson\load_specs_for_lesson.json
 
-[STEP 4/13] [FORMATTING] check_glossary_drift
-  [DIR] step_04_check_glossary_drift
+[STEP 4/12] [AI] section_structurer_v3
+  [DIR] step_04_section_structurer_v3
   [AUTO-CHAIN] Using previous step output: step_03_load_specs_for_lesson\load_specs_for_lesson.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit100\synthesis_generator_dialogue_pass_module_1\v0\step_03_load_specs_for_lesson\load_specs_for_lesson.json
-  [DEBUG] File size: 1937 bytes
-  [DEBUG] Read 1902 chars from 1937 bytes
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_03_load_specs_for_lesson\load_specs_for_lesson.json
+  [DEBUG] File size: 3687 bytes
+  [DEBUG] Read 3614 chars from 3687 bytes
+  [OK] Loaded 3614 chars
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 3 items from JSON array
+
+  [BATCH 1/3] s1_0_opening_frame_no_student_action
+    Variables: {'id': 's1_0_opening_frame_no_student_action', 'divider': '*(Tutor plants the seed for synthesis. No student action yet. References LG2 — the One Thing — and what the student just demonstrated in EC.1. Sets up the closure stem.)*', 'tutor_narration_student_facing': '"You just wrote the same fact two ways with three different rectangles. Now let\'s go back to the rectangle you started with — the 4-by-5 — and say the One Thing one more time. The equal sign means both sides have the same value. That\'s true for every fact you write today and every fact you\'ll write tomorrow."'}...
+  Loading prompt definition: section_structurer_v3
+  [OK] Loaded SECTION_STRUCTURER_V3_PROMPT
+
+======================================================================
+Building prompt: section_structurer_v3
+======================================================================
+  Loading prompt definition: section_structurer_v3
+  [OK] Loaded SECTION_STRUCTURER_V3_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+    Resolving doc: glossary.md
+    [WARN] Not found: glossary.md
+  [WARN] Doc not found: glossary.md
+  [OK] Built prompt with 3 system blocks
+  [OK] Prefill: 1 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_04_section_structurer_v3\prompts\s1_0_opening_frame_no_student_action.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 232
+  output_tokens: 157
+  total_tokens: 389
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 7828
+  cache_savings: 90% (saved 7828 tokens)
+
+======================================================================
+Building prompt: section_structurer_v3
+======================================================================
+  Loading prompt definition: section_structurer_v3
+  [OK] Loaded SECTION_STRUCTURER_V3_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+    Resolving doc: glossary.md
+    [WARN] Not found: glossary.md
+  [WARN] Doc not found: glossary.md
+  [OK] Built prompt with 3 system blocks
+  [OK] Prefill: 1 chars
+    [SKIP] No validation prompt defined
+    [CONTEXT] section_context.md updated (1 sections)
+    [OK] Completed
+
+  [BATCH 2/3] s1_1_both_forms_closure_generalization
+    Variables: {'id': 's1_1_both_forms_closure_generalization', 'purpose': 'Lock the One Thing into a short, repeatable statement. Synthesize the arc. No new fact; no new build. The canonical 4 × 5 = 20 rectangle finishes where it started.', 'trigger': 'S.1 runs after EC.1 returns Strong (or after the Needs Practice re-pass reaches Strong). If Still Gathering, S.1 is delivered after the Heavy remediation re-pass succeeds.'}...
+  Loading prompt definition: section_structurer_v3
+  [OK] Loaded SECTION_STRUCTURER_V3_PROMPT
+
+======================================================================
+Building prompt: section_structurer_v3
+======================================================================
+  Loading prompt definition: section_structurer_v3
+  [OK] Loaded SECTION_STRUCTURER_V3_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+    Resolving doc: glossary.md
+    [WARN] Not found: glossary.md
+  [WARN] Doc not found: glossary.md
+  [OK] Built prompt with 3 system blocks
+  [OK] Prefill: 1 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_04_section_structurer_v3\prompts\s1_1_both_forms_closure_generalization.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 731
+  output_tokens: 737
+  total_tokens: 1468
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 7828
+  cache_savings: 90% (saved 7828 tokens)
+
+======================================================================
+Building prompt: section_structurer_v3
+======================================================================
+  Loading prompt definition: section_structurer_v3
+  [OK] Loaded SECTION_STRUCTURER_V3_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+    Resolving doc: glossary.md
+    [WARN] Not found: glossary.md
+  [WARN] Doc not found: glossary.md
+  [OK] Built prompt with 3 system blocks
+  [OK] Prefill: 1 chars
+    [SKIP] No validation prompt defined
+    [CONTEXT] section_context.md updated (2 sections)
+    [OK] Completed
+
+  [BATCH 3/3] s1_2_identity_building_closure_s_2
+    Variables: {'id': 's1_2_identity_building_closure_s_2', 'divider': '*(Tutor closes the synthesis with growth-in-demonstrated-capability framing and explicitly previews M03. No student action; tutor speaks. Per BrainLift DOK3, no fixed-trait identity praise — only observable growth language.)*', 'tutor_narration': '"You can now write the same fact two ways. That is a skill you will use in every lesson that comes next. Tomorrow, you\'ll start finding ALL the rectangles that share the same area — not just one. And every time you check a rectangle, you\'ll see both ways the equation can be written, just like today. The equal sign means both sides have the same value. Same fact, both ways around. You\'re ready."'}...
+  Loading prompt definition: section_structurer_v3
+  [OK] Loaded SECTION_STRUCTURER_V3_PROMPT
+
+======================================================================
+Building prompt: section_structurer_v3
+======================================================================
+  Loading prompt definition: section_structurer_v3
+  [OK] Loaded SECTION_STRUCTURER_V3_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+    Resolving doc: glossary.md
+    [WARN] Not found: glossary.md
+  [WARN] Doc not found: glossary.md
+  [OK] Built prompt with 3 system blocks
+  [OK] Prefill: 1 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_04_section_structurer_v3\prompts\s1_2_identity_building_closure_s_2.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 898
+  output_tokens: 174
+  total_tokens: 1072
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 7828
+  cache_savings: 90% (saved 7828 tokens)
+
+======================================================================
+Building prompt: section_structurer_v3
+======================================================================
+  Loading prompt definition: section_structurer_v3
+  [OK] Loaded SECTION_STRUCTURER_V3_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+    Resolving doc: glossary.md
+    [WARN] Not found: glossary.md
+  [WARN] Doc not found: glossary.md
+  [OK] Built prompt with 3 system blocks
+  [OK] Prefill: 1 chars
+    [SKIP] No validation prompt defined
+    [CONTEXT] section_context.md updated (3 sections)
+    [OK] Completed
+
+  [BATCH COMPLETE]
+    Processed: 3/3
+    Skipped: 0
+    Errors: 0
+  [SAVE] Saved 3 items to: step_04_section_structurer_v3\section_structurer_v3.json
+
+[STEP 5/12] [FORMATTING] stamp_ids
+  [DIR] step_05_stamp_ids
+  [AUTO-CHAIN] Using previous step output: step_04_section_structurer_v3\section_structurer_v3.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_04_section_structurer_v3\section_structurer_v3.json
+  [DEBUG] File size: 4237 bytes
+  [DEBUG] Read 4106 chars from 4237 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_05_stamp_ids\stamp_ids.json
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_05_stamp_ids\stamp_ids.json
+
+[STEP 6/12] [FORMATTING] extract_dialogues
+  [DIR] step_06_extract_dialogues
+  [AUTO-CHAIN] Using previous step output: step_05_stamp_ids\stamp_ids.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_05_stamp_ids\stamp_ids.json
+  [DEBUG] File size: 4839 bytes
+  [DEBUG] Read 4698 chars from 4839 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_06_extract_dialogues\extract_dialogues.json
+
+[STEP 7/12] [AI] dialogue_rewriter
+  [DIR] step_07_dialogue_rewriter
+  [AUTO-CHAIN] Using previous step output: step_06_extract_dialogues\extract_dialogues.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_06_extract_dialogues\extract_dialogues.json
+  [DEBUG] File size: 1436 bytes
+  [DEBUG] Read 1400 chars from 1436 bytes
+  [OK] Loaded 1400 chars
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 3 items from JSON array
+
+  [BATCH 1/3] s1_0_opening_frame_no_student_action
+    Variables: {'id': 's1_0_opening_frame_no_student_action', 'dialogues': [{'text': "You just wrote the same fact two ways with three different rectangles. Now let's go back to the rectangle you started with — the 4-by-5 — and say the One Thing one more time. The equal sign means both sides have the same value. That's true for every fact you write today and every fact you'll write tomorrow.", 'context': 'lesson'}]}...
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+
+======================================================================
+Building prompt: dialogue_rewriter
+======================================================================
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+  [FETCH] Fetching module data: ['forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 61 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_07_dialogue_rewriter\prompts\s1_0_opening_frame_no_student_action.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 164
+  output_tokens: 79
+  total_tokens: 243
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 9124
+  cache_savings: 90% (saved 9124 tokens)
+
+======================================================================
+Building prompt: dialogue_rewriter
+======================================================================
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+  [FETCH] Fetching module data: ['forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 61 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 2/3] s1_1_both_forms_closure_generalization
+    Variables: {'id': 's1_1_both_forms_closure_generalization', 'dialogues': [{'text': 'Say it one more time.', 'context': 'lesson'}, {'text': "The same fact written two ways. You can write it both ways. The equal sign means both sides have the same value, and that's true no matter which way you write it.", 'context': 'on_correct'}]}...
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+
+======================================================================
+Building prompt: dialogue_rewriter
+======================================================================
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+  [FETCH] Fetching module data: ['forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 63 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_07_dialogue_rewriter\prompts\s1_1_both_forms_closure_generalization.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 155
+  output_tokens: 56
+  total_tokens: 211
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 9124
+  cache_savings: 90% (saved 9124 tokens)
+
+======================================================================
+Building prompt: dialogue_rewriter
+======================================================================
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+  [FETCH] Fetching module data: ['forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 63 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 3/3] s1_2_identity_building_closure_s_2
+    Variables: {'id': 's1_2_identity_building_closure_s_2', 'dialogues': [{'text': "You can now write the same fact two ways. That is a skill you will use in every lesson that comes next. Tomorrow, you'll start finding ALL the rectangles that share the same area, not just one. And every time you check a rectangle, you'll see both ways the equation can be written, just like today. The equal sign means both sides have the same value. Same fact, both ways around. You're ready.", 'context': 'lesson'}]}...
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+
+======================================================================
+Building prompt: dialogue_rewriter
+======================================================================
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+  [FETCH] Fetching module data: ['forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 59 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_07_dialogue_rewriter\prompts\s1_2_identity_building_closure_s_2.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 181
+  output_tokens: 97
+  total_tokens: 278
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 9124
+  cache_savings: 90% (saved 9124 tokens)
+
+======================================================================
+Building prompt: dialogue_rewriter
+======================================================================
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+  [FETCH] Fetching module data: ['forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 59 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH COMPLETE]
+    Processed: 3/3
+    Skipped: 0
+    Errors: 0
+  [SAVE] Saved 3 items to: step_07_dialogue_rewriter\dialogue_rewriter.json
+
+[STEP 8/12] [FORMATTING] merge_dialogues
+  [DIR] step_08_merge_dialogues
+  [AUTO-CHAIN] Using previous step output: step_07_dialogue_rewriter\dialogue_rewriter.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_07_dialogue_rewriter\dialogue_rewriter.json
+  [DEBUG] File size: 1372 bytes
+  [DEBUG] Read 1349 chars from 1372 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_08_merge_dialogues\merge_dialogues.json
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_08_merge_dialogues\merge_dialogues.json
+
+[STEP 9/12] [FORMATTING] filter_sections
+  [DIR] step_09_filter_sections
+  [AUTO-CHAIN] Using previous step output: step_08_merge_dialogues\merge_dialogues.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_08_merge_dialogues\merge_dialogues.json
+  [DEBUG] File size: 4837 bytes
+  [DEBUG] Read 4700 chars from 4837 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_09_filter_sections\filter_sections.json
+
+[STEP 10/12] [AI] remediation_generator
+  [DIR] step_10_remediation_generator
+  [AUTO-CHAIN] Using previous step output: step_09_filter_sections\filter_sections.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_09_filter_sections\filter_sections.json
+  [DEBUG] File size: 5188 bytes
+  [DEBUG] Read 5046 chars from 5188 bytes
+  [OK] Loaded 5046 chars
+  [BATCH-OVERRIDE] Applied ['batch_only_items'] from prev step output
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 3 items from JSON array
+  [SKIP 1/3] s1_0_opening_frame_no_student_action (not in only_items)
+
+  [BATCH 2/3] s1_1_both_forms_closure_generalization
+    Variables: {'id': 's1_1_both_forms_closure_generalization', 'type': 'transition', 'beats': [{'type': 'scene', 'method': 'add', 'tangible_id': 'equation_display_paired', 'tangible_type': 'equation_display', 'params': {'mode': 'paired_display', 'equations': ['4 × 5 = 20', '20 = 4 × 5'], 'description': 'Paired equation display appears showing 4 × 5 = 20 and 20 = 4 × 5 side by side.'}, 'id': 's1_1_both_forms_closure_generalization_b0'}, {'type': 'scene', 'method': 'add', 'tangible_id': 'dropdown_same_fact', 'tangible_type': 'dropdown', 'params': {'stem': 'These two equations are ___', 'options': ['the same fact written two ways', 'a wrong one and a right one', 'two different facts'], 'description': 'Dropdown fill-in-the-blank appears with stem and three options.'}, 'id': 's1_1_both_forms_closure_generalization_b1'}, {'type': 'dialogue', 'text': 'Say it one more time.', 'id': 's1_1_both_forms_closure_generalization_b2'}, {'type': 'prompt', 'text': 'These two equations are ___.', 'tool': 'dropdown', 'target': 'dropdown_same_fact', 'validator': [{'condition_id': 'correct', 'condition': {'selected': 'the same fact written two ways'}, 'description': "Student selected 'the same fact written two ways', correct", 'is_correct': True, 'beats': [{'type': 'dialogue', 'text': "Right. The same fact written two ways. You can write it both ways. The equal sign means both sides have the same value, and that's true no matter which way you write it.", 'id': 's1_1_both_forms_closure_generalization_b3_v0_b0'}]}], 'id': 's1_1_both_forms_closure_generalization_b3'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'equation_display_paired', 'description': 'Paired equation display showing 4 × 5 = 20 and 20 = 4 × 5.', 'tangible_type': 'equation_display', 'mode': 'paired_display', 'equations': ['4 × 5 = 20', '20 = 4 × 5']}, {'tangible_id': 'dropdown_same_fact', 'description': "Dropdown showing stem 'These two equations are ___' with student's selection confirmed.", 'tangible_type': 'dropdown', 'stem': 'These two equations are ___', 'options': ['the same fact written two ways', 'a wrong one and a right one', 'two different facts']}], 'id': 's1_1_both_forms_closure_generalization_b4'}]}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 64 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_10_remediation_generator\prompts\s1_1_both_forms_closure_generalization.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 982
+  output_tokens: 583
+  total_tokens: 1565
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 20545
+  cache_savings: 90% (saved 20545 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 64 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+  [SKIP 3/3] s1_2_identity_building_closure_s_2 (not in only_items)
+
+  [BATCH COMPLETE]
+    Processed: 3/3
+    Skipped: 0
+    Errors: 0
+  [SAVE] Saved 3 items to: step_10_remediation_generator\remediation_generator.json
+
+[STEP 11/12] [FORMATTING] merge_remediation
+  [DIR] step_11_merge_remediation
+  [AUTO-CHAIN] Using previous step output: step_10_remediation_generator\remediation_generator.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_10_remediation_generator\remediation_generator.json
+  [DEBUG] File size: 4652 bytes
+  [DEBUG] Read 4526 chars from 4652 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_11_merge_remediation\merge_remediation.json
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_11_merge_remediation\merge_remediation.json
+
+[STEP 12/12] [FORMATTING] push
+  [DIR] step_12_push
+  [AUTO-CHAIN] Using previous step output: step_11_merge_remediation\merge_remediation.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_11_merge_remediation\merge_remediation.json
+  [DEBUG] File size: 8241 bytes
+  [DEBUG] Read 8020 chars from 8241 bytes
   [OK] Loaded and parsed JSON
   [EXEC] Running formatting function...
   [EXEC] Passing module_number=1
+  [EXEC] Passing path_letter=None
   [EXEC] Passing unit_number=100
-  [EXEC] Passing verbose=True
-  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit100\synthesis_generator_dialogue_pass_module_1\v0\step_04_check_glossary_drift\check_glossary_drift.json
-  [EXEC] Passing input to parameter 'input_data'
-  [DRIFT] glossary.md not found — skipping drift check
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit100\synthesis_generator_v3_module_1\v1\step_12_push\push.json
+  [EXEC] Passing input to parameter 'data'
+Updating existing page: https://notion.so/3515917eac528164ad6bc824c423a14f
+
+  [NOTION] Pushed -> https://notion.so/3515917eac528164ad6bc824c423a14f
+  [NOTION] Tagged 3 sections + 6 beats -> merge_remediation.json
+  [STITCH] Auto-stitched synthesis m1 -> tracked_scripts/u100/m1/synthesis
   [OK] Formatting complete
-  [SAVE] Saved JSON to: step_04_check_glossary_drift\check_glossary_drift.json
+  [SAVE] Saved JSON to: step_12_push\push.json
 
-[STEP 5/13] [AI] section_structurer
-  [DIR] step_05_section_structurer
-  [AUTO-CHAIN] Using previous step output: step_04_check_glossary_drift\check_glossary_drift.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit100\synthesis_generator_dialogue_pass_module_1\v0\step_04_check_glossary_drift\check_glossary_drift.json
-  [DEBUG] File size: 1937 bytes
-  [DEBUG] Read 1902 chars from 1937 bytes
-  [OK] Loaded 1902 chars
-  [BATCH] Processing items individually...
-  [ERROR] Failed to parse input as JSON array: Batch mode requires input to be a JSON array
-
-Error: Batch mode requires input to be a JSON array
-Traceback (most recent call last):
-  File "C:\git\script_generator\cli\run_pipeline.py", line 142, in <module>
-    results = run_pipeline_from_config(
-        steps_config=steps_config,
-    ...<8 lines>...
-        end_at_step=end_at,
-    )
-  File "C:\git\script_generator\core\pipelines.py", line 114, in run_pipeline_from_config
-    results = run_pipeline(
-        steps=steps,
-    ...<4 lines>...
-        **kwargs,
-    )
-  File "C:\git\script_generator\core\pipeline.py", line 865, in run_pipeline
-    raise ValueError("Batch mode requires input to be a JSON array")
-ValueError: Batch mode requires input to be a JSON array
+======================================================================
+PIPELINE COMPLETE
+Version: v1
+Status: draft
+Duration: 66.2s
+Output: outputs/synthesis_generator_v3_module_1/latest/
+======================================================================

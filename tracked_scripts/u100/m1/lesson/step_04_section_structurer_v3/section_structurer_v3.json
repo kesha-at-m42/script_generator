@@ -1,0 +1,697 @@
+[
+  {
+    "id": "s1_0_purpose_frame",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "In the last lesson, you built a rectangle with 4 square tiles in each row and 5 rows. You checked it and saw that the area was 20 square tiles. Today you will look at that same rectangle again and learn two different ways to write what you already know about it. The equal sign is the key. Let's look at what it really means."
+      },
+      {
+        "type": "current_scene",
+        "elements": []
+      }
+    ],
+    "_generated_at": "2026-04-29T19:28:38.868670+00:00"
+  },
+  {
+    "id": "s1_1_mode_c_first_reveal_balance",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "hundred_grid_mode_b",
+        "tangible_type": "hundred_grid",
+        "params": {
+          "mode": "mode_b",
+          "rectangle": {
+            "columns": 4,
+            "rows": 5,
+            "area": 20
+          },
+          "build_disabled": true,
+          "description": "Hundred Grid Mode B appears with canonical 4 × 5 rectangle filled. 20 square tiles visible. Build affordances disabled — student sees rectangle but cannot place tiles."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Here is the rectangle you built last lesson. It has 4 square tiles in each row and 5 rows. The area is 20 square tiles."
+      },
+      {
+        "type": "prompt",
+        "text": "Tap Check to continue.",
+        "tool": "check",
+        "target": "hundred_grid_mode_b",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {},
+            "description": "Student tapped Check, Mode C activates",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "empty"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_mode_b",
+            "description": "Hundred Grid Mode B with 4 × 5 rectangle. Check button active.",
+            "tangible_type": "hundred_grid",
+            "mode": "mode_b",
+            "rectangle": {
+              "columns": 4,
+              "rows": 5,
+              "area": 20
+            },
+            "build_disabled": true
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "hundred_grid_mode_b",
+        "params": {
+          "mode": "mode_c",
+          "description": "Mode C activates. Two-panel strip appears below rectangle: left panel shows 4 × 5 = 20, right panel shows 20 = 4 × 5. Bridge element (double-headed arrow or =) between panels signals equivalence. Both panels identical font size, background, visual weight."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "balance_scale_asset",
+        "tangible_type": "balance_scale_asset",
+        "params": {
+          "description": "Static balance-scale asset appears in tutor explanation zone alongside Mode C strip. Shows balance beam with equal weight on both sides."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Look at the equal sign. It is not a go button. It is a balance. What is on this side has the same value as what is on that side. The equal sign means both sides have the same value."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_mode_b",
+            "description": "Hundred Grid Mode C active. Rectangle visible above. Two-panel strip below: left panel 4 × 5 = 20, right panel 20 = 4 × 5, bridge element between. Tap-and-hold enabled on panels.",
+            "tangible_type": "hundred_grid",
+            "mode": "mode_c",
+            "rectangle": {
+              "columns": 4,
+              "rows": 5,
+              "area": 20
+            }
+          },
+          {
+            "tangible_id": "balance_scale_asset",
+            "description": "Balance-scale asset visible in tutor zone.",
+            "tangible_type": "balance_scale_asset"
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "Tap and hold each panel. See what happens."
+      },
+      {
+        "type": "prompt",
+        "text": "Tap and hold the left panel, then the right panel.",
+        "tool": "tap_and_hold",
+        "target": "hundred_grid_mode_b.mode_c_panels",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "tapped": "left_panel"
+                },
+                {
+                  "tapped": "right_panel"
+                }
+              ]
+            },
+            "description": "Student tapped and held both panels, observed rectangle highlighting",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "hundred_grid_mode_b",
+                "params": {
+                  "event": "cross_highlight_panels",
+                  "status": "confirmed",
+                  "description": "Both panels cross-highlight rectangle when tapped. Same rectangle highlights for both equations."
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Both equations point to the same rectangle. They have the same value."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_mode_b",
+            "description": "Hundred Grid Mode C. Rectangle visible. Two-panel strip: left 4 × 5 = 20, right 20 = 4 × 5. Tap-and-hold complete, both panels confirmed.",
+            "tangible_type": "hundred_grid",
+            "mode": "mode_c",
+            "rectangle": {
+              "columns": 4,
+              "rows": 5,
+              "area": 20
+            }
+          },
+          {
+            "tangible_id": "balance_scale_asset",
+            "description": "Balance-scale asset remains visible in tutor zone.",
+            "tangible_type": "balance_scale_asset"
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "fill_in_blank_stem",
+        "tangible_type": "fill_in_blank",
+        "params": {
+          "stem": "The equal sign means ___.",
+          "options": [
+            "both sides have the same value",
+            "the answer goes on the right",
+            "I should multiply"
+          ],
+          "description": "Fill-in-the-blank stem appears: The equal sign means ___. Three options visible."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Now finish the sentence. The equal sign means what?"
+      },
+      {
+        "type": "prompt",
+        "text": "Select the correct option.",
+        "tool": "fill_in_blank",
+        "target": "fill_in_blank_stem",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "both sides have the same value"
+            },
+            "description": "Student selected both sides have the same value, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You got it. The equal sign means both sides have the same value. It is a balance, not a go button."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_mode_b",
+            "description": "Hundred Grid Mode C. Rectangle visible. Two-panel strip: left 4 × 5 = 20, right 20 = 4 × 5.",
+            "tangible_type": "hundred_grid",
+            "mode": "mode_c",
+            "rectangle": {
+              "columns": 4,
+              "rows": 5,
+              "area": 20
+            }
+          },
+          {
+            "tangible_id": "balance_scale_asset",
+            "description": "Balance-scale asset visible in tutor zone.",
+            "tangible_type": "balance_scale_asset"
+          },
+          {
+            "tangible_id": "fill_in_blank_stem",
+            "description": "Fill-in-the-blank stem completed. Correct option both sides have the same value selected.",
+            "tangible_type": "fill_in_blank",
+            "stem": "The equal sign means ___.",
+            "selected": "both sides have the same value"
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-29T19:29:10.957067+00:00"
+  },
+  {
+    "id": "s2_1_both_orientations_match_one_rectangle",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "hundred_grid_mode_b",
+        "tangible_type": "hundred_grid",
+        "params": {
+          "mode": "mode_b",
+          "rectangle": {
+            "columns": 4,
+            "rows": 5,
+            "area": 20
+          },
+          "build_affordances_disabled": true,
+          "description": "Hundred Grid Mode B appears displaying a 4 × 5 rectangle (4 columns, 5 rows, 20 square tiles total). Build affordances are disabled — rectangle is static reference visual only."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_checkbox",
+        "tangible_type": "multiple_choice_checkbox",
+        "params": {
+          "description": "Multiple Choice / Checkbox interface appears showing four equation candidates."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Look at this rectangle. You know it shows 4 times 5 equals 20. But there's more than one way to write that fact."
+      },
+      {
+        "type": "prompt",
+        "text": "Choose ALL the equations that correctly describe this rectangle.",
+        "tool": "multi_select",
+        "target": "equation_checkbox",
+        "options": [
+          "4 × 5 = 20",
+          "20 = 4 × 5",
+          "4 + 5 = 20",
+          "4 × 20 = 5"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "selected": "4 × 5 = 20"
+                },
+                {
+                  "selected": "20 = 4 × 5"
+                }
+              ]
+            },
+            "description": "Student selected both correct equations: 4 × 5 = 20 and 20 = 4 × 5",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Both of those describe the same rectangle — two ways to write the same fact."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_mode_b",
+            "description": "Hundred Grid Mode B showing static 4 × 5 rectangle (20 tiles).",
+            "tangible_type": "hundred_grid",
+            "mode": "mode_b",
+            "rectangle": {
+              "columns": 4,
+              "rows": 5,
+              "area": 20
+            }
+          },
+          {
+            "tangible_id": "equation_checkbox",
+            "description": "Multiple Choice / Checkbox interface with four equation options: 4 × 5 = 20, 20 = 4 × 5, 4 + 5 = 20, 4 × 20 = 5. Student has selected both correct equations.",
+            "tangible_type": "multiple_choice_checkbox"
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "drop_down_stem",
+        "tangible_type": "drop_down_fill_blank",
+        "params": {
+          "stem": "These equations are correct because ___.",
+          "description": "Drop Down / Fill-in-the-Blank prompt appears with completion stem."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Now finish this sentence about why both equations work."
+      },
+      {
+        "type": "prompt",
+        "text": "These equations are correct because ___.",
+        "tool": "fill_in_blank",
+        "target": "drop_down_stem",
+        "options": [
+          "they show two ways to write the same fact",
+          "the equal sign means both sides have the same value",
+          "one of them must be wrong"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct_option_1",
+            "condition": {
+              "selected": "they show two ways to write the same fact"
+            },
+            "description": "Student selected first reinforcing option",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Two ways to write the same fact. The equal sign lets you write multiplication either way."
+              }
+            ]
+          },
+          {
+            "condition_id": "correct_option_2",
+            "condition": {
+              "selected": "the equal sign means both sides have the same value"
+            },
+            "description": "Student selected second reinforcing option",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Both sides have the same value. That's what the equal sign tells you."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_mode_b",
+            "description": "Hundred Grid Mode B showing static 4 × 5 rectangle (20 tiles).",
+            "tangible_type": "hundred_grid",
+            "mode": "mode_b",
+            "rectangle": {
+              "columns": 4,
+              "rows": 5,
+              "area": 20
+            }
+          },
+          {
+            "tangible_id": "equation_checkbox",
+            "description": "Multiple Choice / Checkbox interface showing selected equations: 4 × 5 = 20 and 20 = 4 × 5.",
+            "tangible_type": "multiple_choice_checkbox"
+          },
+          {
+            "tangible_id": "drop_down_stem",
+            "description": "Drop Down / Fill-in-the-Blank prompt completed with one of the two reinforcing options selected.",
+            "tangible_type": "drop_down_fill_blank"
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-29T19:29:36.814482+00:00"
+  },
+  {
+    "id": "s3_1_operations_both_sides_recognition_hybrid",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "hundred_grid_mode_b",
+        "tangible_type": "hundred_grid",
+        "params": {
+          "mode": "mode_b",
+          "columns": 4,
+          "rows": 5,
+          "total_tiles": 20,
+          "description": "Hundred Grid Mode B displays a 4 × 5 rectangle: 4 columns, 5 rows, 20 total tiles."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "mode_c_paired_display",
+        "tangible_type": "hundred_grid",
+        "params": {
+          "mode": "mode_c",
+          "panels": [
+            {
+              "side": "left",
+              "expression": "4 × 5 = 20"
+            },
+            {
+              "side": "right",
+              "expression": "4 × 5 = 5 × 4"
+            }
+          ],
+          "description": "Mode C paired-equation display appears below rectangle. Left panel shows 4 × 5 = 20. Right panel shows 4 × 5 = 5 × 4."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Both of these equations describe the same rectangle."
+      },
+      {
+        "type": "prompt",
+        "text": "Tap the one that says it correctly.",
+        "tool": "multiple_choice",
+        "options": [
+          "4 × 5 = 5 × 4",
+          "4 × 5 = 5 + 4"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "4 × 5 = 5 × 4"
+            },
+            "description": "Student selected 4 × 5 = 5 × 4, the correct multiplicative-commutative form",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You got it."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_mode_b",
+            "description": "Hundred Grid Mode B showing 4 × 5 rectangle: 4 columns, 5 rows, 20 total tiles.",
+            "tangible_type": "hundred_grid",
+            "mode": "mode_b",
+            "columns": 4,
+            "rows": 5,
+            "total_tiles": 20
+          },
+          {
+            "tangible_id": "mode_c_paired_display",
+            "description": "Mode C paired-equation display. Left panel: 4 × 5 = 20. Right panel: 4 × 5 = 5 × 4.",
+            "tangible_type": "hundred_grid",
+            "mode": "mode_c"
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "drop_down_stem",
+        "tangible_type": "fill_in_blank",
+        "params": {
+          "stem": "Both sides of 4 × 5 = 5 × 4 show the ___.",
+          "options": [
+            "same value",
+            "same number of square tiles only",
+            "same number of rows only"
+          ],
+          "description": "Drop Down prompt appears with stem and three options."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Complete this sentence."
+      },
+      {
+        "type": "prompt",
+        "text": "Both sides of 4 × 5 = 5 × 4 show the ___.",
+        "tool": "fill_in_blank",
+        "target": "drop_down_stem",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "same value"
+            },
+            "description": "Student selected same value, correct completion",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Both sides of 4 × 5 = 5 × 4 show the same value — 20. The equal sign means same value on both sides, no matter how many operations are on each side."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_mode_b",
+            "description": "Hundred Grid Mode B showing 4 × 5 rectangle: 4 columns, 5 rows, 20 total tiles.",
+            "tangible_type": "hundred_grid",
+            "mode": "mode_b",
+            "columns": 4,
+            "rows": 5,
+            "total_tiles": 20
+          },
+          {
+            "tangible_id": "mode_c_paired_display",
+            "description": "Mode C paired-equation display. Left panel: 4 × 5 = 20. Right panel: 4 × 5 = 5 × 4.",
+            "tangible_type": "hundred_grid",
+            "mode": "mode_c"
+          },
+          {
+            "tangible_id": "drop_down_stem",
+            "description": "Fill-in-the-blank prompt with stem completed: same value selected.",
+            "tangible_type": "fill_in_blank",
+            "stem": "Both sides of 4 × 5 = 5 × 4 show the ___.",
+            "selected_option": "same value"
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-29T19:30:00.833194+00:00"
+  },
+  {
+    "id": "s4_1_supported_production_both_orientations_relational",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "hundred_grid_mode_b",
+        "tangible_type": "hundred_grid",
+        "params": {
+          "mode": "mode_b",
+          "columns": 4,
+          "rows": 5,
+          "total_tiles": 20,
+          "description": "Hundred Grid Mode B displays a 4 × 5 rectangle. 4 columns, 5 rows, 20 total tiles."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "mode_c_paired_display",
+        "tangible_type": "mode_c_display",
+        "params": {
+          "left_panel": "4 × 5 = 20",
+          "right_panel": "20 = 4 × 5",
+          "description": "Mode C paired display shows both equation orientations. Left panel: 4 × 5 = 20. Right panel: 20 = 4 × 5. Equivalence bridge connects them."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "drop_down_stem",
+        "tangible_type": "fill_in_blank",
+        "params": {
+          "stem": "I built a 4-by-5 rectangle, so I can write ___ × ___ = ___ AND ___ = ___ × ___ — they say the same thing, and the equal sign means both sides have the same value.",
+          "slot_count": 6,
+          "description": "Drop Down stem unlocks with six numeric slots. First blank set: 4, 5, 20. Second blank set: 20, 4, 5. Both equation orientations required."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "This rectangle lets you write the same fact in two ways. Finish the sentence using the numbers from both panels."
+      },
+      {
+        "type": "prompt",
+        "text": "Fill in the six slots to write both equations.",
+        "tool": "fill_in_blank",
+        "target": "drop_down_stem",
+        "validator": [
+          {
+            "condition_id": "both_orientations_correct",
+            "condition": {
+              "and": [
+                {
+                  "slot_1": 4
+                },
+                {
+                  "slot_2": 5
+                },
+                {
+                  "slot_3": 20
+                },
+                {
+                  "slot_4": 20
+                },
+                {
+                  "slot_5": 4
+                },
+                {
+                  "slot_6": 5
+                }
+              ]
+            },
+            "description": "Student filled all six slots correctly: 4 × 5 = 20 AND 20 = 4 × 5",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You wrote both of them. 4 × 5 = 20 and 20 = 4 × 5 — the same fact, two ways. The equal sign means both sides have the same value."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_mode_b",
+            "description": "Hundred Grid Mode B displays a 4 × 5 rectangle. 4 columns, 5 rows, 20 total tiles.",
+            "tangible_type": "hundred_grid",
+            "mode": "mode_b",
+            "columns": 4,
+            "rows": 5,
+            "total_tiles": 20
+          },
+          {
+            "tangible_id": "mode_c_paired_display",
+            "description": "Mode C paired display showing both equation orientations. Left panel: 4 × 5 = 20. Right panel: 20 = 4 × 5.",
+            "tangible_type": "mode_c_display",
+            "left_panel": "4 × 5 = 20",
+            "right_panel": "20 = 4 × 5"
+          },
+          {
+            "tangible_id": "drop_down_stem",
+            "description": "Completed fill-in-the-blank stem showing: I built a 4-by-5 rectangle, so I can write 4 × 5 = 20 AND 20 = 4 × 5 — they say the same thing, and the equal sign means both sides have the same value.",
+            "tangible_type": "fill_in_blank",
+            "stem": "I built a 4-by-5 rectangle, so I can write ___ × ___ = ___ AND ___ = ___ × ___ — they say the same thing, and the equal sign means both sides have the same value.",
+            "slot_count": 6
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-29T19:30:24.417816+00:00"
+  }
+]

@@ -1,0 +1,130 @@
+[
+  {
+    "id": "s1_0_opening_frame_no_student_action",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You just wrote the same fact two ways with three different rectangles. Now let's go back to the rectangle you started with — the 4-by-5 — and say the One Thing one more time. The equal sign means both sides have the same value. That's true for every fact you write today and every fact you'll write tomorrow.",
+        "id": "s1_0_opening_frame_no_student_action_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_opening_frame_no_student_action_b1"
+      }
+    ],
+    "_generated_at": "2026-04-29T19:28:21.206430+00:00"
+  },
+  {
+    "id": "s1_1_both_forms_closure_generalization",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "equation_display_paired",
+        "tangible_type": "equation_display",
+        "params": {
+          "mode": "paired_display",
+          "equations": [
+            "4 × 5 = 20",
+            "20 = 4 × 5"
+          ],
+          "description": "Paired equation display appears showing 4 × 5 = 20 and 20 = 4 × 5 side by side."
+        },
+        "id": "s1_1_both_forms_closure_generalization_b0"
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "dropdown_same_fact",
+        "tangible_type": "dropdown",
+        "params": {
+          "stem": "These two equations are ___",
+          "options": [
+            "the same fact written two ways",
+            "a wrong one and a right one",
+            "two different facts"
+          ],
+          "description": "Dropdown fill-in-the-blank appears with stem and three options."
+        },
+        "id": "s1_1_both_forms_closure_generalization_b1"
+      },
+      {
+        "type": "dialogue",
+        "text": "Say it one more time.",
+        "id": "s1_1_both_forms_closure_generalization_b2"
+      },
+      {
+        "type": "prompt",
+        "text": "These two equations are ___.",
+        "tool": "dropdown",
+        "target": "dropdown_same_fact",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "selected": "the same fact written two ways"
+            },
+            "description": "Student selected 'the same fact written two ways', correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "The same fact written two ways. You can write it both ways. The equal sign means both sides have the same value, and that's true no matter which way you write it.",
+                "id": "s1_1_both_forms_closure_generalization_b3_v0_b0"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_both_forms_closure_generalization_b3"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "equation_display_paired",
+            "description": "Paired equation display showing 4 × 5 = 20 and 20 = 4 × 5.",
+            "tangible_type": "equation_display",
+            "mode": "paired_display",
+            "equations": [
+              "4 × 5 = 20",
+              "20 = 4 × 5"
+            ]
+          },
+          {
+            "tangible_id": "dropdown_same_fact",
+            "description": "Dropdown showing stem 'These two equations are ___' with student's selection confirmed.",
+            "tangible_type": "dropdown",
+            "stem": "These two equations are ___",
+            "options": [
+              "the same fact written two ways",
+              "a wrong one and a right one",
+              "two different facts"
+            ]
+          }
+        ],
+        "id": "s1_1_both_forms_closure_generalization_b4"
+      }
+    ],
+    "_generated_at": "2026-04-29T19:28:35.089691+00:00"
+  },
+  {
+    "id": "s1_2_identity_building_closure_s_2",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You can now write the same fact two ways. That is a skill you will use in every lesson that comes next. Tomorrow, you'll start finding ALL the rectangles that share the same area, not just one. And every time you check a rectangle, you'll see both ways the equation can be written, just like today. The equal sign means both sides have the same value. Same fact, both ways around. You're ready.",
+        "id": "s1_2_identity_building_closure_s_2_b0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_2_identity_building_closure_s_2_b1"
+      }
+    ],
+    "_generated_at": "2026-04-29T19:28:41.153545+00:00"
+  }
+]

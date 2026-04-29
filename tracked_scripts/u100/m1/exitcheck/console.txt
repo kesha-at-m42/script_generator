@@ -1,11 +1,11 @@
 
 ======================================================================
 RUNNING PIPELINE
-Steps: 13
-Output Directory: C:\git\script_generator\outputs\unit100\exitcheck_generator_dialogue_pass_module_1\v0
+Steps: 12
+Output Directory: C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1
 ======================================================================
 
-[STEP 1/13] [FORMATTING] split_spec
+[STEP 1/12] [FORMATTING] split_spec
   [DIR] step_01_split_spec
   [LOAD] Reading: C:\git\script_generator\units\unit100\module1\exitcheck.md
   [DEBUG] File size: 13111 bytes
@@ -16,79 +16,528 @@ Output Directory: C:\git\script_generator\outputs\unit100\exitcheck_generator_di
   [OK] Formatting complete
   [SAVE] Saved JSON to: step_01_split_spec\split_spec.json
 
-[STEP 2/13] [AI] starterpack_parser
-  [DIR] step_02_starterpack_parser
+[STEP 2/12] [AI] starterpack_parser_v3
+  [DIR] step_02_starterpack_parser_v3
   [AUTO-CHAIN] Using previous step output: step_01_split_spec\split_spec.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit100\exitcheck_generator_dialogue_pass_module_1\v0\step_01_split_spec\split_spec.json
-  [DEBUG] File size: 2 bytes
-  [DEBUG] Read 2 chars from 2 bytes
-  [OK] Loaded 2 chars
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1\step_01_split_spec\split_spec.json
+  [DEBUG] File size: 3646 bytes
+  [DEBUG] Read 3579 chars from 3646 bytes
+  [OK] Loaded 3579 chars
   [BATCH] Processing items individually...
-  [DEBUG] Parsed 0 items from JSON array
+  [DEBUG] Parsed 2 items from JSON array
+
+  [BATCH 1/2] s1_0_transition_frame
+    Variables: {'id': 's1_0_transition_frame', 'index': 0, 'major': 1}...
+  Loading prompt definition: starterpack_parser_v3
+  [OK] Loaded STARTERPACK_PARSER_V3_PROMPT
+
+======================================================================
+Building prompt: starterpack_parser_v3
+======================================================================
+  Loading prompt definition: starterpack_parser_v3
+  [OK] Loaded STARTERPACK_PARSER_V3_PROMPT
+  [OK] Built prompt with 3 system blocks
+  [OK] Prefill: 31 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1\step_02_starterpack_parser_v3\prompts\s1_0_transition_frame.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 267
+  output_tokens: 182
+  total_tokens: 449
+  requests: 1
+  cache_creation_tokens: 1420
+  cache_read_tokens: 0
+  cache_savings: 0%
+
+======================================================================
+Building prompt: starterpack_parser_v3
+======================================================================
+  Loading prompt definition: starterpack_parser_v3
+  [OK] Loaded STARTERPACK_PARSER_V3_PROMPT
+  [OK] Built prompt with 3 system blocks
+  [OK] Prefill: 31 chars
+    [FAIL] Schema validation: AI output missing required fields: ['visual', 'guide']. Expected fields: ['id', 'visual', 'guide']. Got fields: ['id', 'divider', 'tutor_narration', 'divider_2']
+    [OK] Completed
+
+  [BATCH 2/2] s1_1_3_item_exit_check_application
+    Variables: {'id': 's1_1_3_item_exit_check_application', 'index': 1, 'major': 1}...
+  Loading prompt definition: starterpack_parser_v3
+  [OK] Loaded STARTERPACK_PARSER_V3_PROMPT
+
+======================================================================
+Building prompt: starterpack_parser_v3
+======================================================================
+  Loading prompt definition: starterpack_parser_v3
+  [OK] Loaded STARTERPACK_PARSER_V3_PROMPT
+  [OK] Built prompt with 3 system blocks
+  [OK] Prefill: 44 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1\step_02_starterpack_parser_v3\prompts\s1_1_3_item_exit_check_application.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 879
+  output_tokens: 733
+  total_tokens: 1612
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 1420
+  cache_savings: 90% (saved 1420 tokens)
+
+======================================================================
+Building prompt: starterpack_parser_v3
+======================================================================
+  Loading prompt definition: starterpack_parser_v3
+  [OK] Loaded STARTERPACK_PARSER_V3_PROMPT
+  [OK] Built prompt with 3 system blocks
+  [OK] Prefill: 44 chars
+    [FAIL] Schema validation: AI output missing required fields: ['visual', 'guide']. Expected fields: ['id', 'visual', 'guide']. Got fields: ['id', 'purpose', 'toy', 'introduction', 'ec_sub_item_table', 'vocabulary_check', 'required_phrase']
+    [OK] Completed
 
   [BATCH COMPLETE]
-    Processed: 0/0
+    Processed: 2/2
     Skipped: 0
     Errors: 0
-  [SAVE] Saved 0 items to: step_02_starterpack_parser\starterpack_parser.json
 
-[STEP 3/13] [FORMATTING] load_specs_for_lesson
+  [VALIDATION WARNINGS]
+    Items with schema errors: 2
+      - ID s1_0_transition_frame: AI output missing required fields: ['visual', 'guide']. Expected fields: ['id', ...
+      - ID s1_1_3_item_exit_check_application: AI output missing required fields: ['visual', 'guide']. Expected fields: ['id', ...
+    Saved validation errors to: step_02_starterpack_parser_v3\validation_errors.json
+
+  [VALIDATION WARNINGS]
+    Total items with validation failures: 2
+    - Schema validation failures: 2
+    Review validation errors in: step_02_starterpack_parser_v3/
+    Pipeline will continue...
+  [SAVE] Saved 2 items to: step_02_starterpack_parser_v3\starterpack_parser_v3.json
+
+[STEP 3/12] [FORMATTING] load_specs_for_lesson
   [DIR] step_03_load_specs_for_lesson
-  [AUTO-CHAIN] Using previous step output: step_02_starterpack_parser\starterpack_parser.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit100\exitcheck_generator_dialogue_pass_module_1\v0\step_02_starterpack_parser\starterpack_parser.json
-  [DEBUG] File size: 2 bytes
-  [DEBUG] Read 2 chars from 2 bytes
+  [AUTO-CHAIN] Using previous step output: step_02_starterpack_parser_v3\starterpack_parser_v3.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1\step_02_starterpack_parser_v3\starterpack_parser_v3.json
+  [DEBUG] File size: 3373 bytes
+  [DEBUG] Read 3292 chars from 3373 bytes
   [OK] Loaded and parsed JSON
   [EXEC] Running formatting function...
   [EXEC] Passing module_number=1
   [EXEC] Passing unit_number=100
   [EXEC] Passing verbose=True
   [EXEC] Passing input to parameter 'input_data'
-  [WARN] toy_specs directory not found: C:\git\script_generator\units\unit100\toy_specs
+  [TOY_SPEC_LOADER_V3] Catalog: ['Hundred Grid Mode C', '§2.10 Drop Down / Fill-in-the-Blank', 'Multiple Choice / Checkbox', 'Balance visual', 'Mode name', 'Phase 6 v4 spec location', 'Trigger', 'Display format', 'Tap interaction', 'Suppression rule — M01', 'Suppression rule — scope', 'Engineering note', 'L.3 recognition variant', 'Balance-scale asset']
+  [TOY_SPEC_LOADER_V3] Beat map: {'W.1': 'Hundred Grid Mode B (canonical 4 × 5 = 20 M01 rectangle reloaded, build affordances DISABLED — observation only)', 'L.1': 'Hundred Grid Mode B + Mode C (canonical 4 × 5 = 20); static balance-scale tutor-layer asset rendered alongside Mode C', 'L.2': 'Multiple Choice / Checkbox; Hundred Grid Mode B companion display showing the canonical 4 × 5 = 20 rectangle (build affordances disabled)', 'L.3 (NEW — OPERATIONS-ON-BOTH-SIDES RECOGNITION)': 'Multiple Choice / Checkbox + Hundred Grid Mode C paired display; canonical 4 × 5 = 20 rectangle visible on Mode B above the paired-equation strip', 'L.4': '§2.10 Drop Down linked to the canonical 4 × 5 = 20 rectangle from Beat 1; Hundred Grid Mode B + Mode C', 'EC.1': 'Hundred Grid Mode B + Mode C companion display; §2.10 Drop Down hosting a 3-item Exit Check sequence', 'S.1': '§2.10 Drop Down closure; Mode C paired display visible above the stem (canonical 4 × 5 = 20)'}
+  [s1_0_transition_frame] toys=['Trigger']  student_interactions=[]
+  [s1_1_3_item_exit_check_application] toys=['Multiple Choice / Checkbox', '§2.10 Drop Down / Fill-in-the-Blank']  student_interactions=[]
   [OK] Formatting complete
   [SAVE] Saved JSON to: step_03_load_specs_for_lesson\load_specs_for_lesson.json
 
-[STEP 4/13] [FORMATTING] check_glossary_drift
-  [DIR] step_04_check_glossary_drift
+[STEP 4/12] [AI] section_structurer_v3
+  [DIR] step_04_section_structurer_v3
   [AUTO-CHAIN] Using previous step output: step_03_load_specs_for_lesson\load_specs_for_lesson.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit100\exitcheck_generator_dialogue_pass_module_1\v0\step_03_load_specs_for_lesson\load_specs_for_lesson.json
-  [DEBUG] File size: 42 bytes
-  [DEBUG] Read 39 chars from 42 bytes
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1\step_03_load_specs_for_lesson\load_specs_for_lesson.json
+  [DEBUG] File size: 3669 bytes
+  [DEBUG] Read 3574 chars from 3669 bytes
+  [OK] Loaded 3574 chars
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 2 items from JSON array
+
+  [BATCH 1/2] s1_0_transition_frame
+    Variables: {'id': 's1_0_transition_frame', 'divider': '*(Teacher language moving from §1.7 lesson → §1.8 Exit Check. No student action during the frame.)*', 'tutor_narration': '"You just wrote the same fact two ways. Now I\'m going to show you a different rectangle and a different fact. Show me you can do the same thing — two ways around — with a fact you haven\'t seen yet today. Three quick questions. Take your time."'}...
+  Loading prompt definition: section_structurer_v3
+  [OK] Loaded SECTION_STRUCTURER_V3_PROMPT
+
+======================================================================
+Building prompt: section_structurer_v3
+======================================================================
+  Loading prompt definition: section_structurer_v3
+  [OK] Loaded SECTION_STRUCTURER_V3_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+    Resolving doc: glossary.md
+    [WARN] Not found: glossary.md
+  [WARN] Doc not found: glossary.md
+  [OK] Built prompt with 3 system blocks
+  [OK] Prefill: 1 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1\step_04_section_structurer_v3\prompts\s1_0_transition_frame.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 272
+  output_tokens: 134
+  total_tokens: 406
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 7828
+  cache_savings: 90% (saved 7828 tokens)
+
+======================================================================
+Building prompt: section_structurer_v3
+======================================================================
+  Loading prompt definition: section_structurer_v3
+  [OK] Loaded SECTION_STRUCTURER_V3_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+    Resolving doc: glossary.md
+    [WARN] Not found: glossary.md
+  [WARN] Doc not found: glossary.md
+  [OK] Built prompt with 3 system blocks
+  [OK] Prefill: 1 chars
+    [SKIP] No validation prompt defined
+    [CONTEXT] section_context.md updated (1 sections)
+    [OK] Completed
+
+  [BATCH 2/2] s1_1_3_item_exit_check_application
+    Variables: {'id': 's1_1_3_item_exit_check_application', 'purpose': 'Test the reversed-orientation Focus skill bidirectionally. The L.3 operations-on-both-sides recognition exposure is NOT exit-checked — EC.1 tests only reversed-orientation recognition and production.', 'toy': '§2.10 Drop Down (production sub-items EC2, EC3) + §2.11 Multiple Choice / Checkbox (recognition sub-item EC1) + Hundred Grid Mode B/C companion display.'}...
+  Loading prompt definition: section_structurer_v3
+  [OK] Loaded SECTION_STRUCTURER_V3_PROMPT
+
+======================================================================
+Building prompt: section_structurer_v3
+======================================================================
+  Loading prompt definition: section_structurer_v3
+  [OK] Loaded SECTION_STRUCTURER_V3_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+    Resolving doc: glossary.md
+    [WARN] Not found: glossary.md
+  [WARN] Doc not found: glossary.md
+  [OK] Built prompt with 3 system blocks
+  [OK] Prefill: 1 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1\step_04_section_structurer_v3\prompts\s1_1_3_item_exit_check_application.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 1021
+  output_tokens: 1699
+  total_tokens: 2720
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 7828
+  cache_savings: 90% (saved 7828 tokens)
+
+======================================================================
+Building prompt: section_structurer_v3
+======================================================================
+  Loading prompt definition: section_structurer_v3
+  [OK] Loaded SECTION_STRUCTURER_V3_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+    Resolving doc: glossary.md
+    [WARN] Not found: glossary.md
+  [WARN] Doc not found: glossary.md
+  [OK] Built prompt with 3 system blocks
+  [OK] Prefill: 1 chars
+    [SKIP] No validation prompt defined
+    [CONTEXT] section_context.md updated (2 sections)
+    [OK] Completed
+
+  [BATCH COMPLETE]
+    Processed: 2/2
+    Skipped: 0
+    Errors: 0
+  [SAVE] Saved 2 items to: step_04_section_structurer_v3\section_structurer_v3.json
+
+[STEP 5/12] [FORMATTING] stamp_ids
+  [DIR] step_05_stamp_ids
+  [AUTO-CHAIN] Using previous step output: step_04_section_structurer_v3\section_structurer_v3.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1\step_04_section_structurer_v3\section_structurer_v3.json
+  [DEBUG] File size: 6953 bytes
+  [DEBUG] Read 6699 chars from 6953 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1\step_05_stamp_ids\stamp_ids.json
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_05_stamp_ids\stamp_ids.json
+
+[STEP 6/12] [FORMATTING] extract_dialogues
+  [DIR] step_06_extract_dialogues
+  [AUTO-CHAIN] Using previous step output: step_05_stamp_ids\stamp_ids.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1\step_05_stamp_ids\stamp_ids.json
+  [DEBUG] File size: 7924 bytes
+  [DEBUG] Read 7653 chars from 7924 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_06_extract_dialogues\extract_dialogues.json
+
+[STEP 7/12] [AI] dialogue_rewriter
+  [DIR] step_07_dialogue_rewriter
+  [AUTO-CHAIN] Using previous step output: step_06_extract_dialogues\extract_dialogues.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1\step_06_extract_dialogues\extract_dialogues.json
+  [DEBUG] File size: 1326 bytes
+  [DEBUG] Read 1283 chars from 1326 bytes
+  [OK] Loaded 1283 chars
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 2 items from JSON array
+
+  [BATCH 1/2] s1_0_transition_frame
+    Variables: {'id': 's1_0_transition_frame', 'dialogues': [{'text': "You just wrote the same fact two ways. Now I'm going to show you a different rectangle and a different fact. Show me you can do the same thing — two ways around — with a fact you haven't seen yet today. Three quick questions. Take your time.", 'context': 'lesson'}]}...
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+
+======================================================================
+Building prompt: dialogue_rewriter
+======================================================================
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+  [FETCH] Fetching module data: ['forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 46 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1\step_07_dialogue_rewriter\prompts\s1_0_transition_frame.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 135
+  output_tokens: 63
+  total_tokens: 198
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 9124
+  cache_savings: 90% (saved 9124 tokens)
+
+======================================================================
+Building prompt: dialogue_rewriter
+======================================================================
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+  [FETCH] Fetching module data: ['forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 46 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH 2/2] s1_1_3_item_exit_check_application
+    Variables: {'id': 's1_1_3_item_exit_check_application', 'dialogues': [{'text': 'Question 1. Look at this rectangle: 5 times 8 equals 40.', 'context': 'lesson'}, {'text': 'Both correct. 5 times 8 equals 40 AND 40 equals 5 times 8. The equal sign means both sides have the same value.', 'context': 'on_correct'}, {'text': 'Question 2. Here is 7 times 6 equals 42.', 'context': 'lesson'}, {'text': '7 times 6 equals 42 AND 42 equals 7 times 6. Both orientations name the same rectangle.', 'context': 'on_correct'}, {'text': 'Question 3. Here is 36 equals 9 times 4.', 'context': 'lesson'}, {'text': '9 times 4 equals 36 AND 36 equals 9 times 4. You can write the same fact both ways around.', 'context': 'on_correct'}]}...
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+
+======================================================================
+Building prompt: dialogue_rewriter
+======================================================================
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+  [FETCH] Fetching module data: ['forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 59 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1\step_07_dialogue_rewriter\prompts\s1_1_3_item_exit_check_application.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 351
+  output_tokens: 186
+  total_tokens: 537
+  requests: 1
+  cache_creation_tokens: 0
+  cache_read_tokens: 9124
+  cache_savings: 90% (saved 9124 tokens)
+
+======================================================================
+Building prompt: dialogue_rewriter
+======================================================================
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+  [FETCH] Fetching module data: ['forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 59 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH COMPLETE]
+    Processed: 2/2
+    Skipped: 0
+    Errors: 0
+  [SAVE] Saved 2 items to: step_07_dialogue_rewriter\dialogue_rewriter.json
+
+[STEP 8/12] [FORMATTING] merge_dialogues
+  [DIR] step_08_merge_dialogues
+  [AUTO-CHAIN] Using previous step output: step_07_dialogue_rewriter\dialogue_rewriter.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1\step_07_dialogue_rewriter\dialogue_rewriter.json
+  [DEBUG] File size: 1037 bytes
+  [DEBUG] Read 1017 chars from 1037 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1\step_08_merge_dialogues\merge_dialogues.json
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_08_merge_dialogues\merge_dialogues.json
+
+[STEP 9/12] [FORMATTING] filter_sections
+  [DIR] step_09_filter_sections
+  [AUTO-CHAIN] Using previous step output: step_08_merge_dialogues\merge_dialogues.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1\step_08_merge_dialogues\merge_dialogues.json
+  [DEBUG] File size: 7937 bytes
+  [DEBUG] Read 7670 chars from 7937 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_09_filter_sections\filter_sections.json
+
+[STEP 10/12] [AI] remediation_generator
+  [DIR] step_10_remediation_generator
+  [AUTO-CHAIN] Using previous step output: step_09_filter_sections\filter_sections.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1\step_09_filter_sections\filter_sections.json
+  [DEBUG] File size: 8534 bytes
+  [DEBUG] Read 8262 chars from 8534 bytes
+  [OK] Loaded 8262 chars
+  [BATCH-OVERRIDE] Applied ['batch_only_items'] from prev step output
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 2 items from JSON array
+  [SKIP 1/2] s1_0_transition_frame (not in only_items)
+
+  [BATCH 2/2] s1_1_3_item_exit_check_application
+    Variables: {'id': 's1_1_3_item_exit_check_application', 'beats': [{'type': 'scene', 'method': 'add', 'tangible_id': 'hundred_grid_5x8', 'tangible_type': 'hundred_grid', 'params': {'mode': 'display', 'rectangle': {'rows': 5, 'columns': 8, 'total': 40}, 'description': 'Hundred grid displays a 5 by 8 rectangle, 40 squares total.'}, 'id': 's1_1_3_item_exit_check_application_b0'}, {'type': 'dialogue', 'text': 'Question 1. Look at this rectangle: 5 times 8 equals 40.', 'id': 's1_1_3_item_exit_check_application_b1'}, {'type': 'prompt', 'text': 'Select ALL correct equations.', 'tool': 'multi_select', 'options': ['5 × 8 = 40', '40 = 5 × 8', '5 + 8 = 40', '8 × 40 = 5'], 'validator': [{'condition_id': 'correct', 'condition': {'and': [{'selected': '5 × 8 = 40'}, {'selected': '40 = 5 × 8'}]}, 'description': 'Student selected both correct orientations, no distractors', 'is_correct': True, 'beats': [{'type': 'dialogue', 'text': 'Right. 5 times 8 equals 40 AND 40 equals 5 times 8. The equal sign means both sides have the same value.', 'id': 's1_1_3_item_exit_check_application_b2_v0_b0'}]}], 'id': 's1_1_3_item_exit_check_application_b2'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'hundred_grid_5x8', 'description': 'Hundred grid showing 5 by 8 rectangle, 40 squares.', 'tangible_type': 'hundred_grid', 'mode': 'display', 'rectangle': {'rows': 5, 'columns': 8, 'total': 40}}], 'id': 's1_1_3_item_exit_check_application_b3'}, {'type': 'scene', 'method': 'update', 'tangible_id': 'hundred_grid_5x8', 'params': {'rectangle': {'rows': 7, 'columns': 6, 'total': 42}, 'description': 'Hundred grid updates to show 7 by 6 rectangle, 42 squares total.'}, 'id': 's1_1_3_item_exit_check_application_b4'}, {'type': 'dialogue', 'text': 'Question 2. Here is 7 times 6 equals 42.', 'id': 's1_1_3_item_exit_check_application_b5'}, {'type': 'prompt', 'text': 'Complete the sentence: The same rectangle shows ___ × ___ = ___ AND ___ = ___ × ___ because the equal sign means both sides have the same value.', 'tool': 'fill_in_blank', 'validator': [{'condition_id': 'correct', 'condition': {'and': [{'slot_1': '7'}, {'slot_2': '6'}, {'slot_3': '42'}, {'slot_4': '42'}, {'slot_5': '7'}, {'slot_6': '6'}]}, 'description': 'Student filled both orientations correctly: 7 × 6 = 42 and 42 = 7 × 6', 'is_correct': True, 'beats': [{'type': 'dialogue', 'text': "That's it. 7 times 6 equals 42 AND 42 equals 7 times 6. Both orientations name the same rectangle.", 'id': 's1_1_3_item_exit_check_application_b6_v0_b0'}]}], 'id': 's1_1_3_item_exit_check_application_b6'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'hundred_grid_5x8', 'description': 'Hundred grid showing 7 by 6 rectangle, 42 squares.', 'tangible_type': 'hundred_grid', 'mode': 'display', 'rectangle': {'rows': 7, 'columns': 6, 'total': 42}}], 'id': 's1_1_3_item_exit_check_application_b7'}, {'type': 'scene', 'method': 'update', 'tangible_id': 'hundred_grid_5x8', 'params': {'rectangle': {'rows': 9, 'columns': 4, 'total': 36}, 'description': 'Hundred grid updates to show 9 by 4 rectangle, 36 squares total.'}, 'id': 's1_1_3_item_exit_check_application_b8'}, {'type': 'dialogue', 'text': 'Question 3. Here is 36 equals 9 times 4.', 'id': 's1_1_3_item_exit_check_application_b9'}, {'type': 'prompt', 'text': 'Complete the sentence: The same rectangle shows ___ × ___ = ___ AND ___ = ___ × ___ because the equal sign means both sides have the same value.', 'tool': 'fill_in_blank', 'validator': [{'condition_id': 'correct', 'condition': {'and': [{'slot_1': '9'}, {'slot_2': '4'}, {'slot_3': '36'}, {'slot_4': '36'}, {'slot_5': '9'}, {'slot_6': '4'}]}, 'description': 'Student filled both orientations correctly: 9 × 4 = 36 and 36 = 9 × 4', 'is_correct': True, 'beats': [{'type': 'dialogue', 'text': "You've got it. 9 times 4 equals 36 AND 36 equals 9 times 4. You can write the same fact both ways around.", 'id': 's1_1_3_item_exit_check_application_b10_v0_b0'}]}], 'id': 's1_1_3_item_exit_check_application_b10'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'hundred_grid_5x8', 'description': 'Hundred grid showing 9 by 4 rectangle, 36 squares.', 'tangible_type': 'hundred_grid', 'mode': 'display', 'rectangle': {'rows': 9, 'columns': 4, 'total': 36}}], 'id': 's1_1_3_item_exit_check_application_b11'}], '_generated_at': '2026-04-29T19:28:46.503072+00:00'}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 6 system blocks
+  [OK] Prefill: 60 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1\step_10_remediation_generator\prompts\s1_1_3_item_exit_check_application.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 2218
+  output_tokens: 2215
+  total_tokens: 4433
+  requests: 1
+  cache_creation_tokens: 13
+  cache_read_tokens: 20545
+  cache_savings: 90% (saved 20545 tokens)
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 6 system blocks
+  [OK] Prefill: 60 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH COMPLETE]
+    Processed: 2/2
+    Skipped: 0
+    Errors: 0
+  [SAVE] Saved 2 items to: step_10_remediation_generator\remediation_generator.json
+
+[STEP 11/12] [FORMATTING] merge_remediation
+  [DIR] step_11_merge_remediation
+  [AUTO-CHAIN] Using previous step output: step_10_remediation_generator\remediation_generator.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1\step_10_remediation_generator\remediation_generator.json
+  [DEBUG] File size: 10542 bytes
+  [DEBUG] Read 10217 chars from 10542 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1\step_11_merge_remediation\merge_remediation.json
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_11_merge_remediation\merge_remediation.json
+
+[STEP 12/12] [FORMATTING] push
+  [DIR] step_12_push
+  [AUTO-CHAIN] Using previous step output: step_11_merge_remediation\merge_remediation.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1\step_11_merge_remediation\merge_remediation.json
+  [DEBUG] File size: 18916 bytes
+  [DEBUG] Read 18356 chars from 18916 bytes
   [OK] Loaded and parsed JSON
   [EXEC] Running formatting function...
   [EXEC] Passing module_number=1
+  [EXEC] Passing path_letter=None
   [EXEC] Passing unit_number=100
-  [EXEC] Passing verbose=True
-  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit100\exitcheck_generator_dialogue_pass_module_1\v0\step_04_check_glossary_drift\check_glossary_drift.json
-  [EXEC] Passing input to parameter 'input_data'
-  [DRIFT] glossary.md not found — skipping drift check
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit100\exitcheck_generator_v3_module_1\v1\step_12_push\push.json
+  [EXEC] Passing input to parameter 'data'
+Updating existing page: https://notion.so/3515917eac52817fa6f2f88e11649ff7
+
+  [NOTION] Pushed -> https://notion.so/3515917eac52817fa6f2f88e11649ff7
+  [NOTION] Tagged 2 sections + 12 beats -> merge_remediation.json
+  [STITCH] Auto-stitched exitcheck m1 -> tracked_scripts/u100/m1/exitcheck
   [OK] Formatting complete
-  [SAVE] Saved JSON to: step_04_check_glossary_drift\check_glossary_drift.json
+  [SAVE] Saved JSON to: step_12_push\push.json
 
-[STEP 5/13] [AI] section_structurer
-  [DIR] step_05_section_structurer
-  [AUTO-CHAIN] Using previous step output: step_04_check_glossary_drift\check_glossary_drift.json
-  [LOAD] Reading: C:\git\script_generator\outputs\unit100\exitcheck_generator_dialogue_pass_module_1\v0\step_04_check_glossary_drift\check_glossary_drift.json
-  [DEBUG] File size: 42 bytes
-  [DEBUG] Read 39 chars from 42 bytes
-  [OK] Loaded 39 chars
-  [BATCH] Processing items individually...
-  [ERROR] Failed to parse input as JSON array: Batch mode requires input to be a JSON array
-
-Error: Batch mode requires input to be a JSON array
-Traceback (most recent call last):
-  File "C:\git\script_generator\cli\run_pipeline.py", line 142, in <module>
-    results = run_pipeline_from_config(
-        steps_config=steps_config,
-    ...<8 lines>...
-        end_at_step=end_at,
-    )
-  File "C:\git\script_generator\core\pipelines.py", line 114, in run_pipeline_from_config
-    results = run_pipeline(
-        steps=steps,
-    ...<4 lines>...
-        **kwargs,
-    )
-  File "C:\git\script_generator\core\pipeline.py", line 865, in run_pipeline
-    raise ValueError("Batch mode requires input to be a JSON array")
-ValueError: Batch mode requires input to be a JSON array
+======================================================================
+PIPELINE COMPLETE
+Version: v1
+Status: draft
+Duration: 93.3s
+Output: outputs/exitcheck_generator_v3_module_1/latest/
+======================================================================

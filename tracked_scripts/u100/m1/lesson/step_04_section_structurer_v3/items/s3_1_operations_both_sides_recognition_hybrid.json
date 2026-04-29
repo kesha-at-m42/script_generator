@@ -1,0 +1,156 @@
+{
+  "id": "s3_1_operations_both_sides_recognition_hybrid",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "hundred_grid_mode_b",
+      "tangible_type": "hundred_grid",
+      "params": {
+        "mode": "mode_b",
+        "columns": 4,
+        "rows": 5,
+        "total_tiles": 20,
+        "description": "Hundred Grid Mode B displays a 4 × 5 rectangle: 4 columns, 5 rows, 20 total tiles."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "mode_c_paired_display",
+      "tangible_type": "hundred_grid",
+      "params": {
+        "mode": "mode_c",
+        "panels": [
+          {
+            "side": "left",
+            "expression": "4 × 5 = 20"
+          },
+          {
+            "side": "right",
+            "expression": "4 × 5 = 5 × 4"
+          }
+        ],
+        "description": "Mode C paired-equation display appears below rectangle. Left panel shows 4 × 5 = 20. Right panel shows 4 × 5 = 5 × 4."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Both of these equations describe the same rectangle."
+    },
+    {
+      "type": "prompt",
+      "text": "Tap the one that says it correctly.",
+      "tool": "multiple_choice",
+      "options": [
+        "4 × 5 = 5 × 4",
+        "4 × 5 = 5 + 4"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "4 × 5 = 5 × 4"
+          },
+          "description": "Student selected 4 × 5 = 5 × 4, the correct multiplicative-commutative form",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "You got it."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid_mode_b",
+          "description": "Hundred Grid Mode B showing 4 × 5 rectangle: 4 columns, 5 rows, 20 total tiles.",
+          "tangible_type": "hundred_grid",
+          "mode": "mode_b",
+          "columns": 4,
+          "rows": 5,
+          "total_tiles": 20
+        },
+        {
+          "tangible_id": "mode_c_paired_display",
+          "description": "Mode C paired-equation display. Left panel: 4 × 5 = 20. Right panel: 4 × 5 = 5 × 4.",
+          "tangible_type": "hundred_grid",
+          "mode": "mode_c"
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "drop_down_stem",
+      "tangible_type": "fill_in_blank",
+      "params": {
+        "stem": "Both sides of 4 × 5 = 5 × 4 show the ___.",
+        "options": [
+          "same value",
+          "same number of square tiles only",
+          "same number of rows only"
+        ],
+        "description": "Drop Down prompt appears with stem and three options."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Complete this sentence."
+    },
+    {
+      "type": "prompt",
+      "text": "Both sides of 4 × 5 = 5 × 4 show the ___.",
+      "tool": "fill_in_blank",
+      "target": "drop_down_stem",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "same value"
+          },
+          "description": "Student selected same value, correct completion",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Both sides of 4 × 5 = 5 × 4 show the same value — 20. The equal sign means same value on both sides, no matter how many operations are on each side."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid_mode_b",
+          "description": "Hundred Grid Mode B showing 4 × 5 rectangle: 4 columns, 5 rows, 20 total tiles.",
+          "tangible_type": "hundred_grid",
+          "mode": "mode_b",
+          "columns": 4,
+          "rows": 5,
+          "total_tiles": 20
+        },
+        {
+          "tangible_id": "mode_c_paired_display",
+          "description": "Mode C paired-equation display. Left panel: 4 × 5 = 20. Right panel: 4 × 5 = 5 × 4.",
+          "tangible_type": "hundred_grid",
+          "mode": "mode_c"
+        },
+        {
+          "tangible_id": "drop_down_stem",
+          "description": "Fill-in-the-blank prompt with stem completed: same value selected.",
+          "tangible_type": "fill_in_blank",
+          "stem": "Both sides of 4 × 5 = 5 × 4 show the ___.",
+          "selected_option": "same value"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-29T19:30:00.833194+00:00"
+}

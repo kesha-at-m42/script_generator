@@ -1,0 +1,400 @@
+
+======================================================================
+RUNNING PIPELINE
+Steps: 12
+Output Directory: C:\git\script_generator\outputs\unit100\warmup_generator_v3_module_1\v1
+======================================================================
+
+[STEP 1/12] [FORMATTING] split_spec
+  [DIR] step_01_split_spec
+  [LOAD] Reading: C:\git\script_generator\units\unit100\module1\warmup.md
+  [DEBUG] File size: 6557 bytes
+  [DEBUG] Read 6394 chars from 6557 bytes
+  [OK] Loaded as text
+  [EXEC] Running formatting function...
+  [EXEC] Passing input to parameter 'input_data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_01_split_spec\split_spec.json
+
+[STEP 2/12] [AI] starterpack_parser_v3
+  [DIR] step_02_starterpack_parser_v3
+  [AUTO-CHAIN] Using previous step output: step_01_split_spec\split_spec.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\warmup_generator_v3_module_1\v1\step_01_split_spec\split_spec.json
+  [DEBUG] File size: 3260 bytes
+  [DEBUG] Read 3209 chars from 3260 bytes
+  [OK] Loaded 3209 chars
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 1 items from JSON array
+
+  [BATCH 1/1] s1_1_re_encounter_4_5_20
+    Variables: {'id': 's1_1_re_encounter_4_5_20', 'index': 0, 'major': 1}...
+  Loading prompt definition: starterpack_parser_v3
+  [OK] Loaded STARTERPACK_PARSER_V3_PROMPT
+
+======================================================================
+Building prompt: starterpack_parser_v3
+======================================================================
+  Loading prompt definition: starterpack_parser_v3
+  [OK] Loaded STARTERPACK_PARSER_V3_PROMPT
+  [OK] Built prompt with 3 system blocks
+  [OK] Prefill: 34 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\warmup_generator_v3_module_1\v1\step_02_starterpack_parser_v3\prompts\s1_1_re_encounter_4_5_20.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 981
+  output_tokens: 831
+  total_tokens: 1812
+  requests: 1
+  cache_creation_tokens: 1420
+  cache_read_tokens: 0
+  cache_savings: 0%
+
+======================================================================
+Building prompt: starterpack_parser_v3
+======================================================================
+  Loading prompt definition: starterpack_parser_v3
+  [OK] Loaded STARTERPACK_PARSER_V3_PROMPT
+  [OK] Built prompt with 3 system blocks
+  [OK] Prefill: 34 chars
+    [FAIL] Schema validation: AI output missing required fields: ['visual', 'guide']. Expected fields: ['id', 'visual', 'guide']. Got fields: ['id', 'setup', 'student_action', 'teacher_move', 'key_observation', 'common_detour', 'intervention', 'next_move', 'duration']
+    [OK] Completed
+
+  [BATCH COMPLETE]
+    Processed: 1/1
+    Skipped: 0
+    Errors: 0
+
+  [VALIDATION WARNINGS]
+    Items with schema errors: 1
+      - ID s1_1_re_encounter_4_5_20: AI output missing required fields: ['visual', 'guide']. Expected fields: ['id', ...
+    Saved validation errors to: step_02_starterpack_parser_v3\validation_errors.json
+
+  [VALIDATION WARNINGS]
+    Total items with validation failures: 1
+    - Schema validation failures: 1
+    Review validation errors in: step_02_starterpack_parser_v3/
+    Pipeline will continue...
+  [SAVE] Saved 1 items to: step_02_starterpack_parser_v3\starterpack_parser_v3.json
+
+[STEP 3/12] [FORMATTING] load_specs_for_lesson
+  [DIR] step_03_load_specs_for_lesson
+  [AUTO-CHAIN] Using previous step output: step_02_starterpack_parser_v3\starterpack_parser_v3.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\warmup_generator_v3_module_1\v1\step_02_starterpack_parser_v3\starterpack_parser_v3.json
+  [DEBUG] File size: 3141 bytes
+  [DEBUG] Read 3088 chars from 3141 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing module_number=1
+  [EXEC] Passing unit_number=100
+  [EXEC] Passing verbose=True
+  [EXEC] Passing input to parameter 'input_data'
+  [TOY_SPEC_LOADER_V3] Catalog: ['Hundred Grid Mode C', '§2.10 Drop Down / Fill-in-the-Blank', 'Multiple Choice / Checkbox', 'Balance visual', 'Mode name', 'Phase 6 v4 spec location', 'Trigger', 'Display format', 'Tap interaction', 'Suppression rule — M01', 'Suppression rule — scope', 'Engineering note', 'L.3 recognition variant', 'Balance-scale asset']
+  [TOY_SPEC_LOADER_V3] Beat map: {'W.1': 'Hundred Grid Mode B (canonical 4 × 5 = 20 M01 rectangle reloaded, build affordances DISABLED — observation only)', 'L.1': 'Hundred Grid Mode B + Mode C (canonical 4 × 5 = 20); static balance-scale tutor-layer asset rendered alongside Mode C', 'L.2': 'Multiple Choice / Checkbox; Hundred Grid Mode B companion display showing the canonical 4 × 5 = 20 rectangle (build affordances disabled)', 'L.3 (NEW — OPERATIONS-ON-BOTH-SIDES RECOGNITION)': 'Multiple Choice / Checkbox + Hundred Grid Mode C paired display; canonical 4 × 5 = 20 rectangle visible on Mode B above the paired-equation strip', 'L.4': '§2.10 Drop Down linked to the canonical 4 × 5 = 20 rectangle from Beat 1; Hundred Grid Mode B + Mode C', 'EC.1': 'Hundred Grid Mode B + Mode C companion display; §2.10 Drop Down hosting a 3-item Exit Check sequence', 'S.1': '§2.10 Drop Down closure; Mode C paired display visible above the stem (canonical 4 × 5 = 20)'}
+  [s1_1_re_encounter_4_5_20] toys=['Multiple Choice / Checkbox']  student_interactions=['multiple_choice', 'check']
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_03_load_specs_for_lesson\load_specs_for_lesson.json
+
+[STEP 4/12] [AI] section_structurer_v3
+  [DIR] step_04_section_structurer_v3
+  [AUTO-CHAIN] Using previous step output: step_03_load_specs_for_lesson\load_specs_for_lesson.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\warmup_generator_v3_module_1\v1\step_03_load_specs_for_lesson\load_specs_for_lesson.json
+  [DEBUG] File size: 3327 bytes
+  [DEBUG] Read 3265 chars from 3327 bytes
+  [OK] Loaded 3265 chars
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 1 items from JSON array
+
+  [BATCH 1/1] s1_1_re_encounter_4_5_20
+    Variables: {'id': 's1_1_re_encounter_4_5_20', 'setup': 'Four equation candidates appear via §2.11 Multiple Choice. All four candidates involve the canonical 4 × 5 = 20 fact. Three share a pattern: they are written with the product on the right side (`a × b = c`). One breaks the pattern: it is written with the product on the left side (`c = a × b`). Hook: "Look at the rectangle you built last lesson. Four equations all describe it. Three share a pattern. One breaks it. Which one?"\n\nCandidate set (authoring constraint, single canonical fact only): `4 × 5 = 20` ✓-pattern, `5 × 4 = 20` ✓-pattern, `4 × 5 = 20` ✓-pattern (presented with neutral variation in display order so visual placement is not the discriminator), `20 = 4 × 5` ✗-pattern-breaker (breaks the "product on right" pattern).\n\n*(Authoring note 1: To preserve four distinct candidates while keeping the single canonical fact discipline, content authors may use the four equivalent canonical-fact equations: `4 × 5 = 20`, `5 × 4 = 20`, `20 = 4 × 5`, `20 = 5 × 4`. Three should display with the product on the right; one — and only one — with the product on the left as the pattern-breaker. The pattern-breaker MUST be a reversed-orientation form of the canonical 4 × 5 = 20 fact. Per SME 2026-04-28, no non-canonical facts (e.g., `3 × 6 = 18`, `2 × 7 = 14`) appear in W.1.)*\n\n*(Authoring note 2: The purpose of W.1 is not to teach that the reversed orientation is "wrong" — the tutor framing after Check will immediately note that BOTH forms are used in today\'s lesson. The warmup serves only to orient the student\'s attention to equation orientation as a dimension of variation.)*', 'student_action': 'Student taps the equation that breaks the pattern, then taps Check.'}...
+  Loading prompt definition: section_structurer_v3
+  [OK] Loaded SECTION_STRUCTURER_V3_PROMPT
+
+======================================================================
+Building prompt: section_structurer_v3
+======================================================================
+  Loading prompt definition: section_structurer_v3
+  [OK] Loaded SECTION_STRUCTURER_V3_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+    Resolving doc: glossary.md
+    [WARN] Not found: glossary.md
+  [WARN] Doc not found: glossary.md
+  [OK] Built prompt with 3 system blocks
+  [OK] Prefill: 1 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\warmup_generator_v3_module_1\v1\step_04_section_structurer_v3\prompts\s1_1_re_encounter_4_5_20.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 945
+  output_tokens: 662
+  total_tokens: 1607
+  requests: 1
+  cache_creation_tokens: 7828
+  cache_read_tokens: 0
+  cache_savings: 0%
+
+======================================================================
+Building prompt: section_structurer_v3
+======================================================================
+  Loading prompt definition: section_structurer_v3
+  [OK] Loaded SECTION_STRUCTURER_V3_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+    Resolving doc: glossary.md
+    [WARN] Not found: glossary.md
+  [WARN] Doc not found: glossary.md
+  [OK] Built prompt with 3 system blocks
+  [OK] Prefill: 1 chars
+    [SKIP] No validation prompt defined
+    [CONTEXT] section_context.md updated (1 sections)
+    [OK] Completed
+
+  [BATCH COMPLETE]
+    Processed: 1/1
+    Skipped: 0
+    Errors: 0
+  [SAVE] Saved 1 items to: step_04_section_structurer_v3\section_structurer_v3.json
+
+[STEP 5/12] [FORMATTING] stamp_ids
+  [DIR] step_05_stamp_ids
+  [AUTO-CHAIN] Using previous step output: step_04_section_structurer_v3\section_structurer_v3.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\warmup_generator_v3_module_1\v1\step_04_section_structurer_v3\section_structurer_v3.json
+  [DEBUG] File size: 2517 bytes
+  [DEBUG] Read 2429 chars from 2517 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit100\warmup_generator_v3_module_1\v1\step_05_stamp_ids\stamp_ids.json
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_05_stamp_ids\stamp_ids.json
+
+[STEP 6/12] [FORMATTING] extract_dialogues
+  [DIR] step_06_extract_dialogues
+  [AUTO-CHAIN] Using previous step output: step_05_stamp_ids\stamp_ids.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\warmup_generator_v3_module_1\v1\step_05_stamp_ids\stamp_ids.json
+  [DEBUG] File size: 2821 bytes
+  [DEBUG] Read 2727 chars from 2821 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_06_extract_dialogues\extract_dialogues.json
+
+[STEP 7/12] [AI] dialogue_rewriter
+  [DIR] step_07_dialogue_rewriter
+  [AUTO-CHAIN] Using previous step output: step_06_extract_dialogues\extract_dialogues.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\warmup_generator_v3_module_1\v1\step_06_extract_dialogues\extract_dialogues.json
+  [DEBUG] File size: 733 bytes
+  [DEBUG] Read 707 chars from 733 bytes
+  [OK] Loaded 707 chars
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 1 items from JSON array
+
+  [BATCH 1/1] s1_1_re_encounter_4_5_20
+    Variables: {'id': 's1_1_re_encounter_4_5_20', 'dialogues': [{'text': 'Look at the rectangle you built last lesson. Four equations all describe it. Three share a pattern. One breaks it. Which one?', 'context': 'lesson'}, {'text': "You tapped that one — it looks different from the others. That form is today's topic — and you'll see that it is just as correct as the others. Let's go.", 'context': 'on_correct'}, {'text': "You tapped that one — it looks different from the others. That form is today's topic — and you'll see that it is just as correct as the others. Let's go.", 'context': 'on_correct'}]}...
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+
+======================================================================
+Building prompt: dialogue_rewriter
+======================================================================
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+  [FETCH] Fetching module data: ['forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 49 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\warmup_generator_v3_module_1\v1\step_07_dialogue_rewriter\prompts\s1_1_re_encounter_4_5_20.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 240
+  output_tokens: 118
+  total_tokens: 358
+  requests: 1
+  cache_creation_tokens: 9124
+  cache_read_tokens: 0
+  cache_savings: 0%
+
+======================================================================
+Building prompt: dialogue_rewriter
+======================================================================
+  Loading prompt definition: dialogue_rewriter
+  [OK] Loaded DIALOGUE_REWRITER_PROMPT
+  [FETCH] Fetching module data: ['forbidden_phrases', 'required_phrases', 'vocabulary', 'the_one_thing']
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+    Resolving doc: guide_design.md
+    [OK] Loaded from: C:\git\script_generator\docs\guide_design.md
+  [OK] Built prompt with 4 system blocks
+  [OK] Prefill: 49 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH COMPLETE]
+    Processed: 1/1
+    Skipped: 0
+    Errors: 0
+  [SAVE] Saved 1 items to: step_07_dialogue_rewriter\dialogue_rewriter.json
+
+[STEP 8/12] [FORMATTING] merge_dialogues
+  [DIR] step_08_merge_dialogues
+  [AUTO-CHAIN] Using previous step output: step_07_dialogue_rewriter\dialogue_rewriter.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\warmup_generator_v3_module_1\v1\step_07_dialogue_rewriter\dialogue_rewriter.json
+  [DEBUG] File size: 597 bytes
+  [DEBUG] Read 587 chars from 597 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit100\warmup_generator_v3_module_1\v1\step_08_merge_dialogues\merge_dialogues.json
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_08_merge_dialogues\merge_dialogues.json
+
+[STEP 9/12] [FORMATTING] filter_sections
+  [DIR] step_09_filter_sections
+  [AUTO-CHAIN] Using previous step output: step_08_merge_dialogues\merge_dialogues.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\warmup_generator_v3_module_1\v1\step_08_merge_dialogues\merge_dialogues.json
+  [DEBUG] File size: 2809 bytes
+  [DEBUG] Read 2723 chars from 2809 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_09_filter_sections\filter_sections.json
+
+[STEP 10/12] [AI] remediation_generator
+  [DIR] step_10_remediation_generator
+  [AUTO-CHAIN] Using previous step output: step_09_filter_sections\filter_sections.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\warmup_generator_v3_module_1\v1\step_09_filter_sections\filter_sections.json
+  [DEBUG] File size: 3042 bytes
+  [DEBUG] Read 2951 chars from 3042 bytes
+  [OK] Loaded 2951 chars
+  [BATCH-OVERRIDE] Applied ['batch_only_items'] from prev step output
+  [BATCH] Processing items individually...
+  [DEBUG] Parsed 1 items from JSON array
+
+  [BATCH 1/1] s1_1_re_encounter_4_5_20
+    Variables: {'id': 's1_1_re_encounter_4_5_20', 'beats': [{'type': 'scene', 'method': 'add', 'tangible_id': 'multiple_choice_equations', 'tangible_type': 'multiple_choice', 'params': {'mode': 'warmup', 'description': 'Four equation candidates appear. Three display with product on right (4 × 5 = 20, 5 × 4 = 20, 4 × 5 = 20). One displays with product on left (20 = 4 × 5).'}, 'id': 's1_1_re_encounter_4_5_20_b0'}, {'type': 'dialogue', 'text': 'Look at the rectangle you built last lesson. Four equations all describe it. Three share a pattern. One breaks it. Which one?', 'id': 's1_1_re_encounter_4_5_20_b1'}, {'type': 'prompt', 'text': 'Tap the equation that breaks the pattern, then tap Check.', 'tool': 'multiple_choice', 'options': ['4 × 5 = 20', '5 × 4 = 20', '4 × 5 = 20', '20 = 4 × 5'], 'validator': [{'condition_id': 'selected_pattern_breaker', 'condition': {'selected': '20 = 4 × 5'}, 'description': 'Student tapped the pattern-breaker (product on left)', 'is_correct': True, 'beats': [{'type': 'dialogue', 'text': "You tapped that one. It looks different from the others. That form is today's topic, and you'll see that it is just as correct as the others. Let's go.", 'id': 's1_1_re_encounter_4_5_20_b2_v0_b0'}]}, {'condition_id': 'selected_standard_form', 'condition': {}, 'description': 'Student tapped a standard-orientation equation', 'is_correct': True, 'beats': [{'type': 'dialogue', 'text': "You tapped that one. It looks different from the others. That form is today's topic, and you'll see that it is just as correct as the others. Let's go.", 'id': 's1_1_re_encounter_4_5_20_b2_v1_b0'}]}], 'id': 's1_1_re_encounter_4_5_20_b2'}, {'type': 'current_scene', 'elements': [{'tangible_id': 'multiple_choice_equations', 'description': 'Four equation candidates visible. Student has made a selection.', 'tangible_type': 'multiple_choice', 'mode': 'warmup'}], 'id': 's1_1_re_encounter_4_5_20_b3'}], '_generated_at': '2026-04-29T19:28:21.837203+00:00'}...
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     [OK] Fetched 'misconceptions'
+     [OK] Fetched 'forbidden_phrases' from 'scope_fence.forbidden_phrases'
+     [OK] Fetched 'required_phrases' from 'scope_fence.required_phrases'
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     [OK] Fetched 'vocabulary'
+     [OK] Fetched 'the_one_thing' from 'the_one_thing.statement'
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 50 chars
+  [SAVE] Saved prompt to: C:\git\script_generator\outputs\unit100\warmup_generator_v3_module_1\v1\step_10_remediation_generator\prompts\s1_1_re_encounter_4_5_20.md
+
+======================================================================
+USAGE STATS
+======================================================================
+  input_tokens: 895
+  output_tokens: 587
+  total_tokens: 1482
+  requests: 1
+  cache_creation_tokens: 20545
+  cache_read_tokens: 0
+  cache_savings: 0%
+
+======================================================================
+Building prompt: remediation_generator
+======================================================================
+  Loading prompt definition: remediation_generator
+  [OK] Loaded REMEDIATION_GENERATOR_PROMPT
+  [FETCH] Fetching module data: ['misconceptions', 'forbidden_phrases', 'required_phrases', 'advanced_concepts', 'vocabulary', 'the_one_thing']
+     --> Skipping 'misconceptions' (already provided)
+     --> Skipping 'forbidden_phrases' (already provided)
+     --> Skipping 'required_phrases' (already provided)
+     [WARN] Field 'scope_fence.advanced_concepts' not found
+     --> Skipping 'vocabulary' (already provided)
+     --> Skipping 'the_one_thing' (already provided)
+    Resolving doc: remediation_design_ref.md
+    [OK] Loaded from: C:\git\script_generator\docs\remediation_design_ref.md
+    Resolving doc: references/lesson_script_schema_guide.md
+    [OK] Loaded from: C:\git\script_generator\docs\references\lesson_script_schema_guide.md
+  [OK] Built prompt with 5 system blocks
+  [OK] Prefill: 50 chars
+    [SKIP] No validation prompt defined
+    [OK] Completed
+
+  [BATCH COMPLETE]
+    Processed: 1/1
+    Skipped: 0
+    Errors: 0
+  [SAVE] Saved 1 items to: step_10_remediation_generator\remediation_generator.json
+
+[STEP 11/12] [FORMATTING] merge_remediation
+  [DIR] step_11_merge_remediation
+  [AUTO-CHAIN] Using previous step output: step_10_remediation_generator\remediation_generator.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\warmup_generator_v3_module_1\v1\step_10_remediation_generator\remediation_generator.json
+  [DEBUG] File size: 2852 bytes
+  [DEBUG] Read 2755 chars from 2852 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit100\warmup_generator_v3_module_1\v1\step_11_merge_remediation\merge_remediation.json
+  [EXEC] Passing input to parameter 'data'
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_11_merge_remediation\merge_remediation.json
+
+[STEP 12/12] [FORMATTING] push
+  [DIR] step_12_push
+  [AUTO-CHAIN] Using previous step output: step_11_merge_remediation\merge_remediation.json
+  [LOAD] Reading: C:\git\script_generator\outputs\unit100\warmup_generator_v3_module_1\v1\step_11_merge_remediation\merge_remediation.json
+  [DEBUG] File size: 6032 bytes
+  [DEBUG] Read 5855 chars from 6032 bytes
+  [OK] Loaded and parsed JSON
+  [EXEC] Running formatting function...
+  [EXEC] Passing module_number=1
+  [EXEC] Passing path_letter=None
+  [EXEC] Passing unit_number=100
+  [EXEC] Passing output_file_path=C:\git\script_generator\outputs\unit100\warmup_generator_v3_module_1\v1\step_12_push\push.json
+  [EXEC] Passing input to parameter 'data'
+Updating existing page: https://notion.so/3515917eac528144b55eec5fe39f35f4
+
+  [NOTION] Pushed -> https://notion.so/3515917eac528144b55eec5fe39f35f4
+  [NOTION] Tagged 1 sections + 3 beats -> merge_remediation.json
+  [STITCH] Auto-stitched warmup m1 -> tracked_scripts/u100/m1/warmup
+  [OK] Formatting complete
+  [SAVE] Saved JSON to: step_12_push\push.json
+
+======================================================================
+PIPELINE COMPLETE
+Version: v1
+Status: draft
+Duration: 41.2s
+Output: outputs/warmup_generator_v3_module_1/latest/
+======================================================================

@@ -1,0 +1,238 @@
+[
+  {
+    "id": "s1_0_transition_frame",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You just wrote the same fact two ways. Now I'm going to show you a different rectangle and a different fact. Show me you can do the same thing — two ways around — with a fact you haven't seen yet today. Three quick questions. Take your time."
+      },
+      {
+        "type": "current_scene",
+        "elements": []
+      }
+    ],
+    "_generated_at": "2026-04-29T19:28:19.336739+00:00"
+  },
+  {
+    "id": "s1_1_3_item_exit_check_application",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "hundred_grid_5x8",
+        "tangible_type": "hundred_grid",
+        "params": {
+          "mode": "display",
+          "rectangle": {
+            "rows": 5,
+            "columns": 8,
+            "total": 40
+          },
+          "description": "Hundred grid displays a 5 by 8 rectangle, 40 squares total."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Question 1. Look at this rectangle: 5 times 8 equals 40."
+      },
+      {
+        "type": "prompt",
+        "text": "Select ALL correct equations.",
+        "tool": "multi_select",
+        "options": [
+          "5 × 8 = 40",
+          "40 = 5 × 8",
+          "5 + 8 = 40",
+          "8 × 40 = 5"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "selected": "5 × 8 = 40"
+                },
+                {
+                  "selected": "40 = 5 × 8"
+                }
+              ]
+            },
+            "description": "Student selected both correct orientations, no distractors",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Both correct. 5 times 8 equals 40 AND 40 equals 5 times 8. The equal sign means both sides have the same value."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_5x8",
+            "description": "Hundred grid showing 5 by 8 rectangle, 40 squares.",
+            "tangible_type": "hundred_grid",
+            "mode": "display",
+            "rectangle": {
+              "rows": 5,
+              "columns": 8,
+              "total": 40
+            }
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "hundred_grid_5x8",
+        "params": {
+          "rectangle": {
+            "rows": 7,
+            "columns": 6,
+            "total": 42
+          },
+          "description": "Hundred grid updates to show 7 by 6 rectangle, 42 squares total."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Question 2. Here is 7 times 6 equals 42."
+      },
+      {
+        "type": "prompt",
+        "text": "Complete the sentence: The same rectangle shows ___ × ___ = ___ AND ___ = ___ × ___ because the equal sign means both sides have the same value.",
+        "tool": "fill_in_blank",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "slot_1": "7"
+                },
+                {
+                  "slot_2": "6"
+                },
+                {
+                  "slot_3": "42"
+                },
+                {
+                  "slot_4": "42"
+                },
+                {
+                  "slot_5": "7"
+                },
+                {
+                  "slot_6": "6"
+                }
+              ]
+            },
+            "description": "Student filled both orientations correctly: 7 × 6 = 42 and 42 = 7 × 6",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "7 times 6 equals 42 AND 42 equals 7 times 6. Both orientations name the same rectangle."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_5x8",
+            "description": "Hundred grid showing 7 by 6 rectangle, 42 squares.",
+            "tangible_type": "hundred_grid",
+            "mode": "display",
+            "rectangle": {
+              "rows": 7,
+              "columns": 6,
+              "total": 42
+            }
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "hundred_grid_5x8",
+        "params": {
+          "rectangle": {
+            "rows": 9,
+            "columns": 4,
+            "total": 36
+          },
+          "description": "Hundred grid updates to show 9 by 4 rectangle, 36 squares total."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Question 3. Here is 36 equals 9 times 4."
+      },
+      {
+        "type": "prompt",
+        "text": "Complete the sentence: The same rectangle shows ___ × ___ = ___ AND ___ = ___ × ___ because the equal sign means both sides have the same value.",
+        "tool": "fill_in_blank",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "slot_1": "9"
+                },
+                {
+                  "slot_2": "4"
+                },
+                {
+                  "slot_3": "36"
+                },
+                {
+                  "slot_4": "36"
+                },
+                {
+                  "slot_5": "9"
+                },
+                {
+                  "slot_6": "4"
+                }
+              ]
+            },
+            "description": "Student filled both orientations correctly: 9 × 4 = 36 and 36 = 9 × 4",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "9 times 4 equals 36 AND 36 equals 9 times 4. You can write the same fact both ways around."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_5x8",
+            "description": "Hundred grid showing 9 by 4 rectangle, 36 squares.",
+            "tangible_type": "hundred_grid",
+            "mode": "display",
+            "rectangle": {
+              "rows": 9,
+              "columns": 4,
+              "total": 36
+            }
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-29T19:28:46.503072+00:00"
+  }
+]

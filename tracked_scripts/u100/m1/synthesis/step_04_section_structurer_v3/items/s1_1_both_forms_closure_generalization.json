@@ -1,0 +1,88 @@
+{
+  "id": "s1_1_both_forms_closure_generalization",
+  "type": "transition",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_display_paired",
+      "tangible_type": "equation_display",
+      "params": {
+        "mode": "paired_display",
+        "equations": [
+          "4 × 5 = 20",
+          "20 = 4 × 5"
+        ],
+        "description": "Paired equation display appears showing 4 × 5 = 20 and 20 = 4 × 5 side by side."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "dropdown_same_fact",
+      "tangible_type": "dropdown",
+      "params": {
+        "stem": "These two equations are ___",
+        "options": [
+          "the same fact written two ways",
+          "a wrong one and a right one",
+          "two different facts"
+        ],
+        "description": "Dropdown fill-in-the-blank appears with stem and three options."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Say it one more time."
+    },
+    {
+      "type": "prompt",
+      "text": "These two equations are ___.",
+      "tool": "dropdown",
+      "target": "dropdown_same_fact",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "selected": "the same fact written two ways"
+          },
+          "description": "Student selected 'the same fact written two ways', correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "The same fact written two ways. You can write it both ways. The equal sign means both sides have the same value, and that's true no matter which way you write it."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "equation_display_paired",
+          "description": "Paired equation display showing 4 × 5 = 20 and 20 = 4 × 5.",
+          "tangible_type": "equation_display",
+          "mode": "paired_display",
+          "equations": [
+            "4 × 5 = 20",
+            "20 = 4 × 5"
+          ]
+        },
+        {
+          "tangible_id": "dropdown_same_fact",
+          "description": "Dropdown showing stem 'These two equations are ___' with student's selection confirmed.",
+          "tangible_type": "dropdown",
+          "stem": "These two equations are ___",
+          "options": [
+            "the same fact written two ways",
+            "a wrong one and a right one",
+            "two different facts"
+          ]
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-29T19:28:35.089691+00:00"
+}

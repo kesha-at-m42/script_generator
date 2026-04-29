@@ -1,0 +1,85 @@
+{
+  "id": "s1_1_both_forms_closure_generalization",
+  "incorrects": [
+    [
+      {
+        "condition": {
+          "selected": "a wrong one and a right one"
+        },
+        "description": "Student selected 'a wrong one and a right one', thinking one equation is incorrect",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_display_paired",
+              "params": {
+                "highlight_equations": [
+                  0,
+                  1
+                ],
+                "description": "Both equations highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Both equations are true. 4 × 5 equals 20, and 20 equals 4 × 5. They show the same fact. Which choice describes that?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "two different facts"
+        },
+        "description": "Student selected 'two different facts', thinking the equations show different information",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "equation_display_paired",
+              "params": {
+                "highlight_equations": [
+                  0,
+                  1
+                ],
+                "description": "Both equations highlight."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at both equations. They both use 4, 5, and 20. The numbers are the same, just in different positions. What does that tell you?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student answered incorrectly. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "equation_display_paired",
+              "params": {
+                "event": "show_equivalence",
+                "status": "confirmed",
+                "description": "Animation shows 4 × 5 = 20 and 20 = 4 × 5 both evaluate to the same value, demonstrating they are the same fact."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. 4 × 5 equals 20. That's true. And 20 equals 4 × 5. That's also true. They're the same fact written two ways. The equal sign means both sides have the same value, so you can write it either way. The answer is 'the same fact written two ways'."
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "_generated_at": "2026-04-29T19:29:00.969940+00:00"
+}

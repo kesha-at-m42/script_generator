@@ -1,0 +1,559 @@
+[
+  {
+    "id": "s1_0_transition_frame",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "dialogue",
+        "text": "You just wrote the same fact two ways. Now I'm going to show you a different rectangle and a different fact. Show me you can do the same thing, two ways around, with a fact you haven't seen yet today. Three quick questions. Take your time.",
+        "id": "s1_0_transition_frame_b0",
+        "_notion_block_id": "3515917e-ac52-8194-b861-e0af315652e6"
+      },
+      {
+        "type": "current_scene",
+        "elements": [],
+        "id": "s1_0_transition_frame_b1"
+      }
+    ],
+    "_generated_at": "2026-04-29T19:28:19.336739+00:00",
+    "_notion_block_id": "3515917e-ac52-8106-87e0-de4241da904b"
+  },
+  {
+    "id": "s1_1_3_item_exit_check_application",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "hundred_grid_5x8",
+        "tangible_type": "hundred_grid",
+        "params": {
+          "mode": "display",
+          "rectangle": {
+            "rows": 5,
+            "columns": 8,
+            "total": 40
+          },
+          "description": "Hundred grid displays a 5 by 8 rectangle, 40 squares total."
+        },
+        "id": "s1_1_3_item_exit_check_application_b0",
+        "_notion_block_id": "3515917e-ac52-817b-a78a-fcba0d1c55cd"
+      },
+      {
+        "type": "dialogue",
+        "text": "Question 1. Look at this rectangle: 5 times 8 equals 40.",
+        "id": "s1_1_3_item_exit_check_application_b1",
+        "_notion_block_id": "3515917e-ac52-81a0-8987-f60a48acd8a3"
+      },
+      {
+        "type": "prompt",
+        "text": "Select ALL correct equations.",
+        "tool": "multi_select",
+        "options": [
+          "5 × 8 = 40",
+          "40 = 5 × 8",
+          "5 + 8 = 40",
+          "8 × 40 = 5"
+        ],
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "selected": "5 × 8 = 40"
+                },
+                {
+                  "selected": "40 = 5 × 8"
+                }
+              ]
+            },
+            "description": "Student selected both correct orientations, no distractors",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Right. 5 times 8 equals 40 AND 40 equals 5 times 8. The equal sign means both sides have the same value.",
+                "id": "s1_1_3_item_exit_check_application_b2_v0_b0",
+                "_notion_block_id": "3515917e-ac52-8131-be38-cc22cb493a12"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "or": [
+                    {
+                      "selected": "5 × 8 = 40"
+                    },
+                    {
+                      "selected": "40 = 5 × 8"
+                    }
+                  ]
+                },
+                {
+                  "not": {
+                    "and": [
+                      {
+                        "selected": "5 × 8 = 40"
+                      },
+                      {
+                        "selected": "40 = 5 × 8"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "not": {
+                    "selected": "5 + 8 = 40"
+                  }
+                },
+                {
+                  "not": {
+                    "selected": "8 × 40 = 5"
+                  }
+                }
+              ]
+            },
+            "description": "Branch 2: Student selected one correct orientation but not both, no incorrect options",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid_5x8",
+                "params": {
+                  "description": "Rectangle pulses to draw attention to the fact."
+                },
+                "id": "s1_1_3_item_exit_check_application_b2_v1_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You found one way to write this fact. Look at your answer again. Can you write the same fact with the product on the other side of the equal sign?",
+                "id": "s1_1_3_item_exit_check_application_b2_v1_b1",
+                "_notion_block_id": "3515917e-ac52-81c0-b688-dda91ffec55d"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "not": {
+                    "selected": "5 × 8 = 40"
+                  }
+                },
+                {
+                  "not": {
+                    "selected": "40 = 5 × 8"
+                  }
+                }
+              ]
+            },
+            "description": "Branch 3: Student selected only incorrect options, no correct orientations",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid_5x8",
+                "params": {
+                  "description": "Rectangle highlights to emphasize the multiplication fact."
+                },
+                "id": "s1_1_3_item_exit_check_application_b2_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Think about what the rectangle shows. It is 5 rows with 8 in each row. That means 5 times 8. What does that equal?",
+                "id": "s1_1_3_item_exit_check_application_b2_v2_b1",
+                "_notion_block_id": "3515917e-ac52-8194-a840-cd88443af0e9"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "and": [
+                {
+                  "or": [
+                    {
+                      "selected": "5 + 8 = 40"
+                    },
+                    {
+                      "selected": "8 × 40 = 5"
+                    }
+                  ]
+                },
+                {
+                  "or": [
+                    {
+                      "selected": "5 × 8 = 40"
+                    },
+                    {
+                      "selected": "40 = 5 × 8"
+                    }
+                  ]
+                }
+              ]
+            },
+            "description": "Branch 4: Student selected at least one correct orientation and at least one incorrect option",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid_5x8",
+                "params": {
+                  "description": "Rectangle pulses briefly."
+                },
+                "id": "s1_1_3_item_exit_check_application_b2_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "You found at least one correct equation. But check the others carefully. Does the rectangle show addition? Does 8 times 40 equal 5?",
+                "id": "s1_1_3_item_exit_check_application_b2_v3_b1",
+                "_notion_block_id": "3515917e-ac52-8111-8893-c63030928628"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly. System models the correct answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "hundred_grid_5x8",
+                "params": {
+                  "event": "highlight_correct_equations",
+                  "status": "confirmed",
+                  "description": "Options 5 × 8 = 40 and 40 = 5 × 8 highlight as correct answers."
+                },
+                "id": "s1_1_3_item_exit_check_application_b2_v4_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "The rectangle shows 5 times 8 equals 40. That is one equation. The equal sign means both sides have the same value, so I can also write 40 equals 5 times 8. Those are the two correct equations.",
+                "id": "s1_1_3_item_exit_check_application_b2_v4_b1",
+                "_notion_block_id": "3515917e-ac52-812b-9ef8-f2b6247e67f4"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_3_item_exit_check_application_b2",
+        "_notion_block_id": "3515917e-ac52-8136-b361-c9b0c8d639c0"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_5x8",
+            "description": "Hundred grid showing 5 by 8 rectangle, 40 squares.",
+            "tangible_type": "hundred_grid",
+            "mode": "display",
+            "rectangle": {
+              "rows": 5,
+              "columns": 8,
+              "total": 40
+            }
+          }
+        ],
+        "id": "s1_1_3_item_exit_check_application_b3",
+        "_notion_block_id": "3515917e-ac52-81a6-a679-e21ae416029e"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "hundred_grid_5x8",
+        "params": {
+          "rectangle": {
+            "rows": 7,
+            "columns": 6,
+            "total": 42
+          },
+          "description": "Hundred grid updates to show 7 by 6 rectangle, 42 squares total."
+        },
+        "id": "s1_1_3_item_exit_check_application_b4",
+        "_notion_block_id": "3515917e-ac52-81f8-8bfd-dc1543a6bd44"
+      },
+      {
+        "type": "dialogue",
+        "text": "Question 2. Here is 7 times 6 equals 42.",
+        "id": "s1_1_3_item_exit_check_application_b5",
+        "_notion_block_id": "3515917e-ac52-8153-bbf0-d6fb1adfef2b"
+      },
+      {
+        "type": "prompt",
+        "text": "Complete the sentence: The same rectangle shows ___ × ___ = ___ AND ___ = ___ × ___ because the equal sign means both sides have the same value.",
+        "tool": "fill_in_blank",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "slot_1": "7"
+                },
+                {
+                  "slot_2": "6"
+                },
+                {
+                  "slot_3": "42"
+                },
+                {
+                  "slot_4": "42"
+                },
+                {
+                  "slot_5": "7"
+                },
+                {
+                  "slot_6": "6"
+                }
+              ]
+            },
+            "description": "Student filled both orientations correctly: 7 × 6 = 42 and 42 = 7 × 6",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That's it. 7 times 6 equals 42 AND 42 equals 7 times 6. Both orientations name the same rectangle.",
+                "id": "s1_1_3_item_exit_check_application_b6_v0_b0",
+                "_notion_block_id": "3515917e-ac52-81a1-b614-c4212095cae0"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student filled one or more slots incorrectly on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Check your work. Count the rows and count across one row. What multiplication fact does the rectangle show?",
+                "id": "s1_1_3_item_exit_check_application_b6_v1_b0",
+                "_notion_block_id": "3515917e-ac52-8172-bdf6-d26a80169d21"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student filled one or more slots incorrectly on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid_5x8",
+                "params": {
+                  "description": "Rows highlight, then one row highlights to show the count across."
+                },
+                "id": "s1_1_3_item_exit_check_application_b6_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Count the rows: 7 rows. Count across one row: 6 squares. So the fact is 7 times 6. What does that equal? Then write the same fact with the product first.",
+                "id": "s1_1_3_item_exit_check_application_b6_v2_b1",
+                "_notion_block_id": "3515917e-ac52-8169-9f7f-d273b9498a96"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly three or more times. System models the answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "hundred_grid_5x8",
+                "params": {
+                  "event": "demonstrate_both_orientations",
+                  "status": "confirmed",
+                  "description": "Rectangle highlights rows, then columns, showing 7 × 6 = 42 and 42 = 7 × 6."
+                },
+                "id": "s1_1_3_item_exit_check_application_b6_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "I count 7 rows. I count 6 squares across. That is 7 times 6 equals 42. The equal sign means both sides have the same value, so I can write it the other way: 42 equals 7 times 6. Both equations name the same rectangle.",
+                "id": "s1_1_3_item_exit_check_application_b6_v3_b1",
+                "_notion_block_id": "3515917e-ac52-8108-87d8-ed2e743b3592"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_3_item_exit_check_application_b6",
+        "_notion_block_id": "3515917e-ac52-81d6-a2ce-cad0ea609478"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_5x8",
+            "description": "Hundred grid showing 7 by 6 rectangle, 42 squares.",
+            "tangible_type": "hundred_grid",
+            "mode": "display",
+            "rectangle": {
+              "rows": 7,
+              "columns": 6,
+              "total": 42
+            }
+          }
+        ],
+        "id": "s1_1_3_item_exit_check_application_b7",
+        "_notion_block_id": "3515917e-ac52-81de-ab9e-d9ea6908f433"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "hundred_grid_5x8",
+        "params": {
+          "rectangle": {
+            "rows": 9,
+            "columns": 4,
+            "total": 36
+          },
+          "description": "Hundred grid updates to show 9 by 4 rectangle, 36 squares total."
+        },
+        "id": "s1_1_3_item_exit_check_application_b8",
+        "_notion_block_id": "3515917e-ac52-8170-883c-cc5b6fec626d"
+      },
+      {
+        "type": "dialogue",
+        "text": "Question 3. Here is 36 equals 9 times 4.",
+        "id": "s1_1_3_item_exit_check_application_b9",
+        "_notion_block_id": "3515917e-ac52-81f2-9e12-f484a99843db"
+      },
+      {
+        "type": "prompt",
+        "text": "Complete the sentence: The same rectangle shows ___ × ___ = ___ AND ___ = ___ × ___ because the equal sign means both sides have the same value.",
+        "tool": "fill_in_blank",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "and": [
+                {
+                  "slot_1": "9"
+                },
+                {
+                  "slot_2": "4"
+                },
+                {
+                  "slot_3": "36"
+                },
+                {
+                  "slot_4": "36"
+                },
+                {
+                  "slot_5": "9"
+                },
+                {
+                  "slot_6": "4"
+                }
+              ]
+            },
+            "description": "Student filled both orientations correctly: 9 × 4 = 36 and 36 = 9 × 4",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You've got it. 9 times 4 equals 36 AND 36 equals 9 times 4. You can write the same fact both ways around.",
+                "id": "s1_1_3_item_exit_check_application_b10_v0_b0",
+                "_notion_block_id": "3515917e-ac52-81d0-8b50-edfdf7cbda12"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 1
+            },
+            "description": "Student filled one or more slots incorrectly on first attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Look closely. Count the rows and the squares in each row. What multiplication does this rectangle show?",
+                "id": "s1_1_3_item_exit_check_application_b10_v1_b0",
+                "_notion_block_id": "3515917e-ac52-812f-87d3-dcc971ae5dbe"
+              }
+            ]
+          },
+          {
+            "condition": {
+              "incorrect_count": 2
+            },
+            "description": "Student filled one or more slots incorrectly on second attempt",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "hundred_grid_5x8",
+                "params": {
+                  "description": "Rows highlight one at a time to help student count, then one row highlights to show the count across."
+                },
+                "id": "s1_1_3_item_exit_check_application_b10_v2_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "Count the rows: 9 rows. Count the squares across: 4 in each row. So it is 9 times 4. What is the product? Then fill in the same fact starting with the product.",
+                "id": "s1_1_3_item_exit_check_application_b10_v2_b1",
+                "_notion_block_id": "3515917e-ac52-81d4-a31c-e303afa1f60a"
+              }
+            ]
+          },
+          {
+            "condition": {},
+            "description": "Student answered incorrectly three or more times. System models the answer.",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "hundred_grid_5x8",
+                "params": {
+                  "event": "demonstrate_both_orientations",
+                  "status": "confirmed",
+                  "description": "Rectangle highlights to show 9 rows of 4, demonstrating 9 × 4 = 36 and 36 = 9 × 4."
+                },
+                "id": "s1_1_3_item_exit_check_application_b10_v3_b0"
+              },
+              {
+                "type": "dialogue",
+                "text": "I count 9 rows. Each row has 4 squares. That is 9 times 4 equals 36. Because the equal sign means both sides match, I can write the same fact another way: 36 equals 9 times 4. The same rectangle shows both equations.",
+                "id": "s1_1_3_item_exit_check_application_b10_v3_b1",
+                "_notion_block_id": "3515917e-ac52-8169-8064-d80dbcc2efa6"
+              }
+            ]
+          }
+        ],
+        "id": "s1_1_3_item_exit_check_application_b10",
+        "_notion_block_id": "3515917e-ac52-81da-a2b7-d9f1baa382e2"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "hundred_grid_5x8",
+            "description": "Hundred grid showing 9 by 4 rectangle, 36 squares.",
+            "tangible_type": "hundred_grid",
+            "mode": "display",
+            "rectangle": {
+              "rows": 9,
+              "columns": 4,
+              "total": 36
+            }
+          }
+        ],
+        "id": "s1_1_3_item_exit_check_application_b11"
+      }
+    ],
+    "_generated_at": "2026-04-29T19:28:46.503072+00:00",
+    "_notion_block_id": "3515917e-ac52-81c7-ae62-e335e7b95388"
+  }
+]

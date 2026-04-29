@@ -1,0 +1,72 @@
+[
+  {
+    "id": "s1_1_re_encounter_4_5_20",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "multiple_choice_equations",
+        "tangible_type": "multiple_choice",
+        "params": {
+          "mode": "warmup",
+          "description": "Four equation candidates appear. Three display with product on right (4 × 5 = 20, 5 × 4 = 20, 4 × 5 = 20). One displays with product on left (20 = 4 × 5)."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Look at the rectangle you built last lesson. Four equations all describe it. Three share a pattern. One breaks it. Which one?"
+      },
+      {
+        "type": "prompt",
+        "text": "Tap the equation that breaks the pattern, then tap Check.",
+        "tool": "multiple_choice",
+        "options": [
+          "4 × 5 = 20",
+          "5 × 4 = 20",
+          "4 × 5 = 20",
+          "20 = 4 × 5"
+        ],
+        "validator": [
+          {
+            "condition_id": "selected_pattern_breaker",
+            "condition": {
+              "selected": "20 = 4 × 5"
+            },
+            "description": "Student tapped the pattern-breaker (product on left)",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You tapped that one — it looks different from the others. That form is today's topic — and you'll see that it is just as correct as the others. Let's go."
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_standard_form",
+            "condition": {},
+            "description": "Student tapped a standard-orientation equation",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "You tapped that one — it looks different from the others. That form is today's topic — and you'll see that it is just as correct as the others. Let's go."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "multiple_choice_equations",
+            "description": "Four equation candidates visible. Student has made a selection.",
+            "tangible_type": "multiple_choice",
+            "mode": "warmup"
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-04-29T19:28:21.837203+00:00"
+  }
+]

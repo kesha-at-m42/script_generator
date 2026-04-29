@@ -1,0 +1,172 @@
+{
+  "id": "s2_1_both_orientations_match_one_rectangle",
+  "beats": [
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "hundred_grid_mode_b",
+      "tangible_type": "hundred_grid",
+      "params": {
+        "mode": "mode_b",
+        "rectangle": {
+          "columns": 4,
+          "rows": 5,
+          "area": 20
+        },
+        "build_affordances_disabled": true,
+        "description": "Hundred Grid Mode B appears displaying a 4 × 5 rectangle (4 columns, 5 rows, 20 square tiles total). Build affordances are disabled — rectangle is static reference visual only."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "equation_checkbox",
+      "tangible_type": "multiple_choice_checkbox",
+      "params": {
+        "description": "Multiple Choice / Checkbox interface appears showing four equation candidates."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Look at this rectangle. You know it shows 4 times 5 equals 20. But there's more than one way to write that fact."
+    },
+    {
+      "type": "prompt",
+      "text": "Choose ALL the equations that correctly describe this rectangle.",
+      "tool": "multi_select",
+      "target": "equation_checkbox",
+      "options": [
+        "4 × 5 = 20",
+        "20 = 4 × 5",
+        "4 + 5 = 20",
+        "4 × 20 = 5"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "and": [
+              {
+                "selected": "4 × 5 = 20"
+              },
+              {
+                "selected": "20 = 4 × 5"
+              }
+            ]
+          },
+          "description": "Student selected both correct equations: 4 × 5 = 20 and 20 = 4 × 5",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Both of those describe the same rectangle — two ways to write the same fact."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid_mode_b",
+          "description": "Hundred Grid Mode B showing static 4 × 5 rectangle (20 tiles).",
+          "tangible_type": "hundred_grid",
+          "mode": "mode_b",
+          "rectangle": {
+            "columns": 4,
+            "rows": 5,
+            "area": 20
+          }
+        },
+        {
+          "tangible_id": "equation_checkbox",
+          "description": "Multiple Choice / Checkbox interface with four equation options: 4 × 5 = 20, 20 = 4 × 5, 4 + 5 = 20, 4 × 20 = 5. Student has selected both correct equations.",
+          "tangible_type": "multiple_choice_checkbox"
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "drop_down_stem",
+      "tangible_type": "drop_down_fill_blank",
+      "params": {
+        "stem": "These equations are correct because ___.",
+        "description": "Drop Down / Fill-in-the-Blank prompt appears with completion stem."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Now finish this sentence about why both equations work."
+    },
+    {
+      "type": "prompt",
+      "text": "These equations are correct because ___.",
+      "tool": "fill_in_blank",
+      "target": "drop_down_stem",
+      "options": [
+        "they show two ways to write the same fact",
+        "the equal sign means both sides have the same value",
+        "one of them must be wrong"
+      ],
+      "validator": [
+        {
+          "condition_id": "correct_option_1",
+          "condition": {
+            "selected": "they show two ways to write the same fact"
+          },
+          "description": "Student selected first reinforcing option",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Two ways to write the same fact. The equal sign lets you write multiplication either way."
+            }
+          ]
+        },
+        {
+          "condition_id": "correct_option_2",
+          "condition": {
+            "selected": "the equal sign means both sides have the same value"
+          },
+          "description": "Student selected second reinforcing option",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Both sides have the same value. That's what the equal sign tells you."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "hundred_grid_mode_b",
+          "description": "Hundred Grid Mode B showing static 4 × 5 rectangle (20 tiles).",
+          "tangible_type": "hundred_grid",
+          "mode": "mode_b",
+          "rectangle": {
+            "columns": 4,
+            "rows": 5,
+            "area": 20
+          }
+        },
+        {
+          "tangible_id": "equation_checkbox",
+          "description": "Multiple Choice / Checkbox interface showing selected equations: 4 × 5 = 20 and 20 = 4 × 5.",
+          "tangible_type": "multiple_choice_checkbox"
+        },
+        {
+          "tangible_id": "drop_down_stem",
+          "description": "Drop Down / Fill-in-the-Blank prompt completed with one of the two reinforcing options selected.",
+          "tangible_type": "drop_down_fill_blank"
+        }
+      ]
+    }
+  ],
+  "_generated_at": "2026-04-29T19:29:36.814482+00:00"
+}
