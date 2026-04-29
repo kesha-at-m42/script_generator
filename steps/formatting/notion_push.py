@@ -49,7 +49,7 @@ def _auto_stitch(unit_number: int | None, module_number: int | None, pipeline_na
     if not stitch_type or not module_number:
         return
 
-    project_root = Path(__file__).parent.parent
+    project_root = Path(__file__).parent.parent.parent
     stitch_script = project_root / "fixes" / "stitch_pipeline_outputs.py"
     unit_str = f"unit{unit_number or 1}"
 
