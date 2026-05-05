@@ -1,42 +1,114 @@
+# exitcheck-script.toml
+
 title = "exitcheck"
 type = "sequence"
 
-# --- Section: transition_into_exit_check ---
-[section_100_transition_into_exit_check]
-template = "PLACEHOLDER"
+# ---------------------------------------------------------------------------
+# Section 1 - symbol_count_calculation_identify
+# ---------------------------------------------------------------------------
 
-[step_100_transition_into_exit_check]
-dialogue = "You made picture graphs with scale of 5. You used skip-counting to figure out how many symbols. Let's see what you know."
-components = ["SceneComponent"]
-
-# --- Section: symbol_count_calculation_identify ---
 [section_101_symbol_count_calculation_identify]
-template = "PLACEHOLDER"
+template = "chart_template"
 
 [step_101_symbol_count_calculation_identify]
 dialogue = "This table shows how many students voted for each drink choice. Juice has 25 votes. How many symbols do you need for 25?"
 components = ["SceneComponent", "PromptComponent"]
+prompt_text = "How many symbols do you need for 25?"
 
-# --- Section: create_picture_graph_create ---
+[step_101.correct]
+dialogue = "That's right. 5 symbols. Count by 5s: 5, 10, 15, 20, 25. Five 5s means 5 symbols."
+metadata = { sting_id = "on_correct" }
+
+[step_101.step_502]
+dialogue = "The key says each symbol equals 5. How many 5s make 25? Count by 5s."
+id = "25"
+
+[step_101.step_503]
+dialogue = "You're close. Count by 5s to 25. Does 4 groups of 5 reach 25?"
+id = "4"
+
+[step_101.step_504]
+dialogue = "We're working with Juice, which has 25 votes. Each symbol stands for 5. How many 5s are in 25?"
+id = "30"
+
+[step_101.step_505]
+dialogue = "Let’s walk through this together. When the scale is 5, count by 5s to reach 25 votes. That's 5, 10, 15, 20, 25. Five groups of 5 equals 25. So you need 5 symbols for 25 votes. The answer is 5 because counting by 5s five times gives you the total."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 2 - create_picture_graph_create
+# ---------------------------------------------------------------------------
+
 [section_102_create_picture_graph_create]
-template = "PLACEHOLDER"
+template = "chart_template"
 
 [step_102_create_picture_graph_create]
-dialogue = "Complete the rest of the graph."
-components = ["SceneComponent", "PromptComponent"]
+dialogue = "The 5 symbols for Juice were added to the Favorite Drinks graph. Complete the remaining categories."
+components = ["PromptComponent"]
+prompt_text = "Set the heights for Milk and Water."
 
-# --- Section: read_total_value_identify ---
+[step_102.correct]
+dialogue = "Nice. You built the graph. Each symbol represents 5 votes."
+metadata = { sting_id = "on_correct" }
+
+[step_102.step_507]
+dialogue = "Milk is correct. Now look at Water in the data table. Count by 5s to find how many symbols to place."
+id = "light"
+
+[step_102.step_508]
+dialogue = "Water is correct. Now look at Milk in the data table. Count by 5s to find how many symbols to place."
+id = "light"
+
+[step_102.step_509]
+dialogue = "Check the data table. The key shows each symbol is 5 votes. Use skip-counting by 5s to figure out how many symbols. Then place the symbols in the Milk and Water columns."
+id = "light"
+
+[step_102.step_510]
+dialogue = "Not quite. Remember, the key tells us each 1 symbol is 5 votes. Milk has 15 votes. Count by 5s up to 15. How many symbols is that? Water has 30 votes. Count by 5s up to 30. How many symbols is that?"
+id = "medium"
+
+[step_102.step_511]
+dialogue = "Let me show you how this works. Each symbol represents 5 votes. Milk has 15 votes. I count by 5s: 5, 10, 15. That's 3 symbols for Milk. Water has 30: 5, 10, 15, 20, 25, 30. That's 6 symbols for Water. Now the scale of 5 picture graph is complete."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 3 - read_total_value_identify
+# ---------------------------------------------------------------------------
+
 [section_103_read_total_value_identify]
-template = "PLACEHOLDER"
+template = "chart_template"
 
 [step_103_read_total_value_identify]
 dialogue = "Look at the completed graph. How many students chose Water?"
-components = ["SceneComponent", "PromptComponent"]
+components = ["PromptComponent"]
+prompt_text = "How many students chose Lemonade?"
 
-# --- Section: exit_check_closure ---
+[step_103.correct]
+dialogue = "Right. 20 students. 4 symbols, each worth 5 votes. Count by 5s: 5, 10, 15, 20. That's how you read a scaled picture graph."
+metadata = { sting_id = "on_correct" }
+
+[step_103.step_513]
+dialogue = "You counted 4 symbols for Lemonade. But look at the key. Each symbol stands for 5 student votes.  How many students do the 4 symbols represent?"
+id = "6"
+
+[step_103.step_514]
+dialogue = "You're using skip-counting. Count all the symbols in Lemonade by 5s. What’s the total number of students who voted for Lemonade?"
+id = "25"
+
+[step_103.step_515]
+dialogue = "You're skip-counting by 5s. Count the symbols in the Lemonade column carefully. How many symbols do you see?"
+id = "35"
+
+[step_103.step_516]
+dialogue = "Let me show you. Lemonade has 4 symbols. Each symbol represents 5 students. I count by 5s: 5, 10, 15, 20. Four symbols at a scale of 5 equals 20 students. The key tells you what each symbol is worth, then you skip-count to find the total. That's how you read a scaled picture graph."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 4 - exit_check_closure
+# ---------------------------------------------------------------------------
+
 [section_104_exit_check_closure]
-template = "PLACEHOLDER"
+template = "chart_template"
 
 [step_104_exit_check_closure]
-dialogue = "You understand scale of 5. Let's connect what you learned."
-components = ["SceneComponent"]
+dialogue = "You understand scale of 5. Let's practice what you learned."

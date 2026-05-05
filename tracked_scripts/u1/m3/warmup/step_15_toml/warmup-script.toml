@@ -1,0 +1,98 @@
+# warmup-script.toml
+
+title = "warmup"
+type = "sequence"
+
+# ---------------------------------------------------------------------------
+# Section 1 - data_collection_game
+# ---------------------------------------------------------------------------
+
+[section_101_data_collection_game]
+template = "chart_template"
+
+[step_101_data_collection_game]
+dialogue = "The Minis are having a busy day! Help count what they're up to."
+components = ["SceneComponent", "PromptComponent"]
+prompt_text = "Count the items and confirm the count for each category."
+
+[step_101.correct]
+dialogue = "You counted them. Let’s look at the data."
+metadata = { sting_id = "on_correct" }
+
+# ---------------------------------------------------------------------------
+# Section 2 - scale_comparison_display_key_moment
+# ---------------------------------------------------------------------------
+
+[section_102_scale_comparison_display_key_moment]
+template = "chart_template"
+
+[step_102_scale_comparison_display_key_moment]
+dialogue = "Here's your data with scale of 2. Each symbol shows 2 items."
+
+[step_103_scale_comparison_display_key_moment]
+dialogue = "And here's the SAME data with scale of 5. Each symbol shows 5 items."
+
+[step_104_scale_comparison_display_key_moment]
+dialogue = "Same data. Same totals. But look at the graphs. What do you notice about the two graphs?"
+components = ["PromptComponent"]
+prompt_text = "What do you notice about the two graphs?"
+
+[step_104.correct]
+dialogue = "Right. Fewer symbols for the same data. When each symbol shows MORE, you need FEWER of them."
+metadata = { sting_id = "on_correct" }
+
+[step_104.step_503]
+dialogue = "Count the symbols in each graph. The left graph has smaller-value symbols. The right graph has larger-value symbols. Which graph has fewer symbols?"
+id = "scale_of_5_more_symbols"
+
+[step_104.step_504]
+dialogue = "Choose one category and count the symbols in each graph. Which graph uses fewer symbols to show the same total?"
+id = "same_number_symbols"
+
+[step_104.step_505]
+dialogue = "Look at any one category on both graphs. The left shows 2 items for every symbol. The right shows 5 items for every symbol. They have the same number of items, just a different scale. What do you notice about how many symbols each graph needs?"
+id = "graphs_show_different_data"
+
+[step_104.step_506]
+dialogue = "Let me show you. The left graph uses many symbols because each one only shows 2 items. The right graph uses fewer symbols because each one shows 5 items. When each symbol shows more, you need fewer of them to show the same data. The scale-of-5 graph has fewer symbols."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 3 - efficiency_discovery
+# ---------------------------------------------------------------------------
+
+[section_103_efficiency_discovery]
+template = "chart_template"
+
+[step_105_efficiency_discovery]
+dialogue = "Look at this category in the table. It has this many items. With scale of 2, that takes this many symbols."
+
+[step_106_efficiency_discovery]
+dialogue = "With scale of 5, that's only this many symbols. Which scale is more efficient for showing this many items?"
+components = ["PromptComponent"]
+prompt_text = "Which scale is more efficient?"
+
+[step_106.correct]
+dialogue = "That's right. Scale of 5. When numbers get bigger, scale of 5 saves space. Fewer symbols, same information."
+metadata = { sting_id = "on_correct" }
+
+[step_106.step_508]
+dialogue = "Scale of 2 uses more symbols to show the same amount. Efficient means fewer symbols. Look at how many symbols the scale of 5 graph needs."
+id = "scale_of_2"
+
+[step_106.step_509]
+dialogue = "Let's look together. Both graphs show the same number of items. But scale of 5 uses fewer symbols. That's what makes it more efficient. When we have bigger numbers, scale of 5 saves space. Fewer symbols, same information."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 4 - bridge_lesson
+# ---------------------------------------------------------------------------
+
+[section_104_bridge_lesson]
+template = "chart_template"
+
+[step_107_bridge_lesson]
+dialogue = "You discovered something important: Scale of 5 uses fewer symbols for the same data. But how do you know how many symbols to use? There's a skill you have that helps."
+
+[step_108_bridge_lesson]
+dialogue = "Do you remember how to count by 5s? Let's learn how skip-counting and scale of 5 work together."

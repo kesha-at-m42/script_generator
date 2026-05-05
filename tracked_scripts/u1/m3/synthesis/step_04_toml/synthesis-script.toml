@@ -1,37 +1,88 @@
+# synthesis-script.toml
+
 title = "synthesis"
 type = "sequence"
 
-# --- Section: opening_frame ---
-[section_100_opening_frame]
-template = "PLACEHOLDER"
+# ---------------------------------------------------------------------------
+# Section 1 - opening_frame
+# ---------------------------------------------------------------------------
 
-[step_100_opening_frame]
+[section_101_opening_frame]
+template = "chart_template"
+
+[step_101_opening_frame]
 dialogue = "You made graphs with scale of 5. Let's connect what you learned to the world around you."
 components = ["SceneComponent"]
 
-# --- Section: real_world_bridge_type_c ---
-[section_101_real_world_bridge_type_c]
-template = "PLACEHOLDER"
+# ---------------------------------------------------------------------------
+# Section 2 - real_world_bridge_type_c
+# ---------------------------------------------------------------------------
 
-[step_101_real_world_bridge_type_c]
-dialogue = "You've been grouping by 5s all lesson. But 5s show up everywhere in real life! Which of these uses groups of 5?"
-components = ["SceneComponent", "PromptComponent"]
+[section_102_real_world_bridge_type_c]
+template = "chart_template"
 
-# --- Section: metacognitive_reflection_two_scales_your ---
-[section_102_metacognitive_reflection_two_scales_your]
-template = "PLACEHOLDER"
+[step_102_real_world_bridge_type_c]
+dialogue = "You've been grouping by 5s all lesson. But 5s show up everywhere in real life. Which of these uses groups of 5?"
+components = ["PromptComponent"]
+prompt_text = "Which of these uses groups of 5? Select ALL that apply."
 
-[step_102_metacognitive_reflection_two_scales_your]
-dialogue = "You now know TWO scales for making graphs. If you had to show 30 items on a graph, which scale would need fewer symbols?"
-components = ["SceneComponent", "PromptComponent"]
+[step_102.correct]
+dialogue = "Right. All of them! Hands have 5 fingers. Tallies group by 5s. Nickels are worth 5 cents. Clocks mark every 5 minutes. Grouping by 5s is everywhere, and now you use it for graphs too."
+metadata = { sting_id = "on_correct" }
+
+[step_102.step_502]
+dialogue = "Look at each image carefully. Do you see groups of 5 in the picture?"
+id = "light"
+
+[step_102.step_503]
+dialogue = "Not quite. Count the fingers on a hand. Look at how tally marks group. Check what a nickel is worth. Count the spaces between clock marks. Select all the pictures that show 5s in some way."
+id = "medium"
+
+[step_102.step_504]
+dialogue = "Let’s look at each picture. A hand has 5 fingers. Tally marks bundle by 5s. A nickel equals 5 cents. A clock face marks every 5 minutes. All four use groups of 5. That's what makes counting by 5s so useful. It shows up everywhere. And now you use it for graphs too."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 3 - metacognitive_reflection_two_scales_your
+# ---------------------------------------------------------------------------
+
+[section_103_metacognitive_reflection_two_scales_your]
+template = "chart_template"
 
 [step_103_metacognitive_reflection_two_scales_your]
-dialogue = "You're building a toolkit. Scale of 2 works. Scale of 5 works. Soon you'll learn when to use each one."
+dialogue = "You now know THREE scales for making graphs. If you had to show 30 items on a graph, which scale would need fewer symbols?"
+components = ["PromptComponent"]
+prompt_text = "If you had to show 30 items on a graph, which scale would need fewer symbols?"
 
-# --- Section: identity_building_closure_bridge_m4 ---
-[section_103_identity_building_closure_bridge_m4]
-template = "PLACEHOLDER"
+[step_103.correct]
+dialogue = "That's right. Scale of 5. You'd need 6 symbols instead of 15 symbols with scale of 2 or 30 symbols with scale of 1. Bigger scale, fewer symbols."
+metadata = { sting_id = "on_correct" }
 
-[step_104_identity_building_closure_bridge_m4]
-dialogue = "You started this unit knowing scale of 2. Now you can make graphs with scale of 5 too. And you made BOTH picture graphs AND bar graphs. Two formats, both showing the same data. Two scales in your toolkit. Two formats you can create. You're ready for more. You started with scale of 1, then 2, now 5. Next time, we'll add scale of 10 to your toolkit."
-components = ["SceneComponent"]
+[step_103.step_506]
+dialogue = "Not exactly. With Scale of 2, each symbol is 2 items. How many symbols would you need to show 30 items?"
+id = "scale_of_2"
+
+[step_103.step_507]
+dialogue = "Let’s think about this. With Scale of 1, each symbol is 1 item. How many symbols would you need to show 30 items?"
+id = "they_need_same"
+
+[step_103.step_508]
+dialogue = "Let's compare. Scale of 1 means each symbol stands for 1 item. Scale of 2 means each symbol stands for 2 items. Scale of 5 means each symbol stands for 5 items. They all would need a different number of symbols. Which scale covers more items per symbol?"
+id = "medium"
+
+[step_103.step_509]
+dialogue = "Let me show you how to think about this. With Scale of 1, each symbol is 1 item, so 30 items needs 30 symbols. With Scale of 2, each symbol is 2 items, so 30 items needs 15 symbols. With Scale of 5, each symbol is 5 items, so 30 items needs only 6 symbols. The bigger the scale, the fewer symbols you need. Scale of 5 needs the fewest symbols."
+id = "heavy"
+
+[step_104_metacognitive_reflection_two_scales_your]
+dialogue = "You're building a toolkit. Scale of 1 works. Scale of 2 works. Scale of 5 works. Soon you'll learn when to use each one."
+
+# ---------------------------------------------------------------------------
+# Section 4 - identity_building_closure_bridge_m4
+# ---------------------------------------------------------------------------
+
+[section_104_identity_building_closure_bridge_m4]
+template = "chart_template"
+
+[step_105_identity_building_closure_bridge_m4]
+dialogue = "You started this unit knowing scale of 1 and 2. Now you can make graphs with scale of 5 too. And you made BOTH picture graphs AND bar graphs. Two formats, both showing the same data. Three scales in your toolkit. Two graph formats you can create. You're ready for more. Next time, we'll add scale of 10 to your toolkit."
