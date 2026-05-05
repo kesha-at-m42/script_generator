@@ -203,8 +203,8 @@ def _divider() -> dict:
     return {"object": "block", "type": "divider", "divider": {}}
 
 
-def _toggle(summary: str, children: list[dict]) -> dict:
-    return {
+def _toggle(summary: str, children: list[dict], color: str = "default") -> dict:
+    block = {
         "object": "block",
         "type": "toggle",
         "toggle": {
@@ -212,6 +212,9 @@ def _toggle(summary: str, children: list[dict]) -> dict:
             "children": children or [_paragraph("—")],
         },
     }
+    if color != "default":
+        block["toggle"]["color"] = color
+    return block
 
 
 def _callout(text: str, emoji: str = "💬") -> dict:
@@ -1269,7 +1272,11 @@ def _build_block_to_section_map(blocks: list[dict]) -> dict[str, str]:
             current_sid = None
         elif current_sid:
             _register(block)
-            for child in block.get(btype, {}).get("children", []) if isinstance(block.get(btype), dict) else []:
+            for child in (
+                block.get(btype, {}).get("children", [])
+                if isinstance(block.get(btype), dict)
+                else []
+            ):
                 cid = child.get("id")
                 if cid:
                     result[cid] = current_sid
@@ -1286,15 +1293,22 @@ def _all_block_ids_from_tree(blocks: list[dict], acc: list | None = None) -> lis
         if bid and bid not in acc:
             acc.append(bid)
         btype = block.get("type")
-        children = block.get(btype, {}).get("children", []) if isinstance(block.get(btype), dict) else []
+        children = (
+            block.get(btype, {}).get("children", []) if isinstance(block.get(btype), dict) else []
+        )
         _all_block_ids_from_tree(children, acc)
     return acc
 
 
 def fetch_lesson_comments(
-    page_id: str, sections: list, blocks: list[dict] | None = None
+    page_id: str,
+    sections: list,
+    blocks: list[dict] | None = None,
+    all_comments: bool = False,
 ) -> list[dict]:
-    """Fetch all Notion comment threads that mention @claude.
+    """Fetch Notion comment threads. By default only threads that mention @claude.
+
+    Pass all_comments=True to return every comment thread regardless of @claude tag.
 
     When *blocks* (the raw page block tree) is provided, checks every block on
     the page — not just ones stamped with _notion_block_id — so no comment can
@@ -1338,7 +1352,7 @@ def fetch_lesson_comments(
         for did, thread_comments in threads.items():
             if did in seen_discussions:
                 continue
-            if not any(
+            if not all_comments and not any(
                 "@claude" in _extract_comment_text(c.get("rich_text", [])).lower()
                 for c in thread_comments
             ):
@@ -1400,8 +1414,6 @@ def _section_label(section_id: str) -> tuple[str, str]:
 # ---------------------------------------------------------------------------
 
 
-
-
 def _condition_summary(condition: dict) -> str:
     """Build a short readable string from a validator condition dict."""
     if not condition:
@@ -1437,6 +1449,13 @@ def _condition_summary(condition: dict) -> str:
     return ", ".join(parts) if parts else "fallback"
 
 
+_REMEDIATION_LEVEL_COLORS = {
+    "light": "yellow_background",
+    "medium": "orange_background",
+    "heavy": "red_background",
+}
+
+
 def _render_validator(validator: list, section_id: str) -> list[dict]:
     """Render validator states as toggle blocks."""
     blocks: list[dict] = []
@@ -1450,7 +1469,11 @@ def _render_validator(validator: list, section_id: str) -> list[dict]:
         else:
             indicator = "◻️"
         branch_prefix = "🔀 " if state.get("branch") else ""
-        toggle_header = f"{indicator} {branch_prefix}{description}"
+        flag_prefix = "⚠️ " if state.get("flag") else ""
+        toggle_header = f"{flag_prefix}{indicator} {branch_prefix}{description}"
+
+        level = state.get("remediation_level") if is_correct is False else None
+        toggle_color = _REMEDIATION_LEVEL_COLORS.get(level, "default")
 
         child_blocks: list[dict] = []
         prev_was_current_scene = False
@@ -1461,14 +1484,12 @@ def _render_validator(validator: list, section_id: str) -> list[dict]:
             prev_was_current_scene = beat.get("type") == "current_scene"
 
         if child_blocks:
-            blocks.append(_toggle(toggle_header, child_blocks))
+            blocks.append(_toggle(toggle_header, child_blocks, color=toggle_color))
         else:
             blocks.append(
                 _paragraph(f"{indicator} {branch_prefix}{description} — student moves forward")
             )
     return blocks
-
-
 
 
 _CURRENT_SCENE_TOGGLE_PREFIX = "⏭️"
@@ -1516,6 +1537,9 @@ def _render_beat(
     blocks = codec.encode(beat)
     if t == "prompt" and isinstance(beat.get("validator"), list):
         blocks = blocks + _render_validator(beat["validator"], section_id)
+    if beat.get("flag") and blocks and blocks[0].get("type") == "callout":
+        rt = blocks[0]["callout"]["rich_text"]
+        rt.insert(0, {"text": {"content": f"⚠️ {beat['flag']}  "}})
     return blocks
 
 
@@ -1702,6 +1726,69 @@ def _is_step_break(block: dict) -> bool:
     return False
 
 
+def _decode_validator_state(toggle_block: dict) -> dict:
+    """Create a new validator state dict from a Notion toggle when none exists in the source.
+
+    Recovers is_correct (from ✅/❌/◻️), description, and beats.
+    condition/condition_id are not stored in Notion and are omitted.
+    """
+    toggle_data = toggle_block.get("toggle", {})
+    toggle_header = _extract_rt(toggle_data.get("rich_text", []))
+
+    stripped = re.sub(r"^⚠️\s+", "", toggle_header).strip()
+    is_correct: bool | None = None
+    if stripped.startswith("✅"):
+        is_correct = True
+        stripped = stripped[1:].strip()
+    elif stripped.startswith("❌"):
+        is_correct = False
+        stripped = stripped[1:].strip()
+    elif stripped.startswith("◻️"):
+        stripped = stripped[len("◻️") :].strip()
+
+    if stripped.startswith("🔀 "):
+        stripped = stripped[len("🔀 ") :].strip()
+
+    beats: list[dict] = []
+    for child in toggle_data.get("children", []):
+        if child.get("type") != "callout":
+            continue
+        codec = BEAT_CODECS.identify(child)
+        if codec is None:
+            continue
+        new_beat = codec.decode_new(child)
+        child_id = child.get("id", "")
+        if child_id:
+            new_beat["_notion_block_id"] = child_id
+        beats.append(new_beat)
+
+    return {"description": stripped, "is_correct": is_correct, "beats": beats}
+
+
+def _decode_validator_state_from_para(para_text: str) -> dict:
+    """Create a new (empty-beats) validator state from a rendered paragraph.
+
+    The paragraph form is used for states with no child beats:
+    "✅ [🔀 ]{description} — student moves forward"
+    """
+    stripped = re.sub(r"^⚠️\s+", "", para_text).strip()
+    is_correct: bool | None = None
+    if stripped.startswith("✅"):
+        is_correct = True
+        stripped = stripped[1:].strip()
+    elif stripped.startswith("❌"):
+        is_correct = False
+        stripped = stripped[1:].strip()
+    elif stripped.startswith("◻️"):
+        stripped = stripped[len("◻️") :].strip()
+
+    if stripped.startswith("🔀 "):
+        stripped = stripped[len("🔀 ") :].strip()
+
+    description = re.sub(r"\s*—\s*student moves forward$", "", stripped).strip()
+    return {"description": description, "is_correct": is_correct, "beats": []}
+
+
 def _patch_validator_state(state: dict, toggle_block: dict) -> None:
     """Rebuild a validator state's beats from its Notion toggle (Notion is source of truth).
 
@@ -1716,7 +1803,14 @@ def _patch_validator_state(state: dict, toggle_block: dict) -> None:
     """
     from steps.formatting.id_stamper import _flatten_validator_beats
 
-    toggle_children = toggle_block.get("toggle", {}).get("children", [])
+    toggle_data = toggle_block.get("toggle", {})
+    toggle_header = _extract_rt(toggle_data.get("rich_text", []))
+    if toggle_header:
+        desc = re.sub(r"^(?:✅|❌|◻️)\s+(?:🔀\s+)?", "", toggle_header).strip()
+        if desc:
+            state["description"] = desc
+
+    toggle_children = toggle_data.get("children", [])
     state_beats = _flatten_validator_beats(state)
 
     id_to_beat: dict[str, dict] = {
@@ -1785,26 +1879,42 @@ def _patch_section_beats(section: dict, section_blocks: list[dict]) -> None:
 
     json_beats = flatten_beats(section)
 
+    # IDs that actually exist in the current Notion section — used to detect stale IDs.
+    notion_section_ids: set[str] = {blk.get("id", "") for blk in section_blocks}
+
     id_to_beat: dict[str, dict] = {
         b["_notion_block_id"]: b
         for b in json_beats
-        if "_notion_block_id" in b and b.get("type") in BEAT_CODECS.beat_types
+        if "_notion_block_id" in b
+        and b.get("type") in BEAT_CODECS.beat_types
+        and b["_notion_block_id"] in notion_section_ids
     }
     id_to_current_scene: dict[str, dict] = {
         b["_notion_block_id"]: b
         for b in json_beats
-        if "_notion_block_id" in b and b.get("type") == "current_scene"
+        if "_notion_block_id" in b
+        and b.get("type") == "current_scene"
+        and b["_notion_block_id"] in notion_section_ids
     }
-    # LEGACY: positional pools for beats that were never ID-tagged.
+    # LEGACY: positional pools for beats without an ID, or whose ID is stale
+    # (not present in the current Notion section). Stale IDs arise when the page
+    # is re-pushed and all block IDs change; treating those beats as untagged lets
+    # positional matching recover them (and back-fills the new IDs).
     positional_pools: dict[str, list] = {
         beat_type: [
-            b for b in json_beats if b.get("type") == beat_type and "_notion_block_id" not in b
+            b
+            for b in json_beats
+            if b.get("type") == beat_type
+            and ("_notion_block_id" not in b or b["_notion_block_id"] not in notion_section_ids)
         ]
         for beat_type in BEAT_CODECS.beat_types
     }
 
     cs_positional_pool = [
-        b for b in json_beats if b.get("type") == "current_scene" and "_notion_block_id" not in b
+        b
+        for b in json_beats
+        if b.get("type") == "current_scene"
+        and ("_notion_block_id" not in b or b["_notion_block_id"] not in notion_section_ids)
     ]
     cs_positional_ptr = 0
 
@@ -1832,9 +1942,19 @@ def _patch_section_beats(section: dict, section_blocks: list[dict]) -> None:
 
         if btype == "toggle":
             if last_prompt_beat is not None:
-                validator = last_prompt_beat.get("validator") or []
-                if isinstance(validator, list) and validator_state_idx < len(validator):
+                if "validator" not in last_prompt_beat:
+                    last_prompt_beat["validator"] = []
+                validator = last_prompt_beat["validator"]
+                if validator_state_idx < len(validator):
                     _patch_validator_state(validator[validator_state_idx], block)
+                else:
+                    # Source had no state at this index — reconstruct from Notion toggle.
+                    # This fires when the source JSON lost its validators (e.g. a pull
+                    # that used a validator-less source). Flag it so the cause can be
+                    # investigated.
+                    new_state = _decode_validator_state(block)
+                    new_state["_reconstructed_from_notion"] = True
+                    validator.append(new_state)
                 validator_state_idx += 1
             continue
 
@@ -1858,10 +1978,8 @@ def _patch_section_beats(section: dict, section_blocks: list[dict]) -> None:
                     beat = pool.pop(idx)
                     beat["_notion_block_id"] = block_id  # back-fill so future pulls use ID match
                 else:
-                    new_beat = codec.decode_new(block)
-                    new_beat["_notion_block_id"] = block_id
-                    result.append(new_beat)
-                    continue
+                    beat = codec.decode_new(block)
+                    beat["_notion_block_id"] = block_id
 
             is_prompt = codec.apply_edit(beat, block)
             if is_prompt:
@@ -1876,6 +1994,13 @@ def _patch_section_beats(section: dict, section_blocks: list[dict]) -> None:
             # doesn't land as an unparsed beat; advance the validator state index.
             inner_text = _extract_rt(block.get("paragraph", {}).get("rich_text", []))
             if _VALIDATOR_STATE_PARA_RE.match(inner_text.strip()):
+                if "validator" not in last_prompt_beat:
+                    last_prompt_beat["validator"] = []
+                validator = last_prompt_beat["validator"]
+                if validator_state_idx >= len(validator):
+                    new_state = _decode_validator_state_from_para(inner_text.strip())
+                    new_state["_reconstructed_from_notion"] = True
+                    validator.append(new_state)
                 validator_state_idx += 1
                 continue
 
@@ -1984,6 +2109,7 @@ def _collect_scene_flags(sections: list) -> list[dict]:
     Flag types:
     - "scene_description_updated": 🎬 description was edited in Notion; needs manual config update.
     - "options_parse_failed": ❔ options could not be parsed; re-push to upgrade to JSON format.
+    - "validator_state_reconstructed": validator state was missing from source and rebuilt from Notion.
 
     Recurses into validator state beats so edits inside validator toggles are captured.
     """
@@ -2018,9 +2144,21 @@ def _collect_scene_flags(sections: list) -> list[dict]:
                         "message": "Options could not be parsed from legacy comma format — re-push to enable editing.",
                     }
                 )
-            # Recurse into validator state beats
+            # Collect reconstructed validator states and clean the temp marker
             if beat.get("type") == "prompt":
-                for state in beat.get("validator") or []:
+                for state_idx, state in enumerate(beat.get("validator") or []):
+                    if state.pop("_reconstructed_from_notion", False):
+                        flags.append(
+                            {
+                                "flag_type": "validator_state_reconstructed",
+                                "section_id": sid,
+                                "beat_id": beat.get("id", ""),
+                                "state_idx": state_idx,
+                                "description": state.get("description", ""),
+                                "message": "Validator state was absent in source JSON and rebuilt from Notion. "
+                                "condition/condition_id were not recovered — re-check source file.",
+                            }
+                        )
                     _scan_beats(state.get("beats") or [], sid)
 
     for section in sections:

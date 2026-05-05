@@ -1,0 +1,798 @@
+[
+  {
+    "discussion_id": "3495917e-ac52-80c5-ad2a-001cad8a0403",
+    "block_id": "3485917e-ac52-8107-b17d-ec6603542da5",
+    "section_id": "s1_1_data_collection_game",
+    "beat_description": "section heading",
+    "beat": null,
+    "thread": [
+      {
+        "comment_id": "3495917e-ac52-80fa-a583-001d1caef268",
+        "comment_text": "Once this game is finalized, the entire warmup needs to be revised/reviewed for alignment",
+        "author_id": "29dd872b-594c-8119-84c1-0002b4f81bc1",
+        "created_time": "2026-04-21T14:36:00.000Z"
+      }
+    ],
+    "pipeline_history": [],
+    "issue_summary": "The entire warmup section needs revision once the data collection game mechanics are finalized.",
+    "likely_step": "section_structurer",
+    "confidence": "medium",
+    "reasoning": "This is a meta-comment about section-level alignment rather than a specific content error. The reviewer is flagging that the warmup's structure and content depend on game mechanics that are still being finalized. Since section_structurer creates the initial section structure from specs, any structural misalignment between the warmup and the game would originate there. However, this appears to be a planning comment rather than a bug report.",
+    "suggested_fix": "Re-run section_structurer after game mechanics are finalized to ensure warmup aligns with final game design."
+  },
+  {
+    "discussion_id": "3495917e-ac52-80dc-bb54-001c4a5ad138",
+    "block_id": "3485917e-ac52-8147-81e8-d4e25044248a",
+    "section_id": "s1_1_data_collection_game",
+    "beat_description": "beats[2].validator[0] (correct).beats[0] (dialogue)",
+    "beat": null,
+    "thread": [
+      {
+        "comment_id": "3495917e-ac52-8045-85bc-001d331c6f19",
+        "comment_text": "We could add some generic dialogue at the completion of the activity, but I think we need to know what the game actually is to determine that dialogue. It could be a placeholder for now.\n\n”You counted them. Let’s look at the data.”",
+        "author_id": "29dd872b-594c-8119-84c1-0002b4f81bc1",
+        "created_time": "2026-04-21T14:53:00.000Z"
+      }
+    ],
+    "pipeline_history": [],
+    "issue_summary": "On_correct dialogue is generic placeholder that doesn't acknowledge what the student actually did in the counting game",
+    "likely_step": "section_structurer",
+    "confidence": "high",
+    "reasoning": "The section_structurer generates initial on_correct feedback content. This beat was flagged as 'suggested' (placeholder status) and lacks specificity about the counting activity. The dialogue_rewriter only enforces voice/style rules and wouldn't add substantive content. The remediation_generator doesn't touch correct-validator beats.",
+    "suggested_fix": "Section_structurer should generate on_correct dialogue that specifically references the counting activity and transitions to data analysis, not generic placeholder text"
+  },
+  {
+    "discussion_id": "3495917e-ac52-80f5-ba6f-001cc90627b8",
+    "block_id": "3485917e-ac52-812f-83f4-f4c8b443e3ea",
+    "section_id": "s2_1_scale_comparison_display_key_moment",
+    "beat_description": "beats[7].validator[2] (incorrect[2]).beats[2] (dialogue)",
+    "beat": {
+      "type": "dialogue",
+      "text": "Choose one category and count the symbols in each graph. Which graph uses fewer symbols to show the same total?",
+      "id": "s2_1_scale_comparison_display_key_moment_b7_v2_b2",
+      "_notion_block_id": "3485917e-ac52-812f-83f4-f4c8b443e3ea"
+    },
+    "thread": [
+      {
+        "comment_id": "3495917e-ac52-8013-8998-001dc8098bec",
+        "comment_text": "AI randomly decided that a category would be Books haha @Kesha Bagadia ",
+        "author_id": "29dd872b-594c-8119-84c1-0002b4f81bc1",
+        "created_time": "2026-04-21T15:10:00.000Z"
+      }
+    ],
+    "pipeline_history": [
+      {
+        "step": "step_12_merge_remediation",
+        "beat": {
+          "type": "prompt",
+          "text": "What do you notice about the two graphs?",
+          "tool": "multiple_choice",
+          "options": [
+            "The scale-of-5 graph has fewer symbols",
+            "The scale-of-5 graph has more symbols",
+            "They have the same number of symbols",
+            "The graphs show different data"
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "selected": "The scale-of-5 graph has fewer symbols"
+              },
+              "description": "Student selected that scale-of-5 graph has fewer symbols, correct",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Right. Fewer symbols for the same data. When each symbol shows MORE, you need FEWER of them.",
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v0_b0",
+                  "_notion_block_id": "3485917e-ac52-8193-89df-c59d5492a5b4"
+                }
+              ]
+            },
+            {
+              "condition": {
+                "selected": "The scale-of-5 graph has more symbols"
+              },
+              "description": "Student selected that scale-of-5 graph has more symbols (opposite of correct)",
+              "is_correct": false,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_scale_2",
+                  "params": {
+                    "description": "Left graph pulses to draw attention to symbol count."
+                  },
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v1_b0"
+                },
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_scale_5",
+                  "params": {
+                    "description": "Right graph pulses to draw attention to symbol count."
+                  },
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v1_b1"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Count the symbols in each graph. The left graph has many small-value symbols. The right graph has fewer large-value symbols. Which graph has fewer symbols?",
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v1_b2",
+                  "_notion_block_id": "3485917e-ac52-814d-9b92-ce9262954cbd"
+                }
+              ]
+            },
+            {
+              "condition": {
+                "selected": "They have the same number of symbols"
+              },
+              "description": "Student selected that graphs have same number of symbols",
+              "is_correct": false,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_scale_2",
+                  "params": {
+                    "description": "Left graph symbols pulse individually."
+                  },
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v2_b0"
+                },
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_scale_5",
+                  "params": {
+                    "description": "Right graph symbols pulse individually."
+                  },
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v2_b1"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Count the symbols in the Books column of each graph. The left graph needs more symbols because each one only shows 2. Which graph uses fewer symbols to show the same total?",
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v2_b2",
+                  "_notion_block_id": "3485917e-ac52-812f-83f4-f4c8b443e3ea"
+                }
+              ]
+            },
+            {
+              "condition": {
+                "selected": "The graphs show different data"
+              },
+              "description": "Student selected that graphs show different data",
+              "is_correct": false,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_scale_2",
+                  "params": {
+                    "highlight_categories": [
+                      "Books"
+                    ],
+                    "description": "Books column highlights on left graph."
+                  },
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v3_b0"
+                },
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_scale_5",
+                  "params": {
+                    "highlight_categories": [
+                      "Books"
+                    ],
+                    "description": "Books column highlights on right graph."
+                  },
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v3_b1"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Look at Books on both graphs. The left shows 10 items with 5 symbols. The right shows 10 items with 2 symbols. Same data, different scale. What do you notice about how many symbols each graph needs?",
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v3_b2",
+                  "_notion_block_id": "3485917e-ac52-8189-8882-e9973fe2f028"
+                }
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student answered incorrectly. System models the correct answer.",
+              "is_correct": false,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "picture_graph_scale_2",
+                  "params": {
+                    "event": "highlight_all_symbols",
+                    "status": "confirmed",
+                    "description": "All symbols on left graph highlight sequentially, showing many symbols."
+                  },
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v4_b0"
+                },
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "picture_graph_scale_5",
+                  "params": {
+                    "event": "highlight_all_symbols",
+                    "status": "confirmed",
+                    "description": "All symbols on right graph highlight sequentially, showing fewer symbols."
+                  },
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v4_b1"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Let me show you. The left graph uses many symbols because each one only shows 2 items. The right graph uses fewer symbols because each one shows 5 items. When each symbol shows more, you need fewer of them to show the same data. The scale-of-5 graph has fewer symbols.",
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v4_b2",
+                  "_notion_block_id": "3485917e-ac52-8132-8e3c-e74c0318aa41"
+                }
+              ]
+            }
+          ],
+          "id": "s2_1_scale_comparison_display_key_moment_b7",
+          "_notion_block_id": "3485917e-ac52-813b-88f8-c05ce359a184"
+        }
+      },
+      {
+        "step": "step_09_merge_dialogues",
+        "beat": {
+          "type": "prompt",
+          "text": "What do you notice about the two graphs?",
+          "tool": "multiple_choice",
+          "options": [
+            "The scale-of-5 graph has fewer symbols",
+            "The scale-of-5 graph has more symbols",
+            "They have the same number of symbols",
+            "The graphs show different data"
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "selected": "The scale-of-5 graph has fewer symbols"
+              },
+              "description": "Student selected that scale-of-5 graph has fewer symbols, correct",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Right. Fewer symbols for the same data. When each symbol shows MORE, you need FEWER of them.",
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v0_b0"
+                }
+              ]
+            }
+          ],
+          "id": "s2_1_scale_comparison_display_key_moment_b7"
+        }
+      },
+      {
+        "step": "step_06_stamp_ids",
+        "beat": {
+          "type": "prompt",
+          "text": "What do you notice about the two graphs?",
+          "tool": "multiple_choice",
+          "options": [
+            "The scale-of-5 graph has fewer symbols",
+            "The scale-of-5 graph has more symbols",
+            "They have the same number of symbols",
+            "The graphs show different data"
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "selected": "The scale-of-5 graph has fewer symbols"
+              },
+              "description": "Student selected that scale-of-5 graph has fewer symbols, correct",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Fewer symbols for the same data. When each symbol shows MORE, you need FEWER of them.",
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v0_b0"
+                }
+              ]
+            }
+          ],
+          "id": "s2_1_scale_comparison_display_key_moment_b7"
+        }
+      },
+      {
+        "step": "step_05_section_structurer",
+        "beat": {
+          "type": "prompt",
+          "text": "What do you notice about the two graphs?",
+          "tool": "multiple_choice",
+          "options": [
+            "The scale-of-5 graph has fewer symbols",
+            "The scale-of-5 graph has more symbols",
+            "They have the same number of symbols",
+            "The graphs show different data"
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "selected": "The scale-of-5 graph has fewer symbols"
+              },
+              "description": "Student selected that scale-of-5 graph has fewer symbols, correct",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Fewer symbols for the same data. When each symbol shows MORE, you need FEWER of them."
+                }
+              ]
+            }
+          ]
+        },
+        "prompt_file": "tracked_scripts\\u1\\m3\\warmup\\step_05_section_structurer\\prompts\\s2_1_scale_comparison_display_key_moment.md"
+      }
+    ],
+    "issue_summary": "Remediation dialogue references 'Books' category specifically, but this is arbitrary — the AI should not have chosen a specific category name from the data.",
+    "likely_step": "remediation_generator",
+    "confidence": "high",
+    "reasoning": "The beat is inside validator[2] (incorrect[2]), which is remediation dialogue generated by remediation_generator. The dialogue says 'Choose one category and count the symbols' but then the surrounding validator state shows scene beats that highlight 'Books' specifically. The remediation_generator arbitrarily picked 'Books' from the available categories instead of keeping the instruction generic or using a variable approach.",
+    "suggested_fix": "Remediation should either keep instructions fully generic ('pick any category') or use a dynamic approach that doesn't hardcode category names from the dataset."
+  },
+  {
+    "discussion_id": "3495917e-ac52-808f-b196-001cfe24fc33",
+    "block_id": "3485917e-ac52-8189-8882-e9973fe2f028",
+    "section_id": "s2_1_scale_comparison_display_key_moment",
+    "beat_description": "beats[7].validator[3] (incorrect[3]).beats[2] (dialogue)",
+    "beat": {
+      "type": "dialogue",
+      "text": "Look at any one category on both graphs. The left shows 2 items for every symbol. The right shows 5 items for every symbol. They have the same number of items, just a different scale. What do you notice about how many symbols each graph needs?",
+      "id": "s2_1_scale_comparison_display_key_moment_b7_v3_b2",
+      "_notion_block_id": "3485917e-ac52-8189-8882-e9973fe2f028"
+    },
+    "thread": [
+      {
+        "comment_id": "3495917e-ac52-802c-884e-001d5671e914",
+        "comment_text": "We can’t specify this without knowing what data they have in the game.",
+        "author_id": "29dd872b-594c-8119-84c1-0002b4f81bc1",
+        "created_time": "2026-04-21T15:12:00.000Z"
+      },
+      {
+        "comment_id": "3515917e-ac52-800e-81a4-001d9d45e9be",
+        "comment_text": "Yeah, it’s hallucinated data because the data doesn’t exist. I can try and have a tag or a signal in the script that can communicate “placeholder”.",
+        "author_id": "2e3d872b-594c-81ef-8c90-000214614524",
+        "created_time": "2026-04-29T14:58:00.000Z"
+      },
+      {
+        "comment_id": "3515917e-ac52-8009-97f0-001d37eada06",
+        "comment_text": "Hopefully we won’t have many other instances where we are script writing for something that doesn’t exist! I’m not sure you need to make a larger change to account for this.",
+        "author_id": "29dd872b-594c-8119-84c1-0002b4f81bc1",
+        "created_time": "2026-04-29T19:54:00.000Z"
+      }
+    ],
+    "pipeline_history": [
+      {
+        "step": "step_12_merge_remediation",
+        "beat": {
+          "type": "prompt",
+          "text": "What do you notice about the two graphs?",
+          "tool": "multiple_choice",
+          "options": [
+            "The scale-of-5 graph has fewer symbols",
+            "The scale-of-5 graph has more symbols",
+            "They have the same number of symbols",
+            "The graphs show different data"
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "selected": "The scale-of-5 graph has fewer symbols"
+              },
+              "description": "Student selected that scale-of-5 graph has fewer symbols, correct",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Right. Fewer symbols for the same data. When each symbol shows MORE, you need FEWER of them.",
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v0_b0",
+                  "_notion_block_id": "3485917e-ac52-8193-89df-c59d5492a5b4"
+                }
+              ]
+            },
+            {
+              "condition": {
+                "selected": "The scale-of-5 graph has more symbols"
+              },
+              "description": "Student selected that scale-of-5 graph has more symbols (opposite of correct)",
+              "is_correct": false,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_scale_2",
+                  "params": {
+                    "description": "Left graph pulses to draw attention to symbol count."
+                  },
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v1_b0"
+                },
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_scale_5",
+                  "params": {
+                    "description": "Right graph pulses to draw attention to symbol count."
+                  },
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v1_b1"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Count the symbols in each graph. The left graph has many small-value symbols. The right graph has fewer large-value symbols. Which graph has fewer symbols?",
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v1_b2",
+                  "_notion_block_id": "3485917e-ac52-814d-9b92-ce9262954cbd"
+                }
+              ]
+            },
+            {
+              "condition": {
+                "selected": "They have the same number of symbols"
+              },
+              "description": "Student selected that graphs have same number of symbols",
+              "is_correct": false,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_scale_2",
+                  "params": {
+                    "description": "Left graph symbols pulse individually."
+                  },
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v2_b0"
+                },
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_scale_5",
+                  "params": {
+                    "description": "Right graph symbols pulse individually."
+                  },
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v2_b1"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Count the symbols in the Books column of each graph. The left graph needs more symbols because each one only shows 2. Which graph uses fewer symbols to show the same total?",
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v2_b2",
+                  "_notion_block_id": "3485917e-ac52-812f-83f4-f4c8b443e3ea"
+                }
+              ]
+            },
+            {
+              "condition": {
+                "selected": "The graphs show different data"
+              },
+              "description": "Student selected that graphs show different data",
+              "is_correct": false,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_scale_2",
+                  "params": {
+                    "highlight_categories": [
+                      "Books"
+                    ],
+                    "description": "Books column highlights on left graph."
+                  },
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v3_b0"
+                },
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "picture_graph_scale_5",
+                  "params": {
+                    "highlight_categories": [
+                      "Books"
+                    ],
+                    "description": "Books column highlights on right graph."
+                  },
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v3_b1"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Look at Books on both graphs. The left shows 10 items with 5 symbols. The right shows 10 items with 2 symbols. Same data, different scale. What do you notice about how many symbols each graph needs?",
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v3_b2",
+                  "_notion_block_id": "3485917e-ac52-8189-8882-e9973fe2f028"
+                }
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student answered incorrectly. System models the correct answer.",
+              "is_correct": false,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "picture_graph_scale_2",
+                  "params": {
+                    "event": "highlight_all_symbols",
+                    "status": "confirmed",
+                    "description": "All symbols on left graph highlight sequentially, showing many symbols."
+                  },
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v4_b0"
+                },
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "picture_graph_scale_5",
+                  "params": {
+                    "event": "highlight_all_symbols",
+                    "status": "confirmed",
+                    "description": "All symbols on right graph highlight sequentially, showing fewer symbols."
+                  },
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v4_b1"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Let me show you. The left graph uses many symbols because each one only shows 2 items. The right graph uses fewer symbols because each one shows 5 items. When each symbol shows more, you need fewer of them to show the same data. The scale-of-5 graph has fewer symbols.",
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v4_b2",
+                  "_notion_block_id": "3485917e-ac52-8132-8e3c-e74c0318aa41"
+                }
+              ]
+            }
+          ],
+          "id": "s2_1_scale_comparison_display_key_moment_b7",
+          "_notion_block_id": "3485917e-ac52-813b-88f8-c05ce359a184"
+        }
+      },
+      {
+        "step": "step_09_merge_dialogues",
+        "beat": {
+          "type": "prompt",
+          "text": "What do you notice about the two graphs?",
+          "tool": "multiple_choice",
+          "options": [
+            "The scale-of-5 graph has fewer symbols",
+            "The scale-of-5 graph has more symbols",
+            "They have the same number of symbols",
+            "The graphs show different data"
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "selected": "The scale-of-5 graph has fewer symbols"
+              },
+              "description": "Student selected that scale-of-5 graph has fewer symbols, correct",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Right. Fewer symbols for the same data. When each symbol shows MORE, you need FEWER of them.",
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v0_b0"
+                }
+              ]
+            }
+          ],
+          "id": "s2_1_scale_comparison_display_key_moment_b7"
+        }
+      },
+      {
+        "step": "step_06_stamp_ids",
+        "beat": {
+          "type": "prompt",
+          "text": "What do you notice about the two graphs?",
+          "tool": "multiple_choice",
+          "options": [
+            "The scale-of-5 graph has fewer symbols",
+            "The scale-of-5 graph has more symbols",
+            "They have the same number of symbols",
+            "The graphs show different data"
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "selected": "The scale-of-5 graph has fewer symbols"
+              },
+              "description": "Student selected that scale-of-5 graph has fewer symbols, correct",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Fewer symbols for the same data. When each symbol shows MORE, you need FEWER of them.",
+                  "id": "s2_1_scale_comparison_display_key_moment_b7_v0_b0"
+                }
+              ]
+            }
+          ],
+          "id": "s2_1_scale_comparison_display_key_moment_b7"
+        }
+      },
+      {
+        "step": "step_05_section_structurer",
+        "beat": {
+          "type": "prompt",
+          "text": "What do you notice about the two graphs?",
+          "tool": "multiple_choice",
+          "options": [
+            "The scale-of-5 graph has fewer symbols",
+            "The scale-of-5 graph has more symbols",
+            "They have the same number of symbols",
+            "The graphs show different data"
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "selected": "The scale-of-5 graph has fewer symbols"
+              },
+              "description": "Student selected that scale-of-5 graph has fewer symbols, correct",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Fewer symbols for the same data. When each symbol shows MORE, you need FEWER of them."
+                }
+              ]
+            }
+          ]
+        },
+        "prompt_file": "tracked_scripts\\u1\\m3\\warmup\\step_05_section_structurer\\prompts\\s2_1_scale_comparison_display_key_moment.md"
+      }
+    ],
+    "issue_summary": "The remediation dialogue references specific data values (10 items, 5 symbols, 2 symbols) that don't exist in the actual game implementation.",
+    "likely_step": "remediation_generator",
+    "confidence": "high",
+    "reasoning": "This is an incorrect-validator dialogue beat generated by remediation_generator. The step hallucinated concrete numbers (10 items for Books, 5 symbols on left, 2 symbols on right) to make the remediation more specific, but these values are placeholders since the actual game data doesn't exist yet. The reviewers confirm this is hallucinated data and note it's a known limitation of scripting before implementation.",
+    "suggested_fix": "Use generic language that doesn't reference specific counts, or add a signal/tag to mark placeholder data in pre-implementation scripts."
+  },
+  {
+    "discussion_id": "3495917e-ac52-80e9-939c-001c4556275c",
+    "block_id": "3485917e-ac52-8119-82d1-d0a59187d486",
+    "section_id": "s3_1_efficiency_discovery",
+    "beat_description": "beats[3] (scene)",
+    "beat": {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "picture_graph_scale2",
+      "params": {
+        "event": "highlight_category_symbols",
+        "status": "confirmed",
+        "description": "Symbols in one category highlight on scale of 2 graph, showing total count."
+      },
+      "id": "s3_1_efficiency_discovery_b2",
+      "_notion_block_id": "3485917e-ac52-8119-82d1-d0a59187d486"
+    },
+    "thread": [
+      {
+        "comment_id": "3495917e-ac52-8072-afa4-001d4d9f2d8e",
+        "comment_text": "We did this in the starter pack with a value of 30…. should we carry it through with 30 and regardless of what the kids are counting in the game make sure one of the categories has 30 items for the purpose of this warmup?",
+        "author_id": "29dd872b-594c-8119-84c1-0002b4f81bc1",
+        "created_time": "2026-04-21T15:16:00.000Z"
+      }
+    ],
+    "pipeline_history": [
+      {
+        "step": "step_12_merge_remediation",
+        "beat": {
+          "type": "dialogue",
+          "text": "Look at this category. It has this many items.",
+          "id": "s3_1_efficiency_discovery_b3",
+          "_notion_block_id": "3485917e-ac52-81d6-8ad5-d737e3fb7864"
+        }
+      },
+      {
+        "step": "step_09_merge_dialogues",
+        "beat": {
+          "type": "dialogue",
+          "text": "Look at this category. It has this many items.",
+          "id": "s3_1_efficiency_discovery_b3"
+        }
+      },
+      {
+        "step": "step_06_stamp_ids",
+        "beat": {
+          "type": "dialogue",
+          "text": "Look at this category. It has this many items.",
+          "id": "s3_1_efficiency_discovery_b3"
+        }
+      },
+      {
+        "step": "step_05_section_structurer",
+        "beat": {
+          "type": "dialogue",
+          "text": "Look at this category. It has this many items."
+        },
+        "prompt_file": "tracked_scripts\\u1\\m3\\warmup\\step_05_section_structurer\\prompts\\s3_1_efficiency_discovery.md"
+      }
+    ],
+    "issue_summary": "The scene beat does not specify which category or how many items (30 from starter pack), leaving the count vague.",
+    "likely_step": "section_structurer",
+    "confidence": "high",
+    "reasoning": "This is a scene beat describing what happens on screen. The section_structurer is responsible for all scene descriptions and factual accuracy. The reviewer is flagging that the starter pack specified 30 items in one category, but the scene beat uses generic placeholder language ('one category', 'total count') instead of concrete values. The section_structurer should have carried through the specific value from the starter pack.",
+    "suggested_fix": "Update the scene description to specify the category name and the count of 30 items from the starter pack data."
+  },
+  {
+    "discussion_id": "3495917e-ac52-8096-8d50-001c745c72a8",
+    "block_id": "3485917e-ac52-81d6-8ad5-d737e3fb7864",
+    "section_id": "s3_1_efficiency_discovery",
+    "beat_description": "beats[4] (dialogue)",
+    "beat": {
+      "type": "dialogue",
+      "text": "Look at this category in the table. It has this many items.",
+      "id": "s3_1_efficiency_discovery_b3",
+      "_notion_block_id": "3485917e-ac52-81d6-8ad5-d737e3fb7864"
+    },
+    "thread": [
+      {
+        "comment_id": "3495917e-ac52-804a-babf-001d893124d9",
+        "comment_text": "For the final script, it would really be better for this value to be entered in instead of generic…",
+        "author_id": "29dd872b-594c-8119-84c1-0002b4f81bc1",
+        "created_time": "2026-04-21T15:15:00.000Z"
+      }
+    ],
+    "pipeline_history": [
+      {
+        "step": "step_12_merge_remediation",
+        "beat": {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "picture_graph_scale2",
+          "params": {
+            "event": "count_symbols",
+            "status": "confirmed",
+            "description": "Symbols count sequentially, showing how many symbols needed with scale of 2."
+          },
+          "id": "s3_1_efficiency_discovery_b4",
+          "_notion_block_id": "3485917e-ac52-81d6-a6cb-d6e476b86447"
+        }
+      },
+      {
+        "step": "step_09_merge_dialogues",
+        "beat": {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "picture_graph_scale2",
+          "params": {
+            "event": "count_symbols",
+            "status": "confirmed",
+            "description": "Symbols count sequentially, showing how many symbols needed with scale of 2."
+          },
+          "id": "s3_1_efficiency_discovery_b4"
+        }
+      },
+      {
+        "step": "step_06_stamp_ids",
+        "beat": {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "picture_graph_scale2",
+          "params": {
+            "event": "count_symbols",
+            "status": "confirmed",
+            "description": "Symbols count sequentially, showing how many symbols needed with scale of 2."
+          },
+          "id": "s3_1_efficiency_discovery_b4"
+        }
+      },
+      {
+        "step": "step_05_section_structurer",
+        "beat": {
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "picture_graph_scale2",
+          "params": {
+            "event": "count_symbols",
+            "status": "confirmed",
+            "description": "Symbols count sequentially, showing how many symbols needed with scale of 2."
+          }
+        },
+        "prompt_file": "tracked_scripts\\u1\\m3\\warmup\\step_05_section_structurer\\prompts\\s3_1_efficiency_discovery.md"
+      }
+    ],
+    "issue_summary": "Dialogue uses placeholder language ('this category', 'this many items') instead of concrete values from the data",
+    "likely_step": "section_structurer",
+    "confidence": "high",
+    "reasoning": "This is a top-level dialogue beat created by section_structurer. The beat contains generic placeholder language that should have been replaced with specific values from the lesson spec (actual category name and item count). The dialogue_rewriter only enforces voice/style rules and does not handle factual content or data specificity.",
+    "suggested_fix": "Section_structurer should populate dialogue with actual data values (specific category name and count) from the lesson spec instead of using generic placeholders"
+  }
+]
