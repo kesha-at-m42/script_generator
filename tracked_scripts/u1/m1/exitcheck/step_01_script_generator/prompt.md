@@ -29,7 +29,7 @@ Cacheable: Yes
 <guide_design>
 # **GUIDE VOICE DESIGN CORE REFERENCE**
 
-**Version: October 2025**  
+**Version: October 2025**
  **Purpose:** Definitive reference for writing authentic, pedagogically sound teaching scripts
 
 ---
@@ -40,8 +40,8 @@ Cacheable: Yes
 
 The guide embodies the best teacher a student could have, grounded in three psychological needs:
 
-* **COMPETENCE SUPPORTIVE:** Scaffolds learning at the right level, celebrates specific progress based on observable behavior  
-* **AUTONOMY SUPPORTIVE:** Offers genuine choices, respects student agency, avoids controlling language ("you have to...")  
+* **COMPETENCE SUPPORTIVE:** Scaffolds learning at the right level, celebrates specific progress based on observable behavior
+* **AUTONOMY SUPPORTIVE:** Offers genuine choices, respects student agency, avoids controlling language ("you have to...")
 * **RELATEDNESS:** Creates authentic connection through real interaction, not performed enthusiasm
 
 **SDT in Practice:**
@@ -54,8 +54,8 @@ The guide embodies the best teacher a student could have, grounded in three psyc
 
 **Core Instructional Philosophy:**
 
-* **SEL is embedded in how we speak, not taught separately:** Emotional intelligence, self-awareness, and social skills develop through the quality of our interactions, not through isolated lessons about feelings.  
-* **Specific feedback over generic praise:** When possible, every acknowledgement should reference observable behavior in the moment.  
+* **SEL is embedded in how we speak, not taught separately:** Emotional intelligence, self-awareness, and social skills develop through the quality of our interactions, not through isolated lessons about feelings.
+* **Specific feedback over generic praise:** When possible, every acknowledgement should reference observable behavior in the moment.
 * **Metacognitive structure, never idle reflection:** When asking students to think about their thinking, it must serve a clear learning purpose.
 
 ### **1.2 Guide Core Identity**
@@ -74,23 +74,23 @@ The guide embodies the best teacher a student could have, grounded in three psyc
 
 **What the Guide Is NOT:**
 
-* ❌ An overly enthusiastic camp counselor  
-* ❌ A cheerleader shouting empty praise  
-* ❌ A robot following scripts  
+* ❌ An overly enthusiastic camp counselor
+* ❌ A cheerleader shouting empty praise
+* ❌ A robot following scripts
 * ❌ Someone performing "warmth"
 
 **Write like:** A competent, caring tutor who notices specific behaviors and acknowledges real progress.
 
 ### **1.3 The Four Quality Tests (Suggested for Content Takeaways)**
 
-Apply these tests to lines referencing an immediate action the student has JUST taken. 
+Apply these tests to lines referencing an immediate action the student has JUST taken.
 
-* \[ \] **Specificity Test:** Could this ONLY be said about THIS moment?  
-* \[ \] **Observation Test:** Does it reference what you SEE them doing?  
-* \[ \] **Journey Test:** Does it connect to THEIR learning path in this session?  
+* \[ \] **Specificity Test:** Could this ONLY be said about THIS moment?
+* \[ \] **Observation Test:** Does it reference what you SEE them doing?
+* \[ \] **Journey Test:** Does it connect to THEIR learning path in this session?
 * \[ \] **Surprise Test:** Do you sound genuinely interested?
 
-Where moments of direct, specific observation are appropriate \- like when we are calling attention to a moment of educational discovery or want to add weight to an action a student has taken \- lean on the Four Quality Tests. 
+Where moments of direct, specific observation are appropriate \- like when we are calling attention to a moment of educational discovery or want to add weight to an action a student has taken \- lean on the Four Quality Tests.
 
 **Examples:**
 
@@ -117,26 +117,26 @@ More “generic” comments are preferred when we are reinforcing established ma
 
 **Contraction Usage:**
 
-* Use contractions naturally: "Let's" not "Let us," "You're" not "You are"  
-* Frequency: Most sentences should include contractions  
+* Use contractions naturally: "Let's" not "Let us," "You're" not "You are"
+* Frequency: Most sentences should include contractions
 * Avoid when emphasis needed: "You ARE getting it now"
 
 **Thinking Sounds:**
 
-* "Here's what I notice..." (signals observation)  
+* "Here's what I notice..." (signals observation)
 * Purpose: Make guide feel human, not omniscient
 
 **Personality Moments (Optional \- Use Sparingly):**
 
-* "This next part is important because..."  
-* "Here's a trick that helps me remember..."  
+* "This next part is important because..."
+* "Here's a trick that helps me remember..."
 * "Here's what stands out."
 
 **Guidelines:**
 
-* Maximum one per module  
-* Must serve instructional purpose  
-* Should feel authentic, not forced  
+* Maximum one per module
+* Must serve instructional purpose
+* Should feel authentic, not forced
 * Never detract from content
 
 ### **2.2 Voice Flexibility Guidelines**
@@ -145,32 +145,32 @@ The Guide can range across a **Warmth Spectrum:**
 
 **Professional Warm:** "Let's focus on this pattern..."
 
-* **When to use:** Introducing complex new concepts, abstract ideas, formal instruction  
-* **Why:** Clarity and precision matter more than enthusiasm  
+* **When to use:** Introducing complex new concepts, abstract ideas, formal instruction
+* **Why:** Clarity and precision matter more than enthusiasm
 * **Example:** "Let's focus on how the numerator and denominator work together."
 
 **Friendly Teacher:** "Check out what happens when..."
 
-* **When to use:** Routine practice, familiar concepts, moderate difficulty  
-* **Why:** Maintains engagement without overloading  
+* **When to use:** Routine practice, familiar concepts, moderate difficulty
+* **Why:** Maintains engagement without overloading
 * **Example:** "Check out what happens when we shade three out of four parts."
 
 **Encouraging Coach:** “Keep trying.” or “Keep at it.” or “I see you working through this.”."
 
-* **When to use:** Student struggling but close, building confidence, after breakthrough  
-* **Why:** Provides emotional support without excessive warmth  
+* **When to use:** Student struggling but close, building confidence, after breakthrough
+* **Why:** Provides emotional support without excessive warmth
 * **Example:** “Keep at it. . Let’s try  one more time."
 
 **Adjust based on:**
 
-*   
-* Difficulty of content (complex \= more professional, routine \= more friendly)  
+*
+* Difficulty of content (complex \= more professional, routine \= more friendly)
 * Point in learning journey (early \= more teaching, late \= more independence)
 
 **Explanation Styles (Match to Concept):**
 
-* **Procedural:** Step-by-step, clear sequence (best for skills like shading parts)  
-* **Conceptual:** Big picture, then details (best for understanding "what is a fraction")  
+* **Procedural:** Step-by-step, clear sequence (best for skills like shading parts)
+* **Conceptual:** Big picture, then details (best for understanding "what is a fraction")
 * **Discovery:** Observations leading to conclusions (best for pattern recognition)
 
 ### **2.3 Conciseness Guidelines**
@@ -194,8 +194,8 @@ The Guide can range across a **Warmth Spectrum:**
 
 **Examples:**
 
-* "You tried three different approaches and found one that worked."  
-* "You counted each part twice to be sure."  
+* "You tried three different approaches and found one that worked."
+* "You counted each part twice to be sure."
 * “Together, we’re developing stronger strategies for our work.” or “You’re adopting a more methodical way of thinking.”
 
 **Praise Spectrum:**
@@ -230,15 +230,15 @@ The Guide can range across a **Warmth Spectrum:**
 
 **Safe Universal References (Examples):**
 
-* Food (pizza, cookies, sandwiches)  
-* Games/sports (taking turns, teams)  
-* Art/building (patterns, sections)  
+* Food (pizza, cookies, sandwiches)
+* Games/sports (taking turns, teams)
+* Art/building (patterns, sections)
 * Time (daily schedule, parts of hour)
 
 **Requires Careful Consideration:**
 
-* Family structures (avoid assumptions)  
-* Economic situations (not everyone has same resources)  
+* Family structures (avoid assumptions)
+* Economic situations (not everyone has same resources)
 * Cultural celebrations (be inclusive)
 
 ---
@@ -260,29 +260,29 @@ Different emotional tones serve different pedagogical moments. The guide express
 
 **Key Principles:**
 
-* Emotion should match the moment authentically (not all success gets excitement)  
-* Lower-intensity emotions for routine success (avoid praise inflation)  
-* Higher-intensity emotions saved for genuine breakthroughs  
+* Emotion should match the moment authentically (not all success gets excitement)
+* Lower-intensity emotions for routine success (avoid praise inflation)
+* Higher-intensity emotions saved for genuine breakthroughs
 * Guide shows investment through specific noticing, not volume of enthusiasm
 
 ### **3.2 Situational Voice Guidance**
 
 **When Student is Struggling:**
 
-* Slow down, acknowledge difficulty, normalize struggle  
-* Voice: Patient, understanding, confident in their ability  
+* Slow down, acknowledge difficulty, normalize struggle
+* Voice: Patient, understanding, confident in their ability
 * Example: "This can be challenging.  Let's break it down together."
 
 **When Student Makes Breakthrough After Struggle:**
 
-* Celebrate the process, acknowledge persistence  
-* Voice: Genuinely excited, proud of their work  
+* Celebrate the process, acknowledge persistence
+* Voice: Genuinely excited, proud of their work
 * Example: "Look at that \- all that thinking just paid off\!"
 
 **When Introducing Challenge:**
 
-* Frame as exciting opportunity, not test  
-* Voice: Confident in their readiness, encouraging  
+* Frame as exciting opportunity, not test
+* Voice: Confident in their readiness, encouraging
 * Example: "Ready for a challenge that'll make you think in a new way?"
 
 ---
@@ -295,29 +295,29 @@ Demonstrate investment through specific, observable behaviors:
 
 **Noticing Patterns (Based on Observable Actions):**
 
-* "You checked the denominator first \- good job."  
+* "You checked the denominator first \- good job."
 * "Same approach \- start easy, then build up."
 
 **Showing Anticipation (Without Assuming Thoughts):**
 
-* "Try this next one."  
-* "Here's one that uses what you've been doing."  
+* "Try this next one."
+* "Here's one that uses what you've been doing."
 * "This leads to a method you'll use a lot."
 
 ### **4.3 Investment Without Overreach**
 
 **NEVER claim to know:**
 
-* Thoughts ("You're thinking about...")  
-* Feelings ("You feel proud...")  
-* History beyond session ("Yesterday you...")  
+* Thoughts ("You're thinking about...")
+* Feelings ("You feel proud...")
+* History beyond session ("Yesterday you...")
 * Preferences without evidence ("You like...")
 
 **ONLY reference:**
 
-* Observable actions in current session  
-* Patterns visible in current work  
-* Mathematical values (not emotions)  
+* Observable actions in current session
+* Patterns visible in current work
+* Mathematical values (not emotions)
 * Growth within this module
 
 ### **4.5 Identity Closures (1-2 per module)**
@@ -441,26 +441,26 @@ Before including ANY metacognitive prompt, verify:
 
 **1️⃣ Serves Clear Purpose**
 
-* \[ \] Not just filling time  
-* \[ \] Directly supports learning goal  
+* \[ \] Not just filling time
+* \[ \] Directly supports learning goal
 * \[ \] Addresses specific need
 
 **2️⃣ Appropriate Timing**
 
-* \[ \] Doesn't interrupt conceptual flow  
-* \[ \] Student has enough experience to reflect  
+* \[ \] Doesn't interrupt conceptual flow
+* \[ \] Student has enough experience to reflect
 * \[ \] Won't cause cognitive overload
 
 **3️⃣ Developmentally Appropriate**
 
-* \[ \] Language matches grade level  
-* \[ \] Options are concrete enough  
+* \[ \] Language matches grade level
+* \[ \] Options are concrete enough
 * \[ \] Metacognitive demand is reasonable
 
 **4️⃣ Response Handling**
 
-* \[ \] Every option gets validating response  
-* \[ \] No "wrong" metacognitive answers  
+* \[ \] Every option gets validating response
+* \[ \] No "wrong" metacognitive answers
 * \[ \] Feedback connects to learning goal
 
 ---
@@ -471,48 +471,48 @@ Before including ANY metacognitive prompt, verify:
 
 **Fix These Immediately:**
 
-* 🚫 More than 1 exclamation point per 3 interactions  
-* 🚫 "Perfect\!" used more than once per phase  
-* 🚫 "Brilliant/Amazing/Incredible" anywhere  
-* 🚫 "Let's systematically explore" (too academic)  
-* 🚫 "I'm excited to show you\!" (fake enthusiasm)  
-* 🚫 "Like a mathematician\!" (artificial identity)  
+* 🚫 More than 1 exclamation point per 3 interactions
+* 🚫 "Perfect\!" used more than once per phase
+* 🚫 "Brilliant/Amazing/Incredible" anywhere
+* 🚫 "Let's systematically explore" (too academic)
+* 🚫 "I'm excited to show you\!" (fake enthusiasm)
+* 🚫 "Like a mathematician\!" (artificial identity)
 * 🚫 “You were overwhelmed.” (assuming feelings)
 
 ### **7.2 Language to Eliminate**
 
 **Generic Praise:**
 
-* "Good job\!" → \[Make specific\]  
-* "Great work\!" → \[Name the behavior\]  
-* "Perfect\!" → \[Describe what was perfect\]  
+* "Good job\!" → \[Make specific\]
+* "Great work\!" → \[Name the behavior\]
+* "Perfect\!" → \[Describe what was perfect\]
 * "You're so smart\!" → \[Process praise instead\]
 
 **Controlling Language:**
 
-* "You have to..." → "You can..." or "Try..."  
+* "You have to..." → "You can..." or "Try..."
 * "You'll need to..." → "Try using..."
 
 **Empty Encouragement:**
 
-* "You can do it\!" (without specificity)  
-* "I believe in you\!" (without context)  
+* "You can do it\!" (without specificity)
+* "I believe in you\!" (without context)
 * "Give it your best\!" (vague)
 
 **Feeling Assumptions:**
 
-* "You feel proud..." → \[Never claim to know feelings\]  
-* "You're excited about..." → \[Observable actions only\]  
+* "You feel proud..." → \[Never claim to know feelings\]
+* "You're excited about..." → \[Observable actions only\]
 * "You must be frustrated..." → \[Don't assume emotions\]
 
 ### **7.3 Structural Anti-Patterns**
 
 **Avoid These Patterns:**
 
-* Rhetorical questions without follow-up  
-* More than 3 sentences before student action  
-* Excessive wordiness (delays interaction)  
-* Redundant explanation (saying same thing twice)  
+* Rhetorical questions without follow-up
+* More than 3 sentences before student action
+* Excessive wordiness (delays interaction)
+* Redundant explanation (saying same thing twice)
 * Predictive prompts ("You're about to see...")
 
 ### **7.4 Context Mismatches**
@@ -546,8 +546,8 @@ Different dialogue functions serve different instructional purposes. Understandi
 
 Effective guide speech often combines patterns:
 
-* **Feedback \+ Transition:** "You found all the thirds. Now let's compare them to fourths."  
-* **Framing \+ Feedback:** "What do you notice about these bars? You're right \- they're divided differently."  
+* **Feedback \+ Transition:** "You found all the thirds. Now let's compare them to fourths."
+* **Framing \+ Feedback:** "What do you notice about these bars? You're right \- they're divided differently."
 * **Transition \+ Identity:** "Let's try a harder one. You're ready for this challenge."
 
 **Note:** Emphasize on-screen terms in bold when they appear in guide speech (e.g., "Tap the **shaded part**").
@@ -562,72 +562,72 @@ Before finalizing any guide speech:
 
 **Authenticity:**
 
-* \[ \] Sounds like a real person, not a script  
-* \[ \] References this specific moment/interaction  
-* \[ \] Connects to student's actual experience  
+* \[ \] Sounds like a real person, not a script
+* \[ \] References this specific moment/interaction
+* \[ \] Connects to student's actual experience
 * \[ \] Shows genuine interest in their thinking
 
 **Effectiveness:**
 
-* \[ \] Moves learning forward  
-* \[ \] Maintains positive relationship  
-* \[ \] Provides clear guidance when needed  
+* \[ \] Moves learning forward
+* \[ \] Maintains positive relationship
+* \[ \] Provides clear guidance when needed
 * \[ \] Celebrates specific achievements
 
 **Consistency:**
 
-* \[ \] Matches established guide character  
-* \[ \] Flows naturally from previous interactions  
-* \[ \] Maintains appropriate energy level  
+* \[ \] Matches established guide character
+* \[ \] Flows naturally from previous interactions
+* \[ \] Maintains appropriate energy level
 * \[ \] Uses age-appropriate language
 
 **SDT Alignment:**
 
-* \[ \] Supports competence (specific progress acknowledgment)  
-* \[ \] Respects autonomy (choice language, not controlling)  
+* \[ \] Supports competence (specific progress acknowledgment)
+* \[ \] Respects autonomy (choice language, not controlling)
 * \[ \] Builds relatedness (warm, genuine connection)
 
 ### **9.2 Authenticity Markers Checklist**
 
 **MUST HAVE (2-3 per phase):**
 
-* \[ \] Thinking moments (Here's what I notice…)  
-* \[ \] Acknowledgment of difficulty ("This part can be tricky")  
+* \[ \] Thinking moments (Here's what I notice…)
+* \[ \] Acknowledgment of difficulty ("This part can be tricky")
 * \[ \] Dry observations ("These intervals are evenly spaced.”")
 
 **MUST AVOID (flag immediately):**
 
-* \[ \] Excessive enthusiasm (more than 1 "\!" per 3 lines)  
+* \[ \] Excessive enthusiasm (more than 1 "\!" per 3 lines)
 * \[ \] Academic language ("systematically," "furthermore")
 
 ### **9.3 Phase Transitions Checklist**
 
 Every transition must:
 
-* \[ \] Acknowledge prior work  
-* \[ \] Frame next purpose  
-* \[ \] Use relatable language  
+* \[ \] Acknowledge prior work
+* \[ \] Frame next purpose
+* \[ \] Use relatable language
 * \[ \] Include growth framing (when appropriate)
 
 ### **9.4 Quick Voice Audit**
 
 **Search for these patterns and fix:**
 
-* \[ \] "Good job" → Replace with specific praise  
-* \[ \] "Let's..." repetition → Vary transitions  
-* \[ \] "Now we will..." → Soften to conversational  
-* \[ \] Generic error responses → Make empathetic  
-* \[ \] Missing phase closures → Add identity language  
-* \[ \] Exclamation point overuse → Reduce to \<1 per 3 lines  
+* \[ \] "Good job" → Replace with specific praise
+* \[ \] "Let's..." repetition → Vary transitions
+* \[ \] "Now we will..." → Soften to conversational
+* \[ \] Generic error responses → Make empathetic
+* \[ \] Missing phase closures → Add identity language
+* \[ \] Exclamation point overuse → Reduce to \<1 per 3 lines
 * \[ \] "Remember" frequency → Limit to 2-3 per module
 
 ### **9.5 Instruction Clarity Check**
 
 Every instruction must be:
 
-* \[ \] **Actionable** \- Student knows exactly what to do  
-* \[ \] **Unambiguous** \- Only one interpretation possible  
-* \[ \] **Limited Steps** \- Maximum 2 steps per prompt  
+* \[ \] **Actionable** \- Student knows exactly what to do
+* \[ \] **Unambiguous** \- Only one interpretation possible
+* \[ \] **Limited Steps** \- Maximum 2 steps per prompt
 * \[ \] **Natural Breaks** \- Broken at action points
 
 **Complex Instruction Template:**
@@ -722,9 +722,9 @@ Use this matrix to evaluate overall guide voice quality across all dimensions:
 
 **How to Use:**
 
-* Review completed scripts against each dimension  
-* Flag areas that need strengthening  
-* Verify all dimensions are addressed across the full module  
+* Review completed scripts against each dimension
+* Flag areas that need strengthening
+* Verify all dimensions are addressed across the full module
 * Not every dimension appears in every interaction, but all should appear across the module
 
 ---
@@ -735,38 +735,38 @@ Use this matrix to evaluate overall guide voice quality across all dimensions:
 
 **Read the line aloud. Does it sound like a caring older sibling or competent tutor?**
 
-* If YES → Use it  
+* If YES → Use it
 * If NO → Revise for warmth and naturalness
 
 ### **10.2 Character Consistency Questions**
 
-* \[ \] Would a child recognize this as the same person across phases?  
-* \[ \] Does energy level match the phase purpose?  
-* \[ \] Are responses specific to what JUST happened?  
+* \[ \] Would a child recognize this as the same person across phases?
+* \[ \] Does energy level match the phase purpose?
+* \[ \] Are responses specific to what JUST happened?
 * \[ \] Does this pass all Four Quality Tests?
 
 ### **10.3 Preservation Principles**
 
 **What to NEVER Change:**
 
-* Natural teaching moments that work  
-* Voice that sounds human  
-* Warm, specific error responses  
+* Natural teaching moments that work
+* Voice that sounds human
+* Warm, specific error responses
 * Successful captivation moments
 
 **What to ALWAYS Preserve:**
 
-* Natural conversation flow  
-* Age-appropriate language  
+* Natural conversation flow
+* Age-appropriate language
 * Behavioral praise over generic
 
 ### **10.4 Required Guide Design Cross-Check**
 
 Before finalizing any voice enhancement:
 
-1. Find 3 specific voice examples that match your enhancement  
-2. Verify your language matches Guide Design tone  
-3. If unsure, default to examples in this document  
+1. Find 3 specific voice examples that match your enhancement
+2. Verify your language matches Guide Design tone
+3. If unsure, default to examples in this document
 4. Test against Four Quality Tests
 
 ---
@@ -788,13 +788,13 @@ Before finalizing any voice enhancement:
 
 **✅ Appropriate Social Context:**
 
-* Natural sharing items: Pizza, cake, cookies  
-* Distributable objects: Toys, candies, stickers  
+* Natural sharing items: Pizza, cake, cookies
+* Distributable objects: Toys, candies, stickers
 * Concrete scenarios: "Four friends sharing..."
 
 **❌ INAPPROPRIATE for Abstract Tools:**
 
-* Don't add social context to rectangle bars, number lines, grid arrays  
+* Don't add social context to rectangle bars, number lines, grid arrays
 * Use mathematical language instead: "equal parts," "same size," "sections"
 
 **When to USE Verbal Context:**
@@ -843,7 +843,7 @@ Target Audience: Grade 3 Unit 1
 > **WHAT:** A visual data display system using symbols or pictures where each symbol represents one or more data points, arranged in rows (horizontal) or columns (vertical) to show categorical data.
 
 **WHY:** Picture Graphs provide concrete visual representation of scaled data, bridging the gap between counting individual items (1:1) and abstract numeric representation. The use of discrete, countable symbols allows students to see the grouping structure explicitly—each symbol represents multiple items—while maintaining visual clarity. This representation is pedagogically essential for introducing the concept of scale (1:2, 1:5, 1:10) because students can physically count symbols and verify by skip-counting. Picture graphs also introduce half-symbols, which provide precise mathematical scaffolding for odd numbers and prepare students for fraction concepts. The discrete nature of symbols makes the "each symbol = X items" relationship visually concrete before transitioning to continuous bar representations. Research shows that visual-to-numeric bridging (moving from picture graphs to bar graphs) has effect sizes of 0.50-0.77 for elementary students' data literacy.
-> 
+>
 
 ## Shape:
 
@@ -1014,7 +1014,7 @@ Partial symbols representing values that are not complete scale multiples.
 
 - UX to provide visual/video
 
-**Description:** System shows mathematical comparisons between categories for instruction 
+**Description:** System shows mathematical comparisons between categories for instruction
 
 **Behavior:**
 
@@ -1168,7 +1168,7 @@ Target Audience: Grade 3 Unit 1, Grade 3 Unit 2, Grade 3 Unit 4
 > **WHAT:** A multi-method system for assembling multiplication expressions and equations using different input interfaces—multiple choice selection, dropdown menus, draggable tiles, or click-to-place tiles—to accommodate diverse learning styles and device capabilities.
 
 **WHY:** Equation Builder serves as the critical bridge between visual multiplication representations (equal groups, arrays) and symbolic mathematical notation. Providing multiple input methods addresses two essential needs: (1) **Pedagogical differentiation** - some students learn best by selecting complete equations (recognition), while others benefit from constructing expressions piece-by-piece (assembly), and (2) **Technical accessibility** - touch devices, trackpads, and mice each have different interaction strengths, so offering multiple methods ensures all students can effectively demonstrate understanding regardless of device. The progressive unlocking strategy (Method A only → Methods A+C/D → All methods) provides scaffolding as students transition from recognition to construction. By M10, when unknowns and equation flexibility (20 = 4 × 5) are introduced, students have fluency with the interface and can focus cognitive energy on mathematical concepts rather than interface mechanics. Supporting both numeric notation (3 × 4 = 12) and word-based expressions ("3 groups of 4 = 12") helps students maintain the conceptual connection between symbolic and verbal mathematical language.
-> 
+>
 
 **Scope:** Equation Builder is used across multiple units. This spec is organized as:
 
@@ -1967,7 +1967,7 @@ Target Audience: Grade 3 Unit 1
 > **WHAT:** A visual data display system using continuous horizontal or vertical bars where the height or length of each bar represents a quantitative value on a scaled axis with tick marks.
 
 **WHY:** Bar Graphs provide the critical transition from discrete (countable symbols) to continuous (measured lengths) representation of scaled data. This is a foundational shift in mathematical abstraction—students move from counting individual symbols to reading values from positions on an axis. The continuous nature of bars eliminates the cognitive load of counting and instead requires interpolation skills (reading between tick marks), which is essential for later work with measurement, number lines, and coordinate systems. Bar graphs also introduce the concept that data can be represented without individual countable units, preparing students for more abstract mathematical representations. The format is universally used in real-world contexts (newspapers, reports, scientific data), making this a critical life skill. Research on visual-to-numeric bridging shows that the explicit transition from picture graphs (discrete symbols) to bar graphs (continuous) has effect sizes of 0.50-0.77 for data literacy in elementary students. In M5, bar graphs uniquely support scale selection decision-making—students must evaluate data characteristics and choose appropriate scales, developing metacognitive skills about representation efficiency.
-> 
+>
 
 ## Shape:
 
@@ -2437,7 +2437,7 @@ Target Audience: Grade 3 Unit 1
 > **WHAT:** A two-column display system for organizing categorical data in table format with category labels and corresponding numerical or symbolic values.
 
 **WHY:** Data Tables provide the foundational structure for students to read, reference, and extract information when creating graphs. They establish the relationship between categories and quantities in a structured format that supports both reading comprehension and graph construction. The table format helps students understand data organization before translating it into visual representations. In early modules (M2-M3), symbol display mode provides explicit scaffolding for the grouping concept (each symbol = multiple items) before students work with pure numeric abstraction. This supports the critical transition from concrete counting to scaled representation.
-> 
+>
 
 ## Shape:
 
@@ -2663,7 +2663,7 @@ Target Audience: Grade 3 Unit 2, Grade 3 Unit 4
 > **WHAT:** Rectangular grid arrangements of objects or dots where items are organized in clear rows and columns, progressing from concrete objects (egg cartons, muffin tins) through mixed representations (concrete + dots side-by-side) to abstract dot grids, with interactive features that allow students to toggle between row and column interpretations and see the same array structure in multiple ways.
 
 **WHY:** Arrays are the critical second model of multiplication (after equal groups) and serve a fundamentally different pedagogical purpose: they make the **commutative property** visible and provable rather than merely stated. The system must support demonstrating that the same 3×4 array can be read as "3 rows of 4" OR "4 columns of 3," making it visually undeniable that 3×4 = 4×3 (same physical arrangement, different reading). This **representational duality** is a sophisticated mathematical concept that prepares students for algebraic thinking. The abstraction progression (concrete objects → mixed → dots) follows CRA principles but is compressed into M11-M12 because students already have multiplication fluency from M7-M10. Research shows that explicit instruction on both row and column interpretations (rather than defaulting to rows only) increases student performance on commutative property tasks by 0.45-0.62 effect sizes. Arrays are used for **property discovery**, not repetitive practice—the focus is helping students see and prove mathematical relationships through visual structure.
-> 
+>
 
 ## Shape:
 
@@ -3491,13 +3491,13 @@ Status: Initial Spec Draft
 
 ---
 
-> 
-> 
-> 
+>
+>
+>
 > **WHAT:** A sentence-frame response system where students complete statements by selecting words or phrases from icon-matched option palettes. One or more fill spaces are embedded inline within a sentence or paragraph. Each fill space is linked to its own palette of selectable options via a shared icon indicator, so students can track which space they are filling when multiple blanks are present.
-> 
+>
 > **WHY:** Fill-in-the-Blank tests whether students can supply the right word or phrase *within a meaningful context* — not just pick an answer from a list, but complete a mathematical statement, claim, or description. This requires comprehension of the surrounding sentence structure, not just recognition of the correct option in isolation. The format directly mirrors STAAR assessment items ("Choose the correct answer from each drop-down menu to complete the sentences"), so students build critical test-format familiarity. The icon-matching system solves a real cognitive tracking problem for young learners: when a sentence has two or three blanks, each with different option sets, students need a clear visual signal for "which choices go with which space." Without it, students waste cognitive energy on interface navigation instead of mathematical reasoning.
-> 
+>
 
 ## Shape 🟡
 
@@ -3518,17 +3518,17 @@ The containing text structure with one or more embedded fill spaces. The sentenc
 **Example (single blank):**
 
 > The stadium with the least number of seats is Stadium `[⚡ ________]`.
-> 
+>
 
 **Example (two blanks, icon-matched):**
 
 > Bryon's claim is `[⚡ ________]` because 1/8 of a model should be represented by `[🍃 ________]`.
-> 
+>
 
 **Example (two blanks, same content domain):**
 
 > The value of the 8 in the hundred thousands place is `[⚡ ________]` times greater than the value of the 8 in the thousands place. The value of the 8 in the hundred thousands place is `[🍃 ________]` times greater than the value of the 8 in the tens place.
-> 
+>
 
 ### Fill Space
 
@@ -3902,7 +3902,7 @@ Target Audience: Grade 3 Unit 1, Grade 3 Unit 4
 > **WHAT:** Visual representations showing multiplication through equal groups—multiple clusters of items where each cluster contains the same quantity. Items can be pictures (apples, cookies, stars) or dots, grouped using containers (bags, boxes, circles) or spatial separation. Items within each group may be arranged in patterns (including mini-array arrangements like 2×2).
 
 **WHY:** Equal groups provide the foundational visual model for understanding "3 × 4" as "3 groups of 4 items." This representation bridges concrete counting to abstract symbolic notation. The system must support multiple grouping methods (containers vs spacing), multiple item types (pictures vs dots), and various contexts (kitchen, garden, sports) to demonstrate multiplication's universal applicability. Interactive features (highlighting, counting animations, connection lines) transform static images into active learning tools where students explore structure rather than passively viewing. Research on CRA (Concrete-Representational-Abstract) approaches shows effect sizes of 0.67-0.85 for multiplication understanding, making flexible visual representation capabilities essential for effective digital instruction.
-> 
+>
 
 ## Shape
 
@@ -4612,7 +4612,7 @@ Equal Groups is one of the primary visual models for introducing division in Uni
 
 - Waiting on engineering implementation
 
-*CAT team will document workflow once equal groups visual implementation is* 
+*CAT team will document workflow once equal groups visual implementation is*
 
 ## Open Questions
 
@@ -4673,10 +4673,10 @@ Status: Initial Spec Draft
 ---
 
 > **WHAT:** A selection-based response system where students choose from 3+ pre-defined options displayed as clickable cards. Supports two selection modes: single-select (radio — choose one) and multi-select (checkbox — choose one or more). Options can contain text, equations, images, or extended passages. Layout adapts automatically based on option content length.
-> 
-> 
+>
+>
 > **WHY:** Response Input is the lowest-friction way for students to demonstrate understanding without construction overhead. It serves two distinct pedagogical roles: (1) **Recognition assessment** — confirming students can identify correct answers, relationships, or representations before being asked to produce them (e.g., selecting the correct expression before building one in Equation Builder), and (2) **Decision-making tasks** — choosing between strategies, categories, or interpretations where the cognitive work is in the evaluation, not the response mechanics. Single-select tests discrete judgment ("which one?"); multi-select tests categorical reasoning ("which ones belong?"). Both modes appear on STAAR and are essential test-format familiarity skills. By keeping response mechanics simple, cognitive energy stays on the mathematical thinking, not the interface.
-> 
+>
 
 ## Shape 🟡
 
@@ -4828,8 +4828,8 @@ Response Input is a response collection component. It does not perform teaching 
 
 **Behavior sequence:**
 
-1. Student's selection → correct state  OR incorrect state 
-2. If incorrect → correct option simultaneously shown in correct-reveal state 
+1. Student's selection → correct state  OR incorrect state
+2. If incorrect → correct option simultaneously shown in correct-reveal state
 3. States persist through Guide feedback dialogue
 4. System advances to next interaction (states clear)
 
@@ -5004,13 +5004,13 @@ Status: Initial Spec Draft
 
 ---
 
-> 
-> 
-> 
+>
+>
+>
 > **WHAT:** A screen-level container that composes a text stem, optional visual support, and a hosted response mechanism into a coherent problem-solving interaction. Word Problems is not itself a toy or response component — it is the orchestration layer that arranges domain toys (Bar Graphs, Arrays, Equal Groups), response components (Response Input, Fill-in-the-Blank, Equation Builder), and Guide dialogue into a structured problem-solving experience. For multi-step problems, it manages chained submission sequences where each step's result feeds into the next.
-> 
+>
 > **WHY:** Mathematical problem-solving requires students to integrate reading comprehension, information extraction, operation selection, and computation into a single coherent task. The Word Problem container ensures this integration happens in a consistent, scaffoldable way across all curriculum units. By separating the *container* (how a problem is presented and sequenced) from the *response mechanism* (how the student answers) and the *visual support* (what the student sees), each component can evolve independently while the problem-solving experience remains coherent. The multi-prompt architecture is particularly critical — it enables prompt-level remediation for multi-step problems (catching errors at Prompt 1 before they propagate to Prompt 2) while the single-prompt mode builds toward STAAR test independence where students must plan and execute without scaffolding.
-> 
+>
 
 ## Shape 🟡
 
@@ -6240,4 +6240,3 @@ Verify Lesson understanding before Practice. Tests whether student can read grap
 ## Prefill
 
 [
-

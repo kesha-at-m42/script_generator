@@ -34,9 +34,12 @@ def run_one(label, pipeline_name, module, unit, results):
     cmd = [
         sys.executable,
         str(project_root / "cli" / "run_pipeline.py"),
-        "-p", pipeline_name,
-        "-m", str(module),
-        "-u", str(unit),
+        "-p",
+        pipeline_name,
+        "-m",
+        str(module),
+        "-u",
+        str(unit),
         "-y",
     ]
 
@@ -66,9 +69,7 @@ def run_one(label, pipeline_name, module, unit, results):
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Run all pipeline types for a module in parallel"
-    )
+    parser = argparse.ArgumentParser(description="Run all pipeline types for a module in parallel")
     parser.add_argument("-m", "--module", type=int, required=True, help="Module number")
     parser.add_argument("-u", "--unit", type=int, default=1, help="Unit number (default: 1)")
     args = parser.parse_args()
@@ -100,7 +101,25 @@ def main():
         ok = results.get(label, False)
         print(f"  {label:12s}  {'OK' if ok else 'FAILED'}")
 
-    if not all(results.get(label, False) for label in labels):
+    all_ok = all(results.get(label, False) for label in labels)
+
+    if all_ok:
+        print("\n" + "=" * 60)
+        print("STITCHING TRACKED SCRIPTS (replace)")
+        print("=" * 60)
+        stitch_cmd = [
+            sys.executable,
+            str(project_root / "fixes" / "stitch_pipeline_outputs.py"),
+            "--unit",
+            f"unit{args.unit}",
+            "--module",
+            str(args.module),
+            "--replace",
+        ]
+        stitch_proc = subprocess.run(stitch_cmd, cwd=str(project_root))
+        if stitch_proc.returncode != 0:
+            print("[WARNING] Stitch failed — tracked_scripts not updated")
+    else:
         sys.exit(1)
 
 

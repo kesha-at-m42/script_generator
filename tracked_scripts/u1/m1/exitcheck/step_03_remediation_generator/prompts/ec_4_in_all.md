@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-03-05T18:10:41.522970
+# Generated: 2026-03-05T18:10:53.763029
 ======================================================================
 
 ## API Parameters
@@ -29,26 +29,26 @@ Cacheable: Yes
 <remediation_design_ref>
 # REMEDIATION DESIGN REFERENCE v3
 
-**Version:** 3.0  
-**Last Updated:** January 2026  
+**Version:** 3.0
+**Last Updated:** January 2026
 **Purpose:** Authoritative guide for all remediation across learning modules
 
 ---
 
 ## TABLE OF CONTENTS
 
-**SECTION 1** \- System Architecture Overview  
-**SECTION 2** \- Non-MC Remediation (Generic L-M-H)  
-**SECTION 3** \- MC Remediation (Per-Distractor Branching)  
-**SECTION 4** \- Light Remediation Language Patterns  
-**SECTION 5** \- Medium Remediation Language Patterns  
-**SECTION 6** \- Heavy Remediation Language Patterns  
-**SECTION 7** \- Post-Modeling Language  
-**SECTION 8** \- Error Signal Strategy  
-**SECTION 9** \- Misconception Tracking & Intervention Triggers  
-**SECTION 10** \- Intervention Activity Overview  
-**SECTION 11** \- Remediation by Phase  
-**SECTION 12** \- Quality Checklist  
+**SECTION 1** \- System Architecture Overview
+**SECTION 2** \- Non-MC Remediation (Generic L-M-H)
+**SECTION 3** \- MC Remediation (Per-Distractor Branching)
+**SECTION 4** \- Light Remediation Language Patterns
+**SECTION 5** \- Medium Remediation Language Patterns
+**SECTION 6** \- Heavy Remediation Language Patterns
+**SECTION 7** \- Post-Modeling Language
+**SECTION 8** \- Error Signal Strategy
+**SECTION 9** \- Misconception Tracking & Intervention Triggers
+**SECTION 10** \- Intervention Activity Overview
+**SECTION 11** \- Remediation by Phase
+**SECTION 12** \- Quality Checklist
 **SECTION 13** \- Output Format Examples
 
 ---
@@ -66,9 +66,9 @@ Cacheable: Yes
 
 **Why This Works:**
 
-- Non-MC errors are noisy—kids click wrong for many reasons  
-- MC distractors give clear diagnostic signal about thinking  
-- True misconceptions are caught by pattern tracking, not single-instance diagnosis  
+- Non-MC errors are noisy—kids click wrong for many reasons
+- MC distractors give clear diagnostic signal about thinking
+- True misconceptions are caught by pattern tracking, not single-instance diagnosis
 - Content volume becomes manageable without sacrificing quality
 
 ### 1.2 The Two Systems Working Together
@@ -88,9 +88,9 @@ PATTERN DETECTION (Background)
 
 ### 1.3 Core Principles (Unchanged)
 
-- **Sequential only:** Light → Medium → Heavy (max 3 attempts)  
-- **Never alternatives:** No "Try X or Y" or "Another way to think about it"  
-- **Progressive support:** Each level provides meaningfully more help  
+- **Sequential only:** Light → Medium → Heavy (max 3 attempts)
+- **Never alternatives:** No "Try X or Y" or "Another way to think about it"
+- **Progressive support:** Each level provides meaningfully more help
 - **System takeover:** After Heavy, system moves student forward
 
 ### 1.4 What Changed from v2
@@ -114,9 +114,9 @@ For all non-multiple-choice interactions (shading, partitioning, placing on numb
 
 ### 2.2 Why Generic Works
 
-- Single errors are noisy—we can't reliably diagnose from one mistake  
-- Pattern detection across multiple opportunities is more accurate  
-- Reduces content creation burden dramatically  
+- Single errors are noisy—we can't reliably diagnose from one mistake
+- Pattern detection across multiple opportunities is more accurate
+- Reduces content creation burden dramatically
 - Interventions (when triggered) provide better conceptual support than in-the-moment micro-corrections
 
 ### 2.3 Non-MC Flow
@@ -155,7 +155,7 @@ For multiple choice questions, we know exactly which wrong answer the student ch
 
 For a 4-option MC question (1 correct \+ 3 distractors):
 
-- **3 Medium remediations** (one per distractor)  
+- **3 Medium remediations** (one per distractor)
 - **1 Heavy remediation** (explains the correct answer)
 
 **No Light remediation for MC.** Rationale: If they knew the right answer, they would have picked it. A generic "check your answer" rarely helps when we have specific diagnostic information.
@@ -199,66 +199,66 @@ Metacognitive questions ("Which strategy would help?", "What should you check fi
 
 ## SECTION 4: Light Remediation Language Patterns
 
-**Length:** 10-20 words  
-**Tone:** Brief and direct  
-**Visual:** None  
+**Length:** 10-20 words
+**Tone:** Brief and direct
+**Visual:** None
 **Applies to:** Non-MC interactions only (MC skips Light)
 
 ### 4.1 With Error Signal (40-50% of interactions)
 
 Use at beginning of module, after successes, when student might think they're right:
 
-- "Not quite. \[specific guidance\]"  
-- "Almost. \[specific guidance\]"  
-- "Let's try again. \[specific guidance\]"  
-- "Let's look at this problem again."  
-- "Let's take another look."  
-- "Let's try that again."  
+- "Not quite. \[specific guidance\]"
+- "Almost. \[specific guidance\]"
+- "Let's try again. \[specific guidance\]"
+- "Let's look at this problem again."
+- "Let's take another look."
+- "Let's try that again."
 - "Let's look closely—\[specific guidance\]"
 
 ### 4.2 Without Error Signal (50-60% of interactions)
 
 Use mid-module, when error is obvious, to avoid repetition:
 
-- Direct guidance with no preamble  
-- "Check \[specific element\]"  
-- "Count \[specific element\]"  
-- "Focus on \[specific element\]"  
+- Direct guidance with no preamble
+- "Check \[specific element\]"
+- "Count \[specific element\]"
+- "Focus on \[specific element\]"
 - Simple imperative statements
 
 ### 4.3 Guidance Alternatives to "Remember"
 
 Save "Remember" for Medium/Heavy. At Light level, use:
 
-- "The key is..."  
-- "Focus on..."  
-- "Notice that..."  
-- "Here's what helps..."  
+- "The key is..."
+- "Focus on..."
+- "Notice that..."
+- "Here's what helps..."
 - "Check the..."
 
 ### 4.4 Light Examples
 
-- "Not quite. Count the shaded parts only."  
-- "Check the spacing between marks."  
-- "Focus on equal-sized parts."  
-- "Let's look closely—which parts are shaded?"  
+- "Not quite. Count the shaded parts only."
+- "Check the spacing between marks."
+- "Focus on equal-sized parts."
+- "Let's look closely—which parts are shaded?"
 - "Count from zero, not from one."
 
 ---
 
 ## SECTION 5: Medium Remediation Language Patterns
 
-**Length:** 20-30 words  
-**Tone:** Acknowledge struggle, collaborative  
-**Visual:** REQUIRED (from Visual Scaffolds TSV)  
+**Length:** 20-30 words
+**Tone:** Acknowledge struggle, collaborative
+**Visual:** REQUIRED (from Visual Scaffolds TSV)
 **Applies to:** Both Non-MC and MC
 
 ### 5.1 Approved Starters (Non-MC)
 
-- "Let's think about this together. \[specific help\]"  
-- "Here's a hint: \[specific clue\]"  
-- "You're working on it. Here's what helps: \[specific support\]"  
-- "You're getting there. The key is \[crucial detail\]"  
+- "Let's think about this together. \[specific help\]"
+- "Here's a hint: \[specific clue\]"
+- "You're working on it. Here's what helps: \[specific support\]"
+- "You're getting there. The key is \[crucial detail\]"
 - "Let's think about this a bit more. \[guidance\]"
 
 ### 5.2 MC Medium Structure
@@ -281,34 +281,34 @@ For MC, Medium is targeted to the specific distractor chosen:
 
 ### 5.3 Medium Examples (Non-MC)
 
-- "Let's think about this together. Four fourths equals 1, then three more fourths gets us to 7/4." \[Visual: Number line with 4/4 marked at 1\]  
-- "Here's a hint: each fourth stays the same size, even past 1." \[Visual: Equal jumps highlighted\]  
+- "Let's think about this together. Four fourths equals 1, then three more fourths gets us to 7/4." \[Visual: Number line with 4/4 marked at 1\]
+- "Here's a hint: each fourth stays the same size, even past 1." \[Visual: Equal jumps highlighted\]
 - "You're working on it. Count the shaded parts for the top number." \[Visual: Shaded sections pulse\]
 
 ### 5.4 "Remember" Usage
 
-- Maximum 2-3 times per entire module  
-- Medium/Heavy only (never Light)  
+- Maximum 2-3 times per entire module
+- Medium/Heavy only (never Light)
 - Use for genuinely important callbacks to prior learning
 
 ---
 
 ## SECTION 6: Heavy Remediation Language Patterns
 
-**Length:** 30-60 words  
-**Tone:** Full support, complete demonstration  
-**Visual:** REQUIRED (full modeling demonstration)  
-**Tag:** \[Modeling\] REQUIRED  
+**Length:** 30-60 words
+**Tone:** Full support, complete demonstration
+**Visual:** REQUIRED (full modeling demonstration)
+**Tag:** \[Modeling\] REQUIRED
 **Applies to:** Both Non-MC and MC
 
 ### 6.1 Approved Opening Language
 
-- "This is tricky, so let's work through it together..."  
-- "This can be tricky, so let's do it together."  
-- "Let me show you how this works."  
-- "Here, let me walk you through this one."  
-- "Let's work through this step by step..."  
-- "These can be challenging. Let me show you..."  
+- "This is tricky, so let's work through it together..."
+- "This can be tricky, so let's do it together."
+- "Let me show you how this works."
+- "Here, let me walk you through this one."
+- "Let's work through this step by step..."
+- "These can be challenging. Let me show you..."
 - "Let me help a bit more."
 
 ### 6.2 Heavy Structure (Non-MC)
@@ -343,30 +343,30 @@ After Heavy remediation with \[Modeling\], use **only** language that acknowledg
 
 ### 7.1 Approved Post-Modeling Phrases
 
-- "There we go."  
-- "See how that works?"  
-- "It's okay if this is tricky."  
-- "You're getting it now."  
-- "Now you understand."  
-- "That makes sense now, right?"  
-- "That's it—now you've got it."  
-- "Good—you understand now."  
+- "There we go."
+- "See how that works?"
+- "It's okay if this is tricky."
+- "You're getting it now."
+- "Now you understand."
+- "That makes sense now, right?"
+- "That's it—now you've got it."
+- "Good—you understand now."
 - "Now you see the pattern."
 
 ### 7.2 NEVER Use After Modeling
 
-- ❌ "Perfect\!" (they didn't do it alone)  
-- ❌ "You figured it out\!" (guide showed them)  
-- ❌ "Great job\!" (too independent)  
+- ❌ "Perfect\!" (they didn't do it alone)
+- ❌ "You figured it out\!" (guide showed them)
+- ❌ "Great job\!" (too independent)
 - ❌ "Excellent work\!" (overpraises assisted work)
 
 ### 7.3 Post-Modeling Transitions
 
 After Heavy remediation, move forward assuming understanding:
 
-- "Let's try another one."  
-- "Now let's continue."  
-- "Ready for the next?"  
+- "Let's try another one."
+- "Now let's continue."
+- "Ready for the next?"
 - "Let's keep going."
 
 ---
@@ -377,28 +377,28 @@ After Heavy remediation, move forward assuming understanding:
 
 Use error signals (40-50% of Light remediations) when:
 
-- Beginning of module (establish pattern)  
-- After successes (clear change signal)  
-- When student might think they're right  
+- Beginning of module (establish pattern)
+- After successes (clear change signal)
+- When student might think they're right
 - Ambiguous errors
 
 ### 8.2 When to Skip Error Signals
 
 Skip error signals (50-60% of Light remediations) when:
 
-- Error is obvious  
-- Would cause repetition  
-- Mid-module routine corrections  
+- Error is obvious
+- Would cause repetition
+- Mid-module routine corrections
 - Guidance itself implies error
 
 ### 8.3 Variety Requirement
 
 Never repeat the same error signal phrase within 3 interactions. Rotate through:
 
-- "Not quite."  
-- "Almost."  
-- "Let's try again."  
-- "Let's look at this problem again."  
+- "Not quite."
+- "Almost."
+- "Let's try again."
+- "Let's look at this problem again."
 - "Let's take another look."
 
 ---
@@ -434,13 +434,13 @@ System checks: Has any misconception hit threshold?
 
 **Tracked (feeds Intervention triggers):**
 
-- Misconception indicators (\#1-\#10)  
-- Tracked per visual type for accuracy  
+- Misconception indicators (\#1-\#10)
+- Tracked per visual type for accuracy
 - Combined at misconception level for Intervention trigger
 
 **Not Tracked for Intervention:**
 
-- Common procedural errors (counting mistakes, off-by-one)  
+- Common procedural errors (counting mistakes, off-by-one)
 - Random/ambiguous errors
 
 ### 9.4 Example Tracking Flow
@@ -466,8 +466,8 @@ Intervention Activities are **standalone instructional sequences** that address 
 
 ### 10.2 Intervention Scope
 
-- **\~10 total** (one per misconception)  
-- **Combines visuals** (not visual-specific)  
+- **\~10 total** (one per misconception)
+- **Combines visuals** (not visual-specific)
 - **Path-flexible** (may use visuals from multiple paths with worked examples)
 
 ### 10.3 Intervention Structure
@@ -480,14 +480,14 @@ Intervention Activities are **standalone instructional sequences** that address 
 
 ### 10.4 Queue Placement
 
-- Intervention replaces whatever activity would have been next  
-- Multiple triggers \= multiple Interventions queued with brain breaks between  
+- Intervention replaces whatever activity would have been next
+- Multiple triggers \= multiple Interventions queued with brain breaks between
 - Follows existing recess/break logic in Activity Queue
 
 ### 10.5 After Intervention
 
-- Rolling window lowers to 15 (from 20\)  
-- If misconception continues to appear, re-triggers faster  
+- Rolling window lowers to 15 (from 20\)
+- If misconception continues to appear, re-triggers faster
 - Alternative: Queue targeted Practice problems before re-triggering full Intervention
 
 ### 10.6 Intervention Design (Separate Document)
@@ -513,18 +513,18 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 
 **Modules 1-3 (Simple concepts):**
 
-- Light remediation may be sufficient for some interactions  
-- Simpler language appropriate  
+- Light remediation may be sufficient for some interactions
+- Simpler language appropriate
 - Don't force full L-M-H if unnecessary
 
 **Modules 4-8 (Building complexity):**
 
-- Full L-M-H progression more common  
+- Full L-M-H progression more common
 - Can reference earlier module strategies
 
 **Modules 9-12 (Complex concepts):**
 
-- Full L-M-H usually needed  
+- Full L-M-H usually needed
 - More nuanced explanations appropriate
 
 **Documentation:** Use \[Pedagogical\_Override\] when reality differs from stated requirements.
@@ -535,38 +535,38 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 
 ### 12.1 Non-MC Remediation Checklist
 
-- [ ] Generic L-M-H only (no branching by error type)  
-- [ ] Light: 10-20 words, no visual  
-- [ ] Medium: 20-30 words, visual REQUIRED  
-- [ ] Heavy: 30-60 words, \[Modeling\] tag REQUIRED, visual REQUIRED  
-- [ ] Different language at each level  
-- [ ] Post-modeling language acknowledges assistance (not independent success)  
+- [ ] Generic L-M-H only (no branching by error type)
+- [ ] Light: 10-20 words, no visual
+- [ ] Medium: 20-30 words, visual REQUIRED
+- [ ] Heavy: 30-60 words, \[Modeling\] tag REQUIRED, visual REQUIRED
+- [ ] Different language at each level
+- [ ] Post-modeling language acknowledges assistance (not independent success)
 - [ ] Validator tags probable error type (noted in script or separate)
 
 ### 12.2 MC Remediation Checklist
 
-- [ ] One Medium per distractor (3 distractors \= 3 Mediums)  
-- [ ] Each Medium targets specific error that distractor represents  
-- [ ] One Heavy explaining correct answer  
-- [ ] All Mediums have visual scaffolds  
-- [ ] Heavy has \[Modeling\] tag  
+- [ ] One Medium per distractor (3 distractors \= 3 Mediums)
+- [ ] Each Medium targets specific error that distractor represents
+- [ ] One Heavy explaining correct answer
+- [ ] All Mediums have visual scaffolds
+- [ ] Heavy has \[Modeling\] tag
 - [ ] No Light remediation (MC skips to Medium)
 
 ### 12.3 Variety Checklist (Per Module)
 
-- [ ] Minimum 8 different Light patterns (non-MC)  
-- [ ] 4-5 different Medium approaches  
-- [ ] "Remember" maximum 2-3 times total  
-- [ ] No exact phrase repeated within 3 problems  
+- [ ] Minimum 8 different Light patterns (non-MC)
+- [ ] 4-5 different Medium approaches
+- [ ] "Remember" maximum 2-3 times total
+- [ ] No exact phrase repeated within 3 problems
 - [ ] Error signals rotated (40-50% with signal)
 
 ### 12.4 Structure Violations (Never Include)
 
-- ❌ Alternative paths ("Try X or Y")  
-- ❌ Light remediation that teaches new content  
-- ❌ Medium without visual scaffold  
-- ❌ Heavy without \[Modeling\] tag  
-- ❌ Independent success praise after modeling  
+- ❌ Alternative paths ("Try X or Y")
+- ❌ Light remediation that teaches new content
+- ❌ Medium without visual scaffold
+- ❌ Heavy without \[Modeling\] tag
+- ❌ Independent success praise after modeling
 - ❌ More than 3 attempts before system takeover
 
 ---
@@ -610,7 +610,7 @@ Guide: "[Support]"
 Options:
 A) [Correct answer]
 B) [Distractor - represents error type X]
-C) [Distractor - represents error type Y]  
+C) [Distractor - represents error type Y]
 D) [Distractor - represents error type Z]
 
 [Student selects]
@@ -667,8 +667,8 @@ Or in a separate tracking document linked to interaction IDs.
 
 Validators may specify visual context for more precise tracking:
 
-- `Misconception_#3_RectangleBar`  
-- `Misconception_#3_NumberLine`  
+- `Misconception_#3_RectangleBar`
+- `Misconception_#3_NumberLine`
 - `Misconception_#3_Grid`
 
 These aggregate to the misconception level for Intervention triggers.
@@ -677,24 +677,24 @@ These aggregate to the misconception level for Intervention triggers.
 
 ## END OF DOCUMENT
 
-**Version:** 3.0  
-**Document Type:** Authoritative reference for script writers  
+**Version:** 3.0
+**Document Type:** Authoritative reference for script writers
 **Major Changes from v2.0:**
 
-- Simplified to two-track system (Non-MC generic, MC per-distractor)  
-- Removed three-type branching architecture  
-- Added Misconception Tracking & Intervention system overview  
-- Reduced content creation burden significantly  
+- Simplified to two-track system (Non-MC generic, MC per-distractor)
+- Removed three-type branching architecture
+- Added Misconception Tracking & Intervention system overview
+- Reduced content creation burden significantly
 - Clarified MC structure (Medium per distractor \+ single Heavy)
 
 **Related Documents:**
 
-- Remediation Addition Prompt v3 (for Console Claude)  
-- Intervention Activity Design Brief (for Intervention creation)  
-- Edtech Activity Queue Rulebook (for queue placement)  
+- Remediation Addition Prompt v3 (for Console Claude)
+- Intervention Activity Design Brief (for Intervention creation)
+- Edtech Activity Queue Rulebook (for queue placement)
 - Visual Scaffolds TSV (for visual specifications)
 
-**Maintenance:** Update version number and date when making changes  
+**Maintenance:** Update version number and date when making changes
 
 </remediation_design_ref>
 
@@ -1430,71 +1430,45 @@ Cacheable: Yes
 
 <input>
 {
-  "id": "ec_3_how_many_more",
-  "scene": [],
+  "id": "ec_4_in_all",
+  "scene": [
+    "bar_graph_books"
+  ],
   "steps": [
     [
       {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "bar_graph_books",
-        "tangible_type": "bar_graph",
-        "params": {
-          "mode": "reading",
-          "orientation": "vertical",
-          "scale": 1,
-          "categories": [
-            "Ava",
-            "Ben",
-            "Cara",
-            "Dan"
-          ],
-          "values": [
-            8,
-            5,
-            6,
-            3
-          ],
-          "axis_range": [
-            0,
-            8
-          ],
-          "description": "Vertical bar graph appears. Books Read This Week data. Ava=8, Ben=5, Cara=6, Dan=3. Axis marked 0-8 by 1s."
-        }
-      },
-      {
         "type": "dialogue",
-        "text": "How many more books did Ava read than Dan?"
+        "text": "Look at this Books Read This Week bar graph. How many books did Ben and Cara read in all?"
       },
       {
         "type": "prompt",
-        "text": "How many more books did Ava read than Dan?",
+        "text": "How many books did Ben and Cara read in all?",
         "tool": "multiple_choice",
         "options": [
-          3,
-          5,
-          8,
-          11
+          6,
+          9,
+          11,
+          14
         ],
         "validator": [
           {
             "condition": {
-              "selected": 5
+              "selected": 11
             },
-            "description": "Student selected 5 — correct, 8 minus 3 equals 5",
+            "description": "Student selected 11 — correct, 5 plus 6 equals 11",
             "is_correct": true,
             "steps": [
               [
                 {
                   "type": "dialogue",
-                  "text": "5 more books. Ava read 8, Dan read 3. The difference is 5."
+                  "text": "11 books in all. Ben read 5, Cara read 6. You added to find the total."
                 },
                 {
                   "type": "current_scene",
                   "elements": [
                     {
                       "tangible_id": "bar_graph_books",
-                      "description": "Vertical bar graph. Books Read This Week data. Ava and Dan bars highlighted, showing the difference of 5.",
+                      "description": "Vertical bar graph. Books Read This Week data. Ben and Cara bars highlighted, showing the total of 11.",
                       "tangible_type": "bar_graph",
                       "mode": "reading",
                       "orientation": "vertical",
@@ -1523,7 +1497,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "bar_graph_books",
-            "description": "Vertical bar graph in reading mode. Books Read This Week data. Ava=8, Ben=5, Cara=6, Dan=3. Axis 0-8. Multiple choice prompt active.",
+            "description": "Vertical bar graph in reading mode. Books Read This Week data. Ava=8, Ben=5, Cara=6, Dan=3. Multiple choice prompt active asking about Ben and Cara's combined total.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -1551,5 +1525,4 @@ Cacheable: Yes
 
 ## Prefill
 
-{"id": "ec_3_how_many_more", "incorrects": [
-
+{"id": "ec_4_in_all", "incorrects": [

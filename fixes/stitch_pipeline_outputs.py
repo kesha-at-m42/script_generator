@@ -134,11 +134,15 @@ def _merge_step(dest_step: Path, src_step: Path) -> None:
                     if dest_secs is not None:
                         merged = _merge_sections(dest_secs, src_secs)
                         out = merged if dest_shape == "list" else {**dest_data, "sections": merged}
-                        dest_f.write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+                        dest_f.write_text(
+                            json.dumps(out, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+                        )
                         continue
                 except Exception:
                     pass
-            dest_f.write_text(json.dumps(src_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+            dest_f.write_text(
+                json.dumps(src_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+            )
         else:
             shutil.copy2(f, dest_f)
 
@@ -152,7 +156,9 @@ def _merge_step(dest_step: Path, src_step: Path) -> None:
                 shutil.copy2(f, dest_subdir / f.name)
 
 
-def _stitch(pipeline_dir: Path, versions: list[str], dest: Path) -> None:
+def _stitch(pipeline_dir: Path, versions: list[str], dest: Path, replace: bool = False) -> None:
+    if replace and dest.exists():
+        shutil.rmtree(dest)
     dest_existed = dest.exists()
 
     for i, ver in enumerate(versions):
@@ -185,7 +191,9 @@ def _stitch(pipeline_dir: Path, versions: list[str], dest: Path) -> None:
                 data = json.loads(f.read_text(encoding="utf-8"))
                 secs, _ = _get_sections(data)
                 if secs:
-                    print(f"  {step_dir.name}/{f.name}: {len(secs)} sections — {[s.get('id') for s in secs]}")
+                    print(
+                        f"  {step_dir.name}/{f.name}: {len(secs)} sections — {[s.get('id') for s in secs]}"
+                    )
             except Exception:
                 pass
 
@@ -197,7 +205,9 @@ def run_new_mode(args) -> None:
     for script_type in types:
         pipeline_dir = _find_pipeline_dir(args.unit, args.module, script_type)
         if not pipeline_dir:
-            print(f"[SKIP] No pipeline dir found for {args.unit} module {args.module} {script_type}")
+            print(
+                f"[SKIP] No pipeline dir found for {args.unit} module {args.module} {script_type}"
+            )
             continue
 
         versions = args.versions or []
@@ -210,7 +220,7 @@ def run_new_mode(args) -> None:
 
         dest = TRACKED_DIR / unit_short / f"m{args.module}" / script_type
         print(f"\n{script_type}: {' + '.join(versions)} -> {dest.relative_to(project_root)}")
-        _stitch(pipeline_dir, versions, dest)
+        _stitch(pipeline_dir, versions, dest, replace=getattr(args, "replace", False))
 
     print("\nDone.")
 
@@ -281,7 +291,12 @@ def _load_id_map(old_pipeline: Path, new_pipeline: Path) -> dict[str, str]:
 
 def _rename_ids_in_json(data: object, id_map: dict[str, str]) -> object:
     if isinstance(data, list):
-        return [{**item, "id": id_map[item["id"]]} if isinstance(item, dict) and item.get("id") in id_map else item for item in data]
+        return [
+            {**item, "id": id_map[item["id"]]}
+            if isinstance(item, dict) and item.get("id") in id_map
+            else item
+            for item in data
+        ]
     return data
 
 
@@ -301,7 +316,9 @@ def _apply_id_renames(step_dir: Path, id_map: dict[str, str]) -> None:
         data = json.loads(json_file.read_text(encoding="utf-8"))
         renamed = _rename_ids_in_json(data, id_map)
         if renamed is not data:
-            json_file.write_text(json.dumps(renamed, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+            json_file.write_text(
+                json.dumps(renamed, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+            )
     _rename_section_files(step_dir, id_map)
 
 
@@ -325,7 +342,9 @@ def _overlay_step_legacy(dest_step: Path, new_step: Path) -> None:
             dest_data = json.loads(dest_json.read_text(encoding="utf-8"))
             if isinstance(dest_data, list):
                 new_data = _merge_json_arrays(dest_data, new_data)
-        dest_json.write_text(json.dumps(new_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        dest_json.write_text(
+            json.dumps(new_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+        )
 
     for subdir in new_step.iterdir():
         if not subdir.is_dir():
@@ -341,7 +360,12 @@ def _overlay_step_legacy(dest_step: Path, new_step: Path) -> None:
 
 
 def _derive_dest_legacy(new_pipeline: Path) -> Path | None:
-    _TYPE_MAP = {"lesson": "lesson", "warmup": "warmup", "exitcheck": "exit_check", "synthesis": "synthesis"}
+    _TYPE_MAP = {
+        "lesson": "lesson",
+        "warmup": "warmup",
+        "exitcheck": "exit_check",
+        "synthesis": "synthesis",
+    }
     pipeline_dir = new_pipeline.parent
     m = _PIPELINE_RE.match(pipeline_dir.name)
     if not m:
@@ -419,7 +443,9 @@ def run_legacy_mode(args) -> None:
 
             print(f"  [BASE]    {new_step_dir.name}  (from old '{old_step_tmp.name}')")
 
-        for suffix in sorted(new_steps, key=lambda s: int(_STEP_RE.match(new_steps[s].name).group(1))):
+        for suffix in sorted(
+            new_steps, key=lambda s: int(_STEP_RE.match(new_steps[s].name).group(1))
+        ):
             new_step_dir = new_steps[suffix]
             dest_step = dest / new_step_dir.name
 
@@ -427,7 +453,9 @@ def run_legacy_mode(args) -> None:
                 _overlay_step_legacy(dest_step, new_step_dir)
                 print(f"  [OVERLAY] {new_step_dir.name}")
             else:
-                shutil.copytree(new_step_dir, dest_step, ignore=shutil.ignore_patterns(*_SKIP_FILES))
+                shutil.copytree(
+                    new_step_dir, dest_step, ignore=shutil.ignore_patterns(*_SKIP_FILES)
+                )
                 print(f"  [NEW]     {new_step_dir.name}")
 
     for fname in ("metadata.json", "console.txt"):
@@ -444,18 +472,31 @@ def run_legacy_mode(args) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
 
     # Detect legacy mode: positional args provided
-    parser.add_argument("old_pipeline", nargs="?", type=Path, help="[LEGACY] Old pipeline version dir")
-    parser.add_argument("new_pipeline", nargs="?", type=Path, help="[LEGACY] New pipeline version dir")
+    parser.add_argument(
+        "old_pipeline", nargs="?", type=Path, help="[LEGACY] Old pipeline version dir"
+    )
+    parser.add_argument(
+        "new_pipeline", nargs="?", type=Path, help="[LEGACY] New pipeline version dir"
+    )
     parser.add_argument("--dest", type=Path, help="[LEGACY] Destination override")
 
     # New mode args
     parser.add_argument("--unit", default="unit1", help="Unit (e.g. unit1)")
     parser.add_argument("--module", help="Module number (e.g. 12)")
     parser.add_argument("--type", dest="script_type", choices=_SCRIPT_TYPES, help="Script type")
-    parser.add_argument("--versions", nargs="+", metavar="VERSION", help="Versions to stitch in order (e.g. v0 v11)")
+    parser.add_argument(
+        "--versions", nargs="+", metavar="VERSION", help="Versions to stitch in order (e.g. v0 v11)"
+    )
+    parser.add_argument(
+        "--replace",
+        action="store_true",
+        help="Delete existing tracked_scripts dest before stitching (full replacement, no merge)",
+    )
 
     args = parser.parse_args()
 
