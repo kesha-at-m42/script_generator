@@ -1,6 +1,8 @@
 import os
+
 import pytest
 from dotenv import load_dotenv
+
 load_dotenv()
 
 
@@ -24,6 +26,7 @@ def sandbox_page(request):
     """Create a blank child page under NOTION_PARENT_PAGE_ID, yield its ID, archive on teardown
     (unless --keep-sandbox is set)."""
     from utils.notion import get_notion_client, get_page_url
+
     client = get_notion_client()
     parent_id = os.environ["NOTION_PARENT_PAGE_ID"]
     test_name = request.node.name

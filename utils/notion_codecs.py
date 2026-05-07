@@ -11,6 +11,7 @@ Adding a new beat type or changing how an existing type renders in Notion:
 Changing the serialization format (JSON → TOML, etc.) is orthogonal: the codecs
 work with plain Python dicts regardless of how those dicts are read from disk.
 """
+
 from __future__ import annotations
 
 import difflib
@@ -184,12 +185,9 @@ class DialogueCodec(BeatCodec):
         if beat.get("type") != "dialogue":
             return None
         notion_words = [
-            re.sub(r"[^\w]", "", w)
-            for w in _strip_dialogue(_block_text(block)).lower().split()
+            re.sub(r"[^\w]", "", w) for w in _strip_dialogue(_block_text(block)).lower().split()
         ]
-        beat_words = [
-            re.sub(r"[^\w]", "", w) for w in (beat.get("text") or "").lower().split()
-        ]
+        beat_words = [re.sub(r"[^\w]", "", w) for w in (beat.get("text") or "").lower().split()]
         notion_words = [w for w in notion_words if w]
         beat_words = [w for w in beat_words if w]
         if not notion_words:

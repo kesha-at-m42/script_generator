@@ -38,18 +38,17 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from sp_parse_interactions import parse_sp, filter_by_gate
-
+from sp_parse_interactions import filter_by_gate, parse_sp
 
 # ---------------------------------------------------------------------------
 # Value extraction
 # ---------------------------------------------------------------------------
 
 # Patterns for extracting dimensions/values
-DIMENSION_RE = re.compile(r'(\d+)\s*[×x×]\s*(\d+)')                  # "4 × 6", "3x5"
-AREA_RE = re.compile(r'(\d+)\s*(?:square\s+units?|sq\s+units?)', re.IGNORECASE)
-SKIP_COUNT_RE = re.compile(r'(\d+)\s*[,\.]+\s*(\d+)\s*[,\.]+\s*(\d+)')  # "4... 8... 12"
-NUMERIC_ANSWER_RE = re.compile(r'\b(\d+)\b')
+DIMENSION_RE = re.compile(r"(\d+)\s*[×x×]\s*(\d+)")  # "4 × 6", "3x5"
+AREA_RE = re.compile(r"(\d+)\s*(?:square\s+units?|sq\s+units?)", re.IGNORECASE)
+SKIP_COUNT_RE = re.compile(r"(\d+)\s*[,\.]+\s*(\d+)\s*[,\.]+\s*(\d+)")  # "4... 8... 12"
+NUMERIC_ANSWER_RE = re.compile(r"\b(\d+)\b")
 
 
 def extract_values_from_interaction(ix) -> dict:
@@ -88,7 +87,7 @@ def extract_values_from_interaction(ix) -> dict:
                 values["areas"].append(area)
 
         # Correct Answer line — extract the primary number
-        if text.startswith('* **Correct Answer:**'):
+        if text.startswith("* **Correct Answer:**"):
             for m in NUMERIC_ANSWER_RE.finditer(text):
                 values["other_numbers"].add(int(m.group(1)))
 
@@ -99,6 +98,7 @@ def extract_values_from_interaction(ix) -> dict:
 # ---------------------------------------------------------------------------
 # Cross-phase comparison
 # ---------------------------------------------------------------------------
+
 
 def find_dimension_reuse(phase_values: dict) -> list:
     """Find exact dimension reuse across phases."""
@@ -118,15 +118,17 @@ def find_dimension_reuse(phase_values: dict) -> list:
 
     for dim, ix_id in ec_dims.items():
         if dim in lesson_dims:
-            findings.append({
-                "check": "DT4",
-                "severity": "MINOR",
-                "detail": f"EC interaction {ix_id} uses dimension {dim[0]}×{dim[1]} "
-                         f"which also appears in Lesson",
-                "interaction_id": ix_id,
-                "phase": "EC",
-                "dimension": f"{dim[0]}×{dim[1]}",
-            })
+            findings.append(
+                {
+                    "check": "DT4",
+                    "severity": "MINOR",
+                    "detail": f"EC interaction {ix_id} uses dimension {dim[0]}×{dim[1]} "
+                    f"which also appears in Lesson",
+                    "interaction_id": ix_id,
+                    "phase": "EC",
+                    "dimension": f"{dim[0]}×{dim[1]}",
+                }
+            )
 
     # Compare Synthesis dimensions against Lesson + EC
     all_prior_dims = set(lesson_dims)
@@ -137,15 +139,17 @@ def find_dimension_reuse(phase_values: dict) -> list:
     for ix_id, vals in phase_values.get("Synthesis", {}).items():
         for dim in vals["dimensions"]:
             if dim in all_prior_dims:
-                findings.append({
-                    "check": "DT5",
-                    "severity": "MINOR",
-                    "detail": f"Synthesis interaction {ix_id} uses dimension {dim[0]}×{dim[1]} "
-                             f"which also appears in Lesson/EC",
-                    "interaction_id": ix_id,
-                    "phase": "Synthesis",
-                    "dimension": f"{dim[0]}×{dim[1]}",
-                })
+                findings.append(
+                    {
+                        "check": "DT5",
+                        "severity": "MINOR",
+                        "detail": f"Synthesis interaction {ix_id} uses dimension {dim[0]}×{dim[1]} "
+                        f"which also appears in Lesson/EC",
+                        "interaction_id": ix_id,
+                        "phase": "Synthesis",
+                        "dimension": f"{dim[0]}×{dim[1]}",
+                    }
+                )
 
     # DT6: EC sub-items with identical correct answers (Known Pattern #54)
     ec_correct_answers = {}  # answer_value -> list of interaction IDs
@@ -158,17 +162,19 @@ def find_dimension_reuse(phase_values: dict) -> list:
 
     for answer_val, ix_ids in ec_correct_answers.items():
         if len(ix_ids) > 1:
-            findings.append({
-                "check": "DT6",
-                "severity": "MAJOR",
-                "detail": f"EC interactions {', '.join(ix_ids)} share identical correct "
-                         f"answer value {answer_val}. Later items lose diagnostic value — "
-                         f"student can select the answer without computing. "
-                         f"(Known Pattern #54)",
-                "interaction_ids": ix_ids,
-                "phase": "EC",
-                "value": answer_val,
-            })
+            findings.append(
+                {
+                    "check": "DT6",
+                    "severity": "MAJOR",
+                    "detail": f"EC interactions {', '.join(ix_ids)} share identical correct "
+                    f"answer value {answer_val}. Later items lose diagnostic value — "
+                    f"student can select the answer without computing. "
+                    f"(Known Pattern #54)",
+                    "interaction_ids": ix_ids,
+                    "phase": "EC",
+                    "value": answer_val,
+                }
+            )
 
     return findings
 
@@ -176,6 +182,7 @@ def find_dimension_reuse(phase_values: dict) -> list:
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
+
 
 def run_dimension_track(filepath: str, gate: int) -> dict:
     sp = parse_sp(filepath)
@@ -205,14 +212,16 @@ def run_dimension_track(filepath: str, gate: int) -> dict:
         phase_values.setdefault(ix.phase, {})[ix.id] = vals
 
         if vals["dimensions"] or vals["areas"]:
-            usage_table.append({
-                "phase": ix.phase,
-                "interaction_id": ix.id,
-                "title": ix.title[:50],
-                "dimensions": [f"{d[0]}×{d[1]}" for d in vals["dimensions"]],
-                "areas": vals["areas"],
-                "factors": vals["factors"],
-            })
+            usage_table.append(
+                {
+                    "phase": ix.phase,
+                    "interaction_id": ix.id,
+                    "title": ix.title[:50],
+                    "dimensions": [f"{d[0]}×{d[1]}" for d in vals["dimensions"]],
+                    "areas": vals["areas"],
+                    "factors": vals["factors"],
+                }
+            )
 
     # DT4/DT5: Cross-phase dimension reuse (gate 3+)
     if gate >= 3:
@@ -265,7 +274,9 @@ def format_dimension_section(result: dict) -> str:
             dims = ", ".join(row["dimensions"]) if row["dimensions"] else "-"
             areas = ", ".join(str(a) for a in row["areas"]) if row["areas"] else "-"
             factors = ", ".join(str(f) for f in row["factors"]) if row["factors"] else "-"
-            lines.append(f"| {row['phase']} | {row['interaction_id']} | {dims} | {areas} | {factors} |")
+            lines.append(
+                f"| {row['phase']} | {row['interaction_id']} | {dims} | {areas} | {factors} |"
+            )
         lines.append("")
 
     findings = result.get("findings", [])
@@ -308,8 +319,8 @@ def update_working_notes(filepath: str, new_section: str) -> None:
     # Pattern: ## DIMENSION TRACKING followed by content until next ## or EOF
     section_pattern = re.compile(
         r"(^## DIMENSION TRACKING\s*\n)"  # The header line
-        r"(.*?)"                           # Section content (non-greedy)
-        r"(?=^## |\Z)",                    # Until next H2 or end of file
+        r"(.*?)"  # Section content (non-greedy)
+        r"(?=^## |\Z)",  # Until next H2 or end of file
         re.MULTILINE | re.DOTALL,
     )
 
@@ -328,26 +339,28 @@ def update_working_notes(filepath: str, new_section: str) -> None:
 
 
 def print_findings_table(result: dict):
-    print(f"\n{'='*80}")
+    print(f"\n{'=' * 80}")
     print(f"DIMENSION TRACKING — {result['file']} — Gate {result['gate']}")
-    print(f"{'='*80}")
+    print(f"{'=' * 80}")
 
-    meta = result.get('meta', {})
-    usage = meta.get('usage_table', [])
+    meta = result.get("meta", {})
+    usage = meta.get("usage_table", [])
 
     if usage:
         print(f"\nDimension Usage Table ({len(usage)} interactions with values):")
         for row in usage:
-            dims = ', '.join(row['dimensions']) if row['dimensions'] else '-'
-            areas = ', '.join(str(a) for a in row['areas']) if row['areas'] else '-'
-            print(f"  {row['phase']:12s} | {row['interaction_id']:6s} | dims: {dims:15s} | areas: {areas}")
+            dims = ", ".join(row["dimensions"]) if row["dimensions"] else "-"
+            areas = ", ".join(str(a) for a in row["areas"]) if row["areas"] else "-"
+            print(
+                f"  {row['phase']:12s} | {row['interaction_id']:6s} | dims: {dims:15s} | areas: {areas}"
+            )
 
     print(f"\nFindings: {result['total_findings']}")
-    if result['findings']:
-        for f in result['findings']:
-            check = f.get('check', '?')
-            sev = f.get('severity', '?')
-            detail = f.get('detail', '')
+    if result["findings"]:
+        for f in result["findings"]:
+            check = f.get("check", "?")
+            sev = f.get("severity", "?")
+            detail = f.get("detail", "")
             print(f"  [{check}] {sev:8s} | {detail}")
     else:
         print("  ✓ No cross-phase dimension reuse found.")
@@ -359,10 +372,14 @@ def main():
     parser.add_argument("--gate", type=int, required=True, choices=[1, 2, 3, 4])
     parser.add_argument("--json", action="store_true")
     parser.add_argument("--output", type=str)
-    parser.add_argument("--working-notes", type=str, metavar="PATH",
-                        help="Write dimension tracking section to a Working Notes file. "
-                             "Replaces ONLY the '## DIMENSION TRACKING' section; "
-                             "all other sections are preserved.")
+    parser.add_argument(
+        "--working-notes",
+        type=str,
+        metavar="PATH",
+        help="Write dimension tracking section to a Working Notes file. "
+        "Replaces ONLY the '## DIMENSION TRACKING' section; "
+        "all other sections are preserved.",
+    )
     args = parser.parse_args()
 
     result = run_dimension_track(args.sp_file, args.gate)
@@ -371,14 +388,16 @@ def main():
     if args.working_notes:
         section_md = format_dimension_section(result)
         update_working_notes(args.working_notes, section_md)
-        print(f"Dimension tracking written to {args.working_notes} "
-              f"(§ DIMENSION TRACKING section only)")
+        print(
+            f"Dimension tracking written to {args.working_notes} "
+            f"(§ DIMENSION TRACKING section only)"
+        )
 
     if args.json or args.output:
         json_str = json.dumps(result, indent=2)
         if args.output:
-            os.makedirs(os.path.dirname(args.output) or '.', exist_ok=True)
-            with open(args.output, 'w') as f:
+            os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
+            with open(args.output, "w") as f:
                 f.write(json_str)
             print(f"Output written to {args.output}")
         if args.json:
@@ -387,5 +406,5 @@ def main():
         print_findings_table(result)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

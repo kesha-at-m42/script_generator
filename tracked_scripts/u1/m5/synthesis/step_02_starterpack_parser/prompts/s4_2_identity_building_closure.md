@@ -1,5 +1,5 @@
 # Prompt: starterpack_parser
-# Generated: 2026-04-20T11:58:34.515778
+# Generated: 2026-05-05T15:06:00.734572
 ======================================================================
 
 ## API Parameters
@@ -161,4 +161,3 @@ Cacheable: Yes
 ## Prefill
 
 {"id": "s4_2_identity_building_closure",
-

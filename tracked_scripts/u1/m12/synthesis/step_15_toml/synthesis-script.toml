@@ -1,0 +1,172 @@
+# synthesis-script.toml
+
+title = "synthesis"
+type = "sequence"
+
+# ---------------------------------------------------------------------------
+# Section 1 - opening_frame
+# ---------------------------------------------------------------------------
+
+[section_101_opening_frame]
+template = "array_template"
+
+[step_101_opening_frame]
+dialogue = "You've been using the [vocab]commutative property[/vocab] to solve problems, with arrays, without arrays, in all kinds of situations. Let's step back and connect what you discovered."
+components = ["SceneComponent"]
+
+# ---------------------------------------------------------------------------
+# Section 2 - strategy_consolidation_two_proofs
+# ---------------------------------------------------------------------------
+
+[section_102_strategy_consolidation_two_proofs]
+template = "array_template"
+
+[step_102_strategy_consolidation_two_proofs]
+dialogue = "Two ways to show the [vocab]commutative property[/vocab] works for multiplication. On the left, describing rows versus describing columns. On the right, rotation. What's the SAME about both?"
+components = ["PromptComponent"]
+prompt_text = "What do both proofs have in common?"
+
+[step_102.correct]
+dialogue = "Right. Same dots. That's the anchor. Whether you read it a different way or turn it, no dots change. Same dots means same total. Always."
+metadata = { sting_id = "on_correct" }
+
+[step_102.step_502]
+dialogue = "That's not it. Each method actually gives TWO different expressions: 4 × 5 and 5 × 4. What stayed exactly the same in both methods?"
+id = "both_methods_same"
+
+[step_102.step_503]
+dialogue = "Actually, both involve columns AND rows. In either method, what didn't change?"
+id = "both_use_columns_only"
+
+[step_102.step_504]
+dialogue = "Here's what I notice about these two methods. On the left, we looked at the same dots a different way, first by rows, then by columns. On the right, we turned the same dots. But in both cases, the dots themselves never changed. No dots added, no dots removed. Same dots, same total. That's the anchor."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 3 - generalization_always_works
+# ---------------------------------------------------------------------------
+
+[section_103_generalization_always_works]
+template = "array_template"
+
+[step_103_generalization_always_works]
+dialogue = "Here's one you haven't seen as an array today. 9 times 7 is 63. What's 7 times 9?"
+components = ["PromptComponent"]
+prompt_text = "If 9 × 7 = 63, what's 7 × 9?"
+
+[step_103.correct]
+dialogue = "Right, 63. You didn't need an array. You used the turn-around facts."
+metadata = { sting_id = "on_correct" }
+
+[step_103.step_506]
+dialogue = "Not quite. Here's a hint: think about turn-around facts. 9 times 7 equals 63. The turn-around fact means 7 times 9 equals the same product. Try again."
+id = "79"
+
+[step_103.step_507]
+dialogue = "Let's think about turn-around facts. We know 9 times 7 is 63. When we switch the factors around, we get the same product. What does 7 times 9 equal?"
+id = "56"
+
+[step_103.step_508]
+dialogue = "Here's what helps: you've seen that rotating an array doesn't change the total dots. That means the turn-around facts work even when you can't see the array. If 9 times 7 equals 63, then 7 times 9 has the same product. What will it equal?"
+id = "need_see_array"
+
+[step_103.step_509]
+dialogue = "Let's think through this. We know 9 times 7 equals 63. When we switch the factors, we get 7 times 9. The turn-around facts tell us this equals the same product: 63. You don't need an array because you know the turn-around facts."
+id = "heavy"
+
+[step_104_generalization_always_works]
+dialogue = "Will this work for ANY two numbers you multiply, not just the ones we tried?"
+components = ["PromptComponent"]
+prompt_text = "Does 'multiply factors in any order and get the same product' work for ALL numbers?"
+
+[step_104.correct]
+dialogue = "Exactly. Any two numbers. You could build an array for 9 × 7 and rotate it. Same dots, same product. You can imagine an array even when you don't see one. That's why mathematicians call it a property. It's always true."
+metadata = { sting_id = "on_correct" }
+
+[step_104.step_511]
+dialogue = "You're working on it. The key is that you could imagine an array for ANY two numbers. Whether it's 3 times 4 or 99 times 47, rotating the array always gives you the same dots. The property works for all numbers, not just small ones."
+id = "only_small_numbers"
+
+[step_104.step_512]
+dialogue = "Here's a hint: you can always imagine an array, even when you don't draw one. Whether you see 5 times 8 as rows and columns or not, switching the factors still gives you the same product. The property works even when you don't have an array in front of you."
+id = "only_with_array"
+
+[step_104.step_513]
+dialogue = "Let's think about this a bit more. The turn-around facts aren't about what you've memorized. They're about how multiplication itself works. Any two numbers, whether you know the fact or not, will give you the same product when you switch them. That's what makes it a property."
+id = "only_know_first_fact"
+
+[step_104.step_514]
+dialogue = "Let me walk you through this one. Imagine any two numbers, like 9 and 7. You could build an array with 9 rows and 7 columns. Now rotate it: 7 rows and 9 columns. Same dots, same product. This works for ANY two numbers, big or small, whether you see an array or just imagine one. That's why it's called a property. It's always true. It always works to multiply the factors in any order and get the same product."
+id = "heavy"
+
+[step_105_generalization_always_works]
+dialogue = "This isn't true for every operation. You can't always change the order. 8 minus 3 is NOT the same as 3 minus 8. But with multiplication, you can always switch the factors and get the same product. You already knew addition worked this way: 3 plus 5 equals 5 plus 3. Now you've proven multiplication works the same way."
+
+# ---------------------------------------------------------------------------
+# Section 4 - strategy_value_every_fact_has_partner
+# ---------------------------------------------------------------------------
+
+[section_104_strategy_value_every_fact_has_partner]
+template = "array_template"
+
+[step_106_strategy_value_every_fact_has_partner]
+dialogue = "Look at this. You learned 3 facts. But because you can multiply the factors in any order, you actually know 6 facts. Every fact gives you its partner for free."
+
+[step_107_strategy_value_every_fact_has_partner]
+dialogue = "Which of these is a good way to use this strategy?"
+components = ["PromptComponent"]
+prompt_text = "Which is a good use of the strategy?"
+
+[step_107.correct]
+dialogue = "That's it. No extra work. One fact, two answers. That's what makes this a strategy, it saves you time and effort."
+metadata = { sting_id = "on_correct" }
+
+[step_107.step_516]
+dialogue = "You're working on it. The key is that you don't NEED to compute both. Look at 3 × 8 and 8 × 3. They are turn-around facts. They give the same product. One fact tells you both answers."
+id = "compute_separately_to_be_sure"
+
+[step_107.step_517]
+dialogue = "Let's think about this together. The commutative property works with any multiplication, not just arrays. Whether you see a picture or just numbers, 5 × 7 and 7 × 5 both equal 35."
+id = "strategy_helps_with_array"
+
+[step_107.step_518]
+dialogue = "Let me explain. The strategy is about saving work. When you know 5 × 7 equals 35, you automatically know 7 × 5 equals 35 too. No extra computing needed. That is what makes it a strategy, it lets you skip work you would otherwise have to do."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 5 - key_takeaway_metacognitive
+# ---------------------------------------------------------------------------
+
+[section_105_key_takeaway_metacognitive]
+template = "array_template"
+
+[step_108_key_takeaway_metacognitive]
+dialogue = "If you had to remember ONE thing from today, what would it be?"
+components = ["PromptComponent"]
+prompt_text = "What's the one thing to remember?"
+
+[step_108.correct]
+dialogue = "Right. That's the big idea. The order doesn't change the product and you proved it."
+metadata = { sting_id = "on_correct" }
+
+# skipped correct branch: Arrays can be read by rows or columns
+
+# skipped correct branch: Rotation proves that rows become columns
+
+# skipped correct branch: Knowing one multiplication fact gives you its partner
+
+# ---------------------------------------------------------------------------
+# Section 6 - identity_building_closure
+# ---------------------------------------------------------------------------
+
+[section_106_identity_building_closure]
+template = "array_template"
+
+[step_109_identity_building_closure]
+dialogue = "Think about where you started. You found equal groups in bags and circles. You learned that multiplication means groups of the same size. You built expressions, then equations. You discovered arrays: organized groups with rows and columns. And today, you proved something powerful: you can multiply in any order and always get the same answer."
+
+[step_110_identity_building_closure]
+dialogue = "You didn't just memorize that. You proved it with highlighting and rotation. You used it as a strategy. That's real mathematical thinking."
+
+[step_111_identity_building_closure]
+dialogue = "Get ready."

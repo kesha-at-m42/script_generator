@@ -26,7 +26,7 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from sp_parse_interactions import parse_sp, filter_by_gate
+from sp_parse_interactions import filter_by_gate, parse_sp
 
 
 def check_interaction_constraints(lines: list) -> list:
@@ -36,39 +36,43 @@ def check_interaction_constraints(lines: list) -> list:
     found = False
     for line in lines:
         stripped = line.strip()
-        if re.match(r'^##\s+.*1\.5\b', stripped):
+        if re.match(r"^##\s+.*1\.5\b", stripped):
             in_15 = True
-        elif in_15 and re.match(r'^##\s+.*1\.[6-9]\b', stripped):
+        elif in_15 and re.match(r"^##\s+.*1\.[6-9]\b", stripped):
             break
-        if in_15 and 'interaction constraint' in stripped.lower():
+        if in_15 and "interaction constraint" in stripped.lower():
             found = True
             break
 
     if in_15 and not found:
-        findings.append({
-            "check": "TC4",
-            "severity": "MINOR",
-            "detail": "Interaction Constraints block not found in §1.5",
-        })
+        findings.append(
+            {
+                "check": "TC4",
+                "severity": "MINOR",
+                "detail": "Interaction Constraints block not found in §1.5",
+            }
+        )
     return findings
 
 
 def check_visual_suffix(interactions: list) -> list:
     """TC5: No descriptive suffixes on toy names in Visual: lines."""
     findings = []
-    suffix_re = re.compile(r'—\s*(Reduced|Full|Limited|Extended|Modified|Simplified)')
+    suffix_re = re.compile(r"—\s*(Reduced|Full|Limited|Extended|Modified|Simplified)")
     for ix in interactions:
         if ix.visual_text and suffix_re.search(ix.visual_text):
             match = suffix_re.search(ix.visual_text)
-            findings.append({
-                "check": "TC5",
-                "severity": "MINOR",
-                "interaction_id": ix.id,
-                "phase": ix.phase,
-                "line_number": ix.line_number,
-                "detail": f"Descriptive suffix in Visual: line — '{match.group()}'",
-                "context": ix.visual_text[:100],
-            })
+            findings.append(
+                {
+                    "check": "TC5",
+                    "severity": "MINOR",
+                    "interaction_id": ix.id,
+                    "phase": ix.phase,
+                    "line_number": ix.line_number,
+                    "detail": f"Descriptive suffix in Visual: line — '{match.group()}'",
+                    "context": ix.visual_text[:100],
+                }
+            )
     return findings
 
 
@@ -88,12 +92,14 @@ def run_toy_check(filepath: str, gate: int) -> dict:
         toys_in_visuals = sp_filtered.toys_in_interactions
         for toy in toys_in_visuals:
             if toy.lower() not in toys_in_spec:
-                all_findings.append({
-                    "check": "TC1",
-                    "severity": "MAJOR",
-                    "detail": f"Toy '{toy}' in Visual: line not found in §1.5 spec",
-                    "toy": toy,
-                })
+                all_findings.append(
+                    {
+                        "check": "TC1",
+                        "severity": "MAJOR",
+                        "detail": f"Toy '{toy}' in Visual: line not found in §1.5 spec",
+                        "toy": toy,
+                    }
+                )
 
         # TC5: Visual suffix check
         all_findings.extend(check_visual_suffix(sp_filtered.interactions))
@@ -103,12 +109,14 @@ def run_toy_check(filepath: str, gate: int) -> dict:
         used = set(t.lower() for t in sp_filtered.toys_in_interactions)
         for toy in toys_in_spec_original:
             if toy.lower() not in used:
-                all_findings.append({
-                    "check": "TC2",
-                    "severity": "MINOR",
-                    "detail": f"Toy '{toy}' defined in §1.5 but not found in any Visual: line",
-                    "toy": toy,
-                })
+                all_findings.append(
+                    {
+                        "check": "TC2",
+                        "severity": "MINOR",
+                        "detail": f"Toy '{toy}' defined in §1.5 but not found in any Visual: line",
+                        "toy": toy,
+                    }
+                )
 
     checks_run = sorted(set(f["check"] for f in all_findings)) or ["TC1", "TC4"]
 
@@ -137,24 +145,24 @@ def run_toy_check(filepath: str, gate: int) -> dict:
 
 
 def print_findings_table(result: dict):
-    print(f"\n{'='*80}")
+    print(f"\n{'=' * 80}")
     print(f"TOY CONSISTENCY — {result['file']} — Gate {result['gate']}")
-    print(f"{'='*80}")
-    meta = result.get('meta', {})
+    print(f"{'=' * 80}")
+    meta = result.get("meta", {})
     print(f"Toys in §1.5: {meta.get('toys_in_spec', [])}")
     print(f"Toys in interactions: {meta.get('toys_in_interactions', [])}")
     print(f"Total findings: {result['total_findings']}")
 
-    if result['severity_counts']:
-        parts = [f"{k}: {v}" for k, v in sorted(result['severity_counts'].items())]
+    if result["severity_counts"]:
+        parts = [f"{k}: {v}" for k, v in sorted(result["severity_counts"].items())]
         print(f"Severity: {', '.join(parts)}")
 
-    if result['findings']:
-        print(f"\n{'─'*80}")
-        for f in result['findings']:
-            check = f.get('check', '?')
-            sev = f.get('severity', '?')
-            detail = f.get('detail', '')
+    if result["findings"]:
+        print(f"\n{'─' * 80}")
+        for f in result["findings"]:
+            check = f.get("check", "?")
+            sev = f.get("severity", "?")
+            detail = f.get("detail", "")
             print(f"  [{check}] {sev:8s} | {detail}")
     else:
         print("\n  ✓ No findings.")
@@ -173,8 +181,8 @@ def main():
     if args.json or args.output:
         json_str = json.dumps(result, indent=2)
         if args.output:
-            os.makedirs(os.path.dirname(args.output) or '.', exist_ok=True)
-            with open(args.output, 'w') as f:
+            os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
+            with open(args.output, "w") as f:
                 f.write(json_str)
             print(f"Output written to {args.output}")
         if args.json:
@@ -183,5 +191,5 @@ def main():
         print_findings_table(result)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

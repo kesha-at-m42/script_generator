@@ -8,7 +8,7 @@
       "tangible_type": "word_problem_area",
       "params": {
         "stem": "A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes.",
-        "description": "Text scenario appears: A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes."
+        "description": "Text scenario appears describing store shelf with juice box packs."
       }
     },
     {
@@ -20,19 +20,19 @@
       "elements": [
         {
           "tangible_id": "word_problem_real_world",
-          "description": "Text scenario displayed: A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes.",
-          "tangible_type": "word_problem_area"
+          "tangible_type": "word_problem_area",
+          "description": "Text scenario on screen: store shelf with 4 packs of juice boxes, 6 per pack."
         }
       ]
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "equal_groups_juice",
+      "tangible_id": "equal_groups_shelf",
       "tangible_type": "equal_groups",
       "params": {
         "mode": "building",
-        "description": "Equal groups building interface appears. Empty workspace ready for student to set container count."
+        "description": "Equal groups builder appears. Empty workspace ready for student to build the shelf scene."
       }
     },
     {
@@ -40,10 +40,14 @@
       "text": "Can you build what the shelf looks like?"
     },
     {
+      "type": "dialogue",
+      "text": "How many groups? Set the packs."
+    },
+    {
       "type": "prompt",
       "text": "How many groups? Set the packs.",
       "tool": "set_container_count",
-      "target": "equal_groups_juice",
+      "target": "equal_groups_shelf",
       "validator": [
         {
           "condition_id": "correct",
@@ -66,15 +70,14 @@
       "elements": [
         {
           "tangible_id": "word_problem_real_world",
-          "description": "Text scenario: A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes.",
-          "tangible_type": "word_problem_area"
+          "tangible_type": "word_problem_area",
+          "description": "Text scenario remains visible."
         },
         {
-          "tangible_id": "equal_groups_juice",
-          "description": "Equal groups in building mode. 4 empty containers displayed. Ready for items per container.",
+          "tangible_id": "equal_groups_shelf",
           "tangible_type": "equal_groups",
           "mode": "building",
-          "container_count": 4
+          "description": "Equal groups builder with 4 empty containers displayed, awaiting items-per-container setting."
         }
       ]
     },
@@ -86,7 +89,7 @@
       "type": "prompt",
       "text": "How many in each pack? Add the juice boxes.",
       "tool": "set_items_per_container",
-      "target": "equal_groups_juice",
+      "target": "equal_groups_shelf",
       "validator": [
         {
           "condition_id": "correct",
@@ -109,16 +112,14 @@
       "elements": [
         {
           "tangible_id": "word_problem_real_world",
-          "description": "Text scenario: A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes.",
-          "tangible_type": "word_problem_area"
+          "tangible_type": "word_problem_area",
+          "description": "Text scenario remains visible."
         },
         {
-          "tangible_id": "equal_groups_juice",
-          "description": "Equal groups showing 4 containers, each containing 6 items. Complete representation of the juice box scenario.",
+          "tangible_id": "equal_groups_shelf",
           "tangible_type": "equal_groups",
           "mode": "building",
-          "container_count": 4,
-          "items_per_container": 6
+          "description": "4 containers, each containing 6 items. Complete equal groups representation of the store shelf."
         }
       ]
     },
@@ -131,19 +132,17 @@
       "elements": [
         {
           "tangible_id": "word_problem_real_world",
-          "description": "Text scenario: A store shelf has 4 packs of juice boxes. Each pack has 6 juice boxes.",
-          "tangible_type": "word_problem_area"
+          "tangible_type": "word_problem_area",
+          "description": "Text scenario remains visible."
         },
         {
-          "tangible_id": "equal_groups_juice",
-          "description": "Equal groups showing 4 containers, each containing 6 items. Represents the completed real-world scenario.",
+          "tangible_id": "equal_groups_shelf",
           "tangible_type": "equal_groups",
           "mode": "building",
-          "container_count": 4,
-          "items_per_container": 6
+          "description": "Completed equal groups showing 4 packs with 6 juice boxes each."
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:00:34.105941+00:00"
+  "_generated_at": "2026-04-27T15:54:11.896253+00:00"
 }

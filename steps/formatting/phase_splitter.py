@@ -35,7 +35,7 @@ PHASE_FILES = {
 #   "## 1.6 WARMUP", "## **1.6 WARMUP (~3 minutes)**"
 # Requiring exactly ## prevents sub-headings like "### Exit Check Closure" from matching.
 _SECTION_RE = re.compile(
-    r'^(##\s+\**\s*(?:\d+\.\d+\s+)?(WARMUP|LESSON|EXIT CHECK|SYNTHESIS)\b)',
+    r"^(##\s+\**\s*(?:\d+\.\d+\s+)?(WARMUP|LESSON|EXIT CHECK|SYNTHESIS)\b)",
     re.IGNORECASE | re.MULTILINE,
 )
 
@@ -44,30 +44,31 @@ _SECTION_RE = re.compile(
 # HTML table → markdown converter
 # ---------------------------------------------------------------------------
 
+
 def _parse_table(table_html: str) -> str:
     """Convert a single <table> block to a markdown table string."""
     has_header = 'header-row="true"' in table_html or "header-row='true'" in table_html
 
     # Extract all rows
-    rows = re.findall(r'<tr[^>]*>(.*?)</tr>', table_html, re.DOTALL)
+    rows = re.findall(r"<tr[^>]*>(.*?)</tr>", table_html, re.DOTALL)
     if not rows:
         return table_html  # can't parse — return as-is
 
     md_rows = []
     for row in rows:
         # Extract cells (td or th)
-        cells = re.findall(r'<t[dh][^>]*>(.*?)</t[dh]>', row, re.DOTALL)
+        cells = re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", row, re.DOTALL)
         # Clean cell content: strip inner HTML tags, normalise whitespace
         cleaned = []
         for cell in cells:
             # Replace <br> with space
-            cell = re.sub(r'<br\s*/?>', ' ', cell, flags=re.IGNORECASE)
+            cell = re.sub(r"<br\s*/?>", " ", cell, flags=re.IGNORECASE)
             # Strip remaining HTML tags
-            cell = re.sub(r'<[^>]+>', '', cell)
+            cell = re.sub(r"<[^>]+>", "", cell)
             # Collapse whitespace, strip
-            cell = re.sub(r'\s+', ' ', cell).strip()
+            cell = re.sub(r"\s+", " ", cell).strip()
             # Escape pipe characters inside cells
-            cell = cell.replace('|', '/')
+            cell = cell.replace("|", "/")
             cleaned.append(cell)
         if cleaned:
             md_rows.append(cleaned)
@@ -79,42 +80,44 @@ def _parse_table(table_html: str) -> str:
     ncols = max(len(r) for r in md_rows)
 
     # Pad all rows to same width
-    md_rows = [r + [''] * (ncols - len(r)) for r in md_rows]
+    md_rows = [r + [""] * (ncols - len(r)) for r in md_rows]
 
     lines = []
     if has_header:
         # First row is the header
-        lines.append('| ' + ' | '.join(md_rows[0]) + ' |')
-        lines.append('| ' + ' | '.join(['---'] * ncols) + ' |')
+        lines.append("| " + " | ".join(md_rows[0]) + " |")
+        lines.append("| " + " | ".join(["---"] * ncols) + " |")
         for row in md_rows[1:]:
-            lines.append('| ' + ' | '.join(row) + ' |')
+            lines.append("| " + " | ".join(row) + " |")
     else:
         for row in md_rows:
-            lines.append('| ' + ' | '.join(row) + ' |')
+            lines.append("| " + " | ".join(row) + " |")
 
-    return '\n'.join(lines)
+    return "\n".join(lines)
 
 
 def _convert_html_tables(text: str) -> str:
     """Replace all <table>...</table> blocks with markdown tables."""
+
     def replace_table(m):
         return _parse_table(m.group(0))
 
-    return re.sub(r'<table[^>]*>.*?</table>', replace_table, text, flags=re.DOTALL)
+    return re.sub(r"<table[^>]*>.*?</table>", replace_table, text, flags=re.DOTALL)
 
 
 def _clean_notion_markup(text: str) -> str:
     """Remove Notion-specific XML tags that aren't content."""
     # Remove colgroup/col blocks entirely
-    text = re.sub(r'<colgroup>.*?</colgroup>', '', text, flags=re.DOTALL)
+    text = re.sub(r"<colgroup>.*?</colgroup>", "", text, flags=re.DOTALL)
     # Remove any remaining lone HTML tags (not inside tables — those are handled above)
-    text = re.sub(r'<(?:br|hr)\s*/?>', '\n', text, flags=re.IGNORECASE)
+    text = re.sub(r"<(?:br|hr)\s*/?>", "\n", text, flags=re.IGNORECASE)
     return text
 
 
 # ---------------------------------------------------------------------------
 # Section splitter
 # ---------------------------------------------------------------------------
+
 
 def _split_phases(text: str) -> dict:
     """
@@ -151,6 +154,7 @@ def _split_phases(text: str) -> dict:
 # ---------------------------------------------------------------------------
 # Main entry point
 # ---------------------------------------------------------------------------
+
 
 def split_phases(
     input_data,

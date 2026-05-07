@@ -12,7 +12,7 @@
         "elements": []
       }
     ],
-    "_generated_at": "2026-04-20T16:58:53.642742+00:00"
+    "_generated_at": "2026-05-05T20:06:10.091522+00:00"
   },
   {
     "id": "s1_1_scale_too_small_identify",
@@ -40,13 +40,23 @@
             "Cora",
             "Dan"
           ],
+          "axis_range": [
+            0,
+            80
+          ],
           "scale_options": [
             1,
             2,
             5,
             10
           ],
-          "description": "Four scale options displayed below the data table. Scale of 1, 2, and 5 marked with ❌ and 'doesn't fit'. Scale of 10 marked with ✓."
+          "scale_indicators": {
+            "1": "doesn't fit",
+            "2": "doesn't fit",
+            "5": "doesn't fit",
+            "10": "works"
+          },
+          "description": "Vertical bar graph for Toys Collected data. Four scale options displayed below with indicators: Scale of 1, 2, and 5 marked with ❌ 'doesn't fit'. Scale of 10 marked with ✓."
         }
       },
       {
@@ -69,12 +79,12 @@
             "condition": {
               "selected": "Scale of 10"
             },
-            "description": "Student selected Scale of 10, correct",
+            "description": "Student selected Scale of 10, correct choice for data up to 70",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "Scale of 10. For data up to 70, Scale of 2 would need too many lines and Scale of 5 would need fewer, but still many lines. Scale of 10 only needs 8, much easier to read."
+                "text": "Scale of 10. For data up to 70, Scale of 2 would need too many lines and Scale of 5 would need fewer, but still many lines. Scale of 10 only needs 8. Much easier to read."
               }
             ]
           }
@@ -85,12 +95,12 @@
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Vertical data table showing Toys Collected values: Amy: 45, Ben: 70, Cora: 15, Dan: 30.",
+            "description": "Vertical data table showing Toys Collected: Amy 45, Ben 70, Cora 15, Dan 30.",
             "tangible_type": "data_table"
           },
           {
             "tangible_id": "bar_graph_toys",
-            "description": "Bar graph with scale options displayed. Scale of 10 selected and confirmed.",
+            "description": "Vertical bar graph for Toys Collected. Scale options 1, 2, 5, 10 shown with indicators. Multiple choice tool active.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -100,17 +110,15 @@
               "Cora",
               "Dan"
             ],
-            "scale_options": [
-              1,
-              2,
-              5,
-              10
+            "axis_range": [
+              0,
+              80
             ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T16:59:03.822445+00:00"
+    "_generated_at": "2026-05-05T20:06:24.679009+00:00"
   },
   {
     "id": "s1_2_non_multiples_need_scale_2",
@@ -121,7 +129,20 @@
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
-          "description": "Horizontal data table appears. Minutes Reading data. Gus: 23, Hal: 31, Eli: 9, Fay: 16."
+          "categories": [
+            "Gus",
+            "Hal",
+            "Eli",
+            "Fay"
+          ],
+          "values": [
+            23,
+            31,
+            9,
+            16
+          ],
+          "title": "Minutes Reading",
+          "description": "Horizontal data table appears. Minutes Reading. Gus: 23, Hal: 31, Eli: 9, Fay: 16."
         }
       },
       {
@@ -151,6 +172,34 @@
                 "text": "Scale of 2. The biggest value of 31 could work with Scale of 2 or Scale of 5. Then check those digits in the ones place: 3, 1, 9, 6. None are 0 or 5 so they aren't multiples of 5. That's your Scale of 2 signal to show the exact values on the graph."
               }
             ]
+          },
+          {
+            "condition_id": "scale_5",
+            "condition": {
+              "selected": "Scale of 5"
+            },
+            "description": "Student selected Scale of 5, incorrect — values are not multiples of 5",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Scale of 5 works when the biggest number is 31, but we can't show the exact bars because 23, 31, 9, 16 aren't multiples of 5."
+              }
+            ]
+          },
+          {
+            "condition_id": "scale_10",
+            "condition": {
+              "selected": "Scale of 10"
+            },
+            "description": "Student selected Scale of 10, incorrect — numbers are too small",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "These numbers are too small for Scale of 10 and we wouldn't know exactly where to draw the bars."
+              }
+            ]
           }
         ]
       },
@@ -159,13 +208,26 @@
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Horizontal data table. Minutes Reading data. Gus: 23, Hal: 31, Eli: 9, Fay: 16.",
-            "tangible_type": "data_table"
+            "description": "Horizontal data table. Minutes Reading. Gus: 23, Hal: 31, Eli: 9, Fay: 16.",
+            "tangible_type": "data_table",
+            "categories": [
+              "Gus",
+              "Hal",
+              "Eli",
+              "Fay"
+            ],
+            "values": [
+              23,
+              31,
+              9,
+              16
+            ],
+            "title": "Minutes Reading"
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T16:59:10.583732+00:00"
+    "_generated_at": "2026-05-05T20:06:38.911779+00:00"
   },
   {
     "id": "s1_3_select_appropriate_scale_compare",
@@ -173,10 +235,24 @@
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "data_table",
+        "tangible_id": "data_table_steps",
         "tangible_type": "data_table",
         "params": {
-          "description": "Vertical data table appears. Steps Walked data. Ana: 30, Ben: 70, Cara: 90, Dan: 50."
+          "orientation": "vertical",
+          "title": "Steps Walked",
+          "categories": [
+            "Ana",
+            "Ben",
+            "Cara",
+            "Dan"
+          ],
+          "values": [
+            30,
+            70,
+            90,
+            50
+          ],
+          "description": "Vertical data table appears. Steps Walked data — Ana: 30, Ben: 70, Cara: 90, Dan: 50."
         }
       },
       {
@@ -198,7 +274,7 @@
             "condition": {
               "selected": "Scale of 10 — it's easiest to read."
             },
-            "description": "Student selected Scale of 10, correct",
+            "description": "Student selected Scale of 10, correct for data up to 90",
             "is_correct": true,
             "beats": [
               {
@@ -212,7 +288,7 @@
             "condition": {
               "selected": "Scale of 5 — it shows more detail."
             },
-            "description": "Student selected Scale of 5, incorrect",
+            "description": "Student selected Scale of 5, not best choice for data up to 90",
             "is_correct": false,
             "beats": [
               {
@@ -226,7 +302,7 @@
             "condition": {
               "selected": "Scale of 2 — it works for any numbers."
             },
-            "description": "Student selected Scale of 2, incorrect",
+            "description": "Student selected Scale of 2, too small for data up to 90",
             "is_correct": false,
             "beats": [
               {
@@ -241,14 +317,28 @@
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "data_table",
-            "description": "Vertical data table showing Steps Walked data. Ana: 30, Ben: 70, Cara: 90, Dan: 50.",
-            "tangible_type": "data_table"
+            "tangible_id": "data_table_steps",
+            "description": "Vertical data table showing Steps Walked data — Ana: 30, Ben: 70, Cara: 90, Dan: 50.",
+            "tangible_type": "data_table",
+            "orientation": "vertical",
+            "title": "Steps Walked",
+            "categories": [
+              "Ana",
+              "Ben",
+              "Cara",
+              "Dan"
+            ],
+            "values": [
+              30,
+              70,
+              90,
+              50
+            ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T16:59:19.305568+00:00"
+    "_generated_at": "2026-05-05T20:06:55.353629+00:00"
   },
   {
     "id": "s1_4_exit_check_closure",
@@ -263,6 +353,6 @@
         "elements": []
       }
     ],
-    "_generated_at": "2026-04-20T16:59:22.002737+00:00"
+    "_generated_at": "2026-05-05T20:07:00.533421+00:00"
   }
 ]

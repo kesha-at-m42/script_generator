@@ -9,10 +9,10 @@ Examples:
     python list.py problem_generator  # List all versions of a specific pipeline
 """
 
-import sys
 import argparse
-from pathlib import Path
 import json
+import sys
+from pathlib import Path
 
 
 def format_duration(seconds):
@@ -37,13 +37,17 @@ Status Filtering Examples:
   python list.py problem_generator --all              # Show all statuses
   python list.py problem_generator --status final     # Show only final
   python list.py problem_generator --status beta rc   # Show beta and rc
-        """
+        """,
     )
     parser.add_argument("pipeline_name", nargs="?", help="Pipeline name (optional)")
-    parser.add_argument("--all", action="store_true",
-                       help="Show all versions (including draft and deprecated)")
-    parser.add_argument("--status", nargs="+",
-                       help="Filter by specific status(es): draft, alpha, beta, rc, final, deprecated")
+    parser.add_argument(
+        "--all", action="store_true", help="Show all versions (including draft and deprecated)"
+    )
+    parser.add_argument(
+        "--status",
+        nargs="+",
+        help="Filter by specific status(es): draft, alpha, beta, rc, final, deprecated",
+    )
 
     args = parser.parse_args()
 
@@ -65,7 +69,7 @@ Status Filtering Examples:
     from path_manager import get_project_paths
 
     paths = get_project_paths()
-    outputs_dir = paths['outputs']
+    outputs_dir = paths["outputs"]
 
     if not outputs_dir.exists():
         print("No outputs directory found")
@@ -77,7 +81,7 @@ Status Filtering Examples:
 
         if not pipeline_dir.exists():
             print(f"Error: Pipeline '{args.pipeline_name}' not found")
-            print(f"\nAvailable pipelines:")
+            print("\nAvailable pipelines:")
             for p in outputs_dir.iterdir():
                 if p.is_dir():
                     print(f"  - {p.name}")
@@ -86,20 +90,18 @@ Status Filtering Examples:
         # Get all versions
         versions = []
         for item in pipeline_dir.iterdir():
-            if item.is_dir() and item.name.startswith('v') and item.name[1:].isdigit():
+            if item.is_dir() and item.name.startswith("v") and item.name[1:].isdigit():
                 version_num = int(item.name[1:])
                 metadata_path = item / "metadata.json"
 
                 metadata = {}
                 if metadata_path.exists():
-                    with open(metadata_path, 'r', encoding='utf-8') as f:
+                    with open(metadata_path, "r", encoding="utf-8") as f:
                         metadata = json.load(f)
 
-                versions.append({
-                    "version": item.name,
-                    "version_num": version_num,
-                    "metadata": metadata
-                })
+                versions.append(
+                    {"version": item.name, "version_num": version_num, "metadata": metadata}
+                )
 
         # Sort by version number
         versions.sort(key=lambda x: x["version_num"])
@@ -107,7 +109,8 @@ Status Filtering Examples:
         # Filter by status if needed
         if filter_statuses is not None:
             filtered_versions = [
-                v for v in versions
+                v
+                for v in versions
                 if v["metadata"].get("pipeline_status", "draft") in filter_statuses
             ]
             hidden_count = len(versions) - len(filtered_versions)
@@ -123,22 +126,25 @@ Status Filtering Examples:
         if latest_link.is_symlink():
             try:
                 latest_version = latest_link.readlink().name
-            except:
+            except Exception:
                 pass
         elif latest_file.exists():
-            with open(latest_file, 'r') as f:
+            with open(latest_file, "r") as f:
                 latest_version = f.read().strip()
 
         # Print versions
-        print(f"\n{'='*70}")
+        print(f"\n{'=' * 70}")
         print(f"PIPELINE: {args.pipeline_name}")
-        print(f"Versions: {len(filtered_versions)}" + (f" (hiding {hidden_count})" if hidden_count > 0 else ""))
+        print(
+            f"Versions: {len(filtered_versions)}"
+            + (f" (hiding {hidden_count})" if hidden_count > 0 else "")
+        )
         if latest_version:
             print(f"Latest: {latest_version}")
         if filter_statuses:
             print(f"Showing: {', '.join(sorted(filter_statuses))}")
-            print(f"Tip: Use --all to show all versions, or --status <status> to filter")
-        print(f"{'='*70}\n")
+            print("Tip: Use --all to show all versions, or --status <status> to filter")
+        print(f"{'=' * 70}\n")
 
         for v in filtered_versions:
             meta = v["metadata"]
@@ -147,12 +153,12 @@ Status Filtering Examples:
             print(f"{v['version']}" + (" (latest)" if is_latest else ""))
             print(f"  Created: {meta.get('timestamp', 'N/A')}")
             print(f"  Status: {meta.get('pipeline_status', 'N/A')}")
-            if meta.get('notes'):
+            if meta.get("notes"):
                 print(f"  Notes: {meta['notes']}")
             print(f"  Mode: {meta.get('mode', 'N/A')}")
-            if meta.get('base_version'):
+            if meta.get("base_version"):
                 print(f"  Base: {meta['base_version']}")
-            if meta.get('duration_seconds'):
+            if meta.get("duration_seconds"):
                 print(f"  Duration: {format_duration(meta['duration_seconds'])}")
 
             # Count items
@@ -165,7 +171,7 @@ Status Filtering Examples:
             for i in range(1, 10):  # Check up to 10 steps
                 errors_file = pipeline_dir / v["version"] / f"{i:02d}_errors.json"
                 if errors_file.exists():
-                    with open(errors_file, 'r', encoding='utf-8') as f:
+                    with open(errors_file, "r", encoding="utf-8") as f:
                         errors = json.load(f)
                     if errors:
                         print(f"  Errors (step {i}): {len(errors)}")
@@ -180,21 +186,18 @@ Status Filtering Examples:
                 # Get all versions and filter by status
                 all_versions = []
                 for item in p.iterdir():
-                    if item.is_dir() and item.name.startswith('v') and item.name[1:].isdigit():
+                    if item.is_dir() and item.name.startswith("v") and item.name[1:].isdigit():
                         metadata_path = item / "metadata.json"
                         if metadata_path.exists():
-                            with open(metadata_path, 'r', encoding='utf-8') as f:
+                            with open(metadata_path, "r", encoding="utf-8") as f:
                                 metadata = json.load(f)
-                                status = metadata.get('pipeline_status', 'draft')
+                                status = metadata.get("pipeline_status", "draft")
                                 # Apply filter
                                 if filter_statuses is None or status in filter_statuses:
                                     all_versions.append(item.name)
 
                 if len(all_versions) > 0:
-                    pipelines.append({
-                        "name": p.name,
-                        "versions": len(all_versions)
-                    })
+                    pipelines.append({"name": p.name, "versions": len(all_versions)})
 
         if not pipelines:
             print("No pipelines found with the specified status filter")
@@ -203,12 +206,12 @@ Status Filtering Examples:
                 print("Tip: Use --all to show all pipelines")
             sys.exit(0)
 
-        print(f"\n{'='*70}")
-        print(f"ALL PIPELINES")
+        print(f"\n{'=' * 70}")
+        print("ALL PIPELINES")
         if filter_statuses:
             print(f"Showing: {', '.join(sorted(filter_statuses))}")
-            print(f"Tip: Use --all to show all pipelines, or --status <status> to filter")
-        print(f"{'='*70}\n")
+            print("Tip: Use --all to show all pipelines, or --status <status> to filter")
+        print(f"{'=' * 70}\n")
 
         for p in sorted(pipelines, key=lambda x: x["name"]):
             print(f"{p['name']}")

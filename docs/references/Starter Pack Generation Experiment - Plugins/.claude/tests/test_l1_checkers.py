@@ -18,34 +18,36 @@ Usage:
 Golden file: G3U2M7_Notion_Ready.md (most complete, Gate 4 PASS)
 """
 
-import json
 import os
 import sys
 import unittest
 
 # Add scripts directory to path
-SCRIPTS_DIR = os.path.join(os.path.dirname(__file__), '..', 'scripts')
+SCRIPTS_DIR = os.path.join(os.path.dirname(__file__), "..", "scripts")
 sys.path.insert(0, os.path.abspath(SCRIPTS_DIR))
 
 # Workspace root (where SP files live)
-WORKSPACE = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+WORKSPACE = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 
 # Golden file
-M7_FILE = os.path.join(WORKSPACE, 'G3U2M7_Notion_Ready.md')
+M7_FILE = os.path.join(WORKSPACE, "G3U2M7_Notion_Ready.md")
 
 
 def skip_if_no_golden_file(func):
     """Decorator to skip test if the golden file doesn't exist."""
+
     def wrapper(*args, **kwargs):
         if not os.path.exists(M7_FILE):
             raise unittest.SkipTest(f"Golden file not found: {M7_FILE}")
         return func(*args, **kwargs)
+
     return wrapper
 
 
 # ---------------------------------------------------------------------------
 # Test: Parser (sp_parse_interactions.py)
 # ---------------------------------------------------------------------------
+
 
 class TestParser(unittest.TestCase):
     """Verify the shared parser produces correct structural output."""
@@ -54,7 +56,8 @@ class TestParser(unittest.TestCase):
     def setUpClass(cls):
         if not os.path.exists(M7_FILE):
             raise unittest.SkipTest("Golden file not found")
-        from sp_parse_interactions import parse_sp, filter_by_gate
+        from sp_parse_interactions import filter_by_gate, parse_sp
+
         cls.sp = parse_sp(M7_FILE)
         cls.sp_g4 = filter_by_gate(cls.sp, 4)
 
@@ -77,9 +80,13 @@ class TestParser(unittest.TestCase):
             phase_counts[ix.phase] = phase_counts.get(ix.phase, 0) + 1
 
         self.assertEqual(phase_counts.get("Warmup"), 3, "Warmup should have 3 interactions")
-        self.assertGreaterEqual(phase_counts.get("Lesson", 0), 15, "Lesson should have 15+ interactions")
+        self.assertGreaterEqual(
+            phase_counts.get("Lesson", 0), 15, "Lesson should have 15+ interactions"
+        )
         self.assertEqual(phase_counts.get("EC"), 3, "EC should have 3 interactions")
-        self.assertGreaterEqual(phase_counts.get("Synthesis", 0), 4, "Synthesis should have 4+ interactions")
+        self.assertGreaterEqual(
+            phase_counts.get("Synthesis", 0), 4, "Synthesis should have 4+ interactions"
+        )
 
     def test_pattern_detection(self):
         """Parser should correctly classify interaction patterns."""
@@ -88,27 +95,32 @@ class TestParser(unittest.TestCase):
             patterns[ix.pattern] = patterns.get(ix.pattern, 0) + 1
 
         # M7 should have a mix of student_action and teaching_only
-        self.assertGreater(patterns.get("student_action", 0), 10,
-                           "Should have >10 student_action interactions")
-        self.assertGreater(patterns.get("teaching_only", 0), 2,
-                           "Should have >2 teaching_only interactions")
+        self.assertGreater(
+            patterns.get("student_action", 0), 10, "Should have >10 student_action interactions"
+        )
+        self.assertGreater(
+            patterns.get("teaching_only", 0), 2, "Should have >2 teaching_only interactions"
+        )
         # No interactions should be 'unknown' after parser fix
-        self.assertEqual(patterns.get("unknown", 0), 0,
-                         f"Found {patterns.get('unknown', 0)} 'unknown' pattern interactions — parser regression")
+        self.assertEqual(
+            patterns.get("unknown", 0),
+            0,
+            f"Found {patterns.get('unknown', 0)} 'unknown' pattern interactions — parser regression",
+        )
 
     def test_dash_bullet_normalization(self):
         """Parser should handle both - ** and * ** bullet formats."""
         # M7 Notion-pulled uses dash bullets. All interactions should be detected.
         for ix in self.sp_g4.interactions:
             if ix.pattern == "student_action":
-                self.assertTrue(ix.has_guide,
-                    f"{ix.id} ({ix.phase}): student_action missing Guide")
+                self.assertTrue(ix.has_guide, f"{ix.id} ({ix.phase}): student_action missing Guide")
 
     def test_dialogue_extraction(self):
         """Parser should extract dialogue lines from interactions."""
         total_dialogue = sum(len(ix.dialogue_lines) for ix in self.sp_g4.interactions)
-        self.assertGreater(total_dialogue, 20,
-                           f"Only {total_dialogue} dialogue lines extracted — expected 20+")
+        self.assertGreater(
+            total_dialogue, 20, f"Only {total_dialogue} dialogue lines extracted — expected 20+"
+        )
 
     def test_interaction_ids(self):
         """Interaction IDs should follow expected patterns."""
@@ -137,15 +149,20 @@ class TestParser(unittest.TestCase):
 
         self.assertEqual(len(g1.interactions), 0, "Gate 1 should have 0 interactions")
         self.assertGreater(len(g2.interactions), 0, "Gate 2 should have interactions")
-        self.assertGreater(len(g3.interactions), len(g2.interactions),
-                           "Gate 3 should have more interactions than Gate 2")
-        self.assertGreaterEqual(len(g4.interactions), len(g3.interactions),
-                                "Gate 4 should have >= Gate 3 interactions")
+        self.assertGreater(
+            len(g3.interactions),
+            len(g2.interactions),
+            "Gate 3 should have more interactions than Gate 2",
+        )
+        self.assertGreaterEqual(
+            len(g4.interactions), len(g3.interactions), "Gate 4 should have >= Gate 3 interactions"
+        )
 
 
 # ---------------------------------------------------------------------------
 # Test: All Checkers Run Without Error
 # ---------------------------------------------------------------------------
+
 
 class TestCheckersRunClean(unittest.TestCase):
     """Verify every checker runs without crashing at all gate levels."""
@@ -211,6 +228,7 @@ class TestCheckersRunClean(unittest.TestCase):
 # Test: Interaction Checker Specific Findings
 # ---------------------------------------------------------------------------
 
+
 class TestInteractionChecker(unittest.TestCase):
     """Verify interaction checker produces expected findings on M7."""
 
@@ -219,27 +237,27 @@ class TestInteractionChecker(unittest.TestCase):
         if not os.path.exists(M7_FILE):
             raise unittest.SkipTest("Golden file not found")
         from sp_interaction_check import run_interaction_check
+
         cls.result = run_interaction_check(M7_FILE, 4)
 
     def test_no_critical_findings(self):
         """M7 (Gate 4 PASS) should have no CRITICAL interaction findings."""
         crits = [f for f in self.result["findings"] if f["severity"] == "CRITICAL"]
-        self.assertEqual(len(crits), 0,
-                         f"Unexpected CRITICAL findings: {[f['detail'] for f in crits]}")
+        self.assertEqual(
+            len(crits), 0, f"Unexpected CRITICAL findings: {[f['detail'] for f in crits]}"
+        )
 
     def test_no_unknown_pattern_findings(self):
         """No I0 (unknown pattern) findings after parser fix."""
         i0s = [f for f in self.result["findings"] if f["check"] == "I0"]
-        self.assertEqual(len(i0s), 0,
-                         f"Found {len(i0s)} I0 findings — parser regression")
+        self.assertEqual(len(i0s), 0, f"Found {len(i0s)} I0 findings — parser regression")
 
     def test_on_correct_length_findings(self):
         """I20 should fire on M7's known verbose On Correct lines."""
         i20s = [f for f in self.result["findings"] if f["check"] == "I20"]
         self.assertGreater(len(i20s), 0, "Expected some I20 (On Correct length) findings")
         # M7 has several verbose On Correct lines (W.2, 1.3, 1.5, 2.1, etc.)
-        self.assertGreaterEqual(len(i20s), 3,
-                                f"Expected 3+ I20 findings, got {len(i20s)}")
+        self.assertGreaterEqual(len(i20s), 3, f"Expected 3+ I20 findings, got {len(i20s)}")
 
     def test_phase_breakdown_in_meta(self):
         """Meta should contain phase breakdown."""
@@ -254,6 +272,7 @@ class TestInteractionChecker(unittest.TestCase):
 # Test: Voice Scanner Specific Findings
 # ---------------------------------------------------------------------------
 
+
 class TestVoiceScanner(unittest.TestCase):
     """Verify voice scanner produces expected findings on M7."""
 
@@ -262,13 +281,15 @@ class TestVoiceScanner(unittest.TestCase):
         if not os.path.exists(M7_FILE):
             raise unittest.SkipTest("Golden file not found")
         from sp_voice_scan import run_voice_scan
+
         cls.result = run_voice_scan(M7_FILE, 4)
 
     def test_no_critical_findings(self):
         """M7 should have no CRITICAL voice findings."""
         crits = [f for f in self.result["findings"] if f["severity"] == "CRITICAL"]
-        self.assertEqual(len(crits), 0,
-                         f"Unexpected CRITICAL findings: {[f['detail'] for f in crits]}")
+        self.assertEqual(
+            len(crits), 0, f"Unexpected CRITICAL findings: {[f['detail'] for f in crits]}"
+        )
 
     def test_verbose_guide_findings(self):
         """VO4 (verbose Guide) should fire — M7 has long Guide lines in S1/S2/S3."""
@@ -278,13 +299,15 @@ class TestVoiceScanner(unittest.TestCase):
     def test_dialogue_lines_scanned(self):
         """Should scan a meaningful number of dialogue lines."""
         scanned = self.result["meta"].get("dialogue_lines_scanned", 0)
-        self.assertGreater(scanned, 20,
-                           f"Only {scanned} dialogue lines scanned — parser may not be extracting")
+        self.assertGreater(
+            scanned, 20, f"Only {scanned} dialogue lines scanned — parser may not be extracting"
+        )
 
 
 # ---------------------------------------------------------------------------
 # Test: Dimension Tracker
 # ---------------------------------------------------------------------------
+
 
 class TestDimensionTracker(unittest.TestCase):
     """Verify dimension tracker extracts values and finds cross-phase reuse."""
@@ -294,24 +317,25 @@ class TestDimensionTracker(unittest.TestCase):
         if not os.path.exists(M7_FILE):
             raise unittest.SkipTest("Golden file not found")
         from sp_dimension_track import run_dimension_track
+
         cls.result = run_dimension_track(M7_FILE, 4)
 
     def test_usage_table_populated(self):
         """Should find dimensions in multiple interactions."""
         usage = self.result["meta"].get("usage_table", [])
-        self.assertGreater(len(usage), 20,
-                           f"Only {len(usage)} interactions with values — expected 20+")
+        self.assertGreater(
+            len(usage), 20, f"Only {len(usage)} interactions with values — expected 20+"
+        )
 
     def test_cross_phase_findings(self):
         """DT4/DT5 findings should exist — M7 has known dimension reuse."""
-        dt_findings = [f for f in self.result["findings"]
-                       if f["check"] in ("DT4", "DT5")]
-        self.assertGreater(len(dt_findings), 0,
-                           "Expected cross-phase dimension reuse findings")
+        dt_findings = [f for f in self.result["findings"] if f["check"] in ("DT4", "DT5")]
+        self.assertGreater(len(dt_findings), 0, "Expected cross-phase dimension reuse findings")
 
     def test_working_notes_integration(self):
         """The --working-notes format_dimension_section should produce valid markdown."""
         from sp_dimension_track import format_dimension_section
+
         md = format_dimension_section(self.result)
         self.assertTrue(md.startswith("## DIMENSION TRACKING"))
         self.assertIn("Usage Table", md)
@@ -321,6 +345,7 @@ class TestDimensionTracker(unittest.TestCase):
 # Test: Structure Checker
 # ---------------------------------------------------------------------------
 
+
 class TestStructureChecker(unittest.TestCase):
     """Verify structure checker on M7 (known clean structure)."""
 
@@ -329,25 +354,29 @@ class TestStructureChecker(unittest.TestCase):
         if not os.path.exists(M7_FILE):
             raise unittest.SkipTest("Golden file not found")
         from sp_structure_check import run_structure_check
+
         cls.result = run_structure_check(M7_FILE, 4)
 
     def test_no_critical_findings(self):
         """M7 should have no CRITICAL structural findings."""
         crits = [f for f in self.result["findings"] if f["severity"] == "CRITICAL"]
-        self.assertEqual(len(crits), 0,
-                         f"Unexpected CRITICAL: {[f['detail'] for f in crits]}")
+        self.assertEqual(len(crits), 0, f"Unexpected CRITICAL: {[f['detail'] for f in crits]}")
 
     def test_clean_structure(self):
         """M7 passed Gate 4 — should have minimal structural issues."""
         # Allow some minor findings but no majors
         majors = [f for f in self.result["findings"] if f["severity"] == "MAJOR"]
-        self.assertLessEqual(len(majors), 2,
-                             f"Too many MAJOR structural findings for a Gate 4 PASS file: {len(majors)}")
+        self.assertLessEqual(
+            len(majors),
+            2,
+            f"Too many MAJOR structural findings for a Gate 4 PASS file: {len(majors)}",
+        )
 
 
 # ---------------------------------------------------------------------------
 # Test: Timing Estimator
 # ---------------------------------------------------------------------------
+
 
 class TestTimingEstimator(unittest.TestCase):
     """Verify timing estimates are reasonable."""
@@ -357,6 +386,7 @@ class TestTimingEstimator(unittest.TestCase):
         if not os.path.exists(M7_FILE):
             raise unittest.SkipTest("Golden file not found")
         from sp_timing_estimate import run_timing_estimate
+
         cls.result = run_timing_estimate(M7_FILE, 4)
 
     def test_session_total_reasonable(self):

@@ -1,0 +1,150 @@
+# synthesis-script.toml
+
+title = "synthesis"
+type = "sequence"
+
+# ---------------------------------------------------------------------------
+# Section 1 - opening_frame
+# ---------------------------------------------------------------------------
+
+[section_101_opening_frame]
+template = "array_template"
+
+[step_101_opening_frame]
+dialogue = "You've been describing arrays and building expressions and equations. Let's connect what you've been working on."
+components = ["SceneComponent"]
+
+# ---------------------------------------------------------------------------
+# Section 2 - real_world_array_to_dot
+# ---------------------------------------------------------------------------
+
+[section_102_real_world_array_to_dot]
+template = "array_template"
+
+[step_102_real_world_array_to_dot]
+dialogue = "Check out these two pictures. A muffin tin and a dot array. What expression describes them both by rows?"
+components = ["PromptComponent"]
+prompt_text = "Which expression describes both by rows?"
+
+[step_102.correct]
+dialogue = "Right. 2 times 4. Whether it's muffins or dots, 2 rows of 4 is 2 times 4. The arrangement is what matters, not what's in the spots."
+metadata = { sting_id = "on_correct" }
+
+[step_102.step_502]
+dialogue = "You're thinking about the arrangement, but focus on rows first. Count the rows. That's the first number when we describe by rows."
+id = "4_times_2"
+
+[step_102.step_503]
+dialogue = "Here's a hint: arrays use multiplication, not addition. 2 plus 4 is 6 and there are more than 6 objects. We want the number of rows times the items per row."
+id = "two_plus_four"
+
+[step_102.step_504]
+dialogue = "That's the total, but we need the expression based on the rows. Count the rows, then how many in each row. Write this as a multiplication expression."
+id = "8"
+
+[step_102.step_505]
+dialogue = "Let's think about this together. First, we count the rows. There are 2 rows. Next, we count how many in each row. There are 4 in each row. So the expression is 2 times 4. Whether it's muffins or dots, both pictures show the same arrangement, so both are 2 times 4. The arrangement is what matters, not what's in the spots."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 3 - same_array_two_products
+# ---------------------------------------------------------------------------
+
+[section_103_same_array_two_products]
+template = "array_template"
+
+[step_103_same_array_two_products]
+dialogue = "Here's an array you've worked with before. If we look at the rows, it's 3 times 5 equals 15. If we look at the columns, it's 5 times 3 equals 15. Take a look at both equations. What do you notice about the products?"
+components = ["PromptComponent"]
+prompt_text = "What's true for these two equations?"
+
+[step_103.correct]
+dialogue = "You got it. Same array, two different descriptions, but the product stays the same. Interesting, right? We'll explore why that works next time."
+metadata = { sting_id = "on_correct" }
+
+[step_103.step_507]
+dialogue = "Let's think about this. The expressions are actually different. One is 3 times 5, the other is 5 times 3. What stays the same?"
+id = "expressions_are_same"
+
+[step_103.step_508]
+dialogue = "Look at this: both equations are describing this same array. We're just counting it in two different ways. But what do both equations equal?"
+id = "different_arrays"
+
+[step_103.step_509]
+dialogue = "Not quite. The factors are in a different order, but they are the same numbers, 3 and 5. Look at the products in both equations. What do you notice?"
+id = "factors_are_different"
+
+[step_103.step_510]
+dialogue = "Let's look together. Both equations describe the same array. 3 times 5 equals 15. 5 times 3 equals 15. Two different equations. The factors are in different order, but they are the same numbers, 3 and 5. What is the same? Both  products are 15, the same total number of dots."
+id = "heavy"
+
+[step_104_same_array_two_products]
+dialogue = "Same array, two different descriptions, but the product stays the same. Interesting, right? We'll explore why that works next time"
+
+# ---------------------------------------------------------------------------
+# Section 4 - arrays_real_world
+# ---------------------------------------------------------------------------
+
+[section_104_arrays_real_world]
+template = "array_template"
+
+[step_105_arrays_real_world]
+dialogue = "Arrays aren't just something we do in math. Take a look at these four pictures. Which ones show arrays?"
+components = ["PromptComponent"]
+prompt_text = "Which pictures show arrays? Select all that apply."
+
+[step_105.correct]
+dialogue = "Yes. The egg carton, the parking lot, the window pane. Arrays are all around us. Same rows and columns structure you've been using."
+metadata = { sting_id = "on_correct" }
+
+[step_105.step_512]
+dialogue = "You've got some of them. Look again at the pictures you haven't picked yet. Do any of those show objects in equal rows and equal columns?"
+id = "light"
+
+[step_105.step_513]
+dialogue = "An array has equal rows and equal columns. The objects line up both ways. Look at each picture and check if the objects are arranged that way. Select all that have that structure."
+id = "medium"
+
+[step_105.step_514]
+dialogue = "You found some arrays. But one of your picks doesn't have equal rows and columns. Check each picture: can you count rows going across and columns going up and down? If yes, it's an array. Arrays need everything lined up. Try again."
+id = "medium"
+
+[step_105.step_515]
+dialogue = "Here's how to spot arrays. Eggs: 2 rows and 6 columns of eggs. Cars: 3 rows and 4 columns of cars. Windows: 2 rows and 3 columns of window panes. The marbles don't work because they aren't lined up in rows or columns. The egg carton, parking lot and window pane are arrays. These show the same rows and columns structure you've been using."
+id = "heavy"
+
+[step_106_arrays_real_world]
+dialogue = "You can spot arrays everywhere. Same math, rows times items per row or columns times items per column, no matter what the objects are."
+
+# ---------------------------------------------------------------------------
+# Section 5 - metacognitive_reflection
+# ---------------------------------------------------------------------------
+
+[section_105_metacognitive_reflection]
+template = "array_template"
+
+[step_107_metacognitive_reflection]
+dialogue = "If you had to pick one thing from today to remember, what would it be?"
+components = ["PromptComponent"]
+prompt_text = "What's the most important thing you learned?"
+
+[step_107.correct]
+dialogue = "Rows and columns. That's what makes an array an array, not just scattered groups. You'll keep using that structure."
+metadata = { sting_id = "on_correct" }
+
+# skipped correct branch: Your description determines your expression
+
+# skipped correct branch: The same array can give you two different expressions
+
+# ---------------------------------------------------------------------------
+# Section 6 - identity_building_closure
+# ---------------------------------------------------------------------------
+
+[section_106_identity_building_closure]
+template = "array_template"
+
+[step_108_identity_building_closure]
+dialogue = "You came in knowing about equal groups in bags and boxes. Now you're seeing them lined up as arrays with rows and columns. You can describe the same array two different ways. You can write the expression for each one. And you can find the product."
+
+[step_109_identity_building_closure]
+dialogue = "You noticed something about those two products. Next time, we're going to figure out WHY that happens and whether it's always true. Get ready."

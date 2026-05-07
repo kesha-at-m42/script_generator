@@ -69,7 +69,9 @@ def _process_step(step, seq_idx, step_idx, verbose):
     event_tag = _EVENT_TAGS.get(correct_symbol)
     if event_tag is None:
         if verbose:
-            print(f"  [WARN] Seq{seq_idx}/Step{step_idx}: answer symbol '{correct_symbol}' (index {answer_idx}) not in event map")
+            print(
+                f"  [WARN] Seq{seq_idx}/Step{step_idx}: answer symbol '{correct_symbol}' (index {answer_idx}) not in event map"
+            )
         return
 
     # Prepend to on_correct.dialogue

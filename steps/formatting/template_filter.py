@@ -5,9 +5,10 @@ Can be used as:
 1. Standalone script: python steps/formatting/template_filter.py
 2. Pipeline formatting step: filters templates before generation
 """
+
 import sys
 from pathlib import Path
-from typing import List, Dict, Any, Optional
+from typing import Any, Dict, List, Optional
 
 project_root = Path(__file__).parent.parent.parent
 if str(project_root) not in sys.path:
@@ -24,7 +25,7 @@ def filter_templates(
     exclude_mastery_verbs: Optional[List[str]] = None,
     include_tiers: Optional[List[str]] = None,
     exclude_tiers: Optional[List[str]] = None,
-    verbose: bool = False
+    verbose: bool = False,
 ) -> List[Dict[str, Any]]:
     """
     Filter templates based on multiple criteria.
@@ -63,24 +64,24 @@ def filter_templates(
 
     # Apply include filters (whitelist)
     if include_template_ids:
-        filtered = [t for t in filtered if t.get('template_id') in include_template_ids]
+        filtered = [t for t in filtered if t.get("template_id") in include_template_ids]
         if verbose:
             print(f"  After include_template_ids filter: {len(filtered)} templates")
 
     if include_skill_ids:
-        filtered = [t for t in filtered if t.get('skill_id') in include_skill_ids]
+        filtered = [t for t in filtered if t.get("skill_id") in include_skill_ids]
         if verbose:
             print(f"  After include_skill_ids filter: {len(filtered)} templates")
 
     if include_mastery_verbs:
-        filtered = [t for t in filtered if t.get('mastery_verb') in include_mastery_verbs]
+        filtered = [t for t in filtered if t.get("mastery_verb") in include_mastery_verbs]
         if verbose:
             print(f"  After include_mastery_verbs filter: {len(filtered)} templates")
 
     if include_tiers:
         # Handle both single tier and array of tiers
         def has_tier(template):
-            tiers = template.get('mastery_tier')
+            tiers = template.get("mastery_tier")
             if isinstance(tiers, list):
                 return any(tier in include_tiers for tier in tiers)
             return tiers in include_tiers
@@ -91,24 +92,24 @@ def filter_templates(
 
     # Apply exclude filters (blacklist)
     if exclude_template_ids:
-        filtered = [t for t in filtered if t.get('template_id') not in exclude_template_ids]
+        filtered = [t for t in filtered if t.get("template_id") not in exclude_template_ids]
         if verbose:
             print(f"  After exclude_template_ids filter: {len(filtered)} templates")
 
     if exclude_skill_ids:
-        filtered = [t for t in filtered if t.get('skill_id') not in exclude_skill_ids]
+        filtered = [t for t in filtered if t.get("skill_id") not in exclude_skill_ids]
         if verbose:
             print(f"  After exclude_skill_ids filter: {len(filtered)} templates")
 
     if exclude_mastery_verbs:
-        filtered = [t for t in filtered if t.get('mastery_verb') not in exclude_mastery_verbs]
+        filtered = [t for t in filtered if t.get("mastery_verb") not in exclude_mastery_verbs]
         if verbose:
             print(f"  After exclude_mastery_verbs filter: {len(filtered)} templates")
 
     if exclude_tiers:
         # Handle both single tier and array of tiers
         def has_excluded_tier(template):
-            tiers = template.get('mastery_tier')
+            tiers = template.get("mastery_tier")
             if isinstance(tiers, list):
                 return any(tier in exclude_tiers for tier in tiers)
             return tiers in exclude_tiers
@@ -122,7 +123,9 @@ def filter_templates(
         print(f"\nFiltered: {removed_count} removed, {len(filtered)} remaining")
 
         if removed_count > 0:
-            removed_ids = set(t.get('template_id') for t in templates) - set(t.get('template_id') for t in filtered)
+            removed_ids = set(t.get("template_id") for t in templates) - set(
+                t.get("template_id") for t in filtered
+            )
             print(f"Removed template IDs: {sorted(removed_ids)}")
 
     return filtered
@@ -157,66 +160,30 @@ Examples:
   python steps/formatting/template_filter.py modules/module7/problem_templates.json \\
     --include-mastery-verbs CREATE IDENTIFY \\
     --exclude-tiers CHALLENGE
-        """
+        """,
     )
 
-    parser.add_argument(
-        "input_file",
-        help="Path to problem_templates.json file"
-    )
-    parser.add_argument(
-        "-o", "--output",
-        help="Output file path (default: overwrites input)"
-    )
-    parser.add_argument(
-        "--include-template-ids",
-        nargs="+",
-        help="Only keep these template IDs"
-    )
-    parser.add_argument(
-        "--exclude-template-ids",
-        nargs="+",
-        help="Remove these template IDs"
-    )
-    parser.add_argument(
-        "--include-skill-ids",
-        nargs="+",
-        help="Only keep these skill IDs"
-    )
-    parser.add_argument(
-        "--exclude-skill-ids",
-        nargs="+",
-        help="Remove these skill IDs"
-    )
+    parser.add_argument("input_file", help="Path to problem_templates.json file")
+    parser.add_argument("-o", "--output", help="Output file path (default: overwrites input)")
+    parser.add_argument("--include-template-ids", nargs="+", help="Only keep these template IDs")
+    parser.add_argument("--exclude-template-ids", nargs="+", help="Remove these template IDs")
+    parser.add_argument("--include-skill-ids", nargs="+", help="Only keep these skill IDs")
+    parser.add_argument("--exclude-skill-ids", nargs="+", help="Remove these skill IDs")
     parser.add_argument(
         "--include-mastery-verbs",
         nargs="+",
-        help="Only keep these mastery verbs (CREATE, IDENTIFY, COMPARE, APPLY)"
+        help="Only keep these mastery verbs (CREATE, IDENTIFY, COMPARE, APPLY)",
     )
-    parser.add_argument(
-        "--exclude-mastery-verbs",
-        nargs="+",
-        help="Remove these mastery verbs"
-    )
+    parser.add_argument("--exclude-mastery-verbs", nargs="+", help="Remove these mastery verbs")
     parser.add_argument(
         "--include-tiers",
         nargs="+",
-        help="Only keep these tiers (SUPPORT, CONFIDENCE, BASELINE, STRETCH, CHALLENGE)"
+        help="Only keep these tiers (SUPPORT, CONFIDENCE, BASELINE, STRETCH, CHALLENGE)",
     )
+    parser.add_argument("--exclude-tiers", nargs="+", help="Remove these tiers")
+    parser.add_argument("-v", "--verbose", action="store_true", help="Show filtering details")
     parser.add_argument(
-        "--exclude-tiers",
-        nargs="+",
-        help="Remove these tiers"
-    )
-    parser.add_argument(
-        "-v", "--verbose",
-        action="store_true",
-        help="Show filtering details"
-    )
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="Show what would be filtered without writing"
+        "--dry-run", action="store_true", help="Show what would be filtered without writing"
     )
 
     args = parser.parse_args()
@@ -227,7 +194,7 @@ Examples:
         print(f"Error: File not found: {input_path}")
         sys.exit(1)
 
-    with open(input_path, 'r', encoding='utf-8') as f:
+    with open(input_path, "r", encoding="utf-8") as f:
         templates = json.load(f)
 
     print(f"Loaded {len(templates)} templates from {input_path}")
@@ -243,14 +210,14 @@ Examples:
         exclude_mastery_verbs=args.exclude_mastery_verbs,
         include_tiers=args.include_tiers,
         exclude_tiers=args.exclude_tiers,
-        verbose=args.verbose or args.dry_run
+        verbose=args.verbose or args.dry_run,
     )
 
     # Write output
     if not args.dry_run:
         output_path = Path(args.output) if args.output else input_path
 
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             json.dump(filtered, f, indent=2, ensure_ascii=False)
 
         print(f"\nSaved {len(filtered)} filtered templates to {output_path}")

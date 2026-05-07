@@ -20,8 +20,10 @@
               "Books Read This Week"
             ],
             "scale": 5,
-            "symbol_count": 4,
-            "description": "Horizontal picture graph appears. Books Read This Week. 4 symbols displayed. Key shows each symbol = 5 books."
+            "values": [
+              20
+            ],
+            "description": "Horizontal picture graph appears. Books Read This Week. 4 symbols displayed. Scale: each symbol = 5 books."
           },
           "id": "s1_1_graph_reading_quick_success_b0"
         },
@@ -36,7 +38,9 @@
           "tool": "multiple_choice",
           "options": [
             16,
-            20
+            20,
+            25,
+            15
           ],
           "validator": [
             {
@@ -44,12 +48,12 @@
               "condition": {
                 "selected": 20
               },
-              "description": "Student answered 20, correct",
+              "description": "Student selected 20, correct",
               "is_correct": true,
               "beats": [
                 {
                   "type": "dialogue",
-                  "text": "That's right. 20 books. You skip-counted by 5s. 5, 10, 15, 20. You've been doing this all unit.",
+                  "text": "Right. 20 books. You skip-counted by 5s. 5, 10, 15, 20. You've been doing this all unit.",
                   "id": "s1_1_graph_reading_quick_success_b2_v0_b0"
                 }
               ]
@@ -62,7 +66,7 @@
           "elements": [
             {
               "tangible_id": "picture_graph_books",
-              "description": "Horizontal picture graph in reading mode. Books Read This Week. 4 symbols, scale of 5. multiple_choice tool active.",
+              "description": "Horizontal picture graph. Books Read This Week. 4 symbols. Scale: each symbol = 5 books.",
               "tangible_type": "picture_graph",
               "mode": "reading",
               "orientation": "horizontal",
@@ -70,59 +74,59 @@
                 "Books Read This Week"
               ],
               "scale": 5,
-              "symbol_count": 4
+              "values": [
+                20
+              ]
             }
           ],
           "id": "s1_1_graph_reading_quick_success_b3"
         }
       ],
-      "_generated_at": "2026-04-20T16:59:58.179369+00:00"
+      "_generated_at": "2026-04-27T15:53:16.413672+00:00"
     },
     {
       "id": "s2_1_grouping_animation_reveal",
       "beats": [
         {
           "type": "scene",
-          "method": "animate",
-          "tangible_id": "picture_graph_snacks",
+          "method": "add",
+          "tangible_id": "equal_groups_books",
+          "tangible_type": "equal_groups",
           "params": {
-            "event": "transform_symbols_to_groups",
-            "status": "proposed",
-            "description": "Animation begins: the 4 Chips symbols from the previous section start transforming into 4 bag containers, each revealing 5 items inside."
+            "mode": "reading",
+            "container_count": 4,
+            "items_per_container": 5,
+            "container_type": "bag",
+            "description": "4 bags appear on screen, each containing 5 book items. This is a visual transformation of the 4 symbols from the previous section, now revealed as 4 equal groups of 5."
           },
           "id": "s2_1_grouping_animation_reveal_b0"
         },
         {
-          "type": "dialogue",
-          "text": "Wait. Look at what those symbols were hiding.",
+          "type": "scene",
+          "method": "animate",
+          "tangible_id": "equal_groups_books",
+          "params": {
+            "event": "transform_from_symbols",
+            "status": "confirmed",
+            "description": "The 4 symbols from the picture graph smoothly transform into 4 bags, each revealing 5 items inside. The animation shows visual continuation from the previous section."
+          },
           "id": "s2_1_grouping_animation_reveal_b1"
         },
         {
-          "type": "scene",
-          "method": "animate",
-          "tangible_id": "picture_graph_snacks",
-          "params": {
-            "event": "transform_symbols_to_groups",
-            "status": "confirmed",
-            "description": "Animation completes: 4 bag containers now visible, each clearly showing 5 items inside. Visual continuation from the graph symbols."
-          },
+          "type": "dialogue",
+          "text": "Wait. Look at what those symbols were hiding.",
           "id": "s2_1_grouping_animation_reveal_b2"
         },
         {
           "type": "current_scene",
           "elements": [
             {
-              "tangible_id": "picture_graph_snacks",
-              "description": "Picture graph with Chips row transformed: 4 bag containers displayed, each containing 5 items. Animation complete.",
-              "tangible_type": "picture_graph",
+              "tangible_id": "equal_groups_books",
+              "description": "4 bags visible on screen, each containing 5 book items. Grouping structure revealed from previous picture graph symbols.",
+              "tangible_type": "equal_groups",
               "mode": "reading",
-              "orientation": "horizontal",
-              "categories": [
-                "Chips",
-                "Cookies",
-                "Fruit",
-                "Crackers"
-              ]
+              "container_count": 4,
+              "items_per_container": 5
             }
           ],
           "id": "s2_1_grouping_animation_reveal_b3"
@@ -148,7 +152,7 @@
               "condition": {
                 "selected": 4
               },
-              "description": "Student answered 4, correct number of groups",
+              "description": "Student selected 4, the correct number of groups",
               "is_correct": true,
               "beats": [
                 {
@@ -165,23 +169,18 @@
           "type": "current_scene",
           "elements": [
             {
-              "tangible_id": "picture_graph_snacks",
-              "description": "Picture graph with Chips row showing 4 bag containers, each containing 5 items. Multiple choice interaction complete.",
-              "tangible_type": "picture_graph",
+              "tangible_id": "equal_groups_books",
+              "description": "4 bags on screen, each containing 5 book items. Equal groups structure visible: 4 groups of 5.",
+              "tangible_type": "equal_groups",
               "mode": "reading",
-              "orientation": "horizontal",
-              "categories": [
-                "Chips",
-                "Cookies",
-                "Fruit",
-                "Crackers"
-              ]
+              "container_count": 4,
+              "items_per_container": 5
             }
           ],
           "id": "s2_1_grouping_animation_reveal_b6"
         }
       ],
-      "_generated_at": "2026-04-20T17:00:10.073789+00:00"
+      "_generated_at": "2026-04-27T15:53:31.703321+00:00"
     },
     {
       "id": "s3_1_transfer_bags_groups_beyond_graphs",
@@ -195,7 +194,9 @@
             "mode": "reading",
             "container_count": 3,
             "items_per_container": 4,
-            "description": "3 bags appear, each containing 4 items. Static visual, no animation."
+            "container_type": "bag",
+            "item_type": "generic",
+            "description": "3 bags appear on screen, each containing 4 items. Plain static visual representation of equal groups."
           },
           "id": "s3_1_transfer_bags_groups_beyond_graphs_b0"
         },
@@ -220,12 +221,12 @@
               "condition": {
                 "selected": 3
               },
-              "description": "Student answered 3 groups, correct",
+              "description": "Student selected 3, correct number of groups",
               "is_correct": true,
               "beats": [
                 {
                   "type": "dialogue",
-                  "text": "Right. 3 bags. That's 3 groups of 4. Same idea. Bags instead of graph symbols.",
+                  "text": "Right. 3 bags. That's 3 groups of 4. Same idea—bags instead of graph symbols.",
                   "id": "s3_1_transfer_bags_groups_beyond_graphs_b2_v0_b0"
                 }
               ]
@@ -238,7 +239,7 @@
           "elements": [
             {
               "tangible_id": "equal_groups_bags",
-              "description": "3 bags, each containing 4 items. Static visual.",
+              "description": "3 bags on screen, each containing 4 items. Equal groups visual in reading mode.",
               "tangible_type": "equal_groups",
               "mode": "reading",
               "container_count": 3,
@@ -248,7 +249,7 @@
           "id": "s3_1_transfer_bags_groups_beyond_graphs_b3"
         }
       ],
-      "_generated_at": "2026-04-20T17:00:16.917423+00:00"
+      "_generated_at": "2026-04-27T15:53:46.759234+00:00"
     },
     {
       "id": "s4_1_bridge_lesson",
@@ -265,7 +266,7 @@
           "id": "s4_1_bridge_lesson_b1"
         }
       ],
-      "_generated_at": "2026-04-20T17:00:20.700994+00:00"
+      "_generated_at": "2026-04-27T15:53:55.136939+00:00"
     }
   ]
 }

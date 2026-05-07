@@ -4,26 +4,54 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "bar_graph_marbles",
-      "tangible_type": "bar_graph",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
       "params": {
-        "mode": "reading",
-        "orientation": "vertical",
         "categories": [
-          "Red",
-          "Blue",
-          "Green",
-          "Yellow"
+          "Jar A",
+          "Jar B",
+          "Jar C",
+          "Jar D"
         ],
         "values": [
           7,
           12,
-          9,
-          5
+          19,
+          23
         ],
-        "current_scale": 10,
-        "scale_selector_active": true,
-        "description": "Vertical bar graph appears. Marbles data. Red=7, Blue=12, Green=9, Yellow=5. Currently showing Scale of 10. Scale selector interactive."
+        "description": "Data table appears. Marbles in Jars. Jar A=7, Jar B=12, Jar C=19, Jar D=23."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_marbles",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "horizontal",
+        "categories": [
+          "Jar A",
+          "Jar B",
+          "Jar C",
+          "Jar D"
+        ],
+        "values": [
+          7,
+          12,
+          19,
+          23
+        ],
+        "scale": 10,
+        "axis_range": [
+          0,
+          30
+        ],
+        "warning_categories": [
+          "Jar A",
+          "Jar C"
+        ],
+        "description": "Horizontal bar graph appears. Marbles in Jars data. Scale of 10. Axis 0–30. Warning indicators on Jar A and Jar C bars (values 7 and 19 do not land exactly on tick marks or midpoints)."
       }
     },
     {
@@ -41,18 +69,21 @@
           "condition": {
             "selected": 2
           },
-          "description": "Student clicked Scale of 2 button",
+          "description": "Student clicked Scale of 2 button. Preview displays: all bars land exactly, checkmark indicator, no warnings.",
           "is_correct": true,
           "beats": [
             {
               "type": "scene",
-              "method": "animate",
+              "method": "update",
               "tangible_id": "bar_graph_marbles",
               "params": {
-                "event": "preview_scale_transition",
-                "status": "confirmed",
-                "new_scale": 2,
-                "description": "Scale transitions to 2. All bars land exactly on tick marks. Green checkmark indicator appears. No warnings."
+                "scale": 2,
+                "axis_range": [
+                  0,
+                  24
+                ],
+                "warning_categories": [],
+                "description": "Graph updates to Scale of 2. Axis 0–24 with 13 tick marks. All bars land exactly. Checkmark indicator appears. No warnings."
               }
             },
             {
@@ -63,24 +94,45 @@
               "type": "current_scene",
               "elements": [
                 {
-                  "tangible_id": "bar_graph_marbles",
-                  "description": "Vertical bar graph showing Scale of 2. Marbles data. All bars land exactly on tick marks. Green checkmark visible.",
-                  "tangible_type": "bar_graph",
-                  "mode": "reading",
-                  "orientation": "vertical",
+                  "tangible_id": "data_table",
+                  "description": "Data table showing Marbles in Jars. Jar A=7, Jar B=12, Jar C=19, Jar D=23.",
+                  "tangible_type": "data_table",
                   "categories": [
-                    "Red",
-                    "Blue",
-                    "Green",
-                    "Yellow"
+                    "Jar A",
+                    "Jar B",
+                    "Jar C",
+                    "Jar D"
                   ],
                   "values": [
                     7,
                     12,
-                    9,
-                    5
+                    19,
+                    23
+                  ]
+                },
+                {
+                  "tangible_id": "bar_graph_marbles",
+                  "description": "Horizontal bar graph. Marbles in Jars. Scale of 2. Axis 0–24. All bars land exactly. Checkmark indicator visible. No warnings.",
+                  "tangible_type": "bar_graph",
+                  "mode": "reading",
+                  "orientation": "horizontal",
+                  "categories": [
+                    "Jar A",
+                    "Jar B",
+                    "Jar C",
+                    "Jar D"
                   ],
-                  "current_scale": 2
+                  "values": [
+                    7,
+                    12,
+                    19,
+                    23
+                  ],
+                  "scale": 2,
+                  "axis_range": [
+                    0,
+                    24
+                  ]
                 }
               ]
             }
@@ -92,25 +144,49 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "bar_graph_marbles",
-          "description": "Vertical bar graph in reading mode. Marbles data showing Scale of 10. Scale selector active with Scale of 2 option available.",
-          "tangible_type": "bar_graph",
-          "mode": "reading",
-          "orientation": "vertical",
+          "tangible_id": "data_table",
+          "description": "Data table showing Marbles in Jars. Jar A=7, Jar B=12, Jar C=19, Jar D=23.",
+          "tangible_type": "data_table",
           "categories": [
-            "Red",
-            "Blue",
-            "Green",
-            "Yellow"
+            "Jar A",
+            "Jar B",
+            "Jar C",
+            "Jar D"
           ],
           "values": [
             7,
             12,
-            9,
-            5
+            19,
+            23
+          ]
+        },
+        {
+          "tangible_id": "bar_graph_marbles",
+          "description": "Horizontal bar graph. Marbles in Jars. Scale of 10 active. Axis 0–30. Warning indicators on Jar A and Jar C. Scale selector interactive.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Jar A",
+            "Jar B",
+            "Jar C",
+            "Jar D"
           ],
-          "current_scale": 10,
-          "scale_selector_active": true
+          "values": [
+            7,
+            12,
+            19,
+            23
+          ],
+          "scale": 10,
+          "axis_range": [
+            0,
+            30
+          ],
+          "warning_categories": [
+            "Jar A",
+            "Jar C"
+          ]
         }
       ]
     },
@@ -126,27 +202,48 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "bar_graph_marbles",
-          "description": "Vertical bar graph showing Scale of 2. Marbles data. All bars land exactly on tick marks.",
-          "tangible_type": "bar_graph",
-          "mode": "reading",
-          "orientation": "vertical",
+          "tangible_id": "data_table",
+          "description": "Data table showing Marbles in Jars. Jar A=7, Jar B=12, Jar C=19, Jar D=23.",
+          "tangible_type": "data_table",
           "categories": [
-            "Red",
-            "Blue",
-            "Green",
-            "Yellow"
+            "Jar A",
+            "Jar B",
+            "Jar C",
+            "Jar D"
           ],
           "values": [
             7,
             12,
-            9,
-            5
+            19,
+            23
+          ]
+        },
+        {
+          "tangible_id": "bar_graph_marbles",
+          "description": "Horizontal bar graph. Marbles in Jars. Scale of 2. Axis 0–24. All bars land exactly. Checkmark indicator visible.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Jar A",
+            "Jar B",
+            "Jar C",
+            "Jar D"
           ],
-          "current_scale": 2
+          "values": [
+            7,
+            12,
+            19,
+            23
+          ],
+          "scale": 2,
+          "axis_range": [
+            0,
+            24
+          ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:01:38.476125+00:00"
+  "_generated_at": "2026-05-05T18:18:19.240081+00:00"
 }

@@ -1,0 +1,55 @@
+[
+  {
+    "discussion_id": "3515917e-ac52-80d2-a9bf-001ce760539d",
+    "block_id": "34f5917e-ac52-8189-a51d-f865005e213d",
+    "section_id": "s1_0_transition_into_exit_check",
+    "beat_description": "beats[0] (dialogue)",
+    "beat": {
+      "type": "dialogue",
+      "text": "You made bar graphs with scale of 10. You read values at the lines and between the lines. Let's see what you know.",
+      "notion_flag": "suggested",
+      "_notion_block_id": "34f5917e-ac52-8189-a51d-f865005e213d"
+    },
+    "thread": [
+      {
+        "comment_id": "3515917e-ac52-8045-8b42-001de2462696",
+        "comment_text": "Delete this transition - it appears at the end of lesson",
+        "author_id": "29dd872b-594c-8119-84c1-0002b4f81bc1",
+        "created_time": "2026-04-29T15:05:00.000Z"
+      }
+    ],
+    "pipeline_history": [],
+    "issue_summary": "Transition dialogue appears at end of lesson where it should not exist",
+    "likely_step": "section_structurer",
+    "confidence": "high",
+    "reasoning": "The section_structurer is responsible for creating the initial section structure, including determining where transition sections should appear and what dialogue they contain. This transition section was incorrectly placed at the end of the lesson (before exit check) when it should not exist at this location. The dialogue_rewriter only modifies existing dialogue for voice/style, it does not control section placement or structural decisions.",
+    "suggested_fix": "Remove this transition section entirely from the lesson structure"
+  },
+  {
+    "discussion_id": "3515917e-ac52-808f-b5ba-001c600fbb59",
+    "block_id": "34f5917e-ac52-8166-a596-dff51691f36f",
+    "section_id": "s1_3_create_bar_graph_with_mixed",
+    "beat_description": "dialogue beat before prompt",
+    "beat": null,
+    "thread": [
+      {
+        "comment_id": "3515917e-ac52-80ab-a46a-001d7f8e1046",
+        "comment_text": "This seems too tied to a specific error that the student might not have made",
+        "author_id": "29dd872b-594c-8119-84c1-0002b4f81bc1",
+        "created_time": "2026-04-29T15:21:00.000Z"
+      },
+      {
+        "comment_id": "3515917e-ac52-80c8-8631-001d6e3ef22a",
+        "comment_text": "Or it needs to be done for all 4 as the guide talks through them",
+        "author_id": "29dd872b-594c-8119-84c1-0002b4f81bc1",
+        "created_time": "2026-04-29T15:24:00.000Z"
+      }
+    ],
+    "pipeline_history": [],
+    "issue_summary": "The dialogue references 'Some values are at the lines, some are between' which assumes a specific error pattern the student hasn't made yet, or should be explained for all four values during guided instruction.",
+    "likely_step": "section_structurer",
+    "confidence": "high",
+    "reasoning": "The section_structurer generates initial dialogue beats and is responsible for their content and instructional approach. This dialogue assumes student confusion about gridline alignment before the student has attempted the task, or fails to provide comprehensive guidance for all four data points. The dialogue_rewriter only fixes voice/style issues, not instructional design problems.",
+    "suggested_fix": "Either remove the gridline reference and let remediation handle it if students struggle, or restructure as guided instruction walking through all four values explicitly."
+  }
+]

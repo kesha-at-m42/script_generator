@@ -42,39 +42,39 @@ _META_HEADER_RE = re.compile(r"^#{2,3}\s+\S", re.MULTILINE)
 # Matches the start of a real interaction/section header line.
 # Does NOT match meta-headers like "### 1.7.1 LESSON SECTION 1: ..." (start with digits).
 _HEADER_RE = re.compile(
-    r'^(?:'
-    r'(?:#{2,3}\s+)?\*{0,2}Interaction\s+\d+\.\d+[^\n]*'    # ### Interaction X.Y: ... (lesson), bold+headingless variant allowed
-    r'|'
-    r'(?:#{2,3}\s+)?\*{0,2}Interaction\s+W\.\d+[^\n]*'  # ### Interaction W.N: ... (warmup), bold+headingless variant allowed
-    r'|'
-    r'#{2,3}\s+Section\s+W\.\d+[^\n]*'                 # ## Section W.X: ...
-    r'|'
-    r'#{2,3}\s+W\.\d+[a-z][^\n]*'                      # ### W.3a: ...
-    r'|'
-    r'\*\*\\?\[SECTION(?:\s+\d+)?\s+TRANSITION\\?\]\*\*[^\n]*'  # **[SECTION N TRANSITION]** or **\[SECTION TRANSITION\]** (escaped brackets)
-    r'|'
-    r'(?:#{2,3}\s+\*{0,2})?Bridge to \w[^\n]*'         # Bridge to Lesson / Bridge to Exit Check (plain or ### **Bridge to)
-    r'|'
-    r'(?:#{2,3}\s+\*{0,2})?\*{0,2}Problem\s+EC\.\d+:[^\n]*'   # ### Problem EC.1: / **Problem EC.1: (exitcheck, with or without heading)
-    r'|'
-    r'#{2,3}\s+\*{0,2}Interaction\s+S\.\d+[^\n]*'      # ### Interaction S.N: ... (synthesis), bold variant allowed
-    r'|'
-    r'(?:#{2,3}\s+)?\*{0,2}(?:Synthesis\s+)?Task\s+S\.\d+:[^\n]*'  # **Task S.1: / ### Task S.1: / ### Synthesis Task S.1: (synthesis)
-    r'|'
-    r'#{2,3}\s+\*{0,2}Transition\s+into\s+Exit\s+Check[^\n]*'  # ### Transition into Exit Check, bold variant allowed
-    r'|'
-    r'#{2,3}\s+\*{0,2}Exit\s+Check\s+Closure[^\n]*'    # ### Exit Check Closure, bold variant allowed
-    r'|'
-    r'#{2,3}\s+\*{0,2}Opening\s+Frame[^\n]*'            # ### Opening Frame (synthesis), bold variant allowed
-    r'|'
-    r'#{2,3}\s+\*{0,2}Opening\s+Hook[^\n]*'            # ### Opening Hook (warmup), bold variant allowed
-    r'|'
-    r'#{2,4}\s+\*{0,2}Metacognitive\s+Reflection[^\n]*'  # ### / #### Metacognitive Reflection (synthesis), bold variant allowed
-    r'|'
-    r'#{2,3}\s+\*{0,2}Identity[-\s]Building\s+Closure[^\n]*'  # ### Identity-Building Closure (synthesis), bold variant allowed
-    r'|'
-    r'\*\*Section\s+\d+\.\d+[a-z]?(?::[^\n]*)?\*\*'           # **Section X.Y: title** or **Section X.Ya** (bold, no ###)
-    r')',
+    r"^(?:"
+    r"(?:#{2,3}\s+)?\*{0,2}Interaction\s+\d+\.\d+[^\n]*"  # ### Interaction X.Y: ... (lesson), bold+headingless variant allowed
+    r"|"
+    r"(?:#{2,3}\s+)?\*{0,2}Interaction\s+W\.\d+[^\n]*"  # ### Interaction W.N: ... (warmup), bold+headingless variant allowed
+    r"|"
+    r"#{2,3}\s+Section\s+W\.\d+[^\n]*"  # ## Section W.X: ...
+    r"|"
+    r"#{2,3}\s+W\.\d+[a-z][^\n]*"  # ### W.3a: ...
+    r"|"
+    r"\*\*\\?\[SECTION(?:\s+\d+)?\s+TRANSITION\\?\]\*\*[^\n]*"  # **[SECTION N TRANSITION]** or **\[SECTION TRANSITION\]** (escaped brackets)
+    r"|"
+    r"(?:#{2,3}\s+\*{0,2})?Bridge to \w[^\n]*"  # Bridge to Lesson / Bridge to Exit Check (plain or ### **Bridge to)
+    r"|"
+    r"(?:#{2,3}\s+\*{0,2})?\*{0,2}Problem\s+EC\.\d+:[^\n]*"  # ### Problem EC.1: / **Problem EC.1: (exitcheck, with or without heading)
+    r"|"
+    r"#{2,3}\s+\*{0,2}Interaction\s+S\.\d+[^\n]*"  # ### Interaction S.N: ... (synthesis), bold variant allowed
+    r"|"
+    r"(?:#{2,3}\s+)?\*{0,2}(?:Synthesis\s+)?Task\s+S\.\d+:[^\n]*"  # **Task S.1: / ### Task S.1: / ### Synthesis Task S.1: (synthesis)
+    r"|"
+    r"#{2,3}\s+\*{0,2}Transition\s+into\s+Exit\s+Check[^\n]*"  # ### Transition into Exit Check, bold variant allowed
+    r"|"
+    r"#{2,3}\s+\*{0,2}Exit\s+Check\s+Closure[^\n]*"  # ### Exit Check Closure, bold variant allowed
+    r"|"
+    r"#{2,3}\s+\*{0,2}Opening\s+Frame[^\n]*"  # ### Opening Frame (synthesis), bold variant allowed
+    r"|"
+    r"#{2,3}\s+\*{0,2}Opening\s+Hook[^\n]*"  # ### Opening Hook (warmup), bold variant allowed
+    r"|"
+    r"#{2,4}\s+\*{0,2}Metacognitive\s+Reflection[^\n]*"  # ### / #### Metacognitive Reflection (synthesis), bold variant allowed
+    r"|"
+    r"#{2,3}\s+\*{0,2}Identity[-\s]Building\s+Closure[^\n]*"  # ### Identity-Building Closure (synthesis), bold variant allowed
+    r"|"
+    r"\*\*Section\s+\d+\.\d+[a-z]?(?::[^\n]*)?\*\*"  # **Section X.Y: title** or **Section X.Ya** (bold, no ###)
+    r")",
     re.MULTILINE,
 )
 
@@ -101,7 +101,7 @@ def _slug_from_header(header: str) -> str:
 
 
 _NUMBERED_INTERACTION_RE = re.compile(
-    r'Interaction\s+[\dW]\.|Task\s+S\.|W\.\d+|Problem\s+EC\.',
+    r"Interaction\s+[\dW]\.|Task\s+S\.|W\.\d+|Problem\s+EC\.",
     re.IGNORECASE,
 )
 
@@ -114,35 +114,35 @@ def _is_numbered_interaction(header: str) -> bool:
 def _extract_major(header: str, last_major: int) -> int:
     """Derive the major group number from a header line."""
     # Interaction X.Y → X (lesson)
-    m = re.search(r'Interaction\s+(\d+)\.', header)
+    m = re.search(r"Interaction\s+(\d+)\.", header)
     if m:
         return int(m.group(1))
     # Interaction W.N → N (warmup)
-    m = re.search(r'Interaction\s+W\.(\d+)', header, re.IGNORECASE)
+    m = re.search(r"Interaction\s+W\.(\d+)", header, re.IGNORECASE)
     if m:
         return int(m.group(1))
     # Interaction S.N → N (synthesis tasks)
-    m = re.search(r'Interaction\s+S\.(\d+)', header, re.IGNORECASE)
+    m = re.search(r"Interaction\s+S\.(\d+)", header, re.IGNORECASE)
     if m:
         return int(m.group(1))
     # Task S.N → N (synthesis tasks — legacy format)
-    m = re.search(r'Task\s+S\.(\d+)', header, re.IGNORECASE)
+    m = re.search(r"Task\s+S\.(\d+)", header, re.IGNORECASE)
     if m:
         return int(m.group(1))
     # Section W.X → X
-    m = re.search(r'Section\s+W\.(\d+)', header, re.IGNORECASE)
+    m = re.search(r"Section\s+W\.(\d+)", header, re.IGNORECASE)
     if m:
         return int(m.group(1))
     # W.Xa → X
-    m = re.search(r'W\.(\d+)[a-z]', header, re.IGNORECASE)
+    m = re.search(r"W\.(\d+)[a-z]", header, re.IGNORECASE)
     if m:
         return int(m.group(1))
     # [SECTION N TRANSITION] → N
-    m = re.search(r'SECTION\s+(\d+)\s+TRANSITION', header, re.IGNORECASE)
+    m = re.search(r"SECTION\s+(\d+)\s+TRANSITION", header, re.IGNORECASE)
     if m:
         return int(m.group(1))
     # **Section N.X: title** (bold, no ###) → N
-    m = re.search(r'\*\*Section\s+(\d+)\.', header)
+    m = re.search(r"\*\*Section\s+(\d+)\.", header)
     if m:
         return int(m.group(1))
     # Bridge / exitcheck / synthesis named sections → inherit last major
@@ -201,14 +201,16 @@ def split_spec(input_data, **kwargs):
         base_id = f"s{major}_{minor}_{slug}"
         seen_ids[base_id] += 1
         section_id = base_id if seen_ids[base_id] == 1 else f"{base_id}_{seen_ids[base_id]}"
-        sections.append({
-            "id": section_id,
-            "index": i,
-            "major": major,
-            "minor": minor,
-            "slug": slug,
-            "header": header,
-            "body": body,
-        })
+        sections.append(
+            {
+                "id": section_id,
+                "index": i,
+                "major": major,
+                "minor": minor,
+                "slug": slug,
+                "header": header,
+                "body": body,
+            }
+        )
 
     return sections

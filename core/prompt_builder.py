@@ -647,7 +647,10 @@ class PromptBuilderV2:
 
         # Build the prompt using existing build() method
         built_prompt = self.build(
-            prompt_name, variables, input_content=input_content, save_prompt_to=save_prompt_to,
+            prompt_name,
+            variables,
+            input_content=input_content,
+            save_prompt_to=save_prompt_to,
             extra_context=extra_context,
         )
 

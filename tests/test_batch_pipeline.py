@@ -19,8 +19,9 @@ project_root = Path(__file__).parent.parent
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 
-from core.pipeline import run_pipeline, Step
 import json
+
+from core.pipeline import Step, run_pipeline
 
 
 def run_batch_test(only_items=None, rerun_items=None, verbose=True):
@@ -32,9 +33,9 @@ def run_batch_test(only_items=None, rerun_items=None, verbose=True):
         rerun_items: List of template IDs to rerun
         verbose: Print detailed output
     """
-    print("\n" + "="*70)
+    print("\n" + "=" * 70)
     print("BATCH PROCESSING TEST")
-    print("="*70 + "\n")
+    print("=" * 70 + "\n")
 
     # Verify input file
     input_file = "modules/module4/problem_templates.json"
@@ -43,12 +44,12 @@ def run_batch_test(only_items=None, rerun_items=None, verbose=True):
         return None
 
     # Show what we're processing
-    with open(input_file, 'r', encoding='utf-8') as f:
+    with open(input_file, "r", encoding="utf-8") as f:
         templates = json.load(f)
 
     print(f"Input: {input_file}")
     print(f"Total templates: {len(templates)}")
-    print(f"Prompt: steps/prompts/test_prompt.py")
+    print("Prompt: steps/prompts/test_prompt.py")
 
     if only_items:
         print(f"Processing: {', '.join(only_items)}")
@@ -66,7 +67,7 @@ def run_batch_test(only_items=None, rerun_items=None, verbose=True):
         "batch_id_field": "template_id",
         "batch_output_id_field": "result_id",
         "batch_id_start": 1,
-        "output_file": "results.json"
+        "output_file": "results.json",
     }
 
     if only_items:
@@ -81,15 +82,15 @@ def run_batch_test(only_items=None, rerun_items=None, verbose=True):
             pipeline_status="alpha",
             notes="Batch processing test",
             rerun_items=rerun_items,
-            verbose=verbose
+            verbose=verbose,
         )
 
-        print("\n" + "="*70)
+        print("\n" + "=" * 70)
         print("SUCCESS!")
-        print("="*70)
+        print("=" * 70)
         print(f"\nOutput: {result['output_dir']}")
         print(f"Version: {result['metadata']['version']}")
-        if result['metadata'].get('base_version'):
+        if result["metadata"].get("base_version"):
             print(f"Base version: {result['metadata']['base_version']}")
         print()
         print("Check results:")
@@ -102,15 +103,16 @@ def run_batch_test(only_items=None, rerun_items=None, verbose=True):
     except Exception as e:
         print(f"\nERROR: {e}")
         import traceback
+
         traceback.print_exc()
         return None
 
 
 def show_cli_tools():
     """Show CLI tool examples"""
-    print("\n" + "="*70)
+    print("\n" + "=" * 70)
     print("CLI TOOLS")
-    print("="*70 + "\n")
+    print("=" * 70 + "\n")
 
     print("List pipelines:")
     print("  python cli/list.py\n")
@@ -155,7 +157,7 @@ if __name__ == "__main__":
     if "--rerun" in sys.argv:
         try:
             idx = sys.argv.index("--rerun")
-            rerun_items = [arg for arg in sys.argv[idx + 1:] if not arg.startswith("--")]
+            rerun_items = [arg for arg in sys.argv[idx + 1 :] if not arg.startswith("--")]
 
             if not rerun_items:
                 print("\nERROR: --rerun requires item IDs")

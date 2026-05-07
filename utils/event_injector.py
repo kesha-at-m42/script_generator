@@ -3,7 +3,7 @@ Event Name Injector Utility
 Injects event names into dialogue text for remediation steps
 """
 
-from typing import Dict, List, Any
+from typing import Any, Dict, List
 
 
 def inject_event_names_into_dialogue(sequences: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -25,15 +25,15 @@ def inject_event_names_into_dialogue(sequences: List[Dict[str, Any]]) -> List[Di
     """
     for sequence in sequences:
         # Process main steps
-        if 'steps' in sequence:
-            for step in sequence['steps']:
+        if "steps" in sequence:
+            for step in sequence["steps"]:
                 _inject_into_step(step)
 
                 # Process remediation steps
-                if 'prompt' in step and 'remediations' in step['prompt']:
-                    for remediation in step['prompt']['remediations']:
-                        if 'step' in remediation:
-                            _inject_into_step(remediation['step'])
+                if "prompt" in step and "remediations" in step["prompt"]:
+                    for remediation in step["prompt"]["remediations"]:
+                        if "step" in remediation:
+                            _inject_into_step(remediation["step"])
 
     return sequences
 
@@ -44,19 +44,19 @@ def _inject_into_step(step: Dict[str, Any]) -> None:
     Modifies the step in-place.
     """
     # Check if step has metadata.events
-    if 'metadata' not in step:
+    if "metadata" not in step:
         return
 
-    metadata = step['metadata']
-    if 'events' not in metadata or not metadata['events']:
+    metadata = step["metadata"]
+    if "events" not in metadata or not metadata["events"]:
         return
 
     # Check if step has dialogue
-    if 'dialogue' not in step:
+    if "dialogue" not in step:
         return
 
     # Extract event names
-    event_names = [event['name'] for event in metadata['events'] if 'name' in event]
+    event_names = [event["name"] for event in metadata["events"] if "name" in event]
 
     if not event_names:
         return
@@ -65,9 +65,9 @@ def _inject_into_step(step: Dict[str, Any]) -> None:
     event_prefix = "".join(f"[event: {name}]" for name in event_names)
 
     # Prepend to dialogue (avoid double-adding if already present)
-    dialogue = step['dialogue']
-    if not dialogue.startswith('[event'):
-        step['dialogue'] = event_prefix + dialogue
+    dialogue = step["dialogue"]
+    if not dialogue.startswith("[event"):
+        step["dialogue"] = event_prefix + dialogue
 
 
 def process_godot_sequences_with_events(data: Dict[str, Any]) -> Dict[str, Any]:
@@ -80,15 +80,14 @@ def process_godot_sequences_with_events(data: Dict[str, Any]) -> Dict[str, Any]:
     Returns:
         Modified data with event names injected into dialogue
     """
-    if 'sequences' in data:
-        data['sequences'] = inject_event_names_into_dialogue(data['sequences'])
+    if "sequences" in data:
+        data["sequences"] = inject_event_names_into_dialogue(data["sequences"])
 
     return data
 
 
 if __name__ == "__main__":
     # Test the function
-    import json
 
     test_step = {
         "@type": "Step",
@@ -96,11 +95,11 @@ if __name__ == "__main__":
             "events": [
                 {
                     "name": "A_cut_hint_1_2",
-                    "description": "Show visual guide for cutting bar at 1/2 mark"
+                    "description": "Show visual guide for cutting bar at 1/2 mark",
                 }
             ]
         },
-        "dialogue": "Let's think about this together. You need to make a cut..."
+        "dialogue": "Let's think about this together. You need to make a cut...",
     }
 
     print("Testing event injection:")
@@ -113,13 +112,8 @@ if __name__ == "__main__":
     # Test with multiple events
     test_step_multi = {
         "@type": "Step",
-        "metadata": {
-            "events": [
-                {"name": "A_cut_1_2"},
-                {"name": "A_highlight_0"}
-            ]
-        },
-        "dialogue": "Watch as I show you..."
+        "metadata": {"events": [{"name": "A_cut_1_2"}, {"name": "A_highlight_0"}]},
+        "dialogue": "Watch as I show you...",
     }
 
     print(f"\nMultiple events before: {test_step_multi['dialogue']}")

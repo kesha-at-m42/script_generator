@@ -12,8 +12,9 @@ Does NOT validate content (prompts, dialogue, etc.) - only structure.
 
 Includes Godot-specific schema validation for known problematic patterns.
 """
-from typing import Any, Dict, Optional, Union, List
+
 import json
+from typing import Any, Dict, Optional
 
 
 def parse_schema_from_example(output_structure: str) -> Dict[str, Any]:
@@ -34,18 +35,13 @@ def parse_schema_from_example(output_structure: str) -> Dict[str, Any]:
         example = json.loads(output_structure.strip())
     except json.JSONDecodeError:
         # If it's not valid JSON, return minimal schema
-        return {
-            "is_array": False,
-            "required_fields": [],
-            "field_types": {},
-            "nested_structure": {}
-        }
+        return {"is_array": False, "required_fields": [], "field_types": {}, "nested_structure": {}}
 
     schema = {
         "is_array": isinstance(example, list),
         "required_fields": [],
         "field_types": {},
-        "nested_structure": {}
+        "nested_structure": {},
     }
 
     # If it's an array, extract schema from first element
@@ -79,7 +75,7 @@ def validate_ai_output_structure(
     result: Any,
     input_item: Dict,
     batch_id_field: Optional[str] = None,
-    output_structure: Optional[str] = None
+    output_structure: Optional[str] = None,
 ) -> Optional[str]:
     """Validate AI output structure to catch malformed responses
 
@@ -104,7 +100,7 @@ def validate_ai_output_structure(
     """
 
     # Check 0: Should not be a raw_output wrapper (indicates parse failure)
-    if isinstance(result, dict) and 'raw_output' in result and len(result) == 1:
+    if isinstance(result, dict) and "raw_output" in result and len(result) == 1:
         return "AI output could not be parsed as JSON (raw_output wrapper)"
 
     # Check 0a: Godot-specific schema validation (runs for Godot Sequences)
@@ -186,17 +182,15 @@ def validate_ai_output_structure(
 
         if isinstance(check_item, dict):
             # Check in result (top-level or in metadata)
-            result_has_id = (
-                batch_id_field in check_item or
-                (isinstance(check_item.get('metadata'), dict) and
-                 batch_id_field in check_item.get('metadata', {}))
+            result_has_id = batch_id_field in check_item or (
+                isinstance(check_item.get("metadata"), dict)
+                and batch_id_field in check_item.get("metadata", {})
             )
 
             # Check if input had it (to determine if it should be inherited)
-            input_has_id = (
-                batch_id_field in input_item or
-                (isinstance(input_item.get('metadata'), dict) and
-                 batch_id_field in input_item.get('metadata', {}))
+            input_has_id = batch_id_field in input_item or (
+                isinstance(input_item.get("metadata"), dict)
+                and batch_id_field in input_item.get("metadata", {})
             )
 
             if not result_has_id and input_has_id:
@@ -220,16 +214,17 @@ def are_fractions_equivalent(frac1: str, frac2: str) -> bool:
         True if fractions are equivalent
     """
     try:
+
         def parse_frac(f):
-            if '/' in str(f):
-                parts = str(f).split('/')
+            if "/" in str(f):
+                parts = str(f).split("/")
                 return int(parts[0]) / int(parts[1])
             return float(f)
 
         val1 = parse_frac(frac1)
         val2 = parse_frac(frac2)
         return abs(val1 - val2) < 0.0001
-    except:
+    except Exception:
         return False
 
 
@@ -305,9 +300,9 @@ def validate_godot_schema(result: Dict[str, Any]) -> Optional[str]:
                     if isinstance(labels, dict):
                         return (
                             f"{location}.labels has invalid type. "
-                            f"Expected: boolean or array (e.g., [\"0\", \"1/3\"]), "
+                            f'Expected: boolean or array (e.g., ["0", "1/3"]), '
                             f"Got: object with keys {list(labels.keys())}. "
-                            f"Note: labels cannot be an object with key-value pairs like {{\"0\": \"0\", \"1/3\": \"1/3 is here\"}}."
+                            f'Note: labels cannot be an object with key-value pairs like {{"0": "0", "1/3": "1/3 is here"}}.'
                         )
                     if not isinstance(labels, (bool, list)):
                         return (
@@ -338,7 +333,7 @@ def validate_godot_schema(result: Dict[str, Any]) -> Optional[str]:
                     if isinstance(points, dict):
                         return (
                             f"{location}.points has invalid type. "
-                            f"Expected: array (e.g., [\"1/4\", \"2/3\"]), "
+                            f'Expected: array (e.g., ["1/4", "2/3"]), '
                             f"Got: object"
                         )
                     if not isinstance(points, list):
@@ -371,7 +366,7 @@ def validate_godot_schema(result: Dict[str, Any]) -> Optional[str]:
                         if any(isinstance(x, bool) for x in ticks_readonly):
                             return (
                                 f"{location}.ticks_is_read_only has invalid format. "
-                                f"Should be: boolean (true/false) OR array of fraction strings ([\"0\", \"1/3\"]), "
+                                f'Should be: boolean (true/false) OR array of fraction strings (["0", "1/3"]), '
                                 f"Got: array with booleans {ticks_readonly}. "
                                 f"Note: Use single boolean to mark all ticks readonly, or array of strings for specific ticks."
                             )
@@ -420,13 +415,15 @@ def validate_godot_schema(result: Dict[str, Any]) -> Optional[str]:
                                 # Check if any other option is equivalent
                                 equivalent_indices = []
                                 for idx, option in enumerate(choice_options):
-                                    if idx != answer_idx and are_fractions_equivalent(answer_text, option):
+                                    if idx != answer_idx and are_fractions_equivalent(
+                                        answer_text, option
+                                    ):
                                         equivalent_indices.append(idx)
 
                                 if equivalent_indices:
                                     return (
                                         f"steps[{step_idx}].prompt.validator: Multiple equivalent correct answers detected. "
-                                        f"Answer is [{answer_idx}] (\"{answer_text}\") but option(s) {equivalent_indices} "
+                                        f'Answer is [{answer_idx}] ("{answer_text}") but option(s) {equivalent_indices} '
                                         f"({[choice_options[i] for i in equivalent_indices]}) are also equivalent. "
                                         f"Either: (1) set allow_multiple: true and answer: {[answer_idx] + equivalent_indices}, "
                                         f"or (2) remove equivalent options from choices."
@@ -447,7 +444,10 @@ def validate_godot_schema(result: Dict[str, Any]) -> Optional[str]:
                         reference_bar = None
                         reference_idx = None
                         for idx, tangible in enumerate(tangibles):
-                            if tangible.get("is_read_only") and tangible.get("@type") in ["NumLine", "FracShape"]:
+                            if tangible.get("is_read_only") and tangible.get("@type") in [
+                                "NumLine",
+                                "FracShape",
+                            ]:
                                 reference_bar = tangible
                                 reference_idx = idx
                                 break
@@ -469,7 +469,9 @@ def validate_godot_schema(result: Dict[str, Any]) -> Optional[str]:
                                         if answer_tangible.get("@type") in ["NumLine", "FracShape"]:
                                             answer_amount = _extract_shaded_amount(answer_tangible)
 
-                                            if answer_amount and not are_fractions_equivalent(reference_amount, answer_amount):
+                                            if answer_amount and not are_fractions_equivalent(
+                                                reference_amount, answer_amount
+                                            ):
                                                 return (
                                                     f"steps[{step_idx}].prompt.validator: Wrong answer in SelectionValidator. "
                                                     f"Reference bar (index {reference_idx}) shows {reference_amount}, "
@@ -486,11 +488,19 @@ def validate_godot_schema(result: Dict[str, Any]) -> Optional[str]:
 
                                     if tangible.get("@type") in ["NumLine", "FracShape"]:
                                         tangible_amount = _extract_shaded_amount(tangible)
-                                        if tangible_amount and are_fractions_equivalent(reference_amount, tangible_amount):
-                                            selectable_equivalent_indices.append((idx, tangible_amount))
+                                        if tangible_amount and are_fractions_equivalent(
+                                            reference_amount, tangible_amount
+                                        ):
+                                            selectable_equivalent_indices.append(
+                                                (idx, tangible_amount)
+                                            )
 
                                 # Check if answer is missing any equivalent tangibles
-                                missing_indices = [idx for idx, _ in selectable_equivalent_indices if idx not in answer]
+                                missing_indices = [
+                                    idx
+                                    for idx, _ in selectable_equivalent_indices
+                                    if idx not in answer
+                                ]
                                 if missing_indices:
                                     return (
                                         f"steps[{step_idx}].prompt.validator: Incomplete answer in SelectionValidator. "
@@ -516,13 +526,19 @@ def validate_godot_schema(result: Dict[str, Any]) -> Optional[str]:
                                             # Check other tangibles for equivalence
                                             equivalent_indices = []
                                             for idx, tangible in enumerate(tangibles):
-                                                if idx != answer_idx and tangible.get("@type") == answer_tangible.get("@type"):
+                                                if idx != answer_idx and tangible.get(
+                                                    "@type"
+                                                ) == answer_tangible.get("@type"):
                                                     # Skip reference tangibles
                                                     if tangible.get("is_read_only"):
                                                         continue
 
-                                                    tangible_amount = _extract_shaded_amount(tangible)
-                                                    if tangible_amount and are_fractions_equivalent(answer_amount, tangible_amount):
+                                                    tangible_amount = _extract_shaded_amount(
+                                                        tangible
+                                                    )
+                                                    if tangible_amount and are_fractions_equivalent(
+                                                        answer_amount, tangible_amount
+                                                    ):
                                                         equivalent_indices.append(idx)
 
                                             if equivalent_indices:
@@ -580,26 +596,26 @@ def get_validation_stats(errors: list) -> Dict[str, int]:
         Dict with error type counts
     """
     stats = {
-        'bare_array': 0,
-        'wrong_structure': 0,
-        'missing_fields': 0,
-        'wrong_type': 0,
-        'parse_failure': 0,
-        'other': 0
+        "bare_array": 0,
+        "wrong_structure": 0,
+        "missing_fields": 0,
+        "wrong_type": 0,
+        "parse_failure": 0,
+        "other": 0,
     }
 
     for error in errors:
         error_lower = error.lower()
-        if 'array' in error_lower and 'expected' in error_lower:
-            stats['wrong_structure'] += 1
-        elif 'missing required fields' in error_lower or 'missing' in error_lower:
-            stats['missing_fields'] += 1
-        elif 'wrong type' in error_lower or 'type' in error_lower:
-            stats['wrong_type'] += 1
-        elif 'raw_output' in error_lower or 'parse' in error_lower:
-            stats['parse_failure'] += 1
+        if "array" in error_lower and "expected" in error_lower:
+            stats["wrong_structure"] += 1
+        elif "missing required fields" in error_lower or "missing" in error_lower:
+            stats["missing_fields"] += 1
+        elif "wrong type" in error_lower or "type" in error_lower:
+            stats["wrong_type"] += 1
+        elif "raw_output" in error_lower or "parse" in error_lower:
+            stats["parse_failure"] += 1
         else:
-            stats['other'] += 1
+            stats["other"] += 1
 
     return stats
 
@@ -609,10 +625,10 @@ def get_validation_stats(errors: list) -> Dict[str, int]:
 # ============================================================================
 
 if __name__ == "__main__":
-    import sys
     import argparse
-    from pathlib import Path
     import importlib.util
+    import sys
+    from pathlib import Path
 
     def load_prompt_output_structure(prompt_name: str, project_root: Path) -> Optional[str]:
         """Load output_structure from a prompt file
@@ -639,11 +655,11 @@ if __name__ == "__main__":
             prompt_obj = None
             for attr_name in dir(module):
                 attr = getattr(module, attr_name)
-                if hasattr(attr, 'output_structure'):
+                if hasattr(attr, "output_structure"):
                     prompt_obj = attr
                     break
 
-            if prompt_obj and hasattr(prompt_obj, 'output_structure'):
+            if prompt_obj and hasattr(prompt_obj, "output_structure"):
                 return prompt_obj.output_structure
 
         except Exception as e:
@@ -668,10 +684,10 @@ if __name__ == "__main__":
 
         # Look for common prompt names in path
         known_prompts = [
-            'godot_formatter',
-            'problem_generator',
-            'bbcode_formatter',
-            'sequence_generator'
+            "godot_formatter",
+            "problem_generator",
+            "bbcode_formatter",
+            "sequence_generator",
         ]
 
         for part in parts:
@@ -692,25 +708,18 @@ Examples:
 
   # Save validated output
   python core/output_validator.py input.json -o validated.json
-        """
+        """,
+    )
+    parser.add_argument("input_file", help="Path to JSON file to validate")
+    parser.add_argument(
+        "-p",
+        "--prompt",
+        help="Prompt name to load output_structure from (auto-detected if not specified)",
     )
     parser.add_argument(
-        "input_file",
-        help="Path to JSON file to validate"
+        "-o", "--output", help="Save validated output to file (adds _validation_status fields)"
     )
-    parser.add_argument(
-        "-p", "--prompt",
-        help="Prompt name to load output_structure from (auto-detected if not specified)"
-    )
-    parser.add_argument(
-        "-o", "--output",
-        help="Save validated output to file (adds _validation_status fields)"
-    )
-    parser.add_argument(
-        "-v", "--verbose",
-        action="store_true",
-        help="Show detailed error messages"
-    )
+    parser.add_argument("-v", "--verbose", action="store_true", help="Show detailed error messages")
 
     args = parser.parse_args()
 
@@ -725,7 +734,7 @@ Examples:
         sys.exit(1)
 
     try:
-        with open(input_path, 'r', encoding='utf-8') as f:
+        with open(input_path, "r", encoding="utf-8") as f:
             data = json.load(f)
     except json.JSONDecodeError as e:
         print(f"Error: Invalid JSON in {input_path}: {e}")
@@ -748,13 +757,13 @@ Examples:
             print(f"Warning: Could not load output_structure from prompt: {prompt_name}")
 
     # Determine format
-    if isinstance(data, dict) and data.get('@type') == 'SequencePool':
-        sequences = data.get('sequences', [])
+    if isinstance(data, dict) and data.get("@type") == "SequencePool":
+        sequences = data.get("sequences", [])
         is_pool = True
     elif isinstance(data, list):
         sequences = data
         is_pool = False
-    elif isinstance(data, dict) and data.get('@type') == 'Sequence':
+    elif isinstance(data, dict) and data.get("@type") == "Sequence":
         sequences = [data]
         is_pool = False
     else:
@@ -769,7 +778,9 @@ Examples:
     for idx, sequence in enumerate(sequences):
         seq_id = None
         if isinstance(sequence, dict):
-            seq_id = sequence.get('metadata', {}).get('problem_id') or sequence.get('problem_id', idx)
+            seq_id = sequence.get("metadata", {}).get("problem_id") or sequence.get(
+                "problem_id", idx
+            )
         else:
             seq_id = idx
 
@@ -778,24 +789,20 @@ Examples:
             sequence,
             {},  # No input item for standalone validation
             batch_id_field=None,
-            output_structure=output_structure
+            output_structure=output_structure,
         )
 
         if error:
             if isinstance(sequence, dict):
-                sequence['_validation_status'] = 'invalid'
-                sequence['_validation_error'] = error
-            validation_errors.append({
-                'item_id': seq_id,
-                'item_index': idx,
-                'error': error
-            })
+                sequence["_validation_status"] = "invalid"
+                sequence["_validation_error"] = error
+            validation_errors.append({"item_id": seq_id, "item_index": idx, "error": error})
             print(f"Item {seq_id}: [INVALID]")
             if args.verbose:
                 print(f"  Error: {error}")
         else:
             if isinstance(sequence, dict):
-                sequence['_validation_status'] = 'valid'
+                sequence["_validation_status"] = "valid"
             print(f"Item {seq_id}: [VALID]")
 
     # Print summary
@@ -807,7 +814,7 @@ Examples:
     if validation_errors:
         print(f"\nSchema errors found in {len(validation_errors)} item(s):")
         for err in validation_errors[:10]:  # Show first 10
-            error_preview = err['error'][:100] + "..." if len(err['error']) > 100 else err['error']
+            error_preview = err["error"][:100] + "..." if len(err["error"]) > 100 else err["error"]
             print(f"  - ID {err['item_id']}: {error_preview}")
         if len(validation_errors) > 10:
             print(f"  ... and {len(validation_errors) - 10} more")
@@ -816,9 +823,9 @@ Examples:
     if validation_errors:
         # Save to same directory as input file (or output file if specified)
         base_path = Path(args.output).parent if args.output else input_path.parent
-        errors_file = base_path / 'validation_errors.json'
+        errors_file = base_path / "validation_errors.json"
 
-        with open(errors_file, 'w', encoding='utf-8') as f:
+        with open(errors_file, "w", encoding="utf-8") as f:
             json.dump(validation_errors, f, indent=2, ensure_ascii=False)
 
         print(f"\nValidation errors saved to: {errors_file}")
@@ -835,7 +842,7 @@ Examples:
         else:
             output_data = sequences[0] if len(sequences) == 1 else sequences
 
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             json.dump(output_data, f, indent=2, ensure_ascii=False)
 
         print(f"\nValidated output saved to: {output_path}")

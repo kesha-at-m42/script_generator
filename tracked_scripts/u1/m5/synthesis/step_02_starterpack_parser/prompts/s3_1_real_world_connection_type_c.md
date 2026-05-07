@@ -1,5 +1,5 @@
 # Prompt: starterpack_parser
-# Generated: 2026-04-20T11:58:23.212184
+# Generated: 2026-05-05T15:05:50.113273
 ======================================================================
 
 ## API Parameters
@@ -161,4 +161,3 @@ Cacheable: Yes
 ## Prefill
 
 {"id": "s3_1_real_world_connection_type_c",
-

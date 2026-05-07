@@ -1,53 +1,104 @@
+# synthesis-script.toml
+
 title = "synthesis"
 type = "sequence"
 
-# --- Section: opening_frame ---
-[section_100_opening_frame]
+# ---------------------------------------------------------------------------
+# Section 1 - opening_frame
+# ---------------------------------------------------------------------------
+
+[section_101_opening_frame]
 template = "chart_template"
 
-[step_100_opening_frame]
+[step_101_opening_frame]
 dialogue = "You read picture graphs and bar graphs and used them to answer questions about the data. Now let's connect some ideas."
 components = ["SceneComponent"]
 
-# --- Section: representation_transfer ---
-[section_101_representation_transfer]
+# ---------------------------------------------------------------------------
+# Section 2 - representation_transfer
+# ---------------------------------------------------------------------------
+
+[section_102_representation_transfer]
 template = "chart_template"
 
-[step_101_representation_transfer]
+[step_102_representation_transfer]
 dialogue = "Look at these two graphs. They show the SAME data."
-components = ["SceneComponent", "PromptComponent"]
+components = ["PromptComponent"]
+prompt_text = "What's the same about both graphs? Select all that apply."
 
-# --- Section: pattern_discovery_type_a ---
-[section_102_pattern_discovery_type_a]
+# ---------------------------------------------------------------------------
+# Section 3 - pattern_discovery_type_a
+# ---------------------------------------------------------------------------
+
+[section_103_pattern_discovery_type_a]
 template = "chart_template"
 
-[step_102_pattern_discovery_type_a]
+[step_103_pattern_discovery_type_a]
 dialogue = "Every part of a graph has a job. This picture graph has three parts labeled A, B, and C. Click on the part that shows what each symbol means."
-components = ["SceneComponent", "PromptComponent"]
+components = ["PromptComponent"]
+prompt_text = "Which part tells you what each symbol means?"
 
-# --- Section: real_world_bridge ---
-[section_103_real_world_bridge]
+[step_103.correct]
+dialogue = "The key tells you what each symbol means. Here, each star equals 1 vote. Title tells what the graph is about. Labels name the categories. Key shows the scale. Every part has a job."
+metadata = { sting_id = "on_correct" }
+
+# ---------------------------------------------------------------------------
+# Section 4 - real_world_bridge
+# ---------------------------------------------------------------------------
+
+[section_104_real_world_bridge]
 template = "chart_template"
-
-[step_103_real_world_bridge]
-dialogue = "Graphs aren't just in math class. People use them everywhere. Look at these three scenarios. Which of these could use a bar graph to show the data? Select all that apply."
-components = ["SceneComponent", "PromptComponent"]
 
 [step_104_real_world_bridge]
+dialogue = "Graphs aren't just in math class. People use them everywhere. Look at these three scenarios. Which of these could use a bar graph to show the data? Select all that apply."
+components = ["PromptComponent"]
+prompt_text = "Which of these could use a bar graph to show the data? Select all that apply."
+
+[step_104.correct]
+dialogue = "Exactly. All of them! Any time you're counting and comparing categories, a graph can help."
+metadata = { sting_id = "on_correct" }
+
+[step_104.step_503]
+dialogue = "You're on the right track. Each one you picked could use a bar graph. Look at the scenarios again. Are there any others that count and compare categories?"
+id = "medium"
+
+[step_104.step_504]
+dialogue = "Let's think about what bar graphs show. They count things in different categories so you can compare them. Which scenarios count and compare?"
+id = "medium"
+
+[step_104.step_505]
+dialogue = "Some of your picks are right. Those scenarios do count and compare categories. Check your other selections. Do they count things in categories?"
+id = "light"
+
+[step_104.step_506]
+dialogue = "Let me show you how this works. Bar graphs count things in different categories. Field trips: you count votes for each destination. Library books: you count checkouts for each genre. Cafeteria: you count how many students chose each lunch. All three count and compare, so all three could use a bar graph. The answer is all of them."
+id = "heavy"
+
+[step_105_real_world_bridge]
 dialogue = "Graphs help people see patterns and make decisions. You'll see them in school, in stores, on the news, everywhere."
 
-# --- Section: metacognitive_comparison_questions ---
-[section_104_metacognitive_comparison_questions]
+# ---------------------------------------------------------------------------
+# Section 5 - metacognitive_comparison_questions
+# ---------------------------------------------------------------------------
+
+[section_105_metacognitive_comparison_questions]
 template = "chart_template"
 
-[step_105_metacognitive_comparison_questions]
+[step_106_metacognitive_comparison_questions]
 dialogue = "You saw two kinds of comparison questions today. Some asked \"how many more\" and others asked \"how many fewer.\" To answer comparisonquestions, what do you need to do? Also remember: \"in all\" means COMBINE, so you add. [vocab]Compare[/vocab] and [vocab]combine[/vocab], those are your two problem types."
-components = ["SceneComponent", "PromptComponent"]
+components = ["PromptComponent"]
+prompt_text = "To answer comparison questions like \"how many more\" and \"how many fewer\", what do you need to do?"
 
-# --- Section: identity_building_closure ---
-[section_105_identity_building_closure]
+[step_106.correct]
+dialogue = "\"How many more\" and \"how many fewer\" both require subtraction. That's called COMPARING. You find the difference to compare. And remember: \"in all\" means COMBINE, so you add. [vocab]Compare[/vocab] and [vocab]combine[/vocab], those are your two problem types."
+metadata = { sting_id = "on_correct" }
+
+# ---------------------------------------------------------------------------
+# Section 6 - identity_building_closure
+# ---------------------------------------------------------------------------
+
+[section_106_identity_building_closure]
 template = "chart_template"
 
-[step_106_identity_building_closure]
+[step_107_identity_building_closure]
 dialogue = "You made your own graph. You read graphs showing other people's data. You answered comparison questions and found totals. You know how to collect and represent data. Next time, you'll see graphs where each symbol means more than one. Get ready for a new challenge."
-components = ["SceneComponent"]

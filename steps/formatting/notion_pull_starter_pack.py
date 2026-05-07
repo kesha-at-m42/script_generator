@@ -297,10 +297,7 @@ def _blocks_to_md(blocks: list, depth: int = 0) -> list[str]:
                     lines.extend(_blocks_to_md(col_children, depth))
         elif btype == "image":
             caption = _rt_to_md(bdata.get("caption", []))
-            url = (
-                bdata.get("external", {}).get("url")
-                or bdata.get("file", {}).get("url", "")
-            )
+            url = bdata.get("external", {}).get("url") or bdata.get("file", {}).get("url", "")
             lines.append(f"![{caption}]({url})" if url else "")
             lines.append("")
         # child_page, child_database, embed, link_preview, etc. are silently skipped
@@ -388,6 +385,7 @@ def pull(
     # Load .env if not already loaded
     try:
         from dotenv import load_dotenv
+
         load_dotenv(project_root / ".env")
     except ImportError:
         pass
@@ -403,17 +401,13 @@ def pull(
     # Resolve page URL via database lookup if needed
     if not page_url:
         if unit_number is None or module_number is None:
-            raise ValueError(
-                "database_url mode requires unit_number and module_number"
-            )
+            raise ValueError("database_url mode requires unit_number and module_number")
         if verbose:
             print(
                 f"  [NOTION_PULL] Looking up Unit {unit_number} Module {module_number} "
                 "in database ..."
             )
-        page_url = _lookup_page_in_database(
-            client, database_url, unit_number, module_number
-        )
+        page_url = _lookup_page_in_database(client, database_url, unit_number, module_number)
         print(f"  [NOTION_PULL] Found page: {page_url}")
 
     page_id = _page_id_from_url(page_url)
@@ -470,9 +464,7 @@ def pull(
 
     # ---- Write _starter_pack_ref.md to module dir --------------------------
     if unit_number is not None and module_number is not None:
-        module_dir = (
-            project_root / "units" / f"unit{unit_number}" / f"module{module_number}"
-        )
+        module_dir = project_root / "units" / f"unit{unit_number}" / f"module{module_number}"
         if module_dir.exists():
             out_path = module_dir / "_starter_pack_ref.md"
             out_path.write_text(markdown, encoding="utf-8")

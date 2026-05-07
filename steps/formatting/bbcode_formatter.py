@@ -17,10 +17,9 @@ CLI Usage:
     Applies combined bbcode formatting in-place to the given JSON file.
 """
 
-import re
 import json
+import re
 import sys
-import os
 from pathlib import Path
 
 # Add project root to path for imports
@@ -28,20 +27,36 @@ project_root = Path(__file__).parent.parent.parent
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 
-from utils.module_utils import get_module_field
-
+from utils.module_utils import get_module_field  # noqa: E402
 
 # ============================================================================
 # FRACTION WORD CONVERSION
 # ============================================================================
 
+
 def _number_to_word(n):
     """Convert a number to its word form (1 -> 'one', 2 -> 'two', etc.)"""
     words = {
-        1: "one", 2: "two", 3: "three", 4: "four", 5: "five",
-        6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten",
-        11: "eleven", 12: "twelve", 13: "thirteen", 14: "fourteen", 15: "fifteen",
-        16: "sixteen", 17: "seventeen", 18: "eighteen", 19: "nineteen", 20: "twenty"
+        1: "one",
+        2: "two",
+        3: "three",
+        4: "four",
+        5: "five",
+        6: "six",
+        7: "seven",
+        8: "eight",
+        9: "nine",
+        10: "ten",
+        11: "eleven",
+        12: "twelve",
+        13: "thirteen",
+        14: "fourteen",
+        15: "fifteen",
+        16: "sixteen",
+        17: "seventeen",
+        18: "eighteen",
+        19: "nineteen",
+        20: "twenty",
     }
 
     try:
@@ -88,7 +103,7 @@ def _denominator_to_word(n, is_unit_fraction=False):
         17: "seventeenth",
         18: "eighteenth",
         19: "nineteenth",
-        20: "twentieth"
+        20: "twentieth",
     }
 
     # Plural forms (for non-unit fractions)
@@ -111,7 +126,7 @@ def _denominator_to_word(n, is_unit_fraction=False):
         17: "seventeenths",
         18: "eighteenths",
         19: "nineteenths",
-        20: "twentieths"
+        20: "twentieths",
     }
 
     try:
@@ -131,6 +146,7 @@ def _denominator_to_word(n, is_unit_fraction=False):
 # ============================================================================
 # STRIP ALL BBCODE (single string)
 # ============================================================================
+
 
 def strip_all_bbcode(text):
     """
@@ -154,13 +170,11 @@ def strip_all_bbcode(text):
         return text
 
     # Remove vocab tags, keep inner text
-    result = re.sub(r'\[vocab\](.*?)\[/vocab\]', r'\1', text)
+    result = re.sub(r"\[vocab\](.*?)\[/vocab\]", r"\1", text)
 
     # Remove fraction tags, restore raw fraction (e.g. 3/4)
     result = re.sub(
-        r'\[fraction numerator=(\d+) denominator=(\d+)\].*?\[/fraction\]',
-        r'\1/\2',
-        result
+        r"\[fraction numerator=(\d+) denominator=(\d+)\].*?\[/fraction\]", r"\1/\2", result
     )
 
     return result
@@ -170,8 +184,10 @@ def strip_all_bbcode(text):
 # DEBUG LOGGING HELPERS
 # ============================================================================
 
+
 class FormattingLogger:
     """Tracks and logs formatting changes"""
+
     def __init__(self, enabled=False):
         self.enabled = enabled
         self.changes = []
@@ -182,17 +198,19 @@ class FormattingLogger:
         if not self.enabled or original == formatted:
             return
 
-        self.changes.append({
-            'location': location,
-            'field_type': field_type,
-            'original': original,
-            'formatted': formatted,
-            'change_type': change_type
-        })
+        self.changes.append(
+            {
+                "location": location,
+                "field_type": field_type,
+                "original": original,
+                "formatted": formatted,
+                "change_type": change_type,
+            }
+        )
 
         # Extract vocab words that were added
-        if change_type == 'vocab':
-            vocab_pattern = r'\[vocab\](.*?)\[/vocab\]'
+        if change_type == "vocab":
+            vocab_pattern = r"\[vocab\](.*?)\[/vocab\]"
             added_words = re.findall(vocab_pattern, formatted)
             self.vocab_words_added.update(added_words)
 
@@ -205,12 +223,12 @@ class FormattingLogger:
         if not self.enabled or not self.changes:
             return
 
-        print(f"\n{'='*70}")
+        print(f"\n{'=' * 70}")
         print(f"FORMATTING SUMMARY: {len(self.changes)} changes made")
-        print(f"{'='*70}")
+        print(f"{'=' * 70}")
 
-        vocab_changes = [c for c in self.changes if c['change_type'] == 'vocab']
-        fraction_changes = [c for c in self.changes if c['change_type'] == 'fraction']
+        vocab_changes = [c for c in self.changes if c["change_type"] == "vocab"]
+        fraction_changes = [c for c in self.changes if c["change_type"] == "fraction"]
 
         if vocab_changes:
             print(f"\n[OK] Vocabulary tags: {len(vocab_changes)} fields modified")
@@ -224,6 +242,7 @@ class FormattingLogger:
 # ============================================================================
 # FRACTION BBCODE FORMATTING
 # ============================================================================
+
 
 def format_fractions_bbcode(text, context_type, include_words=True):
     """
@@ -262,7 +281,7 @@ def format_fractions_bbcode(text, context_type, include_words=True):
             # For dialogue - dynamically generate spoken words
             numerator_word = _number_to_word(numerator)
             # Use singular form for unit fractions (numerator = 1)
-            is_unit_fraction = (numerator == "1")
+            is_unit_fraction = numerator == "1"
             denominator_word = _denominator_to_word(denominator, is_unit_fraction=is_unit_fraction)
             words = f"{numerator_word} {denominator_word}"
             return f"[fraction numerator={numerator} denominator={denominator}]{words}[/fraction]"
@@ -272,7 +291,7 @@ def format_fractions_bbcode(text, context_type, include_words=True):
 
     # Match fractions like 1/2, 3/4, 12/16, etc.
     # Use word boundaries to avoid matching non-fractions
-    pattern = r'\b(\d+)/(\d+)\b'
+    pattern = r"\b(\d+)/(\d+)\b"
     formatted = re.sub(pattern, replace_fraction, text)
 
     return formatted
@@ -281,6 +300,7 @@ def format_fractions_bbcode(text, context_type, include_words=True):
 # ============================================================================
 # VOCABULARY TAGGING
 # ============================================================================
+
 
 def format_vocab_tags(text, vocabulary_list):
     """
@@ -305,11 +325,11 @@ def format_vocab_tags(text, vocabulary_list):
         return text
 
     # Step 1: Remove all existing vocab tags
-    result = re.sub(r'\[vocab\](.*?)\[/vocab\]', r'\1', text)
+    result = re.sub(r"\[vocab\](.*?)\[/vocab\]", r"\1", text)
 
     # Convert to list if comma-separated string
     if isinstance(vocabulary_list, str):
-        vocabulary_list = [term.strip() for term in vocabulary_list.split(',')]
+        vocabulary_list = [term.strip() for term in vocabulary_list.split(",")]
 
     # Sort by length (longest first) to avoid partial matches
     # e.g., "equal parts" before "equal" to avoid "[vocab]equal[/vocab] parts"
@@ -328,17 +348,17 @@ def format_vocab_tags(text, vocabulary_list):
         # Check if term is between an opening tag [tag] and closing tag [/tag]
         escaped_term = re.escape(term)
         # Match: [tag_name]...term...[/tag_name] or [tag_name attr=val]...term...[/tag_name]
-        if re.search(r'\[(?!\/)[^\]]+\][^[]*\b' + escaped_term + r'\b[^\]]*\[\/[^\]]+\]', result):
+        if re.search(r"\[(?!\/)[^\]]+\][^[]*\b" + escaped_term + r"\b[^\]]*\[\/[^\]]+\]", result):
             continue
 
         # Build pattern with word boundaries
         # Don't use \b at the end if term ends with non-word character (like hyphen)
-        if re.search(r'\w$', term):
+        if re.search(r"\w$", term):
             # Term ends with word character - use boundaries on both sides
-            pattern = r'\b' + escaped_term + r'\b'
+            pattern = r"\b" + escaped_term + r"\b"
         else:
             # Term ends with non-word character - only use boundary at start
-            pattern = r'\b' + escaped_term
+            pattern = r"\b" + escaped_term
 
         # Replace ALL occurrences with case-preserving replacement
         # Use a function to preserve the original case from the matched text
@@ -355,19 +375,20 @@ def format_vocab_tags(text, vocabulary_list):
 # MAIN PROCESSING FUNCTION
 # ============================================================================
 
+
 def process_godot_sequences(godot_data, vocabulary_list=None):
     """
     Apply BBCode formatting to entire Godot sequence data structure.
-    
+
     This is the main entry point for post-processing after AI transformation.
-    
+
     Args:
         godot_data: Godot schema dict (with @type: "SequencePool" and sequences array)
         vocabulary_list: Optional list of vocabulary terms for [vocab] tagging
-    
+
     Returns:
         Modified godot_data with all text fields formatted
-    
+
     Processing rules:
         - dialogue: fractions with words + vocab tags
         - prompt.text: fractions without words, no vocab tags
@@ -375,88 +396,85 @@ def process_godot_sequences(godot_data, vocabulary_list=None):
         - remediations[].step.dialogue: fractions with words + vocab tags
         - on_correct.dialogue: fractions with words + vocab tags
     """
-    if not godot_data or '@type' not in godot_data:
+    if not godot_data or "@type" not in godot_data:
         print("[WARN] Invalid Godot data structure - skipping BBCode formatting")
         return godot_data
 
-    sequences = godot_data.get('sequences', [])
+    sequences = godot_data.get("sequences", [])
 
     for seq_idx, sequence in enumerate(sequences, 1):
-        if '@type' not in sequence or sequence['@type'] != 'Sequence':
+        if "@type" not in sequence or sequence["@type"] != "Sequence":
             print(f"[WARN] Sequence {seq_idx}: Invalid type, skipping")
             continue
-        
-        steps = sequence.get('steps', [])
-        
+
+        steps = sequence.get("steps", [])
+
         for step_idx, step in enumerate(steps, 1):
             try:
                 # Process dialogue (fractions + vocab)
-                if 'dialogue' in step and step['dialogue']:
-                    step['dialogue'] = format_fractions_bbcode(
-                        step['dialogue'],
-                        "dialogue",
-                        include_words=True
+                if "dialogue" in step and step["dialogue"]:
+                    step["dialogue"] = format_fractions_bbcode(
+                        step["dialogue"], "dialogue", include_words=True
                     )
                     if vocabulary_list:
-                        step['dialogue'] = format_vocab_tags(step['dialogue'], vocabulary_list)
+                        step["dialogue"] = format_vocab_tags(step["dialogue"], vocabulary_list)
 
                 # Process prompt if present
-                if 'prompt' in step and step['prompt']:
-                    prompt = step['prompt']
+                if "prompt" in step and step["prompt"]:
+                    prompt = step["prompt"]
 
                     # Prompt text (fractions only, no words, no vocab)
-                    if 'text' in prompt and prompt['text']:
-                        prompt['text'] = format_fractions_bbcode(
-                            prompt['text'],
-                            "prompt",
-                            include_words=False
+                    if "text" in prompt and prompt["text"]:
+                        prompt["text"] = format_fractions_bbcode(
+                            prompt["text"], "prompt", include_words=False
                         )
 
                     # Choices (fractions only, no words, no vocab)
-                    if 'choices' in prompt and prompt['choices'] is not None and 'options' in prompt['choices']:
-                        prompt['choices']['options'] = [
+                    if (
+                        "choices" in prompt
+                        and prompt["choices"] is not None
+                        and "options" in prompt["choices"]
+                    ):
+                        prompt["choices"]["options"] = [
                             format_fractions_bbcode(choice, "choice", include_words=False)
-                            for choice in prompt['choices']['options']
+                            for choice in prompt["choices"]["options"]
                         ]
 
                     # Remediations (dialogue = fractions with words + vocab)
-                    for rem in prompt.get('remediations', []):
-                        rem_step = rem.get('step', {})
-                        if 'dialogue' in rem_step and rem_step['dialogue']:
-                            rem_step['dialogue'] = format_fractions_bbcode(
-                                rem_step['dialogue'],
-                                "remediation_dialogue",
-                                include_words=True
+                    for rem in prompt.get("remediations", []):
+                        rem_step = rem.get("step", {})
+                        if "dialogue" in rem_step and rem_step["dialogue"]:
+                            rem_step["dialogue"] = format_fractions_bbcode(
+                                rem_step["dialogue"], "remediation_dialogue", include_words=True
                             )
                             if vocabulary_list:
-                                rem_step['dialogue'] = format_vocab_tags(
-                                    rem_step['dialogue'],
-                                    vocabulary_list
+                                rem_step["dialogue"] = format_vocab_tags(
+                                    rem_step["dialogue"], vocabulary_list
                                 )
 
                     # on_correct (dialogue = fractions with words + vocab)
-                    if 'on_correct' in prompt and prompt['on_correct'] is not None:
-                        if 'dialogue' in prompt['on_correct'] and prompt['on_correct']['dialogue']:
-                            prompt['on_correct']['dialogue'] = format_fractions_bbcode(
-                                prompt['on_correct']['dialogue'],
+                    if "on_correct" in prompt and prompt["on_correct"] is not None:
+                        if "dialogue" in prompt["on_correct"] and prompt["on_correct"]["dialogue"]:
+                            prompt["on_correct"]["dialogue"] = format_fractions_bbcode(
+                                prompt["on_correct"]["dialogue"],
                                 "on_correct_dialogue",
-                                include_words=True
+                                include_words=True,
                             )
                             if vocabulary_list:
-                                prompt['on_correct']['dialogue'] = format_vocab_tags(
-                                    prompt['on_correct']['dialogue'],
-                                    vocabulary_list
+                                prompt["on_correct"]["dialogue"] = format_vocab_tags(
+                                    prompt["on_correct"]["dialogue"], vocabulary_list
                                 )
             except Exception as e:
                 print(f"[WARN] Error formatting step {step_idx} in sequence {seq_idx}: {e}")
                 continue
-    
+
     return godot_data
 
 
 # ============================================================================
 # PIPELINE-COMPATIBLE FUNCTIONS
 # ============================================================================
+
 
 def apply_vocab_formatting(godot_data, module_number=None):
     """
@@ -480,7 +498,7 @@ def apply_vocab_formatting(godot_data, module_number=None):
             "output_file": "vocab_formatted.json"
         }
     """
-    if not godot_data or '@type' not in godot_data:
+    if not godot_data or "@type" not in godot_data:
         print("[WARN] Invalid Godot data structure - skipping vocab formatting")
         return godot_data
 
@@ -493,9 +511,13 @@ def apply_vocab_formatting(godot_data, module_number=None):
         try:
             vocabulary_list = get_module_field(module_number, "vocabulary", required=False)
             if vocabulary_list:
-                print(f"[OK] Loaded {len(vocabulary_list)} vocabulary terms from Module {module_number}")
+                print(
+                    f"[OK] Loaded {len(vocabulary_list)} vocabulary terms from Module {module_number}"
+                )
                 if logger.enabled:
-                    print(f"  Terms: {', '.join(vocabulary_list[:10])}{'...' if len(vocabulary_list) > 10 else ''}")
+                    print(
+                        f"  Terms: {', '.join(vocabulary_list[:10])}{'...' if len(vocabulary_list) > 10 else ''}"
+                    )
         except Exception as e:
             print(f"[WARN] Could not load vocabulary from Module {module_number}: {e}")
 
@@ -503,66 +525,66 @@ def apply_vocab_formatting(godot_data, module_number=None):
         print("[WARN] No vocabulary list found - skipping vocab formatting")
         return godot_data
 
-    sequences = godot_data.get('sequences', [])
+    sequences = godot_data.get("sequences", [])
 
     for seq_idx, sequence in enumerate(sequences, 1):
-        if '@type' not in sequence or sequence['@type'] != 'Sequence':
+        if "@type" not in sequence or sequence["@type"] != "Sequence":
             continue
 
-        steps = sequence.get('steps', [])
+        steps = sequence.get("steps", [])
 
         for step_idx, step in enumerate(steps, 1):
             try:
                 location = f"Seq{seq_idx}/Step{step_idx}"
 
                 # Process dialogue (vocab only)
-                if 'dialogue' in step and step['dialogue']:
-                    original = step['dialogue']
-                    step['dialogue'] = format_vocab_tags(step['dialogue'], vocabulary_list)
-                    logger.log_change(location, 'dialogue', original, step['dialogue'], 'vocab')
+                if "dialogue" in step and step["dialogue"]:
+                    original = step["dialogue"]
+                    step["dialogue"] = format_vocab_tags(step["dialogue"], vocabulary_list)
+                    logger.log_change(location, "dialogue", original, step["dialogue"], "vocab")
 
                 # Process prompt if present
-                if 'prompt' in step and step['prompt']:
-                    prompt = step['prompt']
+                if "prompt" in step and step["prompt"]:
+                    prompt = step["prompt"]
 
                     # Remediations (dialogue = vocab only)
-                    for rem_idx, rem in enumerate(prompt.get('remediations', []), 1):
-                        rem_step = rem.get('step', {})
-                        if 'dialogue' in rem_step and rem_step['dialogue']:
-                            original = rem_step['dialogue']
-                            rem_step['dialogue'] = format_vocab_tags(
-                                rem_step['dialogue'],
-                                vocabulary_list
+                    for rem_idx, rem in enumerate(prompt.get("remediations", []), 1):
+                        rem_step = rem.get("step", {})
+                        if "dialogue" in rem_step and rem_step["dialogue"]:
+                            original = rem_step["dialogue"]
+                            rem_step["dialogue"] = format_vocab_tags(
+                                rem_step["dialogue"], vocabulary_list
                             )
                             logger.log_change(
                                 f"{location}/Rem{rem_idx}",
-                                'remediation.dialogue',
+                                "remediation.dialogue",
                                 original,
-                                rem_step['dialogue'],
-                                'vocab'
+                                rem_step["dialogue"],
+                                "vocab",
                             )
 
                     # on_correct (dialogue = vocab only)
-                    if 'on_correct' in prompt and prompt['on_correct'] is not None:
-                        if 'dialogue' in prompt['on_correct'] and prompt['on_correct']['dialogue']:
-                            original = prompt['on_correct']['dialogue']
-                            prompt['on_correct']['dialogue'] = format_vocab_tags(
-                                prompt['on_correct']['dialogue'],
-                                vocabulary_list
+                    if "on_correct" in prompt and prompt["on_correct"] is not None:
+                        if "dialogue" in prompt["on_correct"] and prompt["on_correct"]["dialogue"]:
+                            original = prompt["on_correct"]["dialogue"]
+                            prompt["on_correct"]["dialogue"] = format_vocab_tags(
+                                prompt["on_correct"]["dialogue"], vocabulary_list
                             )
                             logger.log_change(
                                 location,
-                                'on_correct.dialogue',
+                                "on_correct.dialogue",
                                 original,
-                                prompt['on_correct']['dialogue'],
-                                'vocab'
+                                prompt["on_correct"]["dialogue"],
+                                "vocab",
                             )
             except Exception as e:
-                print(f"[WARN] Error formatting vocab in step {step_idx} of sequence {seq_idx}: {e}")
+                print(
+                    f"[WARN] Error formatting vocab in step {step_idx} of sequence {seq_idx}: {e}"
+                )
                 continue
 
     logger.summary()
-    print(f"[OK] Vocab formatting complete")
+    print("[OK] Vocab formatting complete")
     return godot_data
 
 
@@ -588,111 +610,116 @@ def apply_fraction_formatting(godot_data, module_number=None):
             "output_file": "fraction_formatted.json"
         }
     """
-    if not godot_data or '@type' not in godot_data:
+    if not godot_data or "@type" not in godot_data:
         print("[WARN] Invalid Godot data structure - skipping fraction formatting")
         return godot_data
 
     # Initialize logger
     logger = FormattingLogger()
 
-    sequences = godot_data.get('sequences', [])
+    sequences = godot_data.get("sequences", [])
 
     for seq_idx, sequence in enumerate(sequences, 1):
-        if '@type' not in sequence or sequence['@type'] != 'Sequence':
+        if "@type" not in sequence or sequence["@type"] != "Sequence":
             continue
 
-        steps = sequence.get('steps', [])
+        steps = sequence.get("steps", [])
 
         for step_idx, step in enumerate(steps, 1):
             try:
                 location = f"Seq{seq_idx}/Step{step_idx}"
 
                 # Process dialogue (fractions with words)
-                if 'dialogue' in step and step['dialogue']:
-                    original = step['dialogue']
-                    step['dialogue'] = format_fractions_bbcode(
-                        step['dialogue'],
-                        "dialogue",
-                        include_words=True
+                if "dialogue" in step and step["dialogue"]:
+                    original = step["dialogue"]
+                    step["dialogue"] = format_fractions_bbcode(
+                        step["dialogue"], "dialogue", include_words=True
                     )
-                    logger.log_change(location, 'dialogue', original, step['dialogue'], 'fraction')
+                    logger.log_change(location, "dialogue", original, step["dialogue"], "fraction")
 
                 # Process prompt if present
-                if 'prompt' in step and step['prompt']:
-                    prompt = step['prompt']
+                if "prompt" in step and step["prompt"]:
+                    prompt = step["prompt"]
 
                     # Prompt text (fractions without words)
-                    if 'text' in prompt and prompt['text']:
-                        original = prompt['text']
-                        prompt['text'] = format_fractions_bbcode(
-                            prompt['text'],
-                            "prompt",
-                            include_words=False
+                    if "text" in prompt and prompt["text"]:
+                        original = prompt["text"]
+                        prompt["text"] = format_fractions_bbcode(
+                            prompt["text"], "prompt", include_words=False
                         )
-                        logger.log_change(location, 'prompt.text', original, prompt['text'], 'fraction')
+                        logger.log_change(
+                            location, "prompt.text", original, prompt["text"], "fraction"
+                        )
 
                     # Choices (fractions without words)
-                    if 'choices' in prompt and prompt['choices'] is not None and 'options' in prompt['choices']:
-                        original_choices = prompt['choices']['options'][:]
-                        prompt['choices']['options'] = [
+                    if (
+                        "choices" in prompt
+                        and prompt["choices"] is not None
+                        and "options" in prompt["choices"]
+                    ):
+                        original_choices = prompt["choices"]["options"][:]
+                        prompt["choices"]["options"] = [
                             format_fractions_bbcode(choice, "choice", include_words=False)
-                            for choice in prompt['choices']['options']
+                            for choice in prompt["choices"]["options"]
                         ]
-                        for choice_idx, (orig, new) in enumerate(zip(original_choices, prompt['choices']['options']), 1):
+                        for choice_idx, (orig, new) in enumerate(
+                            zip(original_choices, prompt["choices"]["options"]), 1
+                        ):
                             logger.log_change(
                                 f"{location}/Choice{choice_idx}",
-                                'prompt.choices.option',
+                                "prompt.choices.option",
                                 orig,
                                 new,
-                                'fraction'
+                                "fraction",
                             )
 
                     # Remediations (dialogue = fractions with words)
-                    for rem_idx, rem in enumerate(prompt.get('remediations', []), 1):
-                        rem_step = rem.get('step', {})
-                        if 'dialogue' in rem_step and rem_step['dialogue']:
-                            original = rem_step['dialogue']
-                            rem_step['dialogue'] = format_fractions_bbcode(
-                                rem_step['dialogue'],
-                                "remediation_dialogue",
-                                include_words=True
+                    for rem_idx, rem in enumerate(prompt.get("remediations", []), 1):
+                        rem_step = rem.get("step", {})
+                        if "dialogue" in rem_step and rem_step["dialogue"]:
+                            original = rem_step["dialogue"]
+                            rem_step["dialogue"] = format_fractions_bbcode(
+                                rem_step["dialogue"], "remediation_dialogue", include_words=True
                             )
                             logger.log_change(
                                 f"{location}/Rem{rem_idx}",
-                                'remediation.dialogue',
+                                "remediation.dialogue",
                                 original,
-                                rem_step['dialogue'],
-                                'fraction'
+                                rem_step["dialogue"],
+                                "fraction",
                             )
 
                     # on_correct (dialogue = fractions with words)
-                    if 'on_correct' in prompt and prompt['on_correct'] is not None:
-                        if 'dialogue' in prompt['on_correct'] and prompt['on_correct']['dialogue']:
-                            original = prompt['on_correct']['dialogue']
-                            prompt['on_correct']['dialogue'] = format_fractions_bbcode(
-                                prompt['on_correct']['dialogue'],
+                    if "on_correct" in prompt and prompt["on_correct"] is not None:
+                        if "dialogue" in prompt["on_correct"] and prompt["on_correct"]["dialogue"]:
+                            original = prompt["on_correct"]["dialogue"]
+                            prompt["on_correct"]["dialogue"] = format_fractions_bbcode(
+                                prompt["on_correct"]["dialogue"],
                                 "on_correct_dialogue",
-                                include_words=True
+                                include_words=True,
                             )
                             logger.log_change(
                                 location,
-                                'on_correct.dialogue',
+                                "on_correct.dialogue",
                                 original,
-                                prompt['on_correct']['dialogue'],
-                                'fraction'
+                                prompt["on_correct"]["dialogue"],
+                                "fraction",
                             )
             except Exception as e:
-                print(f"[WARN] Error formatting fractions in step {step_idx} of sequence {seq_idx}: {e}")
+                print(
+                    f"[WARN] Error formatting fractions in step {step_idx} of sequence {seq_idx}: {e}"
+                )
                 continue
 
     logger.summary()
-    print(f"[OK] Fraction formatting complete")
+    print("[OK] Fraction formatting complete")
     return godot_data
 
 
 # ============================================================================
 # COMBINED PIPELINE FUNCTION
 # ============================================================================
+
 
 def apply_bbcode_formatting(godot_data, module_number=None):
     """
@@ -716,33 +743,33 @@ def apply_bbcode_formatting(godot_data, module_number=None):
             "output_file": "bbcode_formatted.json"
         }
     """
-    if not godot_data or '@type' not in godot_data:
+    if not godot_data or "@type" not in godot_data:
         print("[WARN] Invalid Godot data structure - skipping bbcode formatting")
         return godot_data
 
     # --- Step 0: Strip all existing BBCode from every text field ---
     def _strip_fields(data):
-        sequences = data.get('sequences', [])
+        sequences = data.get("sequences", [])
         for sequence in sequences:
-            if sequence.get('@type') != 'Sequence':
+            if sequence.get("@type") != "Sequence":
                 continue
-            for step in sequence.get('steps', []):
-                if step.get('dialogue'):
-                    step['dialogue'] = strip_all_bbcode(step['dialogue'])
-                prompt = step.get('prompt')
+            for step in sequence.get("steps", []):
+                if step.get("dialogue"):
+                    step["dialogue"] = strip_all_bbcode(step["dialogue"])
+                prompt = step.get("prompt")
                 if prompt:
-                    if prompt.get('text'):
-                        prompt['text'] = strip_all_bbcode(prompt['text'])
-                    choices = prompt.get('choices')
-                    if choices and choices.get('options'):
-                        choices['options'] = [strip_all_bbcode(c) for c in choices['options']]
-                    for rem in prompt.get('remediations', []):
-                        rem_step = rem.get('step', {})
-                        if rem_step.get('dialogue'):
-                            rem_step['dialogue'] = strip_all_bbcode(rem_step['dialogue'])
-                    on_correct = prompt.get('on_correct')
-                    if on_correct and on_correct.get('dialogue'):
-                        on_correct['dialogue'] = strip_all_bbcode(on_correct['dialogue'])
+                    if prompt.get("text"):
+                        prompt["text"] = strip_all_bbcode(prompt["text"])
+                    choices = prompt.get("choices")
+                    if choices and choices.get("options"):
+                        choices["options"] = [strip_all_bbcode(c) for c in choices["options"]]
+                    for rem in prompt.get("remediations", []):
+                        rem_step = rem.get("step", {})
+                        if rem_step.get("dialogue"):
+                            rem_step["dialogue"] = strip_all_bbcode(rem_step["dialogue"])
+                    on_correct = prompt.get("on_correct")
+                    if on_correct and on_correct.get("dialogue"):
+                        on_correct["dialogue"] = strip_all_bbcode(on_correct["dialogue"])
 
     _strip_fields(godot_data)
     print("[OK] Stripped all existing BBCode tags")
@@ -760,6 +787,7 @@ def apply_bbcode_formatting(godot_data, module_number=None):
 # ============================================================================
 # TESTING
 # ============================================================================
+
 
 def test_bbcode_formatter():
     """Quick test of BBCode formatting functions"""
@@ -785,7 +813,7 @@ def test_bbcode_formatter():
     result = format_fractions_bbcode(dialogue, "dialogue", include_words=True)
     print(f"Input:  {dialogue}")
     print(f"Output: {result}")
-    print(f"Note:   'one third' (singular) not 'one thirds' (plural)")
+    print("Note:   'one third' (singular) not 'one thirds' (plural)")
 
     # Test 1c: Dynamic conversion for improper fractions
     print("\n1c. Testing dynamic conversion for improper fractions:")
@@ -810,7 +838,9 @@ def test_bbcode_formatter():
     print("-" * 70)
 
     vocab_list = ["partition", "equal parts", "shade"]
-    text_with_old_tags = "[vocab]old word[/vocab] partition this shape into equal parts and shade it."
+    text_with_old_tags = (
+        "[vocab]old word[/vocab] partition this shape into equal parts and shade it."
+    )
     result = format_vocab_tags(text_with_old_tags, vocab_list)
     print(f"Vocab:  {vocab_list}")
     print(f"Input:  {text_with_old_tags}")
@@ -838,7 +868,13 @@ if __name__ == "__main__":
         description="Strip all BBCode then apply vocab + fraction tags in-place."
     )
     parser.add_argument("files", nargs="*", metavar="FILE", help="JSON file(s) to format in place")
-    parser.add_argument("-m", "--module", type=int, default=None, help="Module number (inferred from path if omitted)")
+    parser.add_argument(
+        "-m",
+        "--module",
+        type=int,
+        default=None,
+        help="Module number (inferred from path if omitted)",
+    )
     parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose output")
     args = parser.parse_args()
 
@@ -849,19 +885,21 @@ if __name__ == "__main__":
             try:
                 module_number = args.module
                 if module_number is None:
-                    match = re.search(r'module[_\s]?(\d+)', file_path, re.IGNORECASE)
+                    match = re.search(r"module[_\s]?(\d+)", file_path, re.IGNORECASE)
                     if match:
                         module_number = int(match.group(1))
                         print(f"[OK] Inferred module number {module_number} from path")
                     else:
-                        print("[WARN] No module number provided or inferred - vocab tags will be skipped")
+                        print(
+                            "[WARN] No module number provided or inferred - vocab tags will be skipped"
+                        )
 
-                with open(file_path, 'r', encoding='utf-8') as f:
+                with open(file_path, "r", encoding="utf-8") as f:
                     data = json.load(f)
 
                 result = apply_bbcode_formatting(data, module_number=module_number)
 
-                with open(file_path, 'w', encoding='utf-8') as f:
+                with open(file_path, "w", encoding="utf-8") as f:
                     json.dump(result, f, indent=2, ensure_ascii=False)
                     f.write("\n")
 

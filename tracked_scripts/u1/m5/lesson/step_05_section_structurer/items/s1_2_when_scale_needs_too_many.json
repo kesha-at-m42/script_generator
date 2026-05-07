@@ -7,6 +7,18 @@
       "tangible_id": "data_table",
       "tangible_type": "data_table",
       "params": {
+        "categories": [
+          "Aisha",
+          "Ben",
+          "Carlos",
+          "Dana"
+        ],
+        "values": [
+          20,
+          35,
+          55,
+          80
+        ],
         "description": "Data table appears. Books Read This Month. Aisha: 20, Ben: 35, Carlos: 55, Dana: 80."
       }
     },
@@ -16,7 +28,7 @@
       "tangible_id": "bar_graph_books",
       "tangible_type": "bar_graph",
       "params": {
-        "mode": "building",
+        "mode": "reading",
         "orientation": "vertical",
         "categories": [
           "Aisha",
@@ -29,7 +41,7 @@
           50
         ],
         "scale": 5,
-        "description": "Vertical bar graph appears. Books Read This Month. Axis 0-50. Scale of 5 pre-selected. Graph initially empty."
+        "description": "Vertical bar graph appears. Axis shows 0 to 50. Scale of 5 pre-selected. Graph initially empty."
       }
     },
     {
@@ -42,13 +54,25 @@
         {
           "tangible_id": "data_table",
           "description": "Data table showing Books Read This Month values.",
-          "tangible_type": "data_table"
+          "tangible_type": "data_table",
+          "categories": [
+            "Aisha",
+            "Ben",
+            "Carlos",
+            "Dana"
+          ],
+          "values": [
+            20,
+            35,
+            55,
+            80
+          ]
         },
         {
           "tangible_id": "bar_graph_books",
-          "description": "Vertical bar graph. Books Read This Month. Axis 0-50. Scale of 5 selected. Graph empty.",
+          "description": "Vertical bar graph. Axis 0-50. Scale of 5 selected. Graph empty.",
           "tangible_type": "bar_graph",
-          "mode": "building",
+          "mode": "reading",
           "orientation": "vertical",
           "categories": [
             "Aisha",
@@ -75,7 +99,7 @@
       "params": {
         "event": "generate_preview",
         "status": "confirmed",
-        "description": "Preview generates. Aisha (20), Ben (35), Carlos (55) bars appear normally. Dana's bar (80) extends past the graph boundary. Warning indicator appears."
+        "description": "Preview generates. Aisha (20), Ben (35), Carlos (55) bars appear. Dana's bar (80) extends past graph boundary. Warning indicator appears."
       }
     },
     {
@@ -84,13 +108,25 @@
         {
           "tangible_id": "data_table",
           "description": "Data table showing Books Read This Month values.",
-          "tangible_type": "data_table"
+          "tangible_type": "data_table",
+          "categories": [
+            "Aisha",
+            "Ben",
+            "Carlos",
+            "Dana"
+          ],
+          "values": [
+            20,
+            35,
+            55,
+            80
+          ]
         },
         {
           "tangible_id": "bar_graph_books",
-          "description": "Vertical bar graph. Aisha, Ben, Carlos bars visible. Dana's bar extends past top. Warning indicator showing.",
+          "description": "Vertical bar graph. Aisha, Ben, Carlos bars visible. Dana's bar extends past top. Warning indicator present.",
           "tangible_type": "bar_graph",
-          "mode": "building",
+          "mode": "reading",
           "orientation": "vertical",
           "categories": [
             "Aisha",
@@ -116,13 +152,25 @@
         {
           "tangible_id": "data_table",
           "description": "Data table showing Books Read This Month values.",
-          "tangible_type": "data_table"
+          "tangible_type": "data_table",
+          "categories": [
+            "Aisha",
+            "Ben",
+            "Carlos",
+            "Dana"
+          ],
+          "values": [
+            20,
+            35,
+            55,
+            80
+          ]
         },
         {
           "tangible_id": "bar_graph_books",
-          "description": "Vertical bar graph. Aisha, Ben, Carlos bars visible. Dana's bar extends past top. Warning indicator showing.",
+          "description": "Vertical bar graph. Aisha, Ben, Carlos bars visible. Dana's bar extends past top. Warning indicator present.",
           "tangible_type": "bar_graph",
-          "mode": "building",
+          "mode": "reading",
           "orientation": "vertical",
           "categories": [
             "Aisha",
@@ -140,7 +188,7 @@
     },
     {
       "type": "dialogue",
-      "text": "I could make the graph taller to fit 80. Let's see... I'd need 55, 60, 65, 70, 75, 80..."
+      "text": "I COULD make the graph taller to fit 80. Let's see... I'd need 55, 60, 65, 70, 75, 80..."
     },
     {
       "type": "scene",
@@ -161,7 +209,7 @@
           0,
           80
         ],
-        "description": "Graph axis now extends to 80. All bars visible. Dana's bar reaches 80."
+        "description": "Axis now extends from 0 to 80 with scale of 5."
       }
     },
     {
@@ -170,13 +218,25 @@
         {
           "tangible_id": "data_table",
           "description": "Data table showing Books Read This Month values.",
-          "tangible_type": "data_table"
+          "tangible_type": "data_table",
+          "categories": [
+            "Aisha",
+            "Ben",
+            "Carlos",
+            "Dana"
+          ],
+          "values": [
+            20,
+            35,
+            55,
+            80
+          ]
         },
         {
           "tangible_id": "bar_graph_books",
-          "description": "Vertical bar graph. Axis 0-80 with 17 tick marks visible (0, 5, 10, 15... 75, 80). All bars visible. Dana's bar at 80.",
+          "description": "Vertical bar graph with extended axis 0-80. All tick marks visible (0, 5, 10...75, 80). Axis appears crowded.",
           "tangible_type": "bar_graph",
-          "mode": "building",
+          "mode": "reading",
           "orientation": "vertical",
           "categories": [
             "Aisha",
@@ -194,7 +254,16 @@
     },
     {
       "type": "dialogue",
-      "text": "That's a lot of numbers on the axis. 0, 5, 10, 15, 20... all the way up to 80. That's 17 tick marks!"
+      "text": "That's a LOT of numbers on the axis. 0, 5, 10, 15, 20... all the way up to 80. That's 17 tick marks!"
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_books",
+      "params": {
+        "highlight_component": "axis",
+        "description": "Axis highlights showing all 17 tick marks (0, 5, 10, 15... 75, 80)."
+      }
     },
     {
       "type": "current_scene",
@@ -202,13 +271,25 @@
         {
           "tangible_id": "data_table",
           "description": "Data table showing Books Read This Month values.",
-          "tangible_type": "data_table"
+          "tangible_type": "data_table",
+          "categories": [
+            "Aisha",
+            "Ben",
+            "Carlos",
+            "Dana"
+          ],
+          "values": [
+            20,
+            35,
+            55,
+            80
+          ]
         },
         {
           "tangible_id": "bar_graph_books",
-          "description": "Vertical bar graph. Axis 0-80. All 17 tick marks highlighted. All bars visible.",
+          "description": "Vertical bar graph with extended axis 0-80. Axis highlighted showing all 17 tick marks.",
           "tangible_type": "bar_graph",
-          "mode": "building",
+          "mode": "reading",
           "orientation": "vertical",
           "categories": [
             "Aisha",
@@ -226,7 +307,7 @@
     },
     {
       "type": "dialogue",
-      "text": "It works... but is there a better way? When one scale needs too many tick marks, try a bigger scale."
+      "text": "It works... but is there a better way?"
     },
     {
       "type": "current_scene",
@@ -234,13 +315,69 @@
         {
           "tangible_id": "data_table",
           "description": "Data table showing Books Read This Month values.",
-          "tangible_type": "data_table"
+          "tangible_type": "data_table",
+          "categories": [
+            "Aisha",
+            "Ben",
+            "Carlos",
+            "Dana"
+          ],
+          "values": [
+            20,
+            35,
+            55,
+            80
+          ]
         },
         {
           "tangible_id": "bar_graph_books",
-          "description": "Vertical bar graph. Axis 0-80 with 17 tick marks. All bars visible.",
+          "description": "Vertical bar graph with extended axis 0-80. Axis highlighted showing all 17 tick marks.",
           "tangible_type": "bar_graph",
-          "mode": "building",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Aisha",
+            "Ben",
+            "Carlos",
+            "Dana"
+          ],
+          "axis_range": [
+            0,
+            80
+          ],
+          "scale": 5
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "When one scale needs too many tick marks, try a bigger scale."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Books Read This Month values.",
+          "tangible_type": "data_table",
+          "categories": [
+            "Aisha",
+            "Ben",
+            "Carlos",
+            "Dana"
+          ],
+          "values": [
+            20,
+            35,
+            55,
+            80
+          ]
+        },
+        {
+          "tangible_id": "bar_graph_books",
+          "description": "Vertical bar graph with extended axis 0-80. Axis highlighted showing all 17 tick marks.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
           "orientation": "vertical",
           "categories": [
             "Aisha",
@@ -257,5 +394,5 @@
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:00:28.286959+00:00"
+  "_generated_at": "2026-05-05T18:15:53.073071+00:00"
 }

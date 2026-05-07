@@ -13,7 +13,6 @@ import json
 import random
 from pathlib import Path
 
-
 POOL_BASE = Path("C:/git/launchpad/project/edtech.apl/resources/sequences")
 DEFAULT_MODULES = list(range(4, 13))
 POOL_FILES = ["problem_pool.json", "problem_pool_shuffled.json"]
@@ -42,7 +41,9 @@ def process_data(data: dict | list, dry_run: bool = False) -> tuple[int, list[st
 
             non_answer = [i for i in range(len(options)) if i not in answer_set]
             if not non_answer:
-                issues.append(f"  pid={pid}: {len(options)} options but all are in answer -- skipped")
+                issues.append(
+                    f"  pid={pid}: {len(options)} options but all are in answer -- skipped"
+                )
                 continue
 
             # Pick a random non-answer index to remove
@@ -60,9 +61,7 @@ def process_data(data: dict | list, dry_run: bool = False) -> tuple[int, list[st
 
                 # Update answer indices: any index > remove_idx shifts down by 1
                 if isinstance(answer, list):
-                    validator["answer"] = [
-                        a - 1 if a > remove_idx else a for a in answer
-                    ]
+                    validator["answer"] = [a - 1 if a > remove_idx else a for a in answer]
                 elif isinstance(answer, int) and answer > remove_idx:
                     validator["answer"] = answer - 1
 
@@ -89,12 +88,8 @@ def process_file(path: Path, dry_run: bool) -> tuple[int, list[str]]:
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Trim options arrays with more than 7 entries"
-    )
-    parser.add_argument(
-        "--modules", type=int, nargs="+", default=DEFAULT_MODULES, metavar="N"
-    )
+    parser = argparse.ArgumentParser(description="Trim options arrays with more than 7 entries")
+    parser.add_argument("--modules", type=int, nargs="+", default=DEFAULT_MODULES, metavar="N")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 

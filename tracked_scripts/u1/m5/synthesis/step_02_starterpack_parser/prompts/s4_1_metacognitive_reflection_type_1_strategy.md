@@ -1,5 +1,5 @@
 # Prompt: starterpack_parser
-# Generated: 2026-04-20T11:58:29.699284
+# Generated: 2026-05-05T15:05:55.877266
 ======================================================================
 
 ## API Parameters
@@ -161,4 +161,3 @@ Cacheable: Yes
 ## Prefill
 
 {"id": "s4_1_metacognitive_reflection_type_1_strategy",
-

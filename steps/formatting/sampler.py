@@ -46,7 +46,4 @@ def sample_per_template(data, sample_size=3, module_number=None, path_letter=Non
             sampled.extend(random.sample(template_sequences, sample_size))
 
     # Return same structure with sampled sequences
-    return {
-        "@type": "SequencePool",
-        "sequences": sampled
-    }
+    return {"@type": "SequencePool", "sequences": sampled}

@@ -19,8 +19,8 @@ Usage:
     python cli/diff_dialogue.py --pre old.json --post new.json
 """
 
-import json
 import argparse
+import json
 from pathlib import Path
 
 PRE_PUSH_FILENAME = "merge_remediation.json"
@@ -30,6 +30,7 @@ POST_PULL_FILENAME = "pull.json"
 # ---------------------------------------------------------------------------
 # Condition labelling
 # ---------------------------------------------------------------------------
+
 
 def condition_label(condition: dict) -> str:
     if not condition:
@@ -47,6 +48,7 @@ def condition_label(condition: dict) -> str:
 # ---------------------------------------------------------------------------
 # Parsing
 # ---------------------------------------------------------------------------
+
 
 def flat_beats(node: dict) -> list[dict]:
     """
@@ -101,12 +103,14 @@ def parse_section(section: dict) -> dict:
                 }
                 (correct if v.get("is_correct") else remediation).append(entry)
 
-            prompts.append({
-                "prompt_text": beat.get("text", ""),
-                "lesson_dialogue": " ".join(pending),
-                "correct": correct,
-                "remediation": remediation,
-            })
+            prompts.append(
+                {
+                    "prompt_text": beat.get("text", ""),
+                    "lesson_dialogue": " ".join(pending),
+                    "correct": correct,
+                    "remediation": remediation,
+                }
+            )
             pending = []
 
     return {"id": section["id"], "prompts": prompts}
@@ -115,6 +119,7 @@ def parse_section(section: dict) -> dict:
 # ---------------------------------------------------------------------------
 # Diffing
 # ---------------------------------------------------------------------------
+
 
 def _diff_validator_group(
     dtype: str,
@@ -136,16 +141,18 @@ def _diff_validator_group(
         if old_text == new_text:
             continue
         ref = old_e or new_e
-        rows.append({
-            "section_id": section_id,
-            "prompt": prompt_text,
-            "type": dtype,
-            "label": label,
-            "condition": ref["condition"],
-            "description": ref["description"],
-            "old": old_text or "**[MISSING]**",
-            "new": new_text or "**[MISSING]**",
-        })
+        rows.append(
+            {
+                "section_id": section_id,
+                "prompt": prompt_text,
+                "type": dtype,
+                "label": label,
+                "condition": ref["condition"],
+                "description": ref["description"],
+                "old": old_text or "**[MISSING]**",
+                "new": new_text or "**[MISSING]**",
+            }
+        )
     return rows
 
 
@@ -157,25 +164,29 @@ def diff_prompt_pair(section_id: str, pre: dict | None, post: dict | None) -> li
     old_lesson = pre["lesson_dialogue"] if pre else ""
     new_lesson = post["lesson_dialogue"] if post else ""
     if old_lesson != new_lesson:
-        rows.append({
-            "section_id": section_id,
-            "prompt": prompt_text,
-            "type": "lesson",
-            "label": "—",
-            "condition": {},
-            "description": "",
-            "old": old_lesson or "**[MISSING]**",
-            "new": new_lesson or "**[MISSING]**",
-        })
+        rows.append(
+            {
+                "section_id": section_id,
+                "prompt": prompt_text,
+                "type": "lesson",
+                "label": "—",
+                "condition": {},
+                "description": "",
+                "old": old_lesson or "**[MISSING]**",
+                "new": new_lesson or "**[MISSING]**",
+            }
+        )
 
     for dtype in ("correct", "remediation"):
-        rows.extend(_diff_validator_group(
-            dtype,
-            section_id,
-            prompt_text,
-            pre[dtype] if pre else [],
-            post[dtype] if post else [],
-        ))
+        rows.extend(
+            _diff_validator_group(
+                dtype,
+                section_id,
+                prompt_text,
+                pre[dtype] if pre else [],
+                post[dtype] if post else [],
+            )
+        )
 
     return rows
 
@@ -210,6 +221,7 @@ def diff_scripts(pre_path: Path, post_path: Path) -> list[dict]:
 # ---------------------------------------------------------------------------
 # Rendering
 # ---------------------------------------------------------------------------
+
 
 def _cell(text: str) -> str:
     return text.replace("|", "\\|").replace("\n", " ")
@@ -249,6 +261,7 @@ def render_markdown(rows: list[dict], pre_label: str, post_label: str) -> str:
 # Entry point
 # ---------------------------------------------------------------------------
 
+
 def is_script_dir(path: Path) -> bool:
     return (path / "step_12_merge_remediation" / PRE_PUSH_FILENAME).exists()
 
@@ -285,9 +298,7 @@ def resolve_script_dirs(root: Path) -> list[tuple[Path, Path, str]]:
     return results
 
 
-def render_markdown_multi(
-    script_results: list[tuple[str, list[dict]]], root_label: str
-) -> str:
+def render_markdown_multi(script_results: list[tuple[str, list[dict]]], root_label: str) -> str:
     lines = [f"# Dialogue Diff Report — {root_label}\n"]
     any_diffs = False
 

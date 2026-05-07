@@ -1,5 +1,5 @@
 # Prompt: starterpack_parser
-# Generated: 2026-04-20T11:58:28.938114
+# Generated: 2026-05-05T13:13:47.028810
 ======================================================================
 
 ## API Parameters
@@ -161,4 +161,3 @@ Cacheable: Yes
 ## Prefill
 
 {"id": "s2_1_all_scales_fit_small_data",
-

@@ -4,9 +4,9 @@
     [
       {
         "condition": {
-          "selected": 20
+          "selected": 55
         },
-        "description": "Student selected 20 instead of 80",
+        "description": "Student selected 55, third-largest value",
         "is_correct": false,
         "steps": [
           [
@@ -16,14 +16,15 @@
               "tangible_id": "data_table",
               "params": {
                 "highlight_values": [
+                  55,
                   80
                 ],
-                "description": "80 highlighted in the data table."
+                "description": "Both 55 and 80 highlight in data table."
               }
             },
             {
               "type": "dialogue",
-              "text": "20 is in the data, but it's not the biggest. We need the largest value. Look at all the numbers. Which one is biggest?"
+              "text": "55 is big, but look at Dana's number. Which one is bigger?"
             }
           ]
         ]
@@ -32,7 +33,7 @@
         "condition": {
           "selected": 35
         },
-        "description": "Student selected 35 instead of 80",
+        "description": "Student selected 35, second-largest value",
         "is_correct": false,
         "steps": [
           [
@@ -42,23 +43,25 @@
               "tangible_id": "data_table",
               "params": {
                 "highlight_values": [
+                  35,
+                  55,
                   80
                 ],
-                "description": "80 highlighted in the data table."
+                "description": "Values 35, 55, and 80 highlight in data table."
               }
             },
             {
               "type": "dialogue",
-              "text": "35 is in the data, but there's a bigger number. Look at all four values. Which one is the greatest?"
+              "text": "Look at all four numbers. 35 is Ben's, but two others are bigger. Which is the biggest?"
             }
           ]
         ]
       },
       {
         "condition": {
-          "selected": 55
+          "selected": 20
         },
-        "description": "Student selected 55 instead of 80",
+        "description": "Student selected 20, smallest value",
         "is_correct": false,
         "steps": [
           [
@@ -68,21 +71,22 @@
               "tangible_id": "data_table",
               "params": {
                 "highlight_values": [
+                  20,
                   80
                 ],
-                "description": "80 highlighted in the data table."
+                "description": "Values 20 and 80 highlight in data table."
               }
             },
             {
               "type": "dialogue",
-              "text": "55 is close, but not the biggest. Compare all the numbers. Which value is larger than 55?"
+              "text": "20 is Aisha's number. But we need the BIGGEST number. Look at Dana's. Compare those two. Which is bigger?"
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student answered incorrectly. System models the correct answer.",
+        "description": "Student answered incorrectly three or more times. System models the answer.",
         "is_correct": false,
         "steps": [
           [
@@ -91,19 +95,19 @@
               "method": "animate",
               "tangible_id": "data_table",
               "params": {
-                "event": "highlight_progression",
+                "event": "highlight_sequence",
                 "status": "confirmed",
-                "description": "Values highlight in order: 20, 35, 55, 80. 80 remains highlighted as the largest."
+                "description": "Values highlight in sequence: 20, then 35, then 55, then 80 holds highlighted."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. We compare all the values: 20, 35, 55, 80. The biggest number is 80. When choosing a scale, always check the biggest number first. That tells you what scales can fit all your data without going past the graph boundary."
+              "text": "Let me show you how to find the biggest number. I look at all four: 20, 35, 55, 80. I compare them. 20 is smallest. 35 is bigger than 20. 55 is bigger than 35. 80 is bigger than all of them. The biggest number in this data is 80."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:04:45.523700+00:00"
+  "_generated_at": "2026-05-05T18:23:38.024781+00:00"
 }

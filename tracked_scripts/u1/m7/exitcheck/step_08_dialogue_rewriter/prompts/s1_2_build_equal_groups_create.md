@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:00:20.825518
+# Generated: 2026-04-27T10:53:54.250252
 ======================================================================
 
 ## API Parameters
@@ -956,10 +956,6 @@ Cacheable: Yes
       "context": "on_correct"
     },
     {
-      "text": "How many in each group? Add the items.",
-      "context": "lesson"
-    },
-    {
       "text": "2 bags, 3 in each. 2 groups of 3.",
       "context": "on_correct"
     }
@@ -972,4 +968,3 @@ Cacheable: Yes
 ## Prefill
 
 {"id": "s1_2_build_equal_groups_create", "dialogues": [
-

@@ -12,12 +12,12 @@ from pathlib import Path
 
 @dataclass
 class GlossaryData:
-    canonical_toys: set        # valid tangible_type values
-    toy_descriptions: dict     # toy name → description (for AI inference)
-    canonical_tools: set       # valid tool values in prompt beats
-    tool_descriptions: dict    # tool name → "What it does" description (for AI inference)
-    phrase_map: dict           # natural language phrase → canonical (not flagged as drift)
-    spec_aliases: dict         # renamed/superseded term → canonical (flagged as drift)
+    canonical_toys: set  # valid tangible_type values
+    toy_descriptions: dict  # toy name → description (for AI inference)
+    canonical_tools: set  # valid tool values in prompt beats
+    tool_descriptions: dict  # tool name → "What it does" description (for AI inference)
+    phrase_map: dict  # natural language phrase → canonical (not flagged as drift)
+    spec_aliases: dict  # renamed/superseded term → canonical (flagged as drift)
 
     @property
     def full_alias_map(self) -> dict:

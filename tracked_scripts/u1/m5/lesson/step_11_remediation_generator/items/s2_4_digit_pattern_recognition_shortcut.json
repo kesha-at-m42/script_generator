@@ -4,51 +4,84 @@
     [
       {
         "condition": {
-          "selected": "Data Set A"
+          "selected": "dataset_a_display",
+          "incorrect_count": 1
         },
-        "description": "Student selected Data Set A (20, 35, 55, 80)",
+        "description": "Student clicked Data Set A on first attempt",
         "is_correct": false,
         "steps": [
           [
             {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "dataset_a",
-              "params": {
-                "description": "Data Set A highlights. Ones digits (0, 5, 5, 0) emphasized."
-              }
-            },
-            {
               "type": "dialogue",
-              "text": "Look at the ones place in Data Set A. Every number ends in 0 or 5. Those are multiples of 5."
+              "text": "Look at the ones place: 0, 5, 5, 0. Those ARE 0 or 5. Which data set has different ones digits?"
             }
           ]
         ]
       },
       {
-        "condition": {},
-        "description": "Student answered incorrectly. System models the correct answer.",
+        "condition": {
+          "selected": "dataset_a_display",
+          "incorrect_count": 2
+        },
+        "description": "Student clicked Data Set A on second attempt",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "dataset_b",
+              "tangible_id": "dataset_b_display",
               "params": {
-                "event": "highlight_ones_digits",
-                "status": "confirmed",
-                "description": "Data Set B ones digits (7, 2, 9, 3) highlight in sequence."
+                "event": "highlight",
+                "status": "proposed",
+                "description": "Data Set B panel pulses briefly."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. Look at Data Set B: 7, 12, 19, 23. The ones place shows 7, 2, 9, 3. None of those are 0 or 5, so these aren't multiples of 5. That pattern tells you Scale of 2 is the right tool. Data Set B is the answer."
+              "text": "Data Set A ends in 0 or 5. Look at Data Set B. The ones digits are 7, 2, 9, 3. None are 0 or 5."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student clicked Data Set A three or more times. System models the correct answer.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "dataset_a_display",
+              "params": {
+                "event": "highlight",
+                "status": "confirmed",
+                "description": "Data Set A panel highlights briefly."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. Data Set A has 20, 35, 55, 80. The ones digits are 0, 5, 5, 0. All are 0 or 5."
+            },
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "dataset_b_display",
+              "params": {
+                "event": "highlight",
+                "status": "confirmed",
+                "description": "Data Set B panel highlights."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Data Set B has 7, 12, 19, 23. The ones digits are 7, 2, 9, 3. None are 0 or 5. That is the signal for Scale of 2. Click Data Set B."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:05:17.382539+00:00"
+  "_generated_at": "2026-05-05T18:24:36.214273+00:00"
 }

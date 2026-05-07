@@ -422,7 +422,8 @@ Examples:
 
     # --- Rerun-specific positional args ---
     parser.add_argument(
-        "pipeline_name", nargs="?",
+        "pipeline_name",
+        nargs="?",
         help="Name of the pipeline (optional if using --from-output or -p/--pipeline)",
     )
     parser.add_argument("item_ids", nargs="*", help="Item IDs to rerun (for batch steps)")

@@ -1,5 +1,5 @@
 # Prompt: starterpack_parser
-# Generated: 2026-04-20T11:59:17.676596
+# Generated: 2026-04-27T10:52:35.036952
 ======================================================================
 
 ## API Parameters
@@ -161,4 +161,3 @@ Cacheable: Yes
 ## Prefill
 
 {"id": "s1_2_build_equal_groups_create",
-

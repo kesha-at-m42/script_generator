@@ -22,6 +22,7 @@ import argparse
 import json
 import re
 import sys
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 project_root = Path(__file__).parent.parent
@@ -110,7 +111,11 @@ def _find_source_json(tracked_dir: Path) -> Path | None:
         candidates = (
             [step_dir / "pull.json"]
             if is_pull
-            else [f for f in step_dir.glob("*.json") if f.name not in _SKIP_FILES and "flag" not in f.name]
+            else [
+                f
+                for f in step_dir.glob("*.json")
+                if f.name not in _SKIP_FILES and "flag" not in f.name
+            ]
         )
         for f in candidates:
             if not f.exists():
@@ -132,8 +137,8 @@ def _find_source_json(tracked_dir: Path) -> Path | None:
     return best_path
 
 
-def _notion_pull(tracked_dir: Path, page_id: str) -> str | None:
-    """Pull from Notion into tracked_dir. Returns error string or None."""
+def _notion_pull(tracked_dir: Path, page_id: str) -> Path | str:
+    """Pull from Notion into tracked_dir. Returns pull output Path on success, error str on failure."""
     source = _find_source_json(tracked_dir)
     if not source:
         return "no source JSON found"
@@ -154,7 +159,7 @@ def _notion_pull(tracked_dir: Path, page_id: str) -> str | None:
         )
     except Exception as e:
         return str(e)
-    return None
+    return out_path
 
 
 def _extract_beat_from_data(data: list | dict, section_id: str, beat_idx: int) -> dict | None:
@@ -164,6 +169,7 @@ def _extract_beat_from_data(data: list | dict, section_id: str, beat_idx: int) -
         if not isinstance(section, dict) or section.get("id") != section_id:
             continue
         from steps.formatting.id_stamper import flatten_beats
+
         beats = flatten_beats(section)
         if 0 <= beat_idx < len(beats):
             return beats[beat_idx]
@@ -192,13 +198,17 @@ def _trace_beat_backwards(tracked_dir: Path, section_id: str, beat_description: 
         if re.match(r"^step_\d+_(push|pull)$", step_dir.name):
             continue
         candidates = [
-            f for f in step_dir.glob("*.json")
+            f
+            for f in step_dir.glob("*.json")
             if f.name not in _SKIP_FILES and "flag" not in f.name and "comment" not in f.name
         ]
         for f in candidates:
             try:
                 data = json.loads(f.read_text(encoding="utf-8"))
-                if not (isinstance(data, list) or (isinstance(data, dict) and isinstance(data.get("sections"), list))):
+                if not (
+                    isinstance(data, list)
+                    or (isinstance(data, dict) and isinstance(data.get("sections"), list))
+                ):
                     continue
                 beat = _extract_beat_from_data(data, section_id, beat_idx)
                 if beat is None:
@@ -263,7 +273,11 @@ def _analyze_comment(comment: dict, sections: list, tracked_dir: Path | None = N
         result["pipeline_history"] = pipeline_history
         return result
     except Exception as e:
-        return {"error": str(e), "raw": raw if "raw" in dir() else "", "pipeline_history": pipeline_history}
+        return {
+            "error": str(e),
+            "raw": raw if "raw" in dir() else "",
+            "pipeline_history": pipeline_history,
+        }
 
 
 def _find_notion_blocks(tracked_dir: Path) -> list[dict] | None:
@@ -282,9 +296,10 @@ def _find_notion_blocks(tracked_dir: Path) -> list[dict] | None:
     return None
 
 
-def _sweep_comments(tracked_dir: Path, page_id: str) -> str:
-    """Fetch @claude comments from Notion, analyze each, write notion_comments.json."""
-    # Use the best source: pull.json if available, else pipeline source JSON
+def _sweep_comments(
+    tracked_dir: Path, page_id: str, all_comments: bool = False, out_dir: Path | None = None
+) -> str:
+    """Fetch comments from Notion, analyze each, write notion_comments.json."""
     source_file = _find_source_json(tracked_dir)
     if not source_file:
         return "no source JSON found"
@@ -298,21 +313,22 @@ def _sweep_comments(tracked_dir: Path, page_id: str) -> str:
     blocks = _find_notion_blocks(tracked_dir)
 
     try:
-        comments = fetch_lesson_comments(page_id, sections, blocks=blocks)
+        comments = fetch_lesson_comments(
+            page_id, sections, blocks=blocks, all_comments=all_comments
+        )
     except Exception as e:
         return f"comment fetch error: {e}"
 
-    # Write output next to the source file
-    out_dir = source_file.parent
+    # Write output to the pull dir when available; otherwise next to the source file
+    out_dir = out_dir or source_file.parent
     out_path = out_dir / "notion_comments.json"
 
     if not comments:
         if out_path.exists():
             out_path.unlink()
-        return "no @claude comments"
+        return "no comments"
 
-    analyzed = []
-    for comment in comments:
+    def _build_entry(comment: dict) -> dict:
         analysis = _analyze_comment(comment, sections, tracked_dir=tracked_dir)
         entry = {
             "discussion_id": comment["discussion_id"],
@@ -324,7 +340,16 @@ def _sweep_comments(tracked_dir: Path, page_id: str) -> str:
             "pipeline_history": analysis.pop("pipeline_history", []),
         }
         entry.update(analysis)
-        analyzed.append(entry)
+        return entry
+
+    order = {c["discussion_id"]: i for i, c in enumerate(comments)}
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        futures = {pool.submit(_build_entry, c): c["discussion_id"] for c in comments}
+        results: dict[int, dict] = {}
+        for fut in as_completed(futures):
+            did = futures[fut]
+            results[order[did]] = fut.result()
+    analyzed = [results[i] for i in range(len(comments))]
 
     out_path.write_text(json.dumps(analyzed, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
@@ -365,14 +390,14 @@ def _sweep_comments(tracked_dir: Path, page_id: str) -> str:
             lines.append("")
 
             thread_text = "\n".join(
-                f'  "{m.get("comment_text", "").strip()}"' for m in thread
+                f'  "{m.get("comment_text", "").strip()}"'
+                for m in thread
                 if m.get("comment_text", "").strip() not in ("@Claude", "@claude")
                 and "@claude" not in m.get("comment_text", "").lower()
             )
             beat_summary = json.dumps(beat_obj, ensure_ascii=False)
             origin_prompt_ref = (
-                f"\nInput prompt used: `{origin_step['prompt_file']}`"
-                if origin_step else ""
+                f"\nInput prompt used: `{origin_step['prompt_file']}`" if origin_step else ""
             )
             chat_prompt = (
                 f"Reviewer comment on `{sid}` ({beat_desc}):\n"
@@ -393,10 +418,10 @@ def _sweep_comments(tracked_dir: Path, page_id: str) -> str:
     report_path.write_text("\n".join(lines), encoding="utf-8")
 
     rel = out_path.relative_to(project_root)
-    return f"{len(analyzed)} @claude comment(s) -> {rel}"
+    return f"{len(analyzed)} comment(s) -> {rel}"
 
 
-def _pull_entry(key: str, entry: dict) -> str:
+def _pull_entry(key: str, entry: dict, all_comments: bool = False) -> str:
     """Pull one registry entry. Returns a status string."""
     parsed = _parse_registry_key(key)
     if not parsed:
@@ -409,23 +434,31 @@ def _pull_entry(key: str, entry: dict) -> str:
     if not dest.exists():
         return f"SKIP  {key} (not in tracked_scripts — sync first)"
 
-    err = _notion_pull(dest, entry["page_id"])
-    if err:
-        return f"PULL ERROR  {key}: {err}"
+    pull_result = _notion_pull(dest, entry["page_id"])
+    if isinstance(pull_result, str):
+        return f"PULL ERROR  {key}: {pull_result}"
 
-    comment_status = _sweep_comments(dest, entry["page_id"])
+    comment_status = _sweep_comments(
+        dest, entry["page_id"], all_comments=all_comments, out_dir=pull_result.parent
+    )
     rel = dest.relative_to(project_root)
     return f"OK    {rel}  [{comment_status}]"
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Pull Notion edits into tracked_scripts/")
-    parser.add_argument("--unit", help="Filter by unit (e.g. unit1)")
-    parser.add_argument("--module", help="Filter by module number (e.g. 12)")
+    parser.add_argument("-u", "--unit", help="Filter by unit number (e.g. 1)")
+    parser.add_argument("-m", "--module", help="Filter by module number (e.g. 12)")
     parser.add_argument(
         "--type",
         dest="script_type",
         help="Filter by script type (lesson/warmup/exitcheck/synthesis)",
+    )
+    parser.add_argument(
+        "--all-comments",
+        action="store_true",
+        default=False,
+        help="Analyze all comment threads, not just those tagged @claude",
     )
     args = parser.parse_args()
 
@@ -443,7 +476,7 @@ def main() -> None:
             if not parsed:
                 continue
             unit, script_type, module_num = parsed
-            if args.unit and unit != args.unit:
+            if args.unit and unit != f"unit{args.unit}":
                 continue
             if args.module and module_num != args.module:
                 continue
@@ -478,7 +511,7 @@ def main() -> None:
     for key, entry in skipped_keys:
         print(f"SKIP  {key} (not a unit/module pipeline)")
     for key, entry in deduped:
-        print(_pull_entry(key, entry))
+        print(_pull_entry(key, entry, all_comments=args.all_comments))
 
 
 if __name__ == "__main__":

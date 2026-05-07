@@ -1,7 +1,7 @@
 # UX/Script Terminology Drift Report
 
-Generated: 2026-04-20 11:59  
-Source: `check_glossary_drift.json`  
+Generated: 2026-04-27 10:52
+Source: `check_glossary_drift.json`
 Scope: Unit 1, Module 7
 
 Discovery document — surfaces spec terminology that needs a glossary decision.

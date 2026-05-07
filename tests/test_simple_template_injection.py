@@ -1,5 +1,5 @@
-import sys
 import os
+import sys
 from pathlib import Path
 
 # Add paths relative to script_generator root
@@ -7,8 +7,9 @@ root_dir = Path(__file__).parent.parent
 sys.path.insert(0, str(root_dir / "utils"))
 sys.path.insert(0, str(root_dir / "core"))
 
-from problem_template_utils import get_fields_by_reference
 import traceback
+
+from problem_template_utils import get_fields_by_reference
 from prompt_builder_old import PromptBuilder
 
 """
@@ -17,8 +18,8 @@ Simple test for problem template field injection
 
 
 # Set UTF-8 encoding for Windows console
-if sys.platform == 'win32':
-    os.system('chcp 65001 > nul')
+if sys.platform == "win32":
+    os.system("chcp 65001 > nul")
 
 # Add necessary paths
 sys.path.insert(0, str(Path(__file__).parent / "core"))
@@ -36,7 +37,7 @@ def test_get_fields_by_reference():
     INTERACTION_DESIGNER_TEMPLATE_REF = ["tools_available"]
 
     print(f"\nFetching fields: {INTERACTION_DESIGNER_TEMPLATE_REF}")
-    print(f"From: Module 1, Goal 1")
+    print("From: Module 1, Goal 1")
 
     try:
         fields = get_fields_by_reference(1, 1, INTERACTION_DESIGNER_TEMPLATE_REF)
@@ -82,7 +83,6 @@ def test_prompt_builder_old_integration():
     print("=" * 70)
 
     try:
-
         # Create builder with verbose=False to avoid emoji issues
         builder = PromptBuilder(module_number=1, path_letter="a", verbose=False)
 
@@ -92,7 +92,7 @@ def test_prompt_builder_old_integration():
         config = builder._get_prompt_config("interaction_designer")
 
         if "problem_template_ref" in config:
-            print(f"SUCCESS: problem_template_ref found in config")
+            print("SUCCESS: problem_template_ref found in config")
             print(f"  Value: {config['problem_template_ref']}")
         else:
             print("FAIL: problem_template_ref not in config")
@@ -114,20 +114,17 @@ def test_full_integration():
     print("=" * 70)
 
     try:
-
         # Check if _auto_fetch_problem_template_data method exists
         builder = PromptBuilder(module_number=1, path_letter="a", verbose=False)
 
-        if hasattr(builder, '_auto_fetch_problem_template_data'):
+        if hasattr(builder, "_auto_fetch_problem_template_data"):
             print("SUCCESS: _auto_fetch_problem_template_data method exists")
 
             # Test calling it directly
             print("\nTesting direct call to _auto_fetch_problem_template_data...")
             variables = {}
             result = builder._auto_fetch_problem_template_data(
-                ["tools_available", "remediations_per_step.0.0.scaffolding_level"],
-                1,
-                variables
+                ["tools_available", "remediations_per_step.0.0.scaffolding_level"], 1, variables
             )
 
             print(f"Result variables: {result}")
@@ -135,7 +132,9 @@ def test_full_integration():
             if "tools_available" in result:
                 print(f"SUCCESS: tools auto-fetched: {result['tools']}")
             if "remediations_per_step.0.0.scaffolding_level" in result:
-                print(f"SUCCESS: remediations_per_step.0.0.scaffolding_level auto-fetched: {result['remediations_per_step.0.0.scaffolding_level']}")
+                print(
+                    f"SUCCESS: remediations_per_step.0.0.scaffolding_level auto-fetched: {result['remediations_per_step.0.0.scaffolding_level']}"
+                )
 
         else:
             print("FAIL: _auto_fetch_problem_template_data method not found")

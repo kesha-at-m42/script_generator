@@ -4,23 +4,39 @@
     {
       "type": "scene",
       "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Data table showing Books Read This Month. Categories: Aisha, Ben, Carlos, Dana. Values: 20, 35, 55, 80."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
       "tangible_id": "bar_graph_books",
       "tangible_type": "bar_graph",
       "params": {
         "mode": "reading",
         "orientation": "vertical",
         "categories": [
-          "Mystery",
-          "Fantasy",
-          "Science",
-          "History"
+          "Aisha",
+          "Ben",
+          "Carlos",
+          "Dana"
+        ],
+        "values": [
+          20,
+          35,
+          55,
+          80
         ],
         "axis_range": [
           0,
-          85
+          80
         ],
         "scale": 5,
-        "description": "Vertical bar graph appears. Books Read data. Mystery=35, Fantasy=55, Science=20, History=75. Current scale is 5, showing 17 tick marks (0, 5, 10...85). Scale Preview System interactive, Scale of 5 currently selected."
+        "scale_selector_active": true,
+        "description": "Vertical bar graph appears. Books Read This Month data. Scale of 5 active. Axis shows 0–80 with 17 tick marks visible. Scale selector interactive."
       }
     },
     {
@@ -29,7 +45,7 @@
     },
     {
       "type": "prompt",
-      "text": "Click 'Scale of 10' to see what happens.",
+      "text": "Click Scale of 10 to see what happens.",
       "tool": "click_scale_button",
       "target": "bar_graph_books",
       "validator": [
@@ -47,11 +63,8 @@
               "tangible_id": "bar_graph_books",
               "params": {
                 "scale": 10,
-                "axis_range": [
-                  0,
-                  80
-                ],
-                "description": "Graph updates to Scale of 10. Axis now shows 0, 10, 20, 30, 40, 50, 60, 70, 80—only 9 tick marks. All four bars fit cleanly. Checkmark indicator appears."
+                "tick_marks_count": 9,
+                "description": "Graph updates to scale of 10. Axis now shows 0, 10, 20, 30, 40, 50, 60, 70, 80—only 9 tick marks. All four bars fit cleanly. Checkmark indicator appears."
               }
             },
             {
@@ -59,23 +72,24 @@
               "text": "Look at that—only 9 tick marks now instead of 17. Much cleaner!"
             },
             {
-              "type": "dialogue",
-              "text": "All the data fits, and the graph is easier to read."
-            },
-            {
               "type": "current_scene",
               "elements": [
                 {
+                  "tangible_id": "data_table",
+                  "description": "Data table showing Books Read This Month values.",
+                  "tangible_type": "data_table"
+                },
+                {
                   "tangible_id": "bar_graph_books",
-                  "description": "Vertical bar graph with Scale of 10. Books Read data. Mystery=35, Fantasy=55, Science=20, History=75. Axis shows 9 tick marks (0, 10, 20...80). Checkmark indicator visible.",
+                  "description": "Vertical bar graph with scale of 10. Books Read This Month data. Axis 0–80 with 9 tick marks. Checkmark indicator visible. All bars fit cleanly.",
                   "tangible_type": "bar_graph",
                   "mode": "reading",
                   "orientation": "vertical",
                   "categories": [
-                    "Mystery",
-                    "Fantasy",
-                    "Science",
-                    "History"
+                    "Aisha",
+                    "Ben",
+                    "Carlos",
+                    "Dana"
                   ],
                   "scale": 10,
                   "axis_range": [
@@ -93,25 +107,62 @@
       "type": "current_scene",
       "elements": [
         {
+          "tangible_id": "data_table",
+          "description": "Data table showing Books Read This Month values.",
+          "tangible_type": "data_table"
+        },
+        {
           "tangible_id": "bar_graph_books",
-          "description": "Vertical bar graph in reading mode. Books Read data. Scale Preview System interactive. Scale of 5 currently selected showing 17 tick marks. click_scale_button tool active.",
+          "description": "Vertical bar graph in reading mode. Books Read This Month data. Scale of 5 active, showing 17 tick marks. Scale selector interactive, awaiting student choice.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Mystery",
-            "Fantasy",
-            "Science",
-            "History"
+            "Aisha",
+            "Ben",
+            "Carlos",
+            "Dana"
           ],
           "scale": 5,
           "axis_range": [
             0,
-            85
+            80
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "All the data fits, and the graph is easier to read."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Books Read This Month values.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_books",
+          "description": "Vertical bar graph with scale of 10. Books Read This Month data. Axis 0–80 with 9 tick marks. All bars fit cleanly. Graph is easier to read than with scale of 5.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Aisha",
+            "Ben",
+            "Carlos",
+            "Dana"
+          ],
+          "scale": 10,
+          "axis_range": [
+            0,
+            80
           ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:00:40.757853+00:00"
+  "_generated_at": "2026-05-05T18:16:18.004989+00:00"
 }

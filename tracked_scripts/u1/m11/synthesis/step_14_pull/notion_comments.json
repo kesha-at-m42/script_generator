@@ -1,0 +1,414 @@
+[
+  {
+    "discussion_id": "3415917e-ac52-8014-af84-001cab1327d6",
+    "block_id": "33e5917e-ac52-812b-91c8-f0c1ea9af54d",
+    "section_id": "s3_1_arrays_real_world",
+    "beat_description": "beats[5].validator[4] (incorrect[4]).beats[3] (dialogue)",
+    "beat": {
+      "type": "dialogue",
+      "text": "Here's how to spot arrays. Eggs: 2 rows and 6 columns of eggs. Cars: 3 rows and 4 columns of cars. Windows: 2 rows and 3 columns of window panes. The marbles don't work because they aren't lined up in rows or columns. The egg carton, parking lot and window pane are arrays. These show the same rows and columns structure you've been using.",
+      "id": "s3_1_arrays_real_world_b5_v4_b3",
+      "_notion_block_id": "33e5917e-ac52-812b-91c8-f0c1ea9af54d"
+    },
+    "thread": [
+      {
+        "comment_id": "3415917e-ac52-80f1-950b-001d06331ba0",
+        "comment_text": "I don’t think we want to refer to these by the letters. Better to use the actual picture references.",
+        "author_id": "29dd872b-594c-8119-84c1-0002b4f81bc1",
+        "created_time": "2026-04-13T17:37:00.000Z"
+      },
+      {
+        "comment_id": "3425917e-ac52-80fa-a64a-001d870cfa68",
+        "comment_text": "Good note",
+        "author_id": "2e3d872b-594c-81ef-8c90-000214614524",
+        "created_time": "2026-04-14T00:22:00.000Z"
+      },
+      {
+        "comment_id": "3425917e-ac52-8004-bea5-001db13790e6",
+        "comment_text": "Don’t resolve this! ",
+        "author_id": "2e3d872b-594c-81ef-8c90-000214614524",
+        "created_time": "2026-04-14T00:22:00.000Z"
+      }
+    ],
+    "pipeline_history": [
+      {
+        "step": "step_12_merge_remediation",
+        "beat": {
+          "type": "prompt",
+          "text": "Which pictures show arrays? Select all that apply.",
+          "tool": "multi_select",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "and": [
+                  {
+                    "selected": "A"
+                  },
+                  {
+                    "selected": "B"
+                  },
+                  {
+                    "selected": "D"
+                  },
+                  {
+                    "not_selected": "C"
+                  }
+                ]
+              },
+              "description": "Student selected A, B, D and did not select C",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Yep. The egg carton, the parking lot, the window pane. Arrays are all around us. Same rows-and-columns structure you've been using.",
+                  "id": "s3_1_arrays_real_world_b5_v0_b0"
+                }
+              ]
+            },
+            {
+              "condition": {
+                "and": [
+                  {
+                    "or": [
+                      {
+                        "selected": "A"
+                      },
+                      {
+                        "selected": "B"
+                      },
+                      {
+                        "selected": "D"
+                      }
+                    ]
+                  },
+                  {
+                    "not": {
+                      "and": [
+                        {
+                          "selected": "A"
+                        },
+                        {
+                          "selected": "B"
+                        },
+                        {
+                          "selected": "D"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "not_selected": "C"
+                  }
+                ]
+              },
+              "description": "Branch 2: Student selected only correct answers (A, B, or D) but not all of them",
+              "is_correct": false,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "image_a",
+                  "params": {
+                    "description": "Image A highlighted if selected"
+                  },
+                  "id": "s3_1_arrays_real_world_b5_v1_b0"
+                },
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "image_b",
+                  "params": {
+                    "description": "Image B highlighted if selected"
+                  },
+                  "id": "s3_1_arrays_real_world_b5_v1_b1"
+                },
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "image_d",
+                  "params": {
+                    "description": "Image D highlighted if selected"
+                  },
+                  "id": "s3_1_arrays_real_world_b5_v1_b2"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "You've got some of them. Look again at the pictures you haven't picked yet. Do any of those show objects in equal rows and equal columns?",
+                  "id": "s3_1_arrays_real_world_b5_v1_b3"
+                }
+              ]
+            },
+            {
+              "condition": {
+                "not": {
+                  "or": [
+                    {
+                      "selected": "A"
+                    },
+                    {
+                      "selected": "B"
+                    },
+                    {
+                      "selected": "D"
+                    }
+                  ]
+                }
+              },
+              "description": "Branch 3: Student selected only incorrect answers (C only or no selection)",
+              "is_correct": false,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "image_a",
+                  "params": {
+                    "description": "Image A highlighted to draw attention"
+                  },
+                  "id": "s3_1_arrays_real_world_b5_v2_b0"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "An array has equal rows and equal columns. The objects line up both ways. Look at each picture and check if the objects are arranged that way.",
+                  "id": "s3_1_arrays_real_world_b5_v2_b1"
+                }
+              ]
+            },
+            {
+              "condition": {
+                "and": [
+                  {
+                    "selected": "C"
+                  },
+                  {
+                    "or": [
+                      {
+                        "selected": "A"
+                      },
+                      {
+                        "selected": "B"
+                      },
+                      {
+                        "selected": "D"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "description": "Branch 4: Student selected a mix of correct (A, B, or D) and incorrect (C) answers",
+              "is_correct": false,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "image_c",
+                  "params": {
+                    "description": "Image C highlighted to show it does not fit"
+                  },
+                  "id": "s3_1_arrays_real_world_b5_v3_b0"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "You found some arrays. But one of your picks doesn't have equal rows and columns. Those marbles are scattered. Arrays need everything lined up.",
+                  "id": "s3_1_arrays_real_world_b5_v3_b1"
+                }
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student answered incorrectly. System models the correct answer.",
+              "is_correct": false,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "image_a",
+                  "params": {
+                    "event": "highlight_rows_and_columns",
+                    "status": "confirmed",
+                    "description": "Image A highlights with visible row and column lines showing the 2 by 6 structure"
+                  },
+                  "id": "s3_1_arrays_real_world_b5_v4_b0"
+                },
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "image_b",
+                  "params": {
+                    "event": "highlight_rows_and_columns",
+                    "status": "confirmed",
+                    "description": "Image B highlights with visible row and column lines showing the 3 by 4 structure"
+                  },
+                  "id": "s3_1_arrays_real_world_b5_v4_b1"
+                },
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "image_d",
+                  "params": {
+                    "event": "highlight_rows_and_columns",
+                    "status": "confirmed",
+                    "description": "Image D highlights with visible row and column lines showing the 2 by 3 structure"
+                  },
+                  "id": "s3_1_arrays_real_world_b5_v4_b2"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Here's how to spot arrays. Image A: 2 rows and 6 columns of eggs. Image B: 3 rows and 4 columns of cars. Image D: 2 rows and 3 columns of window panes. Image C doesn't work because the marbles aren't lined up in rows or columns. The correct answers are A, B, and D. Those are the arrays.",
+                  "id": "s3_1_arrays_real_world_b5_v4_b3"
+                }
+              ]
+            }
+          ],
+          "id": "s3_1_arrays_real_world_b5",
+          "_notion_block_id": "33e5917e-ac52-8154-ba80-ef7d218c4ca7"
+        }
+      },
+      {
+        "step": "step_09_merge_dialogues",
+        "beat": {
+          "type": "prompt",
+          "text": "Which pictures show arrays? Select all that apply.",
+          "tool": "multi_select",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "and": [
+                  {
+                    "selected": "A"
+                  },
+                  {
+                    "selected": "B"
+                  },
+                  {
+                    "selected": "D"
+                  },
+                  {
+                    "not_selected": "C"
+                  }
+                ]
+              },
+              "description": "Student selected A, B, D and did not select C",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Yep. The egg carton, the parking lot, the window pane. Arrays are all around us. Same rows-and-columns structure you've been using.",
+                  "id": "s3_1_arrays_real_world_b5_v0_b0"
+                }
+              ]
+            }
+          ],
+          "id": "s3_1_arrays_real_world_b5"
+        }
+      },
+      {
+        "step": "step_06_stamp_ids",
+        "beat": {
+          "type": "prompt",
+          "text": "Which pictures show arrays? Select all that apply.",
+          "tool": "multi_select",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "and": [
+                  {
+                    "selected": "A"
+                  },
+                  {
+                    "selected": "B"
+                  },
+                  {
+                    "selected": "D"
+                  },
+                  {
+                    "not_selected": "C"
+                  }
+                ]
+              },
+              "description": "Student selected A, B, D and did not select C",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Egg carton, parking lot, window pane. Arrays are everywhere. Same rows and columns structure you have been working with.",
+                  "id": "s3_1_arrays_real_world_b5_v0_b0"
+                }
+              ]
+            }
+          ],
+          "id": "s3_1_arrays_real_world_b5"
+        }
+      },
+      {
+        "step": "step_05_section_structurer",
+        "beat": {
+          "type": "prompt",
+          "text": "Which pictures show arrays? Select all that apply.",
+          "tool": "multi_select",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "and": [
+                  {
+                    "selected": "A"
+                  },
+                  {
+                    "selected": "B"
+                  },
+                  {
+                    "selected": "D"
+                  },
+                  {
+                    "not_selected": "C"
+                  }
+                ]
+              },
+              "description": "Student selected A, B, D and did not select C",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Egg carton, parking lot, window pane. Arrays are everywhere. Same rows and columns structure you have been working with."
+                }
+              ]
+            }
+          ]
+        },
+        "prompt_file": "tracked_scripts\\u1\\m11\\synthesis\\step_05_section_structurer\\prompts\\s3_1_arrays_real_world.md"
+      }
+    ],
+    "issue_summary": "Remediation dialogue refers to images using letter labels (A, B, C, D) instead of concrete picture references (egg carton, parking lot, marbles, window pane).",
+    "likely_step": "remediation_generator",
+    "confidence": "high",
+    "reasoning": "This is an incorrect-validator beat generated by remediation_generator. The dialogue uses 'Image A', 'Image B', 'Image C', 'Image D' instead of concrete references like 'egg carton', 'parking lot', 'marbles', 'window pane'. The remediation_generator is responsible for all content within incorrect-validator states, including avoiding letter labels per the voice rules.",
+    "suggested_fix": "Rewrite the remediation dialogue to use concrete picture references (egg carton, parking lot, window pane, marbles) instead of letter labels."
+  }
+]

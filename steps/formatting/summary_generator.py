@@ -2,8 +2,7 @@
 Summary Generator - Adds statistical summary to SequencePool
 """
 
-from collections import Counter
-from typing import Dict, List, Any
+from typing import Dict, List
 
 
 def generate_summary(sequences: List[Dict]) -> Dict:
@@ -21,27 +20,27 @@ def generate_summary(sequences: List[Dict]) -> Dict:
     - Missing sequence IDs (gaps in numbering)
     """
     summary = {
-        'total_sequences': len(sequences),
-        'by_mastery_tier': {},
-        'by_template_id': {},
-        'by_mastery_verb': {},
-        'by_cognitive_verb': {},
-        'by_mastery_skill_id': {},
-        'by_misconception_id': {},
-        'by_misconception_tag': {},
-        'by_tier_and_verb': {},
-        'matched': 0,
-        'unmatched': 0,
-        'unmatched_indices': [],
-        'missing_ids': [],
-        'id_range': {}
+        "total_sequences": len(sequences),
+        "by_mastery_tier": {},
+        "by_template_id": {},
+        "by_mastery_verb": {},
+        "by_cognitive_verb": {},
+        "by_mastery_skill_id": {},
+        "by_misconception_id": {},
+        "by_misconception_tag": {},
+        "by_tier_and_verb": {},
+        "matched": 0,
+        "unmatched": 0,
+        "unmatched_indices": [],
+        "missing_ids": [],
+        "id_range": {},
     }
 
     # Collect all problem_ids to detect gaps
     problem_ids = []
     for seq in sequences:
-        metadata = seq.get('metadata', {})
-        problem_id = metadata.get('problem_id') or seq.get('problem_id')
+        metadata = seq.get("metadata", {})
+        problem_id = metadata.get("problem_id") or seq.get("problem_id")
         if problem_id is not None:
             problem_ids.append(int(problem_id))
 
@@ -54,62 +53,68 @@ def generate_summary(sequences: List[Dict]) -> Dict:
         actual_ids = set(problem_ids)
         missing = sorted(expected_ids - actual_ids)
 
-        summary['missing_ids'] = missing
-        summary['id_range'] = {
-            'min': min_id,
-            'max': max_id,
-            'expected_count': max_id - min_id + 1,
-            'actual_count': len(problem_ids),
-            'missing_count': len(missing)
+        summary["missing_ids"] = missing
+        summary["id_range"] = {
+            "min": min_id,
+            "max": max_id,
+            "expected_count": max_id - min_id + 1,
+            "actual_count": len(problem_ids),
+            "missing_count": len(missing),
         }
 
     for idx, seq in enumerate(sequences):
-        metadata = seq.get('metadata', {})
+        metadata = seq.get("metadata", {})
 
         if not metadata:
-            summary['unmatched'] += 1
+            summary["unmatched"] += 1
             # Try to get problem_id from root level, fallback to index
-            problem_id = seq.get('problem_id', idx)
-            summary['unmatched_indices'].append(problem_id)
+            problem_id = seq.get("problem_id", idx)
+            summary["unmatched_indices"].append(problem_id)
             continue
 
-        summary['matched'] += 1
+        summary["matched"] += 1
 
         # Count by mastery_tier
-        tier = metadata.get('mastery_tier', 'UNKNOWN')
-        summary['by_mastery_tier'][tier] = summary['by_mastery_tier'].get(tier, 0) + 1
+        tier = metadata.get("mastery_tier", "UNKNOWN")
+        summary["by_mastery_tier"][tier] = summary["by_mastery_tier"].get(tier, 0) + 1
 
         # Count by template_id
-        template_id = metadata.get('template_id', 'UNKNOWN')
-        summary['by_template_id'][template_id] = summary['by_template_id'].get(template_id, 0) + 1
+        template_id = metadata.get("template_id", "UNKNOWN")
+        summary["by_template_id"][template_id] = summary["by_template_id"].get(template_id, 0) + 1
 
         # Count by mastery_verb
-        mastery_verb = metadata.get('mastery_verb', 'UNKNOWN')
-        summary['by_mastery_verb'][mastery_verb] = summary['by_mastery_verb'].get(mastery_verb, 0) + 1
+        mastery_verb = metadata.get("mastery_verb", "UNKNOWN")
+        summary["by_mastery_verb"][mastery_verb] = (
+            summary["by_mastery_verb"].get(mastery_verb, 0) + 1
+        )
 
         # Count by cognitive_verb from telemetry_data
-        telemetry = metadata.get('telemetry_data', {})
-        cognitive_verb = telemetry.get('cognitive_verb', 'UNKNOWN')
-        summary['by_cognitive_verb'][cognitive_verb] = summary['by_cognitive_verb'].get(cognitive_verb, 0) + 1
+        telemetry = metadata.get("telemetry_data", {})
+        cognitive_verb = telemetry.get("cognitive_verb", "UNKNOWN")
+        summary["by_cognitive_verb"][cognitive_verb] = (
+            summary["by_cognitive_verb"].get(cognitive_verb, 0) + 1
+        )
 
         # Count by mastery_skill_id
-        skill_id = telemetry.get('mastery_skill_id', 'UNKNOWN')
-        summary['by_mastery_skill_id'][skill_id] = summary['by_mastery_skill_id'].get(skill_id, 0) + 1
+        skill_id = telemetry.get("mastery_skill_id", "UNKNOWN")
+        summary["by_mastery_skill_id"][skill_id] = (
+            summary["by_mastery_skill_id"].get(skill_id, 0) + 1
+        )
 
         # Count by misconception_id (expand arrays)
-        misconception_ids = telemetry.get('misconception_id', [])
+        misconception_ids = telemetry.get("misconception_id", [])
         for misc_id in misconception_ids:
             key = str(misc_id)
-            summary['by_misconception_id'][key] = summary['by_misconception_id'].get(key, 0) + 1
+            summary["by_misconception_id"][key] = summary["by_misconception_id"].get(key, 0) + 1
 
         # Count by misconception_tag (expand arrays)
-        misconception_tags = telemetry.get('misconception_tag', [])
+        misconception_tags = telemetry.get("misconception_tag", [])
         for tag in misconception_tags:
-            summary['by_misconception_tag'][tag] = summary['by_misconception_tag'].get(tag, 0) + 1
+            summary["by_misconception_tag"][tag] = summary["by_misconception_tag"].get(tag, 0) + 1
 
         # Count by tier and verb combination
         combo_key = f"{tier} - {cognitive_verb}"
-        summary['by_tier_and_verb'][combo_key] = summary['by_tier_and_verb'].get(combo_key, 0) + 1
+        summary["by_tier_and_verb"][combo_key] = summary["by_tier_and_verb"].get(combo_key, 0) + 1
 
     return summary
 
@@ -135,10 +140,10 @@ def add_summary(data, module_number=None, path_letter=None):
     # Sort sequences by problem_id
     def get_problem_id(seq):
         """Extract problem_id from sequence, checking both metadata and root level"""
-        metadata = seq.get('metadata', {})
-        problem_id = metadata.get('problem_id') or seq.get('problem_id')
+        metadata = seq.get("metadata", {})
+        problem_id = metadata.get("problem_id") or seq.get("problem_id")
         # Return a large number for sequences without IDs so they sort to the end
-        return int(problem_id) if problem_id is not None else float('inf')
+        return int(problem_id) if problem_id is not None else float("inf")
 
     sorted_sequences = sorted(sequences, key=get_problem_id)
 
@@ -146,10 +151,7 @@ def add_summary(data, module_number=None, path_letter=None):
     summary = generate_summary(sorted_sequences)
 
     # Add summary to data (after @type)
-    result = {
-        "@type": data["@type"],
-        "metadata": summary
-    }
+    result = {"@type": data["@type"], "metadata": summary}
 
     # Add remaining fields (using sorted sequences)
     for key, value in data.items():

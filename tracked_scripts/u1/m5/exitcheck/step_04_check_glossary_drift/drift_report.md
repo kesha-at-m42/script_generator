@@ -1,7 +1,7 @@
 # UX/Script Terminology Drift Report
 
-Generated: 2026-04-20 11:58  
-Source: `check_glossary_drift.json`  
+Generated: 2026-05-05 15:06
+Source: `check_glossary_drift.json`
 Scope: Unit 1, Module 5
 
 Discovery document — surfaces spec terminology that needs a glossary decision.
@@ -17,7 +17,6 @@ These likely represent concepts not yet in the glossary or toy_specs directory.
 | Phrase | Section | Snippet |
 | ---|---|--- |
 | `No Scale Preview System` | `s1_3_select_appropriate_scale_compare` | ...Cara: 90, Dan: 50. No Scale Preview System. No bar graph shown. |
-| `No bar graph shown` | `s1_3_select_appropriate_scale_compare` | ...ale Preview System. No bar graph shown. |
 
 ---
 
@@ -73,5 +72,3 @@ _None found._
 
 - **Unresolved:** `No Scale Preview System` in `visual`
   > ...Cara: 90, Dan: 50. No Scale Preview System. No bar graph shown.
-- **Unresolved:** `No bar graph shown` in `visual`
-  > ...ale Preview System. No bar graph shown.

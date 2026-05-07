@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T11:59:21.068825
+# Generated: 2026-05-05T15:07:11.815544
 ======================================================================
 
 ## API Parameters
@@ -31,7 +31,7 @@ Cacheable: Yes
 
 **Version:** 3.2
 **Last Updated:** April 2026
-**Purpose:** Authoritative guide for all remediation across learning modules
+**Purpose:** Authoritative guide for **branching remediation requirements** across learning modules — defines what feedback to serve and when. This document does not govern validation. Validator coverage is intentionally broader than remediation branching; the goal is to diagnose the cause of student error from accumulated data, not to presume it in advance.
 
 ---
 
@@ -46,11 +46,9 @@ Cacheable: Yes
 **SECTION 6** \- Heavy Remediation Language Patterns
 **SECTION 7** \- Post-Modeling Language
 **SECTION 8** \- Error Signal Strategy
-**SECTION 9** \- Misconception Tracking & Intervention Triggers
-**SECTION 10** \- Intervention Activity Overview
-**SECTION 11** \- Remediation by Phase
-**SECTION 12** \- Quality Checklist
-**SECTION 13** \- Output Format Examples
+**SECTION 9** \- Remediation by Phase
+**SECTION 10** \- Quality Checklist
+**SECTION 11** \- Output Format Examples
 
 ---
 
@@ -111,11 +109,28 @@ PATTERN DETECTION (Background)
 
 ---
 
+### 1.5 Branching vs. Validation: Separate Concerns
+
+These are two independent systems with different scopes:
+
+| Concern | What it governs | Coverage |
+| :---- | :---- | :---- |
+| **Branching (this document)** | What remediation to serve and when | Only the cases worth targeted feedback |
+| **Validation (separate)** | What error patterns to log for tracking | Intentionally broader — captures cases not covered by branching |
+
+**The distinction matters.** A wrong answer that receives generic L-M-H feedback can still receive a precise validator tag. Validators are not constrained by what the remediation structure handles. We expect to capture more error patterns than we intend to remediate. The tracking system accumulates data so that error causes are diagnosed from evidence, not assumed in advance — a detected pattern may indicate a misconception, a skill gap, or something else entirely. The cause is a question for the data to answer, not a label to apply upfront.
+
+Do not design validator tags based on what remediations exist. Design them based on what error patterns are worth understanding.
+
+**Validation design is a separate effort from remediation design — and should be treated differently.** Remediation branching is relatively stable once written: changing it means authoring new feedback states and updating production content. Validation should be flexible and subject to ongoing iteration. Validator tags can be added, renamed, split, or retired as understanding of student error patterns develops. The two should not be versioned or locked together. Build remediation to last; build validation to learn.
+
+---
+
 ## SECTION 2: Non-MC Remediation
 
 ### 2.1 Overview
 
-For all non-multiple-choice interactions (shading, partitioning, placing on number lines, dragging, build-mode, etc.), the generic L-M-H is always present. **The validator still tags the probable error type** for misconception tracking, but the student receives generic feedback for any wrong answer — regardless of detected error type. Note: if more conditions are defined in the spec than have remediations designed, those conditions still fall through to the generic L-M-H.
+For all non-multiple-choice interactions (shading, partitioning, placing on number lines, dragging, build-mode, etc.), the generic L-M-H is always present. **The validator still tags the probable error type** for misconception tracking, but the student receives generic feedback for any wrong answer — regardless of detected error type. Note: if more conditions are defined in the spec than have remediations designed, those conditions still fall through to the generic L-M-H. This is also true for validation: validators may tag error types that have no corresponding specific-condition state. Validator coverage is not bounded by the branching structure — they are separate authoring decisions.
 
 When the spec identifies one or more specific known wrong-answer conditions, one targeted Medium per condition is added before the generic states. These specific condition states are a special case of the generic structure — see Section 2.5.
 
@@ -613,102 +628,13 @@ Never repeat the same error signal phrase within 3 interactions. Rotate through:
 
 ---
 
-## SECTION 9: Misconception Tracking & Intervention Triggers
-
-### 9.1 How Tracking Works
-
-Even though non-MC remediation is generic, **validators tag the probable error type** for every wrong answer. This feeds the misconception tracking system.
-
-```
-Student makes error → Generic remediation served
-                   → Validator logs: "Probable Misconception #3"
-                   → Running count updated
-
-[After phase transition]
-System checks: Has any misconception hit threshold?
-    YES → Queue Intervention Activity
-    NO → Continue normal flow
-```
-
-### 9.2 Tracking Parameters
-
-| Parameter | Value | Notes |
-| :---- | :---- | :---- |
-| **Trigger threshold** | 5 errors (placeholder) | TBD with data |
-| **Rolling window** | Last 20 opportunities | Natural decay mechanism |
-| **Window spans** | Lesson, Exit Check, Practice, Spiral Review, Test Prep | Cross-activity tracking |
-| **Check timing** | Phase transitions | Engineer to confirm feasibility |
-| **Post-Intervention threshold** | Window lowers to 15 | Catches continued struggle faster |
-
-### 9.3 What Gets Tracked
-
-**Tracked (feeds Intervention triggers):**
-
-- Misconception indicators (\#1-\#10)
-- Tracked per visual type for accuracy
-- Combined at misconception level for Intervention trigger
-
-**Not Tracked for Intervention:**
-
-- Common procedural errors (counting mistakes, off-by-one)
-- Random/ambiguous errors
-
-### 9.4 Example Tracking Flow
-
-```
-Opportunity 1: Error on Rectangle Bar → Validator: Misconception #3 → Count: 1
-Opportunity 5: Error on Number Line → Validator: Misconception #3 → Count: 2
-Opportunity 9: Error on Rectangle Bar → Validator: Misconception #3 → Count: 3
-Opportunity 14: Error on Grid → Validator: Misconception #3 → Count: 4
-Opportunity 18: Error on Rectangle Bar → Validator: Misconception #3 → Count: 5 ← THRESHOLD
-
-[At next phase transition]
-→ Misconception #3 Intervention queued as next activity
-```
+> **Context — Related Systems (defined separately):** Validator tags feed a background error pattern tracking system that triggers Intervention Activities when patterns reach threshold. A triggered pattern is a hypothesis, not a diagnosis — the cause may be a misconception, a skill gap, or something else. Tracking parameters and intervention design are out of scope here; see the *Error Pattern Tracking Spec* and *Intervention Activity Design Brief*.
 
 ---
 
-## SECTION 10: Intervention Activity Overview
+## SECTION 9: Remediation by Phase
 
-### 10.1 What Interventions Are
-
-Intervention Activities are **standalone instructional sequences** that address a specific misconception directly. They sit outside regular modules and slot into the activity queue when triggered.
-
-### 10.2 Intervention Scope
-
-- **\~10 total** (one per misconception)
-- **Combines visuals** (not visual-specific)
-- **Path-flexible** (may use visuals from multiple paths with worked examples)
-
-### 10.3 Intervention Structure
-
-| Phase | Name | Purpose | Approach |
-| :---- | :---- | :---- | :---- |
-| 1 | **Clarify** | Name the misconception | Metacognitive: "A lot of students think X. Let's look at why that's hard to see..." |
-| 2 | **Model** | Worked examples | Guide demonstrates across 2-3 examples using multiple visuals |
-| 3 | **Confirm** | Independent verification | 2-3 problems student completes independently |
-
-### 10.4 Queue Placement
-
-- Intervention replaces whatever activity would have been next
-- Multiple triggers \= multiple Interventions queued with brain breaks between
-- Follows existing recess/break logic in Activity Queue
-
-### 10.5 After Intervention
-
-- Rolling window lowers to 15 (from 20\)
-- If misconception continues to appear, re-triggers faster
-- Alternative: Queue targeted Practice problems before re-triggering full Intervention
-
-### 10.6 Intervention Design (Separate Document)
-
-Full Intervention Activity design specifications in: **Intervention Activity Design Brief**
-
----
-
-## SECTION 11: Remediation by Phase
-
-### 11.1 Requirements by Phase
+### 9.1 Requirements by Phase
 
 | Phase | Non-MC Requirement | Single-Select MC Requirement | Multiselect MC Requirement | Notes |
 | :---- | :---- | :---- | :---- | :---- |
@@ -719,7 +645,7 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 | Synthesis | Light minimum | Per-distractor Medium \+ Heavy | Per-branch Medium \+ Heavy | Full L-M-H for pattern discovery |
 | Challenge | None | None | None | Assessment mode |
 
-### 11.2 Module Complexity Considerations
+### 9.2 Module Complexity Considerations
 
 **Modules 1-3 (Simple concepts):**
 
@@ -741,9 +667,9 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 
 ---
 
-## SECTION 12: Quality Checklist
+## SECTION 10: Quality Checklist
 
-### 12.1 Non-MC Remediation Checklist
+### 10.1 Non-MC Remediation Checklist
 
 **Track A (ambiguous errors — no specific conditions):**
 - [ ] Generic L-M-H only (no branching by error type)
@@ -762,7 +688,7 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 - [ ] Generic Heavy (`condition: {}`), \[Modeling\] tag REQUIRED, visual REQUIRED
 - [ ] Heavy dialogue ends with closure: names the correct answer and the concept it demonstrates
 
-### 12.2 Single-Select MC Remediation Checklist
+### 10.2 Single-Select MC Remediation Checklist
 
 - [ ] One Medium per distractor (3 distractors \= 3 Mediums)
 - [ ] Each Medium targets specific error that distractor represents
@@ -771,7 +697,7 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 - [ ] Heavy has \[Modeling\] tag
 - [ ] No Light remediation (Single-Select MC skips to Medium)
 
-### 12.2B Multiselect MC Remediation Checklist
+### 10.2B Multiselect MC Remediation Checklist
 
 - [ ] Three Medium remediations — one per error branch (under-selecting, all-wrong, mixed)
 - [ ] Branch 2 Medium (under-selecting) acknowledges correct picks and nudges toward missing answers — near-success tone
@@ -783,7 +709,7 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 - [ ] No Light remediation (Multiselect MC skips to Medium)
 - [ ] Tone varies meaningfully across branches — remediation language does not feel uniform
 
-### 12.3 Variety Checklist (Per Module)
+### 10.3 Variety Checklist (Per Module)
 
 - [ ] Minimum 8 different Light patterns (non-MC)
 - [ ] 4-5 different Medium approaches
@@ -791,7 +717,7 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 - [ ] No exact phrase repeated within 3 problems
 - [ ] Error signals rotated (40-50% with signal)
 
-### 12.4 Structure Violations (Never Include)
+### 10.4 Structure Violations (Never Include)
 
 - ❌ Alternative paths ("Try X or Y")
 - ❌ Light remediation that teaches new content
@@ -802,9 +728,9 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 
 ---
 
-## SECTION 13: Output Format Examples
+## SECTION 11: Output Format Examples
 
-### 13.1 Non-MC Format
+### 11.1 Non-MC Format
 
 ```
 Activity X - [Title]
@@ -830,7 +756,7 @@ Guide: "[Post-modeling acknowledgment]"
 [Validator: Probable error type for tracking - e.g., Misconception_#3]
 ```
 
-### 13.2 Single-Select MC Format
+### 11.2 Single-Select MC Format
 
 ```
 Activity X - [Title] (Multiple Choice)
@@ -865,7 +791,7 @@ ERROR PATHS:
 Guide: "[Post-modeling acknowledgment]"
 ```
 
-### 13.2B Multiselect MC Format
+### 11.2B Multiselect MC Format
 
 ```
 Activity X - [Title] (Multiselect MC — "Select all that apply")
@@ -904,7 +830,7 @@ BRANCH 4 — Mixed (some correct, some incorrect selected):
 Guide: "[Post-modeling acknowledgment]"
 ```
 
-### 13.3 Validator Notation
+### 11.3 Validator Notation
 
 For tracking purposes, include validator notation:
 
@@ -947,7 +873,7 @@ These aggregate to the misconception level for Intervention triggers.
 
 ## END OF DOCUMENT
 
-**Version:** 3.1
+**Version:** 3.2
 **Document Type:** Authoritative reference for script writers
 **Major Changes from v2.0:**
 
@@ -956,6 +882,12 @@ These aggregate to the misconception level for Intervention triggers.
 - Added Misconception Tracking & Intervention system overview
 - Reduced content creation burden significantly
 - Clarified MC structure (Medium per distractor \+ single Heavy)
+
+**Major Changes from v3.1:**
+
+- Clarified document scope: branching remediation requirements only, not validation requirements (Sections 1.5, 2.1, 9.1)
+- Added explicit branching vs. validation distinction (Section 1.5): validator coverage is intentionally broader than branching; error causes are diagnosed from data, not assumed in advance
+- Fixed version number discrepancy (header/footer now consistent)
 
 **Major Changes from v3.0:**
 
@@ -1525,7 +1457,220 @@ Tangible ID prefixes and naming patterns are defined in the toy spec files (`toy
 
 ----------------------------------------------------------------------
 
-### Block 4: Instructions
+### Block 4: Reference Doc (dialogue_examples/remediations.md)
+Purpose: Reference documentation
+Cacheable: Yes
+
+# REFERENCE DOCUMENTATION: dialogue_examples/remediations.md
+
+<remediations>
+# Remediation Beats — Gold Standard Examples
+
+Remediation beats fire when a student answers incorrectly. Three levels: light, medium, heavy.
+
+- **Light:** Minimal redirect. Assumes the student is close and just needs a nudge.
+- **Medium:** More targeted. Identifies what to look at or re-route their thinking.
+- **Heavy:** Full model. Guide demonstrates the action or reasoning, then hands it back.
+
+---
+
+## Design Principles
+
+**Light remediations are direct statements, not questions.** Statements redirect; questions can feel like testing. "Look again at the parts in the bars. They all need to be the same width." — not "Are they all the same width?"
+
+**Medium remediations teach the method, not the answer.** Name what to look at and in what order without supplying the counts or values. The student still has to do the work. Close with a pointed question or specific imperative.
+
+**Heavy remediations model reasoning, not just the answer.** Narrate the thinking during the demo. End with the underlying principle — why the answer has to be what it is, not just what it is.
+
+**"You're working on it" used sparingly.** It works when genuine as a gentle acknowledgment before redirecting. Avoid using it in every medium remediation — it becomes formulaic.
+
+---
+
+## Gold Standard Examples by Level
+
+### LIGHT REMEDIATIONS
+
+**Simple count redirect (M10)**
+> "Try counting which bar has more sixths shaded."
+
+Why it works: One sentence. Names exactly what to do. No hedging.
+
+---
+
+**Count from zero (M11)**
+> "Count the intervals from zero. We need two intervals."
+
+Why it works: Tells the student the method and the target. Unambiguous.
+
+---
+
+**Size comparison redirect (M11)**
+> "Not quite. Both show 3 pieces. But look at the SIZE of those pieces."
+
+Why it works: "Not quite" acknowledges the error without dwelling on it. Capitalizing SIZE in the spoken version should be read as mild vocal emphasis.
+
+---
+
+**Equal parts check (M1)**
+> "Look again at the parts in the bars. They all need to be the same width."
+
+Why it works: Removed the old "Hmm" and rhetorical question. Direct statement of what to look for.
+
+---
+
+**Strategy reminder (M5)**
+> "Not quite. Remember, six equal spaces."
+
+Why it works: Minimum viable redirect when the strategy has already been taught. Doesn't re-explain.
+
+---
+
+### MEDIUM REMEDIATIONS
+
+**Piece size comparison with visual anchor (M2)**
+> "Let's compare - see how the one half piece is much bigger than the one fourth piece? Fewer parts means bigger pieces."
+
+Why it works: "Let's compare" is collaborative. Points to the visual, then states the principle. Short.
+
+---
+
+**Denominator as jump size (M6)**
+> "Remember that five fourths means five equal jumps total from 0. Count them carefully."
+
+Why it works: Restates the meaning of the fraction in terms of the action (counting jumps). "Count them carefully" is actionable.
+
+---
+
+**Same-denominator logic restated (M10)**
+> "Both pieces are divided into sixths, so the pieces are the same size. Which is more, four pieces or two pieces?"
+
+Why it works: Walks through the logic step by step. Ends with a question the student can answer — gives them agency in the correction.
+
+---
+
+**Half vs more-than-half framing (M12)**
+> "Remember from the warmup, three fourths was above halfway and two sixths was below. The number line shows the same thing, just in a different way."
+
+Why it works: Connects to something the student already saw. The transfer is explicit: "same thing, different way."
+
+---
+
+**Numerator = spaces from zero (M5)**
+> "Here's a hint: The top number, 1, means one sixth is one space from 0."
+
+Why it works: "Here's a hint" signals that the next thing is help, not correction. Restates the fraction-as-position concept precisely.
+
+---
+
+### SPECIFIC CONDITION MEDIUMS (per-distractor)
+
+Specific condition mediums fire when the student makes an identifiable wrong choice. They name the error precisely, redirect to the correct concept, and close with a call to action. They do not complete the work — the student still has to execute.
+
+**Pattern A — Credit + narrow (M11)**
+> "You're right that there are 4 columns. But count how many dots are in each column. Are there 4?"
+
+Why it works: Opens by crediting what was correct. Narrows to exactly the one thing that was wrong. Ends with a pointed question the student can immediately act on.
+
+---
+
+**Pattern A — Credit + narrow, two-step problem (M1)**
+> "That's the Fish and Lizards total. The question asks how many MORE have Cats. You need to compare Cats to that total."
+
+Why it works: Names what the student found (a correct partial result). Redirects to what the question actually asks. One clear action.
+
+---
+
+**Pattern B — Name + redirect + point (M1)**
+> "You counted the Dogs. When we ask how many fewer, we need to find the difference. Count how far apart Dogs and Fish are."
+
+Why it works: One-phrase description of the error. States what the question needs. Points to the evidence in the visual.
+
+---
+
+**Pattern B — Name + redirect + point (M11)**
+> "That's the rows description. Look at columns now. How many columns are there? Each column has how many dots?"
+
+Why it works: Names the error (described rows when asked for columns). Redirects with a direct imperative. Ends with two questions that walk the student through the correct path step by step.
+
+---
+
+### HEAVY REMEDIATIONS
+
+**Reasoning narrated during demo (M8)**
+> "Let me show you by selecting the bigger piece. I'm choosing the one-fourth piece because when we cut the same cake into fewer pieces, each piece is bigger."
+
+Why it works: States the action and the reason simultaneously. The student sees what to do AND why. Ends with the principle, not the action.
+
+---
+
+**Step-by-step counting on number line (M10)**
+> "Let me show you how I'd solve this: On number lines, fractions get bigger as you move right. Look — two sixths only goes two intervals from 0. But five sixths goes five intervals from 0, almost to 1. The one that goes farther right is bigger. So five sixths is greater."
+
+Why it works: Narrates the visual observation the student should be making. "Almost to 1" anchors the magnitude. Ends with a clear conclusion.
+
+---
+
+**Pattern revealed through modeling (M6)**
+> "Let me help a bit more. Look at this pattern: four fourths equals 1 whole, they're the same number. Another four fourths makes another whole. So eight fourths equals 2. Same number, different ways to write it. The pattern tells you something. Every four fourths makes a whole number!"
+
+Why it works: "Let me help a bit more" is warmer than "Let me show you." The demo reveals a pattern rather than just demonstrating a procedure. The exclamation is earned — this is a genuine discovery moment.
+
+---
+
+**Equivalent fraction by counting steps (M9)**
+> "Let me help you think through this. Three halves means: one half, two halves — that's 1 — then three halves, lands here between 1 and 2. Now count fourths: one fourth, two fourths, three fourths, four fourths — that's 1 — five fourths, six fourths, lands at the same spot. So six fourths is the answer."
+
+Why it works: Walks both number lines step by step. The student can follow the counting. Ends with the conclusion stated plainly.
+
+---
+
+**Collaborative walkthrough framing (M1)**
+> "I'll walk us through this problem: First I divide in half, then I divide the left half, then the right half. See how all four parts match?"
+
+Why it works: "I'll walk us through this" is collaborative. The step-by-step mirrors the strategy taught earlier. The closing question invites the student to verify, not just observe.
+
+---
+
+**Counting both lines together (M9)**
+> "Let's work together. For two thirds: count one third, two thirds. Two thirds goes here. Two-thirds of the way from 0 to 1. For four sixths: count one sixth, two sixths, three sixths, four sixths. Same position! When dots line up vertically, fractions are equivalent."
+
+Why it works: Does both number lines step by step. "Same position!" is earned here. Ends with the rule the student should take away.
+
+---
+
+**Principle ending — two paths modeled (M11)**
+> "Let me show you the two ways to think about this array. If I want rows, I count the horizontal rows: 6 rows. Then I count the dots in one row: 3 dots. 6 rows of 3 is 18 total dots. 6 times 3 equals 18. If I want columns, I count the vertical columns: 3 columns. Then I count the dots in one column: 6 dots. 3 columns of 6 is 18 total dots. 3 times 6 equals 18. Two ways to describe this array and equations that match. Both are correct."
+
+Why it works: Models both valid paths, not just one. Names the structure at each step ("horizontal rows", "vertical columns"). Ends with the principle — the student leaves knowing the rule, not just the answer.
+
+---
+
+**Principle ending — invariant stated (M12)**
+> "Here's what matters: when you describe an array by rows or columns, the dots don't change. 3 times 5 has the exact same dots as 5 times 3. You just read them differently. Same dots means same total. That is why both expressions give the same product."
+
+Why it works: States the principle and explains why it must be true. The closing sentence ("Same dots means same total. That is why...") is the insight the student carries forward.
+
+---
+
+## Remediation Register Notes
+
+**Light:** One or two sentences. No explanation of why the answer was wrong. Just a redirect.
+
+**Medium:** Two to four sentences. Teaches the method — names what to look at and in what order — without supplying the specific counts or values. Visual scaffold required. Closes with a pointed question or specific imperative. Does not solve the problem.
+
+**Specific Condition Medium:** Same length and visual requirement as Medium. Names the error in one phrase, redirects to the correct concept, closes with a call to action. Does not give away the correct counts or values.
+
+**Heavy:** Models the full solution. Narrates the thinking, not just the mechanics — names the structure being demonstrated. Ends with the underlying principle: why the answer has to be what it is.
+
+**On-correct and Heavy share a closing philosophy:** both end by naming what was demonstrated, not just what the answer was. Heavy closes with why (the structural insight). On-correct closes with what was demonstrated (the discovery or principle the student just proved). The closing sentence should be transferable to the next problem.
+
+**All levels:** Avoid "You're almost there!" (assuming closeness) and "Don't worry!" (assuming feelings).
+
+</remediations>
+
+----------------------------------------------------------------------
+
+### Block 5: Instructions
 Purpose: Step-by-step task instructions
 Cacheable: Yes
 
@@ -1537,6 +1682,8 @@ Cacheable: Yes
 The section to process is in `<input>`. Walk its `beats` array and find every `prompt` beat. For each prompt, generate the incorrect validator states. Output one inner array of states per prompt, in the order the prompts appear in the section.
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
+
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
 
 ---
 
@@ -1581,7 +1728,7 @@ For each qualifying prompt, check the `tool` field:
 
 Follow `<remediation_design_ref>` Sections 2.4–2.5 for state structure and order. Always emit generic L/M/H after any specific-condition states. Follow length, visual, and language rules from `<remediation_design_ref>` Sections 4–6.
 
-**Specific conditions** are pre-defined in the input. Inspect the existing `validator` for `is_correct: false` states with non-empty conditions (not just `{}`). Each such state has:
+**Specific conditions** are pre-defined in the input — do not invent them. Inspect the existing `validator` for `is_correct: false` states with non-empty conditions (not just `{}`). Each such state has:
 - `condition`: the base condition (e.g. `{ "container_count": 3 }`) — rewrite it into the `and`/`or` shape from the STATE ORDER section below
 - `description`: a plain-English label for what wrong answer this represents
 - `beats`: placeholder dialogue already written — use as inspiration when writing Medium-quality content (visual scaffold + 20–30 words)
@@ -1625,11 +1772,25 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 }
 ```
 
-**Heavy** (catch-all `{}`): `scene animate` beat required (system demonstrates the answer). Dialogue narrates the thinking, not just the mechanics — name the structure being demonstrated and connect each step to what it means. End with the underlying principle: why the answer has to be what it is, not just what the answer is. Take inspiration from the on_correct beat already in the section's validator — it names what was demonstrated for a student who got it right. The Heavy closing should echo that same structural insight, framed from the guide's perspective after modeling.
+**Scenario image prompts (`click_tangible` on `image` tangibles):** When the prompt targets scenario images (real-world connection sections), never reference images by letter label in any state. For each state that needs to draw attention to a specific image, emit a `scene animate` beat with `event: "highlight"` on that tangible ID, then say "this image" in the dialogue. Apply this in Medium states (highlight the specific wrong or correct image) and Heavy states (highlight each relevant image in sequence as the guide narrates).
+
+```json
+{ "type": "scene", "method": "animate", "tangible_id": "scenario_image_counting",
+  "params": { "event": "highlight", "status": "confirmed", "description": "Counting money scenario image highlights." } },
+{ "type": "dialogue", "text": "Look at this image. Does this situation use groups of 10?" }
+```
+
+**Heavy** (catch-all `{}`): `scene animate` beat required (system demonstrates the answer). Fires when the student gives a wrong answer not covered by any specific Medium — never when they click the correct answer (that is handled by the correct validator). Dialogue narrates the thinking, not just the mechanics — name the structure being demonstrated and connect each step to what it means. End with the underlying principle: why the answer has to be what it is, not just what the answer is.
+
+**For the on_correct beat:** use it only to identify what concept the answer demonstrates and what the closing principle should be. Do not treat it as a template for which tangibles to animate — it only shows the confirmation step, not the reasoning.
+
+**For the Heavy's animate beats:** read the section's `scene add` beats and the dialogue beat that introduces the prompt. These tell you which tangibles are part of the reasoning and what each one contributes (line counts, axis values, etc.). The Heavy must animate every tangible involved in the reasoning — in the order the section presents them — and narrate what the guide observes about each one, arriving at the correct answer as the conclusion.
+
+**Use `<section_context>` to confirm the teaching strategy and align vocabulary.** If the section context shows that the guide's teaching walked through multiple visuals in sequence, the Heavy's animate beats must follow that same sequence.
 ```json
 {
   "condition": {},
-  "description": "Student answered incorrectly three or more times. System models the answer.",
+  "description": "Student gave a wrong answer not covered by a specific Medium. System models the correct answer.",
   "is_correct": false,
   "steps": [
     [
@@ -1647,7 +1808,9 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
 
-See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
+
+See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy). Per that design, the condition for each Medium is `{ "selected": <distractor> }` only. Do not add `incorrect_count` — per-distractor and LMH are separate branching dimensions and must never be combined.
 
 One **Medium** per distractor: scene beat required. Dialogue names the error and redirects to the correct concept or tool. Close with a pointed question or specific imperative.
 ```json
@@ -1668,7 +1831,7 @@ One **Heavy** (`condition: {}`): `scene animate` beat required.
 ```json
 {
   "condition": {},
-  "description": "Student answered incorrectly. System models the correct answer.",
+  "description": "Student gave a wrong answer not covered by a specific Medium. System models the correct answer.",
   "is_correct": false,
   "steps": [
     [
@@ -1741,7 +1904,7 @@ One **Heavy** (`condition: {}`): `scene animate` beat required. Shared fallback 
 ```json
 {
   "condition": {},
-  "description": "Student answered incorrectly. System models the correct answer.",
+  "description": "Student gave a wrong answer not covered by a specific Medium. System models the correct answer.",
   "is_correct": false,
   "steps": [
     [
@@ -1790,15 +1953,17 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 **Medium — universal answer rule (applies to all tracks and specific conditions):** Never state the correct answer, value, or count in a Medium. This applies even when the answer is visible on screen (e.g. a key showing "Each ⭐ = 5", a label, a highlighted number). Redirect the student to the right place and let them read it. A Medium that names the answer removes the work the student needs to do. If you find yourself writing the correct value in a Medium, rewrite it as a question or imperative that sends the student to look.
 
-**Heavy:** Use an opener from Section 6.1. Cycle — do not reuse within a section. End with closure per Section 7.
+**Heavy:** Choose an opener from Section 6.1. Rotate across the full range of available openers — "Let me show you", "Let me help you think through this", "Let's work together", "I'll walk us through this", "Here's what matters" — treating each as equally valid. Cycle — do not reuse the same opener within a section. Refer to <remediations.md> for opener variety and the principle-ending pattern. End with closure per Section 7.
 
 ---
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats. **Do not fabricate game data values** — specific quantities, scale-key values, or item counts that come from live game content are not available at script-writing time unless they appear explicitly in the input section JSON or `<lesson_sections>`. Do not invent them. In Light and Medium states, redirect the student to look at the relevant element rather than stating a value. In Heavy states, narrate the structural pattern being animated without naming specific quantities that aren't grounded in the input.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
+
+When <section_context> is available, read every section summary whose `## section_id` appears before the current section's id. Identify the most recently taught strategy: what approach did the guide use to explain the concept, what scaffold did it provide, what vocabulary did it lean on? Use that strategy — and only that strategy — to frame remediation. Do not introduce a shortcut, pattern, or reasoning method that does not appear in any prior section summary. If a student is stuck on `s2_5`, the remediation should teach using the same scaffold introduced in `s2_1`–`s2_4`, not a rule the lesson hasn't covered yet.
 
 For prompts with `"variable_answer": true`: do not assume the student's specific attempt in Light or Medium dialogue. For Heavy, model one specific valid example but frame it as one way, not the only answer.
 
@@ -1807,6 +1972,7 @@ For prompts with `"variable_answer": true`: do not assume the student's specific
 ## OUTPUT RULES
 
 - Output ONLY the `incorrects` array content. No explanation, no markdown fences.
+- **Flag placeholders and uncertain content:** When a beat or validator state contains content that could not be grounded in the input — game data values not present in the section JSON or `<section_context>`, unresolved visual elements, invented quantities — add `"flag": "placeholder — <brief reason>"` to that beat or state object. This makes uncertain content findable for human review without blocking output. Example: `"flag": "placeholder — scale key values not in input"`.
 - The prefill already opens `{"id": "...", "incorrects": [`. Complete from that point.
 - Use double quotes throughout
 - `is_correct: false` on every state
@@ -1816,7 +1982,7 @@ For prompts with `"variable_answer": true`: do not assume the student's specific
 
 ----------------------------------------------------------------------
 
-### Block 5: Output Schema
+### Block 6: Output Schema
 Purpose: Defines expected output structure
 Cacheable: Yes
 *[CACHED: {'type': 'ephemeral'}]*
@@ -1845,6 +2011,51 @@ Cacheable: Yes
 
 ----------------------------------------------------------------------
 
+### Block 7: Context
+Purpose: Pipeline-injected context (e.g. lesson sections)
+Cacheable: Yes
+*[CACHED: {'type': 'ephemeral'}]*
+
+<section_context>
+## s1_1_data_collection_game
+# Section Summary: s1_1_data_collection_game
+
+**VISUAL STATE:** A data collection game interface displays four piles of colored blocks managed by animated Minis characters. Four categories are visible: Red blocks, Blue blocks, Green blocks, and Yellow blocks. Each category can hold values from the set {10, 15, 20, 25, 30, 35, 40, 45}. The interface is oriented horizontally with all four color piles displayed simultaneously in counting-interaction mode.
+
+**CONTENT:** This section introduces the foundational concept of **data collection**—gathering and organizing information into categories. Students encounter the vocabulary term "data" in the context of counting objects sorted by color attribute. The scenario frames data collection as a practical activity (helping characters organize their collections).
+
+**STUDENT ACTION:** Students engaged in a counting interaction with the data collection game, observing and potentially inputting counts for each of the four block color categories as part of the animated scenario.
+
+## s2_1_scale_preview_exploration
+# Section Summary: s2_1_scale_preview_exploration
+
+**VISUAL STATE:** Two tangibles are on screen: (1) a data_table displaying class-collected block counts, and (2) a bar_graph_blocks in vertical orientation, reading mode, with four categories (Red blocks, Blue blocks, Green blocks, Yellow blocks) and four clickable scale buttons offering scales of 1, 2, 5, and 10. The graph initially displays at scale 1.
+
+**CONTENT:** Students were introduced to the concept of scale selection for data visualization. The lesson emphasized that multiple scales can be appropriate for the same dataset, and students learned to evaluate which scale best represents their data by previewing how the graph appears at different scales.
+
+**STUDENT ACTION:** Students clicked through each of the four scale buttons (1, 2, 5, 10) to explore and compare how the vertical bar graph visually changes at each scale setting, completing the exploration task when all four scales had been clicked.
+
+## s3_1_efficiency_comparison
+# Section Summary: s3_1_efficiency_comparison
+
+**VISUAL STATE:** Three tangibles are displayed at section end: (1) a data table showing class block counts; (2) a vertical bar graph on the left with scale 5, categories Red blocks, Blue blocks, Green blocks, Yellow blocks in reading mode; (3) a vertical bar graph on the right with scale 10, same four categories in reading mode, displaying identical class block count data.
+
+**CONTENT:** This section introduced the concept of **scale efficiency**—that multiple scales can validly represent the same data, but different scales offer different readability advantages. The vocabulary term "scale" was reinforced in context of graph design choices. Students learned that when multiple scales work, the choice becomes a matter of preference (detail vs. clarity).
+
+**STUDENT ACTION:** The student answered a multiple-choice question comparing readability: "Which graph is easier to read?" with options "Scale of 5," "Scale of 10," or "They're the same." All three responses were marked correct with affirming feedback, demonstrating that both scales are legitimate choices depending on interpretation.
+
+## s4_1_bridge_lesson
+# Section Summary: s4_1_bridge_lesson
+
+**VISUAL STATE:** Two tangibles are displayed at section end: (1) a data table showing class block counts with categories Red blocks, Blue blocks, Green blocks, and Yellow blocks; (2) a vertical bar graph in reading mode displaying the same four block categories (Red blocks, Blue blocks, Green blocks, Yellow blocks) at a scale of 10.
+
+**CONTENT:** This transition section bridges from practicing multiple scales to introducing the concept of scale selection strategy. The lesson establishes that while multiple scales can work for the same data, students need to learn how to determine which scale is "best" and what conditions make a scale unsuitable for given data. No new vocabulary was formally introduced; the focus is on scale appropriateness and decision-making.
+
+**STUDENT ACTION:** The student did not perform interactive actions in this section. Instead, they observed a data table and corresponding vertical bar graph while receiving instructional dialogue that posed questions about scale selection and set up the learning objective for subsequent content.
+</section_context>
+
+----------------------------------------------------------------------
+
 ## User Message
 
 <input>
@@ -1854,16 +2065,31 @@ Cacheable: Yes
     {
       "type": "scene",
       "method": "add",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "description": "Data table appears showing class block counts: Red blocks, Blue blocks, Green blocks, Yellow blocks."
+      },
+      "id": "s3_1_efficiency_comparison_b0"
+    },
+    {
+      "type": "scene",
+      "method": "add",
       "tangible_id": "bar_graph_scale_5",
       "tangible_type": "bar_graph",
       "params": {
         "mode": "reading",
         "orientation": "vertical",
+        "categories": [
+          "Red blocks",
+          "Blue blocks",
+          "Green blocks",
+          "Yellow blocks"
+        ],
         "scale": 5,
-        "position": "left",
-        "description": "Vertical bar graph appears on left side. Student's data displayed at scale of 5. Categories and bars visible."
+        "description": "Vertical bar graph appears on left side. Scale of 5. Shows class block count data."
       },
-      "id": "s3_1_efficiency_comparison_b0"
+      "id": "s3_1_efficiency_comparison_b1"
     },
     {
       "type": "scene",
@@ -1873,16 +2099,21 @@ Cacheable: Yes
       "params": {
         "mode": "reading",
         "orientation": "vertical",
+        "categories": [
+          "Red blocks",
+          "Blue blocks",
+          "Green blocks",
+          "Yellow blocks"
+        ],
         "scale": 10,
-        "position": "right",
-        "description": "Vertical bar graph appears on right side. Same data displayed at scale of 10. Categories and bars visible."
+        "description": "Vertical bar graph appears on right side. Scale of 10. Shows same class block count data."
       },
-      "id": "s3_1_efficiency_comparison_b1"
+      "id": "s3_1_efficiency_comparison_b2"
     },
     {
       "type": "dialogue",
       "text": "Both of these work. Take a look at them side by side. Which graph is easier to read?",
-      "id": "s3_1_efficiency_comparison_b2"
+      "id": "s3_1_efficiency_comparison_b3"
     },
     {
       "type": "prompt",
@@ -1899,13 +2130,13 @@ Cacheable: Yes
           "condition": {
             "selected": "Scale of 10"
           },
-          "description": "Student picked Scale of 10",
+          "description": "Student selected Scale of 10",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "You picked the scale of 10. Nice and clean.",
-              "id": "s3_1_efficiency_comparison_b3_v0_b0"
+              "text": "You picked Scale of 10. The bars line up cleanly with the gridlines, which makes the values easy to read.",
+              "id": "s3_1_efficiency_comparison_b4_v0_b0"
             }
           ]
         },
@@ -1914,13 +2145,13 @@ Cacheable: Yes
           "condition": {
             "selected": "Scale of 5"
           },
-          "description": "Student picked Scale of 5",
+          "description": "Student selected Scale of 5",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "You picked the scale of 5. More detail.",
-              "id": "s3_1_efficiency_comparison_b3_v1_b0"
+              "text": "You picked Scale of 5. It shows more detail with the in-between values.",
+              "id": "s3_1_efficiency_comparison_b4_v1_b0"
             }
           ]
         },
@@ -1929,70 +2160,104 @@ Cacheable: Yes
           "condition": {
             "selected": "They're the same"
           },
-          "description": "Student picked they're the same",
+          "description": "Student selected they're the same",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "You think they're both easy to read. Both do work.",
-              "id": "s3_1_efficiency_comparison_b3_v2_b0"
+              "text": "You think they're both easy to read. You're right. Both scales work for this data.",
+              "id": "s3_1_efficiency_comparison_b4_v2_b0"
             }
           ]
-        }
-      ],
-      "id": "s3_1_efficiency_comparison_b3"
-    },
-    {
-      "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "bar_graph_scale_5",
-          "description": "Vertical bar graph on left. Student's data at scale of 5.",
-          "tangible_type": "bar_graph",
-          "mode": "reading",
-          "orientation": "vertical",
-          "scale": 5
-        },
-        {
-          "tangible_id": "bar_graph_scale_10",
-          "description": "Vertical bar graph on right. Same data at scale of 10.",
-          "tangible_type": "bar_graph",
-          "mode": "reading",
-          "orientation": "vertical",
-          "scale": 10
         }
       ],
       "id": "s3_1_efficiency_comparison_b4"
     },
     {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing class block count values.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_scale_5",
+          "description": "Vertical bar graph on left. Scale of 5. Class block count data.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
+          "scale": 5
+        },
+        {
+          "tangible_id": "bar_graph_scale_10",
+          "description": "Vertical bar graph on right. Scale of 10. Same class block count data.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
+          "scale": 10
+        }
+      ],
+      "id": "s3_1_efficiency_comparison_b5"
+    },
+    {
       "type": "dialogue",
       "text": "When more than one scale works, you get to choose.",
-      "id": "s3_1_efficiency_comparison_b5"
+      "id": "s3_1_efficiency_comparison_b6"
     },
     {
       "type": "current_scene",
       "elements": [
         {
+          "tangible_id": "data_table",
+          "description": "Data table showing class block count values.",
+          "tangible_type": "data_table"
+        },
+        {
           "tangible_id": "bar_graph_scale_5",
-          "description": "Vertical bar graph on left. Student's data at scale of 5.",
+          "description": "Vertical bar graph on left. Scale of 5. Class block count data.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
           "scale": 5
         },
         {
           "tangible_id": "bar_graph_scale_10",
-          "description": "Vertical bar graph on right. Same data at scale of 10.",
+          "description": "Vertical bar graph on right. Scale of 10. Same class block count data.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
           "scale": 10
         }
       ],
-      "id": "s3_1_efficiency_comparison_b6"
+      "id": "s3_1_efficiency_comparison_b7"
     }
   ],
-  "_generated_at": "2026-04-20T16:59:05.736599+00:00"
+  "_generated_at": "2026-05-05T20:06:41.608055+00:00"
 }
 </input>
 
@@ -2001,4 +2266,3 @@ Cacheable: Yes
 ## Prefill
 
 {"id": "s3_1_efficiency_comparison", "incorrects": [
-

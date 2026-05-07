@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:11.924406
+# Generated: 2026-04-27T10:58:19.555583
 ======================================================================
 
 ## API Parameters
@@ -948,7 +948,7 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
-      "text": "Right—oranges and grapes combined. Find that total.",
+      "text": "Right. Oranges and grapes combined. Find that total.",
       "context": "on_correct"
     },
     {
@@ -976,4 +976,3 @@ Cacheable: Yes
 ## Prefill
 
 {"id": "s3_1_reduced_scaffolding_3_step_chain", "dialogues": [
-

@@ -7,22 +7,25 @@
       "tangible_id": "data_table",
       "tangible_type": "data_table",
       "params": {
-        "description": "Vertical data table appears. Minutes of Practice data: Guitar 27, Piano 14, Violin 41, Drums 33."
+        "orientation": "vertical",
+        "categories": [
+          "Guitar",
+          "Piano",
+          "Violin",
+          "Drums"
+        ],
+        "values": [
+          27,
+          14,
+          41,
+          33
+        ],
+        "description": "Vertical data table appears. Minutes of Practice data. Guitar: 27, Piano: 14, Violin: 41, Drums: 33."
       }
     },
     {
       "type": "dialogue",
       "text": "Here's data about how many minutes students practiced their instruments."
-    },
-    {
-      "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "data_table",
-          "description": "Vertical data table showing Minutes of Practice: Guitar 27, Piano 14, Violin 41, Drums 33.",
-          "tangible_type": "data_table"
-        }
-      ]
     },
     {
       "type": "dialogue",
@@ -52,6 +55,32 @@
               "text": "Scale of 2. You saw that 14, 27, 33, 41 aren't multiples of 5 so we need scale of 2 to graph them precisely. Scale of 2 can work when the largest value is 41."
             }
           ]
+        },
+        {
+          "condition_id": "selected_scale_5_or_10",
+          "condition": {},
+          "description": "Student selected Scale of 5 or Scale of 10",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "These numbers aren't multiples of 5 so the values can't be shown exactly with that scale. Try scale of 2."
+            }
+          ]
+        },
+        {
+          "condition_id": "selected_scale_1",
+          "condition": {
+            "selected": "Scale of 1"
+          },
+          "description": "Student selected Scale of 1",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "Scale of 1 lets us graph exact numbers, but the largest value is 41. That would be a lot of marks on the axis. Which scale would be exact and look cleaner?"
+            }
+          ]
         }
       ]
     },
@@ -60,8 +89,21 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Vertical data table showing Minutes of Practice: Guitar 27, Piano 14, Violin 41, Drums 33.",
-          "tangible_type": "data_table"
+          "description": "Vertical data table showing Minutes of Practice. Guitar: 27, Piano: 14, Violin: 41, Drums: 33.",
+          "tangible_type": "data_table",
+          "orientation": "vertical",
+          "categories": [
+            "Guitar",
+            "Piano",
+            "Violin",
+            "Drums"
+          ],
+          "values": [
+            27,
+            14,
+            41,
+            33
+          ]
         }
       ]
     },
@@ -84,7 +126,7 @@
           0,
           42
         ],
-        "description": "Vertical bar graph creation tool appears with Scale of 2 active. Minutes of Practice context. Gridlines visible at each tick mark. All bars at 0, ready for student to set heights."
+        "description": "Vertical bar graph creation tool appears. Minutes of Practice data. Scale of 2 active. Gridlines visible at each tick mark. All bars at zero height awaiting student input."
       }
     },
     {
@@ -98,19 +140,13 @@
       "target": "bar_graph_practice",
       "validator": [
         {
-          "condition_id": "correct",
-          "condition": {
-            "Guitar": 27,
-            "Piano": 14,
-            "Violin": 41,
-            "Drums": 33
-          },
-          "description": "Student set all 4 bars to correct heights: Guitar 27, Piano 14, Violin 41, Drums 33",
+          "condition_id": "all_bars_set",
+          "condition": {},
+          "description": "Student set all four bar heights",
           "is_correct": true,
           "beats": [
             {
-              "type": "dialogue",
-              "text": "You chose the right scale and created the graph. Every bar lands exactly where it should."
+              "type": "empty"
             }
           ]
         }
@@ -121,12 +157,25 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Vertical data table showing Minutes of Practice: Guitar 27, Piano 14, Violin 41, Drums 33.",
-          "tangible_type": "data_table"
+          "description": "Vertical data table showing Minutes of Practice. Guitar: 27, Piano: 14, Violin: 41, Drums: 33.",
+          "tangible_type": "data_table",
+          "orientation": "vertical",
+          "categories": [
+            "Guitar",
+            "Piano",
+            "Violin",
+            "Drums"
+          ],
+          "values": [
+            27,
+            14,
+            41,
+            33
+          ]
         },
         {
           "tangible_id": "bar_graph_practice",
-          "description": "Vertical bar graph with all 4 bars correctly placed: Guitar 27, Piano 14, Violin 41, Drums 33. Scale of 2. Gridlines visible.",
+          "description": "Vertical bar graph displays all 4 bars at correct heights. Guitar: 27, Piano: 14, Violin: 41, Drums: 33. Scale of 2, axis range 0-42.",
           "tangible_type": "bar_graph",
           "mode": "building",
           "orientation": "vertical",
@@ -136,10 +185,59 @@
             "Violin",
             "Drums"
           ],
-          "scale": 2
+          "scale": 2,
+          "axis_range": [
+            0,
+            42
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "You chose the right scale and created the graph. Every bar lands exactly where it should."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Vertical data table showing Minutes of Practice. Guitar: 27, Piano: 14, Violin: 41, Drums: 33.",
+          "tangible_type": "data_table",
+          "orientation": "vertical",
+          "categories": [
+            "Guitar",
+            "Piano",
+            "Violin",
+            "Drums"
+          ],
+          "values": [
+            27,
+            14,
+            41,
+            33
+          ]
+        },
+        {
+          "tangible_id": "bar_graph_practice",
+          "description": "Vertical bar graph displays all 4 bars at correct heights. Guitar: 27, Piano: 14, Violin: 41, Drums: 33. Scale of 2, axis range 0-42.",
+          "tangible_type": "bar_graph",
+          "mode": "building",
+          "orientation": "vertical",
+          "categories": [
+            "Guitar",
+            "Piano",
+            "Violin",
+            "Drums"
+          ],
+          "scale": 2,
+          "axis_range": [
+            0,
+            42
+          ]
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:03:06.756299+00:00"
+  "_generated_at": "2026-05-05T18:21:06.914050+00:00"
 }

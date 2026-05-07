@@ -34,8 +34,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from sp_parse_interactions import parse_sp, filter_by_gate
-
+from sp_parse_interactions import filter_by_gate, parse_sp
 
 # ---------------------------------------------------------------------------
 # Timing heuristics (seconds)
@@ -53,7 +52,7 @@ MC_BONUS = (15, 15)  # extra seconds for MC
 
 # Phase targets in minutes
 PHASE_TARGETS = {
-    "Warmup": (2, 3, 5),      # min, max, hard_cap
+    "Warmup": (2, 3, 5),  # min, max, hard_cap
     "Lesson": (8, 14, 16),
     "EC": (3, 4, 6),
     "Practice": (5, 8, 12),
@@ -66,6 +65,7 @@ SESSION_TARGET = (25, 30)
 # ---------------------------------------------------------------------------
 # Estimation
 # ---------------------------------------------------------------------------
+
 
 def estimate_interaction_time(ix) -> tuple:
     """Return (min_seconds, max_seconds) for an interaction."""
@@ -95,13 +95,15 @@ def estimate_phase(interactions: list) -> dict:
         lo, hi = estimate_interaction_time(ix)
         total_lo += lo
         total_hi += hi
-        details.append({
-            "id": ix.id,
-            "title": ix.title[:50],
-            "pattern": ix.pattern,
-            "has_mc": ix.has_options,
-            "est_seconds": f"{lo}-{hi}",
-        })
+        details.append(
+            {
+                "id": ix.id,
+                "title": ix.title[:50],
+                "pattern": ix.pattern,
+                "has_mc": ix.has_options,
+                "est_seconds": f"{lo}-{hi}",
+            }
+        )
 
     return {
         "interaction_count": len(interactions),
@@ -147,37 +149,43 @@ def run_timing_estimate(filepath: str, gate: int) -> dict:
             target_min, target_max, hard_cap = PHASE_TARGETS[phase]
 
             if est["est_min_minutes"] > hard_cap:
-                all_findings.append({
-                    "check": "TM1",
-                    "severity": "CRITICAL",
-                    "phase": phase,
-                    "detail": f"{phase} estimated {est['est_min_minutes']}-{est['est_max_minutes']} min "
-                             f"(hard cap: {hard_cap} min)",
-                    "est_min": est["est_min_minutes"],
-                    "est_max": est["est_max_minutes"],
-                    "target_max": target_max,
-                    "hard_cap": hard_cap,
-                })
+                all_findings.append(
+                    {
+                        "check": "TM1",
+                        "severity": "CRITICAL",
+                        "phase": phase,
+                        "detail": f"{phase} estimated {est['est_min_minutes']}-{est['est_max_minutes']} min "
+                        f"(hard cap: {hard_cap} min)",
+                        "est_min": est["est_min_minutes"],
+                        "est_max": est["est_max_minutes"],
+                        "target_max": target_max,
+                        "hard_cap": hard_cap,
+                    }
+                )
             elif est["est_min_minutes"] > target_max:
-                all_findings.append({
-                    "check": "TM1",
-                    "severity": "MAJOR",
-                    "phase": phase,
-                    "detail": f"{phase} estimated {est['est_min_minutes']}-{est['est_max_minutes']} min "
-                             f"(target: {target_min}-{target_max} min)",
-                    "est_min": est["est_min_minutes"],
-                    "est_max": est["est_max_minutes"],
-                })
+                all_findings.append(
+                    {
+                        "check": "TM1",
+                        "severity": "MAJOR",
+                        "phase": phase,
+                        "detail": f"{phase} estimated {est['est_min_minutes']}-{est['est_max_minutes']} min "
+                        f"(target: {target_min}-{target_max} min)",
+                        "est_min": est["est_min_minutes"],
+                        "est_max": est["est_max_minutes"],
+                    }
+                )
             elif est["est_max_minutes"] < target_min:
-                all_findings.append({
-                    "check": "TM1",
-                    "severity": "MINOR",
-                    "phase": phase,
-                    "detail": f"{phase} estimated {est['est_min_minutes']}-{est['est_max_minutes']} min "
-                             f"(target: {target_min}-{target_max} min) — may be under-scoped",
-                    "est_min": est["est_min_minutes"],
-                    "est_max": est["est_max_minutes"],
-                })
+                all_findings.append(
+                    {
+                        "check": "TM1",
+                        "severity": "MINOR",
+                        "phase": phase,
+                        "detail": f"{phase} estimated {est['est_min_minutes']}-{est['est_max_minutes']} min "
+                        f"(target: {target_min}-{target_max} min) — may be under-scoped",
+                        "est_min": est["est_min_minutes"],
+                        "est_max": est["est_max_minutes"],
+                    }
+                )
 
     # Session total (gate 3+)
     if gate >= 3:
@@ -185,19 +193,23 @@ def run_timing_estimate(filepath: str, gate: int) -> dict:
         total_hi = sum(e["est_max_minutes"] for e in phase_estimates.values())
 
         if total_hi > SESSION_TARGET[1] * 1.3:
-            all_findings.append({
-                "check": "TM2",
-                "severity": "MAJOR",
-                "detail": f"Total session estimated {total_lo:.1f}-{total_hi:.1f} min "
-                         f"(target: {SESSION_TARGET[0]}-{SESSION_TARGET[1]} min)",
-            })
+            all_findings.append(
+                {
+                    "check": "TM2",
+                    "severity": "MAJOR",
+                    "detail": f"Total session estimated {total_lo:.1f}-{total_hi:.1f} min "
+                    f"(target: {SESSION_TARGET[0]}-{SESSION_TARGET[1]} min)",
+                }
+            )
         elif total_lo < SESSION_TARGET[0] * 0.7:
-            all_findings.append({
-                "check": "TM2",
-                "severity": "MINOR",
-                "detail": f"Total session estimated {total_lo:.1f}-{total_hi:.1f} min "
-                         f"(target: {SESSION_TARGET[0]}-{SESSION_TARGET[1]} min) — may be under-scoped",
-            })
+            all_findings.append(
+                {
+                    "check": "TM2",
+                    "severity": "MINOR",
+                    "detail": f"Total session estimated {total_lo:.1f}-{total_hi:.1f} min "
+                    f"(target: {SESSION_TARGET[0]}-{SESSION_TARGET[1]} min) — may be under-scoped",
+                }
+            )
 
     severity_counts = {}
     check_counts = {}
@@ -217,41 +229,51 @@ def run_timing_estimate(filepath: str, gate: int) -> dict:
         "check_counts": check_counts,
         "findings": all_findings,
         "meta": {
-            "phase_estimates": {k: {kk: vv for kk, vv in v.items() if kk != "details"}
-                               for k, v in phase_estimates.items()},
-            "session_total_min": round(sum(e["est_min_minutes"] for e in phase_estimates.values()), 1),
-            "session_total_max": round(sum(e["est_max_minutes"] for e in phase_estimates.values()), 1),
+            "phase_estimates": {
+                k: {kk: vv for kk, vv in v.items() if kk != "details"}
+                for k, v in phase_estimates.items()
+            },
+            "session_total_min": round(
+                sum(e["est_min_minutes"] for e in phase_estimates.values()), 1
+            ),
+            "session_total_max": round(
+                sum(e["est_max_minutes"] for e in phase_estimates.values()), 1
+            ),
         },
     }
 
 
 def print_findings_table(result: dict):
-    print(f"\n{'='*80}")
+    print(f"\n{'=' * 80}")
     print(f"TIMING ESTIMATE — {result['file']} — Gate {result['gate']}")
-    print(f"{'='*80}")
+    print(f"{'=' * 80}")
 
-    meta = result.get('meta', {})
-    estimates = meta.get('phase_estimates', {})
+    meta = result.get("meta", {})
+    estimates = meta.get("phase_estimates", {})
 
     if estimates:
         print("\nPhase Timing Estimates:")
         for phase, est in sorted(estimates.items()):
             target = PHASE_TARGETS.get(phase)
             target_str = f" (target: {target[0]}-{target[1]} min)" if target else ""
-            print(f"  {phase:12s}: {est['est_min_minutes']:.1f}-{est['est_max_minutes']:.1f} min "
-                  f"({est['interaction_count']} interactions){target_str}")
+            print(
+                f"  {phase:12s}: {est['est_min_minutes']:.1f}-{est['est_max_minutes']:.1f} min "
+                f"({est['interaction_count']} interactions){target_str}"
+            )
 
-        total_lo = meta.get('session_total_min', 0)
-        total_hi = meta.get('session_total_max', 0)
-        print(f"\n  {'TOTAL':12s}: {total_lo:.1f}-{total_hi:.1f} min "
-              f"(target: {SESSION_TARGET[0]}-{SESSION_TARGET[1]} min)")
+        total_lo = meta.get("session_total_min", 0)
+        total_hi = meta.get("session_total_max", 0)
+        print(
+            f"\n  {'TOTAL':12s}: {total_lo:.1f}-{total_hi:.1f} min "
+            f"(target: {SESSION_TARGET[0]}-{SESSION_TARGET[1]} min)"
+        )
 
     print(f"\nFindings: {result['total_findings']}")
-    if result['findings']:
-        for f in result['findings']:
-            check = f.get('check', '?')
-            sev = f.get('severity', '?')
-            detail = f.get('detail', '')
+    if result["findings"]:
+        for f in result["findings"]:
+            check = f.get("check", "?")
+            sev = f.get("severity", "?")
+            detail = f.get("detail", "")
             print(f"  [{check}] {sev:8s} | {detail}")
     else:
         print("  ✓ All phases within expected ranges.")
@@ -270,8 +292,8 @@ def main():
     if args.json or args.output:
         json_str = json.dumps(result, indent=2)
         if args.output:
-            os.makedirs(os.path.dirname(args.output) or '.', exist_ok=True)
-            with open(args.output, 'w') as f:
+            os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
+            with open(args.output, "w") as f:
                 f.write(json_str)
             print(f"Output written to {args.output}")
         if args.json:
@@ -280,5 +302,5 @@ def main():
         print_findings_table(result)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

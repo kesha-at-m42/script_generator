@@ -23,7 +23,6 @@ import random
 import sys
 from collections import defaultdict, deque
 
-
 # Output order reflects the adaptive flow
 TIER_ORDER = ["BASELINE", "STRETCH", "CHALLENGE", "SUPPORT", "CONFIDENCE"]
 
@@ -149,8 +148,10 @@ def shuffle_for_variety(data, seed=None, module_number=None, path_letter=None):
 # CLI entrypoint for direct file use
 # ---------------------------------------------------------------------------
 
+
 def _parse_args(argv):
     import argparse
+
     parser = argparse.ArgumentParser(
         description="Shuffle a SequencePool JSON file to maximize skill/template variety per tier"
     )
@@ -171,14 +172,15 @@ def _parse_args(argv):
 
 def _print_variety_report(before, after):
     """Print consecutive repeat counts per identifier, broken down by tier."""
-    def consecutive_repeats(seqs, key_fn):
-        return sum(
-            1 for i in range(1, len(seqs))
-            if key_fn(seqs[i]) == key_fn(seqs[i - 1])
-        )
 
-    get_tid = lambda s: _get_meta(s).get("template_id", "")
-    get_sid = lambda s: _get_meta(s).get("skill_id", "")
+    def consecutive_repeats(seqs, key_fn):
+        return sum(1 for i in range(1, len(seqs)) if key_fn(seqs[i]) == key_fn(seqs[i - 1]))
+
+    def get_tid(s):
+        return _get_meta(s).get("template_id", "")
+
+    def get_sid(s):
+        return _get_meta(s).get("skill_id", "")
 
     # Per-tier breakdown
     tiers_after = defaultdict(list)

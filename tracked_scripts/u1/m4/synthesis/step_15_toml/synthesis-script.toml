@@ -1,61 +1,82 @@
+# synthesis-script.toml
+
 title = "synthesis"
 type = "sequence"
 
-# --- Section: opening_frame ---
-[section_100_opening_frame]
-template = "PLACEHOLDER"
+# ---------------------------------------------------------------------------
+# Section 1 - opening_frame
+# ---------------------------------------------------------------------------
 
-[step_100_opening_frame]
-dialogue = "You read and created bar graphs with scale of 10. You figured out values at the lines AND between the lines. Let's look at some patterns you discovered."
+[section_101_opening_frame]
+template = "chart_template"
+
+[step_101_opening_frame]
+dialogue = "You read and created bar graphs with scale of 10. You figured out values at the lines and between the lines. Let's look at some patterns you discovered."
 components = ["SceneComponent"]
 
-# --- Section: scale_progression_pattern_type_pattern ---
-[section_101_scale_progression_pattern_type_pattern]
-template = "PLACEHOLDER"
+# ---------------------------------------------------------------------------
+# Section 2 - scale_progression_pattern_type_pattern
+# ---------------------------------------------------------------------------
 
-[step_101_scale_progression_pattern_type_pattern]
-dialogue = "Look at all four graphs. They show the same amount: 20. Which scale uses the fewest lines to show the same amount?"
-components = ["SceneComponent", "PromptComponent"]
+[section_102_scale_progression_pattern_type_pattern]
+template = "chart_template"
 
 [step_102_scale_progression_pattern_type_pattern]
+dialogue = "Look at all four graphs. They each only show one bar, but that bar on every graph shows the same amount: 20. Which scale uses the fewest lines to show the same amount?"
+components = ["PromptComponent"]
+prompt_text = "Which scale uses the fewest lines to show the same amount?"
+
+[step_103_scale_progression_pattern_type_pattern]
 dialogue = "You've learned four scales now: 1, 2, 5, and 10. Each one is useful for different sized numbers. Bigger numbers work better with bigger scales."
 
-# --- Section: orientation_transfer_type_d_representation ---
-[section_102_orientation_transfer_type_d_representation]
-template = "PLACEHOLDER"
+# ---------------------------------------------------------------------------
+# Section 3 - orientation_transfer_type_d_representation
+# ---------------------------------------------------------------------------
 
-[step_103_orientation_transfer_type_d_representation]
-dialogue = "Here's the same data shown two ways, vertical and horizontal. Find the category with 35 in BOTH graphs."
-components = ["SceneComponent", "PromptComponent"]
+[section_103_orientation_transfer_type_d_representation]
+template = "chart_template"
 
 [step_104_orientation_transfer_type_d_representation]
-dialogue = "Now find 35 in the horizontal graph."
+dialogue = "Here's the same data shown two ways: vertical and horizontal. Find the category with 35 in BOTH graphs."
 components = ["PromptComponent"]
+prompt_text = "What category shows 35 in BOTH graphs?"
 
-# --- Section: real_world_connection_type_c ---
-[section_103_real_world_connection_type_c]
-template = "PLACEHOLDER"
+[step_105_orientation_transfer_type_d_representation]
+components = ["PromptComponent"]
+prompt_text = "Now click Category C in the horizontal graph."
 
-[step_105_real_world_connection_type_c]
-dialogue = "Scale of 10 is useful when numbers are bigger. Where might you see counting by 10s outside of math class?"
-components = ["SceneComponent", "PromptComponent"]
+[step_106_orientation_transfer_type_d_representation]
+dialogue = "The axis works the same way whether bars go up or sideways. The math doesn't change, only the direction."
 
-[step_106_real_world_connection_type_c]
+# ---------------------------------------------------------------------------
+# Section 4 - real_world_connection_type_c
+# ---------------------------------------------------------------------------
+
+[section_104_real_world_connection_type_c]
+template = "chart_template"
+
+[step_107_real_world_connection_type_c]
+dialogue = "A scale of 10 is useful when numbers are bigger. Where might you see counting by 10s outside of math class? Select ALL that would work well."
+components = ["PromptComponent"]
+prompt_text = "Which situations would work well with a scale of 10? Select ALL that apply."
+
+[step_108_real_world_connection_type_c]
 dialogue = "You already know how to count by 10s. Bar graphs use the same skill you use with money and measuring."
 
-# --- Section: metacognitive_reflection_strategy_identification ---
-[section_104_metacognitive_reflection_strategy_identification]
-template = "PLACEHOLDER"
+# ---------------------------------------------------------------------------
+# Section 5 - metacognitive_reflection_strategy_identification
+# ---------------------------------------------------------------------------
 
-[step_107_metacognitive_reflection_strategy_identification]
-dialogue = "This bar shows 45, between the lines. How did you figure that out during the lesson?"
-components = ["SceneComponent", "PromptComponent"]
-
-[step_108_metacognitive_reflection_strategy_identification]
-dialogue = "Knowing that pattern means you can read any bar graph with scale of 10, even values between the lines. That's a powerful strategy."
+[section_105_metacognitive_reflection_strategy_identification]
+template = "chart_template"
 
 [step_109_metacognitive_reflection_strategy_identification]
-dialogue = "You learned to read values at the lines and between the lines. You used 'half of 10 is 5' to figure out tricky values."
+dialogue = "This bar shows 45, between the lines. How did you figure that out the value during the lesson?"
+components = ["PromptComponent"]
+prompt_text = "What strategy helped you find values between the lines?"
 
 [step_110_metacognitive_reflection_strategy_identification]
-dialogue = "That pattern-finding will help you when we look at all the scales together next time. You'll be able to pick the best one for any data."
+dialogue = "Knowing that pattern means you can read any bar graph with scale of 10, even values between the lines. That's a powerful strategy."
+
+[step_111_metacognitive_reflection_strategy_identification]
+dialogue = "You learned to read values at the lines and between the lines. You used the fact that half of 10 is 5 to figure out tricky values. That pattern-finding will help you when we look at all the scales together next time. You'll learn to pick the best one for any data."

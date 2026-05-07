@@ -6,29 +6,41 @@
         "condition": {
           "selected": "Scale of 1"
         },
-        "description": "Student selected Scale of 1",
+        "description": "Student selected Scale of 1—would create 32 tick marks for axis range 0-31",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
               "method": "add",
-              "tangible_id": "bar_graph_points_preview",
+              "tangible_id": "bar_graph_points",
               "tangible_type": "bar_graph",
               "params": {
                 "mode": "reading",
                 "orientation": "vertical",
+                "categories": [
+                  "Round 1",
+                  "Round 2",
+                  "Round 3",
+                  "Round 4"
+                ],
+                "values": [
+                  22,
+                  15,
+                  8,
+                  31
+                ],
                 "scale": 1,
                 "axis_range": [
                   0,
                   31
                 ],
-                "description": "Preview of Scale of 1 appears showing 32 tick marks from 0 to 31."
+                "description": "Vertical bar graph appears with Scale of 1. Points Scored data. Axis 0-31 showing all 32 tick marks. All bars land exactly on marks."
               }
             },
             {
               "type": "dialogue",
-              "text": "Scale of 1 works for showing exact values. But count those marks: 32 lines to reach 31. That's a lot. Is there a cleaner way?"
+              "text": "Scale of 1 does show exact values. But count the tick marks from 0 to 31. That's a lot of lines on the axis. Which scale would be exact and easier to read?"
             }
           ]
         ]
@@ -37,26 +49,46 @@
         "condition": {
           "selected": "Scale of 5"
         },
-        "description": "Student selected Scale of 5",
+        "description": "Student selected Scale of 5—cannot show 22, 8, or 31 exactly since they are not multiples of 5",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
-              "method": "update",
-              "tangible_id": "data_table",
+              "method": "add",
+              "tangible_id": "bar_graph_points",
+              "tangible_type": "bar_graph",
               "params": {
-                "highlight_values": [
+                "mode": "reading",
+                "orientation": "vertical",
+                "categories": [
+                  "Round 1",
+                  "Round 2",
+                  "Round 3",
+                  "Round 4"
+                ],
+                "values": [
                   22,
+                  15,
                   8,
                   31
                 ],
-                "description": "Values 22, 8, and 31 highlight in the data table."
+                "scale": 5,
+                "axis_range": [
+                  0,
+                  35
+                ],
+                "warning_categories": [
+                  "Round 1",
+                  "Round 3",
+                  "Round 4"
+                ],
+                "description": "Vertical bar graph appears with Scale of 5. Points Scored data. Warning indicators on Round 1 (22), Round 3 (8), and Round 4 (31) bars."
               }
             },
             {
               "type": "dialogue",
-              "text": "Look at 22, 8, 31. Their ones place digits are 2, 8, 1. None are 0 or 5, so they won't land exactly on Scale of 5. Which scale shows any whole number exactly?"
+              "text": "Look at the ones digits again: 2, 5, 8, 1. Three values don't end in 0 or 5, so they won't land exactly on a Scale of 5. Which scale shows all whole numbers exactly?"
             }
           ]
         ]
@@ -65,33 +97,54 @@
         "condition": {
           "selected": "Scale of 10"
         },
-        "description": "Student selected Scale of 10",
+        "description": "Student selected Scale of 10—cannot show 22, 15, 8, or 31 exactly since they are not multiples of 10",
         "is_correct": false,
         "steps": [
           [
             {
               "type": "scene",
-              "method": "update",
-              "tangible_id": "data_table",
+              "method": "add",
+              "tangible_id": "bar_graph_points",
+              "tangible_type": "bar_graph",
               "params": {
-                "highlight_values": [
+                "mode": "reading",
+                "orientation": "vertical",
+                "categories": [
+                  "Round 1",
+                  "Round 2",
+                  "Round 3",
+                  "Round 4"
+                ],
+                "values": [
                   22,
+                  15,
                   8,
                   31
                 ],
-                "description": "Values 22, 8, and 31 highlight in the data table."
+                "scale": 10,
+                "axis_range": [
+                  0,
+                  40
+                ],
+                "warning_categories": [
+                  "Round 1",
+                  "Round 2",
+                  "Round 3",
+                  "Round 4"
+                ],
+                "description": "Vertical bar graph appears with Scale of 10. Points Scored data. Warning indicators on all four bars—none land exactly on tick marks or midpoints."
               }
             },
             {
               "type": "dialogue",
-              "text": "Scale of 10 is clean, but look at 22, 8, 31. None end in 0 or 5, so they won't land exactly on the tick marks. We need a scale that shows any whole number exactly."
+              "text": "None of these values end in 0 or 5. On Scale of 10, you can't tell where the bars end exactly. Which scale lets you show any whole number precisely?"
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student answered incorrectly. System models the correct answer.",
+        "description": "Student answered incorrectly three or more times. System models the correct answer.",
         "is_correct": false,
         "steps": [
           [
@@ -116,27 +169,21 @@
                   31
                 ],
                 "scale": 2,
-                "description": "Bar graph with Scale of 2 appears. All four bars displayed at correct heights."
-              }
-            },
-            {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "bar_graph_points",
-              "params": {
-                "event": "highlight_exact_placements",
-                "status": "confirmed",
-                "description": "Each bar pulses to show it lands exactly on a line or halfway between lines. 22 is at 22 (on the line), 15 is halfway between 14 and 16, 8 is at 8 (on the line), 31 is halfway between 30 and 32."
+                "axis_range": [
+                  0,
+                  32
+                ],
+                "description": "Vertical bar graph appears with Scale of 2. Points Scored data. All four bars land exactly on tick marks or midpoints."
               }
             },
             {
               "type": "dialogue",
-              "text": "The answer is Scale of 2. Here's why: when values don't end in 0 or 5, Scale of 2 shows them exactly. Half of 2 is 1, so every whole number lands either on a line or exactly halfway between. 22 is on the line at 22. 15 is exactly halfway between 14 and 16. 8 is on the line at 8. 31 is exactly halfway between 30 and 32. Scale of 2 works for any whole number."
+              "text": "Let me show you how to choose the right scale. First, I check the ones digits: 2, 5, 8, 1. Three values don't end in 0 or 5, so Scales of 5 and 10 won't show them exactly. Scale of 1 would work, but 31 tick marks is too many. Scale of 2 is the answer. With Scale of 2, half of 2 is 1, so any whole number lands exactly on a line or halfway between lines. Round 1 is 22, right on the 22 mark. Round 2 is 15, halfway between 14 and 16. Round 3 is 8, right on the 8 mark. Round 4 is 31, halfway between 30 and 32. The answer is Scale of 2 because it shows all values exactly without overcrowding the axis."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:05:34.031054+00:00"
+  "_generated_at": "2026-05-05T18:24:57.612457+00:00"
 }

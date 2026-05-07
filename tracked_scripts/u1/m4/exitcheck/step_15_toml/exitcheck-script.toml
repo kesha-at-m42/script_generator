@@ -1,50 +1,73 @@
+# exitcheck-script.toml
+
 title = "exitcheck"
 type = "sequence"
 
-# --- Section: transition_into_exit_check ---
-[section_100_transition_into_exit_check]
-template = "PLACEHOLDER"
+# ---------------------------------------------------------------------------
+# Section 1 - transition_into_exit_check
+# ---------------------------------------------------------------------------
 
-[step_100_transition_into_exit_check]
+[section_101_transition_into_exit_check]
+template = "chart_template"
+
+[step_101_transition_into_exit_check]
 dialogue = "You made bar graphs with scale of 10. You read values at the lines and between the lines. Let's see what you know."
 components = ["SceneComponent"]
 
-# --- Section: read_value_at_axis_line ---
-[section_101_read_value_at_axis_line]
-template = "PLACEHOLDER"
+# ---------------------------------------------------------------------------
+# Section 2 - read_value_at_axis_line
+# ---------------------------------------------------------------------------
 
-[step_101_read_value_at_axis_line]
-dialogue = "Look at the Fiction bar. What value does the Fiction bar show?"
-components = ["SceneComponent", "PromptComponent"]
+[section_102_read_value_at_axis_line]
+template = "chart_template"
 
-# --- Section: read_value_between_lines_interpolation ---
-[section_102_read_value_between_lines_interpolation]
-template = "PLACEHOLDER"
+[step_102_read_value_at_axis_line]
+dialogue = "This graph shows the number of books checked out based on genre. Look at the Fiction bar. What value does the Fiction bar show?"
+components = ["PromptComponent"]
+prompt_text = "What value does the Fiction bar show?"
 
-[step_102_read_value_between_lines_interpolation]
-dialogue = "Look at Team A's bar. It ends between the lines. The bar is between 30 and 40. What value does this show?"
-components = ["SceneComponent", "PromptComponent"]
+# ---------------------------------------------------------------------------
+# Section 3 - read_value_between_lines_interpolation
+# ---------------------------------------------------------------------------
 
-# --- Section: create_bar_graph_with_mixed ---
-[section_103_create_bar_graph_with_mixed]
-template = "PLACEHOLDER"
+[section_103_read_value_between_lines_interpolation]
+template = "chart_template"
 
-[step_103_create_bar_graph_with_mixed]
-dialogue = "Create the bar graph. Some values are at the lines, some are between."
-components = ["SceneComponent", "PromptComponent"]
+[step_103_read_value_between_lines_interpolation]
+dialogue = "Check out the number of points earned by these teams. Look at Team A's bar. It ends between the lines. What value does this show?"
+components = ["PromptComponent"]
+prompt_text = "What is the value represented for Team A?"
 
-# --- Section: comparison_problem_compare ---
-[section_104_comparison_problem_compare]
-template = "PLACEHOLDER"
+# ---------------------------------------------------------------------------
+# Section 4 - create_bar_graph_with_mixed
+# ---------------------------------------------------------------------------
 
-[step_104_comparison_problem_compare]
-dialogue = "Use the graph you made. How many MORE art supplies does Glue Sticks have than Markers?"
-components = ["SceneComponent", "PromptComponent"]
+[section_104_create_bar_graph_with_mixed]
+template = "chart_template"
 
-# --- Section: exit_check_closure ---
-[section_105_exit_check_closure]
-template = "PLACEHOLDER"
+[step_104_create_bar_graph_with_mixed]
+dialogue = "Use the data table showing Art Supplies Collected to create the bar graph. Some values are at the lines, some are between."
+components = ["PromptComponent"]
+prompt_text = "Complete the bar graph."
 
-[step_105_exit_check_closure]
-dialogue = "You can read bar graphs with a scale of 10, even values between the lines. You're ready to practice."
-components = ["SceneComponent"]
+# ---------------------------------------------------------------------------
+# Section 5 - comparison_problem_compare
+# ---------------------------------------------------------------------------
+
+[section_105_comparison_problem_compare]
+template = "chart_template"
+
+[step_105_comparison_problem_compare]
+dialogue = "Use the graph you made. How many more Glue Sticks were collected than Markers?"
+components = ["PromptComponent"]
+prompt_text = "How many more Glue Sticks were collected than Markers?"
+
+# ---------------------------------------------------------------------------
+# Section 6 - exit_check_closure
+# ---------------------------------------------------------------------------
+
+[section_106_exit_check_closure]
+template = "chart_template"
+
+[step_106_exit_check_closure]
+dialogue = "You can read bar graphs with a scale of 10, even values between the lines and answer questions about them. You're ready to practice."

@@ -49,7 +49,8 @@ def process(data: dict | list) -> int:
             # Collect the fraction terms (skip any existing " " spacers)
             if math_tangible is not None:
                 fracs = [
-                    term for term in math_tangible.get("terms", [])
+                    term
+                    for term in math_tangible.get("terms", [])
                     if isinstance(term, str) and term.strip()
                 ]
             else:
@@ -74,11 +75,13 @@ def process(data: dict | list) -> int:
                 if not isinstance(workspace, dict):
                     workspace = {"@type": "WorkspaceData", "tangibles": []}
                     step["workspace"] = workspace
-                workspace.setdefault("tangibles", []).append({
-                    "@type": "MathExpression",
-                    "is_read_only": True,
-                    "terms": new_terms,
-                })
+                workspace.setdefault("tangibles", []).append(
+                    {
+                        "@type": "MathExpression",
+                        "is_read_only": True,
+                        "terms": new_terms,
+                    }
+                )
 
             count += 1
 

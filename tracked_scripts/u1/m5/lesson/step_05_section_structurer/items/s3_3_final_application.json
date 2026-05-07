@@ -7,19 +7,7 @@
       "tangible_id": "data_table",
       "tangible_type": "data_table",
       "params": {
-        "categories": [
-          "Red Team",
-          "Green Team",
-          "Yellow Team",
-          "Blue Team"
-        ],
-        "values": [
-          25,
-          55,
-          70,
-          40
-        ],
-        "description": "Data table appears showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40."
+        "description": "Data table appears. Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40."
       }
     },
     {
@@ -27,36 +15,18 @@
       "text": "Last one! Here are scores from four teams. Yellow Team won with 70 points."
     },
     {
-      "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "data_table",
-          "description": "Data table showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40.",
-          "tangible_type": "data_table",
-          "categories": [
-            "Red Team",
-            "Green Team",
-            "Yellow Team",
-            "Blue Team"
-          ],
-          "values": [
-            25,
-            55,
-            70,
-            40
-          ]
-        }
-      ]
+      "type": "dialogue",
+      "text": "You've done this vertical and horizontal now. Same process every time: check the numbers, choose the scale."
     },
     {
       "type": "dialogue",
-      "text": "You've done this vertical and horizontal now. Same process every time: check the numbers, choose the scale."
+      "text": "Which scale works best for this data?"
     },
     {
       "type": "prompt",
       "text": "Which scale works best for this data?",
       "tool": "click_scale_button",
-      "target": "bar_graph_team_scores",
+      "target": "bar_graph_teams",
       "options": [
         1,
         2,
@@ -69,7 +39,7 @@
           "condition": {
             "selected": 10
           },
-          "description": "Student selected scale of 10, most efficient for this data",
+          "description": "Student selected Scale of 10, correct, most efficient for values ending in 0 or 5, range up to 70",
           "is_correct": true,
           "beats": [
             {
@@ -77,87 +47,46 @@
               "text": "Good choice. All values end in 0 or 5, and the biggest is 70. Scale of 10 gives you a clean graph."
             }
           ]
-        }
-      ]
-    },
-    {
-      "type": "current_scene",
-      "elements": [
+        },
         {
-          "tangible_id": "data_table",
-          "description": "Data table showing Team Scores.",
-          "tangible_type": "data_table",
-          "categories": [
-            "Red Team",
-            "Green Team",
-            "Yellow Team",
-            "Blue Team"
-          ],
-          "values": [
-            25,
-            55,
-            70,
-            40
-          ]
-        }
-      ]
-    },
-    {
-      "type": "scene",
-      "method": "add",
-      "tangible_id": "bar_graph_team_scores",
-      "tangible_type": "bar_graph",
-      "params": {
-        "mode": "building",
-        "orientation": "horizontal",
-        "scale": 10,
-        "axis_range": [
-          0,
-          80
-        ],
-        "categories": [
-          "Red Team",
-          "Green Team",
-          "Yellow Team",
-          "Blue Team"
-        ],
-        "description": "Horizontal bar graph creation tool appears with scale of 10. Axis shows tick marks at 0, 10, 20, 30, 40, 50, 60, 70, 80. Empty bars ready for student to set heights."
-      }
-    },
-    {
-      "type": "dialogue",
-      "text": "Now create the graph. Place each bar at the right length."
-    },
-    {
-      "type": "prompt",
-      "text": "Click to place the bar for Red Team (25 points).",
-      "tool": "click_to_set_height",
-      "target": "bar_graph_team_scores",
-      "validator": [
-        {
-          "condition_id": "correct",
+          "condition_id": "selected_scale_1_or_2",
           "condition": {
-            "bar_height": 25,
-            "category": "Red Team"
+            "selected": 1
           },
-          "description": "Student set Red Team bar to 25",
-          "is_correct": true,
+          "description": "Student selected Scale of 1, would need many axis lines",
+          "is_correct": false,
           "beats": [
             {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "bar_graph_team_scores",
-              "params": {
-                "event": "lock_bar",
-                "status": "confirmed",
-                "category": "Red Team",
-                "height": 25,
-                "description": "Red Team bar locks at 25."
-              }
-            },
+              "type": "dialogue",
+              "text": "That would need a lot of lines on the axis. All the values end in 0 or 5—which bigger scale would be easier to read?"
+            }
+          ]
+        },
+        {
+          "condition_id": "selected_scale_2",
+          "condition": {
+            "selected": 2
+          },
+          "description": "Student selected Scale of 2, would need many axis lines",
+          "is_correct": false,
+          "beats": [
             {
               "type": "dialogue",
-              "text": "Right at 25, halfway between 20 and 30."
+              "text": "That would need a lot of lines on the axis. All the values end in 0 or 5—which bigger scale would be easier to read?"
+            }
+          ]
+        },
+        {
+          "condition_id": "selected_scale_5",
+          "condition": {
+            "selected": 5
+          },
+          "description": "Student selected Scale of 5, works but not most efficient given max value 70",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "That works! But notice the biggest value is 70. Scale of 10 would give you fewer lines and still show everything exactly."
             }
           ]
         }
@@ -168,28 +97,106 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Data table showing Team Scores.",
-          "tangible_type": "data_table",
-          "categories": [
-            "Red Team",
-            "Green Team",
-            "Yellow Team",
-            "Blue Team"
-          ],
-          "values": [
-            25,
-            55,
-            70,
-            40
+          "description": "Data table showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_teams",
+          "description": "Bar graph (horizontal orientation, building mode) with scale selection active. Team Scores dataset. Scale Preview System available.",
+          "tangible_type": "bar_graph",
+          "mode": "building",
+          "orientation": "horizontal"
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "method": "update",
+      "tangible_id": "bar_graph_teams",
+      "params": {
+        "mode": "building",
+        "scale": 10,
+        "axis_range": [
+          0,
+          80
+        ],
+        "description": "Bar graph updates to building mode with Scale of 10 active. Horizontal orientation. Axis 0–80 showing tick marks at 0, 10, 20, 30, 40, 50, 60, 70, 80. Empty graph ready for bar placement."
+      }
+    },
+    {
+      "type": "dialogue",
+      "text": "Now create the graph. Place each bar at the right length."
+    },
+    {
+      "type": "dialogue",
+      "text": "Click to place the bar for Red Team at 25 points."
+    },
+    {
+      "type": "prompt",
+      "text": "Click to place the bar for Red Team at 25 points.",
+      "tool": "click_to_set_height",
+      "target": "bar_graph_teams",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "bar_height": 25,
+            "category": "Red Team"
+          },
+          "description": "Student set Red Team bar to 25, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_teams",
+              "params": {
+                "event": "lock_bar",
+                "status": "confirmed",
+                "description": "Red Team bar locks at 25.",
+                "category": "Red Team",
+                "value": 25
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Right at 25—halfway between 20 and 30."
+            }
           ]
         },
         {
-          "tangible_id": "bar_graph_team_scores",
-          "description": "Horizontal bar graph with scale of 10. Red Team bar set at 25. Other bars empty.",
+          "condition_id": "incorrect_height",
+          "condition": {},
+          "description": "Student placed Red Team bar at incorrect height",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "25 is halfway between 20 and 30. Find that spot."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_teams",
+          "description": "Horizontal bar graph in building mode. Scale of 10. Axis 0–80. Red Team bar set at 25. Blue, Green, Yellow bars not yet placed.",
           "tangible_type": "bar_graph",
           "mode": "building",
           "orientation": "horizontal",
           "scale": 10,
+          "axis_range": [
+            0,
+            80
+          ],
           "categories": [
             "Red Team",
             "Green Team",
@@ -200,10 +207,14 @@
       ]
     },
     {
+      "type": "dialogue",
+      "text": "Click to place the bar for Blue Team at 40 points."
+    },
+    {
       "type": "prompt",
-      "text": "Click to place the bar for Blue Team (40 points).",
+      "text": "Click to place the bar for Blue Team at 40 points.",
       "tool": "click_to_set_height",
-      "target": "bar_graph_team_scores",
+      "target": "bar_graph_teams",
       "validator": [
         {
           "condition_id": "correct",
@@ -211,19 +222,19 @@
             "bar_height": 40,
             "category": "Blue Team"
           },
-          "description": "Student set Blue Team bar to 40",
+          "description": "Student set Blue Team bar to 40, correct",
           "is_correct": true,
           "beats": [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "bar_graph_team_scores",
+              "tangible_id": "bar_graph_teams",
               "params": {
                 "event": "lock_bar",
                 "status": "confirmed",
+                "description": "Blue Team bar locks at 40.",
                 "category": "Blue Team",
-                "height": 40,
-                "description": "Blue Team bar locks at 40."
+                "value": 40
               }
             },
             {
@@ -239,28 +250,20 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Data table showing Team Scores.",
-          "tangible_type": "data_table",
-          "categories": [
-            "Red Team",
-            "Green Team",
-            "Yellow Team",
-            "Blue Team"
-          ],
-          "values": [
-            25,
-            55,
-            70,
-            40
-          ]
+          "description": "Data table showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40.",
+          "tangible_type": "data_table"
         },
         {
-          "tangible_id": "bar_graph_team_scores",
-          "description": "Horizontal bar graph with scale of 10. Red Team at 25, Blue Team at 40. Green Team and Yellow Team bars empty.",
+          "tangible_id": "bar_graph_teams",
+          "description": "Horizontal bar graph in building mode. Scale of 10. Axis 0–80. Red Team bar at 25, Blue Team bar at 40. Green and Yellow bars not yet placed.",
           "tangible_type": "bar_graph",
           "mode": "building",
           "orientation": "horizontal",
           "scale": 10,
+          "axis_range": [
+            0,
+            80
+          ],
           "categories": [
             "Red Team",
             "Green Team",
@@ -271,10 +274,14 @@
       ]
     },
     {
+      "type": "dialogue",
+      "text": "Click to place the bar for Green Team at 55 points."
+    },
+    {
       "type": "prompt",
-      "text": "Click to place the bar for Green Team (55 points).",
+      "text": "Click to place the bar for Green Team at 55 points.",
       "tool": "click_to_set_height",
-      "target": "bar_graph_team_scores",
+      "target": "bar_graph_teams",
       "validator": [
         {
           "condition_id": "correct",
@@ -282,24 +289,24 @@
             "bar_height": 55,
             "category": "Green Team"
           },
-          "description": "Student set Green Team bar to 55",
+          "description": "Student set Green Team bar to 55, correct",
           "is_correct": true,
           "beats": [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "bar_graph_team_scores",
+              "tangible_id": "bar_graph_teams",
               "params": {
                 "event": "lock_bar",
                 "status": "confirmed",
+                "description": "Green Team bar locks at 55.",
                 "category": "Green Team",
-                "height": 55,
-                "description": "Green Team bar locks at 55."
+                "value": 55
               }
             },
             {
               "type": "dialogue",
-              "text": "55, halfway between 50 and 60."
+              "text": "55—halfway between 50 and 60."
             }
           ]
         }
@@ -310,28 +317,20 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Data table showing Team Scores.",
-          "tangible_type": "data_table",
-          "categories": [
-            "Red Team",
-            "Green Team",
-            "Yellow Team",
-            "Blue Team"
-          ],
-          "values": [
-            25,
-            55,
-            70,
-            40
-          ]
+          "description": "Data table showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40.",
+          "tangible_type": "data_table"
         },
         {
-          "tangible_id": "bar_graph_team_scores",
-          "description": "Horizontal bar graph with scale of 10. Red Team at 25, Blue Team at 40, Green Team at 55. Yellow Team bar empty.",
+          "tangible_id": "bar_graph_teams",
+          "description": "Horizontal bar graph in building mode. Scale of 10. Axis 0–80. Red Team bar at 25, Blue Team bar at 40, Green Team bar at 55. Yellow bar not yet placed.",
           "tangible_type": "bar_graph",
           "mode": "building",
           "orientation": "horizontal",
           "scale": 10,
+          "axis_range": [
+            0,
+            80
+          ],
           "categories": [
             "Red Team",
             "Green Team",
@@ -342,10 +341,14 @@
       ]
     },
     {
+      "type": "dialogue",
+      "text": "Click to place the bar for Yellow Team at 70 points."
+    },
+    {
       "type": "prompt",
-      "text": "Click to place the bar for Yellow Team (70 points).",
+      "text": "Click to place the bar for Yellow Team at 70 points.",
       "tool": "click_to_set_height",
-      "target": "bar_graph_team_scores",
+      "target": "bar_graph_teams",
       "validator": [
         {
           "condition_id": "correct",
@@ -353,19 +356,19 @@
             "bar_height": 70,
             "category": "Yellow Team"
           },
-          "description": "Student set Yellow Team bar to 70",
+          "description": "Student set Yellow Team bar to 70, correct",
           "is_correct": true,
           "beats": [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "bar_graph_team_scores",
+              "tangible_id": "bar_graph_teams",
               "params": {
                 "event": "lock_bar",
                 "status": "confirmed",
+                "description": "Yellow Team bar locks at 70.",
                 "category": "Yellow Team",
-                "height": 70,
-                "description": "Yellow Team bar locks at 70."
+                "value": 70
               }
             },
             {
@@ -381,28 +384,20 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Data table showing Team Scores.",
-          "tangible_type": "data_table",
-          "categories": [
-            "Red Team",
-            "Green Team",
-            "Yellow Team",
-            "Blue Team"
-          ],
-          "values": [
-            25,
-            55,
-            70,
-            40
-          ]
+          "description": "Data table showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40.",
+          "tangible_type": "data_table"
         },
         {
-          "tangible_id": "bar_graph_team_scores",
-          "description": "Horizontal bar graph with scale of 10. All bars complete. Red Team at 25, Blue Team at 40, Green Team at 55, Yellow Team at 70.",
+          "tangible_id": "bar_graph_teams",
+          "description": "Horizontal bar graph in building mode. Scale of 10. Axis 0–80. All four bars placed: Red Team at 25, Blue Team at 40, Green Team at 55, Yellow Team at 70.",
           "tangible_type": "bar_graph",
           "mode": "building",
           "orientation": "horizontal",
           "scale": 10,
+          "axis_range": [
+            0,
+            80
+          ],
           "categories": [
             "Red Team",
             "Green Team",
@@ -421,28 +416,20 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Data table showing Team Scores.",
-          "tangible_type": "data_table",
-          "categories": [
-            "Red Team",
-            "Green Team",
-            "Yellow Team",
-            "Blue Team"
-          ],
-          "values": [
-            25,
-            55,
-            70,
-            40
-          ]
+          "description": "Data table showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40.",
+          "tangible_type": "data_table"
         },
         {
-          "tangible_id": "bar_graph_team_scores",
-          "description": "Complete horizontal bar graph with scale of 10. Red Team at 25, Blue Team at 40, Green Team at 55, Yellow Team at 70.",
+          "tangible_id": "bar_graph_teams",
+          "description": "Horizontal bar graph completed. Scale of 10. Axis 0–80. All four bars displayed: Red Team at 25, Blue Team at 40, Green Team at 55, Yellow Team at 70.",
           "tangible_type": "bar_graph",
-          "mode": "building",
+          "mode": "reading",
           "orientation": "horizontal",
           "scale": 10,
+          "axis_range": [
+            0,
+            80
+          ],
           "categories": [
             "Red Team",
             "Green Team",
@@ -453,5 +440,5 @@
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:03:37.378095+00:00"
+  "_generated_at": "2026-05-05T18:21:56.477757+00:00"
 }

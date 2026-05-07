@@ -1,5 +1,5 @@
 # Prompt: remediation_generator
-# Generated: 2026-04-20T12:06:29.757866
+# Generated: 2026-05-05T13:25:52.065242
 ======================================================================
 
 ## API Parameters
@@ -31,7 +31,7 @@ Cacheable: Yes
 
 **Version:** 3.2
 **Last Updated:** April 2026
-**Purpose:** Authoritative guide for all remediation across learning modules
+**Purpose:** Authoritative guide for **branching remediation requirements** across learning modules — defines what feedback to serve and when. This document does not govern validation. Validator coverage is intentionally broader than remediation branching; the goal is to diagnose the cause of student error from accumulated data, not to presume it in advance.
 
 ---
 
@@ -46,11 +46,9 @@ Cacheable: Yes
 **SECTION 6** \- Heavy Remediation Language Patterns
 **SECTION 7** \- Post-Modeling Language
 **SECTION 8** \- Error Signal Strategy
-**SECTION 9** \- Misconception Tracking & Intervention Triggers
-**SECTION 10** \- Intervention Activity Overview
-**SECTION 11** \- Remediation by Phase
-**SECTION 12** \- Quality Checklist
-**SECTION 13** \- Output Format Examples
+**SECTION 9** \- Remediation by Phase
+**SECTION 10** \- Quality Checklist
+**SECTION 11** \- Output Format Examples
 
 ---
 
@@ -111,11 +109,28 @@ PATTERN DETECTION (Background)
 
 ---
 
+### 1.5 Branching vs. Validation: Separate Concerns
+
+These are two independent systems with different scopes:
+
+| Concern | What it governs | Coverage |
+| :---- | :---- | :---- |
+| **Branching (this document)** | What remediation to serve and when | Only the cases worth targeted feedback |
+| **Validation (separate)** | What error patterns to log for tracking | Intentionally broader — captures cases not covered by branching |
+
+**The distinction matters.** A wrong answer that receives generic L-M-H feedback can still receive a precise validator tag. Validators are not constrained by what the remediation structure handles. We expect to capture more error patterns than we intend to remediate. The tracking system accumulates data so that error causes are diagnosed from evidence, not assumed in advance — a detected pattern may indicate a misconception, a skill gap, or something else entirely. The cause is a question for the data to answer, not a label to apply upfront.
+
+Do not design validator tags based on what remediations exist. Design them based on what error patterns are worth understanding.
+
+**Validation design is a separate effort from remediation design — and should be treated differently.** Remediation branching is relatively stable once written: changing it means authoring new feedback states and updating production content. Validation should be flexible and subject to ongoing iteration. Validator tags can be added, renamed, split, or retired as understanding of student error patterns develops. The two should not be versioned or locked together. Build remediation to last; build validation to learn.
+
+---
+
 ## SECTION 2: Non-MC Remediation
 
 ### 2.1 Overview
 
-For all non-multiple-choice interactions (shading, partitioning, placing on number lines, dragging, build-mode, etc.), the generic L-M-H is always present. **The validator still tags the probable error type** for misconception tracking, but the student receives generic feedback for any wrong answer — regardless of detected error type. Note: if more conditions are defined in the spec than have remediations designed, those conditions still fall through to the generic L-M-H.
+For all non-multiple-choice interactions (shading, partitioning, placing on number lines, dragging, build-mode, etc.), the generic L-M-H is always present. **The validator still tags the probable error type** for misconception tracking, but the student receives generic feedback for any wrong answer — regardless of detected error type. Note: if more conditions are defined in the spec than have remediations designed, those conditions still fall through to the generic L-M-H. This is also true for validation: validators may tag error types that have no corresponding specific-condition state. Validator coverage is not bounded by the branching structure — they are separate authoring decisions.
 
 When the spec identifies one or more specific known wrong-answer conditions, one targeted Medium per condition is added before the generic states. These specific condition states are a special case of the generic structure — see Section 2.5.
 
@@ -613,102 +628,13 @@ Never repeat the same error signal phrase within 3 interactions. Rotate through:
 
 ---
 
-## SECTION 9: Misconception Tracking & Intervention Triggers
-
-### 9.1 How Tracking Works
-
-Even though non-MC remediation is generic, **validators tag the probable error type** for every wrong answer. This feeds the misconception tracking system.
-
-```
-Student makes error → Generic remediation served
-                   → Validator logs: "Probable Misconception #3"
-                   → Running count updated
-
-[After phase transition]
-System checks: Has any misconception hit threshold?
-    YES → Queue Intervention Activity
-    NO → Continue normal flow
-```
-
-### 9.2 Tracking Parameters
-
-| Parameter | Value | Notes |
-| :---- | :---- | :---- |
-| **Trigger threshold** | 5 errors (placeholder) | TBD with data |
-| **Rolling window** | Last 20 opportunities | Natural decay mechanism |
-| **Window spans** | Lesson, Exit Check, Practice, Spiral Review, Test Prep | Cross-activity tracking |
-| **Check timing** | Phase transitions | Engineer to confirm feasibility |
-| **Post-Intervention threshold** | Window lowers to 15 | Catches continued struggle faster |
-
-### 9.3 What Gets Tracked
-
-**Tracked (feeds Intervention triggers):**
-
-- Misconception indicators (\#1-\#10)
-- Tracked per visual type for accuracy
-- Combined at misconception level for Intervention trigger
-
-**Not Tracked for Intervention:**
-
-- Common procedural errors (counting mistakes, off-by-one)
-- Random/ambiguous errors
-
-### 9.4 Example Tracking Flow
-
-```
-Opportunity 1: Error on Rectangle Bar → Validator: Misconception #3 → Count: 1
-Opportunity 5: Error on Number Line → Validator: Misconception #3 → Count: 2
-Opportunity 9: Error on Rectangle Bar → Validator: Misconception #3 → Count: 3
-Opportunity 14: Error on Grid → Validator: Misconception #3 → Count: 4
-Opportunity 18: Error on Rectangle Bar → Validator: Misconception #3 → Count: 5 ← THRESHOLD
-
-[At next phase transition]
-→ Misconception #3 Intervention queued as next activity
-```
+> **Context — Related Systems (defined separately):** Validator tags feed a background error pattern tracking system that triggers Intervention Activities when patterns reach threshold. A triggered pattern is a hypothesis, not a diagnosis — the cause may be a misconception, a skill gap, or something else. Tracking parameters and intervention design are out of scope here; see the *Error Pattern Tracking Spec* and *Intervention Activity Design Brief*.
 
 ---
 
-## SECTION 10: Intervention Activity Overview
+## SECTION 9: Remediation by Phase
 
-### 10.1 What Interventions Are
-
-Intervention Activities are **standalone instructional sequences** that address a specific misconception directly. They sit outside regular modules and slot into the activity queue when triggered.
-
-### 10.2 Intervention Scope
-
-- **\~10 total** (one per misconception)
-- **Combines visuals** (not visual-specific)
-- **Path-flexible** (may use visuals from multiple paths with worked examples)
-
-### 10.3 Intervention Structure
-
-| Phase | Name | Purpose | Approach |
-| :---- | :---- | :---- | :---- |
-| 1 | **Clarify** | Name the misconception | Metacognitive: "A lot of students think X. Let's look at why that's hard to see..." |
-| 2 | **Model** | Worked examples | Guide demonstrates across 2-3 examples using multiple visuals |
-| 3 | **Confirm** | Independent verification | 2-3 problems student completes independently |
-
-### 10.4 Queue Placement
-
-- Intervention replaces whatever activity would have been next
-- Multiple triggers \= multiple Interventions queued with brain breaks between
-- Follows existing recess/break logic in Activity Queue
-
-### 10.5 After Intervention
-
-- Rolling window lowers to 15 (from 20\)
-- If misconception continues to appear, re-triggers faster
-- Alternative: Queue targeted Practice problems before re-triggering full Intervention
-
-### 10.6 Intervention Design (Separate Document)
-
-Full Intervention Activity design specifications in: **Intervention Activity Design Brief**
-
----
-
-## SECTION 11: Remediation by Phase
-
-### 11.1 Requirements by Phase
+### 9.1 Requirements by Phase
 
 | Phase | Non-MC Requirement | Single-Select MC Requirement | Multiselect MC Requirement | Notes |
 | :---- | :---- | :---- | :---- | :---- |
@@ -719,7 +645,7 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 | Synthesis | Light minimum | Per-distractor Medium \+ Heavy | Per-branch Medium \+ Heavy | Full L-M-H for pattern discovery |
 | Challenge | None | None | None | Assessment mode |
 
-### 11.2 Module Complexity Considerations
+### 9.2 Module Complexity Considerations
 
 **Modules 1-3 (Simple concepts):**
 
@@ -741,9 +667,9 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 
 ---
 
-## SECTION 12: Quality Checklist
+## SECTION 10: Quality Checklist
 
-### 12.1 Non-MC Remediation Checklist
+### 10.1 Non-MC Remediation Checklist
 
 **Track A (ambiguous errors — no specific conditions):**
 - [ ] Generic L-M-H only (no branching by error type)
@@ -762,7 +688,7 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 - [ ] Generic Heavy (`condition: {}`), \[Modeling\] tag REQUIRED, visual REQUIRED
 - [ ] Heavy dialogue ends with closure: names the correct answer and the concept it demonstrates
 
-### 12.2 Single-Select MC Remediation Checklist
+### 10.2 Single-Select MC Remediation Checklist
 
 - [ ] One Medium per distractor (3 distractors \= 3 Mediums)
 - [ ] Each Medium targets specific error that distractor represents
@@ -771,7 +697,7 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 - [ ] Heavy has \[Modeling\] tag
 - [ ] No Light remediation (Single-Select MC skips to Medium)
 
-### 12.2B Multiselect MC Remediation Checklist
+### 10.2B Multiselect MC Remediation Checklist
 
 - [ ] Three Medium remediations — one per error branch (under-selecting, all-wrong, mixed)
 - [ ] Branch 2 Medium (under-selecting) acknowledges correct picks and nudges toward missing answers — near-success tone
@@ -783,7 +709,7 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 - [ ] No Light remediation (Multiselect MC skips to Medium)
 - [ ] Tone varies meaningfully across branches — remediation language does not feel uniform
 
-### 12.3 Variety Checklist (Per Module)
+### 10.3 Variety Checklist (Per Module)
 
 - [ ] Minimum 8 different Light patterns (non-MC)
 - [ ] 4-5 different Medium approaches
@@ -791,7 +717,7 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 - [ ] No exact phrase repeated within 3 problems
 - [ ] Error signals rotated (40-50% with signal)
 
-### 12.4 Structure Violations (Never Include)
+### 10.4 Structure Violations (Never Include)
 
 - ❌ Alternative paths ("Try X or Y")
 - ❌ Light remediation that teaches new content
@@ -802,9 +728,9 @@ Full Intervention Activity design specifications in: **Intervention Activity Des
 
 ---
 
-## SECTION 13: Output Format Examples
+## SECTION 11: Output Format Examples
 
-### 13.1 Non-MC Format
+### 11.1 Non-MC Format
 
 ```
 Activity X - [Title]
@@ -830,7 +756,7 @@ Guide: "[Post-modeling acknowledgment]"
 [Validator: Probable error type for tracking - e.g., Misconception_#3]
 ```
 
-### 13.2 Single-Select MC Format
+### 11.2 Single-Select MC Format
 
 ```
 Activity X - [Title] (Multiple Choice)
@@ -865,7 +791,7 @@ ERROR PATHS:
 Guide: "[Post-modeling acknowledgment]"
 ```
 
-### 13.2B Multiselect MC Format
+### 11.2B Multiselect MC Format
 
 ```
 Activity X - [Title] (Multiselect MC — "Select all that apply")
@@ -904,7 +830,7 @@ BRANCH 4 — Mixed (some correct, some incorrect selected):
 Guide: "[Post-modeling acknowledgment]"
 ```
 
-### 13.3 Validator Notation
+### 11.3 Validator Notation
 
 For tracking purposes, include validator notation:
 
@@ -947,7 +873,7 @@ These aggregate to the misconception level for Intervention triggers.
 
 ## END OF DOCUMENT
 
-**Version:** 3.1
+**Version:** 3.2
 **Document Type:** Authoritative reference for script writers
 **Major Changes from v2.0:**
 
@@ -956,6 +882,12 @@ These aggregate to the misconception level for Intervention triggers.
 - Added Misconception Tracking & Intervention system overview
 - Reduced content creation burden significantly
 - Clarified MC structure (Medium per distractor \+ single Heavy)
+
+**Major Changes from v3.1:**
+
+- Clarified document scope: branching remediation requirements only, not validation requirements (Sections 1.5, 2.1, 9.1)
+- Added explicit branching vs. validation distinction (Section 1.5): validator coverage is intentionally broader than branching; error causes are diagnosed from data, not assumed in advance
+- Fixed version number discrepancy (header/footer now consistent)
 
 **Major Changes from v3.0:**
 
@@ -1525,7 +1457,220 @@ Tangible ID prefixes and naming patterns are defined in the toy spec files (`toy
 
 ----------------------------------------------------------------------
 
-### Block 4: Instructions
+### Block 4: Reference Doc (dialogue_examples/remediations.md)
+Purpose: Reference documentation
+Cacheable: Yes
+
+# REFERENCE DOCUMENTATION: dialogue_examples/remediations.md
+
+<remediations>
+# Remediation Beats — Gold Standard Examples
+
+Remediation beats fire when a student answers incorrectly. Three levels: light, medium, heavy.
+
+- **Light:** Minimal redirect. Assumes the student is close and just needs a nudge.
+- **Medium:** More targeted. Identifies what to look at or re-route their thinking.
+- **Heavy:** Full model. Guide demonstrates the action or reasoning, then hands it back.
+
+---
+
+## Design Principles
+
+**Light remediations are direct statements, not questions.** Statements redirect; questions can feel like testing. "Look again at the parts in the bars. They all need to be the same width." — not "Are they all the same width?"
+
+**Medium remediations teach the method, not the answer.** Name what to look at and in what order without supplying the counts or values. The student still has to do the work. Close with a pointed question or specific imperative.
+
+**Heavy remediations model reasoning, not just the answer.** Narrate the thinking during the demo. End with the underlying principle — why the answer has to be what it is, not just what it is.
+
+**"You're working on it" used sparingly.** It works when genuine as a gentle acknowledgment before redirecting. Avoid using it in every medium remediation — it becomes formulaic.
+
+---
+
+## Gold Standard Examples by Level
+
+### LIGHT REMEDIATIONS
+
+**Simple count redirect (M10)**
+> "Try counting which bar has more sixths shaded."
+
+Why it works: One sentence. Names exactly what to do. No hedging.
+
+---
+
+**Count from zero (M11)**
+> "Count the intervals from zero. We need two intervals."
+
+Why it works: Tells the student the method and the target. Unambiguous.
+
+---
+
+**Size comparison redirect (M11)**
+> "Not quite. Both show 3 pieces. But look at the SIZE of those pieces."
+
+Why it works: "Not quite" acknowledges the error without dwelling on it. Capitalizing SIZE in the spoken version should be read as mild vocal emphasis.
+
+---
+
+**Equal parts check (M1)**
+> "Look again at the parts in the bars. They all need to be the same width."
+
+Why it works: Removed the old "Hmm" and rhetorical question. Direct statement of what to look for.
+
+---
+
+**Strategy reminder (M5)**
+> "Not quite. Remember, six equal spaces."
+
+Why it works: Minimum viable redirect when the strategy has already been taught. Doesn't re-explain.
+
+---
+
+### MEDIUM REMEDIATIONS
+
+**Piece size comparison with visual anchor (M2)**
+> "Let's compare - see how the one half piece is much bigger than the one fourth piece? Fewer parts means bigger pieces."
+
+Why it works: "Let's compare" is collaborative. Points to the visual, then states the principle. Short.
+
+---
+
+**Denominator as jump size (M6)**
+> "Remember that five fourths means five equal jumps total from 0. Count them carefully."
+
+Why it works: Restates the meaning of the fraction in terms of the action (counting jumps). "Count them carefully" is actionable.
+
+---
+
+**Same-denominator logic restated (M10)**
+> "Both pieces are divided into sixths, so the pieces are the same size. Which is more, four pieces or two pieces?"
+
+Why it works: Walks through the logic step by step. Ends with a question the student can answer — gives them agency in the correction.
+
+---
+
+**Half vs more-than-half framing (M12)**
+> "Remember from the warmup, three fourths was above halfway and two sixths was below. The number line shows the same thing, just in a different way."
+
+Why it works: Connects to something the student already saw. The transfer is explicit: "same thing, different way."
+
+---
+
+**Numerator = spaces from zero (M5)**
+> "Here's a hint: The top number, 1, means one sixth is one space from 0."
+
+Why it works: "Here's a hint" signals that the next thing is help, not correction. Restates the fraction-as-position concept precisely.
+
+---
+
+### SPECIFIC CONDITION MEDIUMS (per-distractor)
+
+Specific condition mediums fire when the student makes an identifiable wrong choice. They name the error precisely, redirect to the correct concept, and close with a call to action. They do not complete the work — the student still has to execute.
+
+**Pattern A — Credit + narrow (M11)**
+> "You're right that there are 4 columns. But count how many dots are in each column. Are there 4?"
+
+Why it works: Opens by crediting what was correct. Narrows to exactly the one thing that was wrong. Ends with a pointed question the student can immediately act on.
+
+---
+
+**Pattern A — Credit + narrow, two-step problem (M1)**
+> "That's the Fish and Lizards total. The question asks how many MORE have Cats. You need to compare Cats to that total."
+
+Why it works: Names what the student found (a correct partial result). Redirects to what the question actually asks. One clear action.
+
+---
+
+**Pattern B — Name + redirect + point (M1)**
+> "You counted the Dogs. When we ask how many fewer, we need to find the difference. Count how far apart Dogs and Fish are."
+
+Why it works: One-phrase description of the error. States what the question needs. Points to the evidence in the visual.
+
+---
+
+**Pattern B — Name + redirect + point (M11)**
+> "That's the rows description. Look at columns now. How many columns are there? Each column has how many dots?"
+
+Why it works: Names the error (described rows when asked for columns). Redirects with a direct imperative. Ends with two questions that walk the student through the correct path step by step.
+
+---
+
+### HEAVY REMEDIATIONS
+
+**Reasoning narrated during demo (M8)**
+> "Let me show you by selecting the bigger piece. I'm choosing the one-fourth piece because when we cut the same cake into fewer pieces, each piece is bigger."
+
+Why it works: States the action and the reason simultaneously. The student sees what to do AND why. Ends with the principle, not the action.
+
+---
+
+**Step-by-step counting on number line (M10)**
+> "Let me show you how I'd solve this: On number lines, fractions get bigger as you move right. Look — two sixths only goes two intervals from 0. But five sixths goes five intervals from 0, almost to 1. The one that goes farther right is bigger. So five sixths is greater."
+
+Why it works: Narrates the visual observation the student should be making. "Almost to 1" anchors the magnitude. Ends with a clear conclusion.
+
+---
+
+**Pattern revealed through modeling (M6)**
+> "Let me help a bit more. Look at this pattern: four fourths equals 1 whole, they're the same number. Another four fourths makes another whole. So eight fourths equals 2. Same number, different ways to write it. The pattern tells you something. Every four fourths makes a whole number!"
+
+Why it works: "Let me help a bit more" is warmer than "Let me show you." The demo reveals a pattern rather than just demonstrating a procedure. The exclamation is earned — this is a genuine discovery moment.
+
+---
+
+**Equivalent fraction by counting steps (M9)**
+> "Let me help you think through this. Three halves means: one half, two halves — that's 1 — then three halves, lands here between 1 and 2. Now count fourths: one fourth, two fourths, three fourths, four fourths — that's 1 — five fourths, six fourths, lands at the same spot. So six fourths is the answer."
+
+Why it works: Walks both number lines step by step. The student can follow the counting. Ends with the conclusion stated plainly.
+
+---
+
+**Collaborative walkthrough framing (M1)**
+> "I'll walk us through this problem: First I divide in half, then I divide the left half, then the right half. See how all four parts match?"
+
+Why it works: "I'll walk us through this" is collaborative. The step-by-step mirrors the strategy taught earlier. The closing question invites the student to verify, not just observe.
+
+---
+
+**Counting both lines together (M9)**
+> "Let's work together. For two thirds: count one third, two thirds. Two thirds goes here. Two-thirds of the way from 0 to 1. For four sixths: count one sixth, two sixths, three sixths, four sixths. Same position! When dots line up vertically, fractions are equivalent."
+
+Why it works: Does both number lines step by step. "Same position!" is earned here. Ends with the rule the student should take away.
+
+---
+
+**Principle ending — two paths modeled (M11)**
+> "Let me show you the two ways to think about this array. If I want rows, I count the horizontal rows: 6 rows. Then I count the dots in one row: 3 dots. 6 rows of 3 is 18 total dots. 6 times 3 equals 18. If I want columns, I count the vertical columns: 3 columns. Then I count the dots in one column: 6 dots. 3 columns of 6 is 18 total dots. 3 times 6 equals 18. Two ways to describe this array and equations that match. Both are correct."
+
+Why it works: Models both valid paths, not just one. Names the structure at each step ("horizontal rows", "vertical columns"). Ends with the principle — the student leaves knowing the rule, not just the answer.
+
+---
+
+**Principle ending — invariant stated (M12)**
+> "Here's what matters: when you describe an array by rows or columns, the dots don't change. 3 times 5 has the exact same dots as 5 times 3. You just read them differently. Same dots means same total. That is why both expressions give the same product."
+
+Why it works: States the principle and explains why it must be true. The closing sentence ("Same dots means same total. That is why...") is the insight the student carries forward.
+
+---
+
+## Remediation Register Notes
+
+**Light:** One or two sentences. No explanation of why the answer was wrong. Just a redirect.
+
+**Medium:** Two to four sentences. Teaches the method — names what to look at and in what order — without supplying the specific counts or values. Visual scaffold required. Closes with a pointed question or specific imperative. Does not solve the problem.
+
+**Specific Condition Medium:** Same length and visual requirement as Medium. Names the error in one phrase, redirects to the correct concept, closes with a call to action. Does not give away the correct counts or values.
+
+**Heavy:** Models the full solution. Narrates the thinking, not just the mechanics — names the structure being demonstrated. Ends with the underlying principle: why the answer has to be what it is.
+
+**On-correct and Heavy share a closing philosophy:** both end by naming what was demonstrated, not just what the answer was. Heavy closes with why (the structural insight). On-correct closes with what was demonstrated (the discovery or principle the student just proved). The closing sentence should be transferable to the next problem.
+
+**All levels:** Avoid "You're almost there!" (assuming closeness) and "Don't worry!" (assuming feelings).
+
+</remediations>
+
+----------------------------------------------------------------------
+
+### Block 5: Instructions
 Purpose: Step-by-step task instructions
 Cacheable: Yes
 
@@ -1537,6 +1682,8 @@ Cacheable: Yes
 The section to process is in `<input>`. Walk its `beats` array and find every `prompt` beat. For each prompt, generate the incorrect validator states. Output one inner array of states per prompt, in the order the prompts appear in the section.
 
 **Skip any prompt whose `validator` is a single state with `condition: {}`** (any-response-advances). Emit nothing for it.
+
+**Do NOT skip a `multiple_choice` prompt just because its validator only contains the correct state.** A `multiple_choice` validator that has only one `is_correct: true` state with `condition: { "selected": "..." }` means the wrong-answer states haven't been written yet — that is exactly what you are here to generate. The absence of pre-existing `is_correct: false` states is normal, not a signal to skip.
 
 ---
 
@@ -1581,7 +1728,7 @@ For each qualifying prompt, check the `tool` field:
 
 Follow `<remediation_design_ref>` Sections 2.4–2.5 for state structure and order. Always emit generic L/M/H after any specific-condition states. Follow length, visual, and language rules from `<remediation_design_ref>` Sections 4–6.
 
-**Specific conditions** are pre-defined in the input. Inspect the existing `validator` for `is_correct: false` states with non-empty conditions (not just `{}`). Each such state has:
+**Specific conditions** are pre-defined in the input — do not invent them. Inspect the existing `validator` for `is_correct: false` states with non-empty conditions (not just `{}`). Each such state has:
 - `condition`: the base condition (e.g. `{ "container_count": 3 }`) — rewrite it into the `and`/`or` shape from the STATE ORDER section below
 - `description`: a plain-English label for what wrong answer this represents
 - `beats`: placeholder dialogue already written — use as inspiration when writing Medium-quality content (visual scaffold + 20–30 words)
@@ -1625,7 +1772,21 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 }
 ```
 
-**Heavy** (catch-all `{}`): `scene animate` beat required (system demonstrates the answer). Dialogue narrates the thinking, not just the mechanics — name the structure being demonstrated and connect each step to what it means. End with the underlying principle: why the answer has to be what it is, not just what the answer is. Take inspiration from the on_correct beat already in the section's validator — it names what was demonstrated for a student who got it right. The Heavy closing should echo that same structural insight, framed from the guide's perspective after modeling.
+**Scenario image prompts (`click_tangible` on `image` tangibles):** When the prompt targets scenario images (real-world connection sections), never reference images by letter label in any state. For each state that needs to draw attention to a specific image, emit a `scene animate` beat with `event: "highlight"` on that tangible ID, then say "this image" in the dialogue. Apply this in Medium states (highlight the specific wrong or correct image) and Heavy states (highlight each relevant image in sequence as the guide narrates).
+
+```json
+{ "type": "scene", "method": "animate", "tangible_id": "scenario_image_counting",
+  "params": { "event": "highlight", "status": "confirmed", "description": "Counting money scenario image highlights." } },
+{ "type": "dialogue", "text": "Look at this image. Does this situation use groups of 10?" }
+```
+
+**Heavy** (catch-all `{}`): `scene animate` beat required (system demonstrates the answer). Dialogue narrates the thinking, not just the mechanics — name the structure being demonstrated and connect each step to what it means. End with the underlying principle: why the answer has to be what it is, not just what the answer is.
+
+**For the on_correct beat:** use it only to identify what concept the answer demonstrates and what the closing principle should be. Do not treat it as a template for which tangibles to animate — it only shows the confirmation step, not the reasoning.
+
+**For the Heavy's animate beats:** read the section's `scene add` beats and the dialogue beat that introduces the prompt. These tell you which tangibles are part of the reasoning and what each one contributes (line counts, axis values, etc.). The Heavy must animate every tangible involved in the reasoning — in the order the section presents them — and narrate what the guide observes about each one, arriving at the correct answer as the conclusion.
+
+**Use `<section_context>` to confirm the teaching strategy and align vocabulary.** If the section context shows that the guide's teaching walked through multiple visuals in sequence, the Heavy's animate beats must follow that same sequence.
 ```json
 {
   "condition": {},
@@ -1647,7 +1808,9 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 
 The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
 
-See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
+**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
+
+See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy). Per that design, the condition for each Medium is `{ "selected": <distractor> }` only. Do not add `incorrect_count` — per-distractor and LMH are separate branching dimensions and must never be combined.
 
 One **Medium** per distractor: scene beat required. Dialogue names the error and redirects to the correct concept or tool. Close with a pointed question or specific imperative.
 ```json
@@ -1790,15 +1953,17 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 **Medium — universal answer rule (applies to all tracks and specific conditions):** Never state the correct answer, value, or count in a Medium. This applies even when the answer is visible on screen (e.g. a key showing "Each ⭐ = 5", a label, a highlighted number). Redirect the student to the right place and let them read it. A Medium that names the answer removes the work the student needs to do. If you find yourself writing the correct value in a Medium, rewrite it as a question or imperative that sends the student to look.
 
-**Heavy:** Use an opener from Section 6.1. Cycle — do not reuse within a section. End with closure per Section 7.
+**Heavy:** Choose an opener from Section 6.1. Rotate across the full range of available openers — "Let me show you", "Let me help you think through this", "Let's work together", "I'll walk us through this", "Here's what matters" — treating each as equally valid. Cycle — do not reuse the same opener within a section. Refer to <remediations.md> for opener variety and the principle-ending pattern. End with closure per Section 7.
 
 ---
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats. **Do not fabricate game data values** — specific quantities, scale-key values, or item counts that come from live game content are not available at script-writing time unless they appear explicitly in the input section JSON or `<lesson_sections>`. Do not invent them. In Light and Medium states, redirect the student to look at the relevant element rather than stating a value. In Heavy states, narrate the structural pattern being animated without naming specific quantities that aren't grounded in the input.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
+
+When <section_context> is available, read every section summary whose `## section_id` appears before the current section's id. Identify the most recently taught strategy: what approach did the guide use to explain the concept, what scaffold did it provide, what vocabulary did it lean on? Use that strategy — and only that strategy — to frame remediation. Do not introduce a shortcut, pattern, or reasoning method that does not appear in any prior section summary. If a student is stuck on `s2_5`, the remediation should teach using the same scaffold introduced in `s2_1`–`s2_4`, not a rule the lesson hasn't covered yet.
 
 For prompts with `"variable_answer": true`: do not assume the student's specific attempt in Light or Medium dialogue. For Heavy, model one specific valid example but frame it as one way, not the only answer.
 
@@ -1807,6 +1972,7 @@ For prompts with `"variable_answer": true`: do not assume the student's specific
 ## OUTPUT RULES
 
 - Output ONLY the `incorrects` array content. No explanation, no markdown fences.
+- **Flag placeholders and uncertain content:** When a beat or validator state contains content that could not be grounded in the input — game data values not present in the section JSON or `<section_context>`, unresolved visual elements, invented quantities — add `"flag": "placeholder — <brief reason>"` to that beat or state object. This makes uncertain content findable for human review without blocking output. Example: `"flag": "placeholder — scale key values not in input"`.
 - The prefill already opens `{"id": "...", "incorrects": [`. Complete from that point.
 - Use double quotes throughout
 - `is_correct: false` on every state
@@ -1816,7 +1982,7 @@ For prompts with `"variable_answer": true`: do not assume the student's specific
 
 ----------------------------------------------------------------------
 
-### Block 5: Output Schema
+### Block 6: Output Schema
 Purpose: Defines expected output structure
 Cacheable: Yes
 *[CACHED: {'type': 'ephemeral'}]*
@@ -1845,7 +2011,7 @@ Cacheable: Yes
 
 ----------------------------------------------------------------------
 
-### Block 6: Context
+### Block 7: Context
 Purpose: Pipeline-injected context (e.g. lesson sections)
 Cacheable: Yes
 *[CACHED: {'type': 'ephemeral'}]*
@@ -1857,27 +2023,8 @@ Cacheable: Yes
     "type": "transition",
     "beats": [
       {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "scale_preview_warmup",
-        "tangible_type": "image",
-        "params": {
-          "description": "Scale Preview System from Warmup appears. Student's data visible. All four scale options (1, 2, 5, 10) showing checkmarks."
-        }
-      },
-      {
         "type": "dialogue",
         "text": "In Warmup, all four scales worked for your data. You had options!"
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "scale_preview_warmup",
-            "description": "Scale Preview System from Warmup. Student's data with all four scales showing checkmarks.",
-            "tangible_type": "image"
-          }
-        ]
       },
       {
         "type": "dialogue",
@@ -1885,16 +2032,11 @@ Cacheable: Yes
       },
       {
         "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "scale_preview_warmup",
-            "description": "Scale Preview System from Warmup. Student's data with all four scales showing checkmarks.",
-            "tangible_type": "image"
-          }
-        ]
+        "elements": []
       }
     ],
-    "_generated_at": "2026-04-20T17:00:06.557511+00:00"
+    "flag": "placeholder — visual references 'Scale Preview System from Warmup' but workspace_specs lists no toys; no scene beats generated as toy spec not defined and prior section summaries not provided",
+    "_generated_at": "2026-05-05T18:15:23.701907+00:00"
   },
   {
     "id": "s1_2_when_scale_needs_too_many",
@@ -1905,6 +2047,18 @@ Cacheable: Yes
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
+          "categories": [
+            "Aisha",
+            "Ben",
+            "Carlos",
+            "Dana"
+          ],
+          "values": [
+            20,
+            35,
+            55,
+            80
+          ],
           "description": "Data table appears. Books Read This Month. Aisha: 20, Ben: 35, Carlos: 55, Dana: 80."
         }
       },
@@ -1914,7 +2068,7 @@ Cacheable: Yes
         "tangible_id": "bar_graph_books",
         "tangible_type": "bar_graph",
         "params": {
-          "mode": "building",
+          "mode": "reading",
           "orientation": "vertical",
           "categories": [
             "Aisha",
@@ -1927,7 +2081,7 @@ Cacheable: Yes
             50
           ],
           "scale": 5,
-          "description": "Vertical bar graph appears. Books Read This Month. Axis 0-50. Scale of 5 pre-selected. Graph initially empty."
+          "description": "Vertical bar graph appears. Axis shows 0 to 50. Scale of 5 pre-selected. Graph initially empty."
         }
       },
       {
@@ -1940,13 +2094,25 @@ Cacheable: Yes
           {
             "tangible_id": "data_table",
             "description": "Data table showing Books Read This Month values.",
-            "tangible_type": "data_table"
+            "tangible_type": "data_table",
+            "categories": [
+              "Aisha",
+              "Ben",
+              "Carlos",
+              "Dana"
+            ],
+            "values": [
+              20,
+              35,
+              55,
+              80
+            ]
           },
           {
             "tangible_id": "bar_graph_books",
-            "description": "Vertical bar graph. Books Read This Month. Axis 0-50. Scale of 5 selected. Graph empty.",
+            "description": "Vertical bar graph. Axis 0-50. Scale of 5 selected. Graph empty.",
             "tangible_type": "bar_graph",
-            "mode": "building",
+            "mode": "reading",
             "orientation": "vertical",
             "categories": [
               "Aisha",
@@ -1973,7 +2139,7 @@ Cacheable: Yes
         "params": {
           "event": "generate_preview",
           "status": "confirmed",
-          "description": "Preview generates. Aisha (20), Ben (35), Carlos (55) bars appear normally. Dana's bar (80) extends past the graph boundary. Warning indicator appears."
+          "description": "Preview generates. Aisha (20), Ben (35), Carlos (55) bars appear. Dana's bar (80) extends past graph boundary. Warning indicator appears."
         }
       },
       {
@@ -1982,13 +2148,25 @@ Cacheable: Yes
           {
             "tangible_id": "data_table",
             "description": "Data table showing Books Read This Month values.",
-            "tangible_type": "data_table"
+            "tangible_type": "data_table",
+            "categories": [
+              "Aisha",
+              "Ben",
+              "Carlos",
+              "Dana"
+            ],
+            "values": [
+              20,
+              35,
+              55,
+              80
+            ]
           },
           {
             "tangible_id": "bar_graph_books",
-            "description": "Vertical bar graph. Aisha, Ben, Carlos bars visible. Dana's bar extends past top. Warning indicator showing.",
+            "description": "Vertical bar graph. Aisha, Ben, Carlos bars visible. Dana's bar extends past top. Warning indicator present.",
             "tangible_type": "bar_graph",
-            "mode": "building",
+            "mode": "reading",
             "orientation": "vertical",
             "categories": [
               "Aisha",
@@ -2014,13 +2192,25 @@ Cacheable: Yes
           {
             "tangible_id": "data_table",
             "description": "Data table showing Books Read This Month values.",
-            "tangible_type": "data_table"
+            "tangible_type": "data_table",
+            "categories": [
+              "Aisha",
+              "Ben",
+              "Carlos",
+              "Dana"
+            ],
+            "values": [
+              20,
+              35,
+              55,
+              80
+            ]
           },
           {
             "tangible_id": "bar_graph_books",
-            "description": "Vertical bar graph. Aisha, Ben, Carlos bars visible. Dana's bar extends past top. Warning indicator showing.",
+            "description": "Vertical bar graph. Aisha, Ben, Carlos bars visible. Dana's bar extends past top. Warning indicator present.",
             "tangible_type": "bar_graph",
-            "mode": "building",
+            "mode": "reading",
             "orientation": "vertical",
             "categories": [
               "Aisha",
@@ -2038,7 +2228,7 @@ Cacheable: Yes
       },
       {
         "type": "dialogue",
-        "text": "I could make the graph taller to fit 80. Let's see... I'd need 55, 60, 65, 70, 75, 80..."
+        "text": "I COULD make the graph taller to fit 80. Let's see... I'd need 55, 60, 65, 70, 75, 80..."
       },
       {
         "type": "scene",
@@ -2059,7 +2249,7 @@ Cacheable: Yes
             0,
             80
           ],
-          "description": "Graph axis now extends to 80. All bars visible. Dana's bar reaches 80."
+          "description": "Axis now extends from 0 to 80 with scale of 5."
         }
       },
       {
@@ -2068,13 +2258,25 @@ Cacheable: Yes
           {
             "tangible_id": "data_table",
             "description": "Data table showing Books Read This Month values.",
-            "tangible_type": "data_table"
+            "tangible_type": "data_table",
+            "categories": [
+              "Aisha",
+              "Ben",
+              "Carlos",
+              "Dana"
+            ],
+            "values": [
+              20,
+              35,
+              55,
+              80
+            ]
           },
           {
             "tangible_id": "bar_graph_books",
-            "description": "Vertical bar graph. Axis 0-80 with 17 tick marks visible (0, 5, 10, 15... 75, 80). All bars visible. Dana's bar at 80.",
+            "description": "Vertical bar graph with extended axis 0-80. All tick marks visible (0, 5, 10...75, 80). Axis appears crowded.",
             "tangible_type": "bar_graph",
-            "mode": "building",
+            "mode": "reading",
             "orientation": "vertical",
             "categories": [
               "Aisha",
@@ -2092,7 +2294,16 @@ Cacheable: Yes
       },
       {
         "type": "dialogue",
-        "text": "That's a lot of numbers on the axis. 0, 5, 10, 15, 20... all the way up to 80. That's 17 tick marks!"
+        "text": "That's a LOT of numbers on the axis. 0, 5, 10, 15, 20... all the way up to 80. That's 17 tick marks!"
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_books",
+        "params": {
+          "highlight_component": "axis",
+          "description": "Axis highlights showing all 17 tick marks (0, 5, 10, 15... 75, 80)."
+        }
       },
       {
         "type": "current_scene",
@@ -2100,13 +2311,25 @@ Cacheable: Yes
           {
             "tangible_id": "data_table",
             "description": "Data table showing Books Read This Month values.",
-            "tangible_type": "data_table"
+            "tangible_type": "data_table",
+            "categories": [
+              "Aisha",
+              "Ben",
+              "Carlos",
+              "Dana"
+            ],
+            "values": [
+              20,
+              35,
+              55,
+              80
+            ]
           },
           {
             "tangible_id": "bar_graph_books",
-            "description": "Vertical bar graph. Axis 0-80. All 17 tick marks highlighted. All bars visible.",
+            "description": "Vertical bar graph with extended axis 0-80. Axis highlighted showing all 17 tick marks.",
             "tangible_type": "bar_graph",
-            "mode": "building",
+            "mode": "reading",
             "orientation": "vertical",
             "categories": [
               "Aisha",
@@ -2124,7 +2347,7 @@ Cacheable: Yes
       },
       {
         "type": "dialogue",
-        "text": "It works... but is there a better way? When one scale needs too many tick marks, try a bigger scale."
+        "text": "It works... but is there a better way?"
       },
       {
         "type": "current_scene",
@@ -2132,13 +2355,69 @@ Cacheable: Yes
           {
             "tangible_id": "data_table",
             "description": "Data table showing Books Read This Month values.",
-            "tangible_type": "data_table"
+            "tangible_type": "data_table",
+            "categories": [
+              "Aisha",
+              "Ben",
+              "Carlos",
+              "Dana"
+            ],
+            "values": [
+              20,
+              35,
+              55,
+              80
+            ]
           },
           {
             "tangible_id": "bar_graph_books",
-            "description": "Vertical bar graph. Axis 0-80 with 17 tick marks. All bars visible.",
+            "description": "Vertical bar graph with extended axis 0-80. Axis highlighted showing all 17 tick marks.",
             "tangible_type": "bar_graph",
-            "mode": "building",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Aisha",
+              "Ben",
+              "Carlos",
+              "Dana"
+            ],
+            "axis_range": [
+              0,
+              80
+            ],
+            "scale": 5
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "When one scale needs too many tick marks, try a bigger scale."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing Books Read This Month values.",
+            "tangible_type": "data_table",
+            "categories": [
+              "Aisha",
+              "Ben",
+              "Carlos",
+              "Dana"
+            ],
+            "values": [
+              20,
+              35,
+              55,
+              80
+            ]
+          },
+          {
+            "tangible_id": "bar_graph_books",
+            "description": "Vertical bar graph with extended axis 0-80. Axis highlighted showing all 17 tick marks.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
             "orientation": "vertical",
             "categories": [
               "Aisha",
@@ -2155,11 +2434,20 @@ Cacheable: Yes
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:00:28.286959+00:00"
+    "_generated_at": "2026-05-05T18:15:53.073071+00:00"
   },
   {
     "id": "s1_3_trying_bigger_scale",
     "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "data_table",
+        "tangible_type": "data_table",
+        "params": {
+          "description": "Data table showing Books Read This Month. Categories: Aisha, Ben, Carlos, Dana. Values: 20, 35, 55, 80."
+        }
+      },
       {
         "type": "scene",
         "method": "add",
@@ -2169,17 +2457,24 @@ Cacheable: Yes
           "mode": "reading",
           "orientation": "vertical",
           "categories": [
-            "Mystery",
-            "Fantasy",
-            "Science",
-            "History"
+            "Aisha",
+            "Ben",
+            "Carlos",
+            "Dana"
+          ],
+          "values": [
+            20,
+            35,
+            55,
+            80
           ],
           "axis_range": [
             0,
-            85
+            80
           ],
           "scale": 5,
-          "description": "Vertical bar graph appears. Books Read data. Mystery=35, Fantasy=55, Science=20, History=75. Current scale is 5, showing 17 tick marks (0, 5, 10...85). Scale Preview System interactive, Scale of 5 currently selected."
+          "scale_selector_active": true,
+          "description": "Vertical bar graph appears. Books Read This Month data. Scale of 5 active. Axis shows 0–80 with 17 tick marks visible. Scale selector interactive."
         }
       },
       {
@@ -2188,7 +2483,7 @@ Cacheable: Yes
       },
       {
         "type": "prompt",
-        "text": "Click 'Scale of 10' to see what happens.",
+        "text": "Click Scale of 10 to see what happens.",
         "tool": "click_scale_button",
         "target": "bar_graph_books",
         "validator": [
@@ -2206,11 +2501,8 @@ Cacheable: Yes
                 "tangible_id": "bar_graph_books",
                 "params": {
                   "scale": 10,
-                  "axis_range": [
-                    0,
-                    80
-                  ],
-                  "description": "Graph updates to Scale of 10. Axis now shows 0, 10, 20, 30, 40, 50, 60, 70, 80—only 9 tick marks. All four bars fit cleanly. Checkmark indicator appears."
+                  "tick_marks_count": 9,
+                  "description": "Graph updates to scale of 10. Axis now shows 0, 10, 20, 30, 40, 50, 60, 70, 80—only 9 tick marks. All four bars fit cleanly. Checkmark indicator appears."
                 }
               },
               {
@@ -2218,23 +2510,24 @@ Cacheable: Yes
                 "text": "Look at that—only 9 tick marks now instead of 17. Much cleaner!"
               },
               {
-                "type": "dialogue",
-                "text": "All the data fits, and the graph is easier to read."
-              },
-              {
                 "type": "current_scene",
                 "elements": [
                   {
+                    "tangible_id": "data_table",
+                    "description": "Data table showing Books Read This Month values.",
+                    "tangible_type": "data_table"
+                  },
+                  {
                     "tangible_id": "bar_graph_books",
-                    "description": "Vertical bar graph with Scale of 10. Books Read data. Mystery=35, Fantasy=55, Science=20, History=75. Axis shows 9 tick marks (0, 10, 20...80). Checkmark indicator visible.",
+                    "description": "Vertical bar graph with scale of 10. Books Read This Month data. Axis 0–80 with 9 tick marks. Checkmark indicator visible. All bars fit cleanly.",
                     "tangible_type": "bar_graph",
                     "mode": "reading",
                     "orientation": "vertical",
                     "categories": [
-                      "Mystery",
-                      "Fantasy",
-                      "Science",
-                      "History"
+                      "Aisha",
+                      "Ben",
+                      "Carlos",
+                      "Dana"
                     ],
                     "scale": 10,
                     "axis_range": [
@@ -2252,27 +2545,64 @@ Cacheable: Yes
         "type": "current_scene",
         "elements": [
           {
+            "tangible_id": "data_table",
+            "description": "Data table showing Books Read This Month values.",
+            "tangible_type": "data_table"
+          },
+          {
             "tangible_id": "bar_graph_books",
-            "description": "Vertical bar graph in reading mode. Books Read data. Scale Preview System interactive. Scale of 5 currently selected showing 17 tick marks. click_scale_button tool active.",
+            "description": "Vertical bar graph in reading mode. Books Read This Month data. Scale of 5 active, showing 17 tick marks. Scale selector interactive, awaiting student choice.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
             "categories": [
-              "Mystery",
-              "Fantasy",
-              "Science",
-              "History"
+              "Aisha",
+              "Ben",
+              "Carlos",
+              "Dana"
             ],
             "scale": 5,
             "axis_range": [
               0,
-              85
+              80
+            ]
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "All the data fits, and the graph is easier to read."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing Books Read This Month values.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "bar_graph_books",
+            "description": "Vertical bar graph with scale of 10. Books Read This Month data. Axis 0–80 with 9 tick marks. All bars fit cleanly. Graph is easier to read than with scale of 5.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Aisha",
+              "Ben",
+              "Carlos",
+              "Dana"
+            ],
+            "scale": 10,
+            "axis_range": [
+              0,
+              80
             ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:00:40.757853+00:00"
+    "_generated_at": "2026-05-05T18:16:18.004989+00:00"
   },
   {
     "id": "s1_4_range_check_efficiency",
@@ -2283,7 +2613,59 @@ Cacheable: Yes
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
-          "description": "Data table appears showing data values. Largest value (80) is highlighted."
+          "categories": [
+            "Aisha",
+            "Ben",
+            "Carlos",
+            "Dana"
+          ],
+          "values": [
+            20,
+            35,
+            55,
+            80
+          ],
+          "description": "Data table appears showing Books Read This Month data. Aisha=20, Ben=35, Carlos=55, Dana=80."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_books",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Aisha",
+            "Ben",
+            "Carlos",
+            "Dana"
+          ],
+          "values": [
+            20,
+            35,
+            55,
+            80
+          ],
+          "axis_range": [
+            0,
+            80
+          ],
+          "scale": 10,
+          "scale_selector_visible": true,
+          "description": "Vertical bar graph appears showing Books Read This Month data with scale of 10 preview active. All four bars visible (Aisha=20, Ben=35, Carlos=55, Dana=80). 9 tick marks on axis (0, 10, 20, 30, 40, 50, 60, 70, 80)."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "data_table",
+        "params": {
+          "highlight_values": [
+            80
+          ],
+          "description": "Dana's value 80 highlights in data table."
         }
       },
       {
@@ -2322,8 +2704,44 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Data table showing data values. Largest value (80) highlighted.",
-            "tangible_type": "data_table"
+            "description": "Data table showing Books Read This Month values. Dana's 80 highlighted.",
+            "tangible_type": "data_table",
+            "categories": [
+              "Aisha",
+              "Ben",
+              "Carlos",
+              "Dana"
+            ],
+            "values": [
+              20,
+              35,
+              55,
+              80
+            ]
+          },
+          {
+            "tangible_id": "bar_graph_books",
+            "description": "Vertical bar graph showing Books Read This Month data with scale of 10, axis 0–80, 9 tick marks.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Aisha",
+              "Ben",
+              "Carlos",
+              "Dana"
+            ],
+            "values": [
+              20,
+              35,
+              55,
+              80
+            ],
+            "axis_range": [
+              0,
+              80
+            ],
+            "scale": 10
           }
         ]
       },
@@ -2340,13 +2758,49 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Data table showing data values. Largest value (80) highlighted.",
-            "tangible_type": "data_table"
+            "description": "Data table showing Books Read This Month values. Dana's 80 highlighted.",
+            "tangible_type": "data_table",
+            "categories": [
+              "Aisha",
+              "Ben",
+              "Carlos",
+              "Dana"
+            ],
+            "values": [
+              20,
+              35,
+              55,
+              80
+            ]
+          },
+          {
+            "tangible_id": "bar_graph_books",
+            "description": "Vertical bar graph showing Books Read This Month data with scale of 10, axis 0–80, 9 tick marks.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Aisha",
+              "Ben",
+              "Carlos",
+              "Dana"
+            ],
+            "values": [
+              20,
+              35,
+              55,
+              80
+            ],
+            "axis_range": [
+              0,
+              80
+            ],
+            "scale": 10
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:00:47.803072+00:00"
+    "_generated_at": "2026-05-05T18:16:40.973093+00:00"
   },
   {
     "id": "s2_1_all_scales_fit_small_data",
@@ -2357,7 +2811,19 @@ Cacheable: Yes
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
-          "description": "Data table appears. Marbles in Jars context. Jar A: 7, Jar B: 12, Jar C: 19, Jar D: 23."
+          "categories": [
+            "Jar A",
+            "Jar B",
+            "Jar C",
+            "Jar D"
+          ],
+          "values": [
+            7,
+            12,
+            19,
+            23
+          ],
+          "description": "Horizontal data table appears showing Marbles in Jars data: Jar A: 7, Jar B: 12, Jar C: 19, Jar D: 23."
         }
       },
       {
@@ -2374,25 +2840,49 @@ Cacheable: Yes
             "Jar C",
             "Jar D"
           ],
+          "values": [
+            7,
+            12,
+            19,
+            23
+          ],
+          "scale": null,
+          "axis_range": [
+            0,
+            23
+          ],
           "scale_selector_visible": true,
-          "description": "Horizontal bar graph frame appears with scale selector showing all four scale buttons. No bars displayed yet."
-        }
+          "description": "Scale selector panel appears with all four scale buttons (1, 2, 5, 10) visible. No graph bars displayed yet."
+        },
+        "flag": "placeholder — Scale Preview System not yet fully specced; using bar_graph with scale_selector_visible based on UX context"
       },
       {
         "type": "dialogue",
-        "text": "Here's data about marbles. Look at the biggest number: 23. That's pretty small!"
+        "text": "Here's data about marbles. Look at the biggest number—23. That's pretty small!"
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Data table showing Marbles in Jars values.",
-            "tangible_type": "data_table"
+            "description": "Horizontal data table showing Marbles in Jars data: Jar A: 7, Jar B: 12, Jar C: 19, Jar D: 23.",
+            "tangible_type": "data_table",
+            "categories": [
+              "Jar A",
+              "Jar B",
+              "Jar C",
+              "Jar D"
+            ],
+            "values": [
+              7,
+              12,
+              19,
+              23
+            ]
           },
           {
             "tangible_id": "bar_graph_marbles",
-            "description": "Horizontal bar graph frame with scale selector. Four scale buttons visible. No bars displayed yet.",
+            "description": "Scale selector panel with four scale buttons visible. No bars displayed yet.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "horizontal",
@@ -2402,13 +2892,23 @@ Cacheable: Yes
               "Jar C",
               "Jar D"
             ],
-            "scale_selector_visible": true
+            "values": [
+              7,
+              12,
+              19,
+              23
+            ],
+            "scale": null,
+            "axis_range": [
+              0,
+              23
+            ]
           }
         ]
       },
       {
         "type": "dialogue",
-        "text": "This graph is horizontal — the bars go sideways. Let's check: which scales fit? Try clicking each scale."
+        "text": "This graph is horizontal—the bars go sideways. Let's check: which scales fit? Try clicking each scale."
       },
       {
         "type": "prompt",
@@ -2419,12 +2919,12 @@ Cacheable: Yes
           {
             "condition_id": "explored_all_scales",
             "condition": {},
-            "description": "Student explored all four scales. All fit.",
+            "description": "Student explored all four scale options (1, 2, 5, 10) and observed that all fit the data range 0-23",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "All four scales fit!"
+                "text": "You checked them all. All four scales fit!"
               }
             ]
           }
@@ -2435,12 +2935,24 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Data table showing Marbles in Jars values.",
-            "tangible_type": "data_table"
+            "description": "Horizontal data table showing Marbles in Jars data: Jar A: 7, Jar B: 12, Jar C: 19, Jar D: 23.",
+            "tangible_type": "data_table",
+            "categories": [
+              "Jar A",
+              "Jar B",
+              "Jar C",
+              "Jar D"
+            ],
+            "values": [
+              7,
+              12,
+              19,
+              23
+            ]
           },
           {
             "tangible_id": "bar_graph_marbles",
-            "description": "Horizontal bar graph with scale selector. All four scale options previewed, all showing fit indicator.",
+            "description": "Scale selector panel showing all four scale buttons with checkmarks indicating all scales fit. Student has explored all options.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "horizontal",
@@ -2450,13 +2962,23 @@ Cacheable: Yes
               "Jar C",
               "Jar D"
             ],
-            "scale_selector_visible": true
+            "values": [
+              7,
+              12,
+              19,
+              23
+            ],
+            "scale": null,
+            "axis_range": [
+              0,
+              23
+            ]
           }
         ]
       },
       {
         "type": "dialogue",
-        "text": "Let's look at Scale of 1."
+        "text": "All four scales fit! Let's look at Scale of 1."
       },
       {
         "type": "prompt",
@@ -2469,7 +2991,7 @@ Cacheable: Yes
             "condition": {
               "selected": 1
             },
-            "description": "Student selected Scale of 1.",
+            "description": "Student clicked Scale of 1 button",
             "is_correct": true,
             "beats": [
               {
@@ -2478,16 +3000,13 @@ Cacheable: Yes
                 "tangible_id": "bar_graph_marbles",
                 "params": {
                   "scale": 1,
-                  "axis_range": [
-                    0,
-                    23
-                  ],
-                  "description": "Bar graph displays with Scale of 1. All bars fit. Axis shows 24 tick marks (0 through 23)."
+                  "tick_marks": 24,
+                  "description": "Horizontal bar graph displays with scale of 1. All four bars fit correctly, but axis shows 24 tick marks (0 through 23)."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "It works — every number lands exactly. But look at all those lines on the side! Small data means all scales fit. But some are cleaner than others."
+                "text": "It works—every number lands exactly. But look at all those lines on the side!"
               }
             ]
           }
@@ -2498,12 +3017,24 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Data table showing Marbles in Jars values.",
-            "tangible_type": "data_table"
+            "description": "Horizontal data table showing Marbles in Jars data: Jar A: 7, Jar B: 12, Jar C: 19, Jar D: 23.",
+            "tangible_type": "data_table",
+            "categories": [
+              "Jar A",
+              "Jar B",
+              "Jar C",
+              "Jar D"
+            ],
+            "values": [
+              7,
+              12,
+              19,
+              23
+            ]
           },
           {
             "tangible_id": "bar_graph_marbles",
-            "description": "Horizontal bar graph. Scale of 1. Bars for Jar A: 7, Jar B: 12, Jar C: 19, Jar D: 23. Axis displays 24 tick marks (0-23).",
+            "description": "Horizontal bar graph with scale of 1. All four bars displayed (Jar A: 7, Jar B: 12, Jar C: 19, Jar D: 23). Axis shows 24 tick marks from 0 to 23.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "horizontal",
@@ -2513,17 +3044,23 @@ Cacheable: Yes
               "Jar C",
               "Jar D"
             ],
+            "values": [
+              7,
+              12,
+              19,
+              23
+            ],
             "scale": 1,
             "axis_range": [
               0,
               23
             ],
-            "scale_selector_visible": true
+            "tick_marks": 24
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:01:04.722189+00:00"
+    "_generated_at": "2026-05-05T18:17:11.337152+00:00"
   },
   {
     "id": "s2_2_but_which_is_best_efficiency",
@@ -2531,36 +3068,65 @@ Cacheable: Yes
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "bar_graph_marbles",
-        "tangible_type": "bar_graph",
+        "tangible_id": "data_table",
+        "tangible_type": "data_table",
         "params": {
-          "mode": "reading",
-          "orientation": "vertical",
-          "categories": [
-            "Jar A",
-            "Jar B",
-            "Jar C"
-          ],
-          "scale": 1,
-          "axis_range": [
-            0,
-            24
-          ],
-          "description": "Vertical bar graph appears. Marbles data. Jar A=7, Jar B=24, Jar C=19. Scale of 1 active. 24 tick marks visible on vertical axis."
+          "description": "Data table appears showing Marbles in Jars data: Jar A=7, Jar B=12, Jar C=19, Jar D=23."
         }
       },
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "data_table",
-        "tangible_type": "data_table",
+        "tangible_id": "bar_graph_marbles",
+        "tangible_type": "bar_graph",
         "params": {
-          "description": "Data table showing Marbles values alongside graph."
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Jar A",
+            "Jar B",
+            "Jar C",
+            "Jar D"
+          ],
+          "axis_range": [
+            0,
+            23
+          ],
+          "scale": 1,
+          "description": "Horizontal bar graph appears. Marbles in Jars data. Scale of 1, axis 0–23 with 24 tick marks visible."
         }
       },
       {
         "type": "dialogue",
         "text": "Scale of 1 works, but that's a lot of lines. You learned bigger scales are usually easier to read."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing Marbles in Jars values: Jar A=7, Jar B=12, Jar C=19, Jar D=23.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "bar_graph_marbles",
+            "description": "Horizontal bar graph. Marbles in Jars. Scale of 1, axis 0–23, 24 tick marks. Four bars displayed.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Jar A",
+              "Jar B",
+              "Jar C",
+              "Jar D"
+            ],
+            "axis_range": [
+              0,
+              23
+            ],
+            "scale": 1
+          }
+        ]
       },
       {
         "type": "dialogue",
@@ -2581,7 +3147,21 @@ Cacheable: Yes
             "is_correct": true,
             "beats": [
               {
-                "type": "empty"
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_marbles",
+                "params": {
+                  "scale": 10,
+                  "axis_range": [
+                    0,
+                    30
+                  ],
+                  "warning_indicators": [
+                    "Jar A",
+                    "Jar C"
+                  ],
+                  "description": "Graph updates to scale of 10. Bars appear with ⚠️ indicators on Jar A and Jar C. Jar A (7) between 0 and 10. Jar C (19) between 10 and 20. Axis shows 0, 10, 20, 30—3 tick marks."
+                }
               }
             ]
           }
@@ -2591,55 +3171,71 @@ Cacheable: Yes
         "type": "current_scene",
         "elements": [
           {
+            "tangible_id": "data_table",
+            "description": "Data table showing Marbles in Jars values: Jar A=7, Jar B=12, Jar C=19, Jar D=23.",
+            "tangible_type": "data_table"
+          },
+          {
             "tangible_id": "bar_graph_marbles",
-            "description": "Vertical bar graph. Scale of 1 active. Marbles data. 24 tick marks visible.",
+            "description": "Horizontal bar graph. Marbles in Jars. Scale of 10, axis 0–30, 4 tick marks. ⚠️ indicators on Jar A and Jar C bars.",
             "tangible_type": "bar_graph",
             "mode": "reading",
-            "orientation": "vertical",
+            "orientation": "horizontal",
             "categories": [
               "Jar A",
               "Jar B",
-              "Jar C"
+              "Jar C",
+              "Jar D"
             ],
-            "scale": 1,
             "axis_range": [
               0,
-              24
-            ]
-          },
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing Marbles values.",
-            "tangible_type": "data_table"
+              30
+            ],
+            "scale": 10
           }
         ]
       },
       {
+        "type": "dialogue",
+        "text": "Hmm. Scale of 10 fits, but there are only 3 marks on the axis. Look at those warnings. Can you tell the exact value of where those bars end? Someone looking at our graph without the data table would need to guess how many marbles are shown."
+      },
+      {
         "type": "scene",
-        "method": "update",
+        "method": "animate",
         "tangible_id": "bar_graph_marbles",
         "params": {
-          "scale": 10,
-          "axis_range": [
-            0,
-            30
-          ],
-          "warnings": [
-            {
-              "category": "Jar A",
-              "message": "7 won't land exactly on a line or in the middle"
-            },
-            {
-              "category": "Jar C",
-              "message": "19 won't land exactly on a line or in the middle"
-            }
-          ],
-          "description": "Scale changes to 10. Axis shows 0, 10, 20, 30. Bars appear. Jar A (7) between 0 and 10. Jar C (19) between 10 and 20. ⚠️ indicators on Jar A and Jar C."
+          "event": "show_warning_message",
+          "status": "confirmed",
+          "description": "⚠️ on Jar A highlights with message: '7 won't land exactly on a line or in the middle.'"
         }
       },
       {
-        "type": "dialogue",
-        "text": "Hmm. Scale of 10 fits, but there are only 3 marks on the axis. Look at those warnings. Can you tell the exact value of where those bars end? Someone looking at our graph without the data table would need to guess how many marbles are shown."
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing Marbles in Jars values: Jar A=7, Jar B=12, Jar C=19, Jar D=23.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "bar_graph_marbles",
+            "description": "Horizontal bar graph. Marbles in Jars. Scale of 10, axis 0–30. ⚠️ on Jar A showing exactness warning message.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Jar A",
+              "Jar B",
+              "Jar C",
+              "Jar D"
+            ],
+            "axis_range": [
+              0,
+              30
+            ],
+            "scale": 10
+          }
+        ]
       },
       {
         "type": "dialogue",
@@ -2653,31 +3249,32 @@ Cacheable: Yes
         "type": "current_scene",
         "elements": [
           {
+            "tangible_id": "data_table",
+            "description": "Data table showing Marbles in Jars values: Jar A=7, Jar B=12, Jar C=19, Jar D=23.",
+            "tangible_type": "data_table"
+          },
+          {
             "tangible_id": "bar_graph_marbles",
-            "description": "Vertical bar graph. Scale of 10 active. Marbles data. Axis shows 0, 10, 20, 30. Jar A and Jar C have ⚠️ indicators showing values don't land exactly.",
+            "description": "Horizontal bar graph. Marbles in Jars. Scale of 10, axis 0–30, 4 tick marks. ⚠️ indicators on Jar A and Jar C.",
             "tangible_type": "bar_graph",
             "mode": "reading",
-            "orientation": "vertical",
+            "orientation": "horizontal",
             "categories": [
               "Jar A",
               "Jar B",
-              "Jar C"
+              "Jar C",
+              "Jar D"
             ],
-            "scale": 10,
             "axis_range": [
               0,
               30
-            ]
-          },
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing Marbles values.",
-            "tangible_type": "data_table"
+            ],
+            "scale": 10
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:01:24.686801+00:00"
+    "_generated_at": "2026-05-05T18:17:48.653871+00:00"
   },
   {
     "id": "s2_3_scale_2_works_non_multiples",
@@ -2685,26 +3282,54 @@ Cacheable: Yes
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "bar_graph_marbles",
-        "tangible_type": "bar_graph",
+        "tangible_id": "data_table",
+        "tangible_type": "data_table",
         "params": {
-          "mode": "reading",
-          "orientation": "vertical",
           "categories": [
-            "Red",
-            "Blue",
-            "Green",
-            "Yellow"
+            "Jar A",
+            "Jar B",
+            "Jar C",
+            "Jar D"
           ],
           "values": [
             7,
             12,
-            9,
-            5
+            19,
+            23
           ],
-          "current_scale": 10,
-          "scale_selector_active": true,
-          "description": "Vertical bar graph appears. Marbles data. Red=7, Blue=12, Green=9, Yellow=5. Currently showing Scale of 10. Scale selector interactive."
+          "description": "Data table appears. Marbles in Jars. Jar A=7, Jar B=12, Jar C=19, Jar D=23."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_marbles",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Jar A",
+            "Jar B",
+            "Jar C",
+            "Jar D"
+          ],
+          "values": [
+            7,
+            12,
+            19,
+            23
+          ],
+          "scale": 10,
+          "axis_range": [
+            0,
+            30
+          ],
+          "warning_categories": [
+            "Jar A",
+            "Jar C"
+          ],
+          "description": "Horizontal bar graph appears. Marbles in Jars data. Scale of 10. Axis 0–30. Warning indicators on Jar A and Jar C bars (values 7 and 19 do not land exactly on tick marks or midpoints)."
         }
       },
       {
@@ -2722,18 +3347,21 @@ Cacheable: Yes
             "condition": {
               "selected": 2
             },
-            "description": "Student clicked Scale of 2 button",
+            "description": "Student clicked Scale of 2 button. Preview displays: all bars land exactly, checkmark indicator, no warnings.",
             "is_correct": true,
             "beats": [
               {
                 "type": "scene",
-                "method": "animate",
+                "method": "update",
                 "tangible_id": "bar_graph_marbles",
                 "params": {
-                  "event": "preview_scale_transition",
-                  "status": "confirmed",
-                  "new_scale": 2,
-                  "description": "Scale transitions to 2. All bars land exactly on tick marks. Green checkmark indicator appears. No warnings."
+                  "scale": 2,
+                  "axis_range": [
+                    0,
+                    24
+                  ],
+                  "warning_categories": [],
+                  "description": "Graph updates to Scale of 2. Axis 0–24 with 13 tick marks. All bars land exactly. Checkmark indicator appears. No warnings."
                 }
               },
               {
@@ -2744,24 +3372,45 @@ Cacheable: Yes
                 "type": "current_scene",
                 "elements": [
                   {
-                    "tangible_id": "bar_graph_marbles",
-                    "description": "Vertical bar graph showing Scale of 2. Marbles data. All bars land exactly on tick marks. Green checkmark visible.",
-                    "tangible_type": "bar_graph",
-                    "mode": "reading",
-                    "orientation": "vertical",
+                    "tangible_id": "data_table",
+                    "description": "Data table showing Marbles in Jars. Jar A=7, Jar B=12, Jar C=19, Jar D=23.",
+                    "tangible_type": "data_table",
                     "categories": [
-                      "Red",
-                      "Blue",
-                      "Green",
-                      "Yellow"
+                      "Jar A",
+                      "Jar B",
+                      "Jar C",
+                      "Jar D"
                     ],
                     "values": [
                       7,
                       12,
-                      9,
-                      5
+                      19,
+                      23
+                    ]
+                  },
+                  {
+                    "tangible_id": "bar_graph_marbles",
+                    "description": "Horizontal bar graph. Marbles in Jars. Scale of 2. Axis 0–24. All bars land exactly. Checkmark indicator visible. No warnings.",
+                    "tangible_type": "bar_graph",
+                    "mode": "reading",
+                    "orientation": "horizontal",
+                    "categories": [
+                      "Jar A",
+                      "Jar B",
+                      "Jar C",
+                      "Jar D"
                     ],
-                    "current_scale": 2
+                    "values": [
+                      7,
+                      12,
+                      19,
+                      23
+                    ],
+                    "scale": 2,
+                    "axis_range": [
+                      0,
+                      24
+                    ]
                   }
                 ]
               }
@@ -2773,25 +3422,49 @@ Cacheable: Yes
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "bar_graph_marbles",
-            "description": "Vertical bar graph in reading mode. Marbles data showing Scale of 10. Scale selector active with Scale of 2 option available.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "vertical",
+            "tangible_id": "data_table",
+            "description": "Data table showing Marbles in Jars. Jar A=7, Jar B=12, Jar C=19, Jar D=23.",
+            "tangible_type": "data_table",
             "categories": [
-              "Red",
-              "Blue",
-              "Green",
-              "Yellow"
+              "Jar A",
+              "Jar B",
+              "Jar C",
+              "Jar D"
             ],
             "values": [
               7,
               12,
-              9,
-              5
+              19,
+              23
+            ]
+          },
+          {
+            "tangible_id": "bar_graph_marbles",
+            "description": "Horizontal bar graph. Marbles in Jars. Scale of 10 active. Axis 0–30. Warning indicators on Jar A and Jar C. Scale selector interactive.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Jar A",
+              "Jar B",
+              "Jar C",
+              "Jar D"
             ],
-            "current_scale": 10,
-            "scale_selector_active": true
+            "values": [
+              7,
+              12,
+              19,
+              23
+            ],
+            "scale": 10,
+            "axis_range": [
+              0,
+              30
+            ],
+            "warning_categories": [
+              "Jar A",
+              "Jar C"
+            ]
           }
         ]
       },
@@ -2807,29 +3480,50 @@ Cacheable: Yes
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "bar_graph_marbles",
-            "description": "Vertical bar graph showing Scale of 2. Marbles data. All bars land exactly on tick marks.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "vertical",
+            "tangible_id": "data_table",
+            "description": "Data table showing Marbles in Jars. Jar A=7, Jar B=12, Jar C=19, Jar D=23.",
+            "tangible_type": "data_table",
             "categories": [
-              "Red",
-              "Blue",
-              "Green",
-              "Yellow"
+              "Jar A",
+              "Jar B",
+              "Jar C",
+              "Jar D"
             ],
             "values": [
               7,
               12,
-              9,
-              5
+              19,
+              23
+            ]
+          },
+          {
+            "tangible_id": "bar_graph_marbles",
+            "description": "Horizontal bar graph. Marbles in Jars. Scale of 2. Axis 0–24. All bars land exactly. Checkmark indicator visible.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "categories": [
+              "Jar A",
+              "Jar B",
+              "Jar C",
+              "Jar D"
             ],
-            "current_scale": 2
+            "values": [
+              7,
+              12,
+              19,
+              23
+            ],
+            "scale": 2,
+            "axis_range": [
+              0,
+              24
+            ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:01:38.476125+00:00"
+    "_generated_at": "2026-05-05T18:18:19.240081+00:00"
   },
   {
     "id": "s2_4_digit_pattern_recognition_shortcut",
@@ -2837,50 +3531,96 @@ Cacheable: Yes
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "dataset_a",
+        "tangible_id": "dataset_a_display",
         "tangible_type": "image",
         "params": {
-          "description": "Data Set A displayed on left side. Values: 20, 35, 55, 80. Label: 'Ones digits: 0 or 5'."
-        }
+          "description": "Left panel labeled 'Data Set A' shows four values: 20, 35, 55, 80 with annotation 'Ones digits: 0 or 5'."
+        },
+        "flag": "placeholder — image toy spec not yet defined; using as static visual display"
       },
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "dataset_b",
+        "tangible_id": "dataset_b_display",
         "tangible_type": "image",
         "params": {
-          "description": "Data Set B displayed on right side. Values: 7, 12, 19, 23. Label: 'Ones digits: 7, 2, 9, 3'."
-        }
+          "description": "Right panel labeled 'Data Set B' shows four values: 7, 12, 19, 23 with annotation 'Ones digits: 7, 2, 9, 3'."
+        },
+        "flag": "placeholder — image toy spec not yet defined; using as static visual display"
       },
       {
         "type": "dialogue",
         "text": "Here's a quick way to know if you need Scale of 2. Check the last digit of each number in the ones place."
       },
       {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "dataset_a_display",
+            "description": "Left panel: Data Set A showing 20, 35, 55, 80 labeled 'Ones digits: 0 or 5'.",
+            "tangible_type": "image"
+          },
+          {
+            "tangible_id": "dataset_b_display",
+            "description": "Right panel: Data Set B showing 7, 12, 19, 23 labeled 'Ones digits: 7, 2, 9, 3'.",
+            "tangible_type": "image"
+          }
+        ]
+      },
+      {
         "type": "dialogue",
         "text": "Numbers that end in 0 or 5—like 20, 35, 55, 80—those are multiples of 5 and can be shown clearly with Scales of 5 and 10."
       },
       {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "dataset_a_display",
+            "description": "Left panel: Data Set A showing 20, 35, 55, 80 labeled 'Ones digits: 0 or 5'.",
+            "tangible_type": "image"
+          },
+          {
+            "tangible_id": "dataset_b_display",
+            "description": "Right panel: Data Set B showing 7, 12, 19, 23 labeled 'Ones digits: 7, 2, 9, 3'.",
+            "tangible_type": "image"
+          }
+        ]
+      },
+      {
         "type": "dialogue",
-        "text": "But look at 7, 12, 19, 23. See the digits in the ones place? 7, 2, 9, 3. None are 0 or 5—that tells you they aren't multiples of 5 so Scale of 2 might be your best choice. Check our groups. Which data set has last digits that are NOT 0 or 5?"
+        "text": "But look at 7, 12, 19, 23. See the digits in the ones place? 7, 2, 9, 3. None are 0 or 5—that tells you they aren't multiples of 5 so Scale of 2 might be your best choice."
+      },
+      {
+        "type": "dialogue",
+        "text": "Check our groups. Which data set has last digits that are NOT 0 or 5?"
       },
       {
         "type": "prompt",
         "text": "Which data set has last digits that are NOT 0 or 5?",
-        "tool": "multiple_choice",
-        "options": [
-          "Data Set A",
-          "Data Set B"
+        "tool": "click_tangible",
+        "target": [
+          "dataset_a_display",
+          "dataset_b_display"
         ],
         "validator": [
           {
             "condition_id": "correct",
             "condition": {
-              "selected": "Data Set B"
+              "selected": "dataset_b_display"
             },
-            "description": "Student selected Data Set B (7, 12, 19, 23), correct",
+            "description": "Student clicked Data Set B (7, 12, 19, 23), correct",
             "is_correct": true,
             "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "dataset_b_display",
+                "params": {
+                  "event": "highlight",
+                  "status": "confirmed",
+                  "description": "Data Set B panel highlights to confirm selection."
+                }
+              },
               {
                 "type": "dialogue",
                 "text": "Right. Look at those last digits: 7, 2, 9, 3. None are 0 or 5—that's your Scale of 2 signal."
@@ -2893,19 +3633,19 @@ Cacheable: Yes
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "dataset_a",
-            "description": "Data Set A on left. Values: 20, 35, 55, 80. Label: 'Ones digits: 0 or 5'.",
+            "tangible_id": "dataset_a_display",
+            "description": "Left panel: Data Set A showing 20, 35, 55, 80 labeled 'Ones digits: 0 or 5'.",
             "tangible_type": "image"
           },
           {
-            "tangible_id": "dataset_b",
-            "description": "Data Set B on right. Values: 7, 12, 19, 23. Label: 'Ones digits: 7, 2, 9, 3'.",
+            "tangible_id": "dataset_b_display",
+            "description": "Right panel: Data Set B showing 7, 12, 19, 23 labeled 'Ones digits: 7, 2, 9, 3'. Click target active.",
             "tangible_type": "image"
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:01:48.193876+00:00"
+    "_generated_at": "2026-05-05T18:18:44.644052+00:00"
   },
   {
     "id": "s2_5_practice_with_non_multiples",
@@ -2929,8 +3669,7 @@ Cacheable: Yes
             8,
             31
           ],
-          "title": "Points Scored",
-          "description": "Vertical data table appears. Points Scored data. Round 1: 22, Round 2: 15, Round 3: 8, Round 4: 31."
+          "description": "Vertical data table appears. Points Scored. Round 1: 22, Round 2: 15, Round 3: 8, Round 4: 31."
         }
       },
       {
@@ -2942,7 +3681,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Vertical data table showing Points Scored data. Round 1: 22, Round 2: 15, Round 3: 8, Round 4: 31.",
+            "description": "Vertical data table showing Points Scored. Round 1: 22, Round 2: 15, Round 3: 8, Round 4: 31.",
             "tangible_type": "data_table",
             "orientation": "vertical",
             "categories": [
@@ -2963,29 +3702,6 @@ Cacheable: Yes
       {
         "type": "dialogue",
         "text": "Check the ones place digits: 2, 5, 8, 1. Do they all end in 0 or 5?"
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "data_table",
-            "description": "Vertical data table showing Points Scored data. Round 1: 22, Round 2: 15, Round 3: 8, Round 4: 31.",
-            "tangible_type": "data_table",
-            "orientation": "vertical",
-            "categories": [
-              "Round 1",
-              "Round 2",
-              "Round 3",
-              "Round 4"
-            ],
-            "values": [
-              22,
-              15,
-              8,
-              31
-            ]
-          }
-        ]
       },
       {
         "type": "dialogue",
@@ -3031,13 +3747,63 @@ Cacheable: Yes
                     31
                   ],
                   "scale": 2,
-                  "title": "Points Scored",
-                  "description": "Vertical bar graph appears with scale of 2. Points Scored data. Round 1: 22, Round 2: 15, Round 3: 8, Round 4: 31. All bars fit well, exact values clear."
+                  "axis_range": [
+                    0,
+                    32
+                  ],
+                  "description": "Vertical bar graph appears. Points Scored. Scale of 2. Round 1: 22, Round 2: 15, Round 3: 8, Round 4: 31. All bars land exactly on tick marks."
                 }
               },
               {
                 "type": "dialogue",
                 "text": "Scale of 2. All of the bars fit well on the graph and their exact values are clear."
+              },
+              {
+                "type": "current_scene",
+                "elements": [
+                  {
+                    "tangible_id": "data_table",
+                    "description": "Vertical data table showing Points Scored. Round 1: 22, Round 2: 15, Round 3: 8, Round 4: 31.",
+                    "tangible_type": "data_table",
+                    "orientation": "vertical",
+                    "categories": [
+                      "Round 1",
+                      "Round 2",
+                      "Round 3",
+                      "Round 4"
+                    ],
+                    "values": [
+                      22,
+                      15,
+                      8,
+                      31
+                    ]
+                  },
+                  {
+                    "tangible_id": "bar_graph_points",
+                    "description": "Vertical bar graph. Points Scored. Scale of 2. All bars land exactly on tick marks.",
+                    "tangible_type": "bar_graph",
+                    "mode": "reading",
+                    "orientation": "vertical",
+                    "categories": [
+                      "Round 1",
+                      "Round 2",
+                      "Round 3",
+                      "Round 4"
+                    ],
+                    "values": [
+                      22,
+                      15,
+                      8,
+                      31
+                    ],
+                    "scale": 2,
+                    "axis_range": [
+                      0,
+                      32
+                    ]
+                  }
+                ]
               }
             ]
           }
@@ -3048,7 +3814,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Vertical data table showing Points Scored data. Round 1: 22, Round 2: 15, Round 3: 8, Round 4: 31.",
+            "description": "Vertical data table showing Points Scored. Round 1: 22, Round 2: 15, Round 3: 8, Round 4: 31.",
             "tangible_type": "data_table",
             "orientation": "vertical",
             "categories": [
@@ -3068,27 +3834,15 @@ Cacheable: Yes
       },
       {
         "type": "scene",
-        "method": "add",
-        "tangible_id": "bar_graph_points_scale_1",
-        "tangible_type": "bar_graph",
+        "method": "update",
+        "tangible_id": "bar_graph_points",
         "params": {
-          "mode": "reading",
-          "orientation": "vertical",
-          "categories": [
-            "Round 1",
-            "Round 2",
-            "Round 3",
-            "Round 4"
-          ],
-          "values": [
-            22,
-            15,
-            8,
+          "scale": 1,
+          "axis_range": [
+            0,
             31
           ],
-          "scale": 1,
-          "title": "Points Scored",
-          "description": "Second vertical bar graph appears. Scale of 1. Same Points Scored data. Side-by-side comparison with Scale of 2 graph. Same height bars, only axis markings differ."
+          "description": "Bar graph updates to Scale of 1. Same Points Scored data."
         }
       },
       {
@@ -3100,7 +3854,7 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Vertical data table showing Points Scored data. Round 1: 22, Round 2: 15, Round 3: 8, Round 4: 31.",
+            "description": "Vertical data table showing Points Scored. Round 1: 22, Round 2: 15, Round 3: 8, Round 4: 31.",
             "tangible_type": "data_table",
             "orientation": "vertical",
             "categories": [
@@ -3118,7 +3872,7 @@ Cacheable: Yes
           },
           {
             "tangible_id": "bar_graph_points",
-            "description": "Vertical bar graph with Scale of 2. Points Scored data.",
+            "description": "Vertical bar graph. Points Scored. Scale of 1. All bars visible.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -3134,32 +3888,16 @@ Cacheable: Yes
               8,
               31
             ],
-            "scale": 2
-          },
-          {
-            "tangible_id": "bar_graph_points_scale_1",
-            "description": "Vertical bar graph with Scale of 1. Points Scored data. Side-by-side with Scale of 2 graph.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Round 1",
-              "Round 2",
-              "Round 3",
-              "Round 4"
-            ],
-            "values": [
-              22,
-              15,
-              8,
+            "scale": 1,
+            "axis_range": [
+              0,
               31
-            ],
-            "scale": 1
+            ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:02:07.520089+00:00"
+    "_generated_at": "2026-05-05T18:19:12.358465+00:00"
   },
   {
     "id": "s2_6_very_small_data_scale_1",
@@ -3170,6 +3908,20 @@ Cacheable: Yes
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
+          "orientation": "vertical",
+          "categories": [
+            "Mia",
+            "Noah",
+            "Olivia",
+            "Pete"
+          ],
+          "values": [
+            9,
+            5,
+            7,
+            3
+          ],
+          "title": "Stickers Earned Today",
           "description": "Vertical data table appears. Stickers Earned Today. Mia: 9, Noah: 5, Olivia: 7, Pete: 3."
         }
       },
@@ -3187,7 +3939,9 @@ Cacheable: Yes
             "Olivia",
             "Pete"
           ],
-          "description": "Vertical bar graph appears. Stickers Earned Today. Scale Preview System available. No bars showing yet."
+          "scale_selector_visible": true,
+          "bars_visible": false,
+          "description": "Vertical bar graph frame appears. Scale Preview System available. No bars showing yet."
         }
       },
       {
@@ -3195,35 +3949,8 @@ Cacheable: Yes
         "text": "Look at these numbers: 9, 5, 7, 3. They're really small!"
       },
       {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "data_table",
-            "description": "Vertical data table showing Stickers Earned Today values.",
-            "tangible_type": "data_table"
-          },
-          {
-            "tangible_id": "bar_graph_stickers",
-            "description": "Vertical bar graph. Stickers Earned Today. Scale Preview System available. No bars showing.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Mia",
-              "Noah",
-              "Olivia",
-              "Pete"
-            ]
-          }
-        ]
-      },
-      {
         "type": "dialogue",
         "text": "What happens if we try Scale of 10?"
-      },
-      {
-        "type": "dialogue",
-        "text": "Click Scale of 10."
       },
       {
         "type": "prompt",
@@ -3236,7 +3963,7 @@ Cacheable: Yes
             "condition": {
               "selected": 10
             },
-            "description": "Student clicked Scale of 10",
+            "description": "Student clicked Scale of 10 button",
             "is_correct": true,
             "beats": [
               {
@@ -3245,26 +3972,31 @@ Cacheable: Yes
                 "tangible_id": "bar_graph_stickers",
                 "params": {
                   "scale": 10,
-                  "description": "Scale of 10 applied. Tick marks at 0 and 10. Bars appear with warning indicators."
+                  "axis_range": [
+                    0,
+                    10
+                  ],
+                  "tick_marks": [
+                    0,
+                    10
+                  ],
+                  "bars_visible": true,
+                  "warning_indicators": [
+                    "Mia",
+                    "Noah",
+                    "Olivia",
+                    "Pete"
+                  ],
+                  "description": "Graph updates to Scale of 10. Only tick marks at 0 and 10. Bars appear with warning indicators."
                 }
-              },
-              {
-                "type": "dialogue",
-                "text": "The bars fit, but we don't know the exact value for any of the bars."
               },
               {
                 "type": "current_scene",
                 "elements": [
                   {
                     "tangible_id": "data_table",
-                    "description": "Vertical data table showing Stickers Earned Today values.",
-                    "tangible_type": "data_table"
-                  },
-                  {
-                    "tangible_id": "bar_graph_stickers",
-                    "description": "Vertical bar graph with Scale of 10. Tick marks at 0 and 10. Bars showing with warning indicators.",
-                    "tangible_type": "bar_graph",
-                    "mode": "reading",
+                    "description": "Vertical data table. Stickers Earned Today. Mia: 9, Noah: 5, Olivia: 7, Pete: 3.",
+                    "tangible_type": "data_table",
                     "orientation": "vertical",
                     "categories": [
                       "Mia",
@@ -3272,7 +4004,30 @@ Cacheable: Yes
                       "Olivia",
                       "Pete"
                     ],
-                    "scale": 10
+                    "values": [
+                      9,
+                      5,
+                      7,
+                      3
+                    ]
+                  },
+                  {
+                    "tangible_id": "bar_graph_stickers",
+                    "description": "Vertical bar graph. Scale 10. Axis 0-10 with tick marks at 0 and 10 only. All four bars show warning indicators.",
+                    "tangible_type": "bar_graph",
+                    "mode": "reading",
+                    "orientation": "vertical",
+                    "scale": 10,
+                    "axis_range": [
+                      0,
+                      10
+                    ],
+                    "categories": [
+                      "Mia",
+                      "Noah",
+                      "Olivia",
+                      "Pete"
+                    ]
                   }
                 ]
               }
@@ -3285,12 +4040,25 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Vertical data table showing Stickers Earned Today values.",
-            "tangible_type": "data_table"
+            "description": "Vertical data table. Stickers Earned Today. Mia: 9, Noah: 5, Olivia: 7, Pete: 3.",
+            "tangible_type": "data_table",
+            "orientation": "vertical",
+            "categories": [
+              "Mia",
+              "Noah",
+              "Olivia",
+              "Pete"
+            ],
+            "values": [
+              9,
+              5,
+              7,
+              3
+            ]
           },
           {
             "tangible_id": "bar_graph_stickers",
-            "description": "Vertical bar graph. Scale Preview System active. Student selecting scale option.",
+            "description": "Vertical bar graph. Scale Preview System active. No bars showing. Scale selection pending.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -3299,13 +4067,19 @@ Cacheable: Yes
               "Noah",
               "Olivia",
               "Pete"
-            ]
+            ],
+            "scale_selector_visible": true,
+            "bars_visible": false
           }
         ]
       },
       {
         "type": "dialogue",
-        "text": "Think about the numbers: 9, 5, 7, 3. They don't end in 0 or 5 so we know Scale of 2 is clearer to show any number. Click Scale of 2."
+        "text": "The bars fit, but we don't know the exact value for any of the bars."
+      },
+      {
+        "type": "dialogue",
+        "text": "Think about the numbers: 9, 5, 7, 3. They don't end in 0 or 5 so we know Scale of 2 is clearer to show any number. Click 'Scale of 2.'"
       },
       {
         "type": "prompt",
@@ -3318,7 +4092,7 @@ Cacheable: Yes
             "condition": {
               "selected": 2
             },
-            "description": "Student clicked Scale of 2",
+            "description": "Student clicked Scale of 2 button",
             "is_correct": true,
             "beats": [
               {
@@ -3327,26 +4101,30 @@ Cacheable: Yes
                 "tangible_id": "bar_graph_stickers",
                 "params": {
                   "scale": 2,
-                  "description": "Scale of 2 applied. All bars show check indicator. Clean graph with 0 to 10 range."
+                  "axis_range": [
+                    0,
+                    10
+                  ],
+                  "tick_marks": [
+                    0,
+                    2,
+                    4,
+                    6,
+                    8,
+                    10
+                  ],
+                  "bars_visible": true,
+                  "checkmark_indicator": true,
+                  "description": "Graph updates to Scale of 2. All bars show checkmark indicator. Clean graph with 0-10 range."
                 }
-              },
-              {
-                "type": "dialogue",
-                "text": "That's better! We can see the bars end at lines or exactly halfway. Scale of 2 could work."
               },
               {
                 "type": "current_scene",
                 "elements": [
                   {
                     "tangible_id": "data_table",
-                    "description": "Vertical data table showing Stickers Earned Today values.",
-                    "tangible_type": "data_table"
-                  },
-                  {
-                    "tangible_id": "bar_graph_stickers",
-                    "description": "Vertical bar graph with Scale of 2. All bars show check indicator. Clean graph with 0 to 10 range.",
-                    "tangible_type": "bar_graph",
-                    "mode": "reading",
+                    "description": "Vertical data table. Stickers Earned Today. Mia: 9, Noah: 5, Olivia: 7, Pete: 3.",
+                    "tangible_type": "data_table",
                     "orientation": "vertical",
                     "categories": [
                       "Mia",
@@ -3354,7 +4132,30 @@ Cacheable: Yes
                       "Olivia",
                       "Pete"
                     ],
-                    "scale": 2
+                    "values": [
+                      9,
+                      5,
+                      7,
+                      3
+                    ]
+                  },
+                  {
+                    "tangible_id": "bar_graph_stickers",
+                    "description": "Vertical bar graph. Scale 2. Axis 0-10. All bars land on tick marks or midpoints. Checkmark indicator visible.",
+                    "tangible_type": "bar_graph",
+                    "mode": "reading",
+                    "orientation": "vertical",
+                    "scale": 2,
+                    "axis_range": [
+                      0,
+                      10
+                    ],
+                    "categories": [
+                      "Mia",
+                      "Noah",
+                      "Olivia",
+                      "Pete"
+                    ]
                   }
                 ]
               }
@@ -3367,31 +4168,46 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Vertical data table showing Stickers Earned Today values.",
-            "tangible_type": "data_table"
-          },
-          {
-            "tangible_id": "bar_graph_stickers",
-            "description": "Vertical bar graph. Scale Preview System active. Student selecting scale option.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
+            "description": "Vertical data table. Stickers Earned Today. Mia: 9, Noah: 5, Olivia: 7, Pete: 3.",
+            "tangible_type": "data_table",
             "orientation": "vertical",
             "categories": [
               "Mia",
               "Noah",
               "Olivia",
               "Pete"
+            ],
+            "values": [
+              9,
+              5,
+              7,
+              3
             ]
+          },
+          {
+            "tangible_id": "bar_graph_stickers",
+            "description": "Vertical bar graph. Scale of 10 previously selected. Bars showing with warning indicators. Scale selector still active.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 10,
+            "axis_range": [
+              0,
+              10
+            ],
+            "categories": [
+              "Mia",
+              "Noah",
+              "Olivia",
+              "Pete"
+            ],
+            "scale_selector_visible": true
           }
         ]
       },
       {
         "type": "dialogue",
-        "text": "But when numbers are this small, you have another option. Try Scale of 1. What do you notice?"
-      },
-      {
-        "type": "dialogue",
-        "text": "Click Scale of 1."
+        "text": "That's better! We can see the bars end at lines or exactly halfway. Scale of 2 could work. But when numbers are this small, you have another option. Try Scale of 1. What do you notice?"
       },
       {
         "type": "prompt",
@@ -3404,7 +4220,7 @@ Cacheable: Yes
             "condition": {
               "selected": 1
             },
-            "description": "Student clicked Scale of 1",
+            "description": "Student clicked Scale of 1 button",
             "is_correct": true,
             "beats": [
               {
@@ -3413,30 +4229,35 @@ Cacheable: Yes
                 "tangible_id": "bar_graph_stickers",
                 "params": {
                   "scale": 1,
-                  "description": "Scale of 1 applied. All bars land exactly on tick marks. Check indicator showing. Clean graph with 0 to 10 range."
+                  "axis_range": [
+                    0,
+                    10
+                  ],
+                  "tick_marks": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10
+                  ],
+                  "bars_visible": true,
+                  "checkmark_indicator": true,
+                  "description": "Graph updates to Scale of 1. All bars land exactly on tick marks. Checkmark indicator. Clean graph with 0-10 range."
                 }
-              },
-              {
-                "type": "dialogue",
-                "text": "Every number lands right on a line. No halfway bars needed. We can read the graph accurately without having the data table."
-              },
-              {
-                "type": "dialogue",
-                "text": "For very small numbers, Scale of 1 can be a great choice: simple and exact."
               },
               {
                 "type": "current_scene",
                 "elements": [
                   {
                     "tangible_id": "data_table",
-                    "description": "Vertical data table showing Stickers Earned Today values.",
-                    "tangible_type": "data_table"
-                  },
-                  {
-                    "tangible_id": "bar_graph_stickers",
-                    "description": "Vertical bar graph with Scale of 1. All bars land exactly on tick marks. Check indicator showing. Clean graph with 0 to 10 range.",
-                    "tangible_type": "bar_graph",
-                    "mode": "reading",
+                    "description": "Vertical data table. Stickers Earned Today. Mia: 9, Noah: 5, Olivia: 7, Pete: 3.",
+                    "tangible_type": "data_table",
                     "orientation": "vertical",
                     "categories": [
                       "Mia",
@@ -3444,7 +4265,30 @@ Cacheable: Yes
                       "Olivia",
                       "Pete"
                     ],
-                    "scale": 1
+                    "values": [
+                      9,
+                      5,
+                      7,
+                      3
+                    ]
+                  },
+                  {
+                    "tangible_id": "bar_graph_stickers",
+                    "description": "Vertical bar graph. Scale 1. Axis 0-10. All bars land exactly on tick marks. Checkmark indicator visible.",
+                    "tangible_type": "bar_graph",
+                    "mode": "reading",
+                    "orientation": "vertical",
+                    "scale": 1,
+                    "axis_range": [
+                      0,
+                      10
+                    ],
+                    "categories": [
+                      "Mia",
+                      "Noah",
+                      "Olivia",
+                      "Pete"
+                    ]
                   }
                 ]
               }
@@ -3457,15 +4301,83 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Vertical data table showing Stickers Earned Today values.",
-            "tangible_type": "data_table"
+            "description": "Vertical data table. Stickers Earned Today. Mia: 9, Noah: 5, Olivia: 7, Pete: 3.",
+            "tangible_type": "data_table",
+            "orientation": "vertical",
+            "categories": [
+              "Mia",
+              "Noah",
+              "Olivia",
+              "Pete"
+            ],
+            "values": [
+              9,
+              5,
+              7,
+              3
+            ]
           },
           {
             "tangible_id": "bar_graph_stickers",
-            "description": "Vertical bar graph. Scale Preview System active. Student selecting scale option.",
+            "description": "Vertical bar graph. Scale of 2 currently displayed. Bars showing with checkmark indicator. Scale selector active.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
+            "scale": 2,
+            "axis_range": [
+              0,
+              10
+            ],
+            "categories": [
+              "Mia",
+              "Noah",
+              "Olivia",
+              "Pete"
+            ],
+            "scale_selector_visible": true
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "Every number lands right on a line. No halfway bars needed. We can read the graph accurately without having the data table."
+      },
+      {
+        "type": "dialogue",
+        "text": "For very small numbers, Scale of 1 can be a great choice—simple and exact."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Vertical data table. Stickers Earned Today. Mia: 9, Noah: 5, Olivia: 7, Pete: 3.",
+            "tangible_type": "data_table",
+            "orientation": "vertical",
+            "categories": [
+              "Mia",
+              "Noah",
+              "Olivia",
+              "Pete"
+            ],
+            "values": [
+              9,
+              5,
+              7,
+              3
+            ]
+          },
+          {
+            "tangible_id": "bar_graph_stickers",
+            "description": "Vertical bar graph. Scale 1. Axis 0-10 with all tick marks. All bars land exactly on lines.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 1,
+            "axis_range": [
+              0,
+              10
+            ],
             "categories": [
               "Mia",
               "Noah",
@@ -3476,7 +4388,7 @@ Cacheable: Yes
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:02:32.546504+00:00"
+    "_generated_at": "2026-05-05T18:19:58.163105+00:00"
   },
   {
     "id": "s3_1_independent_selection_multiples_5",
@@ -3487,7 +4399,7 @@ Cacheable: Yes
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
-          "orientation": "horizontal",
+          "orientation": "vertical",
           "categories": [
             "Dates",
             "Cherries",
@@ -3500,7 +4412,7 @@ Cacheable: Yes
             30,
             15
           ],
-          "description": "Vertical data table appears. Favorite Fruits data: Dates 60, Cherries 45, Bananas 30, Apples 15."
+          "description": "Vertical data table appears. Favorite Fruits data. Dates: 60, Cherries: 45, Bananas: 30, Apples: 15."
         }
       },
       {
@@ -3517,13 +4429,18 @@ Cacheable: Yes
             "Bananas",
             "Apples"
           ],
-          "scale_preview_active": true,
-          "available_scales": [
-            2,
-            5,
-            10
+          "values": [
+            60,
+            45,
+            30,
+            15
           ],
-          "description": "Horizontal bar graph placeholder with scale preview system available. All three scales (2, 5, 10) show checkmarks indicating they are valid options."
+          "scale": null,
+          "axis_range": [
+            0,
+            60
+          ],
+          "description": "Horizontal bar graph appears. Favorite Fruits data. Scale Preview System available—no scale selected yet."
         }
       },
       {
@@ -3531,13 +4448,36 @@ Cacheable: Yes
         "text": "Here's data about students' favorite fruits. The most votes went to Dates with 60. Scale of 1 doesn't make sense here because it would take 60 lines on the axis. That's too much!"
       },
       {
+        "type": "dialogue",
+        "text": "Your job: pick the right scale. Which scale will you use?"
+      },
+      {
+        "type": "prompt",
+        "text": "Explore the Scale Preview System with scales 2, 5, and 10.",
+        "tool": "click_scale_button",
+        "target": "bar_graph_fruits",
+        "validator": [
+          {
+            "condition_id": "explored_scales",
+            "condition": {},
+            "description": "Student explored scale options freely; all three scales (2, 5, 10) show checkmarks",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "empty"
+              }
+            ]
+          }
+        ]
+      },
+      {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Vertical data table showing Favorite Fruits data: Dates 60, Cherries 45, Bananas 30, Apples 15.",
+            "description": "Vertical data table. Favorite Fruits data. Dates: 60, Cherries: 45, Bananas: 30, Apples: 15.",
             "tangible_type": "data_table",
-            "orientation": "horizontal",
+            "orientation": "vertical",
             "categories": [
               "Dates",
               "Cherries",
@@ -3553,7 +4493,7 @@ Cacheable: Yes
           },
           {
             "tangible_id": "bar_graph_fruits",
-            "description": "Horizontal bar graph with scale preview system. All three scales (2, 5, 10) show checkmarks.",
+            "description": "Horizontal bar graph. Favorite Fruits data. Scale Preview System shows checkmarks for scales 2, 5, and 10.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "horizontal",
@@ -3563,18 +4503,22 @@ Cacheable: Yes
               "Bananas",
               "Apples"
             ],
-            "scale_preview_active": true,
-            "available_scales": [
-              2,
-              5,
-              10
+            "values": [
+              60,
+              45,
+              30,
+              15
+            ],
+            "axis_range": [
+              0,
+              60
             ]
           }
         ]
       },
       {
         "type": "dialogue",
-        "text": "Your job: pick the right scale. Which scale will you use?"
+        "text": "Which scale will you use?"
       },
       {
         "type": "prompt",
@@ -3595,8 +4539,45 @@ Cacheable: Yes
             "is_correct": true,
             "beats": [
               {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "bar_graph_fruits",
+                "params": {
+                  "scale": 10,
+                  "description": "Bar graph updates to Scale of 10. All bars land on tick marks."
+                }
+              },
+              {
                 "type": "dialogue",
                 "text": "Good choice."
+              }
+            ]
+          },
+          {
+            "condition_id": "scale_2",
+            "condition": {
+              "selected": "Scale of 2"
+            },
+            "description": "Student selected Scale of 2—works but not optimal for this data",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That scale could work, but check—all values end in 0 or 5. Which scale would be easiest to read?"
+              }
+            ]
+          },
+          {
+            "condition_id": "scale_5",
+            "condition": {
+              "selected": "Scale of 5"
+            },
+            "description": "Student selected Scale of 5—works but not optimal for this data",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That scale could work, but check—all values end in 0 or 5. Which scale would be easiest to read?"
               }
             ]
           }
@@ -3607,9 +4588,9 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Vertical data table showing Favorite Fruits data: Dates 60, Cherries 45, Bananas 30, Apples 15.",
+            "description": "Vertical data table. Favorite Fruits data. Dates: 60, Cherries: 45, Bananas: 30, Apples: 15.",
             "tangible_type": "data_table",
-            "orientation": "horizontal",
+            "orientation": "vertical",
             "categories": [
               "Dates",
               "Cherries",
@@ -3625,7 +4606,7 @@ Cacheable: Yes
           },
           {
             "tangible_id": "bar_graph_fruits",
-            "description": "Horizontal bar graph with scale preview system. Student has selected a scale option.",
+            "description": "Horizontal bar graph. Favorite Fruits data. Scale of 10 selected. All bars visible.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "horizontal",
@@ -3635,11 +4616,16 @@ Cacheable: Yes
               "Bananas",
               "Apples"
             ],
-            "scale_preview_active": true,
-            "available_scales": [
-              2,
-              5,
-              10
+            "values": [
+              60,
+              45,
+              30,
+              15
+            ],
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
             ]
           }
         ]
@@ -3677,12 +4663,24 @@ Cacheable: Yes
                 }
               ]
             },
-            "description": "Student selected all four options, correct",
+            "description": "Student selected all four reasons, correct",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
                 "text": "Exactly. All values are multiples of 5, so scales of 5 and 10 both work to read the graph clearly. For data going up to 60, Scale of 10 gives you a cleaner graph."
+              }
+            ]
+          },
+          {
+            "condition_id": "incomplete",
+            "condition": {},
+            "description": "Student did not select all four reasons",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Let's consider the questions we ask when choosing a scale. What is the biggest number? Does the data all fit? Look at all the numbers—do they end in 0 or 5 so we can find the exact location of the bars? What scale can we use for the best looking graph? All of these reasons help us choose the scale of 10."
               }
             ]
           }
@@ -3693,9 +4691,9 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Vertical data table showing Favorite Fruits data: Dates 60, Cherries 45, Bananas 30, Apples 15.",
+            "description": "Vertical data table. Favorite Fruits data. Dates: 60, Cherries: 45, Bananas: 30, Apples: 15.",
             "tangible_type": "data_table",
-            "orientation": "horizontal",
+            "orientation": "vertical",
             "categories": [
               "Dates",
               "Cherries",
@@ -3711,7 +4709,7 @@ Cacheable: Yes
           },
           {
             "tangible_id": "bar_graph_fruits",
-            "description": "Horizontal bar graph with scale preview system. Student has completed scale selection and justification.",
+            "description": "Horizontal bar graph. Favorite Fruits data. Scale of 10. All bars visible and landing on tick marks.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "horizontal",
@@ -3721,17 +4719,22 @@ Cacheable: Yes
               "Bananas",
               "Apples"
             ],
-            "scale_preview_active": true,
-            "available_scales": [
-              2,
-              5,
-              10
+            "values": [
+              60,
+              45,
+              30,
+              15
+            ],
+            "scale": 10,
+            "axis_range": [
+              0,
+              60
             ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:02:51.845424+00:00"
+    "_generated_at": "2026-05-05T18:20:37.223025+00:00"
   },
   {
     "id": "s3_2_selection_creation_non_multiples",
@@ -3742,22 +4745,25 @@ Cacheable: Yes
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
-          "description": "Vertical data table appears. Minutes of Practice data: Guitar 27, Piano 14, Violin 41, Drums 33."
+          "orientation": "vertical",
+          "categories": [
+            "Guitar",
+            "Piano",
+            "Violin",
+            "Drums"
+          ],
+          "values": [
+            27,
+            14,
+            41,
+            33
+          ],
+          "description": "Vertical data table appears. Minutes of Practice data. Guitar: 27, Piano: 14, Violin: 41, Drums: 33."
         }
       },
       {
         "type": "dialogue",
         "text": "Here's data about how many minutes students practiced their instruments."
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "data_table",
-            "description": "Vertical data table showing Minutes of Practice: Guitar 27, Piano 14, Violin 41, Drums 33.",
-            "tangible_type": "data_table"
-          }
-        ]
       },
       {
         "type": "dialogue",
@@ -3787,6 +4793,32 @@ Cacheable: Yes
                 "text": "Scale of 2. You saw that 14, 27, 33, 41 aren't multiples of 5 so we need scale of 2 to graph them precisely. Scale of 2 can work when the largest value is 41."
               }
             ]
+          },
+          {
+            "condition_id": "selected_scale_5_or_10",
+            "condition": {},
+            "description": "Student selected Scale of 5 or Scale of 10",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "These numbers aren't multiples of 5 so the values can't be shown exactly with that scale. Try scale of 2."
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_scale_1",
+            "condition": {
+              "selected": "Scale of 1"
+            },
+            "description": "Student selected Scale of 1",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "Scale of 1 lets us graph exact numbers, but the largest value is 41. That would be a lot of marks on the axis. Which scale would be exact and look cleaner?"
+              }
+            ]
           }
         ]
       },
@@ -3795,8 +4827,21 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Vertical data table showing Minutes of Practice: Guitar 27, Piano 14, Violin 41, Drums 33.",
-            "tangible_type": "data_table"
+            "description": "Vertical data table showing Minutes of Practice. Guitar: 27, Piano: 14, Violin: 41, Drums: 33.",
+            "tangible_type": "data_table",
+            "orientation": "vertical",
+            "categories": [
+              "Guitar",
+              "Piano",
+              "Violin",
+              "Drums"
+            ],
+            "values": [
+              27,
+              14,
+              41,
+              33
+            ]
           }
         ]
       },
@@ -3819,7 +4864,7 @@ Cacheable: Yes
             0,
             42
           ],
-          "description": "Vertical bar graph creation tool appears with Scale of 2 active. Minutes of Practice context. Gridlines visible at each tick mark. All bars at 0, ready for student to set heights."
+          "description": "Vertical bar graph creation tool appears. Minutes of Practice data. Scale of 2 active. Gridlines visible at each tick mark. All bars at zero height awaiting student input."
         }
       },
       {
@@ -3833,19 +4878,13 @@ Cacheable: Yes
         "target": "bar_graph_practice",
         "validator": [
           {
-            "condition_id": "correct",
-            "condition": {
-              "Guitar": 27,
-              "Piano": 14,
-              "Violin": 41,
-              "Drums": 33
-            },
-            "description": "Student set all 4 bars to correct heights: Guitar 27, Piano 14, Violin 41, Drums 33",
+            "condition_id": "all_bars_set",
+            "condition": {},
+            "description": "Student set all four bar heights",
             "is_correct": true,
             "beats": [
               {
-                "type": "dialogue",
-                "text": "You chose the right scale and created the graph. Every bar lands exactly where it should."
+                "type": "empty"
               }
             ]
           }
@@ -3856,12 +4895,25 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Vertical data table showing Minutes of Practice: Guitar 27, Piano 14, Violin 41, Drums 33.",
-            "tangible_type": "data_table"
+            "description": "Vertical data table showing Minutes of Practice. Guitar: 27, Piano: 14, Violin: 41, Drums: 33.",
+            "tangible_type": "data_table",
+            "orientation": "vertical",
+            "categories": [
+              "Guitar",
+              "Piano",
+              "Violin",
+              "Drums"
+            ],
+            "values": [
+              27,
+              14,
+              41,
+              33
+            ]
           },
           {
             "tangible_id": "bar_graph_practice",
-            "description": "Vertical bar graph with all 4 bars correctly placed: Guitar 27, Piano 14, Violin 41, Drums 33. Scale of 2. Gridlines visible.",
+            "description": "Vertical bar graph displays all 4 bars at correct heights. Guitar: 27, Piano: 14, Violin: 41, Drums: 33. Scale of 2, axis range 0-42.",
             "tangible_type": "bar_graph",
             "mode": "building",
             "orientation": "vertical",
@@ -3871,12 +4923,61 @@ Cacheable: Yes
               "Violin",
               "Drums"
             ],
-            "scale": 2
+            "scale": 2,
+            "axis_range": [
+              0,
+              42
+            ]
+          }
+        ]
+      },
+      {
+        "type": "dialogue",
+        "text": "You chose the right scale and created the graph. Every bar lands exactly where it should."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Vertical data table showing Minutes of Practice. Guitar: 27, Piano: 14, Violin: 41, Drums: 33.",
+            "tangible_type": "data_table",
+            "orientation": "vertical",
+            "categories": [
+              "Guitar",
+              "Piano",
+              "Violin",
+              "Drums"
+            ],
+            "values": [
+              27,
+              14,
+              41,
+              33
+            ]
+          },
+          {
+            "tangible_id": "bar_graph_practice",
+            "description": "Vertical bar graph displays all 4 bars at correct heights. Guitar: 27, Piano: 14, Violin: 41, Drums: 33. Scale of 2, axis range 0-42.",
+            "tangible_type": "bar_graph",
+            "mode": "building",
+            "orientation": "vertical",
+            "categories": [
+              "Guitar",
+              "Piano",
+              "Violin",
+              "Drums"
+            ],
+            "scale": 2,
+            "axis_range": [
+              0,
+              42
+            ]
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T17:03:06.756299+00:00"
+    "_generated_at": "2026-05-05T18:21:06.914050+00:00"
   },
   {
     "id": "s3_3_final_application",
@@ -3887,19 +4988,7 @@ Cacheable: Yes
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
-          "categories": [
-            "Red Team",
-            "Green Team",
-            "Yellow Team",
-            "Blue Team"
-          ],
-          "values": [
-            25,
-            55,
-            70,
-            40
-          ],
-          "description": "Data table appears showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40."
+          "description": "Data table appears. Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40."
         }
       },
       {
@@ -3907,36 +4996,18 @@ Cacheable: Yes
         "text": "Last one! Here are scores from four teams. Yellow Team won with 70 points."
       },
       {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40.",
-            "tangible_type": "data_table",
-            "categories": [
-              "Red Team",
-              "Green Team",
-              "Yellow Team",
-              "Blue Team"
-            ],
-            "values": [
-              25,
-              55,
-              70,
-              40
-            ]
-          }
-        ]
+        "type": "dialogue",
+        "text": "You've done this vertical and horizontal now. Same process every time: check the numbers, choose the scale."
       },
       {
         "type": "dialogue",
-        "text": "You've done this vertical and horizontal now. Same process every time: check the numbers, choose the scale."
+        "text": "Which scale works best for this data?"
       },
       {
         "type": "prompt",
         "text": "Which scale works best for this data?",
         "tool": "click_scale_button",
-        "target": "bar_graph_team_scores",
+        "target": "bar_graph_teams",
         "options": [
           1,
           2,
@@ -3949,7 +5020,7 @@ Cacheable: Yes
             "condition": {
               "selected": 10
             },
-            "description": "Student selected scale of 10, most efficient for this data",
+            "description": "Student selected Scale of 10, correct, most efficient for values ending in 0 or 5, range up to 70",
             "is_correct": true,
             "beats": [
               {
@@ -3957,87 +5028,46 @@ Cacheable: Yes
                 "text": "Good choice. All values end in 0 or 5, and the biggest is 70. Scale of 10 gives you a clean graph."
               }
             ]
-          }
-        ]
-      },
-      {
-        "type": "current_scene",
-        "elements": [
+          },
           {
-            "tangible_id": "data_table",
-            "description": "Data table showing Team Scores.",
-            "tangible_type": "data_table",
-            "categories": [
-              "Red Team",
-              "Green Team",
-              "Yellow Team",
-              "Blue Team"
-            ],
-            "values": [
-              25,
-              55,
-              70,
-              40
-            ]
-          }
-        ]
-      },
-      {
-        "type": "scene",
-        "method": "add",
-        "tangible_id": "bar_graph_team_scores",
-        "tangible_type": "bar_graph",
-        "params": {
-          "mode": "building",
-          "orientation": "horizontal",
-          "scale": 10,
-          "axis_range": [
-            0,
-            80
-          ],
-          "categories": [
-            "Red Team",
-            "Green Team",
-            "Yellow Team",
-            "Blue Team"
-          ],
-          "description": "Horizontal bar graph creation tool appears with scale of 10. Axis shows tick marks at 0, 10, 20, 30, 40, 50, 60, 70, 80. Empty bars ready for student to set heights."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "Now create the graph. Place each bar at the right length."
-      },
-      {
-        "type": "prompt",
-        "text": "Click to place the bar for Red Team (25 points).",
-        "tool": "click_to_set_height",
-        "target": "bar_graph_team_scores",
-        "validator": [
-          {
-            "condition_id": "correct",
+            "condition_id": "selected_scale_1_or_2",
             "condition": {
-              "bar_height": 25,
-              "category": "Red Team"
+              "selected": 1
             },
-            "description": "Student set Red Team bar to 25",
-            "is_correct": true,
+            "description": "Student selected Scale of 1, would need many axis lines",
+            "is_correct": false,
             "beats": [
               {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "bar_graph_team_scores",
-                "params": {
-                  "event": "lock_bar",
-                  "status": "confirmed",
-                  "category": "Red Team",
-                  "height": 25,
-                  "description": "Red Team bar locks at 25."
-                }
-              },
+                "type": "dialogue",
+                "text": "That would need a lot of lines on the axis. All the values end in 0 or 5—which bigger scale would be easier to read?"
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_scale_2",
+            "condition": {
+              "selected": 2
+            },
+            "description": "Student selected Scale of 2, would need many axis lines",
+            "is_correct": false,
+            "beats": [
               {
                 "type": "dialogue",
-                "text": "Right at 25, halfway between 20 and 30."
+                "text": "That would need a lot of lines on the axis. All the values end in 0 or 5—which bigger scale would be easier to read?"
+              }
+            ]
+          },
+          {
+            "condition_id": "selected_scale_5",
+            "condition": {
+              "selected": 5
+            },
+            "description": "Student selected Scale of 5, works but not most efficient given max value 70",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "That works! But notice the biggest value is 70. Scale of 10 would give you fewer lines and still show everything exactly."
               }
             ]
           }
@@ -4048,28 +5078,106 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Data table showing Team Scores.",
-            "tangible_type": "data_table",
-            "categories": [
-              "Red Team",
-              "Green Team",
-              "Yellow Team",
-              "Blue Team"
-            ],
-            "values": [
-              25,
-              55,
-              70,
-              40
+            "description": "Data table showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "bar_graph_teams",
+            "description": "Bar graph (horizontal orientation, building mode) with scale selection active. Team Scores dataset. Scale Preview System available.",
+            "tangible_type": "bar_graph",
+            "mode": "building",
+            "orientation": "horizontal"
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "update",
+        "tangible_id": "bar_graph_teams",
+        "params": {
+          "mode": "building",
+          "scale": 10,
+          "axis_range": [
+            0,
+            80
+          ],
+          "description": "Bar graph updates to building mode with Scale of 10 active. Horizontal orientation. Axis 0–80 showing tick marks at 0, 10, 20, 30, 40, 50, 60, 70, 80. Empty graph ready for bar placement."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "Now create the graph. Place each bar at the right length."
+      },
+      {
+        "type": "dialogue",
+        "text": "Click to place the bar for Red Team at 25 points."
+      },
+      {
+        "type": "prompt",
+        "text": "Click to place the bar for Red Team at 25 points.",
+        "tool": "click_to_set_height",
+        "target": "bar_graph_teams",
+        "validator": [
+          {
+            "condition_id": "correct",
+            "condition": {
+              "bar_height": 25,
+              "category": "Red Team"
+            },
+            "description": "Student set Red Team bar to 25, correct",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "bar_graph_teams",
+                "params": {
+                  "event": "lock_bar",
+                  "status": "confirmed",
+                  "description": "Red Team bar locks at 25.",
+                  "category": "Red Team",
+                  "value": 25
+                }
+              },
+              {
+                "type": "dialogue",
+                "text": "Right at 25—halfway between 20 and 30."
+              }
             ]
           },
           {
-            "tangible_id": "bar_graph_team_scores",
-            "description": "Horizontal bar graph with scale of 10. Red Team bar set at 25. Other bars empty.",
+            "condition_id": "incorrect_height",
+            "condition": {},
+            "description": "Student placed Red Team bar at incorrect height",
+            "is_correct": false,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "25 is halfway between 20 and 30. Find that spot."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "bar_graph_teams",
+            "description": "Horizontal bar graph in building mode. Scale of 10. Axis 0–80. Red Team bar set at 25. Blue, Green, Yellow bars not yet placed.",
             "tangible_type": "bar_graph",
             "mode": "building",
             "orientation": "horizontal",
             "scale": 10,
+            "axis_range": [
+              0,
+              80
+            ],
             "categories": [
               "Red Team",
               "Green Team",
@@ -4080,10 +5188,14 @@ Cacheable: Yes
         ]
       },
       {
+        "type": "dialogue",
+        "text": "Click to place the bar for Blue Team at 40 points."
+      },
+      {
         "type": "prompt",
-        "text": "Click to place the bar for Blue Team (40 points).",
+        "text": "Click to place the bar for Blue Team at 40 points.",
         "tool": "click_to_set_height",
-        "target": "bar_graph_team_scores",
+        "target": "bar_graph_teams",
         "validator": [
           {
             "condition_id": "correct",
@@ -4091,19 +5203,19 @@ Cacheable: Yes
               "bar_height": 40,
               "category": "Blue Team"
             },
-            "description": "Student set Blue Team bar to 40",
+            "description": "Student set Blue Team bar to 40, correct",
             "is_correct": true,
             "beats": [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "bar_graph_team_scores",
+                "tangible_id": "bar_graph_teams",
                 "params": {
                   "event": "lock_bar",
                   "status": "confirmed",
+                  "description": "Blue Team bar locks at 40.",
                   "category": "Blue Team",
-                  "height": 40,
-                  "description": "Blue Team bar locks at 40."
+                  "value": 40
                 }
               },
               {
@@ -4119,28 +5231,20 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Data table showing Team Scores.",
-            "tangible_type": "data_table",
-            "categories": [
-              "Red Team",
-              "Green Team",
-              "Yellow Team",
-              "Blue Team"
-            ],
-            "values": [
-              25,
-              55,
-              70,
-              40
-            ]
+            "description": "Data table showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40.",
+            "tangible_type": "data_table"
           },
           {
-            "tangible_id": "bar_graph_team_scores",
-            "description": "Horizontal bar graph with scale of 10. Red Team at 25, Blue Team at 40. Green Team and Yellow Team bars empty.",
+            "tangible_id": "bar_graph_teams",
+            "description": "Horizontal bar graph in building mode. Scale of 10. Axis 0–80. Red Team bar at 25, Blue Team bar at 40. Green and Yellow bars not yet placed.",
             "tangible_type": "bar_graph",
             "mode": "building",
             "orientation": "horizontal",
             "scale": 10,
+            "axis_range": [
+              0,
+              80
+            ],
             "categories": [
               "Red Team",
               "Green Team",
@@ -4151,10 +5255,14 @@ Cacheable: Yes
         ]
       },
       {
+        "type": "dialogue",
+        "text": "Click to place the bar for Green Team at 55 points."
+      },
+      {
         "type": "prompt",
-        "text": "Click to place the bar for Green Team (55 points).",
+        "text": "Click to place the bar for Green Team at 55 points.",
         "tool": "click_to_set_height",
-        "target": "bar_graph_team_scores",
+        "target": "bar_graph_teams",
         "validator": [
           {
             "condition_id": "correct",
@@ -4162,24 +5270,24 @@ Cacheable: Yes
               "bar_height": 55,
               "category": "Green Team"
             },
-            "description": "Student set Green Team bar to 55",
+            "description": "Student set Green Team bar to 55, correct",
             "is_correct": true,
             "beats": [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "bar_graph_team_scores",
+                "tangible_id": "bar_graph_teams",
                 "params": {
                   "event": "lock_bar",
                   "status": "confirmed",
+                  "description": "Green Team bar locks at 55.",
                   "category": "Green Team",
-                  "height": 55,
-                  "description": "Green Team bar locks at 55."
+                  "value": 55
                 }
               },
               {
                 "type": "dialogue",
-                "text": "55, halfway between 50 and 60."
+                "text": "55—halfway between 50 and 60."
               }
             ]
           }
@@ -4190,28 +5298,20 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Data table showing Team Scores.",
-            "tangible_type": "data_table",
-            "categories": [
-              "Red Team",
-              "Green Team",
-              "Yellow Team",
-              "Blue Team"
-            ],
-            "values": [
-              25,
-              55,
-              70,
-              40
-            ]
+            "description": "Data table showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40.",
+            "tangible_type": "data_table"
           },
           {
-            "tangible_id": "bar_graph_team_scores",
-            "description": "Horizontal bar graph with scale of 10. Red Team at 25, Blue Team at 40, Green Team at 55. Yellow Team bar empty.",
+            "tangible_id": "bar_graph_teams",
+            "description": "Horizontal bar graph in building mode. Scale of 10. Axis 0–80. Red Team bar at 25, Blue Team bar at 40, Green Team bar at 55. Yellow bar not yet placed.",
             "tangible_type": "bar_graph",
             "mode": "building",
             "orientation": "horizontal",
             "scale": 10,
+            "axis_range": [
+              0,
+              80
+            ],
             "categories": [
               "Red Team",
               "Green Team",
@@ -4222,10 +5322,14 @@ Cacheable: Yes
         ]
       },
       {
+        "type": "dialogue",
+        "text": "Click to place the bar for Yellow Team at 70 points."
+      },
+      {
         "type": "prompt",
-        "text": "Click to place the bar for Yellow Team (70 points).",
+        "text": "Click to place the bar for Yellow Team at 70 points.",
         "tool": "click_to_set_height",
-        "target": "bar_graph_team_scores",
+        "target": "bar_graph_teams",
         "validator": [
           {
             "condition_id": "correct",
@@ -4233,19 +5337,19 @@ Cacheable: Yes
               "bar_height": 70,
               "category": "Yellow Team"
             },
-            "description": "Student set Yellow Team bar to 70",
+            "description": "Student set Yellow Team bar to 70, correct",
             "is_correct": true,
             "beats": [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "bar_graph_team_scores",
+                "tangible_id": "bar_graph_teams",
                 "params": {
                   "event": "lock_bar",
                   "status": "confirmed",
+                  "description": "Yellow Team bar locks at 70.",
                   "category": "Yellow Team",
-                  "height": 70,
-                  "description": "Yellow Team bar locks at 70."
+                  "value": 70
                 }
               },
               {
@@ -4261,28 +5365,20 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Data table showing Team Scores.",
-            "tangible_type": "data_table",
-            "categories": [
-              "Red Team",
-              "Green Team",
-              "Yellow Team",
-              "Blue Team"
-            ],
-            "values": [
-              25,
-              55,
-              70,
-              40
-            ]
+            "description": "Data table showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40.",
+            "tangible_type": "data_table"
           },
           {
-            "tangible_id": "bar_graph_team_scores",
-            "description": "Horizontal bar graph with scale of 10. All bars complete. Red Team at 25, Blue Team at 40, Green Team at 55, Yellow Team at 70.",
+            "tangible_id": "bar_graph_teams",
+            "description": "Horizontal bar graph in building mode. Scale of 10. Axis 0–80. All four bars placed: Red Team at 25, Blue Team at 40, Green Team at 55, Yellow Team at 70.",
             "tangible_type": "bar_graph",
             "mode": "building",
             "orientation": "horizontal",
             "scale": 10,
+            "axis_range": [
+              0,
+              80
+            ],
             "categories": [
               "Red Team",
               "Green Team",
@@ -4301,8 +5397,98 @@ Cacheable: Yes
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Data table showing Team Scores.",
+            "description": "Data table showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "bar_graph_teams",
+            "description": "Horizontal bar graph completed. Scale of 10. Axis 0–80. All four bars displayed: Red Team at 25, Blue Team at 40, Green Team at 55, Yellow Team at 70.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "horizontal",
+            "scale": 10,
+            "axis_range": [
+              0,
+              80
+            ],
+            "categories": [
+              "Red Team",
+              "Green Team",
+              "Yellow Team",
+              "Blue Team"
+            ]
+          }
+        ]
+      }
+    ],
+    "_generated_at": "2026-05-05T18:21:56.477757+00:00"
+  },
+  {
+    "id": "s3_4_bridge_exit_check",
+    "type": "transition",
+    "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "data_table",
+        "tangible_type": "data_table",
+        "params": {
+          "orientation": "horizontal",
+          "categories": [
+            "Red Team",
+            "Green Team",
+            "Yellow Team",
+            "Blue Team"
+          ],
+          "values": [
+            25,
+            55,
+            70,
+            40
+          ],
+          "description": "Data table appears: Team Scores. Red Team 25, Green Team 55, Yellow Team 70, Blue Team 40."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_team_scores",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Red Team",
+            "Green Team",
+            "Yellow Team",
+            "Blue Team"
+          ],
+          "values": [
+            25,
+            55,
+            70,
+            40
+          ],
+          "scale": 10,
+          "axis_range": [
+            0,
+            80
+          ],
+          "description": "Horizontal bar graph appears: Team Scores. Scale of 10, axis 0–80. Red Team bar at 25, Green Team at 55, Yellow Team at 70, Blue Team at 40. All bars locked in place."
+        }
+      },
+      {
+        "type": "dialogue",
+        "text": "You learned to CHOOSE scales. Check the biggest number. Does it fit without too many marks on the axis? Check the ones place digits. Are they 0 or 5 to find the exact place for the bar? For very small data, Scale of 1 could work. Then pick the easiest to read."
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing Team Scores: Red Team 25, Green Team 55, Yellow Team 70, Blue Team 40.",
             "tangible_type": "data_table",
+            "orientation": "horizontal",
             "categories": [
               "Red Team",
               "Green Team",
@@ -4318,73 +5504,59 @@ Cacheable: Yes
           },
           {
             "tangible_id": "bar_graph_team_scores",
-            "description": "Complete horizontal bar graph with scale of 10. Red Team at 25, Blue Team at 40, Green Team at 55, Yellow Team at 70.",
+            "description": "Horizontal bar graph: Team Scores. Scale of 10, axis 0–80. All four bars locked at correct heights.",
             "tangible_type": "bar_graph",
-            "mode": "building",
+            "mode": "reading",
             "orientation": "horizontal",
-            "scale": 10,
             "categories": [
               "Red Team",
               "Green Team",
               "Yellow Team",
               "Blue Team"
+            ],
+            "values": [
+              25,
+              55,
+              70,
+              40
+            ],
+            "scale": 10,
+            "axis_range": [
+              0,
+              80
             ]
           }
         ]
-      }
-    ],
-    "_generated_at": "2026-04-20T17:03:37.378095+00:00"
-  },
-  {
-    "id": "s3_4_bridge_exit_check",
-    "type": "transition",
-    "beats": [
+      },
       {
         "type": "scene",
-        "method": "add",
-        "tangible_id": "bar_graph_colors",
-        "tangible_type": "bar_graph",
+        "method": "animate",
+        "tangible_id": "bar_graph_team_scores",
         "params": {
-          "mode": "reading",
-          "orientation": "vertical",
-          "categories": [
-            "Red",
-            "Blue",
-            "Green",
-            "Yellow"
-          ],
-          "description": "Vertical bar graph appears. Favorite Colors data from previous sections."
+          "event": "fade_out",
+          "status": "confirmed",
+          "description": "Bar graph fades out."
         }
-      },
-      {
-        "type": "dialogue",
-        "text": "You learned to choose scales. Check the biggest number. Does it fit without too many marks on the axis? Check the ones place digits. Are they 0 or 5 to find the exact place for the bar? For very small data, scale of 1 could work. Then pick the easiest to read."
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "bar_graph_colors",
-            "description": "Vertical bar graph showing Favorite Colors data.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Red",
-              "Blue",
-              "Green",
-              "Yellow"
-            ]
-          }
-        ]
       },
       {
         "type": "scene",
         "method": "remove",
-        "tangible_id": "bar_graph_colors",
+        "tangible_id": "bar_graph_team_scores"
+      },
+      {
+        "type": "scene",
+        "method": "animate",
+        "tangible_id": "data_table",
         "params": {
-          "description": "Bar graph clears from screen."
+          "event": "fade_out",
+          "status": "confirmed",
+          "description": "Data table fades out."
         }
+      },
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "data_table"
       },
       {
         "type": "dialogue",
@@ -4395,10 +5567,174 @@ Cacheable: Yes
         "elements": []
       }
     ],
-    "_generated_at": "2026-04-20T17:03:43.985718+00:00"
+    "_generated_at": "2026-05-05T18:22:14.876940+00:00"
   }
 ]
 </lesson_sections>
+<section_context>
+## s1_1_transition_warmup
+# Section Summary: s1_1_transition_warmup
+
+**VISUAL STATE:** Empty workspace. No tangible visualizations, graphs, or data displays are present on screen at section end.
+
+**CONTENT:** Transition dialogue acknowledging that in the Warmup section, all four scales (linear, log, square root, and reciprocal) were viable options for the student's dataset. The section introduces the concept that scale choice becomes more constrained when working with larger numbers, setting up the next investigation.
+
+**STUDENT ACTION:** No interactive action required. The student listened to dialogue explaining that scale flexibility depends on data magnitude, preparing them for the upcoming exploration of how larger numbers affect scale viability.
+
+## s1_2_when_scale_needs_too_many
+# Section Summary: s1_2_when_scale_needs_too_many
+
+**VISUAL STATE AT SECTION END:**
+A data table and vertical bar graph are displayed side-by-side. The data table shows "Books Read This Month" with categories Aisha, Ben, Carlos, Dana and values 20, 35, 55, 80 respectively. The bar graph is vertical, in reading mode, with axis range 0–80, scale of 5, and all 17 tick marks highlighted (0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80).
+
+**CONTENT:**
+The section introduced the problem that when a scale is too small relative to data range, it creates too many tick marks on the axis, making the graph crowded and difficult to read. The key vocabulary introduced was the principle: "When one scale needs too many tick marks, try a bigger scale." Students observed that a scale of 5 with axis 0–80 produces 17 tick marks, demonstrating visual clutter.
+
+**STUDENT ACTION:**
+The student (via guided exploration) selected a scale of 5, observed the preview showing Dana's bar extending past the initial 0–50 boundary, then extended the axis to 0–80 to accommodate all data. This revealed the crowding problem, leading to the conceptual takeaway about choosing appropriate scales.
+
+## s1_3_trying_bigger_scale
+# Section Summary: s1_3_trying_bigger_scale
+
+**VISUAL STATE AT SECTION END:**
+Two tangibles are on screen: (1) a data table displaying "Books Read This Month" with categories Aisha, Ben, Carlos, Dana and values 20, 35, 55, 80 respectively; (2) a vertical bar graph in reading mode showing the same data with scale 10, axis range 0–80 containing 9 tick marks (0, 10, 20, 30, 40, 50, 60, 70, 80), all four bars fitting cleanly.
+
+**CONTENT:**
+The section introduced the concept of adjusting graph scale to improve readability. Students learned that increasing the scale from 5 to 10 reduces the number of tick marks (from 17 to 9), making the graph cleaner and easier to interpret while still displaying all data accurately.
+
+**STUDENT ACTION:**
+The student clicked the "Scale of 10" button on the interactive scale selector, triggering the graph to update and demonstrating the effect of a larger scale on axis tick mark density and overall visual clarity.
+
+## s1_4_range_check_efficiency
+# Section Summary: s1_4_range_check_efficiency
+
+**VISUAL STATE AT SECTION END:**
+- **Data Table** ("Books Read This Month"): Categories—Aisha, Ben, Carlos, Dana; Values—20, 35, 55, 80 respectively; Dana's value (80) highlighted.
+- **Bar Graph** (vertical, reading mode): Same dataset; axis range 0–80; scale of 10; 9 tick marks (0, 10, 20, 30, 40, 50, 60, 70, 80); all four bars visible.
+
+**CONTENT:**
+Introduced the "range check" strategy for selecting appropriate graph scales: identify the biggest number in the dataset first, then choose a scale that fits the maximum value without creating too many axis tick marks. Formally introduced the principle that larger scales (e.g., 10 vs. 5) produce cleaner, more readable graphs when multiple scales are viable. Compared efficiency: Scale of 5 requires 17 tick marks; Scale of 10 requires only 9 for the same data.
+
+**STUDENT ACTION:**
+Answered a multiple-choice question identifying 80 as the largest value in the dataset, demonstrating understanding of the first step in scale selection.
+
+## s2_1_all_scales_fit_small_data
+# Section Summary: s2_1_all_scales_fit_small_data
+
+**VISUAL STATE AT SECTION END:**
+A horizontal bar graph (dataset: Marbles in Jars) displays four bars for categories Jar A, Jar B, Jar C, and Jar D with values 7, 12, 19, and 23 respectively. The graph uses a scale of 1 with an axis range of 0–23 and 24 tick marks. A horizontal data table showing the same four categories and values appears alongside the graph.
+
+**CONTENT:**
+The section introduced the concept that multiple scales can fit small datasets and demonstrated how to evaluate scale appropriateness by checking whether the maximum data value (23) fits within each scale option. Students learned that while all four scales (1, 2, 5, 10) are mathematically valid, scale choice affects readability—specifically, a scale of 1 produces many tick marks (24), which can clutter the axis.
+
+**STUDENT ACTION:**
+The student clicked through all four scale buttons to explore which scales fit the data range, then selected Scale of 1 to observe the resulting graph with its dense tick-mark display.
+
+## s2_2_but_which_is_best_efficiency
+# Section Summary: s2_2_but_which_is_best_efficiency
+
+**VISUAL STATE AT SECTION END:**
+A data table displays "Marbles in Jars" with four categories: Jar A=7, Jar B=12, Jar C=19, Jar D=23. A horizontal bar graph (reading mode) shows the same data with scale of 10, axis range 0–30 (4 tick marks), and warning indicators (⚠️) on Jar A and Jar C bars, signaling that values 7 and 19 do not land exactly on axis lines or midpoints.
+
+**CONTENT:**
+The section introduced the concept of **scale efficiency**—balancing readability (fewer axis lines) against precision (exact value placement). Students learned that while larger scales (e.g., 10) reduce visual clutter for big datasets, they can create ambiguity for small data values. The vocabulary term **"scale"** was reinforced as a tool choice that affects graph clarity and accuracy.
+
+**STUDENT ACTION:**
+The student clicked a "Scale of 10" button to switch the graph from scale 1 (24 tick marks, 0–23 range) to scale 10 (4 tick marks, 0–30 range), then observed warning indicators highlight precision problems with values that don't align to grid lines.
+
+## s2_3_scale_2_works_non_multiples
+# Section Summary: s2_3_scale_2_works_non_multiples
+
+**VISUAL STATE AT SECTION END:**
+- **Data Table** ("Marbles in Jars"): 4 categories (Jar A, Jar B, Jar C, Jar D) with values 7, 12, 19, 23 respectively
+- **Horizontal Bar Graph** ("bar_graph_marbles"): reading mode, Scale of 2, axis range 0–24, categories Jar A, Jar B, Jar C, Jar D with values 7, 12, 19, 23; all bars land exactly on tick marks with checkmark indicator visible, no warning indicators
+
+**CONTENT:**
+The section introduced the concept that **Scale of 2 works universally for whole numbers** because its half-interval (1) allows any integer to land exactly on a tick mark or midpoint. Students learned that Scale of 2 is effective for small datasets because it produces a manageable number of axis marks while ensuring precise value representation—contrasting with Scale of 10, which generated warnings for non-multiple values (7 and 19).
+
+**STUDENT ACTION:**
+The student clicked the "Scale of 2" button to preview the graph transformation, observing how all data values (7, 12, 19, 23) aligned exactly with axis marks when the scale changed from 10 to 2.
+
+## s2_4_digit_pattern_recognition_shortcut
+# Section Summary: s2_4_digit_pattern_recognition_shortcut
+
+**VISUAL STATE:** Two side-by-side image panels are displayed. Left panel ("Data Set A") shows values 20, 35, 55, 80 with annotation "Ones digits: 0 or 5." Right panel ("Data Set B") shows values 7, 12, 19, 23 with annotation "Ones digits: 7, 2, 9, 3." Both panels remain visible throughout; Data Set B becomes highlighted after student interaction.
+
+**CONTENT:** Students learned a shortcut for scale selection by examining the ones digit (last digit) of dataset values. The key pattern introduced: numbers ending in 0 or 5 are multiples of 5 (suitable for Scales of 5 and 10), while numbers with other ones digits (like 7, 2, 9, 3) signal that Scale of 2 may be the best choice. This digit-checking strategy provides a quick decision rule for scale selection.
+
+**STUDENT ACTION:** Student clicked on Data Set B to answer the prompt "Which data set has last digits that are NOT 0 or 5?" The correct selection (Data Set B) triggered a highlight animation and confirmatory dialogue reinforcing that ones digits 7, 2, 9, 3 indicate a Scale of 2 signal.
+
+## s2_5_practice_with_non_multiples
+# Section Summary: Practice with Non-Multiples
+
+**VISUAL STATE:** At section end, the screen displays two tangibles: (1) a vertical data table titled "Points Scored" with categories Round 1, Round 2, Round 3, Round 4 and values 22, 15, 8, 31 respectively; (2) a vertical bar graph in reading mode with the same dataset, scale of 1, axis range 0–31, where all bars are visible and land on tick marks.
+
+**CONTENT:** Students practiced selecting appropriate scales for datasets containing non-multiples of common scale intervals. The lesson introduced the strategy of checking ones-place digits to determine divisibility by 5, then reasoned that a scale of 2 works well for this data (since all values are even) while a scale of 1, though accurate, requires many axis marks. The concept reinforced is that scale choice balances exactness with readability.
+
+**STUDENT ACTION:** The student answered a multiple-choice question selecting "Scale of 2" as the best scale to show all values exactly, then observed the resulting bar graph and compared it to a scale-of-1 version to evaluate trade-offs between precision and practicality.
+
+## s2_6_very_small_data_scale_1
+# Section Summary: s2_6_very_small_data_scale_1
+
+**VISUAL STATE AT SECTION END:**
+Two tangibles are on screen: (1) A vertical data table titled "Stickers Earned Today" with categories Mia, Noah, Olivia, Pete and values 9, 5, 7, 3 respectively; (2) A vertical bar graph in reading mode displaying the same dataset with Scale of 1, axis range 0–10, tick marks at 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, and all four bars landing exactly on tick marks.
+
+**CONTENT:**
+The section introduced the concept of **scale selection for very small datasets** and the vocabulary term **"Scale of 1"** as an optimal choice for small numbers. Students learned that when data values (9, 5, 7, 3) don't align neatly with larger scales, Scale of 1 provides precision and simplicity—every bar lands exactly on a tick mark with no need for halfway estimates, making the graph readable without referencing the data table.
+
+**STUDENT ACTION:**
+The student clicked through three scale options sequentially: Scale of 10 (which produced warning indicators), Scale of 2 (which showed checkmarks), and finally Scale of 1 (which produced checkmarks and exact alignment). This interactive exploration demonstrated why Scale of 1 is superior for very small numbers.
+
+## s3_1_independent_selection_multiples_5
+# Section Summary: s3_1_independent_selection_multiples_5
+
+## VISUAL STATE
+At section end, two tangibles are displayed:
+1. **Data Table** (vertical orientation): "Favorite Fruits" dataset with categories Dates, Cherries, Bananas, Apples and values 60, 45, 30, 15 respectively.
+2. **Bar Graph** (horizontal orientation, reading mode): "Favorite Fruits" dataset with categories Dates, Cherries, Bananas, Apples and values 60, 45, 30, 15; scale set to 10; axis range 0–60; all bars visible and landing precisely on tick marks.
+
+## CONTENT
+Students practiced **selecting an appropriate scale for a bar graph** by evaluating which scale (2, 5, or 10) best represents data where all values are multiples of 5. The section introduced the reasoning process: checking the maximum value, ensuring data fits, verifying values align with scale tick marks, and prioritizing readability. Key vocabulary: *scale*, *tick marks*, *multiples*.
+
+## STUDENT ACTION
+Students (1) explored three scale options (2, 5, 10) using the Scale Preview System and earned checkmarks for all three; (2) selected "Scale of 10" from a multiple-choice prompt; (3) selected all four reasons why Scale of 10 is optimal from a multi-select prompt (values end in 0 or 5, graph is easy to read, biggest number fits, Scale of 2 requires too many marks).
+
+## s3_2_selection_creation_non_multiples
+# Section Summary: s3_2_selection_creation_non_multiples
+
+**VISUAL STATE AT SECTION END:**
+Two tangibles are displayed: (1) a vertical data table titled "Minutes of Practice" with categories Guitar, Piano, Violin, Drums and values 27, 14, 41, 33 respectively; (2) a vertical bar graph in building mode with the same four categories, scale of 2, axis range 0–42, displaying all four bars at their correct heights (Guitar: 27, Piano: 14, Violin: 41, Drums: 33) with gridlines visible at each tick mark.
+
+**CONTENT:**
+Students learned to select an appropriate scale for data that contains non-multiples of 5. The section introduced the reasoning that when data values (14, 27, 33, 41) are not multiples of 5, a scale of 2 is more efficient than scale of 1 (which would create excessive axis marks) or scales of 5 and 10 (which cannot represent values exactly). The vocabulary "scale" was reinforced in the context of axis design.
+
+**STUDENT ACTION:**
+The student answered a multiple-choice question selecting "Scale of 2" as the best scale for the data, then used a click-to-set-height tool to manually set all four bar heights on the vertical bar graph to match the data values precisely.
+
+## s3_3_final_application
+# Section Summary: s3_3_final_application
+
+**VISUAL STATE AT SECTION END:**
+Two tangibles are on screen: (1) a data table displaying Team Scores with four categories—Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40; (2) a completed horizontal bar graph titled "Team Scores" in reading mode, scale of 10, axis range 0–80 with tick marks at 0, 10, 20, 30, 40, 50, 60, 70, 80, showing all four bars locked in place (Red Team at 25, Blue Team at 40, Green Team at 55, Yellow Team at 70).
+
+**CONTENT:**
+This section applied the complete bar graph construction process (scale selection and bar placement) to a new dataset. Students practiced choosing an appropriate scale by analyzing data characteristics (values ending in 0 or 5, maximum value 70) and selecting scale of 10 as most efficient. They then placed all four bars by clicking to set exact heights, reinforcing precision in reading axis values and positioning bars both on tick marks and at midpoints between them.
+
+**STUDENT ACTION:**
+Student selected scale of 10 from options [1, 2, 5, 10], then sequentially placed four bars by clicking to set heights: Red Team (25), Blue Team (40), Green Team (55), and Yellow Team (70). Each bar placement was validated and locked before proceeding to the next.
+
+## s3_4_bridge_exit_check
+# Section Summary: s3_4_bridge_exit_check
+
+**VISUAL STATE AT SECTION END:**
+The screen is blank with no tangibles displayed. Both the data table and horizontal bar graph have faded out and been removed.
+
+**CONTENT:**
+This transition section reviewed the concept of **choosing appropriate scales for bar graphs**. The lesson reinforced that students should: (1) check the largest data value to ensure it fits without overcrowding the axis, (2) examine ones-place digits (0 or 5) to locate bars precisely, and (3) consider using a scale of 1 for very small datasets. The vocabulary term **"scale"** was formally reinforced in context.
+
+**STUDENT ACTION:**
+The student did not perform an interactive action in this section. Instead, they passively observed a data table and horizontal bar graph displaying Team Scores (Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40) with a scale of 10 and axis range 0–80, then listened to a summary dialogue before both visuals faded out. This section serves as a bridge to an upcoming assessment ("Let's see what you know").
+</section_context>
 
 ----------------------------------------------------------------------
 
@@ -4414,19 +5750,7 @@ Cacheable: Yes
       "tangible_id": "data_table",
       "tangible_type": "data_table",
       "params": {
-        "categories": [
-          "Red Team",
-          "Green Team",
-          "Yellow Team",
-          "Blue Team"
-        ],
-        "values": [
-          25,
-          55,
-          70,
-          40
-        ],
-        "description": "Data table appears showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40."
+        "description": "Data table appears. Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40."
       },
       "id": "s3_3_final_application_b0"
     },
@@ -4436,38 +5760,20 @@ Cacheable: Yes
       "id": "s3_3_final_application_b1"
     },
     {
-      "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "data_table",
-          "description": "Data table showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40.",
-          "tangible_type": "data_table",
-          "categories": [
-            "Red Team",
-            "Green Team",
-            "Yellow Team",
-            "Blue Team"
-          ],
-          "values": [
-            25,
-            55,
-            70,
-            40
-          ]
-        }
-      ],
+      "type": "dialogue",
+      "text": "You've done this vertical and horizontal now. Same process every time: check the numbers, choose the scale.",
       "id": "s3_3_final_application_b2"
     },
     {
       "type": "dialogue",
-      "text": "You've done this vertical and horizontal now. Same process every time: check the numbers, choose the scale.",
+      "text": "Which scale works best for this data?",
       "id": "s3_3_final_application_b3"
     },
     {
       "type": "prompt",
       "text": "Which scale works best for this data?",
       "tool": "click_scale_button",
-      "target": "bar_graph_team_scores",
+      "target": "bar_graph_teams",
       "options": [
         1,
         2,
@@ -4480,13 +5786,58 @@ Cacheable: Yes
           "condition": {
             "selected": 10
           },
-          "description": "Student selected scale of 10, most efficient for this data",
+          "description": "Student selected Scale of 10, correct, most efficient for values ending in 0 or 5, range up to 70",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "Nice. All values end in 0 or 5, and the biggest is 70. Scale of 10 gives you a clean graph.",
+              "text": "Right. All values end in 0 or 5, and the biggest is 70. Scale of 10 gives you a clean graph.",
               "id": "s3_3_final_application_b4_v0_b0"
+            }
+          ]
+        },
+        {
+          "condition_id": "selected_scale_1_or_2",
+          "condition": {
+            "selected": 1
+          },
+          "description": "Student selected Scale of 1, would need many axis lines",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "That would need a lot of lines on the axis. All the values end in 0 or 5—which bigger scale would be easier to read?",
+              "id": "s3_3_final_application_b4_v1_b0"
+            }
+          ]
+        },
+        {
+          "condition_id": "selected_scale_2",
+          "condition": {
+            "selected": 2
+          },
+          "description": "Student selected Scale of 2, would need many axis lines",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "That would need a lot of lines on the axis. All the values end in 0 or 5—which bigger scale would be easier to read?",
+              "id": "s3_3_final_application_b4_v2_b0"
+            }
+          ]
+        },
+        {
+          "condition_id": "selected_scale_5",
+          "condition": {
+            "selected": 5
+          },
+          "description": "Student selected Scale of 5, works but not most efficient given max value 70",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "That works! But notice the biggest value is 70. Scale of 10 would give you fewer lines and still show everything exactly.",
+              "id": "s3_3_final_application_b4_v3_b0"
             }
           ]
         }
@@ -4498,44 +5849,31 @@ Cacheable: Yes
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Data table showing Team Scores.",
-          "tangible_type": "data_table",
-          "categories": [
-            "Red Team",
-            "Green Team",
-            "Yellow Team",
-            "Blue Team"
-          ],
-          "values": [
-            25,
-            55,
-            70,
-            40
-          ]
+          "description": "Data table showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_teams",
+          "description": "Bar graph (horizontal orientation, building mode) with scale selection active. Team Scores dataset. Scale Preview System available.",
+          "tangible_type": "bar_graph",
+          "mode": "building",
+          "orientation": "horizontal"
         }
       ],
       "id": "s3_3_final_application_b5"
     },
     {
       "type": "scene",
-      "method": "add",
-      "tangible_id": "bar_graph_team_scores",
-      "tangible_type": "bar_graph",
+      "method": "update",
+      "tangible_id": "bar_graph_teams",
       "params": {
         "mode": "building",
-        "orientation": "horizontal",
         "scale": 10,
         "axis_range": [
           0,
           80
         ],
-        "categories": [
-          "Red Team",
-          "Green Team",
-          "Yellow Team",
-          "Blue Team"
-        ],
-        "description": "Horizontal bar graph creation tool appears with scale of 10. Axis shows tick marks at 0, 10, 20, 30, 40, 50, 60, 70, 80. Empty bars ready for student to set heights."
+        "description": "Bar graph updates to building mode with Scale of 10 active. Horizontal orientation. Axis 0–80 showing tick marks at 0, 10, 20, 30, 40, 50, 60, 70, 80. Empty graph ready for bar placement."
       },
       "id": "s3_3_final_application_b6"
     },
@@ -4545,10 +5883,15 @@ Cacheable: Yes
       "id": "s3_3_final_application_b7"
     },
     {
+      "type": "dialogue",
+      "text": "Click to place the bar for Red Team at 25 points.",
+      "id": "s3_3_final_application_b8"
+    },
+    {
       "type": "prompt",
-      "text": "Click to place the bar for Red Team (25 points).",
+      "text": "Click to place the bar for Red Team at 25 points.",
       "tool": "click_to_set_height",
-      "target": "bar_graph_team_scores",
+      "target": "bar_graph_teams",
       "validator": [
         {
           "condition_id": "correct",
@@ -4556,74 +5899,84 @@ Cacheable: Yes
             "bar_height": 25,
             "category": "Red Team"
           },
-          "description": "Student set Red Team bar to 25",
+          "description": "Student set Red Team bar to 25, correct",
           "is_correct": true,
           "beats": [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "bar_graph_team_scores",
+              "tangible_id": "bar_graph_teams",
               "params": {
                 "event": "lock_bar",
                 "status": "confirmed",
+                "description": "Red Team bar locks at 25.",
                 "category": "Red Team",
-                "height": 25,
-                "description": "Red Team bar locks at 25."
+                "value": 25
               },
-              "id": "s3_3_final_application_b8_v0_b0"
+              "id": "s3_3_final_application_b9_v0_b0"
             },
             {
               "type": "dialogue",
-              "text": "Right. 25, halfway between 20 and 30.",
-              "id": "s3_3_final_application_b8_v0_b1"
+              "text": "Right. 25 is halfway between 20 and 30.",
+              "id": "s3_3_final_application_b9_v0_b1"
             }
-          ]
-        }
-      ],
-      "id": "s3_3_final_application_b8"
-    },
-    {
-      "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "data_table",
-          "description": "Data table showing Team Scores.",
-          "tangible_type": "data_table",
-          "categories": [
-            "Red Team",
-            "Green Team",
-            "Yellow Team",
-            "Blue Team"
-          ],
-          "values": [
-            25,
-            55,
-            70,
-            40
           ]
         },
         {
-          "tangible_id": "bar_graph_team_scores",
-          "description": "Horizontal bar graph with scale of 10. Red Team bar set at 25. Other bars empty.",
-          "tangible_type": "bar_graph",
-          "mode": "building",
-          "orientation": "horizontal",
-          "scale": 10,
-          "categories": [
-            "Red Team",
-            "Green Team",
-            "Yellow Team",
-            "Blue Team"
+          "condition_id": "incorrect_height",
+          "condition": {},
+          "description": "Student placed Red Team bar at incorrect height",
+          "is_correct": false,
+          "beats": [
+            {
+              "type": "dialogue",
+              "text": "25 is halfway between 20 and 30. Find that spot.",
+              "id": "s3_3_final_application_b9_v1_b0"
+            }
           ]
         }
       ],
       "id": "s3_3_final_application_b9"
     },
     {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_teams",
+          "description": "Horizontal bar graph in building mode. Scale of 10. Axis 0–80. Red Team bar set at 25. Blue, Green, Yellow bars not yet placed.",
+          "tangible_type": "bar_graph",
+          "mode": "building",
+          "orientation": "horizontal",
+          "scale": 10,
+          "axis_range": [
+            0,
+            80
+          ],
+          "categories": [
+            "Red Team",
+            "Green Team",
+            "Yellow Team",
+            "Blue Team"
+          ]
+        }
+      ],
+      "id": "s3_3_final_application_b10"
+    },
+    {
+      "type": "dialogue",
+      "text": "Click to place the bar for Blue Team at 40 points.",
+      "id": "s3_3_final_application_b11"
+    },
+    {
       "type": "prompt",
-      "text": "Click to place the bar for Blue Team (40 points).",
+      "text": "Click to place the bar for Blue Team at 40 points.",
       "tool": "click_to_set_height",
-      "target": "bar_graph_team_scores",
+      "target": "bar_graph_teams",
       "validator": [
         {
           "condition_id": "correct",
@@ -4631,100 +5984,25 @@ Cacheable: Yes
             "bar_height": 40,
             "category": "Blue Team"
           },
-          "description": "Student set Blue Team bar to 40",
+          "description": "Student set Blue Team bar to 40, correct",
           "is_correct": true,
           "beats": [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "bar_graph_team_scores",
+              "tangible_id": "bar_graph_teams",
               "params": {
                 "event": "lock_bar",
                 "status": "confirmed",
+                "description": "Blue Team bar locks at 40.",
                 "category": "Blue Team",
-                "height": 40,
-                "description": "Blue Team bar locks at 40."
-              },
-              "id": "s3_3_final_application_b10_v0_b0"
-            },
-            {
-              "type": "dialogue",
-              "text": "Right. On 40.",
-              "id": "s3_3_final_application_b10_v0_b1"
-            }
-          ]
-        }
-      ],
-      "id": "s3_3_final_application_b10"
-    },
-    {
-      "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "data_table",
-          "description": "Data table showing Team Scores.",
-          "tangible_type": "data_table",
-          "categories": [
-            "Red Team",
-            "Green Team",
-            "Yellow Team",
-            "Blue Team"
-          ],
-          "values": [
-            25,
-            55,
-            70,
-            40
-          ]
-        },
-        {
-          "tangible_id": "bar_graph_team_scores",
-          "description": "Horizontal bar graph with scale of 10. Red Team at 25, Blue Team at 40. Green Team and Yellow Team bars empty.",
-          "tangible_type": "bar_graph",
-          "mode": "building",
-          "orientation": "horizontal",
-          "scale": 10,
-          "categories": [
-            "Red Team",
-            "Green Team",
-            "Yellow Team",
-            "Blue Team"
-          ]
-        }
-      ],
-      "id": "s3_3_final_application_b11"
-    },
-    {
-      "type": "prompt",
-      "text": "Click to place the bar for Green Team (55 points).",
-      "tool": "click_to_set_height",
-      "target": "bar_graph_team_scores",
-      "validator": [
-        {
-          "condition_id": "correct",
-          "condition": {
-            "bar_height": 55,
-            "category": "Green Team"
-          },
-          "description": "Student set Green Team bar to 55",
-          "is_correct": true,
-          "beats": [
-            {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "bar_graph_team_scores",
-              "params": {
-                "event": "lock_bar",
-                "status": "confirmed",
-                "category": "Green Team",
-                "height": 55,
-                "description": "Green Team bar locks at 55."
+                "value": 40
               },
               "id": "s3_3_final_application_b12_v0_b0"
             },
             {
               "type": "dialogue",
-              "text": "Right. 55, halfway between 50 and 60.",
+              "text": "Right. 40 lands on the line.",
               "id": "s3_3_final_application_b12_v0_b1"
             }
           ]
@@ -4737,28 +6015,20 @@ Cacheable: Yes
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Data table showing Team Scores.",
-          "tangible_type": "data_table",
-          "categories": [
-            "Red Team",
-            "Green Team",
-            "Yellow Team",
-            "Blue Team"
-          ],
-          "values": [
-            25,
-            55,
-            70,
-            40
-          ]
+          "description": "Data table showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40.",
+          "tangible_type": "data_table"
         },
         {
-          "tangible_id": "bar_graph_team_scores",
-          "description": "Horizontal bar graph with scale of 10. Red Team at 25, Blue Team at 40, Green Team at 55. Yellow Team bar empty.",
+          "tangible_id": "bar_graph_teams",
+          "description": "Horizontal bar graph in building mode. Scale of 10. Axis 0–80. Red Team bar at 25, Blue Team bar at 40. Green and Yellow bars not yet placed.",
           "tangible_type": "bar_graph",
           "mode": "building",
           "orientation": "horizontal",
           "scale": 10,
+          "axis_range": [
+            0,
+            80
+          ],
           "categories": [
             "Red Team",
             "Green Team",
@@ -4770,10 +6040,87 @@ Cacheable: Yes
       "id": "s3_3_final_application_b13"
     },
     {
+      "type": "dialogue",
+      "text": "Click to place the bar for Green Team at 55 points.",
+      "id": "s3_3_final_application_b14"
+    },
+    {
       "type": "prompt",
-      "text": "Click to place the bar for Yellow Team (70 points).",
+      "text": "Click to place the bar for Green Team at 55 points.",
       "tool": "click_to_set_height",
-      "target": "bar_graph_team_scores",
+      "target": "bar_graph_teams",
+      "validator": [
+        {
+          "condition_id": "correct",
+          "condition": {
+            "bar_height": 55,
+            "category": "Green Team"
+          },
+          "description": "Student set Green Team bar to 55, correct",
+          "is_correct": true,
+          "beats": [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_teams",
+              "params": {
+                "event": "lock_bar",
+                "status": "confirmed",
+                "description": "Green Team bar locks at 55.",
+                "category": "Green Team",
+                "value": 55
+              },
+              "id": "s3_3_final_application_b15_v0_b0"
+            },
+            {
+              "type": "dialogue",
+              "text": "Right. 55 is halfway between 50 and 60.",
+              "id": "s3_3_final_application_b15_v0_b1"
+            }
+          ]
+        }
+      ],
+      "id": "s3_3_final_application_b15"
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_teams",
+          "description": "Horizontal bar graph in building mode. Scale of 10. Axis 0–80. Red Team bar at 25, Blue Team bar at 40, Green Team bar at 55. Yellow bar not yet placed.",
+          "tangible_type": "bar_graph",
+          "mode": "building",
+          "orientation": "horizontal",
+          "scale": 10,
+          "axis_range": [
+            0,
+            80
+          ],
+          "categories": [
+            "Red Team",
+            "Green Team",
+            "Yellow Team",
+            "Blue Team"
+          ]
+        }
+      ],
+      "id": "s3_3_final_application_b16"
+    },
+    {
+      "type": "dialogue",
+      "text": "Click to place the bar for Yellow Team at 70 points.",
+      "id": "s3_3_final_application_b17"
+    },
+    {
+      "type": "prompt",
+      "text": "Click to place the bar for Yellow Team at 70 points.",
+      "tool": "click_to_set_height",
+      "target": "bar_graph_teams",
       "validator": [
         {
           "condition_id": "correct",
@@ -4781,59 +6128,51 @@ Cacheable: Yes
             "bar_height": 70,
             "category": "Yellow Team"
           },
-          "description": "Student set Yellow Team bar to 70",
+          "description": "Student set Yellow Team bar to 70, correct",
           "is_correct": true,
           "beats": [
             {
               "type": "scene",
               "method": "animate",
-              "tangible_id": "bar_graph_team_scores",
+              "tangible_id": "bar_graph_teams",
               "params": {
                 "event": "lock_bar",
                 "status": "confirmed",
+                "description": "Yellow Team bar locks at 70.",
                 "category": "Yellow Team",
-                "height": 70,
-                "description": "Yellow Team bar locks at 70."
+                "value": 70
               },
-              "id": "s3_3_final_application_b14_v0_b0"
+              "id": "s3_3_final_application_b18_v0_b0"
             },
             {
               "type": "dialogue",
-              "text": "Right. On 70.",
-              "id": "s3_3_final_application_b14_v0_b1"
+              "text": "Right. 70 lands on the line.",
+              "id": "s3_3_final_application_b18_v0_b1"
             }
           ]
         }
       ],
-      "id": "s3_3_final_application_b14"
+      "id": "s3_3_final_application_b18"
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Data table showing Team Scores.",
-          "tangible_type": "data_table",
-          "categories": [
-            "Red Team",
-            "Green Team",
-            "Yellow Team",
-            "Blue Team"
-          ],
-          "values": [
-            25,
-            55,
-            70,
-            40
-          ]
+          "description": "Data table showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40.",
+          "tangible_type": "data_table"
         },
         {
-          "tangible_id": "bar_graph_team_scores",
-          "description": "Horizontal bar graph with scale of 10. All bars complete. Red Team at 25, Blue Team at 40, Green Team at 55, Yellow Team at 70.",
+          "tangible_id": "bar_graph_teams",
+          "description": "Horizontal bar graph in building mode. Scale of 10. Axis 0–80. All four bars placed: Red Team at 25, Blue Team at 40, Green Team at 55, Yellow Team at 70.",
           "tangible_type": "bar_graph",
           "mode": "building",
           "orientation": "horizontal",
           "scale": 10,
+          "axis_range": [
+            0,
+            80
+          ],
           "categories": [
             "Red Team",
             "Green Team",
@@ -4842,40 +6181,32 @@ Cacheable: Yes
           ]
         }
       ],
-      "id": "s3_3_final_application_b15"
+      "id": "s3_3_final_application_b19"
     },
     {
       "type": "dialogue",
       "text": "That's it. You chose the scale and placed every bar exactly where it should be, some exactly on the lines and some halfway between.",
-      "id": "s3_3_final_application_b16"
+      "id": "s3_3_final_application_b20"
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Data table showing Team Scores.",
-          "tangible_type": "data_table",
-          "categories": [
-            "Red Team",
-            "Green Team",
-            "Yellow Team",
-            "Blue Team"
-          ],
-          "values": [
-            25,
-            55,
-            70,
-            40
-          ]
+          "description": "Data table showing Team Scores. Red Team: 25, Green Team: 55, Yellow Team: 70, Blue Team: 40.",
+          "tangible_type": "data_table"
         },
         {
-          "tangible_id": "bar_graph_team_scores",
-          "description": "Complete horizontal bar graph with scale of 10. Red Team at 25, Blue Team at 40, Green Team at 55, Yellow Team at 70.",
+          "tangible_id": "bar_graph_teams",
+          "description": "Horizontal bar graph completed. Scale of 10. Axis 0–80. All four bars displayed: Red Team at 25, Blue Team at 40, Green Team at 55, Yellow Team at 70.",
           "tangible_type": "bar_graph",
-          "mode": "building",
+          "mode": "reading",
           "orientation": "horizontal",
           "scale": 10,
+          "axis_range": [
+            0,
+            80
+          ],
           "categories": [
             "Red Team",
             "Green Team",
@@ -4884,10 +6215,10 @@ Cacheable: Yes
           ]
         }
       ],
-      "id": "s3_3_final_application_b17"
+      "id": "s3_3_final_application_b21"
     }
   ],
-  "_generated_at": "2026-04-20T17:03:37.378095+00:00"
+  "_generated_at": "2026-05-05T18:21:56.477757+00:00"
 }
 </input>
 
@@ -4896,4 +6227,3 @@ Cacheable: Yes
 ## Prefill
 
 {"id": "s3_3_final_application", "incorrects": [
-

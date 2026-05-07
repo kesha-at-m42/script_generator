@@ -4,36 +4,65 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "bar_graph_marbles",
-      "tangible_type": "bar_graph",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
       "params": {
-        "mode": "reading",
-        "orientation": "vertical",
-        "categories": [
-          "Jar A",
-          "Jar B",
-          "Jar C"
-        ],
-        "scale": 1,
-        "axis_range": [
-          0,
-          24
-        ],
-        "description": "Vertical bar graph appears. Marbles data. Jar A=7, Jar B=24, Jar C=19. Scale of 1 active. 24 tick marks visible on vertical axis."
+        "description": "Data table appears showing Marbles in Jars data: Jar A=7, Jar B=12, Jar C=19, Jar D=23."
       }
     },
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "data_table",
-      "tangible_type": "data_table",
+      "tangible_id": "bar_graph_marbles",
+      "tangible_type": "bar_graph",
       "params": {
-        "description": "Data table showing Marbles values alongside graph."
+        "mode": "reading",
+        "orientation": "horizontal",
+        "categories": [
+          "Jar A",
+          "Jar B",
+          "Jar C",
+          "Jar D"
+        ],
+        "axis_range": [
+          0,
+          23
+        ],
+        "scale": 1,
+        "description": "Horizontal bar graph appears. Marbles in Jars data. Scale of 1, axis 0–23 with 24 tick marks visible."
       }
     },
     {
       "type": "dialogue",
       "text": "Scale of 1 works, but that's a lot of lines. You learned bigger scales are usually easier to read."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Marbles in Jars values: Jar A=7, Jar B=12, Jar C=19, Jar D=23.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_marbles",
+          "description": "Horizontal bar graph. Marbles in Jars. Scale of 1, axis 0–23, 24 tick marks. Four bars displayed.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Jar A",
+            "Jar B",
+            "Jar C",
+            "Jar D"
+          ],
+          "axis_range": [
+            0,
+            23
+          ],
+          "scale": 1
+        }
+      ]
     },
     {
       "type": "dialogue",
@@ -54,7 +83,21 @@
           "is_correct": true,
           "beats": [
             {
-              "type": "empty"
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_marbles",
+              "params": {
+                "scale": 10,
+                "axis_range": [
+                  0,
+                  30
+                ],
+                "warning_indicators": [
+                  "Jar A",
+                  "Jar C"
+                ],
+                "description": "Graph updates to scale of 10. Bars appear with ⚠️ indicators on Jar A and Jar C. Jar A (7) between 0 and 10. Jar C (19) between 10 and 20. Axis shows 0, 10, 20, 30—3 tick marks."
+              }
             }
           ]
         }
@@ -64,55 +107,71 @@
       "type": "current_scene",
       "elements": [
         {
+          "tangible_id": "data_table",
+          "description": "Data table showing Marbles in Jars values: Jar A=7, Jar B=12, Jar C=19, Jar D=23.",
+          "tangible_type": "data_table"
+        },
+        {
           "tangible_id": "bar_graph_marbles",
-          "description": "Vertical bar graph. Scale of 1 active. Marbles data. 24 tick marks visible.",
+          "description": "Horizontal bar graph. Marbles in Jars. Scale of 10, axis 0–30, 4 tick marks. ⚠️ indicators on Jar A and Jar C bars.",
           "tangible_type": "bar_graph",
           "mode": "reading",
-          "orientation": "vertical",
+          "orientation": "horizontal",
           "categories": [
             "Jar A",
             "Jar B",
-            "Jar C"
+            "Jar C",
+            "Jar D"
           ],
-          "scale": 1,
           "axis_range": [
             0,
-            24
-          ]
-        },
-        {
-          "tangible_id": "data_table",
-          "description": "Data table showing Marbles values.",
-          "tangible_type": "data_table"
+            30
+          ],
+          "scale": 10
         }
       ]
     },
     {
+      "type": "dialogue",
+      "text": "Hmm. Scale of 10 fits, but there are only 3 marks on the axis. Look at those warnings. Can you tell the exact value of where those bars end? Someone looking at our graph without the data table would need to guess how many marbles are shown."
+    },
+    {
       "type": "scene",
-      "method": "update",
+      "method": "animate",
       "tangible_id": "bar_graph_marbles",
       "params": {
-        "scale": 10,
-        "axis_range": [
-          0,
-          30
-        ],
-        "warnings": [
-          {
-            "category": "Jar A",
-            "message": "7 won't land exactly on a line or in the middle"
-          },
-          {
-            "category": "Jar C",
-            "message": "19 won't land exactly on a line or in the middle"
-          }
-        ],
-        "description": "Scale changes to 10. Axis shows 0, 10, 20, 30. Bars appear. Jar A (7) between 0 and 10. Jar C (19) between 10 and 20. ⚠️ indicators on Jar A and Jar C."
+        "event": "show_warning_message",
+        "status": "confirmed",
+        "description": "⚠️ on Jar A highlights with message: '7 won't land exactly on a line or in the middle.'"
       }
     },
     {
-      "type": "dialogue",
-      "text": "Hmm. Scale of 10 fits, but there are only 3 marks on the axis. Look at those warnings. Can you tell the exact value of where those bars end? Someone looking at our graph without the data table would need to guess how many marbles are shown."
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "data_table",
+          "description": "Data table showing Marbles in Jars values: Jar A=7, Jar B=12, Jar C=19, Jar D=23.",
+          "tangible_type": "data_table"
+        },
+        {
+          "tangible_id": "bar_graph_marbles",
+          "description": "Horizontal bar graph. Marbles in Jars. Scale of 10, axis 0–30. ⚠️ on Jar A showing exactness warning message.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "categories": [
+            "Jar A",
+            "Jar B",
+            "Jar C",
+            "Jar D"
+          ],
+          "axis_range": [
+            0,
+            30
+          ],
+          "scale": 10
+        }
+      ]
     },
     {
       "type": "dialogue",
@@ -126,29 +185,30 @@
       "type": "current_scene",
       "elements": [
         {
+          "tangible_id": "data_table",
+          "description": "Data table showing Marbles in Jars values: Jar A=7, Jar B=12, Jar C=19, Jar D=23.",
+          "tangible_type": "data_table"
+        },
+        {
           "tangible_id": "bar_graph_marbles",
-          "description": "Vertical bar graph. Scale of 10 active. Marbles data. Axis shows 0, 10, 20, 30. Jar A and Jar C have ⚠️ indicators showing values don't land exactly.",
+          "description": "Horizontal bar graph. Marbles in Jars. Scale of 10, axis 0–30, 4 tick marks. ⚠️ indicators on Jar A and Jar C.",
           "tangible_type": "bar_graph",
           "mode": "reading",
-          "orientation": "vertical",
+          "orientation": "horizontal",
           "categories": [
             "Jar A",
             "Jar B",
-            "Jar C"
+            "Jar C",
+            "Jar D"
           ],
-          "scale": 10,
           "axis_range": [
             0,
             30
-          ]
-        },
-        {
-          "tangible_id": "data_table",
-          "description": "Data table showing Marbles values.",
-          "tangible_type": "data_table"
+          ],
+          "scale": 10
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:01:24.686801+00:00"
+  "_generated_at": "2026-05-05T18:17:48.653871+00:00"
 }

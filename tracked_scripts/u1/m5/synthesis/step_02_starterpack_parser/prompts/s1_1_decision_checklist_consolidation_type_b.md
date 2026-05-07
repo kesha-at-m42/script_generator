@@ -1,5 +1,5 @@
 # Prompt: starterpack_parser
-# Generated: 2026-04-20T11:58:12.403318
+# Generated: 2026-05-05T15:05:39.554494
 ======================================================================
 
 ## API Parameters
@@ -161,4 +161,3 @@ Cacheable: Yes
 ## Prefill
 
 {"id": "s1_1_decision_checklist_consolidation_type_b",
-

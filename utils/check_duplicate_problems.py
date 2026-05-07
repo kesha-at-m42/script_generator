@@ -17,12 +17,11 @@ Usage:
   python utils/check_duplicate_problems.py path/to/file.json
 """
 
+import argparse
 import json
 import sys
-import argparse
-from pathlib import Path
 from collections import defaultdict
-
+from pathlib import Path
 
 REPO_ROOT = Path(__file__).parent.parent
 OUTPUTS_DIR = REPO_ROOT / "outputs"
@@ -33,6 +32,7 @@ GODOT_SEQUENCES_DIR = Path("C:/git/launchpad/project/edtech.apl/resources/sequen
 # ---------------------------------------------------------------------------
 # Template parameter coverage
 # ---------------------------------------------------------------------------
+
 
 def load_template_info(module_filter: str | None = None) -> dict[str, dict]:
     """
@@ -71,10 +71,15 @@ def load_template_info(module_filter: str | None = None) -> dict[str, dict]:
 # Discovery helpers
 # ---------------------------------------------------------------------------
 
+
 def find_latest_version(module_dir: Path) -> Path | None:
     versions = sorted(
-        [d for d in module_dir.iterdir() if d.is_dir() and d.name[1:].isdigit() and d.name.startswith("v")],
-        key=lambda d: int(d.name[1:])
+        [
+            d
+            for d in module_dir.iterdir()
+            if d.is_dir() and d.name[1:].isdigit() and d.name.startswith("v")
+        ],
+        key=lambda d: int(d.name[1:]),
     )
     return versions[-1] if versions else None
 
@@ -83,7 +88,7 @@ def find_second_to_last_step(version_dir: Path) -> Path | None:
     """Return the second-to-last step_NN_* directory inside version_dir."""
     step_dirs = sorted(
         [d for d in version_dir.iterdir() if d.is_dir() and d.name.startswith("step_")],
-        key=lambda d: int(d.name.split("_")[1])
+        key=lambda d: int(d.name.split("_")[1]),
     )
     if len(step_dirs) < 2:
         return None
@@ -109,10 +114,7 @@ def discover_current_files(outputs_dir: Path, module_filter: str | None) -> list
             print(f"  [skip] {module_dir.name}/{latest.name}: fewer than 2 step dirs")
             continue
 
-        files = [
-            f for f in step_dir.glob("*.json")
-            if not f.name.endswith("_validation.json")
-        ]
+        files = [f for f in step_dir.glob("*.json") if not f.name.endswith("_validation.json")]
         if not files:
             print(f"  [skip] {module_dir.name}/{latest.name}/{step_dir.name}: no JSON files")
             continue
@@ -141,6 +143,7 @@ def discover_godot_files(module_filter: str | None) -> list[tuple[Path, str]]:
 # Loading
 # ---------------------------------------------------------------------------
 
+
 def load_sequences(file_path: Path) -> list[dict]:
     try:
         with open(file_path, encoding="utf-8") as f:
@@ -159,6 +162,7 @@ def load_sequences(file_path: Path) -> list[dict]:
 # ---------------------------------------------------------------------------
 # Duplicate detection
 # ---------------------------------------------------------------------------
+
 
 def collect_usage(sequences: list[dict]) -> dict:
     """
@@ -201,8 +205,10 @@ def _check_template_group(template_id: str, sequences: list[dict], source: str) 
     issues = []
 
     # Maps for each check level
-    tier_ids_map: dict[tuple, list] = defaultdict(list)   # (tier, frozenset(ids)) -> [problem_ids]
-    ids_tiers_map: dict[frozenset, list] = defaultdict(list)  # frozenset(ids) -> [(problem_id, tier)]
+    tier_ids_map: dict[tuple, list] = defaultdict(list)  # (tier, frozenset(ids)) -> [problem_ids]
+    ids_tiers_map: dict[frozenset, list] = defaultdict(
+        list
+    )  # frozenset(ids) -> [(problem_id, tier)]
     tier_prompt_map: dict[tuple, list] = defaultdict(list)  # (tier, prompt) -> [problem_ids]
 
     for seq in sequences:
@@ -223,40 +229,46 @@ def _check_template_group(template_id: str, sequences: list[dict], source: str) 
     # Level 1 ERROR: same tier + same identifiers
     for (tier, identifiers), pids in tier_ids_map.items():
         if len(pids) > 1:
-            issues.append({
-                "severity": 1,
-                "label": "ERROR",
-                "description": f"Same tier ({tier}) + same identifiers {sorted(identifiers)}",
-                "problem_ids": [f"#{pid}" for pid in pids],
-                "source": source,
-                "template_id": template_id,
-            })
+            issues.append(
+                {
+                    "severity": 1,
+                    "label": "ERROR",
+                    "description": f"Same tier ({tier}) + same identifiers {sorted(identifiers)}",
+                    "problem_ids": [f"#{pid}" for pid in pids],
+                    "source": source,
+                    "template_id": template_id,
+                }
+            )
 
     # Level 2 WARNING: same identifiers across different tiers
     for identifiers, entries in ids_tiers_map.items():
         tiers_seen = {tier for _, tier in entries}
         if len(tiers_seen) > 1:
-            issues.append({
-                "severity": 2,
-                "label": "WARNING",
-                "description": f"Same identifiers {sorted(identifiers)} in multiple tiers: {sorted(tiers_seen)}",
-                "problem_ids": [f"#{pid} ({tier})" for pid, tier in entries],
-                "source": source,
-                "template_id": template_id,
-            })
+            issues.append(
+                {
+                    "severity": 2,
+                    "label": "WARNING",
+                    "description": f"Same identifiers {sorted(identifiers)} in multiple tiers: {sorted(tiers_seen)}",
+                    "problem_ids": [f"#{pid} ({tier})" for pid, tier in entries],
+                    "source": source,
+                    "template_id": template_id,
+                }
+            )
 
     # Level 3 INFO: same tier + same first-step prompt text
     for (tier, prompt), pids in tier_prompt_map.items():
         if len(pids) > 1:
-            issues.append({
-                "severity": 3,
-                "label": "INFO",
-                "description": f"Same tier ({tier}) + identical first-step prompt text",
-                "problem_ids": [f"#{pid}" for pid in pids],
-                "prompt_preview": prompt[:80],
-                "source": source,
-                "template_id": template_id,
-            })
+            issues.append(
+                {
+                    "severity": 3,
+                    "label": "INFO",
+                    "description": f"Same tier ({tier}) + identical first-step prompt text",
+                    "problem_ids": [f"#{pid}" for pid in pids],
+                    "prompt_preview": prompt[:80],
+                    "source": source,
+                    "template_id": template_id,
+                }
+            )
 
     return issues
 
@@ -265,7 +277,10 @@ def _check_template_group(template_id: str, sequences: list[dict], source: str) 
 # Reporting
 # ---------------------------------------------------------------------------
 
-def format_report(all_issues: list[dict], template_info: dict | None = None, identifier_usage: dict | None = None) -> str:
+
+def format_report(
+    all_issues: list[dict], template_info: dict | None = None, identifier_usage: dict | None = None
+) -> str:
     lines = []
     if not all_issues:
         lines.append("No duplicate issues found.")
@@ -322,7 +337,7 @@ def format_report(all_issues: list[dict], template_info: dict | None = None, ide
                 lines.append(f"    [{issue['label']}] {issue['description']}")
                 lines.append(f"      Problem IDs: {', '.join(issue['problem_ids'])}")
                 if "prompt_preview" in issue:
-                    lines.append(f"      Prompt: \"{issue['prompt_preview']}...\"")
+                    lines.append(f'      Prompt: "{issue["prompt_preview"]}..."')
                 lines.append("")
 
     return "\n".join(lines)
@@ -341,7 +356,7 @@ def save_outputs(all_issues: list[dict], report_text: str, output_dir: Path) -> 
         f.write(report_text)
         f.write("\n")
 
-    print(f"\nResults saved to:")
+    print("\nResults saved to:")
     print(f"  {json_path}")
     print(f"  {txt_path}")
 
@@ -350,6 +365,7 @@ def save_outputs(all_issues: list[dict], report_text: str, output_dir: Path) -> 
 # Main
 # ---------------------------------------------------------------------------
 
+
 def collect_files(args) -> tuple[list[tuple[Path, str]], Path]:
     """Return (file_list, output_dir)."""
     outputs_base = OUTPUTS_DIR / "duplicate_report"
@@ -357,7 +373,9 @@ def collect_files(args) -> tuple[list[tuple[Path, str]], Path]:
     # Explicit files mode
     if args.files:
         files = [(Path(p), p) for p in args.files]
-        output_dir = Path(args.output_dir) if args.output_dir else outputs_base / "current" / "all_modules"
+        output_dir = (
+            Path(args.output_dir) if args.output_dir else outputs_base / "current" / "all_modules"
+        )
         return files, output_dir
 
     # Scope subdir
@@ -382,16 +400,24 @@ def main():
     )
     mode_group = parser.add_mutually_exclusive_group()
     mode_group.add_argument(
-        "--current", action="store_true", default=False,
-        help="Read from second-to-last pipeline step (default)"
+        "--current",
+        action="store_true",
+        default=False,
+        help="Read from second-to-last pipeline step (default)",
     )
     mode_group.add_argument(
-        "--godot", action="store_true", default=False,
-        help="Read from Godot project problem_pool.json files"
+        "--godot",
+        action="store_true",
+        default=False,
+        help="Read from Godot project problem_pool.json files",
     )
     parser.add_argument("--module", type=str, help="Only check a specific module number (e.g. 11)")
-    parser.add_argument("--output-dir", type=str, dest="output_dir", help="Override output directory")
-    parser.add_argument("files", nargs="*", help="Explicit JSON file paths (bypasses auto-discovery)")
+    parser.add_argument(
+        "--output-dir", type=str, dest="output_dir", help="Override output directory"
+    )
+    parser.add_argument(
+        "files", nargs="*", help="Explicit JSON file paths (bypasses auto-discovery)"
+    )
     args = parser.parse_args()
 
     files, output_dir = collect_files(args)

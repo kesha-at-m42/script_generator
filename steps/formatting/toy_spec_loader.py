@@ -45,43 +45,85 @@ _SECTION_START_PHRASES = {
 # Any capitalized phrase extracted from a visual field that ends with a clearing or fading verb
 # is also transition boilerplate — e.g. "Practice clears", "Lesson graph clears",
 # "Equation Builder clears", "Lesson visualization fades".
-_CLEARING_VERB_RE = re.compile(r'\b(clears?|fades?)\s*$', re.IGNORECASE)
+_CLEARING_VERB_RE = re.compile(r"\b(clears?|fades?)\s*$", re.IGNORECASE)
+
+# Phrases describing the absence of something on screen — e.g. "Initially no graph showing",
+# "No graph visible". All sections start with a blank slate; these restate the default.
+_BLANK_SLATE_RE = re.compile(r"\bno\b.+\b(showing|visible|displayed)\b", re.IGNORECASE)
 
 # Phrases in visual fields that suggest the spec assumes workspace carries over from a prior section.
 _CARRY_OVER_PHRASES = [
-    "same graph", "same picture graph", "same bar graph", "same visual",
-    "same data table", "same '", 'same "',
-    "continues from", "graph remains", "remains on screen",
-    "still visible", "still on screen",
+    "same graph",
+    "same picture graph",
+    "same bar graph",
+    "same visual",
+    "same data table",
+    "same '",
+    'same "',
+    "continues from",
+    "graph remains",
+    "remains on screen",
+    "still visible",
+    "still on screen",
 ]
 
 # Ordered tool inference rules: (phrases_any_of, tool_name_or_list)
 # First match wins per section. tool_name may be a list for interactions requiring multiple tools.
 _TOOL_RULES = [
     (["select all that apply", "select all"], "multi_select"),
-    (["click on the part", "click the part", "click on the key", "click on the title",
-      "click on the label", "click on the component"], "click_component"),
+    (
+        [
+            "click on the part",
+            "click the part",
+            "click on the key",
+            "click on the title",
+            "click on the label",
+            "click on the component",
+        ],
+        "click_component",
+    ),
     (["click on", "click the bar", "click the category", "click the"], "click_category"),
-    (["tile palette", "equation builder tiles", "using tiles", "drag tile",
-      "place tile", "drag the tile", "place the tile",
-      "build the expression", "build an expression", "build the equation",
-      "build an equation"], "place_tile"),
-    (["add row", "add the row", "add rows", "add the rows",
-      "add column", "add the column", "add columns", "add the columns"],
-     ["add_row", "add_column"]),
+    (
+        [
+            "tile palette",
+            "equation builder tiles",
+            "using tiles",
+            "drag tile",
+            "place tile",
+            "drag the tile",
+            "place the tile",
+            "build the expression",
+            "build an expression",
+            "build the equation",
+            "build an equation",
+        ],
+        "place_tile",
+    ),
+    (
+        [
+            "add row",
+            "add the row",
+            "add rows",
+            "add the rows",
+            "add column",
+            "add the column",
+            "add columns",
+            "add the columns",
+        ],
+        ["add_row", "add_column"],
+    ),
 ]
 
 # Pattern to extract toy-like phrases from visual fields.
 _TOY_PHRASE_RE = re.compile(
-    r'\b([A-Z][A-Za-z\s\-/]+?)\s*(?:\(Mode|\(mode|visible|appears|alongside|\.|,)',
-    re.MULTILINE
+    r"\b([A-Z][A-Za-z\s\-/]+?)\s*(?:\(Mode|\(mode|visible|appears|alongside|\.|,)", re.MULTILINE
 )
 
 
 def _extract_what_excerpt(spec_file: Path, max_chars: int = 300) -> str:
     """Extract the WHAT description from a spec file."""
     content = spec_file.read_text(encoding="utf-8")
-    match = re.search(r'>\s*\*\*WHAT:\*\*\s*(.*?)(?:\n\n|\n>|\*\*WHY)', content, re.DOTALL)
+    match = re.search(r">\s*\*\*WHAT:\*\*\s*(.*?)(?:\n\n|\n>|\*\*WHY)", content, re.DOTALL)
     if match:
         return match.group(1).strip()[:max_chars]
     for line in content.splitlines():
@@ -126,14 +168,22 @@ def _extract_unmatched_phrases(visual_text: str, already_matched: set, phrase_ma
             continue
         if _CLEARING_VERB_RE.search(phrase_lower):
             continue
+        if _BLANK_SLATE_RE.search(phrase_lower):
+            continue
         candidates.append(phrase)
     return candidates
 
 
-def _ai_match(unmatched_phrases: list, excerpts: dict, visual_context: str) -> dict:
+def _ai_match(
+    unmatched_phrases: list,
+    excerpts: dict,
+    visual_context: str,
+    prior_toys: list = None,
+) -> dict:
     """
     Use Claude to match unmatched phrases to the best available spec.
     Returns dict: {phrase -> spec_name or None}
+    prior_toys: list of toy-name lists from recently processed sections, newest last.
     """
     if not unmatched_phrases:
         return {}
@@ -141,17 +191,24 @@ def _ai_match(unmatched_phrases: list, excerpts: dict, visual_context: str) -> d
     sys.path.insert(0, str(project_root / "core"))
     from claude_client import ClaudeClient
 
-    spec_descriptions = "\n".join(
-        f"- {name}: {excerpt}" for name, excerpt in excerpts.items()
-    )
+    spec_descriptions = "\n".join(f"- {name}: {excerpt}" for name, excerpt in excerpts.items())
     phrases_list = "\n".join(f"- {p}" for p in unmatched_phrases)
+
+    prior_context = ""
+    if prior_toys:
+        lines = [
+            f"  Section -{len(prior_toys) - i}: {', '.join(t)}" for i, t in enumerate(prior_toys)
+        ]
+        prior_context = (
+            "\nPrior sections (most recent last) used these toys:\n" + "\n".join(lines) + "\n"
+        )
 
     prompt = f"""A lesson visual description mentions these elements that may be toy/component types:
 {phrases_list}
 
 Visual context:
 {visual_context[:400]}
-
+{prior_context}
 Available toy specs (name: description):
 {spec_descriptions}
 
@@ -196,13 +253,10 @@ def _ai_infer_tools(section: dict, tool_descriptions: dict) -> list | None:
     sys.path.insert(0, str(project_root / "core"))
     from claude_client import ClaudeClient
 
-    tools_list = "\n".join(
-        f"- {name}: {desc}" for name, desc in sorted(tool_descriptions.items())
-    )
+    tools_list = "\n".join(f"- {name}: {desc}" for name, desc in sorted(tool_descriptions.items()))
 
     section_text = "\n".join(
-        f"{k}: {v}" for k, v in section.items()
-        if isinstance(v, str) and k not in ("id", "purpose")
+        f"{k}: {v}" for k, v in section.items() if isinstance(v, str) and k not in ("id", "purpose")
     )
 
     prompt = f"""A lesson section describes one or more student interactions (sometimes across numbered steps like Step 1, Step 2, Step 3). Identify every tool the student uses across ALL steps in this section.
@@ -215,7 +269,8 @@ Available tools (name: description):
 
 Rules:
 - A single student_action field may describe two actions joined by "and" (e.g. "selects X or Y and fills slots") — identify a tool for each sub-action separately.
-- Choosing between two named word options (e.g. "rows" or "columns") is multiple_choice.
+- Choosing between scenario images, pictures, or real-world illustrations displayed on screen is click_tangible — even if the spec labels them A, B, C. Letter labels are identifiers for on-screen visuals, not word-based answer choices.
+- Choosing between abstract word options (e.g. "rows" or "columns") is multiple_choice.
 - Output each tool name once (no duplicates), one per line.
 - If the section is purely observational with no student action, output "none".
 - No explanation."""
@@ -240,16 +295,14 @@ def _infer_tools(section: dict, tool_descriptions: dict | None = None) -> list:
     """
     # Check for any prompt field to determine if this section has student interaction
     has_prompt = any(
-        (k == "prompt" or (k.startswith("prompt") and k[6:].lstrip("_").isdigit()))
-        and bool(v)
+        (k == "prompt" or (k.startswith("prompt") and k[6:].lstrip("_").isdigit())) and bool(v)
         for k, v in section.items()
     )
     if not has_prompt:
         return []
 
     combined = " ".join(
-        v for k, v in section.items()
-        if isinstance(v, str) and k not in ("id", "purpose")
+        v for k, v in section.items() if isinstance(v, str) and k not in ("id", "purpose")
     ).lower()
 
     matched = []
@@ -260,10 +313,7 @@ def _infer_tools(section: dict, tool_descriptions: dict | None = None) -> list:
                 if t not in matched:
                     matched.append(t)
 
-    is_multi_step = any(
-        k.startswith("prompt_") and k[7:].isdigit()
-        for k in section.keys()
-    )
+    is_multi_step = any(k.startswith("prompt_") and k[7:].isdigit() for k in section.keys())
 
     if tool_descriptions and (not matched or is_multi_step):
         ai_result = _ai_infer_tools(section, tool_descriptions)
@@ -284,6 +334,7 @@ def _match_section_toys(
     available: set,
     excerpts: dict,
     phrase_map: dict,
+    prior_toys: list = None,
     verbose: bool = False,
 ) -> tuple:
     """
@@ -292,6 +343,7 @@ def _match_section_toys(
     Returns (matched_toys, unresolved_phrases) where:
       - matched_toys: list of {"type": toy_name} dicts
       - unresolved_phrases: list of visual phrases that couldn't be matched to any spec
+    prior_toys: list of toy-name lists from recently processed sections, newest last.
     """
     visual = section.get("visual", "")
     if not visual:
@@ -305,7 +357,7 @@ def _match_section_toys(
     if unmatched_phrases:
         if verbose:
             print(f"    [AI fallback] Unmatched phrases: {unmatched_phrases}")
-        ai_matches = _ai_match(unmatched_phrases, excerpts, visual)
+        ai_matches = _ai_match(unmatched_phrases, excerpts, visual, prior_toys=prior_toys)
         for phrase, spec_name in ai_matches.items():
             if spec_name and spec_name in available:
                 matched.add(spec_name)
@@ -395,10 +447,13 @@ def load_specs_for_lesson(
     tool_descriptions = glossary.tool_descriptions if glossary else {}
     if verbose:
         print(f"  [TOY_SPEC_LOADER] Loaded {len(phrase_map)} phrase mappings from glossary")
-        print(f"  [TOY_SPEC_LOADER] Loaded {len(tool_descriptions)} tool descriptions for AI inference")
+        print(
+            f"  [TOY_SPEC_LOADER] Loaded {len(tool_descriptions)} tool descriptions for AI inference"
+        )
 
     if isinstance(input_data, str):
         import json as _json
+
         try:
             input_data = _json.loads(input_data)
         except Exception:
@@ -416,6 +471,8 @@ def load_specs_for_lesson(
             excerpts_cache.update(_load_excerpts(toy_specs_dir))
         return excerpts_cache
 
+    prior_toy_history: list[list[str]] = []  # rolling window of toy lists, newest last
+
     for section in sections:
         section_id = section.get("id", "?")
 
@@ -423,10 +480,18 @@ def load_specs_for_lesson(
         if section.get("workspace_specs"):
             if verbose:
                 print(f"  [{section_id}] Using existing workspace_specs")
+            existing_toys = section["workspace_specs"].get("toys", [])
+            if existing_toys:
+                prior_toy_history = (prior_toy_history + [existing_toys])[-3:]
             continue
 
         toys, unresolved = _match_section_toys(
-            section, available, get_excerpts(), phrase_map, verbose=verbose
+            section,
+            available,
+            get_excerpts(),
+            phrase_map,
+            prior_toys=prior_toy_history[-3:] if prior_toy_history else None,
+            verbose=verbose,
         )
         tools = _infer_tools(section, tool_descriptions=tool_descriptions)
         tool_fallback = "__fallback__" in tools
@@ -446,6 +511,8 @@ def load_specs_for_lesson(
                 print(f"  [{section_id}] ⚠ carry-over detected")
 
         section["workspace_specs"] = workspace_specs
+        if toy_names:
+            prior_toy_history = (prior_toy_history + [toy_names])[-3:]
 
         if verbose:
             toys_str = f"toys={toy_names}"

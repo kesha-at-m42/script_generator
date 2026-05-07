@@ -4,9 +4,9 @@
     [
       {
         "condition": {
-          "selected": "Scale of 10"
+          "selected": "Scale of 5"
         },
-        "description": "Student selected Scale of 10 for data with non-multiples of 5",
+        "description": "Student selected Scale of 5 — numbers are not multiples of 5",
         "is_correct": false,
         "steps": [
           [
@@ -17,24 +17,25 @@
               "params": {
                 "highlight_values": [
                   27,
-                  33,
-                  41
+                  14,
+                  41,
+                  33
                 ],
-                "description": "Values 27, 33, and 41 highlight in the table."
+                "description": "All four values highlight in data table."
               }
             },
             {
               "type": "dialogue",
-              "text": "Look at 27, 33, and 41. Those numbers don't end in 0 or 5. Scale of 10 won't show them exactly. Which scale shows any whole number?"
+              "text": "Look at the ones digits: 7, 4, 1, 3. None end in 0 or 5. That tells you these aren't multiples of 5. Which scale shows any whole number exactly?"
             }
           ]
         ]
       },
       {
         "condition": {
-          "selected": "Scale of 5"
+          "selected": "Scale of 10"
         },
-        "description": "Student selected Scale of 5 for data with non-multiples of 5",
+        "description": "Student selected Scale of 10 — numbers are not multiples of 5",
         "is_correct": false,
         "steps": [
           [
@@ -45,15 +46,16 @@
               "params": {
                 "highlight_values": [
                   27,
-                  33,
-                  41
+                  14,
+                  41,
+                  33
                 ],
-                "description": "Values 27, 33, and 41 highlight in the table."
+                "description": "All four values highlight in data table."
               }
             },
             {
               "type": "dialogue",
-              "text": "Check those ones place digits: 7, 3, 1. None are 0 or 5, so Scale of 5 won't show them exactly. Which scale can show every whole number?"
+              "text": "Look at the ones digits: 7, 4, 1, 3. None end in 0 or 5. That tells you these aren't multiples of 5. Which scale shows any whole number exactly?"
             }
           ]
         ]
@@ -62,7 +64,7 @@
         "condition": {
           "selected": "Scale of 1"
         },
-        "description": "Student selected Scale of 1 when the largest value is 41",
+        "description": "Student selected Scale of 1 — would need many tick marks",
         "is_correct": false,
         "steps": [
           [
@@ -74,12 +76,12 @@
                 "highlight_values": [
                   41
                 ],
-                "description": "Value 41 highlights in the table."
+                "description": "Largest value 41 highlights in data table."
               }
             },
             {
               "type": "dialogue",
-              "text": "Scale of 1 works, but count to 41. That's over 40 tick marks on the axis. For numbers this big, which scale shows them exactly without too many marks?"
+              "text": "The biggest number is 41. A scale of 1 would need 41 tick marks on the axis. Which scale shows exact values with fewer marks?"
             }
           ]
         ]
@@ -92,136 +94,26 @@
           [
             {
               "type": "scene",
-              "method": "animate",
+              "method": "update",
               "tangible_id": "data_table",
               "params": {
-                "event": "check_ones_digits",
-                "status": "confirmed",
-                "description": "System highlights ones place digits: 7, 4, 1, 3. None are 0 or 5."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "Let me show you. Look at the ones place: 7, 4, 1, 3. None are 0 or 5, so these aren't multiples of 5. Scale of 2 works because half of 2 is 1. That means we can show any whole number exactly. The answer is Scale of 2."
-            }
-          ]
-        ]
-      }
-    ],
-    [
-      {
-        "condition": {
-          "and": [
-            {
-              "Guitar": 27
-            },
-            {
-              "or": [
-                {
-                  "Piano": {
-                    "not": 14
-                  }
-                },
-                {
-                  "Violin": {
-                    "not": 41
-                  }
-                },
-                {
-                  "Drums": {
-                    "not": 33
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        "description": "Student set Guitar correctly but one or more other bars incorrectly",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "bar_graph_practice",
-              "params": {
-                "highlight_categories": [
-                  "Guitar"
+                "highlight_values": [
+                  27,
+                  14,
+                  41,
+                  33
                 ],
-                "description": "Guitar bar highlights at 27."
+                "description": "All values highlight in data table."
               }
             },
             {
               "type": "dialogue",
-              "text": "Guitar is right at 27. Check the data table for the other instruments. Where should each bar end?"
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "incorrect_count": 1
-        },
-        "description": "Student set bar heights incorrectly on first attempt",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "dialogue",
-              "text": "Check the data table. Look at the gridlines. Where should each bar end?"
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "incorrect_count": 2
-        },
-        "description": "Student set bar heights incorrectly on second attempt",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "bar_graph_practice",
-              "params": {
-                "show_target_heights": true,
-                "highlight_gridlines": true,
-                "description": "Target heights appear as dashed lines. Gridlines highlight at each tick mark."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "With Scale of 2, each gridline is 2 apart. Guitar is 27, halfway between 26 and 28. Piano is 14, right on the line. Find where each value lands on the grid."
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {},
-        "description": "Student set bar heights incorrectly three or more times. System models the answer.",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "bar_graph_practice",
-              "params": {
-                "event": "demonstrate_bar_placement",
-                "status": "confirmed",
-                "description": "System demonstrates placing each bar. Piano: 14, right on the line. Guitar: 27, halfway between 26 and 28. Drums: 33, halfway between 32 and 34. Violin: 41, halfway between 40 and 42."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "Let me show you. Piano is 14, right on a line. Guitar is 27, halfway between 26 and 28. Drums is 33, halfway between 32 and 34. Violin is 41, halfway between 40 and 42. With Scale of 2, half of 2 is 1, so every whole number lands exactly on a line or halfway between. The bars are: Guitar 27, Piano 14, Violin 41, Drums 33."
+              "text": "Let me show you how to think about this. First I check the ones digits: 7, 4, 1, 3. None are 0 or 5, so these aren't multiples of 5. That rules out scales of 5 and 10 for exact placement. Next I check the biggest number: 41. Scale of 1 would need 41 tick marks — too many. Scale of 2 can show any whole number exactly because half of 2 is 1, and 41 only needs 21 tick marks. The answer is Scale of 2."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:06:29.358720+00:00"
+  "_generated_at": "2026-05-05T18:25:51.605583+00:00"
 }

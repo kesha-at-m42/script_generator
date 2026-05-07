@@ -1,0 +1,406 @@
+# lesson-script.toml
+
+title = "lesson"
+type = "sequence"
+
+# ---------------------------------------------------------------------------
+# Section 1 - worked_example_dual_interpretation
+# ---------------------------------------------------------------------------
+
+[section_101_worked_example_dual_interpretation]
+template = "array_template"
+
+[step_101_worked_example_dual_interpretation]
+dialogue = "Let's figure out whether those two expressions really do always give the same product. Watch how I test this idea. I see the rows. 3 rows of 5. That's 3 times 5. And the product is 15."
+components = ["SceneComponent"]
+
+[step_102_worked_example_dual_interpretation]
+dialogue = "Now the columns. 5 columns of 3. That's 5 times 3. And the product is 15. Same product! Same array, same dots. I didn't add anything or take anything away. We just read it a different way."
+
+# ---------------------------------------------------------------------------
+# Section 2 - student_tries_row_column_expressions
+# ---------------------------------------------------------------------------
+
+[section_102_student_tries_row_column_expressions]
+template = "array_template"
+
+[step_103_student_tries_row_column_expressions]
+dialogue = "Here's a new array. I highlighted the rows. See them going across? How many rows, and how many in each? Build the expression and find the product."
+components = ["PromptComponent"]
+prompt_text = "Build the equation for the rows."
+
+[step_103.correct]
+dialogue = "That's right. 5 times 4 equals 20. 5 rows of 4."
+metadata = { sting_id = "on_correct" }
+
+[step_103.step_502]
+dialogue = "Not quite. Count the rows going across and then the items in each row. Place those in the slots for the factors."
+id = "light"
+
+[step_103.step_503]
+dialogue = "Count carefully. How many rows go across? How many dots are in each row? Then multiply to find the product."
+id = "medium"
+
+[step_103.step_504]
+dialogue = "Let me show you. I count 5 rows going across. Each row has 4 dots. That's 5, 10, 15, 20. 5 rows of 4 is 20. So the equation is 5 times 4 equals 20. That's how we write what the array shows based on rows."
+id = "heavy"
+
+[step_104_student_tries_row_column_expressions]
+dialogue = "Now let's switch to columns. Build the column expression and find the product."
+components = ["PromptComponent"]
+prompt_text = "Build the equation for the columns."
+
+[step_104.correct]
+dialogue = "Right. 4 columns of 5. 4 times 5 equals 20. Same product again."
+metadata = { sting_id = "on_correct" }
+
+[step_104.step_506]
+dialogue = "Not there yet. Count the columns going down and then the items in each column. Place those in the slots for the factors."
+id = "light"
+
+[step_104.step_507]
+dialogue = "Count carefully. How many columns going down? How many dots are in each column? Then multiply to find the product."
+id = "medium"
+
+[step_104.step_508]
+dialogue = "Let me walk you through this one. I count 4 columns going down. Each column has 5 dots. 4, 8, 12, 16, 20. 4 columns of 5 is 20. The equation is 4 times 5 equals 20. The product stays the same as the equation based on rows."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 3 - second_array_product_comparison
+# ---------------------------------------------------------------------------
+
+[section_103_second_array_product_comparison]
+template = "array_template"
+
+[step_105_second_array_product_comparison]
+dialogue = "Another array. Rows are highlighted. Build the row expression and find the product."
+components = ["PromptComponent"]
+prompt_text = "Build the equation for the rows."
+
+[step_105.correct]
+dialogue = "That's it. 7 times 3 equals 21."
+metadata = { sting_id = "on_correct" }
+
+[step_105.step_510]
+dialogue = "Not quite. Count the rows and how many in each row. Then find the product."
+id = "light"
+
+[step_105.step_511]
+dialogue = "Here's a hint: the rows are highlighted. Count how many rows you see, then count the dots in one row. Then find the total number of dots."
+id = "medium"
+
+[step_105.step_512]
+dialogue = "Let me show you how this works. I count the rows: 7 rows. I count the dots in one row: 3 dots. So 7 times 3. Now I multiply: 7, 14, 21. The equation is 7 × 3 = 21."
+id = "heavy"
+
+[step_106_second_array_product_comparison]
+dialogue = "Now columns. Build it."
+components = ["PromptComponent"]
+prompt_text = "Build the equation for the columns."
+
+[step_106.correct]
+dialogue = "Right. 3 times 7 equals 21. Same product again."
+metadata = { sting_id = "on_correct" }
+
+[step_106.step_514]
+dialogue = "Not there yet. Count the columns and what's in each column. Then find the product."
+id = "light"
+
+[step_106.step_515]
+dialogue = "Check this out. The first column is highlighted now. Count the columns going down, then count the dots in one column. To find the product, how many total dots are there?"
+id = "medium"
+
+[step_106.step_516]
+dialogue = "Let me walk you through this one. I count the columns: 3 columns. I count the dots in one column: 7 dots. So 3 times 7. Now I multiply: 3, 6, 9, 12, 15, 18, 21. The equation is 3 × 7 = 21. Same product as the rows equation again."
+id = "heavy"
+
+[step_107_second_array_product_comparison]
+dialogue = "That's three arrays now. Every time, two expressions and the same product. 15 and 15. 20 and 20. 21 and 21."
+
+# ---------------------------------------------------------------------------
+# Section 4 - pattern_observation_is_this_always_true
+# ---------------------------------------------------------------------------
+
+[section_104_pattern_observation_is_this_always_true]
+template = "array_template"
+
+[step_108_pattern_observation_is_this_always_true]
+dialogue = "Whether by rows or by columns, same product every time. But here's what we need to figure out: is this a coincidence, or does this always happen? And if it always happens, why?"
+
+[step_109_pattern_observation_is_this_always_true]
+dialogue = "So three arrays now. Every time there were two expressions, but the same product. 15 and 15. 20 and 20. 21 and 21. Why do you think both expressions give the same product?"
+components = ["PromptComponent"]
+prompt_text = "Why do both expressions give the same product?"
+
+[step_109.correct]
+dialogue = "Right. No dots changed. You just looked at the same dots a different way. Same dots has to mean same total. That's why the products match."
+metadata = { sting_id = "on_correct" }
+
+[step_109.step_518]
+dialogue = "The size of the numbers don't matter. Think about the arrays themselves. When you look at the rows versus the columns, do any dots disappear or appear?"
+id = "numbers_small_enough"
+
+[step_109.step_519]
+dialogue = "Look at 5 × 4 and 4 × 5. The rows and columns are different numbers. But they still give the same product. What stays the same when you look at an array differently?"
+id = "rows_columns_equal_number"
+
+[step_109.step_520]
+dialogue = "There are patterns that only work in some cases. We tried three different arrays and it worked so far. Think about what happens when you look at an array differently. Does thinking about the rows versus the columns change how many dots there are?"
+id = "only_works_some_arrays"
+
+[step_109.step_521]
+dialogue = "Here's what matters: when you describe an array by rows or columns, the dots don't change. 3 × 5 has the exact same dots as 5 × 3. You just read them differently. Same dots means same total. That is why both expressions give the same product. The answer is: same dots, you just read them a different way."
+id = "heavy"
+
+[step_110_pattern_observation_is_this_always_true]
+dialogue = "But can we prove it even more clearly? Watch this."
+
+# ---------------------------------------------------------------------------
+# Section 5 - worked_example_rotation
+# ---------------------------------------------------------------------------
+
+[section_105_worked_example_rotation]
+template = "array_template"
+
+[step_111_worked_example_rotation]
+dialogue = "Here's an array showing 3 rows of 6. 3 times 6 equals 18. Now watch what happens when I turn this array."
+
+[step_112_worked_example_rotation]
+dialogue = "I turned it. Look, what were rows are now columns. What were columns are now rows. Now it's 6 rows of 3. 6 times 3 equals 18. Same product."
+
+[step_113_worked_example_rotation]
+dialogue = "And here's the important part. Did any dots disappear when I turned it? Did new dots show up? No. Every dot is still there. I just turned the array. Same dots, same total. That's why the product can't change."
+
+# ---------------------------------------------------------------------------
+# Section 6 - predict_rotation_before_animation
+# ---------------------------------------------------------------------------
+
+[section_106_predict_rotation_before_animation]
+template = "array_template"
+
+[step_114_predict_rotation_before_animation]
+dialogue = "Here's another array. 5 rows of 3. That's 5 × 3, and 5 times 3 is 15. I'm going to rotate this array. Before I do, let's make a prediction. What expression will describe the rows AFTER I turn it?"
+components = ["PromptComponent"]
+prompt_text = "After rotation, what will the row expression be?"
+
+[step_114.correct]
+dialogue = "Right. 3 times 5. The 5 rows of 3 turned into 3 rows of 5. And it has the same total of 15 still. You predicted it."
+metadata = { sting_id = "on_correct" }
+
+[step_114.step_523]
+dialogue = "That's what we have now. When the array rotates, the rows and columns switch. It won't be the same expression. What will the new row expression be?"
+id = "5_times_3"
+
+[step_114.step_524]
+dialogue = "15 is the total, yes. But we need the row expression. Right now it's 5 rows of 3. When the array turns, how many rows will there be?"
+id = "15_times_1"
+
+[step_114.step_525]
+dialogue = "That's not it. We use multiplication for arrays, not addition. Right now it's 5 rows of 3, so 5 times 3. After rotation, what will the expression based on rows be?"
+id = "three_plus_five"
+
+[step_114.step_526]
+dialogue = "Let me show you. Watch it rotate: the 5 rows of 3 become 3 rows of 5. Count them. 3 rows. Each row has 5 dots. That's 3 times 5. And it still has the same total of 15 dots after turning it."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 7 - predict_rotation_product_confirmation
+# ---------------------------------------------------------------------------
+
+[section_107_predict_rotation_product_confirmation]
+template = "array_template"
+
+[step_115_predict_rotation_product_confirmation]
+dialogue = "Try this one. 8 rows of 5. 8 times 5 equals 40. If I turn this array, what will the new row expression be?"
+components = ["PromptComponent"]
+prompt_text = "After rotation, what will the row expression be?"
+
+[step_115.correct]
+dialogue = "Right. 5 times 8. Rotation swaps the row and column counts."
+metadata = { sting_id = "on_correct" }
+
+[step_115.step_528]
+dialogue = "When we rotate, rows become columns and columns become rows. The expression won't stay at the same. Count the columns first. Then how many dots in each column?"
+id = "8_times_5"
+
+[step_115.step_529]
+dialogue = "After rotation, we count rows differently. 40 is the total product, not a row count. How many columns are there now, which will become rows when we rotate?"
+id = "5_times_40"
+
+[step_115.step_530]
+dialogue = "Arrays show equal groups so we multiply, not add. The expression for arrays is number of rows times the number of items per row. After turning, the rows and columns switch. How many rows will be there? How many dots will each row have?"
+id = "eight_plus_five"
+
+[step_115.step_531]
+dialogue = "Let me show you. When this array rotates, the rows and columns switch. The 8 rows become 8 columns. The 5 columns become 5 rows. So we get 5 rows of 8. The expression becomes 5 times 8."
+id = "heavy"
+
+[step_116_predict_rotation_product_confirmation]
+dialogue = "And will the product change after rotation?"
+components = ["PromptComponent"]
+prompt_text = "After rotation, will the product be the same or different?"
+
+[step_116.correct]
+dialogue = "That's it. 5 times 8. Still 40. Same dots, just turned."
+metadata = { sting_id = "on_correct" }
+
+[step_116.step_533]
+dialogue = "Not quite. Rotation moves dots around, but they are still the same dots There are less rows, but after rotation there are more columns. They swap. Notice the total dots. Does the total change when we turn the array?"
+id = "different_lost_rows"
+
+[step_116.step_534]
+dialogue = "That's not it. The columns become the rows when we rotate, but think about the total dots. Does turning the array add or remove dots?"
+id = "different_lost_columns"
+
+[step_116.step_535]
+dialogue = "Let's think about this a bit more. The factors do swap their positions, but does the product change? What is 5 times 8?"
+id = "different_factors_changed"
+
+[step_116.step_536]
+dialogue = "Let's visualize this one together. Right now, we have 8 times 5, which equals 40 total dots. When I rotate the array, the factors swap because rows and columns swap. We get 5 times 8. Let's think: 8, 16, 24, 32, 40. 5 times 8 also equals 40. Same dots, same total. The product stays 40."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 8 - consolidation_hybrid_understanding
+# ---------------------------------------------------------------------------
+
+[section_108_consolidation_hybrid_understanding]
+template = "array_template"
+
+[step_117_consolidation_hybrid_understanding]
+dialogue = "We have two different ways to prove the same thing. Highlighting: you read the same array two ways. Rotation: you turn the array and rows become columns. Either way, same dots, same product. This doesn't just work for these arrays. It works for every array. Any array you can build. The two expressions will always give the same product. Always."
+components = ["PromptComponent"]
+prompt_text = "Why do both expressions always give the same product?"
+
+[step_117.correct]
+dialogue = "Right. Same dots. Whether you read them by rows or columns or if you turn the array, the dots don't change. They are just organized differently. That's why the product can't change."
+metadata = { sting_id = "on_correct" }
+
+[step_117.step_538]
+dialogue = "The numbers don't need to be close for this to be true. It's about the dots. Count the rows, count the columns. Are the dots changing?"
+id = "numbers_close_together"
+
+[step_117.step_539]
+dialogue = "Arrays can be many different sizes and this is still true. When you switch rows and columns, what is happening with the dots? Why does the total stay the same?"
+id = "arrays_always_same_size"
+
+[step_117.step_540]
+dialogue = "Multiplication doesn't always give the same answer for different problems. 4 times 5 isn't the same answer as 2 times 3. But why does 6 times 3 give the same answer as 3 times 6? Think about it again."
+id = "multiplication_commutative_property"
+
+[step_117.step_541]
+dialogue = "Let me show you the two ways to think about this. First, I count by rows: 3 rows, 6 dots each. Then I count by columns: 6 columns, 3 dots each. These are the same 18 dots, just counted differently. That's why both expressions give the same product. If you turn an array, the dots don't change, they are just organized differently, so the product can't change."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 9 - property_naming_vocabulary
+# ---------------------------------------------------------------------------
+
+[section_109_property_naming_vocabulary]
+template = "array_template"
+
+[step_118_property_naming_vocabulary]
+dialogue = "You proved something important. No matter which array you check, the two paired expressions always give the same product. This shows us that you can multiply the factors in any order and always get the same answer. These are [vocab]turn-around facts[/vocab]. Mathematicians have a name for this. They call it the [vocab]commutative property of multiplication[/vocab]. But the idea is simple. You can change the order of the factors and get the same answer. And here's why this is more than just interesting. It's a strategy, a plan for solving problems. If you know one fact, you already know its [vocab]turn-around fact[/vocab] without doing any extra work."
+
+# ---------------------------------------------------------------------------
+# Section 10 - worked_example_strategic_use
+# ---------------------------------------------------------------------------
+
+[section_110_worked_example_strategic_use]
+template = "array_template"
+
+[step_119_worked_example_strategic_use]
+dialogue = "Watch how the strategy works. If I know 4 times 6 is 24, do I need to compute 6 times 4 and skip-count by 4s six times? No, I can multiply in any order. Switch the factors. 6 times 4 is also 24. I didn't compute anything. I used what I already knew. Your turn. You know 7 times 8 is 56. What's 8 times 7? Use the strategy."
+components = ["PromptComponent"]
+prompt_text = "If 7 × 8 = 56, what's 8 × 7?"
+
+[step_119.correct]
+dialogue = "Right. 56. You didn't need to compute, you used the turn-around facts. You can multiply the factors in any order and get the same product."
+metadata = { sting_id = "on_correct" }
+
+[step_119.step_543]
+dialogue = "No. You added 7 and 8. We're multiplying. The turn-around fact tells us 8 times 7 equals the same product as 7 times 8. Try again."
+id = "15"
+
+[step_119.step_544]
+dialogue = "No, we need the product. When you switch the order of factors, the product stays the same. Since we know 7 times 8 is 56, what must 8 times 7 be? Use the turn-around fact."
+id = "78"
+
+[step_119.step_545]
+dialogue = "Let's think about this. The turn-around facts say we can switch the order and get the same product. We know 7 times 8 equals 56. So what is 8 times 7? No need to compute. Use the turn-around fact."
+id = "54"
+
+[step_119.step_546]
+dialogue = "Here's how we can think through this. We know 7 times 8 equals 56. The turn-around facts tell us we can multiply in any order and get the same product. So 8 times 7 also equals 56. We didn't compute anything new. We used what we were given 7 times 8 and 8 times 7 give the same product. The answer is 56."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 11 - equivalence_discrimination_rotation
+# ---------------------------------------------------------------------------
+
+[section_111_equivalence_discrimination_rotation]
+template = "array_template"
+
+[step_120_equivalence_discrimination_rotation]
+dialogue = "Here's an array: 3 rows of 8. That's 24 dots. Now look at these four arrays. They ALL have 24 dots. But which one is the SAME array as 3 × 8, just rotated?"
+components = ["PromptComponent"]
+prompt_text = "Which array is the same as 3 × 8, just rotated?"
+
+[step_120.correct]
+dialogue = "Right. 8 rows of 3. That's 3 rows of 8, just turned. Same dots, same product. Now look at the others: 4 × 6, 6 × 4, 2 × 12. They all have 24 dots too, but they're different shapes. You can't rotate 3 rows of 8 and get 4 rows of 6. The same product doesn't always mean the same array."
+metadata = { sting_id = "on_correct" }
+
+[step_120.step_548]
+dialogue = "You picked 4 rows of 6. That makes 24 dots, but it's not the same array turned. Look at the array with 3 rows of 8. If you rotate that, how many rows would you get?"
+id = "a"
+
+[step_120.step_549]
+dialogue = "You picked 6 rows of 4. That makes 24 dots, but it's not a rotation of 3 rows of 8. When you rotate an array, the rows become columns and the columns become rows. Find which array shows 3 rows of 8 rotated."
+id = "c"
+
+[step_120.step_550]
+dialogue = "You picked 2 rows of 12. That makes 24 dots, but it's not the same array rotated. The original array has 3 rows of 8. When you rotate, the rows become columns. How many columns will the rotated array have?"
+id = "d"
+
+[step_120.step_551]
+dialogue = "Here, let me show you. Watch the reference array rotate. The 3 rows become 3 columns. The 8 in each row becomes 8 rows. So 3 rows of 8 turns into 8 rows of 3. The answer is 8 × 3. That's the same array rotated. The other arrays all have 24 dots too, but they're different shapes. The same product doesn't always mean the same array."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 12 - mixed_application_faded_support
+# ---------------------------------------------------------------------------
+
+[section_112_mixed_application_faded_support]
+template = "array_template"
+
+[step_121_mixed_application_faded_support]
+dialogue = "Given that 9 times 4 is 36, what turn-around fact do you know?"
+components = ["PromptComponent"]
+prompt_text = "If 9 × 4 = 36, what turn-around fact do you know?"
+
+[step_121.correct]
+dialogue = "Right. 4 times 9 equals 36. You can multiply the factors in any order and get the same product."
+metadata = { sting_id = "on_correct" }
+
+[step_121.step_553]
+dialogue = "Not quite. Remember turn-around facts swap the order of the factors."
+id = "light"
+
+[step_121.step_554]
+dialogue = "Here's a hint: the factors in the turn-around fact are the same, just switched. And what do we know about the product for turn-around facts? Does it change?"
+id = "medium"
+
+[step_121.step_555]
+dialogue = "Let's think about this together. The given fact is 9 times 4 equals 36. The turn-around fact swaps the order of the factors so 4 times 9. Then we know the product stays the same, so still 36. The turn-around fact we know is 4 × 9 = 36."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 13 - bridge_exit_check
+# ---------------------------------------------------------------------------
+
+[section_113_bridge_exit_check]
+template = "array_template"
+
+[step_122_bridge_exit_check]
+dialogue = "You proved it: when you change the order of the factors, the product stays the same. You used highlighting, rotation, and the turn-around strategy. Let's see what you know."

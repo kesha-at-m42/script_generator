@@ -3,6 +3,7 @@ Metadata Mapper
 Maps input sequence fields to Godot mastery metadata structure
 """
 
+
 def infer_component(verb):
     """
     Infer mastery component from cognitive verb
@@ -22,9 +23,9 @@ def infer_component(verb):
         'TRANSFER'
     """
     # Map verb → mastery_component
-    procedural_verbs = ['CREATE']
-    conceptual_verbs = ['IDENTIFY', 'COMPARE']
-    transfer_verbs = ['APPLY', 'TRANSFER', 'CONNECT']
+    procedural_verbs = ["CREATE"]
+    conceptual_verbs = ["IDENTIFY", "COMPARE"]
+    transfer_verbs = ["APPLY", "TRANSFER", "CONNECT"]
 
     verb_upper = str(verb).upper()
 
@@ -48,23 +49,24 @@ def add_component_to_metadata(data):
     Returns:
         Updated data (same type as input)
     """
+
     def process_sequence(sequence):
         """Process a single sequence"""
         # Get the verb from metadata
-        if 'metadata' in sequence:
-            metadata = sequence['metadata']
-            verb = metadata.get('mastery_verb') or metadata.get('verb', 'CREATE')
+        if "metadata" in sequence:
+            metadata = sequence["metadata"]
+            verb = metadata.get("mastery_verb") or metadata.get("verb", "CREATE")
 
             # Infer component
             component = infer_component(verb)
 
             # Add to metadata level
-            metadata['mastery_component'] = component
+            metadata["mastery_component"] = component
 
             # Add to telemetry_data
-            if 'telemetry_data' not in metadata:
-                metadata['telemetry_data'] = {}
-            metadata['telemetry_data']['component'] = component.lower()
+            if "telemetry_data" not in metadata:
+                metadata["telemetry_data"] = {}
+            metadata["telemetry_data"]["component"] = component.lower()
 
         return sequence
 

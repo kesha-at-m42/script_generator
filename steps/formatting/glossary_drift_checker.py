@@ -59,41 +59,49 @@ def _scan_section(section: dict, glossary) -> list:
 
     # 1. Phrases toy_spec_loader couldn't resolve
     for phrase in ws.get("unresolved", []):
-        findings.append({
-            "kind": "unresolved_phrase",
-            "term": phrase,
-            "field": "visual",
-            "snippet": _find_snippet(section.get("visual", ""), phrase),
-        })
+        findings.append(
+            {
+                "kind": "unresolved_phrase",
+                "term": phrase,
+                "field": "visual",
+                "snippet": _find_snippet(section.get("visual", ""), phrase),
+            }
+        )
 
     # 2. Resolved toy types not in canonical glossary list
     for toy in ws.get("toys", []):
         if toy and toy not in glossary.canonical_toys:
-            findings.append({
-                "kind": "toy_not_in_glossary",
-                "term": toy,
-                "field": "workspace_specs.toys",
-                "snippet": None,
-            })
+            findings.append(
+                {
+                    "kind": "toy_not_in_glossary",
+                    "term": toy,
+                    "field": "workspace_specs.toys",
+                    "snippet": None,
+                }
+            )
 
     # 3. Inferred tool values not in canonical glossary list
     for tool in ws.get("tools", []):
         if tool and tool not in glossary.canonical_tools:
-            findings.append({
-                "kind": "tool_not_in_glossary",
-                "term": tool,
-                "field": "workspace_specs.tools",
-                "snippet": None,
-            })
+            findings.append(
+                {
+                    "kind": "tool_not_in_glossary",
+                    "term": tool,
+                    "field": "workspace_specs.tools",
+                    "snippet": None,
+                }
+            )
 
     # 4. Tool inferred by fallback — no rule matched, defaulted to multiple_choice
     if ws.get("tool_inferred_by_fallback"):
-        findings.append({
-            "kind": "tool_fallback",
-            "term": ", ".join(ws.get("tools", ["multiple_choice"])),
-            "field": "workspace_specs.tools",
-            "snippet": (section.get("task") or section.get("prompt") or "")[:80],
-        })
+        findings.append(
+            {
+                "kind": "tool_fallback",
+                "term": ", ".join(ws.get("tools", ["multiple_choice"])),
+                "field": "workspace_specs.tools",
+                "snippet": (section.get("task") or section.get("prompt") or "")[:80],
+            }
+        )
 
     # 5. Deprecated spec aliases appearing in raw spec text fields
     for field in _SCAN_FIELDS:
@@ -103,13 +111,15 @@ def _scan_section(section: dict, glossary) -> list:
         text_lower = text.lower()
         for alias in glossary.spec_aliases:
             if alias in text_lower:
-                findings.append({
-                    "kind": "deprecated_alias_used",
-                    "term": alias,
-                    "resolves_to": glossary.spec_aliases[alias],
-                    "field": field,
-                    "snippet": _find_snippet(text, alias),
-                })
+                findings.append(
+                    {
+                        "kind": "deprecated_alias_used",
+                        "term": alias,
+                        "resolves_to": glossary.spec_aliases[alias],
+                        "field": field,
+                        "snippet": _find_snippet(text, alias),
+                    }
+                )
 
     return findings
 
@@ -153,7 +163,7 @@ def _build_report(all_findings, unit_number, module_number, input_file, generate
             for f in findings:
                 lines.append(row_fn(f))
         else:
-            lines.append(f"_None found._")
+            lines.append("_None found._")
         lines.append("")
 
     section_block(
@@ -298,10 +308,16 @@ def check_glossary_drift(
     report_path.write_text(report, encoding="utf-8")
 
     if verbose or all_findings:
-        counts = {k: sum(1 for f in all_findings if f["kind"] == k) for k in (
-            "unresolved_phrase", "toy_not_in_glossary",
-            "tool_not_in_glossary", "tool_fallback", "deprecated_alias_used",
-        )}
+        counts = {
+            k: sum(1 for f in all_findings if f["kind"] == k)
+            for k in (
+                "unresolved_phrase",
+                "toy_not_in_glossary",
+                "tool_not_in_glossary",
+                "tool_fallback",
+                "deprecated_alias_used",
+            )
+        }
         print(
             f"  [DRIFT] Report → {report_path}  |  "
             f"unresolved={counts['unresolved_phrase']}  "

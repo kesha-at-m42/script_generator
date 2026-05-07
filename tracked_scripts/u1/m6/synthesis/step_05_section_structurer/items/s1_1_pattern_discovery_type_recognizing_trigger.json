@@ -2,30 +2,39 @@
   "id": "s1_1_pattern_discovery_type_recognizing_trigger",
   "beats": [
     {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "problem_text_display",
+      "tangible_type": "image",
+      "params": {
+        "description": "Three problem questions displayed as text only: 1. How many more dogs are there than cats? 2. How many more dogs are there than cats and birds combined? 3. How many students chose red or blue altogether?"
+      }
+    },
+    {
       "type": "dialogue",
-      "text": "Look at these three questions. Two of them need two steps. One needs just one step. Which one?"
+      "text": "Look at these three questions. Two of them need two steps. One needs just one step."
     },
     {
       "type": "prompt",
       "text": "Which question needs just ONE step?",
       "tool": "multiple_choice",
       "options": [
-        "Question 1: How many more dogs are there than cats?",
-        "Question 2: How many more dogs are there than cats and birds combined?",
-        "Question 3: How many students chose red or blue altogether?"
+        "Question 1",
+        "Question 2",
+        "Question 3"
       ],
       "validator": [
         {
           "condition_id": "correct",
           "condition": {
-            "selected": "Question 1: How many more dogs are there than cats?"
+            "selected": "Question 1"
           },
-          "description": "Student selected Question 1, correct answer",
+          "description": "Student selected Question 1, which has no combining words",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "Question 1. It just compares dogs to cats, no combining first."
+              "text": "Question 1. It just compares dogs to cats — no combining first."
             }
           ]
         }
@@ -33,7 +42,13 @@
     },
     {
       "type": "current_scene",
-      "elements": []
+      "elements": [
+        {
+          "tangible_id": "problem_text_display",
+          "description": "Three problem questions displayed as text. Student has identified Question 1 as the one-step problem.",
+          "tangible_type": "image"
+        }
+      ]
     },
     {
       "type": "dialogue",
@@ -55,12 +70,12 @@
           "condition": {
             "selected": "Words like \"combined\" or \"altogether\""
           },
-          "description": "Student selected words like combined or altogether, correct answer",
+          "description": "Student identified combining words as the signal for two-step problems",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "Words like combined, together, and altogether are your signal. When you see them, you know: find that total first, then compare."
+              "text": "Words like combined, together, and altogether are your signal. When you see them, you know: find that total FIRST, then compare."
             }
           ]
         }
@@ -68,8 +83,14 @@
     },
     {
       "type": "current_scene",
-      "elements": []
+      "elements": [
+        {
+          "tangible_id": "problem_text_display",
+          "description": "Three problem questions displayed. Student has identified the linguistic pattern that signals two-step problems.",
+          "tangible_type": "image"
+        }
+      ]
     }
   ],
-  "_generated_at": "2026-04-20T17:00:00.437400+00:00"
+  "_generated_at": "2026-04-27T15:53:30.768153+00:00"
 }

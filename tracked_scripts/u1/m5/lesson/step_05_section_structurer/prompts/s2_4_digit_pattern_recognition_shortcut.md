@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:01:38.840574
+# Generated: 2026-05-05T13:18:19.547359
 ======================================================================
 
 ## API Parameters
@@ -79,6 +79,7 @@ These are the only valid `tangible_type` values. Do not invent new types.
 | fill-in-the-blank | `dropdown_fillin` |
 | fill in the blank | `dropdown_fillin` |
 | word problem | `word_problem_area` |
+| Scale Preview System | `bar_graph` or `picture_graph` (scale is a component of the graph, not a separate toy — use whichever graph type is present in context) |
 
 **Spec aliases** — renamed or superseded terms; flag these if they appear in a spec:
 
@@ -159,6 +160,19 @@ These two tools are always used in sequence within a building section: `set_cont
 | `drag_tile` | `place_tile` |
 | `equation builder methods c/d` | `place_tile` |
 | `methods c/d` | `place_tile` |
+| `multiple_choice` | `select_one_option` |
+| `multi_select` | `select_all_options` |
+
+> **⚠ Naming review needed:** The `u1_toy_glossary.md` uses more intent-readable names for several of these tools and may be a better canonical. Consider renaming:
+>
+> | Current canonical | Proposed name | Rationale |
+> |---|---|---|
+> | `click_to_place` | `build_category` | Describes the student goal (build a category), not the gesture |
+> | `click_to_set_height` | `build_bar` | Same — "set height" is implementation detail |
+> | `click_tangible` | `select_toy` | "Select" is clearer than "click" for touch/pointer-agnostic contexts |
+> | `click_scale_button` | `select_scale` | Describes what the student is choosing, not the UI element |
+>
+> Also consider adding `select_category` (select multiple categories that all apply) — currently unlisted.
 
 ---
 
@@ -249,6 +263,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -263,6 +283,7 @@ map it to the appropriate schema context:
 - `guide_2`, `prompt_2`, `on_correct_2` etc. → a second step in the section. When `prompt_2` (or any numbered prompt field) exists without a corresponding `guide_2`, you must still generate a dialogue beat before that prompt — infer it from `visual_N`, the prompt text itself, or surrounding context. A missing `guide_N` is never a reason to omit the required dialogue beat.
 - `divider` fields are contextual labels only — they describe what is happening at that point in the spec. Do not use them to determine step boundaries and do not output them as beats. Use the surrounding prompt, student_action, and guide fields to determine structure.
 - A `student_action` field that contains two actions joined by "and" (e.g. "selects X or Y and fills two number slots") represents two sequential prompts — split them into separate steps
+- A `student_action` that uses "OR" to offer two equivalent click targets for the same interaction (e.g. "Click on the bar OR the symbols for that category") is a **single prompt with a multi-target** — use `"target": ["tangible_id_1", "tangible_id_2"]`. A `correct_answer` of "Either correct location accepted" confirms this pattern. Do NOT split it into two sequential prompts.
 - Inline annotations in any text field (e.g. `[System highlights rows
   sequentially]`, `[3 tile places into first slot]`) → `scene` beats at
   that point in the step
@@ -321,6 +342,8 @@ Valid step group compositions:
 
 **Every prompt is preceded by a dialogue beat.** Dialogue is heard; prompt text is read. The dialogue beat is the guide's narrated setup — the same CTA in spoken register. The prompt text is the concise written instruction the student reads on screen. Both are required; they are not redundant. Consequently, a `student_action` that describes multiple interactions means multiple step groups — one per interaction, each with its own preceding dialogue and ending with `current_scene`. When interactions are closely related, additional dialogue beats may appear within a step group to narrate the transition between them.
 
+**When a multi-step interaction is split into sequential steps, each prompt's `text` must scope to only its own step.** Do not carry forward the combined task description into individual prompts. "Click on the category showing 35 in the vertical graph." not "What category shows 35 in BOTH graphs?"
+
 `current_scene` is always the last beat in every step group. All step groups are in the flat `beats` array — do not wrap them in a `steps` array.
 
 ---
@@ -375,6 +398,7 @@ Methods: `add` `show` `hide` `animate` `update` `remove`
   `tangible_type` and a `params.description` of what the student sees.
   Include all relevant state fields in `params` (mode, orientation,
   categories, axis range, etc.) drawn from <toy_specs>.
+  **`params.description` must be neutral.** It describes what appears on screen. It must not direct the student's attention toward the feature they are about to identify — that is hint or remediation language and belongs only in validator beats, not in scene setup.
 - Use **`animate`** for named animation events: `event` (snake_case),
   `status` (`proposed` = setup in progress / `confirmed` = complete),
   `description` (plain English).
@@ -402,6 +426,15 @@ Do not embellish. Voice enhancement happens in a later step.
 
 Never use letter labels (A, B, C) in dialogue even if the spec uses them as identifiers. Those labels are system-level placeholders; the visual narration handles what they refer to. Use the actual name, value, or a plain description instead.
 
+**Reference scenario images by highlighting, not by letter.** When a validator on-correct beat (or any dialogue that would otherwise say "Image A", "scenario B", etc.) needs to call out a specific scenario image tangible, emit a `scene animate` beat with `event: "highlight"` on that tangible ID immediately before the dialogue. The dialogue then says "this image" or describes the scenario content — never a letter label.
+
+```json
+{ "type": "scene", "method": "animate", "tangible_id": "scenario_image_counting",
+  "params": { "event": "highlight", "status": "confirmed",
+              "description": "Counting money scenario image highlights." } },
+{ "type": "dialogue", "text": "This one works. Counting money in stacks uses groups of 10." }
+```
+
 ### Prompt: student interacts
 
 ```json
@@ -427,6 +460,8 @@ already exist in the scene at this point in the step.
 | `multiple_choice` | — | array of numbers or strings |
 | `multi_select` | — | array of strings |
 
+**Prefer `click_tangible` over `multiple_choice` when the choices are on-screen visuals.** If the spec presents a question where the options are scenario images, illustrations, or any tangibles displayed on screen — even if the spec labels them A, B, C or lists them as MC options — use `click_tangible` targeting those tangible IDs. The student clicks the visual directly. Never convert on-screen visuals into a word-based MCQ. Letter labels (A, B, C) in the spec are spec-author identifiers for those visuals, not answer choices; they must not appear in options arrays or dialogue.
+
 For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`, etc.) — refer to the **Canonical Tools** table in <glossary.md> for the correct `target` and validator condition shape.
 
 `target` shapes:
@@ -437,6 +472,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -487,6 +524,8 @@ Define only the correct state. The remediation generator adds incorrect
 states later. Always include `"is_correct": true` on every validator state
 you generate.
 
+**Exception — described answer rationale:** If the spec includes a field (e.g. `on_incorrect`, `answer_rationale`, or any field describing why a specific wrong answer is wrong), create a stub `is_correct: false` state for each described condition. Use the spec's rationale verbatim as the `description` field. Derive the `condition` from the described wrong answer using the same shape as the correct state's condition (e.g. if the correct condition is `{ "selected": 10 }` and the spec describes a student choosing 5, use `{ "selected": 5 }`). Leave `beats: []`. Only create a stub when you can express a concrete condition — do not use `condition: {}` for stubs, as the remediation generator uses that shape exclusively for the Heavy catch-all. Do not invent rationale; only stub out conditions the spec explicitly describes.
+
 Every validator state requires a `condition_id` — a short, semantic, stable
 identifier (e.g. `"correct"`, `"selected_rows"`, `"placed_3x4"`). Use snake_case.
 
@@ -527,9 +566,7 @@ required answer (any condition that is not `{}` and is not a branching prompt) �
 the correct state must have substantive on_correct dialogue.** Name the answer and
 close with the principle. `{ "type": "empty" }` is only for interactions where the
 student cannot be wrong: branching prompts (both choices are valid) and
-any-response-advances (`condition: {}`). Even in two-step interactions, each step
-with a concrete correct answer needs its own acknowledgment beat — it may be brief
-("4 boxes.") but it must exist.
+any-response-advances (`condition: {}`). Every step with a concrete correct answer needs its own acknowledgment beat. It must exist.
 
 - For concrete answers (MC, click_category): name the answer, then close by
   naming what the answer demonstrates — the principle or structural insight
@@ -543,9 +580,8 @@ with a concrete correct answer needs its own acknowledgment beat — it may be b
   have used. You may still close with a transferable principle that does not
   reference the student's specific values. "You got to 20. Any combination
   of equal groups that reaches the total works."
-- For branching prompts or any-response-advances where there is no meaningful
-  feedback to give: use `{ "type": "empty" }` to signal intentional silence.
-  Prefer this over an empty array.
+- For branching prompts where both choices are equally valid and there is nothing to say about the choice itself: use `{ "type": "empty" }` to signal intentional silence. Prefer this over an empty array.
+- For any-response-advances (`condition: {}`) that complete an activity — a game, a build task, a counting interaction — write brief acknowledgment dialogue even though the student cannot be wrong. Use the spec's `on_complete`, `on_correct`, or purpose field to inform it. A single sentence confirming the activity is done is sufficient.
 
 **Never embed a CTA inside on-correct dialogue.** If the feedback text trails
 into a lead-in for the next prompt ("5 in each box. So what do you have?"),
@@ -700,9 +736,18 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
+- **Flag placeholders and uncertain content:** When a beat or section field contains content that could not be grounded in the spec — unresolved visual elements (present in `workspace_specs.unresolved`), game data values not defined in the spec, invented quantities or distractor values — add `"flag": "placeholder — <brief reason>"` to that beat or object. This makes uncertain content findable for human review without blocking output. Example: `"flag": "placeholder — toy spec not yet defined, tool and validator shape are best-guess"`.
 - Output a single section object starting with `{` and ending with `}`
 - Use double quotes throughout
 
@@ -815,17 +860,18 @@ Cacheable: Yes
   "guide_2": "\"Numbers that end in 0 or 5—like 20, 35, 55, 80—those are multiples of 5 and can be shown clearly with Scales of 5 and 10.\"",
   "guide_3": "\"But look at 7, 12, 19, 23. See the digits in the ones place? 7, 2, 9, 3. None are 0 or 5—that tells you they aren't multiples of 5 so Scale of 2 might be your best choice. Check our groups. Which data set has last digits that are NOT 0 or 5?\"",
   "prompt": "\"Which data set has last digits that are NOT 0 or 5?\"",
-  "student_action": "Click Data Set A / Click Data Set B",
+  "student_action": "[Click Data Set A / Click Data Set B]",
   "correct_answer": "Data Set B (7, 12, 19, 23)",
   "on_correct": "\"Right. Look at those last digits: 7, 2, 9, 3. None are 0 or 5—that's your Scale of 2 signal.\"",
   "remediation_light": "\"Check the last digit of each number. Does 23 end in 0 or 5? Does 12?\"",
-  "_generated_at": "2026-04-20T16:58:49.931076+00:00",
+  "_generated_at": "2026-05-05T18:14:06.632857+00:00",
   "workspace_specs": {
     "toys": [],
     "tools": [
-      "multiple_choice"
+      "click_tangible"
     ]
-  }
+  },
+  "prior_section_summaries": "## s1_1_transition_warmup\n# Section Summary: s1_1_transition_warmup\n\n**VISUAL STATE:** Empty workspace. No tangible visualizations, graphs, or data displays are present on screen at section end.\n\n**CONTENT:** Transition dialogue acknowledging that in the Warmup section, all four scales (linear, log, square root, and reciprocal) were viable options for the student's dataset. The section introduces the concept that scale choice becomes more constrained when working with larger numbers, setting up the next investigation.\n\n**STUDENT ACTION:** No interactive action required. The student listened to dialogue explaining that scale flexibility depends on data magnitude, preparing them for the upcoming exploration of how larger numbers affect scale viability.\n\n---\n\n## s1_2_when_scale_needs_too_many\n# Section Summary: s1_2_when_scale_needs_too_many\n\n**VISUAL STATE AT SECTION END:**\nA data table and vertical bar graph are displayed side-by-side. The data table shows \"Books Read This Month\" with categories Aisha, Ben, Carlos, Dana and values 20, 35, 55, 80 respectively. The bar graph is vertical, in reading mode, with axis range 0–80, scale of 5, and all 17 tick marks highlighted (0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80).\n\n**CONTENT:**\nThe section introduced the problem that when a scale is too small relative to data range, it creates too many tick marks on the axis, making the graph crowded and difficult to read. The key vocabulary introduced was the principle: \"When one scale needs too many tick marks, try a bigger scale.\" Students observed that a scale of 5 with axis 0–80 produces 17 tick marks, demonstrating visual clutter.\n\n**STUDENT ACTION:**\nThe student (via guided exploration) selected a scale of 5, observed the preview showing Dana's bar extending past the initial 0–50 boundary, then extended the axis to 0–80 to accommodate all data. This revealed the crowding problem, leading to the conceptual takeaway about choosing appropriate scales.\n\n---\n\n## s1_3_trying_bigger_scale\n# Section Summary: s1_3_trying_bigger_scale\n\n**VISUAL STATE AT SECTION END:**\nTwo tangibles are on screen: (1) a data table displaying \"Books Read This Month\" with categories Aisha, Ben, Carlos, Dana and values 20, 35, 55, 80 respectively; (2) a vertical bar graph in reading mode showing the same data with scale 10, axis range 0–80 containing 9 tick marks (0, 10, 20, 30, 40, 50, 60, 70, 80), all four bars fitting cleanly.\n\n**CONTENT:**\nThe section introduced the concept of adjusting graph scale to improve readability. Students learned that increasing the scale from 5 to 10 reduces the number of tick marks (from 17 to 9), making the graph cleaner and easier to interpret while still displaying all data accurately.\n\n**STUDENT ACTION:**\nThe student clicked the \"Scale of 10\" button on the interactive scale selector, triggering the graph to update and demonstrating the effect of a larger scale on axis tick mark density and overall visual clarity.\n\n---\n\n## s1_4_range_check_efficiency\n# Section Summary: s1_4_range_check_efficiency\n\n**VISUAL STATE AT SECTION END:**\n- **Data Table** (\"Books Read This Month\"): Categories—Aisha, Ben, Carlos, Dana; Values—20, 35, 55, 80 respectively; Dana's value (80) highlighted.\n- **Bar Graph** (vertical, reading mode): Same dataset; axis range 0–80; scale of 10; 9 tick marks (0, 10, 20, 30, 40, 50, 60, 70, 80); all four bars visible.\n\n**CONTENT:**\nIntroduced the \"range check\" strategy for selecting appropriate graph scales: identify the biggest number in the dataset first, then choose a scale that fits the maximum value without creating too many axis tick marks. Formally introduced the principle that larger scales (e.g., 10 vs. 5) produce cleaner, more readable graphs when multiple scales are viable. Compared efficiency: Scale of 5 requires 17 tick marks; Scale of 10 requires only 9 for the same data.\n\n**STUDENT ACTION:**\nAnswered a multiple-choice question identifying 80 as the largest value in the dataset, demonstrating understanding of the first step in scale selection.\n\n---\n\n## s2_1_all_scales_fit_small_data\n# Section Summary: s2_1_all_scales_fit_small_data\n\n**VISUAL STATE AT SECTION END:**\nA horizontal bar graph (dataset: Marbles in Jars) displays four bars for categories Jar A, Jar B, Jar C, and Jar D with values 7, 12, 19, and 23 respectively. The graph uses a scale of 1 with an axis range of 0–23 and 24 tick marks. A horizontal data table showing the same four categories and values appears alongside the graph.\n\n**CONTENT:**\nThe section introduced the concept that multiple scales can fit small datasets and demonstrated how to evaluate scale appropriateness by checking whether the maximum data value (23) fits within each scale option. Students learned that while all four scales (1, 2, 5, 10) are mathematically valid, scale choice affects readability—specifically, a scale of 1 produces many tick marks (24), which can clutter the axis.\n\n**STUDENT ACTION:**\nThe student clicked through all four scale buttons to explore which scales fit the data range, then selected Scale of 1 to observe the resulting graph with its dense tick-mark display.\n\n---\n\n## s2_2_but_which_is_best_efficiency\n# Section Summary: s2_2_but_which_is_best_efficiency\n\n**VISUAL STATE AT SECTION END:**\nA data table displays \"Marbles in Jars\" with four categories: Jar A=7, Jar B=12, Jar C=19, Jar D=23. A horizontal bar graph (reading mode) shows the same data with scale of 10, axis range 0–30 (4 tick marks), and warning indicators (⚠️) on Jar A and Jar C bars, signaling that values 7 and 19 do not land exactly on axis lines or midpoints.\n\n**CONTENT:**\nThe section introduced the concept of **scale efficiency**—balancing readability (fewer axis lines) against precision (exact value placement). Students learned that while larger scales (e.g., 10) reduce visual clutter for big datasets, they can create ambiguity for small data values. The vocabulary term **\"scale\"** was reinforced as a tool choice that affects graph clarity and accuracy.\n\n**STUDENT ACTION:**\nThe student clicked a \"Scale of 10\" button to switch the graph from scale 1 (24 tick marks, 0–23 range) to scale 10 (4 tick marks, 0–30 range), then observed warning indicators highlight precision problems with values that don't align to grid lines.\n\n---\n\n## s2_3_scale_2_works_non_multiples\n# Section Summary: s2_3_scale_2_works_non_multiples\n\n**VISUAL STATE AT SECTION END:**\n- **Data Table** (\"Marbles in Jars\"): 4 categories (Jar A, Jar B, Jar C, Jar D) with values 7, 12, 19, 23 respectively\n- **Horizontal Bar Graph** (\"bar_graph_marbles\"): reading mode, Scale of 2, axis range 0–24, categories Jar A, Jar B, Jar C, Jar D with values 7, 12, 19, 23; all bars land exactly on tick marks with checkmark indicator visible, no warning indicators\n\n**CONTENT:**\nThe section introduced the concept that **Scale of 2 works universally for whole numbers** because its half-interval (1) allows any integer to land exactly on a tick mark or midpoint. Students learned that Scale of 2 is effective for small datasets because it produces a manageable number of axis marks while ensuring precise value representation—contrasting with Scale of 10, which generated warnings for non-multiple values (7 and 19).\n\n**STUDENT ACTION:**\nThe student clicked the \"Scale of 2\" button to preview the graph transformation, observing how all data values (7, 12, 19, 23) aligned exactly with axis marks when the scale changed from 10 to 2."
 }
 </input>
 
@@ -834,4 +880,3 @@ Cacheable: Yes
 ## Prefill
 
 {
-

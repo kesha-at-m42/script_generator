@@ -1,5 +1,5 @@
 # Prompt: starterpack_parser
-# Generated: 2026-04-20T11:59:01.250172
+# Generated: 2026-04-27T10:52:21.830542
 ======================================================================
 
 ## API Parameters
@@ -161,4 +161,3 @@ Cacheable: Yes
 ## Prefill
 
 {"id": "s1_1_pattern_discovery_type_recognizing_trigger",
-

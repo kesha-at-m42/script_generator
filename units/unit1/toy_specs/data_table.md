@@ -186,9 +186,8 @@ When in Symbol Display mode:
 | --- | --- | --- |
 | Maximum rows | 4-6 rows | Avoid scrolling |
 | Minimum rows | 2 rows | Need at least two categories for comparison |
-| Can appear with | Picture Graphs, Bar Graphs, Comparison Tool | Common pairings |
+| Can appear with | Picture Graphs, Bar Graphs, Comparison Tool, second Data Table (side-by-side comparison layout) | Common pairings |
 | Typical position | Left side or top of screen | Reference position while student works with graph on right/bottom |
-| Cannot appear with | Multiple tables simultaneously | Only one data source at a time |
 
 **Common Layout Patterns:**
 
@@ -223,4 +222,3 @@ When in Symbol Display mode:
 - [ ]  **Symbol variety:** Does symbol display need multiple symbol options (🐕, 🐈, 🐦) or always use one consistent symbol per table?
 - [ ]  **Maximum value size:** What's the largest value we'll display? (determines column width needs)
 ---
-

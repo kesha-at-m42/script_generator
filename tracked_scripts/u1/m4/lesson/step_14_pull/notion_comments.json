@@ -1,0 +1,419 @@
+[
+  {
+    "discussion_id": "34f5917e-ac52-80c5-88a2-001c1b99d588",
+    "block_id": "34f5917e-ac52-8137-8b50-fb04f8205c8a",
+    "section_id": "s1_1_reading_bar_heights_worked_example",
+    "beat_description": "beats[0] (scene)",
+    "beat": {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_colors",
+      "tangible_type": "bar_graph",
+      "params": {
+        "mode": "reading",
+        "orientation": "vertical",
+        "categories": [
+          "Red",
+          "Blue",
+          "Green",
+          "Yellow"
+        ],
+        "axis_range": [
+          0,
+          60
+        ],
+        "axis_interval": 10,
+        "bar_values": {
+          "Red": 40,
+          "Blue": 30,
+          "Green": 50,
+          "Yellow": 20
+        },
+        "highlight_categories": [
+          "Red"
+        ],
+        "description": "Vertical bar graph appears. Favorite Colors data from Warmup. Red=40, Blue=30, Green=50, Yellow=20. Axis labeled 0 to 60 in intervals of 10. All 4 bars pre-filled."
+      },
+      "id": "s1_1_reading_bar_heights_worked_example_b0",
+      "_notion_block_id": "34f5917e-ac52-8137-8b50-fb04f8205c8a",
+      "notion_flag": "updated"
+    },
+    "thread": [
+      {
+        "comment_id": "34f5917e-ac52-808d-bf22-001d935a9359",
+        "comment_text": "This data needs to be updated to reflect the warmup",
+        "author_id": "29dd872b-594c-8119-84c1-0002b4f81bc1",
+        "created_time": "2026-04-27T19:13:00.000Z"
+      }
+    ],
+    "pipeline_history": [
+      {
+        "step": "step_12_merge_remediation",
+        "beat": {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_colors",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Red",
+              "Blue",
+              "Green",
+              "Yellow"
+            ],
+            "axis_range": [
+              0,
+              60
+            ],
+            "axis_interval": 10,
+            "bar_values": {
+              "Red": 40,
+              "Blue": 30,
+              "Green": 50,
+              "Yellow": 20
+            },
+            "highlight_categories": [
+              "Red"
+            ],
+            "description": "Vertical bar graph appears. Color data from warmup. Red=40, Blue=30, Green=50, Yellow=20. Axis labeled 0–60 in 10s. Red bar highlighted with axis line at 40 glowing."
+          },
+          "id": "s1_1_reading_bar_heights_worked_example_b0",
+          "_notion_block_id": "3485917e-ac52-81a8-b8b7-fe87add82f5e"
+        }
+      },
+      {
+        "step": "step_11_remediation_generator",
+        "beat": {
+          "type": "scene",
+          "method": "add",
+          "tangible_id": "bar_graph_colors",
+          "tangible_type": "bar_graph",
+          "params": {
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Red",
+              "Blue",
+              "Green",
+              "Yellow"
+            ],
+            "axis_range": [
+              0,
+              60
+            ],
+            "axis_interval": 10,
+            "bar_values": {
+              "Red": 40,
+              "Blue": 30,
+              "Green": 50,
+              "Yellow": 20
+            },
+            "highlight_categories": [
+              "Red"
+            ],
+            "description": "Vertical bar graph appears. Color data from warmup. Red=40, Blue=30, Green=50, Yellow=20. Axis labeled 0–60 in 10s. Red bar highlighted with axis line at 40 glowing."
+          },
+          "id": "s1_1_reading_bar_heights_worked_example_b0"
+        }
+      }
+    ],
+    "issue_summary": "Scene description references 'Warmup' data but the actual bar values do not match the warmup section data.",
+    "likely_step": "section_structurer",
+    "confidence": "high",
+    "reasoning": "This is the opening scene beat of the section, created by section_structurer when converting the lesson spec into the initial structure. The description claims the data comes from the Warmup, but the reviewer indicates the bar values need updating to actually reflect warmup data. Scene beat content and accuracy is section_structurer's responsibility.",
+    "suggested_fix": "Update bar_values in the scene params to match the actual data from the warmup section."
+  },
+  {
+    "discussion_id": "3505917e-ac52-809b-851a-001c56135080",
+    "block_id": "34f5917e-ac52-8134-80e9-cd23533c274b",
+    "section_id": "s1_4_your_turn_create_bar_guided",
+    "beat_description": "beats[3].validator[0] (correct).beats[1] (dialogue)",
+    "beat": {
+      "type": "dialogue",
+      "text": "Right. 10, 20, 30. The bar ends at 30 on the axis. 30 votes for Swings. You completed the scale of 10 bar graph.",
+      "notion_flag": "suggested",
+      "_notion_block_id": "34f5917e-ac52-8134-80e9-cd23533c274b"
+    },
+    "thread": [
+      {
+        "comment_id": "3505917e-ac52-80f5-9a68-001d22ca4766",
+        "comment_text": "I feel like the pipeline overdid it with the repetition of on correct and heavy remediation dialogues - so many are “right” for on correct and “let me show you” for heavy remediation",
+        "author_id": "29dd872b-594c-8119-84c1-0002b4f81bc1",
+        "created_time": "2026-04-28T03:00:00.000Z"
+      }
+    ],
+    "pipeline_history": [
+      {
+        "step": "step_12_merge_remediation",
+        "beat": {
+          "type": "prompt",
+          "text": "Set the HEIGHT for Swings to show 30.",
+          "tool": "click_to_set_height",
+          "target": "bar_graph_recess",
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "bar_height": 30,
+                "category": "Swings"
+              },
+              "description": "Student set Swings bar to height 30, correct",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "bar_graph_recess",
+                  "params": {
+                    "event": "confirm_bar_height",
+                    "status": "confirmed",
+                    "category": "Swings",
+                    "description": "Swings bar confirms at height 30."
+                  },
+                  "id": "s1_4_your_turn_create_bar_guided_b3_v0_b0"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Right. 10, 20, 30. The bar ends at 30 on the axis. 30 votes for Swings.",
+                  "id": "s1_4_your_turn_create_bar_guided_b3_v0_b1",
+                  "_notion_block_id": "3485917e-ac52-8110-a186-e1fac34fff7e"
+                }
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 1
+              },
+              "description": "Student set Swings bar to wrong height on first attempt",
+              "is_correct": false,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Not quite. Find the 30 line on the axis.",
+                  "id": "s1_4_your_turn_create_bar_guided_b3_v1_b0",
+                  "_notion_block_id": "3485917e-ac52-811a-880f-df44139db8a5"
+                }
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 2
+              },
+              "description": "Student set Swings bar to wrong height on second attempt",
+              "is_correct": false,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_recess",
+                  "params": {
+                    "highlight_axis_values": [
+                      30
+                    ],
+                    "description": "Axis line at 30 highlights."
+                  },
+                  "id": "s1_4_your_turn_create_bar_guided_b3_v2_b0"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "The axis shows 10, 20, 30. Count by 10s to find 30, then set the bar there.",
+                  "id": "s1_4_your_turn_create_bar_guided_b3_v2_b1",
+                  "_notion_block_id": "3485917e-ac52-8122-a12e-f105bb072011"
+                }
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student set Swings bar to wrong height three or more times. System models the answer.",
+              "is_correct": false,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "bar_graph_recess",
+                  "params": {
+                    "event": "confirm_bar_height",
+                    "status": "confirmed",
+                    "category": "Swings",
+                    "height": 30,
+                    "description": "System sets Swings bar to height 30."
+                  },
+                  "id": "s1_4_your_turn_create_bar_guided_b3_v3_b0"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Let me show you. I count by 10s on the axis: 10, 20, 30. The Swings bar ends at 30, right at that line. That's how we show 30 votes.",
+                  "id": "s1_4_your_turn_create_bar_guided_b3_v3_b1",
+                  "_notion_block_id": "3485917e-ac52-810b-84ae-f02111a19e32"
+                }
+              ]
+            }
+          ],
+          "id": "s1_4_your_turn_create_bar_guided_b3",
+          "_notion_block_id": "3485917e-ac52-8187-b319-eab089f5cc99"
+        }
+      }
+    ],
+    "issue_summary": "On-correct dialogue opens with repetitive 'Right' across multiple prompts instead of varying the positive signal",
+    "likely_step": "dialogue_rewriter",
+    "confidence": "high",
+    "reasoning": "This is on-correct feedback dialogue that opens with 'Right.' The dialogue_rewriter is responsible for enforcing voice/style rules on dialogue beats, including the requirement that on_correct beats open with a brief positive signal. While it correctly ensures a positive signal exists, it should vary the opening across multiple prompts to avoid the repetitive pattern the reviewer flagged.",
+    "suggested_fix": "Dialogue_rewriter should vary on-correct opening signals across a section (e.g., 'Right', 'Yes', 'Exactly', 'That's it') to prevent monotonous repetition"
+  },
+  {
+    "discussion_id": "3505917e-ac52-8074-91e3-001cc53173c1",
+    "block_id": "34f5917e-ac52-81b3-b720-d6e0358d7c50",
+    "section_id": "s2_5_mixed_values_at_lines_between",
+    "beat_description": "beats[3].validator[2] (incorrect[2]).beats[1] (dialogue)",
+    "beat": {
+      "type": "dialogue",
+      "text": "Let's break this down. Count by 10s to find the days that stop at the axis lines. Monday is 40 and Wednesday is 50 so those stop at the exact lines. The others are Tuesday at 35 and Thursday at 25. Those end in 5, so they're halfway between axis lines. Set each bar where it belongs.",
+      "notion_flag": "suggested",
+      "_notion_block_id": "34f5917e-ac52-81b3-b720-d6e0358d7c50"
+    },
+    "thread": [
+      {
+        "comment_id": "3505917e-ac52-8033-86a2-001d0889e7f2",
+        "comment_text": "This uses 0 and 5s logic that they haven’t learned yet",
+        "author_id": "29dd872b-594c-8119-84c1-0002b4f81bc1",
+        "created_time": "2026-04-28T16:00:00.000Z"
+      },
+      {
+        "comment_id": "3525917e-ac52-8035-b99d-001dfded39c4",
+        "comment_text": "I adjusted and accepted suggestions, just another instance for you to be aware of (they are going to find those patterns in a later module). I left parts of them throughout the script, but didn’t fully rely on “ends in 0s” and “ends in 5s” logic",
+        "author_id": "29dd872b-594c-8119-84c1-0002b4f81bc1",
+        "created_time": "2026-04-30T14:47:00.000Z"
+      }
+    ],
+    "pipeline_history": [
+      {
+        "step": "step_12_merge_remediation",
+        "beat": {
+          "type": "prompt",
+          "text": "Complete the graph.",
+          "tool": "click_to_set_height",
+          "target": "bar_graph_reading",
+          "validator": [
+            {
+              "condition_id": "correct",
+              "condition": {
+                "and": [
+                  {
+                    "bar_height": {
+                      "category": "Monday",
+                      "value": 40
+                    }
+                  },
+                  {
+                    "bar_height": {
+                      "category": "Tuesday",
+                      "value": 35
+                    }
+                  },
+                  {
+                    "bar_height": {
+                      "category": "Wednesday",
+                      "value": 50
+                    }
+                  },
+                  {
+                    "bar_height": {
+                      "category": "Thursday",
+                      "value": 25
+                    }
+                  }
+                ]
+              },
+              "description": "Student set all four bars correctly: Monday=40, Tuesday=35, Wednesday=50, Thursday=25",
+              "is_correct": true,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Right. Monday and Wednesday are at the axis lines. Tuesday and Thursday are between the lines. You figured out which is which.",
+                  "id": "s2_5_mixed_values_at_lines_between_b3_v0_b0",
+                  "_notion_block_id": "3485917e-ac52-81e4-82e1-da386bb0f528"
+                }
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 1
+              },
+              "description": "Student did not set all bars correctly on first attempt",
+              "is_correct": false,
+              "beats": [
+                {
+                  "type": "dialogue",
+                  "text": "Not quite. Check the data table. Which values end in 0 or 5?",
+                  "id": "s2_5_mixed_values_at_lines_between_b3_v1_b0",
+                  "_notion_block_id": "3485917e-ac52-81dc-9c71-dcb0dcd146b8"
+                }
+              ]
+            },
+            {
+              "condition": {
+                "incorrect_count": 2
+              },
+              "description": "Student did not set all bars correctly on second attempt",
+              "is_correct": false,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "update",
+                  "tangible_id": "bar_graph_reading",
+                  "params": {
+                    "highlight_categories": [
+                      "Monday",
+                      "Wednesday"
+                    ],
+                    "description": "Monday and Wednesday bars highlight."
+                  },
+                  "id": "s2_5_mixed_values_at_lines_between_b3_v2_b0"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Values that end in 0 go at the lines. Monday is 40, Wednesday is 50. Values that end in 5 go between. Where does Tuesday at 35 go?",
+                  "id": "s2_5_mixed_values_at_lines_between_b3_v2_b1",
+                  "_notion_block_id": "3485917e-ac52-8149-a28a-e827d42b3197"
+                }
+              ]
+            },
+            {
+              "condition": {},
+              "description": "Student did not set all bars correctly. System models the answer.",
+              "is_correct": false,
+              "beats": [
+                {
+                  "type": "scene",
+                  "method": "animate",
+                  "tangible_id": "bar_graph_reading",
+                  "params": {
+                    "event": "confirm_all_bars",
+                    "status": "confirmed",
+                    "description": "System sets all four bars in sequence: Monday at 40, Tuesday at 35, Wednesday at 50, Thursday at 25."
+                  },
+                  "id": "s2_5_mixed_values_at_lines_between_b3_v3_b0"
+                },
+                {
+                  "type": "dialogue",
+                  "text": "Let me show you. Monday is 40, right at the 40 line. Tuesday is 35, halfway between 30 and 40. Wednesday is 50, at the 50 line. Thursday is 25, halfway between 20 and 30. Values ending in 0 land on the lines. Values ending in 5 land between the lines.",
+                  "id": "s2_5_mixed_values_at_lines_between_b3_v3_b1",
+                  "_notion_block_id": "3485917e-ac52-8183-88d8-c0dc227917c4"
+                }
+              ]
+            }
+          ],
+          "id": "s2_5_mixed_values_at_lines_between_b3",
+          "_notion_block_id": "3485917e-ac52-8144-adf6-d8fd528d7d6a"
+        }
+      }
+    ],
+    "issue_summary": "The remediation dialogue teaches a pattern (values ending in 0 are at lines, values ending in 5 are halfway between) that students have not yet learned in the curriculum.",
+    "likely_step": "remediation_generator",
+    "confidence": "high",
+    "reasoning": "This is an incorrect-validator dialogue beat (second attempt remediation). The remediation_generator is responsible for all content inside validator[is_correct=false] states. It introduced instructional content that assumes prior knowledge students don't have, violating the curriculum sequence by teaching the 0s/5s pattern prematurely.",
+    "suggested_fix": "Regenerate the remediation to guide students using skip counting and visual positioning without relying on the ends-in-0/ends-in-5 pattern."
+  }
+]

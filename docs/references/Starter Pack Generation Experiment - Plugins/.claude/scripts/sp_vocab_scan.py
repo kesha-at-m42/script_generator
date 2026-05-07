@@ -26,12 +26,10 @@ import json
 import os
 import re
 import sys
-from pathlib import Path
 
 # Add parent dir to path for shared module
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from sp_parse_interactions import parse_sp, filter_by_gate, ParsedSP
-
+from sp_parse_interactions import ParsedSP, filter_by_gate, parse_sp
 
 # ---------------------------------------------------------------------------
 # Vocabulary timing: phase ordering
@@ -45,7 +43,7 @@ PHASE_ORDER = {
     "Lesson S2": 2,
     "Lesson S3": 3,
     "EC": 4,
-    "Practice": 4,   # same level as EC
+    "Practice": 4,  # same level as EC
     "Synthesis": 5,
 }
 
@@ -55,7 +53,7 @@ def dialogue_phase_rank(dialogue_line) -> int:
     phase = dialogue_line.phase
     if phase == "Lesson":
         # Use interaction's lesson_section if available
-        section = getattr(dialogue_line, '_lesson_section', None)
+        section = getattr(dialogue_line, "_lesson_section", None)
         if section:
             key = f"Lesson S{section}"
             return PHASE_ORDER.get(key, 1)
@@ -68,21 +66,22 @@ def dialogue_phase_rank(dialogue_line) -> int:
 # ---------------------------------------------------------------------------
 
 SESSION_RELATIVE_PATTERNS = [
-    (re.compile(r'\byesterday\b', re.IGNORECASE), "yesterday"),
-    (re.compile(r'\btoday\b', re.IGNORECASE), "today"),
-    (re.compile(r'\btomorrow\b', re.IGNORECASE), "tomorrow"),
-    (re.compile(r'\blast time\b', re.IGNORECASE), "last time"),
-    (re.compile(r'\bnext time\b', re.IGNORECASE), "next time"),
-    (re.compile(r'\blast class\b', re.IGNORECASE), "last class"),
-    (re.compile(r'\blast lesson\b', re.IGNORECASE), "last lesson"),
+    (re.compile(r"\byesterday\b", re.IGNORECASE), "yesterday"),
+    (re.compile(r"\btoday\b", re.IGNORECASE), "today"),
+    (re.compile(r"\btomorrow\b", re.IGNORECASE), "tomorrow"),
+    (re.compile(r"\blast time\b", re.IGNORECASE), "last time"),
+    (re.compile(r"\bnext time\b", re.IGNORECASE), "next time"),
+    (re.compile(r"\blast class\b", re.IGNORECASE), "last class"),
+    (re.compile(r"\blast lesson\b", re.IGNORECASE), "last lesson"),
 ]
 
-MODULE_REF_RE = re.compile(r'\b[Mm]odule\s+\d+\b')
+MODULE_REF_RE = re.compile(r"\b[Mm]odule\s+\d+\b")
 
 
 # ---------------------------------------------------------------------------
 # Staging table parser
 # ---------------------------------------------------------------------------
+
 
 def parse_staging_table(lines: list) -> dict:
     """
@@ -103,7 +102,7 @@ def parse_staging_table(lines: list) -> dict:
         lower = stripped.lower()
 
         # Find the staging section
-        if 'vocabulary staging' in lower and ('phase' in lower or '###' in stripped.lower()):
+        if "vocabulary staging" in lower and ("phase" in lower or "###" in stripped.lower()):
             in_staging = True
             continue
 
@@ -111,30 +110,30 @@ def parse_staging_table(lines: list) -> dict:
             continue
 
         # Exit on next section
-        if stripped.startswith('#') and 'staging' not in lower:
+        if stripped.startswith("#") and "staging" not in lower:
             break
 
         # Skip table header rows
-        if '---' in stripped and '|' in stripped:
+        if "---" in stripped and "|" in stripped:
             past_header = True
             continue
 
         # Must be a table row with phase info
-        if not stripped.startswith('|') or not past_header:
+        if not stripped.startswith("|") or not past_header:
             # Check for the first header row
-            if stripped.startswith('|') and 'phase' in lower:
+            if stripped.startswith("|") and "phase" in lower:
                 continue
-            if not stripped.startswith('|'):
+            if not stripped.startswith("|"):
                 continue
             continue
 
-        cells = [c.strip() for c in stripped.split('|')]
+        cells = [c.strip() for c in stripped.split("|")]
         cells = [c for c in cells if c]  # remove empty from leading/trailing |
 
         if len(cells) < 2:
             continue
 
-        phase_cell = cells[0].strip('*').strip()
+        phase_cell = cells[0].strip("*").strip()
 
         # Normalize phase names
         phase_norm = _normalize_staging_phase(phase_cell)
@@ -150,14 +149,14 @@ def parse_staging_table(lines: list) -> dict:
         # treat it as notes and skip it.
         term_cells = cells[1:]  # everything after phase column
         if len(term_cells) > 1:
-            last = term_cells[-1].strip('*').strip()
+            last = term_cells[-1].strip("*").strip()
             # Skip last column if it looks like prose (long, few commas)
-            if len(last.split()) >= 5 and ',' not in last:
+            if len(last.split()) >= 5 and "," not in last:
                 term_cells = term_cells[:-1]
 
         terms = []
         for tc in term_cells:
-            terms.extend(_extract_terms_from_cell(tc.strip('*').strip()))
+            terms.extend(_extract_terms_from_cell(tc.strip("*").strip()))
 
         if terms:
             if phase_norm in staging:
@@ -172,26 +171,26 @@ def _normalize_staging_phase(phase_text: str) -> str:
     """Normalize a staging table phase name to our canonical names."""
     lower = phase_text.lower()
 
-    if 'warm' in lower:
+    if "warm" in lower:
         return "Warmup"
-    if 'exit' in lower or lower.startswith('ec'):
+    if "exit" in lower or lower.startswith("ec"):
         return "EC"
-    if 'synthesis' in lower:
+    if "synthesis" in lower:
         return "Synthesis"
-    if 'practice' in lower:
+    if "practice" in lower:
         return "Practice"
 
     # Lesson variants
-    if 'lesson' in lower or 'section' in lower:
+    if "lesson" in lower or "section" in lower:
         # Try to extract section number
-        m = re.search(r'section\s*(\d+)', lower)
+        m = re.search(r"section\s*(\d+)", lower)
         if m:
             return f"Lesson S{m.group(1)}"
-        if 'early' in lower or 'intro' in lower or 'comparison' in lower:
+        if "early" in lower or "intro" in lower or "comparison" in lower:
             return "Lesson S1"
-        if 'mid' in lower or 'post' in lower:
+        if "mid" in lower or "post" in lower:
             return "Lesson S2"
-        if 'late' in lower or 'independent' in lower or 'capstone' in lower:
+        if "late" in lower or "independent" in lower or "capstone" in lower:
             return "Lesson S3"
         return "Lesson S1"  # default
 
@@ -201,24 +200,24 @@ def _normalize_staging_phase(phase_text: str) -> str:
 def _extract_terms_from_cell(cell: str) -> list:
     """Extract individual vocabulary terms from a staging table cell."""
     # Handle "(all terms)" or "(row, column practiced)" style
-    if cell.startswith('(') and cell.endswith(')'):
+    if cell.startswith("(") and cell.endswith(")"):
         inner = cell[1:-1].strip()
-        if 'all terms' in inner.lower():
+        if "all terms" in inner.lower():
             return []  # means all previously introduced terms are in scope
         # Could contain actual terms like "(row, column practiced)"
         cell = inner
 
     terms = []
     # Split on commas, handling quoted terms like "rows of"
-    parts = re.split(r',\s*', cell)
+    parts = re.split(r",\s*", cell)
     for part in parts:
         term = part.strip().strip('"').strip("'").strip()
         # Remove parenthetical notes
-        term = re.sub(r'\s*\(.*?\)', '', term).strip()
+        term = re.sub(r"\s*\(.*?\)", "", term).strip()
         # Remove trailing descriptive text after slash
-        term = term.split('/')[0].strip()
+        term = term.split("/")[0].strip()
         # Skip empty, meta-notes, or very long strings (descriptions not terms)
-        if not term or len(term) > 40 or term.lower() in ('all terms', 'practiced'):
+        if not term or len(term) > 40 or term.lower() in ("all terms", "practiced"):
             continue
         terms.append(term)
 
@@ -244,6 +243,7 @@ def build_timing_map(staging: dict) -> dict:
 # Assessment vocabulary parser
 # ---------------------------------------------------------------------------
 
+
 def parse_assessment_vocab(lines: list) -> list:
     """Extract Assessment Vocabulary terms from §1.3.
 
@@ -258,26 +258,26 @@ def parse_assessment_vocab(lines: list) -> list:
     terms = []
     for i, line in enumerate(lines):
         lower = line.strip().lower()
-        if 'assessment vocabulary' in lower and ('state test' in lower or ':' in line):
+        if "assessment vocabulary" in lower and ("state test" in lower or ":" in line):
             # Extract everything after the first colon (the AV header colon)
-            _, _, rest = line.partition(':')
+            _, _, rest = line.partition(":")
             if not rest:
                 continue
 
             # Strip bold category labels: **NEW in M7:**, **REVIEW from M5/M6:**,
             # **From M4 (used, not taught):**, etc.  These are bold spans ending
             # with a colon that categorise the terms but aren't terms themselves.
-            rest = re.sub(r'\*\*[^*]+?:\*\*', '', rest)
+            rest = re.sub(r"\*\*[^*]+?:\*\*", "", rest)
 
             # Remove parenthetical notes and known junk
-            rest = re.sub(r'\(.*?\)', '', rest)
+            rest = re.sub(r"\(.*?\)", "", rest)
             # Strip "+" prefixed additions like "+ row, column (new for 3.MD.C.6)"
-            rest = rest.replace('+', ',')
+            rest = rest.replace("+", ",")
 
             # Split on commas and periods (narrative format uses sentence-ending periods)
-            parts = re.split(r'[,\.]\s*', rest.strip().rstrip('*').strip())
+            parts = re.split(r"[,\.]\s*", rest.strip().rstrip("*").strip())
             for p in parts:
-                term = p.strip().strip('*').strip()
+                term = p.strip().strip("*").strip()
                 if term and len(term) > 1 and len(term) < 40:
                     terms.append(term)
             break
@@ -287,6 +287,7 @@ def parse_assessment_vocab(lines: list) -> list:
 # ---------------------------------------------------------------------------
 # Core scan functions
 # ---------------------------------------------------------------------------
+
 
 def scan_terms_in_dialogue(dialogue_lines: list, terms: list, check_id_prefix: str) -> list:
     """
@@ -298,10 +299,10 @@ def scan_terms_in_dialogue(dialogue_lines: list, terms: list, check_id_prefix: s
     for term in terms:
         # Build word-boundary regex for each term
         # Handle multi-word terms and slash-separated variants
-        variants = [t.strip() for t in term.split('/') if t.strip()]
+        variants = [t.strip() for t in term.split("/") if t.strip()]
         for variant in variants:
             escaped = re.escape(variant)
-            pattern = re.compile(r'\b' + escaped + r'\b', re.IGNORECASE)
+            pattern = re.compile(r"\b" + escaped + r"\b", re.IGNORECASE)
             term_patterns.append((term, variant, pattern))
 
     for dl in dialogue_lines:
@@ -309,18 +310,20 @@ def scan_terms_in_dialogue(dialogue_lines: list, terms: list, check_id_prefix: s
             matches = list(pattern.finditer(dl.text))
             if matches:
                 for match in matches:
-                    findings.append({
-                        "check": check_id_prefix,
-                        "severity": "MAJOR",
-                        "term": orig_term,
-                        "matched": match.group(),
-                        "interaction_id": dl.interaction_id,
-                        "interaction_title": dl.interaction_title,
-                        "field_type": dl.field_type,
-                        "phase": dl.phase,
-                        "line_number": dl.line_number,
-                        "context": dl.text[:120],
-                    })
+                    findings.append(
+                        {
+                            "check": check_id_prefix,
+                            "severity": "MAJOR",
+                            "term": orig_term,
+                            "matched": match.group(),
+                            "interaction_id": dl.interaction_id,
+                            "interaction_title": dl.interaction_title,
+                            "field_type": dl.field_type,
+                            "phase": dl.phase,
+                            "line_number": dl.line_number,
+                            "context": dl.text[:120],
+                        }
+                    )
 
     return findings
 
@@ -352,23 +355,25 @@ def check_vocab_timing(sp: ParsedSP, timing_map: dict, interactions: list) -> li
                 continue  # term is allowed at this phase
 
             # Check if term appears in this line
-            pattern = re.compile(r'\b' + re.escape(term_lower) + r'\b', re.IGNORECASE)
+            pattern = re.compile(r"\b" + re.escape(term_lower) + r"\b", re.IGNORECASE)
             matches = list(pattern.finditer(dl.text))
             if matches:
                 for match in matches:
-                    findings.append({
-                        "check": "V3",
-                        "severity": "MAJOR",
-                        "term": term_lower,
-                        "matched": match.group(),
-                        "interaction_id": dl.interaction_id,
-                        "interaction_title": dl.interaction_title,
-                        "field_type": dl.field_type,
-                        "phase": dl.phase,
-                        "line_number": dl.line_number,
-                        "expected_earliest_phase": _rank_to_phase_name(earliest_rank),
-                        "context": dl.text[:120],
-                    })
+                    findings.append(
+                        {
+                            "check": "V3",
+                            "severity": "MAJOR",
+                            "term": term_lower,
+                            "matched": match.group(),
+                            "interaction_id": dl.interaction_id,
+                            "interaction_title": dl.interaction_title,
+                            "field_type": dl.field_type,
+                            "phase": dl.phase,
+                            "line_number": dl.line_number,
+                            "expected_earliest_phase": _rank_to_phase_name(earliest_rank),
+                            "context": dl.text[:120],
+                        }
+                    )
 
     return findings
 
@@ -389,17 +394,19 @@ def check_session_relative(dialogue_lines: list) -> list:
             matches = list(pattern.finditer(dl.text))
             if matches:
                 for match in matches:
-                    findings.append({
-                        "check": "V5",
-                        "severity": "MINOR",
-                        "term": label,
-                        "matched": match.group(),
-                        "interaction_id": dl.interaction_id,
-                        "field_type": dl.field_type,
-                        "phase": dl.phase,
-                        "line_number": dl.line_number,
-                        "context": dl.text[:120],
-                    })
+                    findings.append(
+                        {
+                            "check": "V5",
+                            "severity": "MINOR",
+                            "term": label,
+                            "matched": match.group(),
+                            "interaction_id": dl.interaction_id,
+                            "field_type": dl.field_type,
+                            "phase": dl.phase,
+                            "line_number": dl.line_number,
+                            "context": dl.text[:120],
+                        }
+                    )
     return findings
 
 
@@ -410,17 +417,19 @@ def check_module_references(dialogue_lines: list) -> list:
         matches = list(MODULE_REF_RE.finditer(dl.text))
         if matches:
             for match in matches:
-                findings.append({
-                    "check": "V6",
-                    "severity": "MINOR",
-                    "term": match.group(),
-                    "matched": match.group(),
-                    "interaction_id": dl.interaction_id,
-                    "field_type": dl.field_type,
-                    "phase": dl.phase,
-                    "line_number": dl.line_number,
-                    "context": dl.text[:120],
-                })
+                findings.append(
+                    {
+                        "check": "V6",
+                        "severity": "MINOR",
+                        "term": match.group(),
+                        "matched": match.group(),
+                        "interaction_id": dl.interaction_id,
+                        "field_type": dl.field_type,
+                        "phase": dl.phase,
+                        "line_number": dl.line_number,
+                        "context": dl.text[:120],
+                    }
+                )
     return findings
 
 
@@ -439,15 +448,17 @@ def check_assessment_in_ec(assessment_terms: list, interactions: list) -> list:
             ec_text += " " + dl.text
 
     for term in assessment_terms:
-        pattern = re.compile(r'\b' + re.escape(term) + r'\b', re.IGNORECASE)
+        pattern = re.compile(r"\b" + re.escape(term) + r"\b", re.IGNORECASE)
         if not pattern.search(ec_text):
-            findings.append({
-                "check": "V4",
-                "severity": "MAJOR",
-                "term": term,
-                "detail": f"Assessment term '{term}' not found in any EC interaction dialogue",
-                "ec_interaction_count": len(ec_interactions),
-            })
+            findings.append(
+                {
+                    "check": "V4",
+                    "severity": "MAJOR",
+                    "term": term,
+                    "detail": f"Assessment term '{term}' not found in any EC interaction dialogue",
+                    "ec_interaction_count": len(ec_interactions),
+                }
+            )
 
     return findings
 
@@ -457,19 +468,23 @@ def check_completeness(sp: ParsedSP) -> list:
     findings = []
 
     if sp.vocab is None:
-        findings.append({
-            "check": "V7",
-            "severity": "CRITICAL",
-            "detail": "§1.3 Vocabulary Architecture section not found",
-        })
+        findings.append(
+            {
+                "check": "V7",
+                "severity": "CRITICAL",
+                "detail": "§1.3 Vocabulary Architecture section not found",
+            }
+        )
         return findings
 
     if len(sp.vocab.terms_to_avoid) == 0:
-        findings.append({
-            "check": "V7",
-            "severity": "MAJOR",
-            "detail": "§1.3 Terms to Avoid list is empty — should contain at least the standard avoid terms",
-        })
+        findings.append(
+            {
+                "check": "V7",
+                "severity": "MAJOR",
+                "detail": "§1.3 Terms to Avoid list is empty — should contain at least the standard avoid terms",
+            }
+        )
 
     return findings
 
@@ -477,6 +492,7 @@ def check_completeness(sp: ParsedSP) -> list:
 # ---------------------------------------------------------------------------
 # Main orchestration
 # ---------------------------------------------------------------------------
+
 
 def run_vocab_scan(filepath: str, gate: int, verbose: bool = False) -> dict:
     """Run all vocabulary checks for the given gate. Returns structured results."""
@@ -536,9 +552,7 @@ def run_vocab_scan(filepath: str, gate: int, verbose: bool = False) -> dict:
         # -- V4: Assessment vocab in EC (gate 3+ only) --
         if gate >= 3 and assessment_terms:
             checks_run.append("V4")
-            all_findings.extend(
-                check_assessment_in_ec(assessment_terms, sp_filtered.interactions)
-            )
+            all_findings.extend(check_assessment_in_ec(assessment_terms, sp_filtered.interactions))
 
     # Build summary
     severity_counts = {}
@@ -563,7 +577,9 @@ def run_vocab_scan(filepath: str, gate: int, verbose: bool = False) -> dict:
         "meta": {
             "terms_to_avoid_count": len(sp.vocab.terms_to_avoid) if sp.vocab else 0,
             "forbidden_phrases_count": len(sp.forbidden_phrases),
-            "dialogue_lines_scanned": len(filter_by_gate(sp, gate).dialogue_lines) if gate > 1 else 0,
+            "dialogue_lines_scanned": len(filter_by_gate(sp, gate).dialogue_lines)
+            if gate > 1
+            else 0,
             "assessment_vocab": parse_assessment_vocab(sp.lines),
             "staging_phases_parsed": list(parse_staging_table(sp.lines).keys()),
         },
@@ -576,58 +592,59 @@ def run_vocab_scan(filepath: str, gate: int, verbose: bool = False) -> dict:
 # CLI
 # ---------------------------------------------------------------------------
 
+
 def print_findings_table(result: dict):
     """Print human-readable findings summary."""
-    print(f"\n{'='*80}")
+    print(f"\n{'=' * 80}")
     print(f"VOCAB SCAN — {result['file']} — Gate {result['gate']}")
-    print(f"{'='*80}")
+    print(f"{'=' * 80}")
     print(f"Checks run: {', '.join(result['checks_run'])}")
     print(f"Total findings: {result['total_findings']}")
 
-    if result['severity_counts']:
-        parts = [f"{k}: {v}" for k, v in sorted(result['severity_counts'].items())]
+    if result["severity_counts"]:
+        parts = [f"{k}: {v}" for k, v in sorted(result["severity_counts"].items())]
         print(f"Severity: {', '.join(parts)}")
 
-    if result['check_counts']:
-        parts = [f"{k}: {v}" for k, v in sorted(result['check_counts'].items())]
+    if result["check_counts"]:
+        parts = [f"{k}: {v}" for k, v in sorted(result["check_counts"].items())]
         print(f"By check: {', '.join(parts)}")
 
-    meta = result.get('meta', {})
+    meta = result.get("meta", {})
     print(f"\nTerms to Avoid: {meta.get('terms_to_avoid_count', '?')}")
     print(f"Forbidden Phrases: {meta.get('forbidden_phrases_count', '?')}")
     print(f"Dialogue lines scanned: {meta.get('dialogue_lines_scanned', '?')}")
     print(f"Assessment Vocabulary: {meta.get('assessment_vocab', [])}")
     print(f"Staging phases parsed: {meta.get('staging_phases_parsed', [])}")
 
-    if result['findings']:
-        print(f"\n{'─'*80}")
+    if result["findings"]:
+        print(f"\n{'─' * 80}")
         print("FINDINGS:")
-        print(f"{'─'*80}")
+        print(f"{'─' * 80}")
 
-        for i, f in enumerate(result['findings'], 1):
-            check = f.get('check', '?')
-            sev = f.get('severity', '?')
-            term = f.get('term', f.get('detail', ''))
-            phase = f.get('phase', '')
-            int_id = f.get('interaction_id', '')
-            field = f.get('field_type', '')
+        for i, f in enumerate(result["findings"], 1):
+            check = f.get("check", "?")
+            sev = f.get("severity", "?")
+            term = f.get("term", f.get("detail", ""))
+            phase = f.get("phase", "")
+            int_id = f.get("interaction_id", "")
+            field = f.get("field_type", "")
 
             loc = f"{phase}/{int_id}" if phase else ""
             if field:
                 loc += f" ({field})"
 
-            line = f.get('line_number', '')
+            line = f.get("line_number", "")
             line_str = f" L{line}" if line else ""
 
             print(f"  [{check}] {sev:8s} | {term:25s} | {loc:30s} |{line_str}")
 
-            if 'context' in f:
+            if "context" in f:
                 print(f"           {f['context'][:70]}...")
 
-            if 'expected_earliest_phase' in f:
+            if "expected_earliest_phase" in f:
                 print(f"           ↳ Term should not appear before: {f['expected_earliest_phase']}")
 
-            if 'detail' in f:
+            if "detail" in f:
                 print(f"           {f['detail']}")
     else:
         print("\n  ✓ No findings.")
@@ -636,8 +653,9 @@ def print_findings_table(result: dict):
 def main():
     parser = argparse.ArgumentParser(description="SP Vocabulary Scanner")
     parser.add_argument("sp_file", help="Path to the Starter Pack markdown file")
-    parser.add_argument("--gate", type=int, required=True, choices=[1, 2, 3, 4],
-                        help="Gate number (1-4)")
+    parser.add_argument(
+        "--gate", type=int, required=True, choices=[1, 2, 3, 4], help="Gate number (1-4)"
+    )
     parser.add_argument("--json", action="store_true", help="Output JSON instead of table")
     parser.add_argument("--output", type=str, help="Write JSON output to file")
     args = parser.parse_args()
@@ -647,8 +665,8 @@ def main():
     if args.json or args.output:
         json_str = json.dumps(result, indent=2)
         if args.output:
-            os.makedirs(os.path.dirname(args.output) or '.', exist_ok=True)
-            with open(args.output, 'w') as f:
+            os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
+            with open(args.output, "w") as f:
                 f.write(json_str)
             print(f"Output written to {args.output}")
         if args.json:
@@ -657,5 +675,5 @@ def main():
         print_findings_table(result)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

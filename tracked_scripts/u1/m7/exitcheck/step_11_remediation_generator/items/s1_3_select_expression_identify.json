@@ -6,7 +6,7 @@
         "condition": {
           "selected": "2 × 4"
         },
-        "description": "Student selected 2 × 4, reversed factors",
+        "description": "Student selected 2 × 4: reversed the groups and items per group",
         "is_correct": false,
         "steps": [
           [
@@ -16,12 +16,12 @@
               "tangible_id": "equal_groups_circles",
               "params": {
                 "highlight_containers": true,
-                "description": "All 4 circles highlight to emphasize the group count."
+                "description": "All 4 circles highlight to show the group count."
               }
             },
             {
               "type": "dialogue",
-              "text": "Count the circles. That's how many groups you have. The groups number goes first in the expression."
+              "text": "Count the circles first. That's your groups. How many circles do you see?"
             }
           ]
         ]
@@ -30,7 +30,7 @@
         "condition": {
           "selected": "4 + 2"
         },
-        "description": "Student selected 4 + 2, used addition instead of multiplication",
+        "description": "Student selected 4 + 2: confused addition with multiplication",
         "is_correct": false,
         "steps": [
           [
@@ -39,13 +39,13 @@
               "method": "update",
               "tangible_id": "equal_groups_circles",
               "params": {
-                "highlight_items_in_container": 0,
-                "description": "Items in one circle highlight."
+                "highlight_one_container": true,
+                "description": "One circle highlights to show equal groups structure."
               }
             },
             {
               "type": "dialogue",
-              "text": "You have equal groups here. When we have groups with the same amount in each, we multiply. Look: 4 circles, 2 dots each. That's 4 × 2."
+              "text": "When you have equal groups, you multiply. The × symbol shows groups of the same size. How many circles? How many dots in each?"
             }
           ]
         ]
@@ -54,7 +54,7 @@
         "condition": {
           "selected": "2 + 4"
         },
-        "description": "Student selected 2 + 4, used addition instead of multiplication",
+        "description": "Student selected 2 + 4: confused addition with multiplication and reversed values",
         "is_correct": false,
         "steps": [
           [
@@ -63,13 +63,13 @@
               "method": "update",
               "tangible_id": "equal_groups_circles",
               "params": {
-                "highlight_items_in_container": 0,
-                "description": "Items in one circle highlight."
+                "highlight_containers": true,
+                "description": "All circles highlight to show the equal groups structure."
               }
             },
             {
               "type": "dialogue",
-              "text": "You have equal groups here. When we have groups with the same amount in each, we multiply. Look: 4 circles, 2 dots each. That's 4 × 2."
+              "text": "Equal groups means multiply, not add. Count the circles. That's the first number. Count the dots in one circle. That's the second number."
             }
           ]
         ]
@@ -85,34 +85,19 @@
               "method": "animate",
               "tangible_id": "equal_groups_circles",
               "params": {
-                "event": "count_containers",
+                "event": "highlight_containers_sequentially",
                 "status": "confirmed",
-                "description": "Circles highlight sequentially as they are counted: 1, 2, 3, 4."
+                "description": "Circles highlight one by one as they are counted: 1, 2, 3, 4. Then one circle opens to reveal its 2 dots, which highlight: 1, 2."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. First, count the circles: 1, 2, 3, 4. That's 4 groups."
-            },
-            {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "equal_groups_circles",
-              "params": {
-                "event": "count_items_in_container",
-                "status": "confirmed",
-                "container_index": 0,
-                "description": "Dots in one circle highlight: 1, 2."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "Now look inside one circle: 1, 2. Two in each group. So it's 4 groups of 2. That's 4 × 2. The groups number comes first, then what's in each group."
+              "text": "Let me show you. First, count the circles: 1, 2, 3, 4. Four circles. Those are my groups. Now look inside one circle: 1, 2. Two dots in each. So I have 4 groups of 2. That's 4 × 2. The first number is always the groups. The second is how many in each group."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:01:21.529508+00:00"
+  "_generated_at": "2026-04-27T15:55:00.539381+00:00"
 }

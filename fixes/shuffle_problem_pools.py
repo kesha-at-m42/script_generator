@@ -15,23 +15,24 @@ from pathlib import Path
 
 # Allow running from any directory
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from steps.formatting.sequence_shuffler import shuffle_for_variety, _get_meta, TIER_ORDER
 from collections import defaultdict
+
+from steps.formatting.sequence_shuffler import TIER_ORDER, _get_meta, shuffle_for_variety
 
 POOL_BASE = Path("C:/git/launchpad/project/edtech.apl/resources/sequences")
 DEFAULT_MODULES = list(range(4, 13))
 
 
 def consecutive_repeats(seqs, key_fn):
-    return sum(
-        1 for i in range(1, len(seqs))
-        if key_fn(seqs[i]) == key_fn(seqs[i - 1])
-    )
+    return sum(1 for i in range(1, len(seqs)) if key_fn(seqs[i]) == key_fn(seqs[i - 1]))
 
 
 def variety_report(before, after):
-    get_tid = lambda s: _get_meta(s).get("template_id", "")
-    get_sid = lambda s: _get_meta(s).get("skill_id", "")
+    def get_tid(s):
+        return _get_meta(s).get("template_id", "")
+
+    def get_sid(s):
+        return _get_meta(s).get("skill_id", "")
 
     tiers_before = defaultdict(list)
     tiers_after = defaultdict(list)
@@ -82,9 +83,7 @@ def process_module(module_number, seed=None):
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Shuffle problem_pool.json for modules 4-12"
-    )
+    parser = argparse.ArgumentParser(description="Shuffle problem_pool.json for modules 4-12")
     parser.add_argument(
         "--modules",
         type=int,

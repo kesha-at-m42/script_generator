@@ -1,7 +1,9 @@
 """Filter Godot sequences by one or more goal IDs"""
+
 import json
 import sys
 from pathlib import Path
+
 
 def filter_by_goals(input_file, target_goals):
     """Filter godot sequences for specified goal IDs"""
@@ -15,22 +17,22 @@ def filter_by_goals(input_file, target_goals):
             sys.exit(1)
     goal_ids = sorted(set(goal_ids))
     print(f"Loading: {input_file}")
-    print(f"Filtering for goal IDs:")
+    print("Filtering for goal IDs:")
     for gid in goal_ids:
         print(f"  • Goal ID {gid}")
     print()
     # Load data
-    with open(input_file, 'r', encoding='utf-8') as f:
+    with open(input_file, "r", encoding="utf-8") as f:
         data = json.load(f)
-    sequences = data.get('sequences', [])
+    sequences = data.get("sequences", [])
     print(f"Total sequences: {len(sequences)}")
     # Filter for target goals
     filtered = []
     goal_counts = {gid: 0 for gid in goal_ids}
     for seq in sequences:
         # Check if goal_id is in metadata or directly on sequence
-        if 'metadata' in seq:
-            goal_id = seq['metadata'].get('goal_id')
+        if "metadata" in seq:
+            goal_id = seq["metadata"].get("goal_id")
         else:
             goal_id = seq.get("goal_id")
         if goal_id in goal_ids:
@@ -40,7 +42,7 @@ def filter_by_goals(input_file, target_goals):
     for gid in goal_ids:
         print(f"  • Goal {gid}: {goal_counts[gid]}")
     if not filtered:
-        print(f"\n⚠️  No sequences found for specified goal IDs")
+        print("\n⚠️  No sequences found for specified goal IDs")
         sys.exit(0)
     # Create output filename based on goals
     input_path = Path(input_file)
@@ -49,15 +51,13 @@ def filter_by_goals(input_file, target_goals):
     else:
         output_name = f"godot_goal_{'_'.join(str(gid) for gid in goal_ids)}.json"
     output_file = input_path.parent / output_name
-    output_data = {
-        "@type": "SequencePool",
-        "sequences": filtered
-    }
+    output_data = {"@type": "SequencePool", "sequences": filtered}
     # Save filtered data
-    with open(output_file, 'w', encoding='utf-8') as f:
+    with open(output_file, "w", encoding="utf-8") as f:
         json.dump(output_data, f, indent=2)
     print(f"\n✅ Saved to: {output_file}")
     print(f"   Contains: {len(filtered)} sequences total")
+
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:

@@ -1,168 +1,152 @@
-# TOML sequence example for import testing
-# Based on module_1 lesson structure (fractions / partitioning)
+# toml_features-script.toml
 
-title = "toml_import_test"
+title = "toml_features"
 type = "sequence"
 
-# --- Section: Introduction to partitioning -----------------------------
+# ---------------------------------------------------------------------------
+# Section 1 - minimal: template choice + scalar template props (untagged primitives).
+# ---------------------------------------------------------------------------
 
-[section_intro]
-template = "unit5_template"
+[section_101_minimal]
+template = "array_template"
 
-[step_intro_welcome]
-dialogue = "Welcome back! Today we're going to learn about equal parts and fractions."
+[section_101_minimal.props]
+left_label = "5 by 4"
+right_label = "4 by 5"
 
-[step_intro_whole]
-dialogue = "See this bar? This is our whole. Everything we do next is about splitting this whole into pieces."
-
-[step_intro_explain]
-dialogue = "When we split something into equal parts, we make all the parts the same size. That's important for what we're learning about fractions."
-
-# --- Section: Making halves --------------------------------------------
-
-[section_halves]
-template = "unit5_template"
-
-[step_halves_setup]
-dialogue = "Let's start simple. Can you split this bar into two equal parts?"
+[step_101_minimal]
+dialogue = "Two arrays, two labels. Same dots, different shape."
 components = ["SceneComponent"]
 
-[step_halves_prompt]
-dialogue = "Click right in the middle to make two equal parts."
+# ---------------------------------------------------------------------------
+# Section 2 - nested Resource props. Tag the OBJECT-typed fields so the importer
+# instantiates the right class. Primitives inside stay untagged.
+# ---------------------------------------------------------------------------
+
+[section_102_nested]
+template = "array_template"
+
+[section_102_nested.props]
+left_label = "Rows"
+right_label = "Columns"
+ArrayProps: left = { ArrayModel: model = { rows = 5, cols = 4 } }
+ArrayProps: right = { ArrayModel: model = { rows = 4, cols = 5 } }
+
+[step_102_nested]
+dialogue = """
+Look at the LEFT array. Count the rows, then the columns.
+Multi line test
+"""
 components = ["PromptComponent"]
+prompt_text = "Which array has 5 rows of 4?"
 
-[step_halves_correct]
-dialogue = "Yes! You made two equal parts: two halves. See how each part is exactly the same size?"
+# Step template_step_properties: typed via class-name sub-table. The class tags on
+# `multiple_choice` (Resource) and `choices` (typed array of Resource subclass) drive
+# importer instantiation; per-element `LabeledChoiceData:` declares the concrete subclass
+# (polymorphism: ChoiceData base, LabeledChoiceData child).
+[step_102.MultipleChoiceProps]
+columns = 2
+string[]: answer_ids = ["1"]
+MultipleChoiceModel: multiple_choice = { ChoiceData[]: choices = [
+  LabeledChoiceData: { id = "1", text = "Yes" },
+  LabeledChoiceData: { id = "2", text = "No" },
+  LabeledChoiceData: { id = "3", text = "Misconception", mistake = "shape_confusion" }
+] }
 
-[step_halves_shade_prompt]
-dialogue = "Now click one of those parts to shade it."
+# Standard severity-keyed remediations (light/medium/heavy). Empty dialogue is fine -
+# the IStep just needs to exist for the prompt's _light/_medium/_heavy slots.
+[step_102.step_501]
+id = "light"
+dialogue = "lorem ipsum"
+
+[step_102.step_502]
+id = "medium"
+dialogue = "lorem ipsum"
+
+[step_102.step_503]
+id = "heavy"
+dialogue = "lorem ipsum"
+
+# Mistake-keyed remediation: the `id` matches a ChoiceData.mistake string above, so picking
+# the "No" choice triggers this step instead of the severity ladder.
+[step_102.step_504]
+id = "shape_confusion"
+dialogue = "Misconception dialogue"
+
+[step_102.correct]
+dialogue = "correct"
+
+# ---------------------------------------------------------------------------
+# Section 3 - polymorphic Resource props. `left` is GroupProps (a subclass of
+# ArrayProps); `right` is plain ArrayProps. The class name in the type tag
+# determines which class gets instantiated.
+# ---------------------------------------------------------------------------
+
+[section_103_polymorphic]
+template = "array_template"
+
+[section_103_polymorphic.props]
+left_label = "Group of 3 by 4"
+right_label = "Array of 4 by 3"
+GroupProps: left = { ArrayModel: model = { rows = 3, cols = 4 }, group_columns = 2 }
+ArrayProps: right = { ArrayModel: model = { rows = 4, cols = 3 } }
+
+[step_103_polymorphic]
+dialogue = "A group is just an array drawn with extra spacing. Same numbers, different look."
+
+# ---------------------------------------------------------------------------
+# Section 4 - existing TOML features (back-compat regression coverage):
+# remediation steps via dotted sub-tables, on_correct branch, inline metadata.
+# ---------------------------------------------------------------------------
+
+[section_104_remediation]
+template = "array_template"
+
+[section_104_remediation.props]
+left_label = "Click the larger one"
+ArrayProps: left = { ArrayModel: model = { rows = 5, cols = 4 } }
+ArrayProps: right = { ArrayModel: model = { rows = 3, cols = 3 } }
+
+[step_104_remediation]
+dialogue = "Which array has more dots?"
 components = ["PromptComponent"]
+prompt_text = "Click on the larger array."
 
-[step_halves_shade_correct]
-dialogue = "You selected one part out of two equal parts."
+# Remediation/correct children attach via the CANONICAL step key (`step_104`),
+# even when the step itself uses a descriptive suffix (`step_104_remediation`).
+# The parser auto-creates the intermediate `step_104` dict from these dotted headers;
+# the importer pulls children from there via `_canonical_step_key()`.
+[step_104.step_501]
+dialogue = "Look at how many rows each one has."
+id = "light"
 
-[step_halves_name]
-dialogue = "When mathematicians divide something into equal parts like you just did, they call it partitioning. Partition is our special math word for dividing one whole into equal-sized sections."
+[step_104.step_502]
+dialogue = "Count the rows AND the columns. The bigger array has more of both."
+id = "medium"
 
-# --- Section: Making fourths -------------------------------------------
+[step_104.correct]
+dialogue = "Right - 5 by 4 has 20 dots; 3 by 3 has only 9."
+metadata = { "sting_id" = "on_correct" }
 
-[section_fourths]
-template = "unit5_template"
+# ---------------------------------------------------------------------------
+# Section 5 - all multiline string forms in one place. Triple-quoted strings
+# preserve embedded newlines; an immediate newline after the opening delimiter
+# is trimmed (TOML spec). Single-line """...""" is also valid.
+# ---------------------------------------------------------------------------
 
-[step_fourths_intro]
-dialogue = "Let's see where this thinking takes us. Here's a new whole bar."
+[section_105_multiline]
+template = "array_template"
+
+[section_105_multiline.props]
+left_label = """First
+line"""
+right_label = "single-line"
+
+[step_105_multiline]
+dialogue = """
+This step's dialogue spans multiple lines.
+
+Blank lines stay blank. Leading whitespace in a line is preserved.
+The newline immediately after the opening triple-quote is trimmed.
+"""
 components = ["SceneComponent"]
-
-[step_fourths_strategy]
-dialogue = "Here is a strategy to make four equal parts: first split it in half, then split each half in half again. That gives you four equal sections."
-
-[step_fourths_prompt]
-dialogue = "Your turn! Click once in the middle, then click once in each half."
-components = ["PromptComponent"]
-
-[step_fourths_correct]
-dialogue = "Right. Four equal parts."
-
-[step_fourths_shade_prompt]
-dialogue = "Now shade just one part."
-components = ["PromptComponent"]
-
-[step_fourths_shade_correct]
-dialogue = "Good. One out of four equal parts."
-
-[step_fourths_fraction]
-dialogue = "See this symbol: one fourth? The bottom number tells us how many equal parts we made. The top number tells us how many parts we selected."
-components = ["SceneComponent"]
-
-# --- Section: Making thirds --------------------------------------------
-
-[section_thirds]
-template = "unit5_template"
-
-[step_thirds_intro]
-dialogue = "Let's keep exploring. Here's another whole bar. Can you partition this one into three equal parts?"
-components = ["SceneComponent"]
-
-[step_thirds_prompt]
-dialogue = "Click two times to partition this bar into three equal parts."
-components = ["PromptComponent"]
-
-[step_thirds_correct]
-dialogue = "Right. You partitioned the bar into three equal parts."
-
-[step_thirds_shade_prompt]
-dialogue = "Now shade one of them."
-components = ["PromptComponent"]
-
-[step_thirds_shade_correct]
-dialogue = "That's one out of three equal parts. We write it as one third."
-
-[step_thirds_pattern]
-dialogue = "Notice the pattern? The bottom number always shows our total equal parts."
-
-# --- Section: Making sixths --------------------------------------------
-
-[section_sixths]
-template = "unit5_template"
-
-[step_sixths_intro]
-dialogue = "Let's partition this bar into six equal parts."
-components = ["SceneComponent"]
-
-[step_sixths_strategy]
-dialogue = "Here's the strategy: first split the bar in half. Then split each half into three equal parts. That gives you six equal sections."
-
-[step_sixths_prompt]
-dialogue = "Give it a try! Click once in the middle, then click twice in each half to make thirds."
-components = ["PromptComponent"]
-
-[step_sixths_correct]
-dialogue = "Correct! You divided the bar into sixths: six equal parts."
-
-[step_sixths_shade_prompt]
-dialogue = "Now shade just one part."
-components = ["PromptComponent"]
-
-[step_sixths_shade_correct]
-dialogue = "Yes. One out of six equal parts, that's one sixth."
-
-# --- Section: Making eighths -------------------------------------------
-
-[section_eighths]
-template = "unit5_template"
-
-[step_eighths_intro]
-dialogue = "Let's do one more: eight equal parts this time. Remember how we made four parts? We can extend that strategy."
-components = ["SceneComponent"]
-
-[step_eighths_demo]
-dialogue = "First, click once in the middle. Then click in the middle of each half. Then click in the middle of each of those four parts."
-
-[step_eighths_prompt]
-dialogue = "Now you try. Remember the strategy: first divide the bar in half, then make fourths, then eighths."
-components = ["PromptComponent", "SceneComponent"]
-
-[step_eighths_correct]
-dialogue = "Good. Eight equal parts."
-
-[step_eighths_shade_prompt]
-dialogue = "Now shade one of them."
-components = ["PromptComponent"]
-
-[step_eighths_shade_correct]
-dialogue = "One eighth. One out of eight equal parts. You're doing great!"
-
-# --- Section: Wrap-up --------------------------------------------------
-
-[section_wrapup]
-template = "unit5_template"
-
-[step_wrapup_review]
-dialogue = "Look at all the fractions you've made: one half, one fourth, one third, one eighth, and one sixth. Each one shows one part of a whole that's been partitioned into equal parts."
-components = ["SceneComponent"]
-
-[step_wrapup_summary]
-dialogue = "You've learned that fractions are a way to name parts of a whole. The whole bar is always one, and we can partition it into equal parts to make fractions."
-
-[step_wrapup_special_chars]
-dialogue = "Remember: \"equal parts\" means every piece is the same size. That's the key to understanding fractions!"

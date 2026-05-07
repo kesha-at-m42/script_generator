@@ -1,6 +1,7 @@
 """
 Test that pipeline properly loads input_file from pipelines.json
 """
+
 import sys
 from pathlib import Path
 
@@ -11,9 +12,9 @@ if str(project_root) not in sys.path:
 
 from core.pipelines import PIPELINES
 
-print("="*70)
+print("=" * 70)
 print("Testing Pipeline Input File Loading")
-print("="*70)
+print("=" * 70)
 
 # Check new_warmup_generator pipeline
 pipeline_name = "new_warmup_generator"
@@ -30,10 +31,10 @@ if pipeline_name in PIPELINES:
         print(f"  Output file: {step.output_file}")
 
         if step.input_file:
-            print(f"  [OK] Input file is configured!")
+            print("  [OK] Input file is configured!")
         else:
-            print(f"  [WARN] No input file configured")
+            print("  [WARN] No input file configured")
 else:
     print(f"[ERROR] Pipeline '{pipeline_name}' not found")
 
-print("\n" + "="*70)
+print("\n" + "=" * 70)

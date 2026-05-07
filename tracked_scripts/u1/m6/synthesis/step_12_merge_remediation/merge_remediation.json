@@ -7,81 +7,108 @@
         "type": "dialogue",
         "text": "You've solved problems that needed one step AND problems that needed two steps. Now let's think about HOW you knew what to do.",
         "id": "s1_0_opening_frame_b0",
-        "_notion_block_id": "3485917e-ac52-818d-a16d-fc6b422222a9"
+        "_notion_block_id": "34f5917e-ac52-81cc-bf52-c59bd4f30521"
       },
       {
         "type": "current_scene",
         "elements": [],
-        "id": "s1_0_opening_frame_b1",
-        "_toml_key": "step_100_opening_frame"
+        "id": "s1_0_opening_frame_b1"
       }
     ],
-    "_generated_at": "2026-04-20T16:59:52.637574+00:00",
-    "_notion_block_id": "3485917e-ac52-8136-8097-d4edf4f07fae",
-    "_toml_key": "section_100_opening_frame"
+    "_generated_at": "2026-04-27T15:53:14.936802+00:00",
+    "_notion_block_id": "34f5917e-ac52-811c-9967-d0c1d2ec9b1e"
   },
   {
     "id": "s1_1_pattern_discovery_type_recognizing_trigger",
     "beats": [
       {
-        "type": "dialogue",
-        "text": "Look at these three questions. Two of them need two steps. One needs just one step. Which one?",
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "problem_text_display",
+        "tangible_type": "image",
+        "params": {
+          "description": "Three problem questions displayed as text only: 1. How many more dogs are there than cats? 2. How many more dogs are there than cats and birds combined? 3. How many students chose red or blue altogether?"
+        },
         "id": "s1_1_pattern_discovery_type_recognizing_trigger_b0",
-        "_notion_block_id": "3485917e-ac52-81e8-920c-ed964c0d953e"
+        "_notion_block_id": "34f5917e-ac52-8130-a66f-f9b38f9a5ed4"
+      },
+      {
+        "type": "dialogue",
+        "text": "Look at these three questions. Two of them need two steps. One needs just one step.",
+        "id": "s1_1_pattern_discovery_type_recognizing_trigger_b1",
+        "_notion_block_id": "34f5917e-ac52-8124-90e2-e89d25db798d"
       },
       {
         "type": "prompt",
         "text": "Which question needs just ONE step?",
         "tool": "multiple_choice",
         "options": [
-          "Question 1: How many more dogs are there than cats?",
-          "Question 2: How many more dogs are there than cats and birds combined?",
-          "Question 3: How many students chose red or blue altogether?"
+          "Question 1",
+          "Question 2",
+          "Question 3"
         ],
         "validator": [
           {
             "condition_id": "correct",
             "condition": {
-              "selected": "Question 1: How many more dogs are there than cats?"
+              "selected": "Question 1"
             },
-            "description": "Student selected Question 1, correct answer",
+            "description": "Student selected Question 1, which has no combining words",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "That's it. Question 1 just compares dogs to cats, no combining first.",
-                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b1_v0_b0",
-                "_notion_block_id": "3485917e-ac52-8108-946e-fb08f48c5078"
+                "text": "Right. Question 1 just compares dogs to cats. No combining first.",
+                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b2_v0_b0",
+                "_notion_block_id": "34f5917e-ac52-811e-9b55-e203296ee7a5"
               }
             ]
           },
           {
             "condition": {
-              "selected": "Question 2: How many more dogs are there than cats and birds combined?"
+              "selected": "Question 2"
             },
-            "description": "Student selected Question 2: needs two steps, not one",
+            "description": "Student selected Question 2, which is a two-step problem with combining words",
             "is_correct": false,
             "beats": [
               {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "problem_text_display",
+                "params": {
+                  "description": "Question 2 highlights briefly to draw attention"
+                },
+                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b2_v1_b0"
+              },
+              {
                 "type": "dialogue",
-                "text": "Question 2 says \"cats and birds combined.\" That means you add first, then compare. So it needs two steps, not one.",
-                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b1_v1_b0",
-                "_notion_block_id": "3485917e-ac52-8105-8d01-fe87d8bc7a58"
+                "text": "Question 2 says combined. That means you need to add first, then compare. Which question has no combining words?",
+                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b2_v1_b1",
+                "_notion_block_id": "34f5917e-ac52-81bf-bf65-f1c25a028c6d"
               }
             ]
           },
           {
             "condition": {
-              "selected": "Question 3: How many students chose red or blue altogether?"
+              "selected": "Question 3"
             },
-            "description": "Student selected Question 3: needs two steps, not one",
+            "description": "Student selected Question 3, which is a two-step problem with combining words",
             "is_correct": false,
             "beats": [
               {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "problem_text_display",
+                "params": {
+                  "description": "Question 3 highlights briefly to draw attention"
+                },
+                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b2_v2_b0"
+              },
+              {
                 "type": "dialogue",
-                "text": "Question 3 says \"red or blue altogether.\" That word altogether tells you to add first. So it needs two steps, not just one.",
-                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b1_v2_b0",
-                "_notion_block_id": "3485917e-ac52-81a8-81d4-d7e88da02fbd"
+                "text": "Question 3 says altogether. That means you combine first. Which question just compares without combining?",
+                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b2_v2_b1",
+                "_notion_block_id": "34f5917e-ac52-8175-9844-ee061bfca0dd"
               }
             ]
           },
@@ -91,29 +118,45 @@
             "is_correct": false,
             "beats": [
               {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "problem_text_display",
+                "params": {
+                  "event": "highlight_question",
+                  "status": "confirmed",
+                  "description": "Question 1 highlights while Questions 2 and 3 dim"
+                },
+                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b2_v3_b0"
+              },
+              {
                 "type": "dialogue",
-                "text": "Let me show you. Question 1 asks how many more dogs than cats. That's one comparison, one step. Questions 2 and 3 both use words like combined and altogether. Those words mean add first, then compare. So Question 1 is the answer: it needs just one step.",
-                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b1_v3_b0",
-                "_notion_block_id": "3485917e-ac52-8136-b3a1-ff9bb41410a4"
+                "text": "Let me show you. Question 2 says combined. That means add cats and birds first. Question 3 says altogether. That means add red and blue first. Question 1 just compares dogs to cats. No combining. The answer is Question 1.",
+                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b2_v3_b1",
+                "_notion_block_id": "34f5917e-ac52-81d7-b7d3-fc86e370830b"
               }
             ]
           }
         ],
-        "id": "s1_1_pattern_discovery_type_recognizing_trigger_b1",
-        "_notion_block_id": "3485917e-ac52-81fe-ae78-c8986ce6846a"
+        "id": "s1_1_pattern_discovery_type_recognizing_trigger_b2",
+        "_notion_block_id": "34f5917e-ac52-8199-a20e-e322118515b8"
       },
       {
         "type": "current_scene",
-        "elements": [],
-        "id": "s1_1_pattern_discovery_type_recognizing_trigger_b2",
-        "_notion_block_id": "3485917e-ac52-81c4-9041-e966a5d67605",
-        "_toml_key": "step_101_pattern_discovery_type_recognizing_trigger"
+        "elements": [
+          {
+            "tangible_id": "problem_text_display",
+            "description": "Three problem questions displayed as text. Student has identified Question 1 as the one-step problem.",
+            "tangible_type": "image"
+          }
+        ],
+        "id": "s1_1_pattern_discovery_type_recognizing_trigger_b3",
+        "_notion_block_id": "34f5917e-ac52-8169-8b64-f40e46fcd8f4"
       },
       {
         "type": "dialogue",
         "text": "What's the clue that tells you a problem needs two steps?",
-        "id": "s1_1_pattern_discovery_type_recognizing_trigger_b3",
-        "_notion_block_id": "3485917e-ac52-81e2-8902-c28397f937cf"
+        "id": "s1_1_pattern_discovery_type_recognizing_trigger_b4",
+        "_notion_block_id": "34f5917e-ac52-8150-a1f0-f64b3405a56b"
       },
       {
         "type": "prompt",
@@ -131,14 +174,14 @@
             "condition": {
               "selected": "Words like \"combined\" or \"altogether\""
             },
-            "description": "Student selected words like combined or altogether, correct answer",
+            "description": "Student identified combining words as the signal for two-step problems",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "Right. Words like combined, together, and altogether are your signal. When you see them, you know: find that total first, then compare.",
-                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b4_v0_b0",
-                "_notion_block_id": "3485917e-ac52-81ef-81da-e276bf2e4234"
+                "text": "Words like combined, together, and altogether are your signal. When you see them, you know: find that total first, then compare.",
+                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b5_v0_b0",
+                "_notion_block_id": "34f5917e-ac52-81b8-a875-cc1573ab1e06"
               }
             ]
           },
@@ -146,14 +189,23 @@
             "condition": {
               "selected": "The word \"more\""
             },
-            "description": "Student selected the word more: not the signal for two steps",
+            "description": "Student selected the comparison word, not the combining signal",
             "is_correct": false,
             "beats": [
               {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "problem_text_display",
+                "params": {
+                  "description": "The word more in Question 1 and Question 2 highlights briefly"
+                },
+                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b5_v1_b0"
+              },
+              {
                 "type": "dialogue",
-                "text": "The word more tells you to compare, but it doesn't tell you if you need to combine first. Look for words that tell you to add categories together.",
-                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b4_v1_b0",
-                "_notion_block_id": "3485917e-ac52-81d1-a4e3-c46e4f2d0422"
+                "text": "The word more tells you to compare. But what tells you to combine first? Look for words about putting things together.",
+                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b5_v1_b1",
+                "_notion_block_id": "34f5917e-ac52-8115-ac99-c0b73cb9c858"
               }
             ]
           },
@@ -161,14 +213,14 @@
             "condition": {
               "selected": "Big numbers"
             },
-            "description": "Student selected big numbers: not related to two-step structure",
+            "description": "Student selected an irrelevant feature",
             "is_correct": false,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "The size of the numbers doesn't matter. What matters is the words in the question. Look for words that tell you to combine categories before comparing.",
-                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b4_v2_b0",
-                "_notion_block_id": "3485917e-ac52-81f5-9e4c-c57c9ae203df"
+                "text": "The size of the numbers does not tell you how many steps. Look at the words. Which words tell you to put categories together?",
+                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b5_v2_b0",
+                "_notion_block_id": "34f5917e-ac52-81fe-870f-f7955f0485be"
               }
             ]
           },
@@ -176,14 +228,23 @@
             "condition": {
               "selected": "Two categories are used"
             },
-            "description": "Student selected two categories are used: not specific enough",
+            "description": "Student noticed multiple categories but missed the linguistic signal",
             "is_correct": false,
             "beats": [
               {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "problem_text_display",
+                "params": {
+                  "description": "Questions 2 and 3 highlight briefly"
+                },
+                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b5_v3_b0"
+              },
+              {
                 "type": "dialogue",
-                "text": "Lots of questions use two categories, even one-step problems. The clue is specific words that tell you to add those categories together first. What are those words?",
-                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b4_v3_b0",
-                "_notion_block_id": "3485917e-ac52-81a5-8248-d9f5ad2f53d9"
+                "text": "Using two categories is not enough. Question 1 uses dogs and cats but needs just one step. Read Questions 2 and 3 carefully. What words tell you to combine?",
+                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b5_v3_b1",
+                "_notion_block_id": "34f5917e-ac52-813e-a2ee-e872a50cecc4"
               }
             ]
           },
@@ -193,27 +254,42 @@
             "is_correct": false,
             "beats": [
               {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "problem_text_display",
+                "params": {
+                  "event": "highlight_combining_words",
+                  "status": "confirmed",
+                  "description": "The words combined in Question 2 and altogether in Question 3 highlight"
+                },
+                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b5_v4_b0"
+              },
+              {
                 "type": "dialogue",
-                "text": "Here's how to tell. Words like combined, together, and altogether are the signal. When you see them, you know the problem needs two steps: find that total first, then compare. Those combining words are your clue.",
-                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b4_v4_b0",
-                "_notion_block_id": "3485917e-ac52-815f-b06d-dca43aa87b8b"
+                "text": "Here is how you know. Question 2 says combined. That word tells you to add cats and birds before you compare. Question 3 says altogether. That word tells you to add red and blue before you compare. Words like combined, together, and altogether are your signal. When you see them, you know the problem needs two steps. The answer is Words like combined or altogether.",
+                "id": "s1_1_pattern_discovery_type_recognizing_trigger_b5_v4_b1",
+                "_notion_block_id": "34f5917e-ac52-818e-955e-f5d70f26705c"
               }
             ]
           }
         ],
-        "id": "s1_1_pattern_discovery_type_recognizing_trigger_b4",
-        "_notion_block_id": "3485917e-ac52-8116-89fe-dd47949e65c3"
+        "id": "s1_1_pattern_discovery_type_recognizing_trigger_b5",
+        "_notion_block_id": "34f5917e-ac52-8163-a863-e08062b6de7b"
       },
       {
         "type": "current_scene",
-        "elements": [],
-        "id": "s1_1_pattern_discovery_type_recognizing_trigger_b5",
-        "_toml_key": "step_102_pattern_discovery_type_recognizing_trigger"
+        "elements": [
+          {
+            "tangible_id": "problem_text_display",
+            "description": "Three problem questions displayed. Student has identified the linguistic pattern that signals two-step problems.",
+            "tangible_type": "image"
+          }
+        ],
+        "id": "s1_1_pattern_discovery_type_recognizing_trigger_b6"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:00.437400+00:00",
-    "_notion_block_id": "3485917e-ac52-81c6-aac7-f07465a9e6d9",
-    "_toml_key": "section_101_pattern_discovery_type_recognizing_trigger"
+    "_generated_at": "2026-04-27T15:53:30.768153+00:00",
+    "_notion_block_id": "34f5917e-ac52-8108-8794-dd7473871d38"
   },
   {
     "id": "s2_1_consolidation_type_b_sorting_problems",
@@ -224,17 +300,18 @@
         "tangible_id": "sorting_area",
         "tangible_type": "sorting_area",
         "params": {
+          "description": "Sorting workspace appears. Left side shows three draggable problem cards: (1) 'How many more chose pizza than tacos?', (2) 'How many more chose pizza and tacos combined than salad?', (3) 'How many fewer chose burgers and hot dogs together than pizza?' Right side shows two drop zones labeled 'JUST COMPARE' and 'COMBINE FIRST, THEN COMPARE'.",
           "items": [
             {
-              "id": "q1",
+              "id": "problem_1",
               "text": "How many more chose pizza than tacos?"
             },
             {
-              "id": "q2",
+              "id": "problem_2",
               "text": "How many more chose pizza and tacos combined than salad?"
             },
             {
-              "id": "q3",
+              "id": "problem_3",
               "text": "How many fewer chose burgers and hot dogs together than pizza?"
             }
           ],
@@ -247,17 +324,16 @@
               "id": "combine_first",
               "label": "COMBINE FIRST, THEN COMPARE"
             }
-          ],
-          "description": "Sorting area appears. Three question cards on left. Two drop zones on right labeled JUST COMPARE and COMBINE FIRST, THEN COMPARE."
+          ]
         },
         "id": "s2_1_consolidation_type_b_sorting_problems_b0",
-        "_notion_block_id": "3485917e-ac52-81c6-992a-d66f0f9fb726"
+        "_notion_block_id": "34f5917e-ac52-81f5-85ae-ffa3bb96f238"
       },
       {
         "type": "dialogue",
         "text": "Here's what you've been doing. You look at a problem and decide: Do I just compare? Or do I combine first, then compare? Sort these questions.",
         "id": "s2_1_consolidation_type_b_sorting_problems_b1",
-        "_notion_block_id": "3485917e-ac52-81d2-8089-ee7d85242124"
+        "_notion_block_id": "34f5917e-ac52-81e5-ada1-ee89526b475c"
       },
       {
         "type": "prompt",
@@ -270,33 +346,22 @@
             "condition": {
               "placed": {
                 "just_compare": [
-                  "q1"
+                  "problem_1"
                 ],
                 "combine_first": [
-                  "q2",
-                  "q3"
+                  "problem_2",
+                  "problem_3"
                 ]
               }
             },
-            "description": "Student sorted all three questions correctly: q1 to just_compare, q2 and q3 to combine_first",
+            "description": "Student sorted all problems correctly: problem 1 to JUST COMPARE, problems 2 and 3 to COMBINE FIRST",
             "is_correct": true,
             "beats": [
               {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "sorting_area",
-                "params": {
-                  "event": "confirm_placement",
-                  "status": "confirmed",
-                  "description": "All three cards lock into their zones to confirm correct sorting."
-                },
-                "id": "s2_1_consolidation_type_b_sorting_problems_b2_v0_b0"
-              },
-              {
                 "type": "dialogue",
-                "text": "You sorted them all. Words like combined and together tell you to find a total first.",
-                "id": "s2_1_consolidation_type_b_sorting_problems_b2_v0_b1",
-                "_notion_block_id": "3485917e-ac52-8139-8609-dc90894ccbd0"
+                "text": "You sorted them all. Words like 'combined' and 'together' tell you to find a total first.",
+                "id": "s2_1_consolidation_type_b_sorting_problems_b2_v0_b0",
+                "_notion_block_id": "34f5917e-ac52-816b-a55a-f313a2a90711"
               }
             ]
           },
@@ -304,14 +369,14 @@
             "condition": {
               "incorrect_count": 1
             },
-            "description": "Student made an incorrect sorting on first attempt",
+            "description": "Student sorted incorrectly on first attempt",
             "is_correct": false,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "Not quite. Read each question carefully. Look for words that tell you to combine.",
+                "text": "Not quite. Look for words like 'combined' or 'together' in each problem.",
                 "id": "s2_1_consolidation_type_b_sorting_problems_b2_v1_b0",
-                "_notion_block_id": "3485917e-ac52-818f-84d0-f442998d454a"
+                "_notion_block_id": "34f5917e-ac52-81d1-937f-c2e4e2886df4"
               }
             ]
           },
@@ -319,7 +384,7 @@
             "condition": {
               "incorrect_count": 2
             },
-            "description": "Student made an incorrect sorting on second attempt",
+            "description": "Student sorted incorrectly on second attempt",
             "is_correct": false,
             "beats": [
               {
@@ -327,21 +392,21 @@
                 "method": "update",
                 "tangible_id": "sorting_area",
                 "params": {
-                  "description": "Key words 'combined' in q2 and 'together' in q3 pulse briefly."
+                  "description": "Problem 2 and Problem 3 pulse briefly to draw attention."
                 },
                 "id": "s2_1_consolidation_type_b_sorting_problems_b2_v2_b0"
               },
               {
                 "type": "dialogue",
-                "text": "Here's what helps: words like combined and together mean you add first, then compare. Question 1 has no combining words. Where does it go?",
+                "text": "Look at problems 2 and 3. They both ask you to combine categories first. Problem 1 asks you to compare two categories directly.",
                 "id": "s2_1_consolidation_type_b_sorting_problems_b2_v2_b1",
-                "_notion_block_id": "3485917e-ac52-8130-b918-e568a3baa054"
+                "_notion_block_id": "34f5917e-ac52-8181-8dd8-fae563843e84"
               }
             ]
           },
           {
             "condition": {},
-            "description": "Student made an incorrect sorting three or more times. System models the correct sorting.",
+            "description": "Student sorted incorrectly three or more times. System models the answer.",
             "is_correct": false,
             "beats": [
               {
@@ -349,52 +414,51 @@
                 "method": "animate",
                 "tangible_id": "sorting_area",
                 "params": {
-                  "event": "model_correct_sorting",
+                  "event": "demonstrate_sort",
                   "status": "confirmed",
-                  "description": "System drags q1 to just_compare zone, then drags q2 and q3 to combine_first zone. Cards lock into place."
+                  "description": "System drags problem 1 to JUST COMPARE zone, then drags problems 2 and 3 to COMBINE FIRST zone."
                 },
                 "id": "s2_1_consolidation_type_b_sorting_problems_b2_v3_b0"
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you how to think through this. Question 1 says more, so we just compare pizza and tacos. Questions 2 and 3 both say combined and together, so we add categories first, then compare. That's why q1 goes to just compare, and q2 and q3 go to combine first. The words tell us the strategy.",
+                "text": "Let me show you. Problem 1 says 'pizza than tacos', so we just compare two categories. Problems 2 and 3 both say 'combined' and 'together', so we combine categories first, then compare. The words tell you which strategy to use.",
                 "id": "s2_1_consolidation_type_b_sorting_problems_b2_v3_b1",
-                "_notion_block_id": "3485917e-ac52-8139-98fe-db24f880a4f8"
+                "_notion_block_id": "34f5917e-ac52-8195-882c-cdb9db2792a6"
               }
             ]
           }
         ],
         "id": "s2_1_consolidation_type_b_sorting_problems_b2",
-        "_notion_block_id": "3485917e-ac52-8177-b50b-ee8f12f69252"
+        "_notion_block_id": "34f5917e-ac52-8113-8ac8-df96dc4308fb"
       },
       {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "sorting_area",
-            "description": "Sorting area with three question cards and two drop zones. drag_to_sort tool active.",
+            "description": "Sorting workspace with three problem cards draggable to two zones: JUST COMPARE and COMBINE FIRST, THEN COMPARE. Drag-to-sort tool active.",
             "tangible_type": "sorting_area"
           }
         ],
         "id": "s2_1_consolidation_type_b_sorting_problems_b3",
-        "_notion_block_id": "3485917e-ac52-81bb-a2f8-e43e09a8f2fc",
-        "_toml_key": "step_103_consolidation_type_b_sorting_problems"
+        "_notion_block_id": "34f5917e-ac52-8142-b9fb-ff4c216c4311"
       },
       {
         "type": "scene",
-        "method": "remove",
+        "method": "update",
         "tangible_id": "sorting_area",
         "params": {
-          "description": "Sorting area clears."
+          "description": "Sorting area fades. Problem cards are no longer draggable."
         },
         "id": "s2_1_consolidation_type_b_sorting_problems_b4",
-        "_notion_block_id": "3485917e-ac52-813b-8e93-f9ccdf7b97ac"
+        "_notion_block_id": "34f5917e-ac52-81ae-9ee8-d8ee14f1bf0a"
       },
       {
         "type": "dialogue",
         "text": "What question do you ask yourself to decide?",
         "id": "s2_1_consolidation_type_b_sorting_problems_b5",
-        "_notion_block_id": "3485917e-ac52-815c-9da0-c5e8589756fc"
+        "_notion_block_id": "34f5917e-ac52-8148-852a-d135870cdb78"
       },
       {
         "type": "prompt",
@@ -402,7 +466,7 @@
         "tool": "multiple_choice",
         "options": [
           "What's the biggest number?",
-          "Does it say combined or together?",
+          "Does it say 'combined' or 'together'?",
           "How many categories are there?",
           "Should I add or subtract?"
         ],
@@ -410,16 +474,16 @@
           {
             "condition_id": "correct",
             "condition": {
-              "selected": "Does it say combined or together?"
+              "selected": "Does it say 'combined' or 'together'?"
             },
-            "description": "Student selected option B, correct",
+            "description": "Student selected option B, the correct key question",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
                 "text": "Right. That's the key question. The answer tells you whether it's one step or two.",
                 "id": "s2_1_consolidation_type_b_sorting_problems_b6_v0_b0",
-                "_notion_block_id": "3485917e-ac52-81d8-815a-f6a9fb6266e1"
+                "_notion_block_id": "34f5917e-ac52-8163-8d15-d4604dbc110b"
               }
             ]
           },
@@ -427,14 +491,23 @@
             "condition": {
               "selected": "What's the biggest number?"
             },
-            "description": "Student selected option A: What's the biggest number?",
+            "description": "Student selected option A: biggest number focus rather than keyword identification",
             "is_correct": false,
             "beats": [
               {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "sorting_area",
+                "params": {
+                  "description": "Option B ('Does it say combined or together?') pulses briefly."
+                },
+                "id": "s2_1_consolidation_type_b_sorting_problems_b6_v1_b0"
+              },
+              {
                 "type": "dialogue",
-                "text": "The biggest number doesn't tell you whether to combine. Look for signal words in the question itself. Which option mentions those words?",
-                "id": "s2_1_consolidation_type_b_sorting_problems_b6_v1_b0",
-                "_notion_block_id": "3485917e-ac52-8126-8fca-cd01162d992d"
+                "text": "The biggest number doesn't tell you the strategy. The words in the problem do. Look for 'combined' or 'together'.",
+                "id": "s2_1_consolidation_type_b_sorting_problems_b6_v1_b1",
+                "_notion_block_id": "34f5917e-ac52-81f2-b260-c2b105142e3e"
               }
             ]
           },
@@ -442,14 +515,23 @@
             "condition": {
               "selected": "How many categories are there?"
             },
-            "description": "Student selected option C: How many categories are there?",
+            "description": "Student selected option C: counting categories rather than identifying signal words",
             "is_correct": false,
             "beats": [
               {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "sorting_area",
+                "params": {
+                  "description": "Option B ('Does it say combined or together?') pulses briefly."
+                },
+                "id": "s2_1_consolidation_type_b_sorting_problems_b6_v2_b0"
+              },
+              {
                 "type": "dialogue",
-                "text": "Counting categories doesn't tell you the strategy. The question is about what words signal combining. Which option names those signal words?",
-                "id": "s2_1_consolidation_type_b_sorting_problems_b6_v2_b0",
-                "_notion_block_id": "3485917e-ac52-8184-8a44-c12378773fe8"
+                "text": "Counting categories doesn't tell you the plan. The specific words do. When you see 'combined' or 'together', you know to combine first.",
+                "id": "s2_1_consolidation_type_b_sorting_problems_b6_v2_b1",
+                "_notion_block_id": "34f5917e-ac52-8121-ad76-f695caa88d1e"
               }
             ]
           },
@@ -457,14 +539,23 @@
             "condition": {
               "selected": "Should I add or subtract?"
             },
-            "description": "Student selected option D: Should I add or subtract?",
+            "description": "Student selected option D: operation focus rather than strategic planning question",
             "is_correct": false,
             "beats": [
               {
+                "type": "scene",
+                "method": "update",
+                "tangible_id": "sorting_area",
+                "params": {
+                  "description": "Option B ('Does it say combined or together?') pulses briefly."
+                },
+                "id": "s2_1_consolidation_type_b_sorting_problems_b6_v3_b0"
+              },
+              {
                 "type": "dialogue",
-                "text": "That's what you decide after you know the strategy. The key question comes first: do you need to combine? Which option asks about the words that signal combining?",
-                "id": "s2_1_consolidation_type_b_sorting_problems_b6_v3_b0",
-                "_notion_block_id": "3485917e-ac52-818c-8911-db94da981b61"
+                "text": "That comes after you decide your strategy. The first question is: Does the problem say 'combined' or 'together'? That tells you if you need to combine categories before comparing.",
+                "id": "s2_1_consolidation_type_b_sorting_problems_b6_v3_b1",
+                "_notion_block_id": "34f5917e-ac52-8140-a08b-d6cffa12ba98"
               }
             ]
           },
@@ -474,40 +565,60 @@
             "is_correct": false,
             "beats": [
               {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "sorting_area",
+                "params": {
+                  "event": "highlight_option",
+                  "status": "confirmed",
+                  "description": "Option B ('Does it say combined or together?') highlights and remains selected."
+                },
+                "id": "s2_1_consolidation_type_b_sorting_problems_b6_v4_b0"
+              },
+              {
                 "type": "dialogue",
-                "text": "The key question is: Does it say combined or together? When a problem uses those words, you know you need to add categories first, then compare. That's what separates a one step problem from a two step problem. The answer is option B.",
-                "id": "s2_1_consolidation_type_b_sorting_problems_b6_v4_b0",
-                "_notion_block_id": "3485917e-ac52-814d-ae9c-cc1d9317974e"
+                "text": "The key question is: Does it say 'combined' or 'together'? When you see those words, you know you need to combine categories first before comparing. That's the strategic question that tells you your approach.",
+                "id": "s2_1_consolidation_type_b_sorting_problems_b6_v4_b1",
+                "_notion_block_id": "34f5917e-ac52-8171-bc81-cea32e04f32d"
               }
             ]
           }
         ],
         "id": "s2_1_consolidation_type_b_sorting_problems_b6",
-        "_notion_block_id": "3485917e-ac52-81d9-a5a7-eb87406cb61f"
+        "_notion_block_id": "34f5917e-ac52-8177-887f-fd9beb4ff2df"
       },
       {
         "type": "current_scene",
-        "elements": [],
+        "elements": [
+          {
+            "tangible_id": "sorting_area",
+            "description": "Sorting workspace inactive. Multiple choice options visible: 'What's the biggest number?', 'Does it say 'combined' or 'together'?', 'How many categories are there?', 'Should I add or subtract?'",
+            "tangible_type": "sorting_area"
+          }
+        ],
         "id": "s2_1_consolidation_type_b_sorting_problems_b7",
-        "_notion_block_id": "3485917e-ac52-8122-a6ea-f8d2f5bab569",
-        "_toml_key": "step_104_consolidation_type_b_sorting_problems"
+        "_notion_block_id": "34f5917e-ac52-814e-a7fe-ff170c524379"
       },
       {
         "type": "dialogue",
         "text": "This is strategic thinking. You're not just doing math. You're planning your approach based on what the problem says.",
         "id": "s2_1_consolidation_type_b_sorting_problems_b8",
-        "_notion_block_id": "3485917e-ac52-81c7-8ae2-fa3fefaecb49"
+        "_notion_block_id": "34f5917e-ac52-81c1-be67-f730c68dcaf7"
       },
       {
         "type": "current_scene",
-        "elements": [],
-        "id": "s2_1_consolidation_type_b_sorting_problems_b9",
-        "_toml_key": "step_105_consolidation_type_b_sorting_problems"
+        "elements": [
+          {
+            "tangible_id": "sorting_area",
+            "description": "Sorting workspace remains on screen, interaction complete.",
+            "tangible_type": "sorting_area"
+          }
+        ],
+        "id": "s2_1_consolidation_type_b_sorting_problems_b9"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:23.183639+00:00",
-    "_notion_block_id": "3485917e-ac52-81af-ab46-ecf3205fabba",
-    "_toml_key": "section_102_consolidation_type_b_sorting_problems"
+    "_generated_at": "2026-04-27T15:53:54.505521+00:00",
+    "_notion_block_id": "34f5917e-ac52-8163-b761-f0f3a2c4f164"
   },
   {
     "id": "s3_1_real_world_bridge_type_c",
@@ -516,19 +627,19 @@
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "word_problem_area_scenarios",
-        "tangible_type": "word_problem_area",
+        "tangible_id": "word_problem_scenarios",
+        "tangible_type": "image",
         "params": {
-          "description": "Three real-world scenarios displayed: 1) Who has more stickers—just Maya, or Ben and Carlos put together? 2) Which team scored more—the Red team alone, or the Blue and Green teams combined? 3) Did I spend more on only snacks, or on drinks and dessert altogether?"
+          "description": "Three real-world scenario questions displayed: (1) Who has more stickers—just Maya, or Ben and Carlos put together? (2) Which team scored more—the Red team alone, or the Blue and Green teams combined? (3) Did I spend more on only snacks, or on drinks and dessert altogether?"
         },
         "id": "s3_1_real_world_bridge_type_c_b0",
-        "_notion_block_id": "3485917e-ac52-81ac-9fcf-c92421d6c6bc"
+        "_notion_block_id": "34f5917e-ac52-813d-a3a8-e1dc552d1427"
       },
       {
         "type": "dialogue",
-        "text": "This kind of thinking shows up all the time, not just in math problems.",
+        "text": "This kind of thinking shows up all the time, not just in math problems. What would you need to do to answer all of these?",
         "id": "s3_1_real_world_bridge_type_c_b1",
-        "_notion_block_id": "3485917e-ac52-81de-9921-c122b604d6e6"
+        "_notion_block_id": "34f5917e-ac52-819c-9180-d22935b8f30d"
       },
       {
         "type": "prompt",
@@ -546,14 +657,14 @@
             "condition": {
               "selected": "Combine some things first, then compare"
             },
-            "description": "Student selected option B, combine first then compare, correct",
+            "description": "Student selected option B, combine some things first then compare, correct",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
                 "text": "Right. Combine first, then compare. That pattern shows up everywhere.",
                 "id": "s3_1_real_world_bridge_type_c_b2_v0_b0",
-                "_notion_block_id": "3485917e-ac52-818b-9877-fd0f49755e3e"
+                "_notion_block_id": "34f5917e-ac52-818d-b031-c689091dbc05"
               }
             ]
           },
@@ -561,13 +672,13 @@
             "condition": {
               "selected": "Count everything"
             },
-            "description": "Student selected 'Count everything': misses that comparison requires combining first",
+            "description": "Student selected 'Count everything': doesn't recognize the need to combine before comparing",
             "is_correct": false,
             "beats": [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "word_problem_area_scenarios",
+                "tangible_id": "word_problem_scenarios",
                 "params": {
                   "description": "Second scenario highlights: Which team scored more—the Red team alone, or the Blue and Green teams combined?"
                 },
@@ -575,9 +686,9 @@
               },
               {
                 "type": "dialogue",
-                "text": "Look at the second one. You need the Blue and Green totals together before you can compare to Red. What's the key step?",
+                "text": "Look at the second question. Red team is alone. Blue and Green need to be put together first. What do we do before we compare?",
                 "id": "s3_1_real_world_bridge_type_c_b2_v1_b1",
-                "_notion_block_id": "3485917e-ac52-81c3-9376-ebb4a9e874a3"
+                "_notion_block_id": "34f5917e-ac52-81a2-8350-d1fb2e8a9bbb"
               }
             ]
           },
@@ -585,13 +696,13 @@
             "condition": {
               "selected": "Find the biggest number"
             },
-            "description": "Student selected 'Find the biggest number': misses that you must combine values before comparing",
+            "description": "Student selected 'Find the biggest number': focused on individual values rather than the combining pattern",
             "is_correct": false,
             "beats": [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "word_problem_area_scenarios",
+                "tangible_id": "word_problem_scenarios",
                 "params": {
                   "description": "First scenario highlights: Who has more stickers—just Maya, or Ben and Carlos put together?"
                 },
@@ -599,9 +710,9 @@
               },
               {
                 "type": "dialogue",
-                "text": "Read the first one carefully. You're comparing Maya alone to Ben and Carlos together. What do you need to do with Ben and Carlos first?",
+                "text": "The first question compares Maya alone to Ben and Carlos put together. We can't just find the biggest number. What do we do with Ben and Carlos first?",
                 "id": "s3_1_real_world_bridge_type_c_b2_v2_b1",
-                "_notion_block_id": "3485917e-ac52-8151-b811-c14c9e8b1b23"
+                "_notion_block_id": "34f5917e-ac52-8182-b640-c3de4ef5669c"
               }
             ]
           },
@@ -609,13 +720,13 @@
             "condition": {
               "selected": "Subtract twice"
             },
-            "description": "Student selected 'Subtract twice': confuses the operation needed",
+            "description": "Student selected 'Subtract twice': confused operation with the structure of combining then comparing",
             "is_correct": false,
             "beats": [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "word_problem_area_scenarios",
+                "tangible_id": "word_problem_scenarios",
                 "params": {
                   "description": "Third scenario highlights: Did I spend more on only snacks, or on drinks and dessert altogether?"
                 },
@@ -623,9 +734,9 @@
               },
               {
                 "type": "dialogue",
-                "text": "Look at the third one. You need drinks and dessert as one amount before comparing to snacks. That's adding, not subtracting. What's the pattern?",
+                "text": "Look at the third question. Drinks and dessert need to be put together. That's adding, not subtracting. Then we compare that total to snacks.",
                 "id": "s3_1_real_world_bridge_type_c_b2_v3_b1",
-                "_notion_block_id": "3485917e-ac52-8118-8bdc-ea4681885969"
+                "_notion_block_id": "34f5917e-ac52-8103-ab68-c730e89bc280"
               }
             ]
           },
@@ -637,42 +748,40 @@
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "word_problem_area_scenarios",
+                "tangible_id": "word_problem_scenarios",
                 "params": {
-                  "event": "demonstrate_pattern",
+                  "event": "highlight_pattern",
                   "status": "confirmed",
-                  "description": "Scenarios animate to show: combine the paired values first (Ben+Carlos, Blue+Green, drinks+dessert), then compare each sum to the single value."
+                  "description": "All three scenarios highlight the shared pattern: one thing alone versus two things combined"
                 },
                 "id": "s3_1_real_world_bridge_type_c_b2_v4_b0"
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. In each one, you combine two amounts into one total first. Then you compare that total to the other amount. The answer is: combine some things first, then compare. That's the pattern in all three.",
+                "text": "Let me show you the pattern. In every question, one side stands alone and the other side has two things that need combining. You combine first, then you compare the two sides. The answer is combine some things first, then compare.",
                 "id": "s3_1_real_world_bridge_type_c_b2_v4_b1",
-                "_notion_block_id": "3485917e-ac52-8172-aaf6-dbdd5696cdad"
+                "_notion_block_id": "34f5917e-ac52-81b2-840d-dee3a6b2a514"
               }
             ]
           }
         ],
         "id": "s3_1_real_world_bridge_type_c_b2",
-        "_notion_block_id": "3485917e-ac52-8181-bcaf-d257ab7a1149"
+        "_notion_block_id": "34f5917e-ac52-81a2-94af-ec7f97e65bfe"
       },
       {
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "word_problem_area_scenarios",
-            "description": "Three real-world scenarios displayed on screen. multiple_choice tool active.",
-            "tangible_type": "word_problem_area"
+            "tangible_id": "word_problem_scenarios",
+            "description": "Three real-world scenario questions displayed on screen.",
+            "tangible_type": "image"
           }
         ],
-        "id": "s3_1_real_world_bridge_type_c_b3",
-        "_toml_key": "step_106_real_world_bridge_type_c"
+        "id": "s3_1_real_world_bridge_type_c_b3"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:30.561313+00:00",
-    "_notion_block_id": "3485917e-ac52-8183-a148-e3036e6133f5",
-    "_toml_key": "section_103_real_world_bridge_type_c"
+    "_generated_at": "2026-04-27T15:54:09.337595+00:00",
+    "_notion_block_id": "34f5917e-ac52-812c-abff-f4ee803f962d"
   },
   {
     "id": "s4_1_metacognitive_reflection_type_1_strategy",
@@ -681,7 +790,7 @@
         "type": "dialogue",
         "text": "What helped you most when figuring out what to do first?",
         "id": "s4_1_metacognitive_reflection_type_1_strategy_b0",
-        "_notion_block_id": "3485917e-ac52-816d-aa3f-c035dbc40c43"
+        "_notion_block_id": "34f5917e-ac52-8170-9dad-f447111aefd2"
       },
       {
         "type": "prompt",
@@ -695,83 +804,81 @@
         ],
         "validator": [
           {
-            "condition_id": "selected_a",
+            "condition_id": "selected_trigger_words",
             "condition": {
               "selected": "Looking for words like \"combined\" or \"altogether\""
             },
-            "description": "Student selected option A",
+            "description": "Student selected option about trigger words",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "Yes. Spotting those trigger words is huge. They tell you exactly what to do.",
+                "text": "Right. Spotting those trigger words is huge. They tell you exactly what to do.",
                 "id": "s4_1_metacognitive_reflection_type_1_strategy_b1_v0_b0",
-                "_notion_block_id": "3485917e-ac52-81a7-a6a2-ebb5596d45fd"
+                "_notion_block_id": "34f5917e-ac52-81c1-966a-d5da07f94936"
               }
             ]
           },
           {
-            "condition_id": "selected_b",
+            "condition_id": "selected_careful_reading",
             "condition": {
               "selected": "Reading the question carefully"
             },
-            "description": "Student selected option B",
+            "description": "Student selected careful reading",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "Right. Careful reading pays off. The question tells you what it needs.",
+                "text": "That's it. Careful reading pays off. The question tells you what it needs.",
                 "id": "s4_1_metacognitive_reflection_type_1_strategy_b1_v1_b0",
-                "_notion_block_id": "3485917e-ac52-81af-b54b-e40344d01314"
+                "_notion_block_id": "34f5917e-ac52-817b-9446-d65d1814ecdb"
               }
             ]
           },
           {
-            "condition_id": "selected_c",
+            "condition_id": "selected_reasoning",
             "condition": {
               "selected": "Thinking about what the question is really asking"
             },
-            "description": "Student selected option C",
+            "description": "Student selected mathematical reasoning",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "Nice. Thinking about what the question really asks, that's mathematical reasoning.",
+                "text": "Exactly. Thinking about what the question REALLY asks. That's mathematical reasoning.",
                 "id": "s4_1_metacognitive_reflection_type_1_strategy_b1_v2_b0",
-                "_notion_block_id": "3485917e-ac52-8103-ae5b-fd08b78b2d32"
+                "_notion_block_id": "34f5917e-ac52-8112-ac98-ea27c3f48dc2"
               }
             ]
           },
           {
-            "condition_id": "selected_d",
+            "condition_id": "selected_strategy",
             "condition": {
               "selected": "Remembering the strategy"
             },
-            "description": "Student selected option D",
+            "description": "Student selected remembering the strategy",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "That works. Having a strategy ready helps. Find combined total first, then compare works every time.",
+                "text": "Yes. Having a strategy ready helps. Find combined total first, then compare works every time.",
                 "id": "s4_1_metacognitive_reflection_type_1_strategy_b1_v3_b0",
-                "_notion_block_id": "3485917e-ac52-813a-8c56-f41fdab37193"
+                "_notion_block_id": "34f5917e-ac52-819a-a63f-ec234e9557ef"
               }
             ]
           }
         ],
         "id": "s4_1_metacognitive_reflection_type_1_strategy_b1",
-        "_notion_block_id": "3485917e-ac52-8118-b368-e1fcd8f7210d"
+        "_notion_block_id": "34f5917e-ac52-81da-8b59-db0abf90f07a"
       },
       {
         "type": "current_scene",
         "elements": [],
-        "id": "s4_1_metacognitive_reflection_type_1_strategy_b2",
-        "_toml_key": "step_107_metacognitive_reflection_type_1_strategy"
+        "id": "s4_1_metacognitive_reflection_type_1_strategy_b2"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:47.135249+00:00",
-    "_notion_block_id": "3485917e-ac52-812d-950e-c8e7909d0b3e",
-    "_toml_key": "section_104_metacognitive_reflection_type_1_strategy"
+    "_generated_at": "2026-04-27T15:54:24.335331+00:00",
+    "_notion_block_id": "34f5917e-ac52-8146-90da-c41831458b11"
   },
   {
     "id": "s4_2_identity_building_closure",
@@ -779,25 +886,23 @@
     "beats": [
       {
         "type": "dialogue",
-        "text": "You learned something important today. You learned to look at a problem before jumping in. You ask: What should I find first?",
+        "text": "You learned something important today. You learned to look at a problem before jumping in. You ask: 'What should I find first?'",
         "id": "s4_2_identity_building_closure_b0",
-        "_notion_block_id": "3485917e-ac52-8141-a746-c5fdcf0931a5"
+        "_notion_block_id": "34f5917e-ac52-81a0-bf33-e065aae26102"
       },
       {
         "type": "dialogue",
         "text": "That's not just math. That's strategic thinking. You're becoming someone who plans before solving.",
         "id": "s4_2_identity_building_closure_b1",
-        "_notion_block_id": "3485917e-ac52-8139-9b34-e0b0cb5ebd6c"
+        "_notion_block_id": "34f5917e-ac52-818b-9041-f7558835713e"
       },
       {
         "type": "current_scene",
         "elements": [],
-        "id": "s4_2_identity_building_closure_b2",
-        "_toml_key": "step_108_identity_building_closure"
+        "id": "s4_2_identity_building_closure_b2"
       }
     ],
-    "_generated_at": "2026-04-20T17:00:50.559537+00:00",
-    "_notion_block_id": "3485917e-ac52-813e-b827-d1e1ba837398",
-    "_toml_key": "section_105_identity_building_closure"
+    "_generated_at": "2026-04-27T15:54:32.892998+00:00",
+    "_notion_block_id": "34f5917e-ac52-81a6-98d5-f85307b909af"
   }
 ]

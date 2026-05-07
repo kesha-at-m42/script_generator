@@ -43,6 +43,10 @@ These are the only valid `tangible_type` values. Do not invent new types.
 | picture graph | `picture_graph` |
 | bar graph | `bar_graph` |
 | data table | `data_table` |
+| data set | `data_table` |
+| data set a | `data_table` |
+| data set b | `data_table` |
+| side-by-side comparison | `data_table` |
 | equation builder | `equation_builder` |
 | arrays | `array` |
 | equal groups | `equal_groups` |
@@ -50,6 +54,7 @@ These are the only valid `tangible_type` values. Do not invent new types.
 | fill-in-the-blank | `dropdown_fillin` |
 | fill in the blank | `dropdown_fillin` |
 | word problem | `word_problem_area` |
+| Scale Preview System | `bar_graph` or `picture_graph` (scale is a component of the graph, not a separate toy — use whichever graph type is present in context) |
 
 **Spec aliases** — renamed or superseded terms; flag these if they appear in a spec:
 
@@ -191,9 +196,9 @@ Sections flagged with `"workspace_carry_over": true` in `workspace_specs` were d
 
 ---
 
-## Array Template Screens
+## Template Screens
 
-Valid toy combinations for array-based sections. No other combinations are permitted.
+Valid toy combinations. No other combinations are permitted.
 
 | Template | Toys | Tool(s) |
 |---|---|---|
@@ -202,12 +207,15 @@ Valid toy combinations for array-based sections. No other combinations are permi
 | array-build-rows | `arrays` + `row_builder` | `add_row`, `add_item_per_row`, or `add_row_and_item_per_row` |
 | array-build-cols | `arrays` + `column_builder` | `add_column`, `add_item_per_column`, or `add_column_and_item_per_column` |
 | array-build-eq | `arrays` + `equation_builder` | `place_tile` — student drags factor tiles into equation slots; array updates to match |
+| table-with-graph | `data_table` + `bar_graph` or `picture_graph` | graph interaction tools — table is reference only |
+| table-comparison | `data_table` × 2 (side-by-side) | `click_tangible` — student selects one of the two tables |
 
 **Coupling constraints:**
 - `row_builder` and `column_builder` are mutually exclusive — never on the same screen
 - `row_builder` / `column_builder` always require `arrays`
 - `equation_builder`, `row_builder`, and `column_builder` are mutually exclusive — only one build mechanism per screen
 - `multiple_choice_options` always requires `arrays` and the `multiple_choice` tool
+- In `table-comparison`, each `data_table` is a separate tangible with its own `tangible_id`; `click_tangible` targets both IDs
 
 ---
 

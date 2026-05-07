@@ -53,8 +53,7 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from sp_parse_interactions import parse_sp, filter_by_gate, ParsedSP
-
+from sp_parse_interactions import filter_by_gate, parse_sp
 
 # ---------------------------------------------------------------------------
 # Expected phase interaction count ranges
@@ -62,16 +61,17 @@ from sp_parse_interactions import parse_sp, filter_by_gate, ParsedSP
 
 PHASE_COUNT_RANGES = {
     "Warmup": (2, 5),
-    "Lesson": (6, 30),      # broad range — varies by module
+    "Lesson": (6, 30),  # broad range — varies by module
     "EC": (2, 8),
     "Practice": (2, 20),
-    "Synthesis": (3, 8),     # 3-4 tasks + frame + closure
+    "Synthesis": (3, 8),  # 3-4 tasks + frame + closure
 }
 
 
 # ---------------------------------------------------------------------------
 # Per-interaction field checks
 # ---------------------------------------------------------------------------
+
 
 def check_student_action_fields(ix) -> list:
     """Check required fields for Pattern 1 (student_action) interactions."""
@@ -88,7 +88,14 @@ def check_student_action_fields(ix) -> list:
         findings.append(_finding("I3", "MAJOR", ix, "Missing Guide field"))
 
     if not ix.has_prompt:
-        findings.append(_finding("I4", "MAJOR", ix, "Missing Prompt field — student-action interaction requires both Guide and Prompt"))
+        findings.append(
+            _finding(
+                "I4",
+                "MAJOR",
+                ix,
+                "Missing Prompt field — student-action interaction requires both Guide and Prompt",
+            )
+        )
 
     if not ix.has_student_action:
         findings.append(_finding("I5", "MINOR", ix, "Missing Student Action field"))
@@ -104,13 +111,21 @@ def check_student_action_fields(ix) -> list:
     elif ix.remediation_text:
         # Check that remediation is "Pipeline" (not authored dialogue)
         rem_lower = ix.remediation_text.lower().strip()
-        if rem_lower and 'pipeline' not in rem_lower:
-            findings.append(_finding("I8", "MINOR", ix,
-                f"Remediation is '{ix.remediation_text[:60]}' — expected 'Pipeline' (no intensity qualifiers)"))
+        if rem_lower and "pipeline" not in rem_lower:
+            findings.append(
+                _finding(
+                    "I8",
+                    "MINOR",
+                    ix,
+                    f"Remediation is '{ix.remediation_text[:60]}' — expected 'Pipeline' (no intensity qualifiers)",
+                )
+            )
 
     # MC-specific: if Options present, Answer Rationale should be too
     if ix.has_options and not ix.has_answer_rationale:
-        findings.append(_finding("I9", "MAJOR", ix, "MC interaction has Options but missing Answer Rationale"))
+        findings.append(
+            _finding("I9", "MAJOR", ix, "MC interaction has Options but missing Answer Rationale")
+        )
 
     return findings
 
@@ -122,7 +137,7 @@ def check_teaching_only_fields(ix) -> list:
     if not ix.has_visual:
         # Visual is expected but not always critical for teaching-only
         # Some teaching-only interactions (bridges, closures) legitimately skip Visual
-        if ix.id not in ('OF', 'IC', 'PF') and 'bridge' not in ix.title.lower():
+        if ix.id not in ("OF", "IC", "PF") and "bridge" not in ix.title.lower():
             findings.append(_finding("I10", "MINOR", ix, "Missing Visual field"))
 
     if not ix.has_guide:
@@ -131,8 +146,14 @@ def check_teaching_only_fields(ix) -> list:
     if not ix.has_no_student_action:
         # Not all teaching-only interactions explicitly state "No student action"
         # but they should
-        findings.append(_finding("I12", "MINOR", ix,
-            "Missing 'No student action.' marker — teaching-only interaction should include it"))
+        findings.append(
+            _finding(
+                "I12",
+                "MINOR",
+                ix,
+                "Missing 'No student action.' marker — teaching-only interaction should include it",
+            )
+        )
 
     # Contradictory fields
     contradictions = []
@@ -146,8 +167,14 @@ def check_teaching_only_fields(ix) -> list:
         contradictions.append("Remediation")
 
     if contradictions:
-        findings.append(_finding("I13", "MAJOR", ix,
-            f"Teaching-only interaction has contradictory fields: {', '.join(contradictions)}"))
+        findings.append(
+            _finding(
+                "I13",
+                "MAJOR",
+                ix,
+                f"Teaching-only interaction has contradictory fields: {', '.join(contradictions)}",
+            )
+        )
 
     return findings
 
@@ -157,7 +184,9 @@ def check_system_driven_fields(ix) -> list:
     findings = []
 
     if not ix.has_on_complete:
-        findings.append(_finding("I14", "MAJOR", ix, "System-driven interaction missing On Complete block"))
+        findings.append(
+            _finding("I14", "MAJOR", ix, "System-driven interaction missing On Complete block")
+        )
 
     return findings
 
@@ -166,21 +195,34 @@ def check_system_driven_fields(ix) -> list:
 # Cross-interaction checks
 # ---------------------------------------------------------------------------
 
+
 def check_type_labels(interactions: list) -> list:
     """Check interaction type labels."""
     findings = []
-    legacy_labels = {'Type A', 'Type B', 'Type C'}
+    legacy_labels = {"Type A", "Type B", "Type C"}
 
     for ix in interactions:
         if not ix.type_label:
             # Opening Frame and Identity-Building Closure often lack type labels
-            if ix.id not in ('OF', 'IC', 'PF') and 'bridge' not in ix.title.lower():
-                findings.append(_finding("I14", "MINOR", ix,
-                    "Missing type label in brackets (e.g., [WORKED EXAMPLE], [ACTIVATION])"))
+            if ix.id not in ("OF", "IC", "PF") and "bridge" not in ix.title.lower():
+                findings.append(
+                    _finding(
+                        "I14",
+                        "MINOR",
+                        ix,
+                        "Missing type label in brackets (e.g., [WORKED EXAMPLE], [ACTIVATION])",
+                    )
+                )
         elif ix.type_label in legacy_labels:
-            findings.append(_finding("I15", "INFO", ix,
-                f"Legacy type label [{ix.type_label}] — consider pedagogical label "
-                f"(e.g., [WORKED EXAMPLE], [EXAMPLE-PROBLEM PAIR])"))
+            findings.append(
+                _finding(
+                    "I15",
+                    "INFO",
+                    ix,
+                    f"Legacy type label [{ix.type_label}] — consider pedagogical label "
+                    f"(e.g., [WORKED EXAMPLE], [EXAMPLE-PROBLEM PAIR])",
+                )
+            )
 
     return findings
 
@@ -194,11 +236,23 @@ def check_guide_prompt_independence(interactions: list) -> list:
     for ix in interactions:
         if ix.pattern == "student_action":
             if ix.has_guide and not ix.has_prompt:
-                findings.append(_finding("I16", "MAJOR", ix,
-                    "Student-action interaction has Guide but no Prompt — both required for independence"))
+                findings.append(
+                    _finding(
+                        "I16",
+                        "MAJOR",
+                        ix,
+                        "Student-action interaction has Guide but no Prompt — both required for independence",
+                    )
+                )
             elif ix.has_prompt and not ix.has_guide:
-                findings.append(_finding("I16", "MAJOR", ix,
-                    "Student-action interaction has Prompt but no Guide — both required for independence"))
+                findings.append(
+                    _finding(
+                        "I16",
+                        "MAJOR",
+                        ix,
+                        "Student-action interaction has Prompt but no Guide — both required for independence",
+                    )
+                )
 
     return findings
 
@@ -206,6 +260,7 @@ def check_guide_prompt_independence(interactions: list) -> list:
 # ---------------------------------------------------------------------------
 # Quantitative checks (migrated from L2 agents)
 # ---------------------------------------------------------------------------
+
 
 def check_teaching_only_clustering(interactions: list) -> list:
     """I19: Flag runs of >2 consecutive teaching-only interactions within a phase.
@@ -231,37 +286,41 @@ def check_teaching_only_clustering(interactions: list) -> list:
                     streak_start = ix
             else:
                 if streak > 2:
-                    findings.append({
-                        "check": "I19",
-                        "severity": "MINOR",
-                        "phase": phase,
-                        "interaction_id": streak_start.id,
-                        "detail": f"{streak} consecutive teaching-only interactions "
-                                  f"starting at {streak_start.id} in {phase} "
-                                  f"(max 2 without student action)",
-                        "line_number": streak_start.line_number,
-                    })
+                    findings.append(
+                        {
+                            "check": "I19",
+                            "severity": "MINOR",
+                            "phase": phase,
+                            "interaction_id": streak_start.id,
+                            "detail": f"{streak} consecutive teaching-only interactions "
+                            f"starting at {streak_start.id} in {phase} "
+                            f"(max 2 without student action)",
+                            "line_number": streak_start.line_number,
+                        }
+                    )
                 streak = 0
                 streak_start = None
 
         # Check final run
         if streak > 2 and streak_start:
-            findings.append({
-                "check": "I19",
-                "severity": "MINOR",
-                "phase": phase,
-                "interaction_id": streak_start.id,
-                "detail": f"{streak} consecutive teaching-only interactions "
-                          f"starting at {streak_start.id} in {phase} "
-                          f"(max 2 without student action)",
-                "line_number": streak_start.line_number,
-            })
+            findings.append(
+                {
+                    "check": "I19",
+                    "severity": "MINOR",
+                    "phase": phase,
+                    "interaction_id": streak_start.id,
+                    "detail": f"{streak} consecutive teaching-only interactions "
+                    f"starting at {streak_start.id} in {phase} "
+                    f"(max 2 without student action)",
+                    "line_number": streak_start.line_number,
+                }
+            )
 
     return findings
 
 
 # Sentence-ending pattern for Purpose line analysis
-_SENTENCE_END_RE = re.compile(r'[.!?]+(?:\s|$)')
+_SENTENCE_END_RE = re.compile(r"[.!?]+(?:\s|$)")
 
 
 def check_on_correct_length(interactions: list) -> list:
@@ -282,9 +341,15 @@ def check_on_correct_length(interactions: list) -> list:
                 text = dl.text.strip().strip('"').strip()
                 word_count = len(text.split())
                 if word_count > 20:
-                    findings.append(_finding("I20", "MINOR", ix,
-                        f"On Correct feedback is {word_count} words "
-                        f"(target 5-15, max ~20): \"{text[:60]}...\""))
+                    findings.append(
+                        _finding(
+                            "I20",
+                            "MINOR",
+                            ix,
+                            f"On Correct feedback is {word_count} words "
+                            f'(target 5-15, max ~20): "{text[:60]}..."',
+                        )
+                    )
 
     return findings
 
@@ -304,15 +369,20 @@ def check_purpose_length(interactions: list) -> list:
         # Find the Purpose line in raw_lines
         for line_num, line in ix.raw_lines:
             stripped = line.strip()
-            if stripped.startswith('* **Purpose:**'):
+            if stripped.startswith("* **Purpose:**"):
                 # Extract the text after the field label
-                text = re.sub(r'^\*\s*\*\*Purpose:\*\*\s*', '', stripped)
+                text = re.sub(r"^\*\s*\*\*Purpose:\*\*\s*", "", stripped)
                 # Count sentences by splitting on sentence-ending punctuation
                 sentences = [s.strip() for s in _SENTENCE_END_RE.split(text) if s.strip()]
                 if len(sentences) > 3:
-                    findings.append(_finding("I21", "MINOR", ix,
-                        f"Purpose has {len(sentences)} sentences (max 3): "
-                        f"\"{text[:80]}...\""))
+                    findings.append(
+                        _finding(
+                            "I21",
+                            "MINOR",
+                            ix,
+                            f'Purpose has {len(sentences)} sentences (max 3): "{text[:80]}..."',
+                        )
+                    )
                 break  # Only check first Purpose line per interaction
 
     return findings
@@ -321,6 +391,7 @@ def check_purpose_length(interactions: list) -> list:
 # ---------------------------------------------------------------------------
 # Aggregate checks
 # ---------------------------------------------------------------------------
+
 
 def check_phase_counts(interactions: list) -> list:
     """Check interaction counts per phase are within expected ranges."""
@@ -334,25 +405,29 @@ def check_phase_counts(interactions: list) -> list:
         if count == 0:
             continue  # phase might not be in scope yet
         if count < min_count:
-            findings.append({
-                "check": "I17",
-                "severity": "MAJOR",
-                "phase": phase,
-                "detail": f"{phase} has {count} interactions (expected {min_count}-{max_count})",
-                "count": count,
-                "expected_min": min_count,
-                "expected_max": max_count,
-            })
+            findings.append(
+                {
+                    "check": "I17",
+                    "severity": "MAJOR",
+                    "phase": phase,
+                    "detail": f"{phase} has {count} interactions (expected {min_count}-{max_count})",
+                    "count": count,
+                    "expected_min": min_count,
+                    "expected_max": max_count,
+                }
+            )
         elif count > max_count:
-            findings.append({
-                "check": "I17",
-                "severity": "MINOR",
-                "phase": phase,
-                "detail": f"{phase} has {count} interactions (expected {min_count}-{max_count})",
-                "count": count,
-                "expected_min": min_count,
-                "expected_max": max_count,
-            })
+            findings.append(
+                {
+                    "check": "I17",
+                    "severity": "MINOR",
+                    "phase": phase,
+                    "detail": f"{phase} has {count} interactions (expected {min_count}-{max_count})",
+                    "count": count,
+                    "expected_min": min_count,
+                    "expected_max": max_count,
+                }
+            )
 
     return findings
 
@@ -365,28 +440,34 @@ def check_phase_coverage(interactions: list, gate: int) -> list:
     if gate >= 2:
         for expected in ["Warmup", "Lesson"]:
             if expected not in phases_present:
-                findings.append({
-                    "check": "I18",
-                    "severity": "CRITICAL",
-                    "phase": expected,
-                    "detail": f"No {expected} interactions found — expected at Gate {gate}",
-                })
+                findings.append(
+                    {
+                        "check": "I18",
+                        "severity": "CRITICAL",
+                        "phase": expected,
+                        "detail": f"No {expected} interactions found — expected at Gate {gate}",
+                    }
+                )
 
     if gate >= 3:
         # At least one of EC/Practice should be present, and Synthesis
         if "EC" not in phases_present and "Practice" not in phases_present:
-            findings.append({
-                "check": "I18",
-                "severity": "MAJOR",
-                "detail": "Neither EC nor Practice interactions found — expected at Gate 3+",
-            })
+            findings.append(
+                {
+                    "check": "I18",
+                    "severity": "MAJOR",
+                    "detail": "Neither EC nor Practice interactions found — expected at Gate 3+",
+                }
+            )
         if "Synthesis" not in phases_present:
-            findings.append({
-                "check": "I18",
-                "severity": "MAJOR",
-                "phase": "Synthesis",
-                "detail": "No Synthesis interactions found — expected at Gate 3+",
-            })
+            findings.append(
+                {
+                    "check": "I18",
+                    "severity": "MAJOR",
+                    "phase": "Synthesis",
+                    "detail": "No Synthesis interactions found — expected at Gate 3+",
+                }
+            )
 
     return findings
 
@@ -394,6 +475,7 @@ def check_phase_coverage(interactions: list, gate: int) -> list:
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
 
 def _finding(check_id: str, severity: str, ix, detail: str) -> dict:
     """Build a finding dict for a specific interaction."""
@@ -412,6 +494,7 @@ def _finding(check_id: str, severity: str, ix, detail: str) -> dict:
 # ---------------------------------------------------------------------------
 # Main orchestration
 # ---------------------------------------------------------------------------
+
 
 def run_interaction_check(filepath: str, gate: int) -> dict:
     """Run all interaction checks for the given gate."""
@@ -443,16 +526,18 @@ def run_interaction_check(filepath: str, gate: int) -> dict:
         elif ix.pattern == "system_driven":
             findings = check_system_driven_fields(ix)
         else:
-            findings = [{
-                "check": "I0",
-                "severity": "MINOR",
-                "interaction_id": ix.id,
-                "interaction_title": ix.title[:80],
-                "phase": ix.phase,
-                "pattern": ix.pattern,
-                "line_number": ix.line_number,
-                "detail": f"Unknown interaction pattern '{ix.pattern}' — cannot validate fields",
-            }]
+            findings = [
+                {
+                    "check": "I0",
+                    "severity": "MINOR",
+                    "interaction_id": ix.id,
+                    "interaction_title": ix.title[:80],
+                    "phase": ix.phase,
+                    "pattern": ix.pattern,
+                    "line_number": ix.line_number,
+                    "detail": f"Unknown interaction pattern '{ix.pattern}' — cannot validate fields",
+                }
+            ]
 
         all_findings.extend(findings)
         for f in findings:
@@ -511,7 +596,13 @@ def run_interaction_check(filepath: str, gate: int) -> dict:
     for ix in sp_filtered.interactions:
         p = ix.phase
         if p not in phase_breakdown:
-            phase_breakdown[p] = {"total": 0, "student_action": 0, "teaching_only": 0, "system_driven": 0, "unknown": 0}
+            phase_breakdown[p] = {
+                "total": 0,
+                "student_action": 0,
+                "teaching_only": 0,
+                "system_driven": 0,
+                "unknown": 0,
+            }
         phase_breakdown[p]["total"] += 1
         phase_breakdown[p][ix.pattern] = phase_breakdown[p].get(ix.pattern, 0) + 1
 
@@ -535,43 +626,46 @@ def run_interaction_check(filepath: str, gate: int) -> dict:
 # CLI
 # ---------------------------------------------------------------------------
 
+
 def print_findings_table(result: dict):
     """Print human-readable findings summary."""
-    print(f"\n{'='*80}")
+    print(f"\n{'=' * 80}")
     print(f"INTERACTION CHECK — {result['file']} — Gate {result['gate']}")
-    print(f"{'='*80}")
+    print(f"{'=' * 80}")
     print(f"Checks run: {', '.join(result['checks_run'])}")
     print(f"Interactions checked: {result['meta'].get('interactions_checked', '?')}")
     print(f"Total findings: {result['total_findings']}")
 
-    if result['severity_counts']:
-        parts = [f"{k}: {v}" for k, v in sorted(result['severity_counts'].items())]
+    if result["severity_counts"]:
+        parts = [f"{k}: {v}" for k, v in sorted(result["severity_counts"].items())]
         print(f"Severity: {', '.join(parts)}")
 
     # Phase breakdown
-    breakdown = result['meta'].get('phase_breakdown', {})
+    breakdown = result["meta"].get("phase_breakdown", {})
     if breakdown:
         print("\nPhase breakdown:")
         for phase, counts in sorted(breakdown.items()):
-            print(f"  {phase:12s}: {counts['total']} total "
-                  f"({counts.get('student_action',0)} student, "
-                  f"{counts.get('teaching_only',0)} teaching, "
-                  f"{counts.get('system_driven',0)} system)")
+            print(
+                f"  {phase:12s}: {counts['total']} total "
+                f"({counts.get('student_action', 0)} student, "
+                f"{counts.get('teaching_only', 0)} teaching, "
+                f"{counts.get('system_driven', 0)} system)"
+            )
 
-    if result['findings']:
-        print(f"\n{'─'*80}")
+    if result["findings"]:
+        print(f"\n{'─' * 80}")
         print("FINDINGS:")
-        print(f"{'─'*80}")
+        print(f"{'─' * 80}")
 
-        for f in result['findings']:
-            check = f.get('check', '?')
-            sev = f.get('severity', '?')
-            int_id = f.get('interaction_id', '')
-            phase = f.get('phase', '')
-            loc = f"{phase}/{int_id}" if phase and int_id else phase or ''
-            line = f.get('line_number', '')
+        for f in result["findings"]:
+            check = f.get("check", "?")
+            sev = f.get("severity", "?")
+            int_id = f.get("interaction_id", "")
+            phase = f.get("phase", "")
+            loc = f"{phase}/{int_id}" if phase and int_id else phase or ""
+            line = f.get("line_number", "")
             line_str = f" L{line}" if line else ""
-            detail = f.get('detail', '')
+            detail = f.get("detail", "")
 
             print(f"  [{check:3s}] {sev:8s} | {loc:25s} |{line_str} {detail}")
     else:
@@ -591,8 +685,8 @@ def main():
     if args.json or args.output:
         json_str = json.dumps(result, indent=2)
         if args.output:
-            os.makedirs(os.path.dirname(args.output) or '.', exist_ok=True)
-            with open(args.output, 'w') as f:
+            os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
+            with open(args.output, "w") as f:
                 f.write(json_str)
             print(f"Output written to {args.output}")
         if args.json:
@@ -601,5 +695,5 @@ def main():
         print_findings_table(result)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -20,7 +20,7 @@
           5100,
           2800
         ],
-        "description": "Data table A appears. Daily Steps. Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800."
+        "description": "Data table A appears showing Daily Steps. Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800."
       }
     },
     {
@@ -42,7 +42,7 @@
           19,
           23
         ],
-        "description": "Data table B appears. Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23."
+        "description": "Data table B appears showing Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23."
       }
     },
     {
@@ -64,38 +64,39 @@
           35,
           40
         ],
-        "description": "Data table C appears. Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40."
+        "description": "Data table C appears showing Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40."
       }
     },
     {
       "type": "dialogue",
-      "text": "People collect data about all kinds of things. Look at these three tables. Which data would HAVE to use Scale of 2?"
+      "text": "People collect data about all kinds of things. Look at these three tables."
     },
     {
       "type": "prompt",
       "text": "Which data would HAVE to use Scale of 2?",
-      "tool": "multiple_choice",
-      "options": [
-        "Table A",
-        "Table B",
-        "Table C"
+      "tool": "click_tangible",
+      "target": [
+        "data_table_steps",
+        "data_table_coins",
+        "data_table_books"
       ],
       "validator": [
         {
           "condition_id": "correct",
           "condition": {
-            "selected": "Table B"
+            "selected": "data_table_coins"
           },
-          "description": "Student selected Table B (Coins Collected), correct",
+          "description": "Student clicked Coins Collected table, correct choice",
           "is_correct": true,
           "beats": [
             {
               "type": "scene",
-              "method": "update",
+              "method": "animate",
               "tangible_id": "data_table_coins",
               "params": {
-                "highlight": true,
-                "description": "Table B (Coins Collected) highlights to confirm selection."
+                "event": "highlight",
+                "status": "confirmed",
+                "description": "Coins Collected table highlights to confirm selection."
               }
             },
             {
@@ -103,6 +104,24 @@
               "text": "The coin counts: 7, 12, 19, 23. None of them end in 0 or 5, so Scale of 2 is the only way to show them exactly."
             }
           ]
+        },
+        {
+          "condition_id": "selected_steps",
+          "condition": {
+            "selected": "data_table_steps"
+          },
+          "description": "Student clicked Daily Steps table, incorrect",
+          "is_correct": false,
+          "beats": []
+        },
+        {
+          "condition_id": "selected_books",
+          "condition": {
+            "selected": "data_table_books"
+          },
+          "description": "Student clicked Books Read table, incorrect",
+          "is_correct": false,
+          "beats": []
         }
       ]
     },
@@ -111,7 +130,7 @@
       "elements": [
         {
           "tangible_id": "data_table_steps",
-          "description": "Data table A. Daily Steps. Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800.",
+          "description": "Data table showing Daily Steps. Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800.",
           "tangible_type": "data_table",
           "title": "Daily Steps",
           "categories": [
@@ -129,7 +148,7 @@
         },
         {
           "tangible_id": "data_table_coins",
-          "description": "Data table B. Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23.",
+          "description": "Data table showing Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23. Highlighted after correct selection.",
           "tangible_type": "data_table",
           "title": "Coins Collected",
           "categories": [
@@ -147,7 +166,7 @@
         },
         {
           "tangible_id": "data_table_books",
-          "description": "Data table C. Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40.",
+          "description": "Data table showing Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40.",
           "tangible_type": "data_table",
           "title": "Books Read",
           "categories": [
@@ -174,7 +193,7 @@
       "elements": [
         {
           "tangible_id": "data_table_steps",
-          "description": "Data table A. Daily Steps. Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800.",
+          "description": "Data table showing Daily Steps. Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800.",
           "tangible_type": "data_table",
           "title": "Daily Steps",
           "categories": [
@@ -192,7 +211,7 @@
         },
         {
           "tangible_id": "data_table_coins",
-          "description": "Data table B highlighted. Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23.",
+          "description": "Data table showing Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23.",
           "tangible_type": "data_table",
           "title": "Coins Collected",
           "categories": [
@@ -210,7 +229,7 @@
         },
         {
           "tangible_id": "data_table_books",
-          "description": "Data table C. Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40.",
+          "description": "Data table showing Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40.",
           "tangible_type": "data_table",
           "title": "Books Read",
           "categories": [
@@ -229,5 +248,5 @@
       ]
     }
   ],
-  "_generated_at": "2026-04-20T16:59:42.424896+00:00"
+  "_generated_at": "2026-05-05T20:07:37.878869+00:00"
 }

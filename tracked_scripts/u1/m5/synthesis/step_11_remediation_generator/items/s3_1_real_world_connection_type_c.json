@@ -4,9 +4,42 @@
     [
       {
         "condition": {
-          "selected": "Table A"
+          "selected": "data_table_steps",
+          "incorrect_count": 1
         },
-        "description": "Student selected Table A (Daily Steps), which has large numbers that all end in 0 or 5",
+        "description": "Student clicked Daily Steps table on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Not quite. Check the last digit of each number in that table."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "data_table_books",
+          "incorrect_count": 1
+        },
+        "description": "Student clicked Books Read table on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "Look at the last digit of each number. Do they all end in 0 or 5?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "selected": "data_table_steps",
+          "incorrect_count": 2
+        },
+        "description": "Student clicked Daily Steps table on second attempt",
         "is_correct": false,
         "steps": [
           [
@@ -15,22 +48,28 @@
               "method": "update",
               "tangible_id": "data_table_steps",
               "params": {
-                "highlight": true,
-                "description": "Table A (Daily Steps) highlights."
+                "highlight_categories": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu"
+                ],
+                "description": "All Daily Steps values highlight."
               }
             },
             {
               "type": "dialogue",
-              "text": "Look at the steps numbers: 4,500, 3,200, 5,100, 2,800. They all end in 0. That means Scale of 5 could work. Which table has numbers that don't end in 0 or 5?"
+              "text": "Let's look at the last digits: 4,500 ends in 0, 3,200 ends in 0, 5,100 ends in 0, 2,800 ends in 0. They all end in 0 or 5, so you have multiple scale options. Which table has numbers that DON'T end in 0 or 5?"
             }
           ]
         ]
       },
       {
         "condition": {
-          "selected": "Table C"
+          "selected": "data_table_books",
+          "incorrect_count": 2
         },
-        "description": "Student selected Table C (Books Read), which has numbers that all end in 0 or 5",
+        "description": "Student clicked Books Read table on second attempt",
         "is_correct": false,
         "steps": [
           [
@@ -39,20 +78,25 @@
               "method": "update",
               "tangible_id": "data_table_books",
               "params": {
-                "highlight": true,
-                "description": "Table C (Books Read) highlights."
+                "highlight_categories": [
+                  "Room A",
+                  "Room B",
+                  "Room C",
+                  "Room D"
+                ],
+                "description": "All Books Read values highlight."
               }
             },
             {
               "type": "dialogue",
-              "text": "Check the books numbers: 25, 30, 35, 40. Every one ends in 0 or 5. That gives you options. Which table has numbers that don't follow that pattern?"
+              "text": "Check the last digits here: 25 ends in 5, 30 ends in 0, 35 ends in 5, 40 ends in 0. All end in 0 or 5, so multiple scales work. Which dataset has numbers that DON'T follow that pattern?"
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student answered incorrectly. System models the correct answer.",
+        "description": "Student clicked wrong table on third attempt or clicked Coins after two wrong attempts",
         "is_correct": false,
         "steps": [
           [
@@ -61,19 +105,19 @@
               "method": "animate",
               "tangible_id": "data_table_coins",
               "params": {
-                "event": "highlight_with_explanation",
+                "event": "highlight",
                 "status": "confirmed",
-                "description": "Table B (Coins Collected) highlights. Each value pulses in sequence: 7, 12, 19, 23."
+                "description": "Coins Collected table highlights."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. Table B has 7, 12, 19, 23. None of those end in 0 or 5. You can't count by 5s to get to 7 or 12 or 19 or 23. Scale of 2 is the only way to show all of them exactly. That's what makes Table B have to use Scale of 2."
+              "text": "Let me show you how to find the answer. First, I check the Daily Steps table: 4,500, 3,200, 5,100, 2,800. All end in 0. That means multiple scales work. Next, I check Books Read: 25, 30, 35, 40. All end in 0 or 5. Multiple scales work there too. Now I check Coins Collected: 7, 12, 19, 23. None of these end in 0 or 5. When numbers don't end in 0 or 5 and are small, Scale of 2 is the only way to show them exactly. That is why Coins Collected MUST use Scale of 2."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:00:49.289691+00:00"
+  "_generated_at": "2026-05-05T20:09:21.829349+00:00"
 }

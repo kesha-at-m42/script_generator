@@ -61,11 +61,7 @@ def flatten_steps(input_data):
         if "steps" in sequence:
             # New structure: flatten steps array
             # Extract metadata fields (everything except steps)
-            metadata = {
-                key: value
-                for key, value in sequence.items()
-                if key != "steps"
-            }
+            metadata = {key: value for key, value in sequence.items() if key != "steps"}
 
             # Flatten each step
             for step in sequence.get("steps", []):
@@ -73,7 +69,7 @@ def flatten_steps(input_data):
                 # except for problem_id, which must always come from the parent sequence
                 flattened_item = {
                     **metadata,  # problem_id, template_id, mastery_tier, etc.
-                    **step       # step_id, dialogue, prompt, workspace, etc.
+                    **step,  # step_id, dialogue, prompt, workspace, etc.
                 }
                 if "problem_id" in metadata:
                     flattened_item["problem_id"] = metadata["problem_id"]
@@ -123,7 +119,7 @@ if __name__ == "__main__":
             "interaction_tool": "click_choice",
             "workspace": [],
             "correct_answer": {"value": "a", "context": "..."},
-            "success_path_dialogue": "Yes!"
+            "success_path_dialogue": "Yes!",
         },
         # New format (nested structure with steps array, single step)
         {
@@ -141,9 +137,9 @@ if __name__ == "__main__":
                     "interaction_tool": "click_choice",
                     "workspace": [],
                     "correct_answer": {"value": "a", "context": "..."},
-                    "success_path_dialogue": "Yes!"
+                    "success_path_dialogue": "Yes!",
                 }
-            ]
+            ],
         },
         # New format (nested structure with steps array, multiple steps)
         {
@@ -161,7 +157,7 @@ if __name__ == "__main__":
                     "interaction_tool": "place_tick",
                     "workspace": [],
                     "correct_answer": {"value": ["0", "1/4", "2/4", "3/4", "1"], "context": "..."},
-                    "success_path_dialogue": "Right."
+                    "success_path_dialogue": "Right.",
                 },
                 {
                     "step_id": 2,
@@ -171,10 +167,10 @@ if __name__ == "__main__":
                     "interaction_tool": "drag_label",
                     "workspace": [],
                     "correct_answer": {"value": {}, "context": "..."},
-                    "success_path_dialogue": "Good!"
-                }
-            ]
-        }
+                    "success_path_dialogue": "Good!",
+                },
+            ],
+        },
     ]
 
     result = flatten_steps(sample_input)
@@ -183,7 +179,9 @@ if __name__ == "__main__":
     print(f"Output: {len(result)} flattened items")
     print("\nFlattened items:")
     for item in result:
-        print(f"  - problem_id={item['problem_id']}, step_id={item['step_id']}, no_of_steps={item['no_of_steps']}")
+        print(
+            f"  - problem_id={item['problem_id']}, step_id={item['step_id']}, no_of_steps={item['no_of_steps']}"
+        )
 
     # Verify structure
     assert len(result) == 4  # 1 from old flat + 1 from new single-step + 2 from new multi-step
@@ -206,6 +204,6 @@ if __name__ == "__main__":
     assert result[3]["problem_id"] == 75
     assert result[3]["step_id"] == 2
     assert result[3]["no_of_steps"] == 2
-    assert result[3]["workspace_inherited"] == True
+    assert result[3]["workspace_inherited"] is True
 
     print("\nAll tests passed!")

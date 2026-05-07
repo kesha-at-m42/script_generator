@@ -1,19 +1,22 @@
 """Simple Claude API wrapper with prompt caching support and logging"""
-import anthropic
-import os
+
 import json
+import os
 from datetime import datetime
 from pathlib import Path
+
+import anthropic
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
 
+
 class ClaudeClient:
     """Basic wrapper around Anthropic API with caching support"""
 
     def __init__(self, api_key=None, log_file=None):
-        self.api_key = api_key or os.environ.get('ANTHROPIC_API_KEY')
+        self.api_key = api_key or os.environ.get("ANTHROPIC_API_KEY")
         if not self.api_key:
             raise ValueError("API key required!")
 
@@ -31,24 +34,26 @@ class ClaudeClient:
             self.log_file = Path(log_file)
         else:
             # Default log location: logs/claude_usage.jsonl
-            from path_manager import get_project_paths, ensure_dir
+            from path_manager import ensure_dir, get_project_paths
 
             paths = get_project_paths()
-            logs_dir = ensure_dir(paths['logs'])
+            logs_dir = ensure_dir(paths["logs"])
             self.log_file = logs_dir / "claude_usage.jsonl"
 
         self.request_count = 0
 
-    def generate_with_tools(self,
-                            system=None,
-                            user_message: str = "",
-                            tools: list = None,
-                            tool_executor=None,
-                            max_tokens: int = 1000,
-                            temperature: float = 1.0,
-                            prefill: str = None,
-                            stop_sequences=None,
-                            model: str = None) -> str:
+    def generate_with_tools(
+        self,
+        system=None,
+        user_message: str = "",
+        tools: list = None,
+        tool_executor=None,
+        max_tokens: int = 1000,
+        temperature: float = 1.0,
+        prefill: str = None,
+        stop_sequences=None,
+        model: str = None,
+    ) -> str:
         """Generate response from Claude with tool use support.
 
         Runs a two-turn loop:
@@ -80,7 +85,9 @@ class ClaudeClient:
                 "messages": messages,
             }
             if system:
-                params["system"] = self._strip_metadata(system) if isinstance(system, list) else system
+                params["system"] = (
+                    self._strip_metadata(system) if isinstance(system, list) else system
+                )
             if stop_sequences:
                 params["stop_sequences"] = stop_sequences
             if tools:
@@ -100,11 +107,13 @@ class ClaudeClient:
             for block in response.content:
                 if block.type == "tool_use" and tool_executor:
                     result = tool_executor(block.name, block.input)
-                    tool_results.append({
-                        "type": "tool_result",
-                        "tool_use_id": block.id,
-                        "content": result,
-                    })
+                    tool_results.append(
+                        {
+                            "type": "tool_result",
+                            "tool_use_id": block.id,
+                            "content": result,
+                        }
+                    )
 
             if not tool_results:
                 # No tool calls — Claude is done with the tool phase
@@ -137,16 +146,18 @@ class ClaudeClient:
             self._log_request(final_message.usage, max_tokens, temperature, final_model)
             return (prefill or "") + final_message.content[0].text
 
-    def generate(self,
-                 system=None,
-                 user_message: str = "",
-                 max_tokens: int = 1000,
-                 temperature: float = 1.0,
-                 prefill: str = None,
-                 stop_sequences=None,
-                 model: str = None,
-                 # Legacy support
-                 prompt: str = None) -> str:
+    def generate(
+        self,
+        system=None,
+        user_message: str = "",
+        max_tokens: int = 1000,
+        temperature: float = 1.0,
+        prefill: str = None,
+        stop_sequences=None,
+        model: str = None,
+        # Legacy support
+        prompt: str = None,
+    ) -> str:
         """Generate response from Claude with prompt caching support
 
         Args:
@@ -181,7 +192,7 @@ class ClaudeClient:
             "model": final_model,
             "max_tokens": max_tokens,
             "temperature": temperature,
-            "messages": messages
+            "messages": messages,
         }
 
         # Add system if provided (supports both list and string)
@@ -238,15 +249,15 @@ class ClaudeClient:
             error_message = str(e)
             if "credit balance is too low" in error_message.lower():
                 raise anthropic.BadRequestError(
-                    f"\n{'='*70}\n"
+                    f"\n{'=' * 70}\n"
                     f"❌ INSUFFICIENT CREDITS\n"
-                    f"{'='*70}\n"
+                    f"{'=' * 70}\n"
                     f"Your Anthropic API credit balance is too low.\n\n"
                     f"Please visit the billing page to add credits:\n"
                     f"👉 https://console.anthropic.com/settings/billing\n"
-                    f"{'='*70}\n",
+                    f"{'=' * 70}\n",
                     response=e.response,
-                    body=e.body
+                    body=e.body,
                 )
             # Re-raise other BadRequestErrors
             raise
@@ -267,10 +278,7 @@ class ClaudeClient:
         cleaned_blocks = []
         for block in system_blocks:
             # Create new block with only API-accepted fields
-            cleaned_block = {
-                "type": block["type"],
-                "text": block["text"]
-            }
+            cleaned_block = {"type": block["type"], "text": block["text"]}
             # Preserve cache_control if present
             if "cache_control" in block:
                 cleaned_block["cache_control"] = block["cache_control"]
@@ -285,7 +293,7 @@ class ClaudeClient:
         self.total_output_tokens += usage.output_tokens
 
         # Track cache stats if available
-        if hasattr(usage, 'cache_creation_input_tokens'):
+        if hasattr(usage, "cache_creation_input_tokens"):
             self.total_cache_creation_tokens += usage.cache_creation_input_tokens
             self.total_cache_read_tokens += usage.cache_read_input_tokens
 
@@ -300,18 +308,18 @@ class ClaudeClient:
             "input_tokens": usage.input_tokens,
             "output_tokens": usage.output_tokens,
             "max_tokens": max_tokens,
-            "temperature": temperature
+            "temperature": temperature,
         }
 
         # Add cache stats if available
-        if hasattr(usage, 'cache_creation_input_tokens'):
+        if hasattr(usage, "cache_creation_input_tokens"):
             log_entry["cache_creation_tokens"] = usage.cache_creation_input_tokens
             log_entry["cache_read_tokens"] = usage.cache_read_input_tokens
             log_entry["cache_hit"] = usage.cache_read_input_tokens > 0
 
         # Append to log file (JSONL format - one JSON object per line)
-        with open(self.log_file, 'a', encoding='utf-8') as f:
-            f.write(json.dumps(log_entry) + '\n')
+        with open(self.log_file, "a", encoding="utf-8") as f:
+            f.write(json.dumps(log_entry) + "\n")
 
     def get_stats(self):
         """Get usage statistics including cache metrics"""
@@ -319,7 +327,7 @@ class ClaudeClient:
             "input_tokens": self.total_input_tokens,
             "output_tokens": self.total_output_tokens,
             "total_tokens": self.total_input_tokens + self.total_output_tokens,
-            "requests": self.request_count
+            "requests": self.request_count,
         }
 
         # Add cache stats if any caching occurred
@@ -341,10 +349,11 @@ class ClaudeClient:
 
         return f"{savings_pct}% (saved {self.total_cache_read_tokens} tokens)"
 
+
 # Test it
 if __name__ == "__main__":
     print("Testing ClaudeClient with Logging...")
-    print("="*70)
+    print("=" * 70)
 
     client = ClaudeClient()
 
@@ -356,20 +365,14 @@ if __name__ == "__main__":
     # Test 2: New structured usage with caching
     print("\nTest 2: New structured usage")
     system_blocks = [
-        {
-            "type": "text",
-            "text": "You are a helpful assistant."
-        },
-        {
-            "type": "text",
-            "text": "."
-        }
+        {"type": "text", "text": "You are a helpful assistant."},
+        {"type": "text", "text": "."},
     ]
     response = client.generate(
         system=system_blocks,
         user_message="Say 'Hi!' and nothing else.",
         max_tokens=100,
-        temperature=0.5
+        temperature=0.5,
     )
     print(f"Response: {response}")
 
@@ -378,5 +381,5 @@ if __name__ == "__main__":
     stats = client.get_stats()
     print("Stats:", stats)
 
-    print(f"\n[OK] ClaudeClient with logging works!")
+    print("\n[OK] ClaudeClient with logging works!")
     print(f"Log file location: {client.log_file}")

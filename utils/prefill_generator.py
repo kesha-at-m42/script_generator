@@ -4,7 +4,7 @@ Generates dynamic prefills for Claude API calls to guide JSON structure
 """
 
 import json
-from typing import Dict, Any, Optional, List
+from typing import Any, Dict, List, Optional
 
 
 def truncate_at_key(data: Dict[str, Any], path: List[str], add_opening: str = None) -> str:
@@ -56,13 +56,10 @@ def truncate_at_key(data: Dict[str, Any], path: List[str], add_opening: str = No
         else:
             partial_data = partial_data[key]
 
-    # Get the JSON representation of the parent and target
-    parent_json = json.dumps({path[-1]: current}, indent=2)
-
     # Find where this appears in the full JSON
     last_key = path[-1]
     if isinstance(last_key, str):
-        search_pattern = f'"{last_key}":'
+        pass
     else:
         # For array indices, this is trickier - might need different approach
         raise ValueError("Cannot truncate at array index - provide dict key instead")
@@ -82,7 +79,7 @@ def truncate_at_key(data: Dict[str, Any], path: List[str], add_opening: str = No
         if isinstance(key, int):
             if i == len(path) - 1:
                 # Last item - this is where we truncate
-                current_level = source_level[:key+1]  # Include up to this index
+                current_level = source_level[: key + 1]  # Include up to this index
             else:
                 source_level = source_level[key]
         else:
@@ -100,7 +97,7 @@ def truncate_at_key(data: Dict[str, Any], path: List[str], add_opening: str = No
     json_str = json.dumps(data, indent=2)
 
     # Find the location of the target key
-    lines = json_str.split('\n')
+    lines = json_str.split("\n")
     target_line_idx = None
     indent_level = None
 
@@ -116,25 +113,25 @@ def truncate_at_key(data: Dict[str, Any], path: List[str], add_opening: str = No
         raise ValueError(f"Could not find key '{last_key}' in JSON structure")
 
     # Truncate at this line and rebuild
-    truncated_lines = lines[:target_line_idx + 1]
+    truncated_lines = lines[: target_line_idx + 1]
 
     # Remove the value part after the colon on the last line
     last_line = truncated_lines[-1]
-    if ':{' in last_line or ':[' in last_line:
+    if ":{" in last_line or ":[" in last_line:
         # It's an object or array, keep the opening
-        truncated_lines[-1] = last_line.split(':', 1)[0] + ': {'
+        truncated_lines[-1] = last_line.split(":", 1)[0] + ": {"
     else:
         # It's a simple value, replace with opening brace
-        truncated_lines[-1] = last_line.split(':', 1)[0] + ': {'
+        truncated_lines[-1] = last_line.split(":", 1)[0] + ": {"
 
-    result = '\n'.join(truncated_lines)
+    result = "\n".join(truncated_lines)
 
     # Add custom opening if provided
     if add_opening:
         # Remove the trailing brace we just added
-        result = result.rstrip().rstrip('{').rstrip()
+        result = result.rstrip().rstrip("{").rstrip()
         # Add comma and the custom opening
-        result += ',\n' + ' ' * (indent_level + 2) + add_opening
+        result += ",\n" + " " * (indent_level + 2) + add_opening
 
     return result
 
@@ -177,8 +174,8 @@ def truncate_for_remediation(sequence: Dict[str, Any]) -> str:
     prefill_seq = sequence.copy()
 
     # Ensure student_attempts exists
-    if 'student_attempts' not in prefill_seq:
-        prefill_seq['student_attempts'] = {}
+    if "student_attempts" not in prefill_seq:
+        prefill_seq["student_attempts"] = {}
 
     # Build prefill dict wrapping the sequence
     prefill_dict = {"sequences": [prefill_seq]}
@@ -188,14 +185,13 @@ def truncate_for_remediation(sequence: Dict[str, Any]) -> str:
 
     # Find the student_attempts at sequence level (not step level)
     # and insert error_path_generic inside it
-    import re
 
     # Look for the sequence-level student_attempts (it should be empty: {})
     # Pattern: "student_attempts": {} or "student_attempts": {...}
     # We want to find this at the sequence level (near the end)
 
     # Find the last occurrence of "student_attempts":
-    lines = prefill_json.split('\n')
+    lines = prefill_json.split("\n")
     target_line_idx = None
 
     for idx in reversed(range(len(lines))):
@@ -205,20 +201,22 @@ def truncate_for_remediation(sequence: Dict[str, Any]) -> str:
 
     if target_line_idx is None:
         # Fallback: student_attempts doesn't exist, add it
-        prefill_parts = prefill_json.rsplit('}', 2)
-        prefill_text = prefill_parts[0] + '},\n      "student_attempts": {\n        "error_path_generic": {'
+        prefill_parts = prefill_json.rsplit("}", 2)
+        prefill_text = (
+            prefill_parts[0] + '},\n      "student_attempts": {\n        "error_path_generic": {'
+        )
         return prefill_text
 
     # Check if student_attempts is empty or has content
     student_attempts_line = lines[target_line_idx]
 
-    if '{}' in student_attempts_line:
+    if "{}" in student_attempts_line:
         # Empty student_attempts - replace {} with { and add error_path_generic
-        lines[target_line_idx] = student_attempts_line.replace('{}', '{')
+        lines[target_line_idx] = student_attempts_line.replace("{}", "{")
         # Add error_path_generic opening on next line
-        indent = '        '  # 8 spaces for nested field
+        indent = "        "  # 8 spaces for nested field
         lines.insert(target_line_idx + 1, indent + '"error_path_generic": {')
-        prefill_text = '\n'.join(lines[:target_line_idx + 2])
+        prefill_text = "\n".join(lines[: target_line_idx + 2])
     else:
         # student_attempts has content - need to find its closing brace and add comma + error_path_generic
         # Find the closing brace for this student_attempts
@@ -228,23 +226,23 @@ def truncate_for_remediation(sequence: Dict[str, Any]) -> str:
         for idx in range(target_line_idx + 1, len(lines)):
             line = lines[idx]
             line_indent = len(line) - len(line.lstrip())
-            if line.strip() == '}' or line.strip() == '},' or line.strip() == '},':
+            if line.strip() == "}" or line.strip() == "}," or line.strip() == "},":
                 if line_indent == indent_level:
                     closing_brace_idx = idx
                     break
 
         if closing_brace_idx:
             # Insert before the closing brace
-            indent = ' ' * (indent_level + 2)
+            indent = " " * (indent_level + 2)
             lines.insert(closing_brace_idx, indent + '"error_path_generic": {')
             # Add comma to previous line if needed
             prev_line = lines[closing_brace_idx - 1]
-            if not prev_line.rstrip().endswith(','):
-                lines[closing_brace_idx - 1] = prev_line.rstrip() + ','
-            prefill_text = '\n'.join(lines[:closing_brace_idx + 1])
+            if not prev_line.rstrip().endswith(","):
+                lines[closing_brace_idx - 1] = prev_line.rstrip() + ","
+            prefill_text = "\n".join(lines[: closing_brace_idx + 1])
         else:
             # Couldn't find closing brace, use fallback
-            prefill_parts = prefill_json.rsplit('}', 3)
+            prefill_parts = prefill_json.rsplit("}", 3)
             prefill_text = prefill_parts[0] + '},\n        "error_path_generic": {'
 
     return prefill_text
@@ -273,11 +271,11 @@ def truncate_for_interaction(question_data: Dict[str, Any]) -> str:
     prefill = f"""{{
   "sequences": [
     {{
-      "problem_id": {question_data.get('goal_id', 1)}_{question_data.get('question_id', 1)},
-      "difficulty": {question_data.get('difficulty_level', 0)},
-      "verb": "{question_data.get('cognitive_type', 'IDENTIFY')}",
-      "goal": "{question_data.get('goal_text', '')}",
-      "goal_id": {question_data.get('goal_id', 1)},"""
+      "problem_id": {question_data.get("goal_id", 1)}_{question_data.get("question_id", 1)},
+      "difficulty": {question_data.get("difficulty_level", 0)},
+      "verb": "{question_data.get("cognitive_type", "IDENTIFY")}",
+      "goal": "{question_data.get("goal_text", "")}",
+      "goal_id": {question_data.get("goal_id", 1)},"""
 
     return prefill
 
@@ -338,8 +336,8 @@ def generate_prefill(prompt_id: str, item: Dict[str, Any]) -> Optional[str]:
     elif prompt_id == "question_generator":
         # Note: question_generator uses template-based prefill in the prompt config
         # But we can still generate it here if needed
-        goal_id = item.get('id', item.get('goal_id', 1))
-        goal_text = item.get('text', item.get('goal_text', ''))
+        goal_id = item.get("id", item.get("goal_id", 1))
+        goal_text = item.get("text", item.get("goal_text", ""))
         return truncate_for_question(goal_id, goal_text)
 
     # No dynamic prefill for other prompts
@@ -359,11 +357,11 @@ def escape_for_json_string(text: str) -> str:
         Escaped text safe for JSON
     """
     # Replace special characters
-    text = text.replace('\\', '\\\\')  # Backslashes first
-    text = text.replace('"', '\\"')    # Quotes
-    text = text.replace('\n', '\\n')   # Newlines
-    text = text.replace('\r', '\\r')   # Carriage returns
-    text = text.replace('\t', '\\t')   # Tabs
+    text = text.replace("\\", "\\\\")  # Backslashes first
+    text = text.replace('"', '\\"')  # Quotes
+    text = text.replace("\n", "\\n")  # Newlines
+    text = text.replace("\r", "\\r")  # Carriage returns
+    text = text.replace("\t", "\\t")  # Tabs
     return text
 
 
@@ -375,8 +373,7 @@ if __name__ == "__main__":
     # Test 1: Question prefill
     print("\n1. Question Prefill:")
     question_prefill = truncate_for_question(
-        goal_id=1,
-        goal_text="The student can identify unit fractions"
+        goal_id=1, goal_text="The student can identify unit fractions"
     )
     print(question_prefill)
 
@@ -388,7 +385,7 @@ if __name__ == "__main__":
         "goal_text": "The student can create unit fractions",
         "cognitive_type": "CREATE",
         "difficulty_level": 1,
-        "question_prompt": "Shade 1/4 of the bar"
+        "question_prompt": "Shade 1/4 of the bar",
     }
     interaction_prefill = truncate_for_interaction(test_question)
     print(interaction_prefill)
@@ -396,49 +393,41 @@ if __name__ == "__main__":
     # Test 3: Remediation prefill
     print("\n3. Remediation Prefill:")
     test_sequence = {
-      "problem_id": 1,
-      "difficulty": 0,
-      "verb": "divide",
-      "goal": "The student can partition shapes into equal parts",
-      "steps": [
-        {
-          "dialogue": "Here's a bar. We're going to split it into two equal parts.",
-          "workspace": [
+        "problem_id": 1,
+        "difficulty": 0,
+        "verb": "divide",
+        "goal": "The student can partition shapes into equal parts",
+        "steps": [
             {
-              "id": "bar_1",
-              "type": "rectangle_bar",
-              "sections": 1,
-              "state": "undivided",
-              "shaded": [],
-              "position": "center"
-            }
-          ]
+                "dialogue": "Here's a bar. We're going to split it into two equal parts.",
+                "workspace": [
+                    {
+                        "id": "bar_1",
+                        "type": "rectangle_bar",
+                        "sections": 1,
+                        "state": "undivided",
+                        "shaded": [],
+                        "position": "center",
+                    }
+                ],
+            },
+            {
+                "dialogue": "Click once in the middle to divide the bar into 2 equal parts.",
+                "prompt": "Click in the center to divide",
+                "interaction_tool": "cut",
+                "workspace_context": {
+                    "tangibles_present": ["bar_1"],
+                    "note": "Undivided horizontal rectangle bar",
+                },
+                "correct_answer": {
+                    "value": "1/2",
+                    "context": "One click in the center divides the bar into 2 equal halves",
+                },
+            },
+        ],
+        "student_attempts": {
+            "success_path": {"steps": [{"dialogue": "Perfect! You found the exact midpoint."}]}
         },
-        {
-          "dialogue": "Click once in the middle to divide the bar into 2 equal parts.",
-          "prompt": "Click in the center to divide",
-          "interaction_tool": "cut",
-          "workspace_context": {
-            "tangibles_present": [
-              "bar_1"
-            ],
-            "note": "Undivided horizontal rectangle bar"
-          },
-          "correct_answer": {
-            "value": "1/2",
-            "context": "One click in the center divides the bar into 2 equal halves"
-          }
-        }
-      ],
-      "student_attempts": {
-        "success_path": {
-          "steps": [
-            {
-              "dialogue": "Perfect! You found the exact midpoint."
-            }
-          ]
-        }
-      }
     }
     remediation_prefill = truncate_for_remediation(test_sequence)
     print(remediation_prefill[:300] + "...")

@@ -8,13 +8,13 @@ the blocks to simulate a reviewer edit, then pulls back and asserts the result.
 
 import copy
 import json
+
 import pytest
 
 from utils.notion import (
     blocks_to_lesson,
     lesson_to_blocks,
 )
-
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -95,12 +95,17 @@ def _set_callout_text(callout: dict, new_text: str) -> None:
 
 def test_roundtrip_no_changes():
     """Pull on an untouched page is a no-op (modulo ID stamping)."""
-    lesson = _make_lesson([
-        _make_section("s1_1_intro", [
-            {"type": "dialogue", "text": "Hello world."},
-            {"type": "scene", "method": "show", "tangible_id": "pg_fruits"},
-        ])
-    ])
+    lesson = _make_lesson(
+        [
+            _make_section(
+                "s1_1_intro",
+                [
+                    {"type": "dialogue", "text": "Hello world."},
+                    {"type": "scene", "method": "show", "tangible_id": "pg_fruits"},
+                ],
+            )
+        ]
+    )
     patched, flags = _push_pull(lesson)
     assert flags == []
     sec = _find_section(patched, "s1_1_intro")
@@ -113,11 +118,16 @@ def test_roundtrip_no_changes():
 
 
 def test_dialogue_edit():
-    lesson = _make_lesson([
-        _make_section("s1_1_intro", [
-            {"type": "dialogue", "text": "Original line."},
-        ])
-    ])
+    lesson = _make_lesson(
+        [
+            _make_section(
+                "s1_1_intro",
+                [
+                    {"type": "dialogue", "text": "Original line."},
+                ],
+            )
+        ]
+    )
 
     def mutate(blocks):
         callouts = _callout_blocks(blocks, "s1_1_intro")
@@ -136,18 +146,30 @@ def test_dialogue_edit():
 
 
 def test_prompt_text_edit():
-    lesson = _make_lesson([
-        _make_section("s1_2_q", [
-            {"type": "prompt", "tool": "click", "target": "pg_fruits",
-             "text": "Which fruit got the most votes?", "validator": []},
-        ])
-    ])
+    lesson = _make_lesson(
+        [
+            _make_section(
+                "s1_2_q",
+                [
+                    {
+                        "type": "prompt",
+                        "tool": "click",
+                        "target": "pg_fruits",
+                        "text": "Which fruit got the most votes?",
+                        "validator": [],
+                    },
+                ],
+            )
+        ]
+    )
 
     def mutate(blocks):
         callouts = _callout_blocks(blocks, "s1_2_q")
         prompt = next(c for c in callouts if c["callout"]["icon"]["emoji"] == "❔")
         original = prompt["callout"]["rich_text"][0]["text"]["content"]
-        new_text = original.replace("Which fruit got the most votes?", "Which fruit has the highest count?")
+        new_text = original.replace(
+            "Which fruit got the most votes?", "Which fruit has the highest count?"
+        )
         _set_callout_text(prompt, new_text)
 
     patched, flags = _push_pull(lesson, mutate)
@@ -163,12 +185,21 @@ def test_prompt_text_edit():
 
 
 def test_scene_description_edit():
-    lesson = _make_lesson([
-        _make_section("s1_3_scene", [
-            {"type": "scene", "method": "show", "tangible_id": "pg_fruits",
-             "params": {"description": "Show the fruit chart."}},
-        ])
-    ])
+    lesson = _make_lesson(
+        [
+            _make_section(
+                "s1_3_scene",
+                [
+                    {
+                        "type": "scene",
+                        "method": "show",
+                        "tangible_id": "pg_fruits",
+                        "params": {"description": "Show the fruit chart."},
+                    },
+                ],
+            )
+        ]
+    )
 
     def mutate(blocks):
         callouts = _callout_blocks(blocks, "s1_3_scene")
@@ -193,11 +224,16 @@ def test_scene_description_edit():
 
 def test_scene_no_description_no_false_positive():
     """A scene beat with no description renders a fallback; pull must not flag it."""
-    lesson = _make_lesson([
-        _make_section("s1_4_scene", [
-            {"type": "scene", "method": "remove", "tangible_id": "equation_builder_rows"},
-        ])
-    ])
+    lesson = _make_lesson(
+        [
+            _make_section(
+                "s1_4_scene",
+                [
+                    {"type": "scene", "method": "remove", "tangible_id": "equation_builder_rows"},
+                ],
+            )
+        ]
+    )
     patched, flags = _push_pull(lesson)
     sec = _find_section(patched, "s1_4_scene")
     beat = _find_beat(sec, "scene")
@@ -211,12 +247,17 @@ def test_scene_no_description_no_false_positive():
 
 
 def test_new_beat_insertion():
-    lesson = _make_lesson([
-        _make_section("s1_5_insert", [
-            {"type": "dialogue", "text": "First line."},
-            {"type": "dialogue", "text": "Second line."},
-        ])
-    ])
+    lesson = _make_lesson(
+        [
+            _make_section(
+                "s1_5_insert",
+                [
+                    {"type": "dialogue", "text": "First line."},
+                    {"type": "dialogue", "text": "Second line."},
+                ],
+            )
+        ]
+    )
 
     def mutate(blocks):
         heading_idx = None
@@ -248,23 +289,28 @@ def test_new_beat_insertion():
 
 
 def test_validator_dialogue_edit():
-    lesson = _make_lesson([
-        _make_section("s2_1_validator", [
-            {
-                "type": "prompt",
-                "tool": "click",
-                "target": "pg_fruits",
-                "text": "Which got the most votes?",
-                "validator": [
+    lesson = _make_lesson(
+        [
+            _make_section(
+                "s2_1_validator",
+                [
                     {
-                        "description": "Correct answer",
-                        "is_correct": True,
-                        "beats": [{"type": "dialogue", "text": "That's right!"}],
+                        "type": "prompt",
+                        "tool": "click",
+                        "target": "pg_fruits",
+                        "text": "Which got the most votes?",
+                        "validator": [
+                            {
+                                "description": "Correct answer",
+                                "is_correct": True,
+                                "beats": [{"type": "dialogue", "text": "That's right!"}],
+                            }
+                        ],
                     }
                 ],
-            }
-        ])
-    ])
+            )
+        ]
+    )
 
     def mutate(blocks):
         collecting = False
@@ -297,13 +343,18 @@ def test_validator_dialogue_edit():
 
 def test_extra_step_group_appended():
     """Callouts in a Notion step group beyond the JSON groups become suggested beats."""
-    lesson = _make_lesson([
-        _make_section("s3_1_extra", [
-            {"type": "scene", "method": "show", "tangible_id": "pg_a"},
-            {"type": "current_scene", "elements": []},
-            {"type": "dialogue", "text": "Step 2 dialogue."},
-        ])
-    ])
+    lesson = _make_lesson(
+        [
+            _make_section(
+                "s3_1_extra",
+                [
+                    {"type": "scene", "method": "show", "tangible_id": "pg_a"},
+                    {"type": "current_scene", "elements": []},
+                    {"type": "dialogue", "text": "Step 2 dialogue."},
+                ],
+            )
+        ]
+    )
 
     def mutate(blocks):
         heading_found = False
@@ -317,17 +368,25 @@ def test_extra_step_group_appended():
                     insert_at = i
                     break
         if heading_found:
-            blocks.insert(insert_at, {
-                "object": "block", "type": "paragraph",
-                "paragraph": {"rich_text": [{"text": {"content": "· · ·"}}]},
-            })
-            blocks.insert(insert_at + 1, {
-                "object": "block", "type": "callout",
-                "callout": {
-                    "rich_text": [{"text": {"content": '"Extra step."'}}],
-                    "icon": {"type": "emoji", "emoji": "💬"},
+            blocks.insert(
+                insert_at,
+                {
+                    "object": "block",
+                    "type": "paragraph",
+                    "paragraph": {"rich_text": [{"text": {"content": "· · ·"}}]},
                 },
-            })
+            )
+            blocks.insert(
+                insert_at + 1,
+                {
+                    "object": "block",
+                    "type": "callout",
+                    "callout": {
+                        "rich_text": [{"text": {"content": '"Extra step."'}}],
+                        "icon": {"type": "emoji", "emoji": "💬"},
+                    },
+                },
+            )
 
     patched, flags = _push_pull(lesson, mutate)
     sec = _find_section(patched, "s3_1_extra")
@@ -343,21 +402,32 @@ def test_extra_step_group_appended():
 
 def test_options_json_roundtrip():
     """Options containing commas must survive a push/pull cycle."""
-    lesson = _make_lesson([
-        _make_section("s1_6_opts", [
-            {
-                "type": "prompt",
-                "tool": "multiple_choice",
-                "options": ["Same dots, just organized differently", "The numbers are close together"],
-                "text": "Why are they equal?",
-                "validator": [],
-            }
-        ])
-    ])
+    lesson = _make_lesson(
+        [
+            _make_section(
+                "s1_6_opts",
+                [
+                    {
+                        "type": "prompt",
+                        "tool": "multiple_choice",
+                        "options": [
+                            "Same dots, just organized differently",
+                            "The numbers are close together",
+                        ],
+                        "text": "Why are they equal?",
+                        "validator": [],
+                    }
+                ],
+            )
+        ]
+    )
     patched, flags = _push_pull(lesson)
     sec = _find_section(patched, "s1_6_opts")
     beat = _find_beat(sec, "prompt")
-    assert beat["options"] == ["Same dots, just organized differently", "The numbers are close together"]
+    assert beat["options"] == [
+        "Same dots, just organized differently",
+        "The numbers are close together",
+    ]
     assert flags == []
 
 
@@ -367,10 +437,12 @@ def test_options_json_roundtrip():
 
 
 def test_section_isolation():
-    lesson = _make_lesson([
-        _make_section("s1_1_a", [{"type": "dialogue", "text": "Section A."}]),
-        _make_section("s1_2_b", [{"type": "dialogue", "text": "Section B."}]),
-    ])
+    lesson = _make_lesson(
+        [
+            _make_section("s1_1_a", [{"type": "dialogue", "text": "Section A."}]),
+            _make_section("s1_2_b", [{"type": "dialogue", "text": "Section B."}]),
+        ]
+    )
 
     def mutate(blocks):
         callouts = _callout_blocks(blocks, "s1_1_a")

@@ -226,7 +226,9 @@ with tab_module_editor:
         selected_module_num = st.selectbox(
             "Select Module",
             options=sorted(available_modules.keys()),
-            format_func=lambda x: f"Module {x}: {available_modules[x].get('module_name', f'Module {x}')}",
+            format_func=lambda x: (
+                f"Module {x}: {available_modules[x].get('module_name', f'Module {x}')}"
+            ),
             key="module_editor_selector",
         )
 

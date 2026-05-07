@@ -23,12 +23,35 @@
           "Fish": 30
         },
         "title": "Pets at the Shelter",
-        "description": "Horizontal bar graph appears. Pets at the Shelter. Dogs 65, Cats 40, Birds 25, Fish 30. Scale of 10."
+        "description": "Horizontal bar graph appears. Pets at the Shelter. Scale of 10. Dogs=65, Cats=40, Birds=25, Fish=30."
       }
     },
     {
       "type": "dialogue",
       "text": "One more. Think about what to do first."
+    },
+    {
+      "type": "current_scene",
+      "elements": [
+        {
+          "tangible_id": "bar_graph_pets",
+          "description": "Horizontal bar graph titled Pets at the Shelter. Scale 10. Dogs=65, Cats=40, Birds=25, Fish=30. Reading mode.",
+          "tangible_type": "bar_graph",
+          "mode": "reading",
+          "orientation": "horizontal",
+          "scale": 10,
+          "categories": [
+            "Dogs",
+            "Cats",
+            "Birds",
+            "Fish"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "text": "How many more dogs are there than fish and birds combined?"
     },
     {
       "type": "prompt",
@@ -46,7 +69,7 @@
           "condition": {
             "selected": "Add fish and birds"
           },
-          "description": "Student selected add fish and birds, correct",
+          "description": "Student selected Add fish and birds, correct first step",
           "is_correct": true,
           "beats": [
             {
@@ -62,7 +85,7 @@
       "elements": [
         {
           "tangible_id": "bar_graph_pets",
-          "description": "Horizontal bar graph. Pets at the Shelter. Dogs 65, Cats 40, Birds 25, Fish 30. Scale of 10.",
+          "description": "Horizontal bar graph titled Pets at the Shelter. Scale 10. Dogs=65, Cats=40, Birds=25, Fish=30. Reading mode. Multiple choice tool active.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "horizontal",
@@ -108,7 +131,7 @@
           "condition": {
             "selected": 55
           },
-          "description": "Student selected 55, correct (30 + 25)",
+          "description": "Student selected 55, correct sum of 30 + 25",
           "is_correct": true,
           "beats": [
             {
@@ -124,7 +147,7 @@
       "elements": [
         {
           "tangible_id": "bar_graph_pets",
-          "description": "Horizontal bar graph. Fish bar (30) and Birds bar (25) highlighted. Pets at the Shelter.",
+          "description": "Horizontal bar graph titled Pets at the Shelter. Scale 10. Fish and Birds bars highlighted. Dogs=65, Cats=40, Birds=25, Fish=30. Reading mode. Multiple choice tool active.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "horizontal",
@@ -137,6 +160,17 @@
           ]
         }
       ]
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "bar_graph_pets",
+      "params": {
+        "event": "display_calculation",
+        "status": "confirmed",
+        "description": "Combined value 55 displays on screen.",
+        "calculation": "30 + 25 = 55"
+      }
     },
     {
       "type": "scene",
@@ -169,7 +203,7 @@
           "condition": {
             "selected": 10
           },
-          "description": "Student selected 10, correct (65 - 55)",
+          "description": "Student selected 10, correct difference of 65 minus 55",
           "is_correct": true,
           "beats": [
             {
@@ -185,7 +219,7 @@
       "elements": [
         {
           "tangible_id": "bar_graph_pets",
-          "description": "Horizontal bar graph. Dogs bar (65) highlighted. Pets at the Shelter.",
+          "description": "Horizontal bar graph titled Pets at the Shelter. Scale 10. Dogs bar highlighted. Combined value 55 displayed. Dogs=65, Cats=40, Birds=25, Fish=30. Reading mode. Multiple choice tool active.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "horizontal",
@@ -200,5 +234,5 @@
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:02:23.023864+00:00"
+  "_generated_at": "2026-04-27T15:57:10.478767+00:00"
 }

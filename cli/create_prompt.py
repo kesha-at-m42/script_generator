@@ -25,7 +25,7 @@ def create_prompt_draft(prompt_name: str):
     constant_name = f"{prompt_name.upper()}_PROMPT"
 
     paths = get_project_paths()
-    filepath = paths['prompts'] / filename
+    filepath = paths["prompts"] / filename
 
     # Check if file already exists
     if filepath.exists():
@@ -84,7 +84,7 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
 
     # Write file
     try:
-        with open(filepath, 'w', encoding='utf-8') as f:
+        with open(filepath, "w", encoding="utf-8") as f:
             f.write(template)
         print(f"Created: {filepath.relative_to(project_root)}")
         return True

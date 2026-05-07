@@ -65,9 +65,9 @@ def _format_step(step: dict) -> str:
     # Guide dialogue (⚫)
     dialogue = step.get("dialogue")
     if dialogue:
-        lines.append(f"⚫ **Guide:** \"{dialogue}\"")
+        lines.append(f'⚫ **Guide:** "{dialogue}"')
         lines.append("")
-    
+
     # Screen prompt (⚪)
     prompt = step.get("prompt")
     if prompt:
@@ -76,7 +76,7 @@ def _format_step(step: dict) -> str:
     # Workspace / Visual (🔵)
     workspace = step.get("workspace", [])
     if workspace:
-        lines.append(f"🔵 **Visual:**")
+        lines.append("🔵 **Visual:**")
         for ws_item in workspace:
             ws_md = _format_workspace_item(ws_item)
             lines.append(ws_md)
@@ -105,7 +105,7 @@ def _format_step(step: dict) -> str:
         if success_path:
             success_dialogue = success_path.get("dialogue", "")
             if success_dialogue:
-                lines.append(f"⚫ **Guide: (If student answers correctly)** \"{success_dialogue}\"")
+                lines.append(f'⚫ **Guide: (If student answers correctly)** "{success_dialogue}"')
                 lines.append("")
 
         # Error/Remediation paths
@@ -124,7 +124,6 @@ def _format_step(step: dict) -> str:
     return "\n".join(lines)
 
 
-
 def _format_remediation_step(remediation: dict) -> str:
     """Format a single remediation step (light/medium/heavy)"""
     lines = []
@@ -134,17 +133,13 @@ def _format_remediation_step(remediation: dict) -> str:
     events = remediation.get("events", [])
 
     # Emoji for different levels
-    level_emoji = {
-        "light": "🟡",
-        "medium": "🟠",
-        "heavy": "🔴"
-    }
+    level_emoji = {"light": "🟡", "medium": "🟠", "heavy": "🔴"}
     emoji = level_emoji.get(scaffolding_level, "⚫")
 
     # Format level header and dialogue
     lines.append(f"{emoji} **{scaffolding_level.upper()} Remediation:**")
     if dialogue:
-        lines.append(f"   \"{dialogue}\"")
+        lines.append(f'   "{dialogue}"')
 
     # Format events if present
     if events:
@@ -154,7 +149,7 @@ def _format_remediation_step(remediation: dict) -> str:
             event_desc = event.get("description", "")
             lines.append(f"   - `{event_name}`: {event_desc}")
     else:
-        lines.append(f"   **Events:** None")
+        lines.append("   **Events:** None")
 
     return "\n".join(lines)
 
@@ -165,7 +160,6 @@ def _format_workspace_item(ws_item: dict) -> str:
     ws_type = ws_item.get("type", "unknown")
     state = ws_item.get("state", "")
     intervals = ws_item.get("intervals", 0)
-    shaded = ws_item.get("shaded", [])
     description = ws_item.get("description", "")
 
     # Format: "  - id (type): intervals sections, state"
@@ -192,36 +186,38 @@ def _format_workspace_item(ws_item: dict) -> str:
 # Test function
 if __name__ == "__main__":
     import json
-    from pathlib import Path
     import sys
+    from pathlib import Path
 
     # Fix encoding for Windows console
-    if sys.platform == 'win32':
-        sys.stdout.reconfigure(encoding='utf-8')
+    if sys.platform == "win32":
+        sys.stdout.reconfigure(encoding="utf-8")
 
     print("Testing Script Formatter...")
     print("=" * 70)
 
     # Load sample data
-    sample_file = Path(__file__).parent.parent / "outputs" / "pipeline_20251124_114427" / "interactions.json"
+    sample_file = (
+        Path(__file__).parent.parent / "outputs" / "pipeline_20251124_114427" / "interactions.json"
+    )
 
     if sample_file.exists():
         print(f"\nLoading: {sample_file}")
-        with open(sample_file, 'r', encoding='utf-8') as f:
+        with open(sample_file, "r", encoding="utf-8") as f:
             data = json.load(f)
 
         print(f"Found {len(data)} interactions")
         print("\nFormatting to markdown...")
 
         # Format to markdown
-        markdown = format_interactions_to_markdown(data, module_number=1, path_letter='c')
+        markdown = format_interactions_to_markdown(data, module_number=1, path_letter="c")
 
         print("\n[First 800 chars of output:]")
         print(markdown[:800])
 
         # Save to file
         output_file = sample_file.parent / "script.md"
-        with open(output_file, 'w', encoding='utf-8') as f:
+        with open(output_file, "w", encoding="utf-8") as f:
             f.write(markdown)
 
         print(f"\n\n✓ Saved to: {output_file}")
@@ -245,22 +241,18 @@ if __name__ == "__main__":
                                 "type": "rectangle_bar",
                                 "state": "divided_equal",
                                 "intervals": 4,
-                                "shaded": [0, 1]
+                                "shaded": [0, 1],
                             }
                         ],
                         "correct_answer": {
                             "value": "1/2",
-                            "context": "Two out of four parts are shaded"
+                            "context": "Two out of four parts are shaded",
                         },
-                        "student_attempts": {
-                            "success_path": {
-                                "dialogue": "That's correct!"
-                            }
-                        }
+                        "student_attempts": {"success_path": {"dialogue": "That's correct!"}},
                     }
-                ]
+                ],
             }
         ]
 
-        markdown = format_interactions_to_markdown(dummy_data, module_number=1, path_letter='a')
+        markdown = format_interactions_to_markdown(dummy_data, module_number=1, path_letter="a")
         print(markdown)

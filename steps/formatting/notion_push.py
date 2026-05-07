@@ -44,7 +44,9 @@ _PIPELINE_NAME_TO_STITCH_TYPE: dict[str, str] = {
 }
 
 
-def _auto_stitch(unit_number: int | None, module_number: int | None, pipeline_name: str | None) -> None:
+def _auto_stitch(
+    unit_number: int | None, module_number: int | None, pipeline_name: str | None
+) -> None:
     stitch_type = _PIPELINE_NAME_TO_STITCH_TYPE.get((pipeline_name or "").lower())
     if not stitch_type or not module_number:
         return
@@ -55,13 +57,24 @@ def _auto_stitch(unit_number: int | None, module_number: int | None, pipeline_na
 
     try:
         result = subprocess.run(
-            [sys.executable, str(stitch_script), "--unit", unit_str, "--module", str(module_number), "--type", stitch_type],
+            [
+                sys.executable,
+                str(stitch_script),
+                "--unit",
+                unit_str,
+                "--module",
+                str(module_number),
+                "--type",
+                stitch_type,
+            ],
             capture_output=True,
             text=True,
             cwd=str(project_root),
         )
         if result.returncode == 0:
-            print(f"  [STITCH] Auto-stitched {stitch_type} m{module_number} -> tracked_scripts/u{unit_number or 1}/m{module_number}/{stitch_type}")
+            print(
+                f"  [STITCH] Auto-stitched {stitch_type} m{module_number} -> tracked_scripts/u{unit_number or 1}/m{module_number}/{stitch_type}"
+            )
         else:
             print(f"  [STITCH] Auto-stitch failed (non-fatal):\n{result.stderr.strip()[:300]}")
     except Exception as exc:
@@ -124,7 +137,6 @@ def push(
 
         # Push with retry on rate limit
         page_id = None
-        last_exc = None
         for attempt in range(len(_RETRY_DELAYS) + 1):
             try:
                 page_id = push_lesson(
@@ -136,10 +148,11 @@ def push(
                 )
                 break
             except Exception as exc:
-                last_exc = exc
                 if "rate limit" in str(exc).lower() and attempt < len(_RETRY_DELAYS):
                     delay = _RETRY_DELAYS[attempt]
-                    print(f"\n  [NOTION] Rate limited — retrying in {delay}s (attempt {attempt + 1}/{len(_RETRY_DELAYS)})...")
+                    print(
+                        f"\n  [NOTION] Rate limited — retrying in {delay}s (attempt {attempt + 1}/{len(_RETRY_DELAYS)})..."
+                    )
                     time.sleep(delay)
                 else:
                     raise
@@ -161,7 +174,9 @@ def push(
                         json.dumps(tagged, indent=2, ensure_ascii=False) + "\n",
                         encoding="utf-8",
                     )
-                    n_sections = sum(1 for s in tagged if isinstance(s, dict) and s.get("_notion_block_id"))
+                    n_sections = sum(
+                        1 for s in tagged if isinstance(s, dict) and s.get("_notion_block_id")
+                    )
                     n_beats = sum(
                         1
                         for s in tagged
@@ -169,7 +184,9 @@ def push(
                         for b in s.get("beats", [])
                         if b.get("_notion_block_id")
                     )
-                    print(f"  [NOTION] Tagged {n_sections} sections + {n_beats} beats -> {source_file.name}")
+                    print(
+                        f"  [NOTION] Tagged {n_sections} sections + {n_beats} beats -> {source_file.name}"
+                    )
             except Exception as exc:
                 print(f"  [NOTION] Tag-back failed (non-fatal): {exc}")
 

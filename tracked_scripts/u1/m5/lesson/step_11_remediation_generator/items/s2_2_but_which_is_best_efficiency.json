@@ -1,7 +1,72 @@
 {
   "id": "s2_2_but_which_is_best_efficiency",
   "incorrects": [
-    []
+    [
+      {
+        "condition": {
+          "incorrect_count": 1
+        },
+        "description": "Student clicked a wrong scale button on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "The question asks you to try Scale of 10. Click that button."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
+        },
+        "description": "Student clicked a wrong scale button on second attempt",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "update",
+              "tangible_id": "bar_graph_marbles",
+              "params": {
+                "highlight_component": "scale_selector",
+                "highlight_button": 10,
+                "description": "Scale of 10 button highlights on the scale selector."
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Look at the scale selector. We're comparing Scale of 1 with Scale of 10. Click the button labeled 10."
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {},
+        "description": "Student clicked a wrong scale button three or more times. System models the correct action.",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "scene",
+              "method": "animate",
+              "tangible_id": "bar_graph_marbles",
+              "params": {
+                "event": "highlight_and_click_button",
+                "status": "confirmed",
+                "description": "System highlights Scale of 10 button and clicks it. Graph updates to scale of 10.",
+                "scale": 10
+              }
+            },
+            {
+              "type": "dialogue",
+              "text": "Let me show you. I click Scale of 10 here on the selector. Now the graph updates to show what that scale looks like. The axis shows 0, 10, 20, 30. That is Scale of 10."
+            }
+          ]
+        ]
+      }
+    ]
   ],
-  "_generated_at": "2026-04-20T17:05:00.743519+00:00"
+  "_generated_at": "2026-05-05T18:24:10.812292+00:00"
 }

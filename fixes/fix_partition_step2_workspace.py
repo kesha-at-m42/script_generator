@@ -19,9 +19,7 @@ Usage:
 import argparse
 import copy
 import json
-import sys
 from pathlib import Path
-
 
 POOL_BASE = Path("C:/git/launchpad/project/edtech.apl/resources/sequences")
 DEFAULT_MODULES = list(range(4, 13))
@@ -199,9 +197,7 @@ def scan_missing_workspaces(data: dict | list) -> list[str]:
         missing = []
         for i in range(1, len(steps)):
             if step_missing_workspace(steps[i]):
-                validator_type = (
-                    steps[i].get("prompt", {}).get("validator", {}).get("@type", "?")
-                )
+                validator_type = steps[i].get("prompt", {}).get("validator", {}).get("@type", "?")
                 missing.append(f"step {i + 1} ({validator_type})")
 
         if missing:
@@ -259,9 +255,7 @@ def main():
     parser = argparse.ArgumentParser(
         description="Fix missing step-2 workspace in two-step partition sequences"
     )
-    parser.add_argument(
-        "--modules", type=int, nargs="+", default=DEFAULT_MODULES, metavar="N"
-    )
+    parser.add_argument("--modules", type=int, nargs="+", default=DEFAULT_MODULES, metavar="N")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument(
         "--report-missing",
@@ -294,7 +288,7 @@ def main():
                 for msg in fix_issues:
                     print(msg)
                 if missing_issues:
-                    print(f"    -- missing workspaces (all patterns) --")
+                    print("    -- missing workspaces (all patterns) --")
                     for msg in missing_issues:
                         print(msg)
                 total_fix_issues += len(fix_issues)

@@ -5,27 +5,28 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "data_collection_game",
+      "tangible_id": "data_collection_game_blocks",
       "tangible_type": "data_collection_game",
       "params": {
-        "style": "counting_sorting",
+        "description": "Minis characters appear in animated counting scenario. Four piles of colored blocks visible: Red, Blue, Green, Yellow.",
         "categories": [
           "Red blocks",
           "Blue blocks",
           "Green blocks",
           "Yellow blocks"
         ],
-        "value_constraints": {
-          "type": "multiples_of",
-          "base": 5,
-          "range": [
-            10,
-            45
-          ]
-        },
-        "duration_seconds": 60,
-        "description": "Minis characters appear in animated counting scenario. Four categories of colored blocks to count and sort."
-      }
+        "valid_values": [
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40,
+          45
+        ]
+      },
+      "flag": "placeholder — data_collection_game toy spec not yet defined; params structure is best-guess based on game_specifications field"
     },
     {
       "type": "dialogue",
@@ -35,10 +36,9 @@
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "data_collection_game",
+          "tangible_id": "data_collection_game_blocks",
+          "description": "Minis characters with four piles of colored blocks: Red, Blue, Green, Yellow. Counting interaction active.",
           "tangible_type": "data_collection_game",
-          "description": "Data collection game active. Minis characters visible. Four block categories ready for counting.",
-          "style": "counting_sorting",
           "categories": [
             "Red blocks",
             "Blue blocks",
@@ -46,40 +46,9 @@
             "Yellow blocks"
           ]
         }
-      ]
-    },
-    {
-      "type": "scene",
-      "method": "animate",
-      "tangible_id": "data_collection_game",
-      "params": {
-        "event": "game_complete",
-        "status": "confirmed",
-        "description": "Counting game completes. Final counts recorded for all four categories."
-      }
-    },
-    {
-      "type": "dialogue",
-      "text": "You counted all the blocks. Now let's make a graph with your data."
-    },
-    {
-      "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "data_collection_game",
-          "tangible_type": "data_collection_game",
-          "description": "Data collection game complete. Counts recorded and visible for Red blocks, Blue blocks, Green blocks, Yellow blocks.",
-          "style": "counting_sorting",
-          "categories": [
-            "Red blocks",
-            "Blue blocks",
-            "Green blocks",
-            "Yellow blocks"
-          ],
-          "status": "complete"
-        }
-      ]
+      ],
+      "flag": "placeholder — data_collection_game toy spec not yet defined; current_scene structure reflects anticipated state"
     }
   ],
-  "_generated_at": "2026-04-20T16:58:41.072947+00:00"
+  "_generated_at": "2026-05-05T20:06:08.434979+00:00"
 }

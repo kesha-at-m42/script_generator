@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:15.198410
+# Generated: 2026-04-27T10:58:22.393590
 ======================================================================
 
 ## API Parameters
@@ -948,6 +948,10 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
+      "text": "How many more dogs are there than fish and birds combined?",
+      "context": "lesson"
+    },
+    {
       "text": "Fish and birds combined. Find that total.",
       "context": "on_correct"
     },
@@ -976,4 +980,3 @@ Cacheable: Yes
 ## Prefill
 
 {"id": "s3_2_minimal_scaffolding_3_step_chain", "dialogues": [
-

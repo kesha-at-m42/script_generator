@@ -6,27 +6,28 @@
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "data_collection_game",
+        "tangible_id": "data_collection_game_blocks",
         "tangible_type": "data_collection_game",
         "params": {
-          "style": "counting_sorting",
+          "description": "Minis characters appear in animated counting scenario. Four piles of colored blocks visible: Red, Blue, Green, Yellow.",
           "categories": [
             "Red blocks",
             "Blue blocks",
             "Green blocks",
             "Yellow blocks"
           ],
-          "value_constraints": {
-            "type": "multiples_of",
-            "base": 5,
-            "range": [
-              10,
-              45
-            ]
-          },
-          "duration_seconds": 60,
-          "description": "Minis characters appear in animated counting scenario. Four categories of colored blocks to count and sort."
-        }
+          "valid_values": [
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45
+          ]
+        },
+        "flag": "placeholder — data_collection_game toy spec not yet defined; params structure is best-guess based on game_specifications field"
       },
       {
         "type": "dialogue",
@@ -36,10 +37,9 @@
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "data_collection_game",
+            "tangible_id": "data_collection_game_blocks",
+            "description": "Minis characters with four piles of colored blocks: Red, Blue, Green, Yellow. Counting interaction active.",
             "tangible_type": "data_collection_game",
-            "description": "Data collection game active. Minis characters visible. Four block categories ready for counting.",
-            "style": "counting_sorting",
             "categories": [
               "Red blocks",
               "Blue blocks",
@@ -47,46 +47,14 @@
               "Yellow blocks"
             ]
           }
-        ]
-      },
-      {
-        "type": "scene",
-        "method": "animate",
-        "tangible_id": "data_collection_game",
-        "params": {
-          "event": "game_complete",
-          "status": "confirmed",
-          "description": "Counting game completes. Final counts recorded for all four categories."
-        }
-      },
-      {
-        "type": "dialogue",
-        "text": "You counted all the blocks. Now let's make a graph with your data."
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "data_collection_game",
-            "tangible_type": "data_collection_game",
-            "description": "Data collection game complete. Counts recorded and visible for Red blocks, Blue blocks, Green blocks, Yellow blocks.",
-            "style": "counting_sorting",
-            "categories": [
-              "Red blocks",
-              "Blue blocks",
-              "Green blocks",
-              "Yellow blocks"
-            ],
-            "status": "complete"
-          }
-        ]
+        ],
+        "flag": "placeholder — data_collection_game toy spec not yet defined; current_scene structure reflects anticipated state"
       }
     ],
-    "_generated_at": "2026-04-20T16:58:41.072947+00:00"
+    "_generated_at": "2026-05-05T20:06:08.434979+00:00"
   },
   {
     "id": "s2_1_scale_preview_exploration",
-    "type": "transition",
     "beats": [
       {
         "type": "scene",
@@ -94,25 +62,31 @@
         "tangible_id": "data_table",
         "tangible_type": "data_table",
         "params": {
-          "description": "Data table appears showing student's collected data from warmup."
+          "description": "Data table appears showing the class collected data: Red blocks, Blue blocks, Green blocks, Yellow blocks with their counts."
         }
       },
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "bar_graph_student_data",
+        "tangible_id": "bar_graph_blocks",
         "tangible_type": "bar_graph",
         "params": {
           "mode": "reading",
           "orientation": "vertical",
-          "scale_selector_visible": true,
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
           "scale_options": [
             1,
             2,
             5,
             10
           ],
-          "description": "Vertical bar graph appears with Scale Preview System. Four clickable scale buttons visible: Scale of 1, Scale of 2, Scale of 5, Scale of 10. Graph displays student's data using currently selected scale."
+          "current_scale": 1,
+          "description": "Vertical bar graph appears with Scale Preview System showing four clickable scale buttons: Scale of 1, Scale of 2, Scale of 5, Scale of 10. Graph displays with Scale of 1 initially."
         }
       },
       {
@@ -120,86 +94,49 @@
         "text": "You know how to use different scales. But which one should you use for YOUR data?"
       },
       {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "data_table",
-            "description": "Data table showing student's collected data.",
-            "tangible_type": "data_table"
-          },
-          {
-            "tangible_id": "bar_graph_student_data",
-            "description": "Vertical bar graph with Scale Preview System. Four scale buttons visible: 1, 2, 5, 10.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "scale_selector_visible": true,
-            "scale_options": [
-              1,
-              2,
-              5,
-              10
-            ]
-          }
-        ]
-      },
-      {
         "type": "dialogue",
         "text": "Let's find out. Click each scale to see what the graph would look like."
       },
       {
-        "type": "scene",
-        "method": "animate",
-        "tangible_id": "bar_graph_student_data",
-        "params": {
-          "event": "enable_scale_exploration",
-          "status": "confirmed",
-          "description": "All four scale buttons become active and clickable. Student can freely click between scales to preview how the graph looks with each option."
-        }
-      },
-      {
-        "type": "current_scene",
-        "elements": [
+        "type": "prompt",
+        "text": "Click each scale button to explore how the graph changes.",
+        "tool": "click_scale_button",
+        "target": "bar_graph_blocks",
+        "validator": [
           {
-            "tangible_id": "data_table",
-            "description": "Data table showing student's collected data.",
-            "tangible_type": "data_table"
-          },
-          {
-            "tangible_id": "bar_graph_student_data",
-            "description": "Vertical bar graph with Scale Preview System active. All four scale buttons clickable for exploration.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "scale_selector_visible": true,
-            "scale_options": [
-              1,
-              2,
-              5,
-              10
+            "condition_id": "explored_all_scales",
+            "condition": {},
+            "description": "Student has clicked all four scale options (1, 2, 5, 10) to explore freely",
+            "is_correct": true,
+            "beats": [
+              {
+                "type": "dialogue",
+                "text": "All four scales work for this data! You have choices."
+              }
             ]
           }
         ]
       },
       {
-        "type": "dialogue",
-        "text": "All four scales work for this data! You have choices."
-      },
-      {
         "type": "current_scene",
         "elements": [
           {
             "tangible_id": "data_table",
-            "description": "Data table showing student's collected data.",
+            "description": "Data table showing class collected block counts.",
             "tangible_type": "data_table"
           },
           {
-            "tangible_id": "bar_graph_student_data",
-            "description": "Vertical bar graph displaying student's data with whichever scale was last selected during exploration.",
+            "tangible_id": "bar_graph_blocks",
+            "description": "Vertical bar graph in reading mode with Scale Preview System. Four scale buttons (1, 2, 5, 10) clickable. Graph displays based on selected scale.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
-            "scale_selector_visible": true,
+            "categories": [
+              "Red blocks",
+              "Blue blocks",
+              "Green blocks",
+              "Yellow blocks"
+            ],
             "scale_options": [
               1,
               2,
@@ -210,11 +147,20 @@
         ]
       }
     ],
-    "_generated_at": "2026-04-20T16:58:54.142362+00:00"
+    "_generated_at": "2026-05-05T20:06:22.408369+00:00"
   },
   {
     "id": "s3_1_efficiency_comparison",
     "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "data_table",
+        "tangible_type": "data_table",
+        "params": {
+          "description": "Data table appears showing class block counts: Red blocks, Blue blocks, Green blocks, Yellow blocks."
+        }
+      },
       {
         "type": "scene",
         "method": "add",
@@ -223,9 +169,14 @@
         "params": {
           "mode": "reading",
           "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
           "scale": 5,
-          "position": "left",
-          "description": "Vertical bar graph appears on left side. Student's data displayed at scale of 5. Categories and bars visible."
+          "description": "Vertical bar graph appears on left side. Scale of 5. Shows class block count data."
         }
       },
       {
@@ -236,9 +187,14 @@
         "params": {
           "mode": "reading",
           "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
           "scale": 10,
-          "position": "right",
-          "description": "Vertical bar graph appears on right side. Same data displayed at scale of 10. Categories and bars visible."
+          "description": "Vertical bar graph appears on right side. Scale of 10. Shows same class block count data."
         }
       },
       {
@@ -260,7 +216,7 @@
             "condition": {
               "selected": "Scale of 10"
             },
-            "description": "Student picked Scale of 10",
+            "description": "Student selected Scale of 10",
             "is_correct": true,
             "beats": [
               {
@@ -274,7 +230,7 @@
             "condition": {
               "selected": "Scale of 5"
             },
-            "description": "Student picked Scale of 5",
+            "description": "Student selected Scale of 5",
             "is_correct": true,
             "beats": [
               {
@@ -288,7 +244,7 @@
             "condition": {
               "selected": "They're the same"
             },
-            "description": "Student picked they're the same",
+            "description": "Student selected they're the same",
             "is_correct": true,
             "beats": [
               {
@@ -303,19 +259,36 @@
         "type": "current_scene",
         "elements": [
           {
+            "tangible_id": "data_table",
+            "description": "Data table showing class block count values.",
+            "tangible_type": "data_table"
+          },
+          {
             "tangible_id": "bar_graph_scale_5",
-            "description": "Vertical bar graph on left. Student's data at scale of 5.",
+            "description": "Vertical bar graph on left. Scale of 5. Class block count data.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
+            "categories": [
+              "Red blocks",
+              "Blue blocks",
+              "Green blocks",
+              "Yellow blocks"
+            ],
             "scale": 5
           },
           {
             "tangible_id": "bar_graph_scale_10",
-            "description": "Vertical bar graph on right. Same data at scale of 10.",
+            "description": "Vertical bar graph on right. Scale of 10. Same class block count data.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
+            "categories": [
+              "Red blocks",
+              "Blue blocks",
+              "Green blocks",
+              "Yellow blocks"
+            ],
             "scale": 10
           }
         ]
@@ -328,47 +301,159 @@
         "type": "current_scene",
         "elements": [
           {
+            "tangible_id": "data_table",
+            "description": "Data table showing class block count values.",
+            "tangible_type": "data_table"
+          },
+          {
             "tangible_id": "bar_graph_scale_5",
-            "description": "Vertical bar graph on left. Student's data at scale of 5.",
+            "description": "Vertical bar graph on left. Scale of 5. Class block count data.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
+            "categories": [
+              "Red blocks",
+              "Blue blocks",
+              "Green blocks",
+              "Yellow blocks"
+            ],
             "scale": 5
           },
           {
             "tangible_id": "bar_graph_scale_10",
-            "description": "Vertical bar graph on right. Same data at scale of 10.",
+            "description": "Vertical bar graph on right. Scale of 10. Same class block count data.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
+            "categories": [
+              "Red blocks",
+              "Blue blocks",
+              "Green blocks",
+              "Yellow blocks"
+            ],
             "scale": 10
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T16:59:05.736599+00:00"
+    "_generated_at": "2026-05-05T20:06:41.608055+00:00"
   },
   {
     "id": "s4_1_bridge_lesson",
     "type": "transition",
     "beats": [
       {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "data_table",
+        "tangible_type": "data_table",
+        "params": {
+          "description": "Data table appears showing class block counts (Red blocks, Blue blocks, Green blocks, Yellow blocks)."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_blocks",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Red blocks",
+            "Blue blocks",
+            "Green blocks",
+            "Yellow blocks"
+          ],
+          "scale": 10,
+          "description": "Vertical bar graph appears showing class block counts at scale of 10."
+        }
+      },
+      {
         "type": "dialogue",
         "text": "You just saw that all four scales worked for your data. Nice to have options!"
+      },
+      {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing class block counts.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "bar_graph_blocks",
+            "description": "Vertical bar graph showing class block counts at scale of 10.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Red blocks",
+              "Blue blocks",
+              "Green blocks",
+              "Yellow blocks"
+            ],
+            "scale": 10
+          }
+        ]
       },
       {
         "type": "dialogue",
         "text": "But what if the numbers are bigger? Or what if you need to figure out which scale is BEST?"
       },
       {
+        "type": "current_scene",
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing class block counts.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "bar_graph_blocks",
+            "description": "Vertical bar graph showing class block counts at scale of 10.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Red blocks",
+              "Blue blocks",
+              "Green blocks",
+              "Yellow blocks"
+            ],
+            "scale": 10
+          }
+        ]
+      },
+      {
         "type": "dialogue",
-        "text": "Let's learn how to figure out which scale to choose—and what tells us that a scale won't work for the data we have."
+        "text": "Let's learn how to figure out which scale to choose and what tells us that a scale won't work for the data we have."
       },
       {
         "type": "current_scene",
-        "elements": []
+        "elements": [
+          {
+            "tangible_id": "data_table",
+            "description": "Data table showing class block counts.",
+            "tangible_type": "data_table"
+          },
+          {
+            "tangible_id": "bar_graph_blocks",
+            "description": "Vertical bar graph showing class block counts at scale of 10.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Red blocks",
+              "Blue blocks",
+              "Green blocks",
+              "Yellow blocks"
+            ],
+            "scale": 10
+          }
+        ]
       }
     ],
-    "_generated_at": "2026-04-20T16:59:09.453320+00:00"
+    "_generated_at": "2026-05-05T20:06:54.493487+00:00"
   }
 ]

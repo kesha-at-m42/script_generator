@@ -46,7 +46,9 @@ def prune_step(step_dir: Path, prune_ids: set[str]) -> None:
         filtered = [s for s in data if not (isinstance(s, dict) and s.get("id") in prune_ids)]
         if len(filtered) < len(data):
             removed_sections += len(data) - len(filtered)
-            json_file.write_text(json.dumps(filtered, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+            json_file.write_text(
+                json.dumps(filtered, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+            )
 
     # Remove per-section files in subdirs (items/, prompts/, etc.)
     for subdir in step_dir.iterdir():
@@ -65,8 +67,13 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Remove section IDs from pipeline step outputs")
     parser.add_argument("version_dir", type=Path)
     parser.add_argument("ids", nargs="+", help="Section IDs to prune")
-    parser.add_argument("--from-step", type=int, default=1, metavar="N",
-                        help="Only prune steps with number >= N (default: 1)")
+    parser.add_argument(
+        "--from-step",
+        type=int,
+        default=1,
+        metavar="N",
+        help="Only prune steps with number >= N (default: 1)",
+    )
     args = parser.parse_args()
 
     version_dir = (project_root / args.version_dir).resolve()
@@ -76,7 +83,9 @@ def main() -> None:
         print(f"ERROR: {version_dir} not found", file=sys.stderr)
         sys.exit(1)
 
-    print(f"Pruning {prune_ids} from {version_dir.relative_to(project_root)} (from step {args.from_step})")
+    print(
+        f"Pruning {prune_ids} from {version_dir.relative_to(project_root)} (from step {args.from_step})"
+    )
 
     for step_dir in sorted(version_dir.iterdir(), key=lambda d: d.name):
         if not step_dir.is_dir():

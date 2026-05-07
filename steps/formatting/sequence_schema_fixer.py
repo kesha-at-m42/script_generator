@@ -2,64 +2,60 @@
 Sequence Schema Fixer - Fixes and validates sequence schema structure
 """
 
-import os
-
 
 # ============================================================================
 # DEBUG LOGGING HELPERS
 # ============================================================================
 
+
 class SchemaLogger:
     """Tracks and logs schema fixing changes"""
+
     def __init__(self, enabled=False):
         self.enabled = enabled
-        self.changes = {
-            'workspace_added': 0,
-            'wrapped_in_pool': 0,
-            'shuffle_tangibles_added': 0
-        }
+        self.changes = {"workspace_added": 0, "wrapped_in_pool": 0, "shuffle_tangibles_added": 0}
 
     def log_workspace_added(self, location):
         """Log when empty workspace is added"""
         if not self.enabled:
             return
 
-        self.changes['workspace_added'] += 1
+        self.changes["workspace_added"] += 1
         print(f"\n[DEBUG] WORKSPACE ADDED - {location}")
-        print(f"  Added empty workspace with tangibles: []")
+        print("  Added empty workspace with tangibles: []")
 
     def log_wrapped_in_pool(self):
         """Log when sequences are wrapped in SequencePool"""
         if not self.enabled:
             return
 
-        self.changes['wrapped_in_pool'] += 1
-        print(f"\n[DEBUG] WRAPPED IN SEQUENCE POOL")
-        print(f"  Added @type: SequencePool wrapper")
+        self.changes["wrapped_in_pool"] += 1
+        print("\n[DEBUG] WRAPPED IN SEQUENCE POOL")
+        print("  Added @type: SequencePool wrapper")
 
     def log_shuffle_tangibles_added(self, location):
         """Log when shuffle_tangibles is added to a workspace"""
         if not self.enabled:
             return
 
-        self.changes['shuffle_tangibles_added'] += 1
+        self.changes["shuffle_tangibles_added"] += 1
         print(f"\n[DEBUG] SHUFFLE TANGIBLES ADDED - {location}")
-        print(f"  Set shuffle_tangibles: true on workspace")
+        print("  Set shuffle_tangibles: true on workspace")
 
     def summary(self):
         """Print summary of all changes"""
         if not self.enabled:
             return
 
-        print(f"\n{'='*70}")
-        print(f"SCHEMA FIXER SUMMARY")
-        print(f"{'='*70}")
+        print(f"\n{'=' * 70}")
+        print("SCHEMA FIXER SUMMARY")
+        print(f"{'=' * 70}")
 
-        if self.changes['workspace_added'] > 0:
+        if self.changes["workspace_added"] > 0:
             print(f"[OK] Workspaces added: {self.changes['workspace_added']} steps")
-        if self.changes['wrapped_in_pool'] > 0:
+        if self.changes["wrapped_in_pool"] > 0:
             print(f"[OK] Wrapped in SequencePool: {self.changes['wrapped_in_pool']} times")
-        if self.changes['shuffle_tangibles_added'] > 0:
+        if self.changes["shuffle_tangibles_added"] > 0:
             print(f"[OK] shuffle_tangibles added: {self.changes['shuffle_tangibles_added']} steps")
 
         if not any(self.changes.values()):
@@ -101,11 +97,8 @@ def add_empty_workspace_to_first_step(sequences_data, module_number=None, path_l
         if "steps" in sequence and len(sequence["steps"]) > 0:
             first_step = sequence["steps"][0]
             if "workspace" not in first_step:
-                first_step["workspace"] = {
-                    "@type": "WorkspaceData",
-                    "tangibles": []
-                }
-                _logger.log_workspace_added(f"Seq{seq_idx+1}/Step1")
+                first_step["workspace"] = {"@type": "WorkspaceData", "tangibles": []}
+                _logger.log_workspace_added(f"Seq{seq_idx + 1}/Step1")
 
     _logger.summary()
     return wrapper
@@ -141,10 +134,7 @@ def wrap_in_sequence_pool(sequences_data, module_number=None, path_letter=None):
     _logger.log_wrapped_in_pool()
     _logger.summary()
 
-    return {
-        "@type": "SequencePool",
-        "sequences": sequences
-    }
+    return {"@type": "SequencePool", "sequences": sequences}
 
 
 def _is_select_tool(tool):

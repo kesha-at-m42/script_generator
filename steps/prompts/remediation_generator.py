@@ -14,6 +14,13 @@ as <lesson_sections> by the pipeline so the generator can align correction langu
 with the lesson's teaching vocabulary and arc. Wired in lesson_generator_dialogue_pass
 and exitcheck_generator_dialogue_pass via context_files.
 
+Section context: the section_structurer step output (section_context.md) is passed
+as <section_context> by the pipeline. It is a running document of section summaries
+(visual state, content taught, student action) built up in section order. The
+remediation generator uses it to identify the most recently taught strategy for the
+current section and align remediation with that approach rather than introducing
+shortcuts or patterns not yet covered.
+
 Output per call:
   {
     "id": "<section_id>",
@@ -80,26 +87,44 @@ Each state follows the validator state schema:
 
 ## STEP 1: DETECT QUESTION TYPE
 
-For each qualifying prompt, check the `tool` field:
+The design track is determined by **coverage**, not by tool name. For each qualifying prompt:
 
-| `tool` | Track |
-|---|---|
-| `click_category`, `click_tangible`, `click_component`, or any workspace tool | **Non-MC** → Generic L-M-H |
-| `multiple_choice` | **Single-Select MC** → Per-distractor Medium + Heavy |
-| `multi_select` | **Multiselect MC** → Per-branch Medium + Heavy |
+**A. Enumerate the wrong-answer space:**
+- `multiple_choice`: all values in `tool.options` except the correct one
+- `multi_select`: all option subsets not matching the correct condition
+- `click_tangible`: all tangible IDs added by `scene add` beats in this section, minus the correct one
+- `click_category`: all category values visible in the scene, minus the correct one
+- Build tools / numeric / open inputs: problem space is **open** (cannot be enumerated)
+
+**B. Count pre-defined specific conditions:** `is_correct: false` states in the input validator with a non-empty, non-catch-all condition (i.e. condition is not `{}`).
+
+**C. Choose design track:**
+
+| Coverage | Correct answer type | Track |
+|---|---|---|
+| All wrong inputs covered by specific conditions | Single correct value | **Single-Select MC** → Per-condition Mediums + Heavy |
+| All wrong inputs covered by specific conditions | Multiple correct values | **Multiselect MC** → Per-branch Medium + Heavy |
+| Specific conditions exist but do NOT cover all wrong inputs | Any | **Non-MC** → Specific Mediums + Generic L/M/H |
+| No specific conditions, or open problem space | Any | **Non-MC** → Generic L/M/H only |
+
+This means `click_tangible` with 2 wrong tangibles and both covered → Single-Select MC. `click_category` with 4 categories and all covered → Single-Select MC. `multiple_choice` always has full coverage → always Single-Select MC.
 
 ---
 
 ## STEP 2A: NON-MC: STATES
 
-Follow `<remediation_design_ref>` Sections 2.4–2.5 for state structure and order. Always emit generic L/M/H after any specific-condition states. Follow length, visual, and language rules from `<remediation_design_ref>` Sections 4–6.
+Use this track only when specific conditions do **not** cover the entire wrong-answer space (see STEP 1). Follow `<remediation_design_ref>` Sections 2.4–2.5 for state structure and order. Always emit generic L/M/H after any specific-condition states. Follow length, visual, and language rules from `<remediation_design_ref>` Sections 4–6.
 
-**Specific conditions** are pre-defined in the input. Inspect the existing `validator` for `is_correct: false` states with non-empty conditions (not just `{}`). Each such state has:
-- `condition`: the base condition (e.g. `{ "container_count": 3 }`) — rewrite it into the `and`/`or` shape from the STATE ORDER section below
+**Two parallel tracks run simultaneously:**
+- **Specific condition track:** fires when the student's answer matches a known wrong answer. Attempt-agnostic — fires regardless of attempt number.
+- **Generic L/M/H track:** purely attempt-count driven (`incorrect_count: 1` → Light, `incorrect_count: 2` → Medium, `{}` → Heavy on third attempt). Catches any wrong answer not matched by a specific condition.
+
+**Specific conditions** are pre-defined in the input — do not invent them. Inspect the existing `validator` for `is_correct: false` states with non-empty conditions (not just `{}`). Each such state has:
+- `condition`: the base condition (e.g. `{ "container_count": 3 }`) — use it exactly as-is
 - `description`: a plain-English label for what wrong answer this represents
 - `beats`: placeholder dialogue already written — use as inspiration when writing Medium-quality content (visual scaffold + 20–30 words)
 
-For each specific condition, emit one state using the `and`/`or` condition shape from the STATE ORDER section below. Write or rewrite the dialogue and scene beats to Medium standard — do not just copy the placeholder beats verbatim.
+For each specific condition, emit **one state** using the base condition unchanged. **Never include `incorrect_count` in a specific condition** — the condition fires any time that answer is given, regardless of attempt number. Write or rewrite the dialogue and scene beats to Medium standard — do not just copy the placeholder beats verbatim.
 
 **Two effective patterns for specific condition dialogue:**
 
@@ -117,6 +142,7 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
   "condition": { "incorrect_count": 1 },
   "description": "Student answered incorrectly on first attempt",
   "is_correct": false,
+  "remediation_level": "light",
   "steps": [
     [ { "type": "dialogue", "text": "..." } ]
   ]
@@ -129,6 +155,7 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
   "condition": { "incorrect_count": 2 },
   "description": "Student answered incorrectly on second attempt",
   "is_correct": false,
+  "remediation_level": "medium",
   "steps": [
     [
       { "type": "scene", "method": "update", "tangible_id": "...", "params": { "highlight_categories": ["..."] } },
@@ -138,12 +165,27 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 }
 ```
 
-**Heavy** (catch-all `{}`): `scene animate` beat required (system demonstrates the answer). Dialogue narrates the thinking, not just the mechanics — name the structure being demonstrated and connect each step to what it means. End with the underlying principle: why the answer has to be what it is, not just what the answer is. Take inspiration from the on_correct beat already in the section's validator — it names what was demonstrated for a student who got it right. The Heavy closing should echo that same structural insight, framed from the guide's perspective after modeling.
+**Scenario image prompts (`click_tangible` on `image` tangibles):** When the prompt targets scenario images (real-world connection sections), never reference images by letter label in any state. For each state that needs to draw attention to a specific image, emit a `scene animate` beat with `event: "highlight"` on that tangible ID, then say "this image" in the dialogue. Apply this in Medium states (highlight the specific wrong or correct image) and Heavy states (highlight each relevant image in sequence as the guide narrates).
+
+```json
+{ "type": "scene", "method": "animate", "tangible_id": "scenario_image_counting",
+  "params": { "event": "highlight", "status": "confirmed", "description": "Counting money scenario image highlights." } },
+{ "type": "dialogue", "text": "Look at this image. Does this situation use groups of 10?" }
+```
+
+**Heavy** (catch-all `{}`): `scene animate` beat required (system demonstrates the answer). For Non-MC, fires on the third wrong attempt — whether that is an unenumerated answer, a repeated specific condition, or simply a third incorrect try. Never fires when the student clicks the correct answer — that is handled by the correct validator. Dialogue narrates the thinking, not just the mechanics — name the structure being demonstrated and connect each step to what it means. End with the underlying principle: why the answer has to be what it is, not just what the answer is.
+
+**For the on_correct beat:** use it only to identify what concept the answer demonstrates and what the closing principle should be. Do not treat it as a template for which tangibles to animate — it only shows the confirmation step, not the reasoning.
+
+**For the Heavy's animate beats:** read the section's `scene add` beats and the dialogue beat that introduces the prompt. These tell you which tangibles are part of the reasoning and what each one contributes (line counts, axis values, etc.). The Heavy must animate every tangible involved in the reasoning — in the order the section presents them — and narrate what the guide observes about each one, arriving at the correct answer as the conclusion.
+
+**Use `<section_context>` to confirm the teaching strategy and align vocabulary.** If the section context shows that the guide's teaching walked through multiple visuals in sequence, the Heavy's animate beats must follow that same sequence.
 ```json
 {
   "condition": {},
-  "description": "Student answered incorrectly three or more times. System models the answer.",
+  "description": "Student has been incorrect three or more times. System models the correct answer.",
   "is_correct": false,
+  "remediation_level": "heavy",
   "steps": [
     [
       { "type": "scene", "method": "animate", "tangible_id": "...",
@@ -154,15 +196,21 @@ In both patterns: the Medium answer rule applies — do not give the correct cou
 }
 ```
 
+Also add `"remediation_level": "medium"` to every specific-condition state (the pre-defined `is_correct: false` states with non-empty conditions).
+
 ---
 
-## STEP 2B: SINGLE-SELECT MC: PER-DISTRACTOR STATES
+## STEP 2B: SINGLE-SELECT MC: PER-CONDITION STATES
 
-The correct option is in the correct state's `condition.selected`. All other values in `tool.options` are distractors.
+Use this track when all possible wrong answers are covered by specific conditions — regardless of tool. This includes `multiple_choice` prompts (always fully enumerated), and non-MC prompts like `click_tangible` or `click_category` when every wrong target has a pre-defined specific condition.
 
-**Derive distractors explicitly:** take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state. Every remaining option is a distractor that requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
+**Derive wrong conditions explicitly:**
+- For `multiple_choice`: take the full `options` array and remove any value that appears as `condition.selected` in an `is_correct: true` validator state
+- For `click_tangible` / `click_category`: use the pre-defined specific conditions from the input validator — these are the wrong answers
 
-See `<remediation_design_ref>` Section 3.2 for Single-Select MC structure (no Light state; per-distractor Mediums + one Heavy).
+Every wrong answer/condition requires a Medium state. Do this even if no `is_correct: false` states exist yet in the validator.
+
+See `<remediation_design_ref>` Section 3.2 for this structure (no Light state; per-condition Mediums + one Heavy). The condition for each Medium is the base wrong-answer condition only — e.g. `{ "selected": <distractor> }`. Do not add `incorrect_count` — per-condition and LMH are separate branching dimensions and must never be combined.
 
 One **Medium** per distractor: scene beat required. Dialogue names the error and redirects to the correct concept or tool. Close with a pointed question or specific imperative.
 ```json
@@ -170,6 +218,7 @@ One **Medium** per distractor: scene beat required. Dialogue names the error and
   "condition": { "selected": <distractor> },
   "description": "Student selected <distractor>: <why this is wrong>",
   "is_correct": false,
+  "remediation_level": "medium",
   "steps": [
     [
       { "type": "scene", "method": "update", "tangible_id": "...", "params": { "highlight_categories": ["..."] } },
@@ -179,12 +228,13 @@ One **Medium** per distractor: scene beat required. Dialogue names the error and
 }
 ```
 
-One **Heavy** (`condition: {}`): `scene animate` beat required.
+One **Heavy** (`condition: {}`): `scene animate` beat required. Fires when the student selects any option they have already tried — all distractors are enumerated as Mediums, so a repeat on any of them escalates to Heavy.
 ```json
 {
   "condition": {},
-  "description": "Student answered incorrectly. System models the correct answer.",
+  "description": "Student repeated a previously tried option. System models the correct answer.",
   "is_correct": false,
+  "remediation_level": "heavy",
   "steps": [
     [
       { "type": "scene", "method": "animate", "tangible_id": "...",
@@ -211,6 +261,7 @@ For the **no-wrong-options variant**, every possible error is an under-selecting
   "condition": { "incorrect_count": 1 },
   "description": "Student has not selected all correct answers (first attempt)",
   "is_correct": false,
+  "remediation_level": "light",
   "steps": [
     [ { "type": "dialogue", "text": "..." } ]
   ]
@@ -224,6 +275,7 @@ Use a short nudge (10–20 words) pointing toward completeness — e.g. "Read th
   "condition": { "incorrect_count": 2 },
   "description": "Student has not selected all correct answers (second attempt)",
   "is_correct": false,
+  "remediation_level": "medium",
   "steps": [
     [
       { "type": "scene", "method": "update", "tangible_id": "...", "params": { "description": "..." } },
@@ -243,6 +295,7 @@ One **Medium per branch**: scene beat required.
   "condition": { <see Section 3B.7 for correct condition logic per branch> },
   "description": "Branch <N>: <description of student's selection state>",
   "is_correct": false,
+  "remediation_level": "medium",
   "steps": [
     [
       { "type": "scene", "method": "update", "tangible_id": "...", "params": { "highlight_categories": ["..."] } },
@@ -252,12 +305,13 @@ One **Medium per branch**: scene beat required.
 }
 ```
 
-One **Heavy** (`condition: {}`): `scene animate` beat required. Shared fallback for all branches.
+One **Heavy** (`condition: {}`): `scene animate` beat required. Shared fallback for all branches. Fires when the student cannot find the correct answer after 3 tries.
 ```json
 {
   "condition": {},
-  "description": "Student answered incorrectly. System models the correct answer.",
+  "description": "Student could not find the correct answer after 3 tries. System models all correct answers.",
   "is_correct": false,
+  "remediation_level": "heavy",
   "steps": [
     [
       { "type": "scene", "method": "animate", "tangible_id": "...",
@@ -305,15 +359,17 @@ Follow all language patterns, word counts, visual requirements, and prohibited c
 
 **Medium — universal answer rule (applies to all tracks and specific conditions):** Never state the correct answer, value, or count in a Medium. This applies even when the answer is visible on screen (e.g. a key showing "Each ⭐ = 5", a label, a highlighted number). Redirect the student to the right place and let them read it. A Medium that names the answer removes the work the student needs to do. If you find yourself writing the correct value in a Medium, rewrite it as a question or imperative that sends the student to look.
 
-**Heavy:** Use an opener from Section 6.1. Cycle — do not reuse within a section. End with closure per Section 7.
+**Heavy:** Choose an opener from Section 6.1. Rotate across the full range of available openers — "Let me show you", "Let me help you think through this", "Let's work together", "I'll walk us through this", "Here's what matters" — treating each as equally valid. Cycle — do not reuse the same opener within a section. Refer to <remediations.md> for opener variety and the principle-ending pattern. End with closure per Section 7.
 
 ---
 
 ## SCOPE CONSTRAINTS
 
-Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats.
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Reference <required_phrases> in Medium/Heavy where genuinely appropriate. Ground explanations in <the_one_thing>. Keep tangible references consistent with the section's `scene` array and existing scene beats. **Do not fabricate game data values** — specific quantities, scale-key values, or item counts that come from live game content are not available at script-writing time unless they appear explicitly in the input section JSON or `<lesson_sections>`. Do not invent them. In Light and Medium states, redirect the student to look at the relevant element rather than stating a value. In Heavy states, narrate the structural pattern being animated without naming specific quantities that aren't grounded in the input.
 
 When <lesson_sections> is available, use it to align correction language with how the lesson taught the concept — match the vocabulary the guide used in earlier sections and frame corrections in terms the student has already encountered.
+
+When <section_context> is available, read every section summary whose `## section_id` appears before the current section's id. Identify the most recently taught strategy: what approach did the guide use to explain the concept, what scaffold did it provide, what vocabulary did it lean on? Use that strategy — and only that strategy — to frame remediation. Do not introduce a shortcut, pattern, or reasoning method that does not appear in any prior section summary. If a student is stuck on `s2_5`, the remediation should teach using the same scaffold introduced in `s2_1`–`s2_4`, not a rule the lesson hasn't covered yet.
 
 For prompts with `"variable_answer": true`: do not assume the student's specific attempt in Light or Medium dialogue. For Heavy, model one specific valid example but frame it as one way, not the only answer.
 
@@ -322,6 +378,7 @@ For prompts with `"variable_answer": true`: do not assume the student's specific
 ## OUTPUT RULES
 
 - Output ONLY the `incorrects` array content. No explanation, no markdown fences.
+- **Flag placeholders and uncertain content:** When a beat or validator state contains content that could not be grounded in the input — game data values not present in the section JSON or `<section_context>`, unresolved visual elements, invented quantities — add `"flag": "placeholder — <brief reason>"` to that beat or state object. This makes uncertain content findable for human review without blocking output. Example: `"flag": "placeholder — scale key values not in input"`.
 - The prefill already opens `{"id": "...", "incorrects": [`. Complete from that point.
 - Use double quotes throughout
 - `is_correct: false` on every state
@@ -331,6 +388,7 @@ For prompts with `"variable_answer": true`: do not assume the student's specific
     doc_refs=[
         "remediation_design_ref.md",
         "references/lesson_script_schema_guide.md",
+        "dialogue_examples/remediations.md",
     ],
     module_ref={
         "misconceptions": "misconceptions",

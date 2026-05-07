@@ -43,9 +43,7 @@ def validate_section_ids(data: Any) -> list[str]:
         sid = section.get("id", "?")
 
         if "steps" in section and "beats" not in section:
-            violations.append(
-                f"{sid}: has 'steps' key — id_stamper must run before this step"
-            )
+            violations.append(f"{sid}: has 'steps' key — id_stamper must run before this step")
             continue
 
         beats = section.get("beats", [])

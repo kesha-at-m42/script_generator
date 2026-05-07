@@ -12,16 +12,16 @@ Usage:
     python approve_output.py problem_pool_generator --module 4 --path b --note "Final approved version"
 """
 
-import sys
 import argparse
 import shutil
+import sys
 from pathlib import Path
 
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-from core.version_manager import get_latest_version
-from core.path_manager import get_project_paths
+from core.path_manager import get_project_paths  # noqa: E402
+from core.version_manager import get_latest_version  # noqa: E402
 
 
 def main():
@@ -33,21 +33,23 @@ Examples:
   python approve_output.py problem_pool_generator --module 4 --path b
   python approve_output.py problem_pool_generator --module 4 --path b --version v15
   python approve_output.py problem_pool_generator --module 4 --path b --note "Approved after review"
-        """
+        """,
     )
 
     parser.add_argument("pipeline_name", help="Name of the pipeline")
     parser.add_argument("--module", type=int, help="Module number")
-    parser.add_argument("--path", choices=['a', 'b', 'c'], help="Path letter")
+    parser.add_argument("--path", choices=["a", "b", "c"], help="Path letter")
     parser.add_argument("--version", default=None, help="Version to approve (default: latest)")
-    parser.add_argument("--note", nargs="+", default=[], help="Optional note about this version (no quotes needed)")
+    parser.add_argument(
+        "--note", nargs="+", default=[], help="Optional note about this version (no quotes needed)"
+    )
     parser.add_argument("--yes", "-y", action="store_true", help="Skip confirmation prompt")
 
     args = parser.parse_args()
     args.note = " ".join(args.note)
 
     paths = get_project_paths()
-    outputs_dir = paths['outputs']
+    outputs_dir = paths["outputs"]
     good_outputs_dir = project_root / "good_outputs"
 
     # Build full pipeline name (same convention as rerun.py)
@@ -92,7 +94,7 @@ Examples:
 
     if not args.yes:
         response = input("\nProceed? [y/N] ").strip().lower()
-        if response != 'y':
+        if response != "y":
             print("Aborted.")
             sys.exit(0)
 
@@ -106,7 +108,7 @@ Examples:
         (dest_dir / "KEEP_NOTE.txt").write_text(args.note)
 
     print(f"\nDone. Copied to good_outputs/{full_pipeline_name}/{version}/")
-    print(f"  Run: git add good_outputs/ && git commit")
+    print("  Run: git add good_outputs/ && git commit")
 
 
 if __name__ == "__main__":

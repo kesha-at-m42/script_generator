@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:00:51.166624
+# Generated: 2026-04-27T10:54:33.310792
 ======================================================================
 
 ## API Parameters
@@ -956,4 +956,3 @@ Cacheable: Yes
 ## Prefill
 
 {"id": "s1_0_opening_frame", "dialogues": [
-

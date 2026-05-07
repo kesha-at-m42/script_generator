@@ -1,50 +1,89 @@
+# warmup-script.toml
+
 title = "warmup"
 type = "sequence"
 
-# --- Section: data_collection_game ---
-[section_100_data_collection_game]
-template = "PLACEHOLDER"
+# ---------------------------------------------------------------------------
+# Section 1 - data_collection_game
+# ---------------------------------------------------------------------------
 
-[step_100_data_collection_game]
-dialogue = "The Minis are collecting items! Help count what they found. You counted the items. That's a lot! Let's see how to show this data."
+[section_101_data_collection_game]
+template = "chart_template"
+
+[step_101_data_collection_game]
+dialogue = "The Minis are collecting items. Help count what they found. You counted the items. That's a lot! Let's see how to show this data."
 components = ["SceneComponent"]
 
-# --- Section: scale_comparison_1_5_vs ---
-[section_101_scale_comparison_1_5_vs]
-template = "PLACEHOLDER"
+# ---------------------------------------------------------------------------
+# Section 2 - scale_comparison_1_5_vs
+# ---------------------------------------------------------------------------
 
-[step_101_scale_comparison_1_5_vs]
-dialogue = "Here's your data two ways. Look at both graphs. Which graph uses fewer symbols to show the same data?"
-components = ["SceneComponent", "PromptComponent"]
+[section_102_scale_comparison_1_5_vs]
+template = "chart_template"
 
 [step_102_scale_comparison_1_5_vs]
-dialogue = "With scale of 10, each symbol shows more than scale of 5. That's why you need fewer symbols for the same data."
+dialogue = "Here's your data two ways. Look at both graphs and notice the scale of each. Which graph uses fewer symbols to show the same data?"
+components = ["PromptComponent"]
+prompt_text = "Which graph uses FEWER symbols to show the same data?"
 
-# --- Section: picture_bar_bridge_1_10 ---
-[section_102_picture_bar_bridge_1_10]
-template = "PLACEHOLDER"
+[step_102.correct]
+dialogue = "Right. Scale of 10 uses fewer symbols. Each symbol shows more, so you need fewer of them."
+metadata = { sting_id = "on_correct" }
 
-[step_103_picture_bar_bridge_1_10]
-dialogue = "Now watch this. Here's the SAME data as a bar graph."
-components = ["SceneComponent"]
+[step_102.step_502]
+dialogue = "Look at the keys. When each symbol stands for more, you need fewer symbols for the same number counted. Which key shows a bigger number?"
+id = "left_graph_scale_5"
+
+[step_102.step_503]
+dialogue = "Let me explain this comparison. The right graph has scale of 10. Each symbol stands for 10. The left graph has scale of 5. Each symbol stands for 5. When each symbol shows more, you need fewer symbols to show the same amount. The right graph uses fewer symbols because its scale is bigger."
+id = "heavy"
+
+[step_103_scale_comparison_1_5_vs]
+dialogue = "With scale of 10, each symbol represents more than scale of 5. That's why you need fewer symbols for the same data."
+
+# ---------------------------------------------------------------------------
+# Section 3 - picture_bar_bridge_1_10
+# ---------------------------------------------------------------------------
+
+[section_103_picture_bar_bridge_1_10]
+template = "chart_template"
 
 [step_104_picture_bar_bridge_1_10]
-dialogue = "This category has 40. The picture graph shows 4 symbols. The bar graph shows a bar up to 40. Both graphs show 50 for Birds. Can you find where?"
-components = ["PromptComponent", "PromptComponent"]
+dialogue = "Now watch this. Here's the same data as a bar graph."
 
 [step_105_picture_bar_bridge_1_10]
-dialogue = "Bar graphs are really useful with scale of 10. You read the HEIGHT instead of counting symbols."
+dialogue = "The Blue category has 30. The picture graph shows 3 symbols for Blue. The bar graph shows a bar up to 30 for Blue. Check another category. Both graphs show 40 for Yellow Items. Can you find where?"
+components = ["PromptComponent"]
+prompt_text = "Click where you see 40 for Yellow on either graph."
 
-# --- Section: bridge_lesson ---
-[section_103_bridge_lesson]
-template = "PLACEHOLDER"
+[step_105.correct]
+dialogue = "Right. It’s the same data. Picture graphs use symbols. Bar graphs use bars. Both show 40."
+metadata = { sting_id = "on_correct" }
+
+[step_105.step_505]
+dialogue = "Not quite. Find the category and either graph and look for how it shows 40."
+id = "light"
+
+[step_105.step_506]
+dialogue = "Look at Yellow Items. The picture graph shows 4 symbols. Each symbol stands for 10. The bar graph shows a bar to 40. Both show the same value. Click on either one."
+id = "medium"
+
+[step_105.step_507]
+dialogue = "Let me explain. Yellow on the picture graph has 4 symbols. The key shows each symbol equals 10, so that is 40 total: 10, 20, 30, 40. The end of the Yellow bar on the bar graph reaches to 40 on the axis. Both graphs show 40 for Yellow. That is how we know they show the same data. Picture graphs use symbols. Bar graphs use bars. Both show the same data."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 4 - bridge_lesson
+# ---------------------------------------------------------------------------
+
+[section_104_bridge_lesson]
+template = "chart_template"
 
 [step_106_bridge_lesson]
-dialogue = "You've seen scale of 10 with picture graphs and bar graphs. Both show the same data."
-components = ["SceneComponent"]
+dialogue = "You've seen scale of 10 with picture graphs and bar graphs. Both show the same data in different ways."
 
 [step_107_bridge_lesson]
-dialogue = "Bar graphs are powerful. You can read exact amounts from the numbers on the side."
+dialogue = "Bar graphs are really useful with scale of 10. You can read the bar HEIGHT on a vertical graph instead of counting symbols. You can read exact amounts from the numbers on the side. Today you will even figure out what the bar means when it stops between numbers."
 
 [step_108_bridge_lesson]
-dialogue = "Ready to learn how to create bar graphs with scale of 10? Let's go."
+dialogue = "Ready to learn how to create and read bar graphs with scale of 10? Let's go."

@@ -132,6 +132,7 @@ Examples:
         steps_config = list(PIPELINES[pipeline_name])
         if args.test_push:
             import copy
+
             steps_config = copy.deepcopy(steps_config)
             for s in steps_config:
                 fn = str(getattr(s, "function", "") or "")

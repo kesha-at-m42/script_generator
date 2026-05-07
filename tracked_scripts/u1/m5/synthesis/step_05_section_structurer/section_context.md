@@ -1,56 +1,62 @@
 ## s1_0_opening_frame
 # Section Summary: s1_0_opening_frame
 
-**VISUAL STATE:** No tangible visualizations or data displays are present on screen at section end. The screen shows only dialogue text against a blank background.
+**VISUAL STATE:** No tangible visualizations or data displays are present on screen at section end. The scene contains only dialogue text with no graphs, charts, datasets, or interactive elements.
 
-**CONTENT:** This transition section reviews prior learning about scale selection for graphs. Students previously learned to: (1) choose appropriate scales by checking if the largest data value fits, and (2) examine last digits of data to inform scale decisions. The section now signals a shift toward synthesizing these discoveries into a connected concept.
+**CONTENT:** This opening frame reviews prior learning about scale selection for graphs, specifically the strategies of checking whether the largest data value fits on a chosen scale and examining the last digits of data values. The section transitions students toward connecting these discovered scale-selection principles to a new application or deeper understanding.
 
-**STUDENT ACTION:** No interactive student action occurs in this section. This is a dialogue-only transition frame that sets up the next learning activity.
+**STUDENT ACTION:** No interactive student action occurs in this section. The student receives instructional dialogue that recaps previous lessons and sets up the upcoming content.
 
 ## s1_1_decision_checklist_consolidation_type_b
 # Section Summary: s1_1_decision_checklist_consolidation_type_b
 
-**VISUAL STATE:** No persistent visual elements remain on screen at section end—only dialogue and a multiple-choice prompt were displayed (no graphs, charts, or data visualizations).
+**VISUAL STATE AT SECTION END:**
+Two tangibles remain on screen: (1) Data table "Stickers Collected" with categories Eli, Fay, Gus, Hal and values 7, 12, 19, 23 respectively; (2) Vertical bar graph in reading mode titled "Scale Preview" displaying the same data with Scale of 5, axis range 0–25, showing a warning that values "Can't be shown exactly."
 
-**CONTENT:** This section consolidated a two-step decision checklist for selecting appropriate scales when graphing data. Two questions were formally introduced: (1) "Does the biggest number fit?" (checked first to determine which scales are mathematically possible), and (2) "Do all the numbers end in 0 or 5?" (checked second to determine which scale aligns with the data's digit patterns). The example used data values 7, 12, 19, 23 with Scale of 2 and Scale of 5 as reference scales; Dan's score of 80 was cited as too large for Scale of 5.
+**CONTENT:**
+The section consolidated a two-question decision checklist for selecting appropriate bar graph scales. Students learned that the first question to ask is "Does the biggest number fit?" (which determines which scales are physically possible), and the second is "Do all the numbers end in 0 or 5?" (which determines which scales show data exactly). The vocabulary "scale" was reinforced as a critical parameter affecting graph readability.
 
-**STUDENT ACTION:** The student answered a multiple-choice question selecting the correct first step: "Does the biggest number fit?" The correct response triggered confirmatory dialogue reinforcing that checking fit first narrows possible scales before examining digit patterns.
+**STUDENT ACTION:**
+The student answered a multiple-choice prompt selecting "Does the biggest number fit?" as the question to check first, demonstrating understanding that scale feasibility must be evaluated before digit alignment.
 
 ## s2_1_scale_strengths_type_pattern_discovery
 # Section Summary: Scale Strengths & Type Pattern Discovery
 
-**VISUAL STATE:** Four vertical bar graphs remain on screen displaying identical data (Apples: 20, Bananas: 40, Cherries: 60) with categories on horizontal axis and values 0–60 on vertical axis. Graph A uses scale 1 (many tick marks), Graph B uses scale 2 (many tick marks), Graph C uses scale 5 (medium tick marks), and Graph D uses scale 10 (fewest tick marks, cleanest appearance). All graphs are in reading mode.
+**VISUAL STATE:** Four vertical bar graphs displayed side-by-side in reading mode, all showing identical data (Apples: 20, Bananas: 40, Cherries: 60) with categories Apples, Bananas, Cherries. Graph A uses scale 1 with many tick marks; Graph B uses scale 2 with many tick marks; Graph C uses scale 5 with medium tick marks; Graph D uses scale 10 with fewest tick marks. All graphs share axis range 0–60.
 
-**CONTENT:** Students learned how scale choice affects graph readability and visual clarity. The section introduced the concept that smaller scales (1, 2) show every number exactly and suit smaller datasets, while larger scales (5, 10) produce cleaner, easier-to-read graphs for larger datasets. Vocabulary formally introduced: "scale" as the interval between tick marks on an axis.
+**CONTENT:** Students learned how scale choice affects graph readability. Key vocabulary introduced: "scale" as a tool for controlling tick mark density and visual clarity. The lesson established that smaller scales (1–2) show every number exactly and suit smaller datasets, while larger scales (5–10) produce cleaner, easier-to-read graphs for larger datasets, particularly when data values end in 0 or 5.
 
-**STUDENT ACTION:** Student answered a multiple-choice question identifying Graph D (scale 10) as the easiest to read, demonstrating understanding that larger scales reduce visual clutter when data values align with scale intervals (multiples of 5 or 10).
+**STUDENT ACTION:** Student clicked on one of four bar graphs to identify which is easiest to read. Correct response was Graph D (scale 10), which triggered confirmation highlighting and reinforcing dialogue about scale selection strategy.
 
 ## s3_1_real_world_connection_type_c
 # Section Summary: Real-World Connection Type C
 
-**VISUAL STATE:** Three data tables are displayed on screen at section end:
-- **Data Table A** ("Daily Steps"): categories Mon/Tue/Wed/Thu with values 4,500/3,200/5,100/2,800
-- **Data Table B** ("Coins Collected"): categories Jar 1/Jar 2/Jar 3/Jar 4 with values 7/12/19/23 (highlighted)
-- **Data Table C** ("Books Read"): categories Room A/Room B/Room C/Room D with values 25/30/35/40
+**VISUAL STATE:**
+Three data tables remain on screen at section end:
+1. **Daily Steps** table with categories Mon (4,500), Tue (3,200), Wed (5,100), Thu (2,800)
+2. **Coins Collected** table with categories Jar 1 (7), Jar 2 (12), Jar 3 (19), Jar 4 (23)
+3. **Books Read** table with categories Room A (25), Room B (30), Room C (35), Room D (40)
 
-**CONTENT:** Students learned a decision rule for selecting graph scales: when data values do not all end in 0 or 5 and are small in magnitude, Scale of 2 is the appropriate choice. The vocabulary "Scale of 2" was formally introduced as a graphing convention tied to data characteristics.
+**CONTENT:**
+Students learned a practical decision rule for selecting graph scales: when all numbers end in 0 or 5, multiple scale options are available; when numbers don't end in 0 or 5 and are small, Scale of 2 is the appropriate choice. The concept of scale selection based on data characteristics was formally introduced.
 
-**STUDENT ACTION:** The student answered a multiple-choice question identifying which dataset "HAVE to use Scale of 2," correctly selecting Table B (Coins Collected). The system confirmed the answer by highlighting Table B and explaining that values 7, 12, 19, 23 lack 0/5 endings, making Scale of 2 the only exact representation method.
+**STUDENT ACTION:**
+The student clicked on the Coins Collected table to identify which dataset requires Scale of 2, receiving confirmation that values 7, 12, 19, and 23 cannot be represented with other scales since none end in 0 or 5.
 
 ## s4_1_metacognitive_reflection_type_1_strategy
 # Section Summary: s4_1_metacognitive_reflection_type_1_strategy
 
-**VISUAL STATE:** No tangible visualizations remain on screen at section end (current_scene contains empty elements array). The section concludes with dialogue feedback only.
+**VISUAL STATE:** A vertical bar graph titled "Stickers Collected" is displayed in reading mode with four categories (Eli, Fay, Gus, Hal) showing values of 7, 12, 19, and 23 respectively. The graph uses a scale of 5 with axis range 0–25. Four scale preview buttons (1, 2, 5, 10) are visible at the bottom, allowing students to preview different scale options.
 
-**CONTENT:** This section introduced metacognitive reflection on scale-selection strategy for graphs. Two key decision-making questions were formalized: (1) Does the biggest number fit without too many lines? and (2) Are the numbers multiples of 5? Students learned these questions serve as a systematic shortcut to guide scale selection before using preview tools.
+**CONTENT:** This section introduced metacognitive reflection on scale-selection strategy. Two key decision-making questions were formalized: (1) Does the biggest number fit without too many gridlines? and (2) Are the data values multiples of 5? Students learned that these two checks guide scale selection before using the preview tool or considering readability.
 
-**STUDENT ACTION:** The student selected one answer from a four-option multiple-choice prompt asking "What helped you most when deciding which scale to use?" with options: "Checking the biggest number first," "Looking at the last digits," "Trying the preview to see what happens," and "Thinking about which graph would be easiest to read." All four responses were marked correct, with differentiated feedback validating each approach while redirecting toward the two key questions framework.
+**STUDENT ACTION:** The student selected one of four multiple-choice options explaining what helped most when deciding which scale to use: "Checking the biggest number first," "Looking at the last digits," "Trying the preview to see what happens," or "Thinking about which graph would be easiest to read." All four responses were validated as correct, with differentiated feedback connecting each approach to the two key strategic questions.
 
 ## s4_2_identity_building_closure
-# Section Summary: s4_2_identity_building_closure
+# Section Summary: Identity Building Closure
 
-**VISUAL STATE:** A vertical bar graph (bar_graph_completed) is displayed in reading mode with categories A, B, C, and D on a scale of 10. This completed example remains on screen throughout the section as a reference.
+**VISUAL STATE:** A vertical bar graph titled "Stickers Collected" is displayed in reading mode with a scale of 10 (axis range 0–30). Four bars represent the categories: Eli (7 stickers), Fay (12 stickers), Gus (19 stickers), and Hal (23 stickers).
 
-**CONTENT:** The section formalized the concept of **strategic scale selection** for bar graphs. Students learned that choosing a scale involves three deliberate steps: (1) verifying the largest data value fits within the scale, (2) checking final digits for multiples of 5 to identify natural scale intervals, and (3) selecting a scale that balances readability with minimal gridlines. The vocabulary term **"strategic thinking"** was emphasized to reframe scale selection from rule-following to decision-making.
+**CONTENT:** This section formalized the concept of *strategic scale selection*—students learned that choosing a scale involves checking whether the largest data value fits, examining last digits for multiples of 5, and balancing readability against excessive gridlines. The vocabulary term "scale" was reinforced as a deliberate decision-making tool rather than a mechanical rule to follow.
 
-**STUDENT ACTION:** The student did not perform new construction or interaction in this section. Instead, they reviewed and reflected on the completed bar graph as a closure activity, consolidating their understanding of scale-selection strategy before transitioning to problem-solving applications in subsequent lessons.
+**STUDENT ACTION:** The student engaged in reflective dialogue rather than direct interaction; they listened to metacognitive framing that positioned their prior scale-selection work as "strategic thinking" and received forward-looking context that graphs and scales will be used to solve problems and answer questions in subsequent lessons.

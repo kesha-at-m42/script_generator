@@ -5,7 +5,7 @@ Test prompt_builder with various nested field patterns
 from core.prompt_builder import PromptBuilderV2
 
 # Create a builder with module_number set
-builder = PromptBuilderV2(module_number=1, path_letter='a', verbose=True)
+builder = PromptBuilderV2(module_number=1, path_letter="a", verbose=True)
 
 print("Testing various nested field patterns...")
 print("=" * 60)
@@ -27,7 +27,7 @@ for fields in test_cases:
     try:
         variables = {}
         result = builder._fetch_module_data(fields, variables)
-        print(f"[OK] Success!")
+        print("[OK] Success!")
         for key, value in result.items():
             print(f"  {key}: {value}")
     except Exception as e:

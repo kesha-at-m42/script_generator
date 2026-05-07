@@ -22,10 +22,8 @@ Options:
 import argparse
 import json
 import random
-import sys
 from fractions import Fraction
 from pathlib import Path
-
 
 POOL_BASE = Path("C:/git/launchpad/project/edtech.apl/resources/sequences")
 DEFAULT_MODULES = list(range(4, 13))
@@ -35,6 +33,7 @@ POOL_FILES = ["problem_pool.json", "problem_pool_shuffled.json"]
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
 
 def bar_value(tangible: dict) -> Fraction | None:
     """Return the fraction value (shaded/total) of a bar tangible, or None."""
@@ -103,6 +102,7 @@ def fix_extra_tangible(tangible: dict, ref_val: Fraction) -> dict:
 # Core processing
 # ---------------------------------------------------------------------------
 
+
 def is_bar(tangible: dict) -> bool:
     """Return True if the tangible is a bar-type NumLine (has interval shading)."""
     return (
@@ -145,8 +145,7 @@ def process_data(data: dict | list, dry_run: bool = False) -> tuple[int, list[st
 
             # Must have a reference bar (is_read_only: true) that is a bar visual
             ref_indices = [
-                i for i, t in enumerate(tangibles)
-                if t.get("is_read_only") and is_bar(t)
+                i for i, t in enumerate(tangibles) if t.get("is_read_only") and is_bar(t)
             ]
             if not ref_indices:
                 continue  # no bar reference — skip (may be line-type or no reference)
@@ -219,6 +218,7 @@ def process_data(data: dict | list, dry_run: bool = False) -> tuple[int, list[st
 # File I/O
 # ---------------------------------------------------------------------------
 
+
 def process_file(path: Path, dry_run: bool) -> tuple[int, list[str]]:
     if not path.exists():
         return 0, [f"  SKIP {path.name} — not found"]
@@ -238,6 +238,7 @@ def process_file(path: Path, dry_run: bool) -> tuple[int, list[str]]:
 # ---------------------------------------------------------------------------
 # Entry point
 # ---------------------------------------------------------------------------
+
 
 def main():
     parser = argparse.ArgumentParser(

@@ -27,13 +27,7 @@ if str(project_root) not in sys.path:
 # ---------------------------------------------------------------------------
 
 _EMOJI_RE = re.compile(
-    "["
-    "\U0001F300-\U0001F9FF"
-    "\U0001FA00-\U0001FAFF"
-    "\U00002600-\U000027BF"
-    "\uFE00-\uFE0F"
-    "\u200D"
-    "]+",
+    "[\U0001f300-\U0001f9ff\U0001fa00-\U0001faff\U00002600-\U000027bf\ufe00-\ufe0f\u200d]+",
     flags=re.UNICODE,
 )
 
@@ -170,7 +164,7 @@ def _extract_required_phrases(text: str):
     for item in items:
         item = _clean_md_text(item)
         item = re.sub(r'"\s*\(or equivalent[^)]*\)\s*', "", item)
-        item = item.replace('"', "")             # strip all quotes (visual emphasis only)
+        item = item.replace('"', "")  # strip all quotes (visual emphasis only)
         item = item.strip()
         if item:
             cleaned.append(item)
@@ -298,21 +292,23 @@ def _extract_misconceptions(text: str):
             block,
             re.IGNORECASE,
         )
-        result.append({
-            "id": misconception_id,
-            "misconception": label,
-            "description": _clean_md_text(desc_m.group(1)) if desc_m else "",
-            "prevention": [_clean_md_text(b) for b in _bullets(prev_m.group(1))] if prev_m else [],
-        })
+        result.append(
+            {
+                "id": misconception_id,
+                "misconception": label,
+                "description": _clean_md_text(desc_m.group(1)) if desc_m else "",
+                "prevention": [_clean_md_text(b) for b in _bullets(prev_m.group(1))]
+                if prev_m
+                else [],
+            }
+        )
     return result or None
 
 
 def _extract_scope_fence_extras(text: str):
     """Extract advanced_vocabulary and advanced_concepts for scope_fence."""
     result = {}
-    avoid_m = re.search(
-        r"Terms to Avoid[^#\n]*\n((?:[*\-]\s*.+\n?)+)", text, re.IGNORECASE
-    )
+    avoid_m = re.search(r"Terms to Avoid[^#\n]*\n((?:[*\-]\s*.+\n?)+)", text, re.IGNORECASE)
     if avoid_m:
         items = re.findall(r'^[*\-]\s*"?([^"(\n]+)', avoid_m.group(1), re.MULTILINE)
         result["advanced_vocabulary"] = [i.strip() for i in items if i.strip()]
@@ -326,7 +322,9 @@ def _extract_scope_fence_extras(text: str):
 def _extract_standards(text: str):
     """Extract standards cascade table + module bridge paragraphs."""
     # ---- Cascade table --------------------------------------------------------
-    sec_m = re.search(r"### 1\.1\.1 Standards Cascade\n(.*?)(?=^###|\Z)", text, re.DOTALL | re.MULTILINE)
+    sec_m = re.search(
+        r"### 1\.1\.1 Standards Cascade\n(.*?)(?=^###|\Z)", text, re.DOTALL | re.MULTILINE
+    )
     if not sec_m:
         return None
 
@@ -352,10 +350,14 @@ def _extract_standards(text: str):
                 result[current_key].append(value)
 
     # ---- Bridge paragraphs ---------------------------------------------------
-    bridge_m = re.search(r"### 1\.1\.2 Module Bridges\n(.*?)(?=^##|\Z)", text, re.DOTALL | re.MULTILINE)
+    bridge_m = re.search(
+        r"### 1\.1\.2 Module Bridges\n(.*?)(?=^##|\Z)", text, re.DOTALL | re.MULTILINE
+    )
     if bridge_m:
         bridge = {}
-        for para_m in re.finditer(r"\*\*([^*]+):\*\*\s*(.+?)(?=\n\*\*[^*]+:\*\*|\Z)", bridge_m.group(1), re.DOTALL):
+        for para_m in re.finditer(
+            r"\*\*([^*]+):\*\*\s*(.+?)(?=\n\*\*[^*]+:\*\*|\Z)", bridge_m.group(1), re.DOTALL
+        ):
             raw_label = para_m.group(1).strip()
             content = re.sub(r"\s+", " ", para_m.group(2)).strip()
             # Normalise label: "From Module 10" → "from_module_10", "This Module" → "this_module"
@@ -365,7 +367,9 @@ def _extract_standards(text: str):
         if bridge:
             result["bridge"] = bridge
 
-    return result if any(result[k] for k in ("building_on", "addressing", "building_toward")) else None
+    return (
+        result if any(result[k] for k in ("building_on", "addressing", "building_toward")) else None
+    )
 
 
 def _extract_core_concepts(text: str):
@@ -383,7 +387,9 @@ def _extract_core_concepts(text: str):
 
 def _extract_variables(text: str):
     """Extract the Data Constraints table as a list of phase objects."""
-    sec_m = re.search(r"### \*{0,2}Data Constraints\*{0,2}\n(.*?)(?=^###|\Z)", text, re.DOTALL | re.MULTILINE)
+    sec_m = re.search(
+        r"### \*{0,2}Data Constraints\*{0,2}\n(.*?)(?=^###|\Z)", text, re.DOTALL | re.MULTILINE
+    )
     if not sec_m:
         return None
     table_m = re.search(r"((?:\|.+\n)+)", sec_m.group(1))
@@ -434,9 +440,7 @@ Rules:
 
 def _claude_fallback(markdown: str, missing_fields: list, verbose: bool) -> dict:
     """Use Claude to fill in fields that deterministic extraction missed."""
-    fields_description = "\n".join(
-        f"- {f}" for f in missing_fields
-    )
+    fields_description = "\n".join(f"- {f}" for f in missing_fields)
     prompt = _FALLBACK_PROMPT.format(
         markdown=markdown,
         fields_needed=fields_description,
@@ -505,7 +509,9 @@ def _update_misconceptions_registry(misconceptions: list, module_number: int, ve
         registry[mid] = entry
 
     # Write sorted by numeric ID
-    sorted_registry = dict(sorted(registry.items(), key=lambda x: int(x[0]) if x[0].isdigit() else 9999))
+    sorted_registry = dict(
+        sorted(registry.items(), key=lambda x: int(x[0]) if x[0].isdigit() else 9999)
+    )
     _MISCONCEPTIONS_REGISTRY.write_text(
         _json.dumps(sorted_registry, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",

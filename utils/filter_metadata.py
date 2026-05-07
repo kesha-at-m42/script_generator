@@ -1,8 +1,9 @@
 """Generic filter for Godot sequences by any metadata fields"""
+
 import json
 import sys
 from pathlib import Path
-from typing import List, Dict, Any, Tuple
+from typing import Any, Dict, List
 
 
 def parse_filter_args(args: List[str]) -> Dict[str, List[Any]]:
@@ -16,12 +17,12 @@ def parse_filter_args(args: List[str]) -> Dict[str, List[Any]]:
     filters = {}
 
     for arg in args:
-        if '=' not in arg:
+        if "=" not in arg:
             print(f"❌ Error: Invalid filter format '{arg}'")
-            print(f"   Expected format: field=value")
+            print("   Expected format: field=value")
             sys.exit(1)
 
-        field, value = arg.split('=', 1)
+        field, value = arg.split("=", 1)
         field = field.strip()
         value = value.strip()
 
@@ -46,7 +47,7 @@ def matches_filters(sequence: Dict[str, Any], filters: Dict[str, List[Any]]) -> 
     for that field is in the list of acceptable values.
     """
     # Get metadata (could be nested or at top level)
-    metadata = sequence.get('metadata', sequence)
+    metadata = sequence.get("metadata", sequence)
 
     for field, acceptable_values in filters.items():
         # Get the field value from metadata
@@ -75,7 +76,7 @@ def filter_by_metadata(input_file: str, filter_args: List[str]) -> None:
     filters = parse_filter_args(filter_args)
 
     print(f"Loading: {input_file}")
-    print(f"Filtering by:")
+    print("Filtering by:")
     for field, values in filters.items():
         values_str = ", ".join(str(v) for v in values)
         print(f"  • {field}: {values_str}")
@@ -83,7 +84,7 @@ def filter_by_metadata(input_file: str, filter_args: List[str]) -> None:
 
     # Load data
     try:
-        with open(input_file, 'r', encoding='utf-8') as f:
+        with open(input_file, "r", encoding="utf-8") as f:
             data = json.load(f)
     except FileNotFoundError:
         print(f"❌ Error: File not found: {input_file}")
@@ -93,7 +94,7 @@ def filter_by_metadata(input_file: str, filter_args: List[str]) -> None:
         print(f"   {e}")
         sys.exit(1)
 
-    sequences = data.get('sequences', [])
+    sequences = data.get("sequences", [])
     print(f"Total sequences: {len(sequences)}")
 
     # Filter sequences
@@ -105,7 +106,7 @@ def filter_by_metadata(input_file: str, filter_args: List[str]) -> None:
             filtered.append(seq)
 
             # Update counts for each field
-            metadata = seq.get('metadata', seq)
+            metadata = seq.get("metadata", seq)
             for field in filters.keys():
                 value = metadata.get(field)
                 if value in field_counts[field]:
@@ -120,7 +121,7 @@ def filter_by_metadata(input_file: str, filter_args: List[str]) -> None:
             print(f"    • {value}: {count}")
 
     if not filtered:
-        print(f"\n⚠️  No sequences found matching the specified filters")
+        print("\n⚠️  No sequences found matching the specified filters")
         sys.exit(0)
 
     # Create output filename based on filters
@@ -137,13 +138,10 @@ def filter_by_metadata(input_file: str, filter_args: List[str]) -> None:
     output_name = f"problem_pool_{'_'.join(filter_parts)}.json"
     output_file = input_path.parent / output_name
 
-    output_data = {
-        "@type": "SequencePool",
-        "sequences": filtered
-    }
+    output_data = {"@type": "SequencePool", "sequences": filtered}
 
     # Save filtered data
-    with open(output_file, 'w', encoding='utf-8') as f:
+    with open(output_file, "w", encoding="utf-8") as f:
         json.dump(output_data, f, indent=2)
 
     print(f"\n✅ Saved to: {output_file}")

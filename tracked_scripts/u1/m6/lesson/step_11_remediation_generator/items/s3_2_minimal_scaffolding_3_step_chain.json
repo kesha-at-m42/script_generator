@@ -6,7 +6,7 @@
         "condition": {
           "selected": "Compare dogs to fish"
         },
-        "description": "Student selected Compare dogs to fish: jumps to comparison without finding combined total first",
+        "description": "Student selected Compare dogs to fish, skipping the combined step",
         "is_correct": false,
         "steps": [
           [
@@ -24,7 +24,7 @@
             },
             {
               "type": "dialogue",
-              "text": "The question says fish and birds combined. That word combined tells us to add those two first, before we compare to dogs."
+              "text": "The question says fish and birds combined. That word combined tells us to add those two first."
             }
           ]
         ]
@@ -33,7 +33,7 @@
         "condition": {
           "selected": "Subtract birds from dogs"
         },
-        "description": "Student selected Subtract birds from dogs: attempts to subtract before finding the combined total",
+        "description": "Student selected Subtract birds from dogs, missing the combined step",
         "is_correct": false,
         "steps": [
           [
@@ -51,7 +51,7 @@
             },
             {
               "type": "dialogue",
-              "text": "Before we compare dogs to anything, we need the total of fish and birds combined. Look for the word combined in the question."
+              "text": "Look at the question again. It asks about fish and birds combined. When you see combined, find that total first."
             }
           ]
         ]
@@ -60,7 +60,7 @@
         "condition": {
           "selected": "Add all pets"
         },
-        "description": "Student selected Add all pets: adds all categories instead of just the two mentioned as combined",
+        "description": "Student selected Add all pets, including categories not needed",
         "is_correct": false,
         "steps": [
           [
@@ -78,14 +78,14 @@
             },
             {
               "type": "dialogue",
-              "text": "We don't need all four categories. The question asks about fish and birds combined, so we only add those two."
+              "text": "We don't need all the pets. The question only asks about fish and birds combined. Which categories does the question mention?"
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student answered incorrectly. System models the correct strategy.",
+        "description": "Student answered incorrectly. System models the correct answer.",
         "is_correct": false,
         "steps": [
           [
@@ -94,14 +94,14 @@
               "method": "animate",
               "tangible_id": "bar_graph_pets",
               "params": {
-                "event": "show_calculation",
+                "event": "highlight_sequence",
                 "status": "confirmed",
-                "description": "Fish (30) and Birds (25) bars highlight. Calculation appears: 30 + 25 = 55"
+                "description": "Fish and Birds bars highlight, then Dogs bar highlights."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you the strategy. The question says fish and birds combined. That word combined tells me to add those first. Fish is 30, birds is 25, so 30 plus 25 is 55. Now I can compare: dogs is 65, combined is 55, so 65 minus 55 is 10 more. The answer is add fish and birds. We always find the combined total before we compare."
+              "text": "Let me show you. The question says fish and birds combined. Combined means add those first. Fish is 30, birds is 25, so 30 plus 25 is 55. Now we compare. Dogs is 65, combined is 55, so 65 minus 55 is 10. The answer is 10 more dogs. The strategy is: find the combined total first, then compare."
             }
           ]
         ]
@@ -112,7 +112,7 @@
         "condition": {
           "selected": 5
         },
-        "description": "Student selected 5: subtracted values instead of adding them (30 - 25 = 5)",
+        "description": "Student selected 5, subtracted fish and birds instead of adding",
         "is_correct": false,
         "steps": [
           [
@@ -125,12 +125,12 @@
                   "Fish",
                   "Birds"
                 ],
-                "description": "Fish and Birds bars remain highlighted."
+                "description": "Fish and Birds bars highlight."
               }
             },
             {
               "type": "dialogue",
-              "text": "The question asks for combined. Combined means add, not subtract. Add the values for fish and birds."
+              "text": "The question asks for fish and birds combined. Combined means add. What is 30 plus 25?"
             }
           ]
         ]
@@ -139,7 +139,7 @@
         "condition": {
           "selected": 45
         },
-        "description": "Student selected 45: calculation error or misread graph values",
+        "description": "Student selected 45, incorrect calculation",
         "is_correct": false,
         "steps": [
           [
@@ -152,12 +152,12 @@
                   "Fish",
                   "Birds"
                 ],
-                "description": "Fish and Birds bars remain highlighted."
+                "description": "Fish and Birds bars highlight."
               }
             },
             {
               "type": "dialogue",
-              "text": "Count carefully. Fish is at 30, birds is at 25. Count by tens on this scale, then add the extra marks."
+              "text": "Count carefully. Fish is 30, birds is 25. Add those numbers. What is 30 plus 25?"
             }
           ]
         ]
@@ -166,7 +166,7 @@
         "condition": {
           "selected": 65
         },
-        "description": "Student selected 65: chose the dogs value instead of finding fish and birds combined",
+        "description": "Student selected 65, gave the dogs value instead of the combined total",
         "is_correct": false,
         "steps": [
           [
@@ -179,12 +179,12 @@
                   "Fish",
                   "Birds"
                 ],
-                "description": "Fish and Birds bars remain highlighted."
+                "description": "Fish and Birds bars highlight."
               }
             },
             {
               "type": "dialogue",
-              "text": "That's the dogs value. We need fish and birds combined. Look at the highlighted bars and add those two values."
+              "text": "That's the number of dogs. We need fish and birds combined. Look at those two bars. What is 30 plus 25?"
             }
           ]
         ]
@@ -200,14 +200,14 @@
               "method": "animate",
               "tangible_id": "bar_graph_pets",
               "params": {
-                "event": "show_calculation",
+                "event": "show_addition",
                 "status": "confirmed",
-                "description": "Calculation animates: 30 + 25 = 55"
+                "description": "Fish bar (30) and Birds bar (25) highlight, calculation 30 + 25 = 55 displays."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. Fish is at 30 on the scale. Birds is at 25. When we combine them, we add: 30 plus 25 equals 55. The combined total is 55. That's what combined means: add the values together."
+              "text": "Here's how to find it. Fish is 30. Birds is 25. When we add them, 30 plus 25 is 55. The combined total is 55."
             }
           ]
         ]
@@ -218,7 +218,7 @@
         "condition": {
           "selected": 120
         },
-        "description": "Student selected 120: added instead of subtracting (65 + 55 = 120)",
+        "description": "Student selected 120, added dogs to the combined total instead of subtracting",
         "is_correct": false,
         "steps": [
           [
@@ -230,12 +230,12 @@
                 "highlight_categories": [
                   "Dogs"
                 ],
-                "description": "Dogs bar remains highlighted."
+                "description": "Dogs bar highlights."
               }
             },
             {
               "type": "dialogue",
-              "text": "How many more means compare. Compare means subtract, not add. Dogs is 65, combined is 55. Subtract to find the difference."
+              "text": "The question asks how many MORE. How many more means compare, and compare means subtract. What is 65 minus 55?"
             }
           ]
         ]
@@ -244,7 +244,7 @@
         "condition": {
           "selected": 65
         },
-        "description": "Student selected 65: gave the dogs value instead of finding the difference",
+        "description": "Student selected 65, gave the dogs value instead of the difference",
         "is_correct": false,
         "steps": [
           [
@@ -256,12 +256,12 @@
                 "highlight_categories": [
                   "Dogs"
                 ],
-                "description": "Dogs bar remains highlighted."
+                "description": "Dogs bar highlights."
               }
             },
             {
               "type": "dialogue",
-              "text": "That's how many dogs there are. The question asks how many more dogs than the combined total. We need the difference between 65 and 55."
+              "text": "That's how many dogs there are. The question asks how many MORE dogs than the combined total. Dogs is 65, combined is 55. Find the difference."
             }
           ]
         ]
@@ -270,7 +270,7 @@
         "condition": {
           "selected": 55
         },
-        "description": "Student selected 55: gave the combined total instead of finding the difference",
+        "description": "Student selected 55, gave the combined total instead of the difference",
         "is_correct": false,
         "steps": [
           [
@@ -282,12 +282,12 @@
                 "highlight_categories": [
                   "Dogs"
                 ],
-                "description": "Dogs bar remains highlighted."
+                "description": "Dogs bar highlights."
               }
             },
             {
               "type": "dialogue",
-              "text": "That's the combined total. Now we need to compare. Dogs is 65, combined is 55. How many more means subtract those two numbers."
+              "text": "That's the combined total of fish and birds. Now we need to compare. Dogs is 65, combined is 55. How many more is 65 than 55?"
             }
           ]
         ]
@@ -303,19 +303,19 @@
               "method": "animate",
               "tangible_id": "bar_graph_pets",
               "params": {
-                "event": "show_calculation",
+                "event": "show_comparison",
                 "status": "confirmed",
-                "description": "Comparison animation shows: 65 - 55 = 10"
+                "description": "Dogs bar highlights, comparison shows 65 vs 55, calculation 65 minus 55 = 10 displays."
               }
             },
             {
               "type": "dialogue",
-              "text": "Here's the comparison. Dogs is 65. Fish and birds combined is 55. How many more means we subtract: 65 minus 55 equals 10. There are 10 more dogs than fish and birds combined. This is a two-step problem: first we found the combined total of 55, then we compared it to dogs at 65. The answer is 10."
+              "text": "Let me show you the final step. We found that fish and birds combined is 55. Dogs is 65. Now we compare. How many more means subtract. 65 minus 55 is 10. The answer is 10 more dogs. This shows the strategy: find the combined total first, then compare to answer the question."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:05:22.201579+00:00"
+  "_generated_at": "2026-04-27T16:00:18.883297+00:00"
 }

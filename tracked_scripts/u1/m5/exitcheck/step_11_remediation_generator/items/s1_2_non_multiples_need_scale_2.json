@@ -6,7 +6,7 @@
         "condition": {
           "selected": "Scale of 5"
         },
-        "description": "Student selected Scale of 5",
+        "description": "Student selected Scale of 5 — data values are not multiples of 5",
         "is_correct": false,
         "steps": [
           [
@@ -16,17 +16,17 @@
               "tangible_id": "data_table",
               "params": {
                 "highlight_values": [
-                  "23",
-                  "31",
-                  "9",
-                  "16"
+                  23,
+                  31,
+                  9,
+                  16
                 ],
-                "description": "All four values highlighted in data table."
+                "description": "All four data values highlight in the table."
               }
             },
             {
               "type": "dialogue",
-              "text": "Scale of 5 works for multiples of 5. Check the ones place digits: 3, 1, 9, 6. Do any end in 0 or 5?"
+              "text": "Look at the ones place in each number. Do they end in 0 or 5? Which scale shows ANY whole number exactly?"
             }
           ]
         ]
@@ -35,7 +35,7 @@
         "condition": {
           "selected": "Scale of 10"
         },
-        "description": "Student selected Scale of 10",
+        "description": "Student selected Scale of 10 — scale too large for small data range",
         "is_correct": false,
         "steps": [
           [
@@ -45,22 +45,21 @@
               "tangible_id": "data_table",
               "params": {
                 "highlight_values": [
-                  "23",
-                  "31"
+                  31
                 ],
-                "description": "23 and 31 highlighted in data table."
+                "description": "Hal's value (31, the maximum) highlights in the table."
               }
             },
             {
               "type": "dialogue",
-              "text": "Scale of 10 only shows exact values for multiples of 10. Look at 23 and 31. Neither ends in 0, so where would they land on the graph?"
+              "text": "The biggest number is only 31. Scale of 10 would only show 0, 10, 20, 30. Where would 31 land? Which smaller scale can show exact values?"
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student answered incorrectly. System models the correct answer.",
+        "description": "Student gave a wrong answer not covered by a specific Medium. System models the correct answer.",
         "is_correct": false,
         "steps": [
           [
@@ -70,32 +69,22 @@
               "tangible_id": "data_table",
               "params": {
                 "highlight_values": [
-                  "23",
-                  "31",
-                  "9",
-                  "16"
+                  23,
+                  31,
+                  9,
+                  16
                 ],
-                "description": "All four values highlighted in data table."
-              }
-            },
-            {
-              "type": "scene",
-              "method": "animate",
-              "tangible_id": "data_table",
-              "params": {
-                "event": "highlight_ones_digits",
-                "status": "confirmed",
-                "description": "Ones place digits pulse: 3, 1, 9, 6."
+                "description": "All four values highlight in the data table."
               }
             },
             {
               "type": "dialogue",
-              "text": "Here's how to know. Look at the ones place: 3, 1, 9, 6. Not a single 0 or 5, so these numbers aren't multiples of 5. Scales of 5 and 10 won't show them exactly. But Scale of 2 can show any whole number exactly because half of 2 is 1. The answer is Scale of 2."
+              "text": "Let me walk you through the thinking. First, check the biggest number: 31. That fits with several scales. Next, look at the ones digits: 3, 1, 9, 6. None are 0 or 5, so these aren't multiples of 5. When numbers don't end in 0 or 5, Scale of 2 is the choice that shows every whole number exactly. The answer is Scale of 2 because it works for any whole number."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:00:07.213670+00:00"
+  "_generated_at": "2026-05-05T20:07:47.814321+00:00"
 }

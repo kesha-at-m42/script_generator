@@ -2,12 +2,12 @@
 Centralized output handling utilities for both interactive and non-interactive modes.
 """
 
+import contextlib
 import io
 import json
-import contextlib
-import sys
 from pathlib import Path
-from typing import Optional, Any, List, Dict
+from typing import Dict, Optional
+
 import streamlit as st
 
 
@@ -15,6 +15,7 @@ class StreamingConsoleCapture(io.StringIO):
     """
     Custom StringIO that captures output AND displays it in real-time to Streamlit.
     """
+
     def __init__(self, display_container):
         super().__init__()
         self.display_container = display_container
@@ -28,7 +29,7 @@ class StreamingConsoleCapture(io.StringIO):
         if text:
             self.lines.append(text)
             # Update the display container with all accumulated output
-            full_output = ''.join(self.lines)
+            full_output = "".join(self.lines)
             self.display_container.code(full_output, language="log")
 
         return result
@@ -90,10 +91,7 @@ def display_console_output(output: str, language: str = "log"):
 
 
 def render_file_content(
-    file_path: Path,
-    show_raw_view: bool = False,
-    expanded: bool = True,
-    use_text_area: bool = False
+    file_path: Path, show_raw_view: bool = False, expanded: bool = True, use_text_area: bool = False
 ):
     """
     Render file content based on file type with appropriate formatting.
@@ -113,10 +111,10 @@ def render_file_content(
         bool: True if rendering succeeded, False otherwise
     """
     try:
-        content = file_path.read_text(encoding='utf-8')
+        content = file_path.read_text(encoding="utf-8")
         suffix = file_path.suffix.lower()
 
-        if suffix == '.md':
+        if suffix == ".md":
             # Markdown preview
             if show_raw_view:
                 st.markdown("**Markdown Preview:**")
@@ -126,7 +124,7 @@ def render_file_content(
                 with st.expander("📝 Raw Markdown", expanded=False):
                     st.code(content, language="markdown")
 
-        elif suffix == '.json':
+        elif suffix == ".json":
             # JSON preview
             if show_raw_view:
                 st.markdown("**JSON Preview:**")
@@ -171,8 +169,8 @@ def open_output_folder(output_dir: Path, button_key: Optional[str] = None):
         bool: True if button was clicked and folder opened, False otherwise
     """
     if st.button("📂 Open Output Folder", key=button_key):
-        import subprocess
         import platform
+        import subprocess
 
         try:
             system = platform.system()
@@ -191,9 +189,7 @@ def open_output_folder(output_dir: Path, button_key: Optional[str] = None):
 
 
 def display_file_with_download(
-    file_path: Path,
-    show_raw_view: bool = True,
-    use_text_area: bool = False
+    file_path: Path, show_raw_view: bool = True, use_text_area: bool = False
 ):
     """
     Display file content with a download button.
@@ -204,21 +200,17 @@ def display_file_with_download(
         use_text_area: Whether to use text_area for other files
     """
     try:
-        content = file_path.read_text(encoding='utf-8')
+        content = file_path.read_text(encoding="utf-8")
 
         # Render the file
-        render_file_content(
-            file_path,
-            show_raw_view=show_raw_view,
-            use_text_area=use_text_area
-        )
+        render_file_content(file_path, show_raw_view=show_raw_view, use_text_area=use_text_area)
 
         # Download button
         st.download_button(
             label=f"⬇️ Download {file_path.name}",
             data=content,
             file_name=file_path.name,
-            mime="text/plain"
+            mime="text/plain",
         )
 
     except Exception as e:
@@ -230,7 +222,7 @@ def display_unified_output(
     console_output: Optional[str] = None,
     show_all_files: bool = True,
     result: Optional[Dict] = None,
-    button_key_prefix: str = "output"
+    button_key_prefix: str = "output",
 ):
     """
     Unified output display component for both interactive and non-interactive modes.
@@ -276,7 +268,7 @@ def display_unified_output(
             "Select file to preview",
             options=output_files,
             format_func=lambda x: f"{x.name} ({_format_file_time(x)})",
-            key=f"{button_key_prefix}_file_selector"
+            key=f"{button_key_prefix}_file_selector",
         )
     else:
         # Show only the latest file
@@ -289,7 +281,7 @@ def display_unified_output(
         display_file_with_download(
             selected_file,
             show_raw_view=True,
-            use_text_area=(len(output_files) > 1)  # Use text area when browsing multiple files
+            use_text_area=(len(output_files) > 1),  # Use text area when browsing multiple files
         )
 
     # Open folder button
@@ -310,8 +302,9 @@ def _format_file_time(file_path: Path) -> str:
     """Helper function to format file modification time."""
     try:
         from datetime import datetime
+
         mtime = file_path.stat().st_mtime
         dt = datetime.fromtimestamp(mtime)
         return dt.strftime("%H:%M:%S")
-    except:
+    except Exception:
         return ""

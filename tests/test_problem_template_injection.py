@@ -11,6 +11,7 @@ sys.path.insert(0, str(Path(__file__).parent / "utils"))
 
 from prompt_builder_old import PromptBuilder
 
+
 def test_interaction_designer_with_template_ref():
     """Test that INTERACTION_DESIGNER_TEMPLATE_REF fields are auto-fetched"""
 
@@ -45,19 +46,19 @@ def test_interaction_designer_with_template_ref():
             prompt_id="interaction_designer",
             variables={
                 "question_data": question_data,
-                "goal_id": 1  # This triggers problem template fetching
-            }
+                "goal_id": 1,  # This triggers problem template fetching
+            },
         )
 
         # Check if prompt was built
         if isinstance(result, tuple):
             prompt, prefill = result
-            print(f"\n✓ Prompt built successfully with prefill!")
+            print("\n✓ Prompt built successfully with prefill!")
             print(f"  Prompt length: {len(prompt)} characters")
             print(f"  Prefill length: {len(prefill)} characters")
         else:
             prompt = result
-            print(f"\n✓ Prompt built successfully!")
+            print("\n✓ Prompt built successfully!")
             print(f"  Total length: {len(prompt)} characters")
 
         # Check if 'tools' field was injected
@@ -73,6 +74,7 @@ def test_interaction_designer_with_template_ref():
     except Exception as e:
         print(f"\n✗ Error during prompt building: {e}")
         import traceback
+
         traceback.print_exc()
         return False
 
@@ -85,8 +87,6 @@ def test_with_different_goals():
     print("\n" + "=" * 70)
     print("TEST: Multiple Goals - Different Tools")
     print("=" * 70)
-
-    builder = PromptBuilder(module_number=1, path_letter="a", verbose=True)
 
     test_cases = [
         {"goal_id": 1, "expected_tools": ["cut"]},

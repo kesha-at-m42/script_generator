@@ -23,7 +23,7 @@ class AIValidator:
     def _load_prompt_template(self, validation_type: str) -> str:
         """Load validation prompt template"""
         prompt_file = self.prompts_dir / f"{validation_type}_validator.txt"
-        with open(prompt_file, 'r', encoding='utf-8') as f:
+        with open(prompt_file, "r", encoding="utf-8") as f:
             return f.read()
 
     def _fill_template(self, template: str, variables: dict) -> str:
@@ -46,29 +46,27 @@ class AIValidator:
             template = self._load_prompt_template("question")
 
             # Prepare misconceptions text
-            misconceptions_text = "\n".join([
-                f"- {m['misconception']}: {m['description']}"
-                for m in module_data.get('misconceptions', [])
-            ])
+            misconceptions_text = "\n".join(
+                [
+                    f"- {m['misconception']}: {m['description']}"
+                    for m in module_data.get("misconceptions", [])
+                ]
+            )
 
             variables = {
-                'module_name': module_data.get('module_name', 'Unknown'),
-                'grade_level': module_data.get('grade_level', 'Unknown'),
-                'goal': question.get('goal', 'Unknown'),
-                'difficulty_level': question.get('difficulty_level', 'Unknown'),
-                'cognitive_type': question.get('cognitive_type', 'Unknown'),
-                'misconceptions': misconceptions_text,
-                'question_json': json.dumps(question, indent=2)
+                "module_name": module_data.get("module_name", "Unknown"),
+                "grade_level": module_data.get("grade_level", "Unknown"),
+                "goal": question.get("goal", "Unknown"),
+                "difficulty_level": question.get("difficulty_level", "Unknown"),
+                "cognitive_type": question.get("cognitive_type", "Unknown"),
+                "misconceptions": misconceptions_text,
+                "question_json": json.dumps(question, indent=2),
             }
 
             prompt = self._fill_template(template, variables)
 
             # Call Claude
-            response = self.client.generate(
-                prompt,
-                max_tokens=2000,
-                temperature=0.3
-            )
+            response = self.client.generate(prompt, max_tokens=2000, temperature=0.3)
 
             # Parse response
             if "```json" in response:
@@ -81,10 +79,10 @@ class AIValidator:
             result = json.loads(response_json)
 
             # Extract score (0-100 scale)
-            overall_score = result.get('overall_score', 0) * 10  # Convert 0-10 to 0-100
+            overall_score = result.get("overall_score", 0) * 10  # Convert 0-10 to 0-100
 
             # Determine validity
-            is_valid = result.get('recommendation', 'REJECT').upper() == 'ACCEPT'
+            is_valid = result.get("recommendation", "REJECT").upper() == "ACCEPT"
 
             return is_valid, overall_score, result
 
@@ -92,7 +90,7 @@ class AIValidator:
             if self.verbose:
                 print(f"    ⚠️  AI validation error: {e}")
             # Return neutral score on error
-            return True, 50.0, {'error': str(e)}
+            return True, 50.0, {"error": str(e)}
 
     def validate_interaction(self, sequence: dict, module_data: dict) -> Tuple[bool, float, dict]:
         """
@@ -104,26 +102,24 @@ class AIValidator:
         try:
             template = self._load_prompt_template("interaction")
 
-            misconceptions_text = "\n".join([
-                f"- {m['misconception']}: {m['description']}"
-                for m in module_data.get('misconceptions', [])
-            ])
+            misconceptions_text = "\n".join(
+                [
+                    f"- {m['misconception']}: {m['description']}"
+                    for m in module_data.get("misconceptions", [])
+                ]
+            )
 
             variables = {
-                'module_name': module_data.get('module_name', 'Unknown'),
-                'grade_level': module_data.get('grade_level', 'Unknown'),
-                'goal': sequence.get('goal', 'Unknown'),
-                'misconceptions': misconceptions_text,
-                'sequence_json': json.dumps(sequence, indent=2)
+                "module_name": module_data.get("module_name", "Unknown"),
+                "grade_level": module_data.get("grade_level", "Unknown"),
+                "goal": sequence.get("goal", "Unknown"),
+                "misconceptions": misconceptions_text,
+                "sequence_json": json.dumps(sequence, indent=2),
             }
 
             prompt = self._fill_template(template, variables)
 
-            response = self.client.generate(
-                prompt,
-                max_tokens=2500,
-                temperature=0.3
-            )
+            response = self.client.generate(prompt, max_tokens=2500, temperature=0.3)
 
             # Parse response
             if "```json" in response:
@@ -135,15 +131,15 @@ class AIValidator:
 
             result = json.loads(response_json)
 
-            overall_score = result.get('overall_score', 0) * 10
-            is_valid = result.get('recommendation', 'REJECT').upper() == 'ACCEPT'
+            overall_score = result.get("overall_score", 0) * 10
+            is_valid = result.get("recommendation", "REJECT").upper() == "ACCEPT"
 
             return is_valid, overall_score, result
 
         except Exception as e:
             if self.verbose:
                 print(f"    ⚠️  AI validation error: {e}")
-            return True, 50.0, {'error': str(e)}
+            return True, 50.0, {"error": str(e)}
 
     def validate_batch(self, items: List[dict], validation_type: str, module_data: dict) -> Dict:
         """
@@ -162,8 +158,8 @@ class AIValidator:
             }
         """
         validator_map = {
-            'question': self.validate_question,
-            'interaction': self.validate_interaction
+            "question": self.validate_question,
+            "interaction": self.validate_interaction,
         }
 
         validator = validator_map.get(validation_type)
@@ -173,7 +169,7 @@ class AIValidator:
         results = []
         for idx, item in enumerate(items):
             if self.verbose:
-                print(f"    Validating item {idx + 1}/{len(items)}...", end=' ')
+                print(f"    Validating item {idx + 1}/{len(items)}...", end=" ")
 
             is_valid, score, details = validator(item, module_data)
 
@@ -181,15 +177,10 @@ class AIValidator:
                 status = "✓" if is_valid else "✗"
                 print(f"{status} (score: {score:.1f}/100)")
 
-            results.append({
-                'item': item,
-                'is_valid': is_valid,
-                'score': score,
-                'details': details
-            })
+            results.append({"item": item, "is_valid": is_valid, "score": score, "details": details})
 
-        valid_count = sum(1 for r in results if r['is_valid'])
-        avg_score = sum(r['score'] for r in results) / len(results) if results else 0
+        valid_count = sum(1 for r in results if r["is_valid"])
+        avg_score = sum(r["score"] for r in results) / len(results) if results else 0
 
         if self.verbose:
             print(f"\n  AI Validation ({validation_type}):")
@@ -199,8 +190,8 @@ class AIValidator:
             print(f"    Avg Score: {avg_score:.1f}/100")
 
         return {
-            'total': len(items),
-            'valid': valid_count,
-            'invalid': len(items) - valid_count,
-            'results': results
+            "total": len(items),
+            "valid": valid_count,
+            "invalid": len(items) - valid_count,
+            "results": results,
         }

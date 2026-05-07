@@ -11,11 +11,13 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-from dotenv import load_dotenv
+from dotenv import load_dotenv  # noqa: E402
+
 load_dotenv(project_root / ".env")
 
-from notion_client import Client
-from utils.notion import lesson_to_blocks
+from notion_client import Client  # noqa: E402
+
+from utils.notion import lesson_to_blocks  # noqa: E402
 
 PARENT_PAGE_ID = os.environ["NOTION_PARENT_PAGE_ID"]
 TEST_FILE = Path(__file__).parent / "s2_4_branching_test.json"
@@ -34,6 +36,6 @@ print(f"Created page: https://notion.so/{page_id.replace('-', '')}")
 
 # Append in chunks of 100 (Notion API limit)
 for i in range(0, len(blocks), 100):
-    client.blocks.children.append(block_id=page_id, children=blocks[i:i+100])
+    client.blocks.children.append(block_id=page_id, children=blocks[i : i + 100])
 
 print("Done.")

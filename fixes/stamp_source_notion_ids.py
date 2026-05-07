@@ -51,7 +51,12 @@ def _parse_registry_key(key: str) -> tuple[str, str, str] | None:
     m = _PIPELINE_RE.match(parts[2])
     if not m:
         return None
-    type_map = {"lesson": "lesson", "warmup": "warmup", "exitcheck": "exitcheck", "synthesis": "synthesis"}
+    type_map = {
+        "lesson": "lesson",
+        "warmup": "warmup",
+        "exitcheck": "exitcheck",
+        "synthesis": "synthesis",
+    }
     return unit, type_map[m.group(1)], m.group(2)
 
 
@@ -65,8 +70,7 @@ def _find_source_json(tracked_dir: Path) -> Path | None:
         if re.match(r"^step_\d+_(pull|push)$", step_dir.name):
             continue
         candidates = [
-            f for f in step_dir.glob("*.json")
-            if f.name not in _SKIP_FILES and "flag" not in f.name
+            f for f in step_dir.glob("*.json") if f.name not in _SKIP_FILES and "flag" not in f.name
         ]
         for f in candidates:
             try:
@@ -95,6 +99,7 @@ def _count_beats(sections: list, stamped_only: bool = False) -> Counter:
 
 def _all_blocks_from_notion(client, page_id: str) -> list[dict]:
     from utils.notion import _all_blocks
+
     return _all_blocks(client, page_id, recursive=True)
 
 
@@ -141,12 +146,13 @@ def _stamp_tracked_dir(tracked_dir: Path, page_id: str, client, dry_run: bool) -
 
         # Also save notion_blocks.json into the push step dir for future use
         push_dirs = [
-            d for d in tracked_dir.iterdir()
-            if d.is_dir() and re.match(r"^step_\d+_push$", d.name)
+            d for d in tracked_dir.iterdir() if d.is_dir() and re.match(r"^step_\d+_push$", d.name)
         ]
         if push_dirs:
             blocks_path = sorted(push_dirs)[-1] / "notion_blocks.json"
-            blocks_path.write_text(json.dumps(blocks, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+            blocks_path.write_text(
+                json.dumps(blocks, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+            )
 
     rel = source.relative_to(project_root)
     prefix = "DRY   " if dry_run else "OK    "
@@ -157,7 +163,13 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--unit", default="u1", help="e.g. u1")
-    parser.add_argument("--module", action="append", dest="modules", metavar="N", help="Module number(s), repeatable")
+    parser.add_argument(
+        "--module",
+        action="append",
+        dest="modules",
+        metavar="N",
+        help="Module number(s), repeatable",
+    )
     args = parser.parse_args()
 
     if not is_configured():

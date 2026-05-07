@@ -9,16 +9,16 @@ Examples:
     python compare.py problem_generator v1 v2 --detail
 """
 
-import sys
 import argparse
-from pathlib import Path
 import json
+import sys
+from pathlib import Path
 
 
 def main():
     parser = argparse.ArgumentParser(
         description="Compare two versions of a pipeline",
-        formatter_class=argparse.RawDescriptionHelpFormatter
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument("pipeline_name", help="Name of the pipeline")
     parser.add_argument("version1", help="First version (e.g., v0)")
@@ -54,25 +54,25 @@ def main():
     v2_meta = {}
 
     if v1_metadata_path.exists():
-        with open(v1_metadata_path, 'r', encoding='utf-8') as f:
+        with open(v1_metadata_path, "r", encoding="utf-8") as f:
             v1_meta = json.load(f)
 
     if v2_metadata_path.exists():
-        with open(v2_metadata_path, 'r', encoding='utf-8') as f:
+        with open(v2_metadata_path, "r", encoding="utf-8") as f:
             v2_meta = json.load(f)
 
     # Print comparison
-    print(f"\n{'='*70}")
+    print(f"\n{'=' * 70}")
     print(f"COMPARING: {args.pipeline_name}")
     print(f"{args.version1} vs {args.version2}")
-    print(f"{'='*70}\n")
+    print(f"{'=' * 70}\n")
 
     # Compare metadata
-    print(f"Version Info:")
+    print("Version Info:")
     print(f"  {args.version1}:")
     print(f"    Created: {v1_meta.get('timestamp', 'N/A')}")
     print(f"    Status: {v1_meta.get('pipeline_status', 'N/A')}")
-    if v1_meta.get('notes'):
+    if v1_meta.get("notes"):
         print(f"    Notes: {v1_meta['notes']}")
     print(f"    Mode: {v1_meta.get('mode', 'N/A')}")
     print(f"    Duration: {v1_meta.get('duration_seconds', 0):.1f}s")
@@ -80,11 +80,11 @@ def main():
     print(f"  {args.version2}:")
     print(f"    Created: {v2_meta.get('timestamp', 'N/A')}")
     print(f"    Status: {v2_meta.get('pipeline_status', 'N/A')}")
-    if v2_meta.get('notes'):
+    if v2_meta.get("notes"):
         print(f"    Notes: {v2_meta['notes']}")
     print(f"    Mode: {v2_meta.get('mode', 'N/A')}")
     print(f"    Duration: {v2_meta.get('duration_seconds', 0):.1f}s")
-    if v2_meta.get('base_version'):
+    if v2_meta.get("base_version"):
         print(f"    Base: {v2_meta['base_version']}")
 
     # Compare items
@@ -104,7 +104,7 @@ def main():
     only_in_v2 = v2_items - v1_items
     in_both = v1_items & v2_items
 
-    print(f"\nItems:")
+    print("\nItems:")
     print(f"  Total in {args.version1}: {len(v1_items)}")
     print(f"  Total in {args.version2}: {len(v2_items)}")
     print(f"  In both: {len(in_both)}")
@@ -116,7 +116,7 @@ def main():
 
     # Show changed items if detail mode
     if args.detail and in_both:
-        print(f"\nDetailed Comparison:")
+        print("\nDetailed Comparison:")
         for item_id in sorted(in_both):
             # Compare outputs for this item
             v1_item_dir = v1_items_dir / item_id
@@ -127,11 +127,11 @@ def main():
 
             if v1_outputs != v2_outputs:
                 print(f"\n  Item {item_id}:")
-                print(f"    Different output files")
+                print("    Different output files")
                 print(f"    {args.version1}: {sorted(v1_outputs)}")
                 print(f"    {args.version2}: {sorted(v2_outputs)}")
 
-    print(f"\n{'='*70}")
+    print(f"\n{'=' * 70}")
 
 
 if __name__ == "__main__":

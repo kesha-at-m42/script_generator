@@ -63,7 +63,6 @@ def merge_remediation(data, output_file_path=None):
         output_file_path: path where this step's output will be saved; used to
                           locate the original sections from a prior step
     """
-    from utils.pipeline_utils import find_prior_sections_file
 
     original_by_id = {}
     if output_file_path is not None:
@@ -117,4 +116,5 @@ def merge_remediation(data, output_file_path=None):
     # legacy steps format (arrays-of-arrays). id_stamper is idempotent so this
     # is safe even if beats were already stamped by an earlier pipeline step.
     from steps.formatting.id_stamper import stamp_ids
+
     return stamp_ids(result, output_file_path=output_file_path)

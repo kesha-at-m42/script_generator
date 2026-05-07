@@ -10,6 +10,7 @@ if str(project_root) not in sys.path:
 
 from core.claude_client import ClaudeClient
 
+
 def test_cache_control():
     """Test that cache control works with consecutive API calls"""
     print("Testing Prompt Caching with Claude API")
@@ -18,7 +19,8 @@ def test_cache_control():
     client = ClaudeClient()
 
     # Create a large static system content that should be cached
-    large_doc = """
+    large_doc = (
+        """
     This is a large documentation block that simulates real documentation.
     It contains multiple paragraphs and should be cached for cost savings.
 
@@ -44,22 +46,15 @@ def test_cache_control():
     Section 5: Troubleshooting
     Common issues and their solutions are documented here.
     This helps users resolve problems quickly and efficiently.
-    """ * 5  # Repeat 5 times to make it larger (meet minimum cache size)
+    """
+        * 5
+    )  # Repeat 5 times to make it larger (meet minimum cache size)
 
     # Build system blocks with cache control
     system_blocks = [
-        {
-            "type": "text",
-            "text": "You are a helpful assistant."
-        },
-        {
-            "type": "text",
-            "text": f"<documentation>\n{large_doc}\n</documentation>"
-        },
-        {
-            "type": "text",
-            "text": "Always respond concisely and accurately."
-        }
+        {"type": "text", "text": "You are a helpful assistant."},
+        {"type": "text", "text": f"<documentation>\n{large_doc}\n</documentation>"},
+        {"type": "text", "text": "Always respond concisely and accurately."},
     ]
 
     print("\n[TEST 1] First API call - should CREATE cache")
@@ -69,12 +64,12 @@ def test_cache_control():
         system=system_blocks,
         user_message="Say 'First request' and nothing else.",
         max_tokens=50,
-        temperature=0.5
+        temperature=0.5,
     )
 
     print(f"Response: {response1}")
     stats1 = client.get_stats()
-    print(f"\nStats after first call:")
+    print("\nStats after first call:")
     print(f"  Input tokens: {stats1['input_tokens']}")
     print(f"  Output tokens: {stats1['output_tokens']}")
     print(f"  Cache creation tokens: {stats1.get('cache_creation_tokens', 0)}")
@@ -87,26 +82,26 @@ def test_cache_control():
         system=system_blocks,  # Same system blocks
         user_message="Say 'Second request' and nothing else.",  # Different user message
         max_tokens=50,
-        temperature=0.5
+        temperature=0.5,
     )
 
     print(f"Response: {response2}")
     stats2 = client.get_stats()
-    print(f"\nStats after second call:")
+    print("\nStats after second call:")
     print(f"  Input tokens: {stats2['input_tokens']}")
     print(f"  Output tokens: {stats2['output_tokens']}")
     print(f"  Cache creation tokens: {stats2.get('cache_creation_tokens', 0)}")
     print(f"  Cache read tokens: {stats2.get('cache_read_tokens', 0)}")
 
-    if 'cache_savings' in stats2:
+    if "cache_savings" in stats2:
         print(f"  Cache savings: {stats2['cache_savings']}")
 
     print("\n" + "=" * 70)
     print("[VERIFICATION]")
 
     # Verify caching worked
-    cache_created = stats2.get('cache_creation_tokens', 0) > 0
-    cache_hit = stats2.get('cache_read_tokens', 0) > 0
+    cache_created = stats2.get("cache_creation_tokens", 0) > 0
+    cache_hit = stats2.get("cache_read_tokens", 0) > 0
 
     if cache_created:
         print("[OK] Cache was created on first request")
@@ -121,6 +116,7 @@ def test_cache_control():
         print("[INFO] Cache may need more time or larger content")
 
     print("=" * 70)
+
 
 if __name__ == "__main__":
     test_cache_control()

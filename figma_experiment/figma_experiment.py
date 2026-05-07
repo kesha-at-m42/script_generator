@@ -13,10 +13,10 @@ import os
 from pathlib import Path
 
 import anthropic
-from google import genai
-from google.genai import types
 import requests
 from dotenv import load_dotenv
+from google import genai
+from google.genai import types
 from PIL import Image
 
 load_dotenv()
@@ -170,7 +170,10 @@ Rules:
 fetched_images = {}  # slug -> base64
 edit_prompts = {}  # slug -> gemini edit prompt written by Claude
 messages = [
-    {"role": "user", "content": f"Ground the scene beats of section {SECTION_ID} against the Figma manifest."}
+    {
+        "role": "user",
+        "content": f"Ground the scene beats of section {SECTION_ID} against the Figma manifest.",
+    }
 ]
 
 print("Running Claude tool-use loop...\n")
@@ -331,13 +334,14 @@ def beat_html(beat: dict) -> str:
         ground = grounding_by_beat.get(bid)
         slug = ground["figma_ref"] if ground else ""
         params = json.dumps(beat.get("params", {}), indent=2)
+        figma_ref_div = f'<div class="figma-ref">figma_ref: {slug}</div>' if slug else ""
         return (
             f'<div class="beat scene"><span class="label">scene · {beat.get("method", "")} · {beat.get("tangible_type", "")}</span>'
             f'<div class="scene-body">'
             f"{render_frame(slug)}"
             f'<pre class="scene-params">{params}</pre>'
             f"</div>"
-            f"{'<div class=\"figma-ref\">figma_ref: ' + slug + '</div>' if slug else ''}"
+            f"{figma_ref_div}"
             f"</div>"
         )
 

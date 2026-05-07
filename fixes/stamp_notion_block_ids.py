@@ -25,7 +25,6 @@ sys.path.insert(0, str(project_root))
 
 from utils.notion import _tag_sections_from_blocks  # noqa: E402
 
-
 TRACKED_DIR = project_root / "tracked_scripts"
 
 

@@ -1,5 +1,5 @@
 # Prompt: section_structurer
-# Generated: 2026-04-20T12:00:07.274565
+# Generated: 2026-05-05T13:15:24.040841
 ======================================================================
 
 ## API Parameters
@@ -79,6 +79,7 @@ These are the only valid `tangible_type` values. Do not invent new types.
 | fill-in-the-blank | `dropdown_fillin` |
 | fill in the blank | `dropdown_fillin` |
 | word problem | `word_problem_area` |
+| Scale Preview System | `bar_graph` or `picture_graph` (scale is a component of the graph, not a separate toy — use whichever graph type is present in context) |
 
 **Spec aliases** — renamed or superseded terms; flag these if they appear in a spec:
 
@@ -159,6 +160,19 @@ These two tools are always used in sequence within a building section: `set_cont
 | `drag_tile` | `place_tile` |
 | `equation builder methods c/d` | `place_tile` |
 | `methods c/d` | `place_tile` |
+| `multiple_choice` | `select_one_option` |
+| `multi_select` | `select_all_options` |
+
+> **⚠ Naming review needed:** The `u1_toy_glossary.md` uses more intent-readable names for several of these tools and may be a better canonical. Consider renaming:
+>
+> | Current canonical | Proposed name | Rationale |
+> |---|---|---|
+> | `click_to_place` | `build_category` | Describes the student goal (build a category), not the gesture |
+> | `click_to_set_height` | `build_bar` | Same — "set height" is implementation detail |
+> | `click_tangible` | `select_toy` | "Select" is clearer than "click" for touch/pointer-agnostic contexts |
+> | `click_scale_button` | `select_scale` | Describes what the student is choosing, not the UI element |
+>
+> Also consider adding `select_category` (select multiple categories that all apply) — currently unlisted.
 
 ---
 
@@ -249,6 +263,12 @@ Cacheable: Yes
 
 <input> is a single structured section object produced by starterpack_parser.
 
+It may contain a `prior_section_summaries` field — a running document summarising every section processed so far, newest at the bottom. Use it to:
+- Resolve under-specified visual references ("Same data", "Full data visible", "remains visible", "picture graph from Section 1") — look up the most recent matching tangible in the summaries and use its exact dataset, categories, values, scale, and orientation.
+- Understand what concepts and vocabulary have already been introduced so you don't contradict prior content.
+- Know the current screen state so `add`, `update`, and `remove` beats are consistent with what has been established.
+When `prior_section_summaries` is absent (first section), treat the screen as empty.
+
 It contains key-value fields extracted from the original spec
 (visual, guide, prompt, correct_answer, on_correct, on_incorrect, purpose, etc.)
 and a `workspace_specs` field: `{ "toys": ["picture_graph", "data_table"], "tools": ["click_category"] }`.
@@ -263,6 +283,7 @@ map it to the appropriate schema context:
 - `guide_2`, `prompt_2`, `on_correct_2` etc. → a second step in the section. When `prompt_2` (or any numbered prompt field) exists without a corresponding `guide_2`, you must still generate a dialogue beat before that prompt — infer it from `visual_N`, the prompt text itself, or surrounding context. A missing `guide_N` is never a reason to omit the required dialogue beat.
 - `divider` fields are contextual labels only — they describe what is happening at that point in the spec. Do not use them to determine step boundaries and do not output them as beats. Use the surrounding prompt, student_action, and guide fields to determine structure.
 - A `student_action` field that contains two actions joined by "and" (e.g. "selects X or Y and fills two number slots") represents two sequential prompts — split them into separate steps
+- A `student_action` that uses "OR" to offer two equivalent click targets for the same interaction (e.g. "Click on the bar OR the symbols for that category") is a **single prompt with a multi-target** — use `"target": ["tangible_id_1", "tangible_id_2"]`. A `correct_answer` of "Either correct location accepted" confirms this pattern. Do NOT split it into two sequential prompts.
 - Inline annotations in any text field (e.g. `[System highlights rows
   sequentially]`, `[3 tile places into first slot]`) → `scene` beats at
   that point in the step
@@ -321,6 +342,8 @@ Valid step group compositions:
 
 **Every prompt is preceded by a dialogue beat.** Dialogue is heard; prompt text is read. The dialogue beat is the guide's narrated setup — the same CTA in spoken register. The prompt text is the concise written instruction the student reads on screen. Both are required; they are not redundant. Consequently, a `student_action` that describes multiple interactions means multiple step groups — one per interaction, each with its own preceding dialogue and ending with `current_scene`. When interactions are closely related, additional dialogue beats may appear within a step group to narrate the transition between them.
 
+**When a multi-step interaction is split into sequential steps, each prompt's `text` must scope to only its own step.** Do not carry forward the combined task description into individual prompts. "Click on the category showing 35 in the vertical graph." not "What category shows 35 in BOTH graphs?"
+
 `current_scene` is always the last beat in every step group. All step groups are in the flat `beats` array — do not wrap them in a `steps` array.
 
 ---
@@ -375,6 +398,7 @@ Methods: `add` `show` `hide` `animate` `update` `remove`
   `tangible_type` and a `params.description` of what the student sees.
   Include all relevant state fields in `params` (mode, orientation,
   categories, axis range, etc.) drawn from <toy_specs>.
+  **`params.description` must be neutral.** It describes what appears on screen. It must not direct the student's attention toward the feature they are about to identify — that is hint or remediation language and belongs only in validator beats, not in scene setup.
 - Use **`animate`** for named animation events: `event` (snake_case),
   `status` (`proposed` = setup in progress / `confirmed` = complete),
   `description` (plain English).
@@ -402,6 +426,15 @@ Do not embellish. Voice enhancement happens in a later step.
 
 Never use letter labels (A, B, C) in dialogue even if the spec uses them as identifiers. Those labels are system-level placeholders; the visual narration handles what they refer to. Use the actual name, value, or a plain description instead.
 
+**Reference scenario images by highlighting, not by letter.** When a validator on-correct beat (or any dialogue that would otherwise say "Image A", "scenario B", etc.) needs to call out a specific scenario image tangible, emit a `scene animate` beat with `event: "highlight"` on that tangible ID immediately before the dialogue. The dialogue then says "this image" or describes the scenario content — never a letter label.
+
+```json
+{ "type": "scene", "method": "animate", "tangible_id": "scenario_image_counting",
+  "params": { "event": "highlight", "status": "confirmed",
+              "description": "Counting money scenario image highlights." } },
+{ "type": "dialogue", "text": "This one works. Counting money in stacks uses groups of 10." }
+```
+
 ### Prompt: student interacts
 
 ```json
@@ -427,6 +460,8 @@ already exist in the scene at this point in the step.
 | `multiple_choice` | — | array of numbers or strings |
 | `multi_select` | — | array of strings |
 
+**Prefer `click_tangible` over `multiple_choice` when the choices are on-screen visuals.** If the spec presents a question where the options are scenario images, illustrations, or any tangibles displayed on screen — even if the spec labels them A, B, C or lists them as MC options — use `click_tangible` targeting those tangible IDs. The student clicks the visual directly. Never convert on-screen visuals into a word-based MCQ. Letter labels (A, B, C) in the spec are spec-author identifiers for those visuals, not answer choices; they must not appear in options arrays or dialogue.
+
 For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`, etc.) — refer to the **Canonical Tools** table in <glossary.md> for the correct `target` and validator condition shape.
 
 `target` shapes:
@@ -437,6 +472,8 @@ For all other tools (`place_tile`, `add_row`, `add_column`, `select_fill_option`
 
 For `multiple_choice`, include the exact options from the spec:
 `"tool": "multiple_choice", "options": [5, 6, 7, 8]`
+
+**Options must be taken verbatim from the `student_action` field.** If `student_action` does not list options explicitly, draw them only from values that appear in the spec's dataset. Never invent, approximate, or calculate distractor values — even plausible-looking ones. An invented distractor may violate module-level constraints (e.g. "all values are multiples of 5") that the spec author enforced but did not repeat in every field.
 
 For `multi_select`, include the category names:
 `"tool": "multi_select", "options": ["Dogs", "Cats", "Fish", "Birds", "Lizards"]`
@@ -487,6 +524,8 @@ Define only the correct state. The remediation generator adds incorrect
 states later. Always include `"is_correct": true` on every validator state
 you generate.
 
+**Exception — described answer rationale:** If the spec includes a field (e.g. `on_incorrect`, `answer_rationale`, or any field describing why a specific wrong answer is wrong), create a stub `is_correct: false` state for each described condition. Use the spec's rationale verbatim as the `description` field. Derive the `condition` from the described wrong answer using the same shape as the correct state's condition (e.g. if the correct condition is `{ "selected": 10 }` and the spec describes a student choosing 5, use `{ "selected": 5 }`). Leave `beats: []`. Only create a stub when you can express a concrete condition — do not use `condition: {}` for stubs, as the remediation generator uses that shape exclusively for the Heavy catch-all. Do not invent rationale; only stub out conditions the spec explicitly describes.
+
 Every validator state requires a `condition_id` — a short, semantic, stable
 identifier (e.g. `"correct"`, `"selected_rows"`, `"placed_3x4"`). Use snake_case.
 
@@ -527,9 +566,7 @@ required answer (any condition that is not `{}` and is not a branching prompt) �
 the correct state must have substantive on_correct dialogue.** Name the answer and
 close with the principle. `{ "type": "empty" }` is only for interactions where the
 student cannot be wrong: branching prompts (both choices are valid) and
-any-response-advances (`condition: {}`). Even in two-step interactions, each step
-with a concrete correct answer needs its own acknowledgment beat — it may be brief
-("4 boxes.") but it must exist.
+any-response-advances (`condition: {}`). Every step with a concrete correct answer needs its own acknowledgment beat. It must exist.
 
 - For concrete answers (MC, click_category): name the answer, then close by
   naming what the answer demonstrates — the principle or structural insight
@@ -543,9 +580,8 @@ with a concrete correct answer needs its own acknowledgment beat — it may be b
   have used. You may still close with a transferable principle that does not
   reference the student's specific values. "You got to 20. Any combination
   of equal groups that reaches the total works."
-- For branching prompts or any-response-advances where there is no meaningful
-  feedback to give: use `{ "type": "empty" }` to signal intentional silence.
-  Prefer this over an empty array.
+- For branching prompts where both choices are equally valid and there is nothing to say about the choice itself: use `{ "type": "empty" }` to signal intentional silence. Prefer this over an empty array.
+- For any-response-advances (`condition: {}`) that complete an activity — a game, a build task, a counting interaction — write brief acknowledgment dialogue even though the student cannot be wrong. Use the spec's `on_complete`, `on_correct`, or purpose field to inform it. A single sentence confirming the activity is done is sufficient.
 
 **Never embed a CTA inside on-correct dialogue.** If the feedback text trails
 into a lead-in for the next prompt ("5 in each box. So what do you have?"),
@@ -700,9 +736,18 @@ Use the same ID consistently. When the spec says "NEW graph," assign a new ID.
 
 ---
 
+## SCOPE CONSTRAINTS
+
+Use vocabulary naturally from <vocabulary>. Do not use phrases from <forbidden_phrases>. Do not reference concepts from <advanced_concepts>. Ground the section's teaching in <the_one_thing>. Include <required_phrases> where genuinely appropriate in dialogue.
+
+These constraints define what this module's students have been taught and what they have not. Values, counts, and data points in scene descriptions, dialogue, and prompt options must be consistent with the module's dataset. Never construct values (e.g. distractor counts, made-up quantities) that fall outside the numerical patterns established by the module's data — even plausible-looking values can violate constraints the spec author enforced implicitly.
+
+---
+
 ## OUTPUT RULES
 
 - Output ONLY valid JSON. No explanation, no markdown fences.
+- **Flag placeholders and uncertain content:** When a beat or section field contains content that could not be grounded in the spec — unresolved visual elements (present in `workspace_specs.unresolved`), game data values not defined in the spec, invented quantities or distractor values — add `"flag": "placeholder — <brief reason>"` to that beat or object. This makes uncertain content findable for human review without blocking output. Example: `"flag": "placeholder — toy spec not yet defined, tool and validator shape are best-guess"`.
 - Output a single section object starting with `{` and ending with `}`
 - Use double quotes throughout
 
@@ -822,13 +867,14 @@ Cacheable: Yes
   "guide_6": "\"It works... but is there a better way?\"",
   "key_teaching_point": "\"When one scale needs too many tick marks, try a bigger scale.\"",
   "divider": "**No student prompt** (observation—demonstration teaches)",
-  "_generated_at": "2026-04-20T16:58:20.220126+00:00",
+  "_generated_at": "2026-05-05T18:13:37.747653+00:00",
   "workspace_specs": {
     "toys": [
       "data_table"
     ],
     "tools": []
-  }
+  },
+  "prior_section_summaries": "## s1_1_transition_warmup\n# Section Summary: s1_1_transition_warmup\n\n**VISUAL STATE:** Empty workspace. No tangible visualizations, graphs, or data displays are present on screen at section end.\n\n**CONTENT:** Transition dialogue acknowledging that in the Warmup section, all four scales (linear, log, square root, and reciprocal) were viable options for the student's dataset. The section introduces the concept that scale choice becomes more constrained when working with larger numbers, setting up the next investigation.\n\n**STUDENT ACTION:** No interactive action required. The student listened to dialogue explaining that scale flexibility depends on data magnitude, preparing them for the upcoming exploration of how larger numbers affect scale viability."
 }
 </input>
 
@@ -837,4 +883,3 @@ Cacheable: Yes
 ## Prefill
 
 {
-

@@ -1,7 +1,6 @@
 [
   {
     "id": "s1_0_opening_frame",
-    "type": "transition",
     "beats": [
       {
         "type": "dialogue",
@@ -12,11 +11,61 @@
         "elements": []
       }
     ],
-    "_generated_at": "2026-04-20T16:58:55.118135+00:00"
+    "_generated_at": "2026-05-05T20:06:20.921012+00:00"
   },
   {
     "id": "s1_1_decision_checklist_consolidation_type_b",
     "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "data_table_points",
+        "tangible_type": "data_table",
+        "params": {
+          "categories": [
+            "Ana",
+            "Ben",
+            "Cara",
+            "Dan"
+          ],
+          "values": [
+            20,
+            35,
+            55,
+            80
+          ],
+          "title": "Points Scored",
+          "description": "Data table appears showing Points Scored. Ana: 20, Ben: 35, Cara: 55, Dan: 80."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "scale_preview_points",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Ana",
+            "Ben",
+            "Cara",
+            "Dan"
+          ],
+          "values": [
+            20,
+            35,
+            55,
+            80
+          ],
+          "scale": 5,
+          "axis_range": [
+            0,
+            75
+          ],
+          "description": "Scale Preview panel displays vertical bar graph with Scale of 5 selected. Axis shows 0 to 75. Dan's value of 80 exceeds axis maximum, with warning indicator: '80 doesn't fit'."
+        }
+      },
       {
         "type": "dialogue",
         "text": "Here's the first question you learned: Does the biggest number fit?"
@@ -27,7 +76,99 @@
       },
       {
         "type": "current_scene",
-        "elements": []
+        "elements": [
+          {
+            "tangible_id": "data_table_points",
+            "description": "Data table showing Points Scored. Ana: 20, Ben: 35, Cara: 55, Dan: 80.",
+            "tangible_type": "data_table",
+            "categories": [
+              "Ana",
+              "Ben",
+              "Cara",
+              "Dan"
+            ],
+            "values": [
+              20,
+              35,
+              55,
+              80
+            ]
+          },
+          {
+            "tangible_id": "scale_preview_points",
+            "description": "Scale Preview showing Scale of 5 with warning that 80 doesn't fit.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 5
+          }
+        ]
+      },
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "data_table_points",
+        "params": {
+          "description": "Points Scored data table removes from screen."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "remove",
+        "tangible_id": "scale_preview_points",
+        "params": {
+          "description": "Scale Preview for Points Scored removes from screen."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "data_table_stickers",
+        "tangible_type": "data_table",
+        "params": {
+          "categories": [
+            "Eli",
+            "Fay",
+            "Gus",
+            "Hal"
+          ],
+          "values": [
+            7,
+            12,
+            19,
+            23
+          ],
+          "title": "Stickers Collected",
+          "description": "Data table appears showing Stickers Collected. Eli: 7, Fay: 12, Gus: 19, Hal: 23."
+        }
+      },
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "scale_preview_stickers",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Eli",
+            "Fay",
+            "Gus",
+            "Hal"
+          ],
+          "values": [
+            7,
+            12,
+            19,
+            23
+          ],
+          "scale": 5,
+          "axis_range": [
+            0,
+            25
+          ],
+          "description": "Scale Preview panel displays vertical bar graph with Scale of 5 selected. All values fit within axis range, but warning indicator appears: 'Can't be shown exactly'."
+        }
       },
       {
         "type": "dialogue",
@@ -35,7 +176,7 @@
       },
       {
         "type": "dialogue",
-        "text": "7, 12, 19, 23—none of them end in 0 or 5. Scale of 2 is the only one that works exactly. When you look at new data, which question do you check FIRST?"
+        "text": "7, 12, 19, 23. None of them end in 0 or 5. Scale of 2 is the only one that works exactly. When you look at new data, which question do you check FIRST?"
       },
       {
         "type": "prompt",
@@ -51,12 +192,12 @@
             "condition": {
               "selected": "Does the biggest number fit?"
             },
-            "description": "Student selected Does the biggest number fit?, correct",
+            "description": "Student selected 'Does the biggest number fit?', correct",
             "is_correct": true,
             "beats": [
               {
                 "type": "dialogue",
-                "text": "Right. Check if it fits first—that tells you which scales are even possible. Then check the digits."
+                "text": "Right. Check if it fits first. That tells you which scales are even possible. Then check the digits."
               }
             ]
           }
@@ -64,10 +205,36 @@
       },
       {
         "type": "current_scene",
-        "elements": []
+        "elements": [
+          {
+            "tangible_id": "data_table_stickers",
+            "description": "Data table showing Stickers Collected. Eli: 7, Fay: 12, Gus: 19, Hal: 23.",
+            "tangible_type": "data_table",
+            "categories": [
+              "Eli",
+              "Fay",
+              "Gus",
+              "Hal"
+            ],
+            "values": [
+              7,
+              12,
+              19,
+              23
+            ]
+          },
+          {
+            "tangible_id": "scale_preview_stickers",
+            "description": "Scale Preview showing Scale of 5 with warning that values can't be shown exactly.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "scale": 5
+          }
+        ]
       }
     ],
-    "_generated_at": "2026-04-20T16:59:01.749188+00:00"
+    "_generated_at": "2026-05-05T20:06:45.047569+00:00"
   },
   {
     "id": "s2_1_scale_strengths_type_pattern_discovery",
@@ -85,12 +252,18 @@
             "Bananas",
             "Cherries"
           ],
+          "values": [
+            20,
+            40,
+            60
+          ],
           "scale": 1,
           "axis_range": [
             0,
             60
           ],
-          "description": "Graph A: vertical bar graph with scale of 1. Apples=20, Bananas=40, Cherries=60. Most tick marks, very detailed."
+          "title": "Graph A",
+          "description": "Vertical bar graph appears. Scale of 1. Apples: 20, Bananas: 40, Cherries: 60. Many tick marks."
         }
       },
       {
@@ -106,12 +279,18 @@
             "Bananas",
             "Cherries"
           ],
+          "values": [
+            20,
+            40,
+            60
+          ],
           "scale": 2,
           "axis_range": [
             0,
             60
           ],
-          "description": "Graph B: vertical bar graph with scale of 2. Apples=20, Bananas=40, Cherries=60. Many tick marks."
+          "title": "Graph B",
+          "description": "Vertical bar graph appears. Scale of 2. Same data. Many tick marks."
         }
       },
       {
@@ -127,12 +306,18 @@
             "Bananas",
             "Cherries"
           ],
+          "values": [
+            20,
+            40,
+            60
+          ],
           "scale": 5,
           "axis_range": [
             0,
             60
           ],
-          "description": "Graph C: vertical bar graph with scale of 5. Apples=20, Bananas=40, Cherries=60. Medium tick marks."
+          "title": "Graph C",
+          "description": "Vertical bar graph appears. Scale of 5. Same data. Medium tick marks."
         }
       },
       {
@@ -148,74 +333,23 @@
             "Bananas",
             "Cherries"
           ],
+          "values": [
+            20,
+            40,
+            60
+          ],
           "scale": 10,
           "axis_range": [
             0,
             60
           ],
-          "description": "Graph D: vertical bar graph with scale of 10. Apples=20, Bananas=40, Cherries=60. Fewest tick marks, clean."
+          "title": "Graph D",
+          "description": "Vertical bar graph appears. Scale of 10. Same data. Fewest tick marks, clean."
         }
       },
       {
         "type": "dialogue",
         "text": "Here's the same data shown four different ways. Look at the differences."
-      },
-      {
-        "type": "current_scene",
-        "elements": [
-          {
-            "tangible_id": "bar_graph_a",
-            "description": "Graph A: vertical bar graph with scale of 1. Apples=20, Bananas=40, Cherries=60. Most tick marks.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Apples",
-              "Bananas",
-              "Cherries"
-            ],
-            "scale": 1
-          },
-          {
-            "tangible_id": "bar_graph_b",
-            "description": "Graph B: vertical bar graph with scale of 2. Apples=20, Bananas=40, Cherries=60. Many tick marks.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Apples",
-              "Bananas",
-              "Cherries"
-            ],
-            "scale": 2
-          },
-          {
-            "tangible_id": "bar_graph_c",
-            "description": "Graph C: vertical bar graph with scale of 5. Apples=20, Bananas=40, Cherries=60. Medium tick marks.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Apples",
-              "Bananas",
-              "Cherries"
-            ],
-            "scale": 5
-          },
-          {
-            "tangible_id": "bar_graph_d",
-            "description": "Graph D: vertical bar graph with scale of 10. Apples=20, Bananas=40, Cherries=60. Fewest tick marks.",
-            "tangible_type": "bar_graph",
-            "mode": "reading",
-            "orientation": "vertical",
-            "categories": [
-              "Apples",
-              "Bananas",
-              "Cherries"
-            ],
-            "scale": 10
-          }
-        ]
       },
       {
         "type": "dialogue",
@@ -224,28 +358,29 @@
       {
         "type": "prompt",
         "text": "Which graph is easiest to read?",
-        "tool": "multiple_choice",
-        "options": [
-          "Graph A",
-          "Graph B",
-          "Graph C",
-          "Graph D"
+        "tool": "click_tangible",
+        "target": [
+          "bar_graph_a",
+          "bar_graph_b",
+          "bar_graph_c",
+          "bar_graph_d"
         ],
         "validator": [
           {
             "condition_id": "correct",
             "condition": {
-              "selected": "Graph D"
+              "selected": "bar_graph_d"
             },
-            "description": "Student selected Graph D (scale of 10), correct",
+            "description": "Student clicked Graph D (Scale of 10), correct",
             "is_correct": true,
             "beats": [
               {
                 "type": "scene",
-                "method": "update",
+                "method": "animate",
                 "tangible_id": "bar_graph_d",
                 "params": {
-                  "highlight": true,
+                  "event": "highlight",
+                  "status": "confirmed",
                   "description": "Graph D highlights to confirm selection."
                 }
               },
@@ -254,6 +389,33 @@
                 "text": "Scale of 10 is easiest to read here. Fewer lines to count. When all your numbers end in 0 or 5, the bigger scale is usually cleaner."
               }
             ]
+          },
+          {
+            "condition_id": "selected_a",
+            "condition": {
+              "selected": "bar_graph_a"
+            },
+            "description": "Student clicked Graph A (Scale of 1)",
+            "is_correct": false,
+            "beats": []
+          },
+          {
+            "condition_id": "selected_b",
+            "condition": {
+              "selected": "bar_graph_b"
+            },
+            "description": "Student clicked Graph B (Scale of 2)",
+            "is_correct": false,
+            "beats": []
+          },
+          {
+            "condition_id": "selected_c",
+            "condition": {
+              "selected": "bar_graph_c"
+            },
+            "description": "Student clicked Graph C (Scale of 5)",
+            "is_correct": false,
+            "beats": []
           }
         ]
       },
@@ -262,7 +424,7 @@
         "elements": [
           {
             "tangible_id": "bar_graph_a",
-            "description": "Graph A: vertical bar graph with scale of 1. Apples=20, Bananas=40, Cherries=60.",
+            "description": "Vertical bar graph. Scale of 1. Graph A. Apples: 20, Bananas: 40, Cherries: 60. Many tick marks.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -275,7 +437,7 @@
           },
           {
             "tangible_id": "bar_graph_b",
-            "description": "Graph B: vertical bar graph with scale of 2. Apples=20, Bananas=40, Cherries=60.",
+            "description": "Vertical bar graph. Scale of 2. Graph B. Same data. Many tick marks.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -288,7 +450,7 @@
           },
           {
             "tangible_id": "bar_graph_c",
-            "description": "Graph C: vertical bar graph with scale of 5. Apples=20, Bananas=40, Cherries=60.",
+            "description": "Vertical bar graph. Scale of 5. Graph C. Same data. Medium tick marks.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -301,7 +463,7 @@
           },
           {
             "tangible_id": "bar_graph_d",
-            "description": "Graph D: vertical bar graph with scale of 10. Apples=20, Bananas=40, Cherries=60. Multiple choice tool active.",
+            "description": "Vertical bar graph. Scale of 10. Graph D. Same data. Fewest tick marks, clean. click_tangible tool active.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -323,7 +485,7 @@
         "elements": [
           {
             "tangible_id": "bar_graph_a",
-            "description": "Graph A: vertical bar graph with scale of 1. Apples=20, Bananas=40, Cherries=60.",
+            "description": "Vertical bar graph. Scale of 1. Graph A. Apples: 20, Bananas: 40, Cherries: 60. Many tick marks.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -336,7 +498,7 @@
           },
           {
             "tangible_id": "bar_graph_b",
-            "description": "Graph B: vertical bar graph with scale of 2. Apples=20, Bananas=40, Cherries=60.",
+            "description": "Vertical bar graph. Scale of 2. Graph B. Same data. Many tick marks.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -349,7 +511,7 @@
           },
           {
             "tangible_id": "bar_graph_c",
-            "description": "Graph C: vertical bar graph with scale of 5. Apples=20, Bananas=40, Cherries=60.",
+            "description": "Vertical bar graph. Scale of 5. Graph C. Same data. Medium tick marks.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -362,7 +524,7 @@
           },
           {
             "tangible_id": "bar_graph_d",
-            "description": "Graph D: vertical bar graph with scale of 10. Apples=20, Bananas=40, Cherries=60.",
+            "description": "Vertical bar graph. Scale of 10. Graph D. Same data. Fewest tick marks, clean.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
@@ -376,7 +538,7 @@
         ]
       }
     ],
-    "_generated_at": "2026-04-20T16:59:25.399739+00:00"
+    "_generated_at": "2026-05-05T20:07:13.227602+00:00"
   },
   {
     "id": "s3_1_real_world_connection_type_c",
@@ -400,7 +562,7 @@
             5100,
             2800
           ],
-          "description": "Data table A appears. Daily Steps. Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800."
+          "description": "Data table A appears showing Daily Steps. Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800."
         }
       },
       {
@@ -422,7 +584,7 @@
             19,
             23
           ],
-          "description": "Data table B appears. Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23."
+          "description": "Data table B appears showing Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23."
         }
       },
       {
@@ -444,38 +606,39 @@
             35,
             40
           ],
-          "description": "Data table C appears. Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40."
+          "description": "Data table C appears showing Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40."
         }
       },
       {
         "type": "dialogue",
-        "text": "People collect data about all kinds of things. Look at these three tables. Which data would HAVE to use Scale of 2?"
+        "text": "People collect data about all kinds of things. Look at these three tables."
       },
       {
         "type": "prompt",
         "text": "Which data would HAVE to use Scale of 2?",
-        "tool": "multiple_choice",
-        "options": [
-          "Table A",
-          "Table B",
-          "Table C"
+        "tool": "click_tangible",
+        "target": [
+          "data_table_steps",
+          "data_table_coins",
+          "data_table_books"
         ],
         "validator": [
           {
             "condition_id": "correct",
             "condition": {
-              "selected": "Table B"
+              "selected": "data_table_coins"
             },
-            "description": "Student selected Table B (Coins Collected), correct",
+            "description": "Student clicked Coins Collected table, correct choice",
             "is_correct": true,
             "beats": [
               {
                 "type": "scene",
-                "method": "update",
+                "method": "animate",
                 "tangible_id": "data_table_coins",
                 "params": {
-                  "highlight": true,
-                  "description": "Table B (Coins Collected) highlights to confirm selection."
+                  "event": "highlight",
+                  "status": "confirmed",
+                  "description": "Coins Collected table highlights to confirm selection."
                 }
               },
               {
@@ -483,6 +646,24 @@
                 "text": "The coin counts: 7, 12, 19, 23. None of them end in 0 or 5, so Scale of 2 is the only way to show them exactly."
               }
             ]
+          },
+          {
+            "condition_id": "selected_steps",
+            "condition": {
+              "selected": "data_table_steps"
+            },
+            "description": "Student clicked Daily Steps table, incorrect",
+            "is_correct": false,
+            "beats": []
+          },
+          {
+            "condition_id": "selected_books",
+            "condition": {
+              "selected": "data_table_books"
+            },
+            "description": "Student clicked Books Read table, incorrect",
+            "is_correct": false,
+            "beats": []
           }
         ]
       },
@@ -491,7 +672,7 @@
         "elements": [
           {
             "tangible_id": "data_table_steps",
-            "description": "Data table A. Daily Steps. Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800.",
+            "description": "Data table showing Daily Steps. Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800.",
             "tangible_type": "data_table",
             "title": "Daily Steps",
             "categories": [
@@ -509,7 +690,7 @@
           },
           {
             "tangible_id": "data_table_coins",
-            "description": "Data table B. Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23.",
+            "description": "Data table showing Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23. Highlighted after correct selection.",
             "tangible_type": "data_table",
             "title": "Coins Collected",
             "categories": [
@@ -527,7 +708,7 @@
           },
           {
             "tangible_id": "data_table_books",
-            "description": "Data table C. Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40.",
+            "description": "Data table showing Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40.",
             "tangible_type": "data_table",
             "title": "Books Read",
             "categories": [
@@ -554,7 +735,7 @@
         "elements": [
           {
             "tangible_id": "data_table_steps",
-            "description": "Data table A. Daily Steps. Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800.",
+            "description": "Data table showing Daily Steps. Mon: 4,500, Tue: 3,200, Wed: 5,100, Thu: 2,800.",
             "tangible_type": "data_table",
             "title": "Daily Steps",
             "categories": [
@@ -572,7 +753,7 @@
           },
           {
             "tangible_id": "data_table_coins",
-            "description": "Data table B highlighted. Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23.",
+            "description": "Data table showing Coins Collected. Jar 1: 7, Jar 2: 12, Jar 3: 19, Jar 4: 23.",
             "tangible_type": "data_table",
             "title": "Coins Collected",
             "categories": [
@@ -590,7 +771,7 @@
           },
           {
             "tangible_id": "data_table_books",
-            "description": "Data table C. Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40.",
+            "description": "Data table showing Books Read. Room A: 25, Room B: 30, Room C: 35, Room D: 40.",
             "tangible_type": "data_table",
             "title": "Books Read",
             "categories": [
@@ -609,12 +790,41 @@
         ]
       }
     ],
-    "_generated_at": "2026-04-20T16:59:42.424896+00:00"
+    "_generated_at": "2026-05-05T20:07:37.878869+00:00"
   },
   {
     "id": "s4_1_metacognitive_reflection_type_1_strategy",
-    "type": "transition",
     "beats": [
+      {
+        "type": "scene",
+        "method": "add",
+        "tangible_id": "bar_graph_scale_preview",
+        "tangible_type": "bar_graph",
+        "params": {
+          "mode": "reading",
+          "orientation": "vertical",
+          "categories": [
+            "Eli",
+            "Fay",
+            "Gus",
+            "Hal"
+          ],
+          "values": [
+            7,
+            12,
+            19,
+            23
+          ],
+          "scale": 5,
+          "axis_range": [
+            0,
+            25
+          ],
+          "title": "Stickers Collected",
+          "scale_buttons_visible": true,
+          "description": "Vertical bar graph appears titled Stickers Collected. Categories: Eli (7), Fay (12), Gus (19), Hal (23). Scale Preview System shown with all four scale buttons (1, 2, 5, 10) visible at bottom."
+        }
+      },
       {
         "type": "dialogue",
         "text": "What helped you most when deciding which scale to use?"
@@ -677,7 +887,7 @@
             "condition": {
               "selected": "Thinking about which graph would be easiest to read"
             },
-            "description": "Student selected thinking about which graph would be easiest to read",
+            "description": "Student selected thinking about easiest to read",
             "is_correct": true,
             "beats": [
               {
@@ -690,10 +900,36 @@
       },
       {
         "type": "current_scene",
-        "elements": []
+        "elements": [
+          {
+            "tangible_id": "bar_graph_scale_preview",
+            "description": "Vertical bar graph titled Stickers Collected with Scale Preview System. Four scale buttons (1, 2, 5, 10) visible. Categories: Eli (7), Fay (12), Gus (19), Hal (23). Scale of 5 selected, axis range 0–25.",
+            "tangible_type": "bar_graph",
+            "mode": "reading",
+            "orientation": "vertical",
+            "categories": [
+              "Eli",
+              "Fay",
+              "Gus",
+              "Hal"
+            ],
+            "values": [
+              7,
+              12,
+              19,
+              23
+            ],
+            "scale": 5,
+            "axis_range": [
+              0,
+              25
+            ],
+            "scale_buttons_visible": true
+          }
+        ]
       }
     ],
-    "_generated_at": "2026-04-20T16:59:50.785089+00:00"
+    "_generated_at": "2026-05-05T20:07:59.912700+00:00"
   },
   {
     "id": "s4_2_identity_building_closure",
@@ -702,13 +938,30 @@
       {
         "type": "scene",
         "method": "add",
-        "tangible_id": "bar_graph_completed",
+        "tangible_id": "bar_graph_closure",
         "tangible_type": "bar_graph",
         "params": {
           "mode": "reading",
           "orientation": "vertical",
+          "categories": [
+            "Eli",
+            "Fay",
+            "Gus",
+            "Hal"
+          ],
+          "values": [
+            7,
+            12,
+            19,
+            23
+          ],
           "scale": 10,
-          "description": "Completed vertical bar graph appears with Scale of 10."
+          "axis_range": [
+            0,
+            30
+          ],
+          "title": "Stickers Collected",
+          "description": "Vertical bar graph appears. Stickers Collected. Scale of 10. Eli=7, Fay=12, Gus=19, Hal=23."
         }
       },
       {
@@ -719,11 +972,17 @@
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "bar_graph_completed",
-            "description": "Completed vertical bar graph with Scale of 10.",
+            "tangible_id": "bar_graph_closure",
+            "description": "Vertical bar graph. Stickers Collected. Scale of 10. Four bars visible.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
+            "categories": [
+              "Eli",
+              "Fay",
+              "Gus",
+              "Hal"
+            ],
             "scale": 10
           }
         ]
@@ -736,11 +995,17 @@
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "bar_graph_completed",
-            "description": "Completed vertical bar graph with Scale of 10.",
+            "tangible_id": "bar_graph_closure",
+            "description": "Vertical bar graph. Stickers Collected. Scale of 10. Four bars visible.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
+            "categories": [
+              "Eli",
+              "Fay",
+              "Gus",
+              "Hal"
+            ],
             "scale": 10
           }
         ]
@@ -753,16 +1018,22 @@
         "type": "current_scene",
         "elements": [
           {
-            "tangible_id": "bar_graph_completed",
-            "description": "Completed vertical bar graph with Scale of 10.",
+            "tangible_id": "bar_graph_closure",
+            "description": "Vertical bar graph. Stickers Collected. Scale of 10. Four bars visible.",
             "tangible_type": "bar_graph",
             "mode": "reading",
             "orientation": "vertical",
+            "categories": [
+              "Eli",
+              "Fay",
+              "Gus",
+              "Hal"
+            ],
             "scale": 10
           }
         ]
       }
     ],
-    "_generated_at": "2026-04-20T16:59:58.117190+00:00"
+    "_generated_at": "2026-05-05T20:08:14.620135+00:00"
   }
 ]

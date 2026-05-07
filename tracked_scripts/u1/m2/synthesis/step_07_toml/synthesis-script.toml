@@ -1,50 +1,147 @@
+# synthesis-script.toml
+
 title = "synthesis"
 type = "sequence"
 
-# --- Section: s5_opening_frame ---
-[section_100_s5_opening_frame]
+# ---------------------------------------------------------------------------
+# Section 1 - s5_opening_frame
+# ---------------------------------------------------------------------------
+
+[section_101_s5_opening_frame]
 template = "chart_template"
 
-[step_100_s5_opening_frame]
+[step_101_s5_opening_frame]
 dialogue = "You made scaled picture graphs. You used half-symbols for odd numbers. Now let's see WHY scaled graphs are useful."
 components = ["SceneComponent"]
 
-# --- Section: scale_toggle ---
-[section_101_scale_toggle]
-template = "chart_template"
+# ---------------------------------------------------------------------------
+# Section 2 - scale_toggle
+# ---------------------------------------------------------------------------
 
-[step_101_scale_toggle]
-dialogue = "Here's data about people's pets and a graph with scale of 2. But watch what happens when you change the scale."
-components = ["SceneComponent", "PromptComponent"]
+[section_102_scale_toggle]
+template = "chart_template"
 
 [step_102_scale_toggle]
+dialogue = "Here's data about people's pets and a graph with scale of 2. But watch what happens when you change the scale."
+components = ["PromptComponent"]
+prompt_text = "Toggle the scale to 1. What happens to the graph?"
+
+[step_102.correct]
+dialogue = "Look at that! Cats went from 4 symbols to 8. It still shows the same 8 cats, but now every cat gets its own symbol with a scale of 1."
+metadata = { sting_id = "on_correct" }
+
+[step_103_scale_toggle]
 dialogue = "Now toggle back to scale of 2. Which scale uses fewer symbols?"
 components = ["PromptComponent"]
+prompt_text = "Which scale uses fewer symbols?"
 
-# --- Section: half_symbol_mastery ---
-[section_102_half_symbol_mastery]
+[step_103.correct]
+dialogue = "Scale of 2. Fewer symbols, same data. That's what makes scaled graphs efficient. You just saw the same data change shape. The INFORMATION stays the same, only the number of symbols changes. That's the power of scale."
+metadata = { sting_id = "on_correct" }
+
+[step_103.step_503]
+dialogue = "Look at one category, like Cats. Scale of 1 shows 8 symbols. Scale of 2 shows 4 symbols. Which shows less symbols?"
+id = "scale_of_1"
+
+[step_103.step_504]
+dialogue = "Let's look closer at the Cats category. Scale of 1 uses 8 symbols. Scale of 2 uses only 4 symbols, half as many. When each symbol represents more pets, you need fewer symbols to show the same data. Scale of 2 uses fewer symbols. You just saw the same data change shape. The INFORMATION stays the same, only the number of symbols changes. That's the power of scale."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 3 - half_symbol_mastery
+# ---------------------------------------------------------------------------
+
+[section_103_half_symbol_mastery]
 template = "chart_template"
-
-[step_103_half_symbol_mastery]
-dialogue = "You learned about half-symbols. If you made a graph using this key, which numbers would need a half-symbol? Select ALL that need half symbols."
-components = ["SceneComponent", "PromptComponent"]
 
 [step_104_half_symbol_mastery]
+dialogue = "You learned about half-symbols. If you made a graph using this key, which numbers would need a half-symbol? Select ALL that need half symbols."
+components = ["PromptComponent"]
+prompt_text = "If you made a graph with scale of 2, which numbers would need a half-symbol? Select ALL that apply."
+
+[step_104.correct]
+dialogue = "7 and 9 are [vocab]odd[/vocab] numbers. They don't split evenly into groups of 2, so they need a half-symbol for the leftover 1."
+metadata = { sting_id = "on_correct" }
+
+[step_104.step_506]
+dialogue = "You found an odd number. Odd numbers need half-symbols because they don't split evenly into groups of 2. Are there any other odd numbers in the list?"
+id = "light"
+
+[step_104.step_507]
+dialogue = "Even numbers split perfectly into groups of 2 so they use whole symbols. Half-symbols are for numbers that DON'T split evenly. Which numbers leave 1 leftover when you group by 2?"
+id = "light"
+
+[step_104.step_508]
+dialogue = "You found odd numbers. Those DO need half-symbols. But even numbers split perfectly into groups of 2 so they use whole symbols. Which selections don't belong?"
+id = "medium"
+
+[step_104.step_509]
+dialogue = "Let me show you. For a scale of 2, we group by 2s to make whole symbols. 8 splits evenly: 4 groups of 2. 12 splits evenly: 6 groups of 2. These are [vocab]even[/vocab] numbers and need whole symbols. But 7 is 3 groups of 2 plus 1 leftover. 9 is 4 groups of 2 plus 1 leftover. The answers are 7 and 9. [vocab]Odd[/vocab] numbers need half-symbols because they always have 1 left over."
+id = "heavy"
+
+[step_105_half_symbol_mastery]
 dialogue = "What does a half-symbol show?"
 components = ["PromptComponent"]
+prompt_text = "What does a half-symbol show?"
 
-# --- Section: metacognitive_reflection ---
-[section_103_metacognitive_reflection]
+[step_105.correct]
+dialogue = "Half of 2 is 1. A half-symbol shows 1 item. That's how we show odd numbers exactly. The full symbols show groups of 2, the half shows the 1 left over."
+metadata = { sting_id = "on_correct" }
+
+[step_105.step_511]
+dialogue = "A half-symbol doesn't show half of the total. It shows half of what ONE symbol is worth. Look at the key. Each symbol equals 2. What is half of 2?"
+id = "half_of_total"
+
+[step_105.step_512]
+dialogue = "A full symbol shows 2 items. A HALF-symbol shows half of that. If a full symbol is 2, what is half of 2?"
+id = "two_items"
+
+[step_105.step_513]
+dialogue = "Half-symbols have real meaning. That's how we show odd numbers exactly. When the scale is 2, a full symbol shows 2 items. A half-symbol shows half of that. What is half of 2?"
+id = "nothing_decoration"
+
+[step_105.step_514]
+dialogue = "Here's how it works. The key says each symbol equals 2. So a whole symbol equal 2 and a half-symbol equals half of 2, which is 1. That's how we show the leftover 1 when we have an odd number. A half-symbol shows half of the scale.'"
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 4 - metacognitive_reflection
+# ---------------------------------------------------------------------------
+
+[section_104_metacognitive_reflection]
 template = "chart_template"
 
-[step_105_metacognitive_reflection]
+[step_106_metacognitive_reflection]
 dialogue = "You've been working with \"scale of 2\" all lesson. Which of these describes what a \"scale\" on a graph means?"
-components = ["SceneComponent", "PromptComponent"]
+components = ["PromptComponent"]
+prompt_text = "Which of these describes what a \"scale\" on a graph means?"
 
-# --- Section: closure ---
-[section_104_closure]
+[step_106.correct]
+dialogue = "Scale tells you how many items each symbol shows. Scale of 1 means each symbol is 1. Scale of 2 means each symbol is 2. When you see a graph, always check the key first. The key tells you the scale."
+metadata = { sting_id = "on_correct" }
+
+[step_106.step_516]
+dialogue = "The number of symbols changes depending on the scale. When you look at the key, it tells you what each symbol stands for, not how many symbols total."
+id = "how_many_symbols"
+
+[step_106.step_517]
+dialogue = "Both graphs show the same categories: Cats, Dogs, Birds, Fish. The scale tells you what each symbol represents. Check the key on each graph."
+id = "num_categories"
+
+[step_106.step_518]
+dialogue = "The symbols are the same size on both graphs. Scale tells you how many items each symbol shows. Look at what the key says."
+id = "size_of_symbols"
+
+[step_106.step_519]
+dialogue = "Let me explain. The scale tells you how many items each symbol shows. On this graph, the key says each symbol equals 1. That's scale of 1. On the other graph, each symbol equals 2. That's scale of 2. The scale is what each symbol stands for."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 5 - closure
+# ---------------------------------------------------------------------------
+
+[section_105_closure]
 template = "chart_template"
 
-[step_106_closure]
+[step_107_closure]
 dialogue = "You started by watching your data transform. Now you can CREATE scaled graphs yourself. You know that each symbol shows 2, and half-symbols show 1. You discovered something important: scaled graphs need fewer symbols. That makes them easier to read when numbers get big. Next time, you'll use a scale of 5. Instead of groups of 2, you'll group by 5s. You already know how to count by 5s, that will help!"
-components = ["SceneComponent"]

@@ -54,10 +54,24 @@ The lesson generation pipeline runs these AI steps in order. Only AI steps can i
 
 ---
 
+## IDENTIFYING THE BEAT TYPE
+
+**Read `beat_description` first** — it tells you exactly where in the section structure the beat lives:
+
+- `"beats[N] (dialogue)"` → top-level dialogue beat → lesson or on_correct content
+- `"beats[N].validator[N] (correct).beats[N] (dialogue)"` → on_correct feedback → `section_structurer` (content) or `dialogue_rewriter` (tone)
+- `"beats[N].validator[N] (incorrect[N]).beats[N] (dialogue)"` → **remediation dialogue** → `remediation_generator`
+- `"beats[N].validator[N] (incorrect[N]).beats[N] (scene)"` → **remediation scene beat** → `remediation_generator`
+
+When `beat_description` is absent or `beat` is `{}`, examine the `surrounding_section`: locate the beat by matching its content to beats or validator state beats in the section JSON. If the beat appears inside a `validator[is_correct=false]` state, treat it as a remediation beat regardless of whether `beat_description` says so.
+
+---
+
 ## ATTRIBUTION RULES
 
+- `beat_description` contains `incorrect` (e.g. `validator[N] (incorrect[N])`) → `remediation_generator`
 - Tone, register, hollow praise, forbidden phrases, letter labels in **lesson or on_correct dialogue** → `dialogue_rewriter` (it should have caught it)
-- Content of **incorrect-attempt dialogue** (wrong answer responses) → `remediation_generator`
+- Content of **incorrect-attempt dialogue** (wrong answer responses, remediation hints, Heavy modeling) → `remediation_generator`
 - Scene description accuracy, completeness, or mismatch with lesson spec → `section_structurer`
 - Prompt text issues (what the student is asked to do) → `section_structurer`
 - Correct-answer dialogue: factual errors or wrong content → `section_structurer`; tone/voice errors → `dialogue_rewriter`

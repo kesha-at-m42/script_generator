@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:25.330282
+# Generated: 2026-04-27T10:58:30.473212
 ======================================================================
 
 ## API Parameters
@@ -956,4 +956,3 @@ Cacheable: Yes
 ## Prefill
 
 {"id": "s3_5_bridge_exit_check", "dialogues": [
-

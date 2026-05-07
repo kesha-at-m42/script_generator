@@ -18,16 +18,24 @@ Journeys:
 
 import pytest
 from dotenv import load_dotenv
+
 load_dotenv()
 
 import sys
+
 sys.path.insert(0, ".")
 
-from utils.notion import (
-    _all_blocks, _extract_rt, blocks_to_lesson, get_notion_client, get_page_url,
-    is_configured, lesson_to_blocks, push_to_notion,
-)
 from steps.formatting.id_stamper import stamp_ids
+from utils.notion import (
+    _all_blocks,
+    _extract_rt,
+    blocks_to_lesson,
+    get_notion_client,
+    get_page_url,
+    is_configured,
+    lesson_to_blocks,
+    push_to_notion,
+)
 
 notion_configured = pytest.mark.skipif(
     not is_configured(),
@@ -42,15 +50,24 @@ LESSON_V1 = [
     {
         "id": "s1_1_worked_example",
         "beats": [
-            {"type": "scene", "method": "show", "tangible_id": "array_3x4",
-             "params": {"description": "3×4 dot array appears on screen."}},
+            {
+                "type": "scene",
+                "method": "show",
+                "tangible_id": "array_3x4",
+                "params": {"description": "3×4 dot array appears on screen."},
+            },
             {"type": "dialogue", "text": "Here's a 3 by 4 array. Count the rows first."},
             {"type": "dialogue", "text": "3 rows of 4 dots. We write that as 3 times 4."},
-            {"type": "current_scene", "elements": [
-                {"tangible_id": "array_3x4", "description": "3×4 dot array visible."}
-            ]},
-            {"type": "scene", "method": "animate", "tangible_id": "array_3x4",
-             "params": {"description": "Array rotates 90 degrees to show 4×3."}},
+            {
+                "type": "current_scene",
+                "elements": [{"tangible_id": "array_3x4", "description": "3×4 dot array visible."}],
+            },
+            {
+                "type": "scene",
+                "method": "animate",
+                "tangible_id": "array_3x4",
+                "params": {"description": "Array rotates 90 degrees to show 4×3."},
+            },
             {"type": "dialogue", "text": "Now it's 4 rows of 3. We write that as 4 times 3."},
             {"type": "dialogue", "text": "Same dots. Different order. Same total."},
         ],
@@ -58,11 +75,16 @@ LESSON_V1 = [
     {
         "id": "s1_2_student_tries",
         "beats": [
-            {"type": "scene", "method": "show", "tangible_id": "array_blank",
-             "params": {"description": "Blank array grid appears."}},
-            {"type": "current_scene", "elements": [
-                {"tangible_id": "array_blank", "description": "Empty grid shown."}
-            ]},
+            {
+                "type": "scene",
+                "method": "show",
+                "tangible_id": "array_blank",
+                "params": {"description": "Blank array grid appears."},
+            },
+            {
+                "type": "current_scene",
+                "elements": [{"tangible_id": "array_blank", "description": "Empty grid shown."}],
+            },
             {
                 "type": "prompt",
                 "tool": "click_region",
@@ -81,7 +103,10 @@ LESSON_V1 = [
                         "description": "First wrong attempt",
                         "is_correct": False,
                         "beats": [
-                            {"type": "dialogue", "text": "Look at the horizontal lines. Those are rows."},
+                            {
+                                "type": "dialogue",
+                                "text": "Look at the horizontal lines. Those are rows.",
+                            },
                         ],
                     },
                 ],
@@ -91,12 +116,19 @@ LESSON_V1 = [
     {
         "id": "s1_3_consolidation",
         "beats": [
-            {"type": "scene", "method": "show", "tangible_id": "equation_display",
-             "params": {"description": "Equation 3×4 = 4×3 displayed."}},
+            {
+                "type": "scene",
+                "method": "show",
+                "tangible_id": "equation_display",
+                "params": {"description": "Equation 3×4 = 4×3 displayed."},
+            },
             {"type": "dialogue", "text": "You just proved the turn-around rule."},
-            {"type": "current_scene", "elements": [
-                {"tangible_id": "equation_display", "description": "Equation visible."}
-            ]},
+            {
+                "type": "current_scene",
+                "elements": [
+                    {"tangible_id": "equation_display", "description": "Equation visible."}
+                ],
+            },
             {
                 "type": "prompt",
                 "tool": "multiple_choice",
@@ -113,14 +145,20 @@ LESSON_V1 = [
                         "description": "Correct",
                         "is_correct": True,
                         "beats": [
-                            {"type": "dialogue", "text": "That's it. Order doesn't change the product."},
+                            {
+                                "type": "dialogue",
+                                "text": "That's it. Order doesn't change the product.",
+                            },
                         ],
                     },
                     {
                         "description": "Wrong — picked addition rule",
                         "is_correct": False,
                         "beats": [
-                            {"type": "dialogue", "text": "That's the rule for addition. Think about multiplication."},
+                            {
+                                "type": "dialogue",
+                                "text": "That's the rule for addition. Think about multiplication.",
+                            },
                         ],
                     },
                 ],
@@ -132,6 +170,7 @@ LESSON_V1 = [
 
 def _deep_copy_lesson(lesson):
     import copy
+
     return copy.deepcopy(lesson)
 
 
@@ -141,8 +180,7 @@ def _callouts_for_section(blocks, section_id):
             rt = _extract_rt(block["heading_2"]["rich_text"])
             if f"[{section_id}]" in rt:
                 return [
-                    c for c in block["heading_2"].get("children", [])
-                    if c.get("type") == "callout"
+                    c for c in block["heading_2"].get("children", []) if c.get("type") == "callout"
                 ]
     return []
 
@@ -155,7 +193,7 @@ def _beat_text(callouts, emoji):
 def _hr(title):
     print(f"\n{'─' * 60}")
     print(f"  {title}")
-    print('─' * 60)
+    print("─" * 60)
 
 
 def _step(msg):
@@ -189,8 +227,12 @@ def test_interactive_walkthrough(sandbox_page, request):
     _hr("JOURNEY 1 — First push: inspect structure")
 
     lesson = _deep_copy_lesson(LESSON_V1)
-    push_to_notion(data=lesson, title="[TEST] Interactive Walkthrough",
-                   existing_page_id=sandbox_page, blocks_fn=lesson_to_blocks)
+    push_to_notion(
+        data=lesson,
+        title="[TEST] Interactive Walkthrough",
+        existing_page_id=sandbox_page,
+        blocks_fn=lesson_to_blocks,
+    )
 
     _step(f"Page pushed → {url}")
     _step("Open the page and verify:")
@@ -214,9 +256,7 @@ def test_interactive_walkthrough(sandbox_page, request):
     _check("Journey 1 passed — structure is correct")
 
     # Capture block IDs of unchanged sections for later comparison
-    s1_first_dialogue = next(
-        c for c in s1_callouts if c["callout"]["icon"]["emoji"] == "💬"
-    )
+    s1_first_dialogue = next(c for c in s1_callouts if c["callout"]["icon"]["emoji"] == "💬")
     s3_first_callout = s3_callouts[0]
     s1_dialogue_id_before = s1_first_dialogue["id"]
     s3_callout_id_before = s3_first_callout["id"]
@@ -239,8 +279,12 @@ def test_interactive_walkthrough(sandbox_page, request):
     # s1_1 and s1_3 unchanged
 
     _step("Pushing v2: only the prompt text in s1_2 changed.")
-    push_to_notion(data=lesson_v2, title="[TEST] Interactive Walkthrough",
-                   existing_page_id=sandbox_page, blocks_fn=lesson_to_blocks)
+    push_to_notion(
+        data=lesson_v2,
+        title="[TEST] Interactive Walkthrough",
+        existing_page_id=sandbox_page,
+        blocks_fn=lesson_to_blocks,
+    )
 
     _step("After re-push, verify:")
     print("       • s1_2 prompt text reads: 'Click to highlight the rows in the array.'")
@@ -257,12 +301,16 @@ def test_interactive_walkthrough(sandbox_page, request):
     # Block IDs of unchanged sections must be the same (in-place update)
     s1_callouts_j2 = _callouts_for_section(blocks_j2, "s1_1_worked_example")
     s3_callouts_j2 = _callouts_for_section(blocks_j2, "s1_3_consolidation")
-    s1_dialogue_id_after = next(
-        c for c in s1_callouts_j2 if c["callout"]["icon"]["emoji"] == "💬"
-    )["id"]
+    s1_dialogue_id_after = next(c for c in s1_callouts_j2 if c["callout"]["icon"]["emoji"] == "💬")[
+        "id"
+    ]
     s3_callout_id_after = s3_callouts_j2[0]["id"]
-    assert s1_dialogue_id_after == s1_dialogue_id_before, "s1_1 block recreated — surgical update failed"
-    assert s3_callout_id_after == s3_callout_id_before, "s1_3 block recreated — surgical update failed"
+    assert s1_dialogue_id_after == s1_dialogue_id_before, (
+        "s1_1 block recreated — surgical update failed"
+    )
+    assert s3_callout_id_after == s3_callout_id_before, (
+        "s1_3 block recreated — surgical update failed"
+    )
 
     comments = client.comments.list(block_id=s1_dialogue_id_after).get("results", [])
     comment_texts = ["".join(s["text"]["content"] for s in c["rich_text"]) for c in comments]
@@ -275,25 +323,34 @@ def test_interactive_walkthrough(sandbox_page, request):
     _hr("JOURNEY 3 — Structural re-push: beat added to s1_1")
 
     lesson_v3 = _deep_copy_lesson(LESSON_V1)
-    lesson_v3[0]["beats"].insert(2, {
-        "type": "dialogue",
-        "text": "Notice how the shape of the array doesn't change — just the way we read it.",
-    })
+    lesson_v3[0]["beats"].insert(
+        2,
+        {
+            "type": "dialogue",
+            "text": "Notice how the shape of the array doesn't change — just the way we read it.",
+        },
+    )
 
     _step("Pushing v3: one extra dialogue beat inserted into s1_1.")
     _step("After re-push, verify:")
     print("       • s1_1 now has 3 consecutive 💬 dialogue beats in step 1")
     print("       • s1_2 and s1_3 are unchanged")
 
-    push_to_notion(data=lesson_v3, title="[TEST] Interactive Walkthrough",
-                   existing_page_id=sandbox_page, blocks_fn=lesson_to_blocks)
+    push_to_notion(
+        data=lesson_v3,
+        title="[TEST] Interactive Walkthrough",
+        existing_page_id=sandbox_page,
+        blocks_fn=lesson_to_blocks,
+    )
 
     _wait(request, "Inspect: s1_1 has extra beat, others unchanged")
 
     blocks_j3 = _all_blocks(client, sandbox_page, recursive=True)
     s1_callouts_j3 = _callouts_for_section(blocks_j3, "s1_1_worked_example")
     dialogues_j3 = [c for c in s1_callouts_j3 if c["callout"]["icon"]["emoji"] == "💬"]
-    assert len(dialogues_j3) == 5, f"Expected 5 💬 in s1_1 after inserting 1 (was 4), got {len(dialogues_j3)}"
+    assert len(dialogues_j3) == 5, (
+        f"Expected 5 💬 in s1_1 after inserting 1 (was 4), got {len(dialogues_j3)}"
+    )
     _check("Journey 3 passed — extra beat present in s1_1")
 
     # -----------------------------------------------------------------------
@@ -302,22 +359,33 @@ def test_interactive_walkthrough(sandbox_page, request):
     _hr("JOURNEY 4 — New section: inserted between s1_2 and s1_3")
 
     lesson_v4 = _deep_copy_lesson(LESSON_V1)
-    lesson_v4.insert(2, {
-        "id": "s1_2b_extra_practice",
-        "beats": [
-            {"type": "dialogue", "text": "Let's try one more example before moving on."},
-            {"type": "scene", "method": "show", "tangible_id": "array_2x6",
-             "params": {"description": "2×6 array appears."}},
-        ],
-    })
+    lesson_v4.insert(
+        2,
+        {
+            "id": "s1_2b_extra_practice",
+            "beats": [
+                {"type": "dialogue", "text": "Let's try one more example before moving on."},
+                {
+                    "type": "scene",
+                    "method": "show",
+                    "tangible_id": "array_2x6",
+                    "params": {"description": "2×6 array appears."},
+                },
+            ],
+        },
+    )
 
     _step("Pushing v4: new section s1_2b inserted between s1_2 and s1_3.")
     _step("After re-push, verify:")
     print("       • Section order is: 1.1, 1.2, 1.2b Extra Practice, 1.3")
     print("       • New section sits between s1_2 and s1_3 — NOT at the bottom")
 
-    push_to_notion(data=lesson_v4, title="[TEST] Interactive Walkthrough",
-                   existing_page_id=sandbox_page, blocks_fn=lesson_to_blocks)
+    push_to_notion(
+        data=lesson_v4,
+        title="[TEST] Interactive Walkthrough",
+        existing_page_id=sandbox_page,
+        blocks_fn=lesson_to_blocks,
+    )
 
     _wait(request, "Inspect: s1_2b appears between s1_2 and s1_3")
 
@@ -325,11 +393,12 @@ def test_interactive_walkthrough(sandbox_page, request):
     h2s = [b for b in blocks_j4 if b.get("type") == "heading_2"]
     section_ids = [
         _extract_rt(b["heading_2"]["rich_text"]).split("[")[-1].rstrip("]")
-        for b in h2s if "[" in _extract_rt(b["heading_2"]["rich_text"])
+        for b in h2s
+        if "[" in _extract_rt(b["heading_2"]["rich_text"])
     ]
-    idx_s12  = section_ids.index("s1_2_student_tries")
+    idx_s12 = section_ids.index("s1_2_student_tries")
     idx_s12b = section_ids.index("s1_2b_extra_practice")
-    idx_s13  = section_ids.index("s1_3_consolidation")
+    idx_s13 = section_ids.index("s1_3_consolidation")
     assert idx_s12 < idx_s12b < idx_s13, f"Section order wrong: {section_ids}"
     _check("Journey 4 passed — new section inserted in sorted order")
 
@@ -403,7 +472,7 @@ def test_interactive_walkthrough(sandbox_page, request):
 
     print(f"\n  Suggested beats found: {len(suggested)}")
     for b in suggested:
-        print(f"    type={b['type']!r}  text={b.get('text','')!r}")
+        print(f"    type={b['type']!r}  text={b.get('text', '')!r}")
 
     assert len(suggested) >= 1, "No suggested beats found — check the [new beat] tag was included"
     _check("Journey 6 passed — suggested beat inserted correctly")
@@ -411,4 +480,4 @@ def test_interactive_walkthrough(sandbox_page, request):
     print(f"\n{'═' * 60}")
     print("  All 6 journeys complete.")
     print(f"  Sandbox page: {url}")
-    print('═' * 60)
+    print("═" * 60)

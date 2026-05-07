@@ -1,5 +1,8 @@
 import json
+import os
 import re
+import sys
+
 
 def remove_event_tags(data):
     """
@@ -11,12 +14,10 @@ def remove_event_tags(data):
         return [remove_event_tags(item) for item in data]
     elif isinstance(data, str):
         # Remove all [event:...] tags using regex
-        return re.sub(r'\[event:[^\]]+\]', '', data)
+        return re.sub(r"\[event:[^\]]+\]", "", data)
     else:
         return data
 
-import sys
-import os
 
 # Get input and output paths from command line arguments
 if len(sys.argv) < 2:
@@ -35,14 +36,14 @@ else:
     directory = os.path.dirname(input_path)
     filename = os.path.basename(input_path)
     name, ext = os.path.splitext(filename)
-    
+
     # Create output filename with _untagged suffix
     output_filename = f"{name}_untagged{ext}"
     output_path = os.path.join(directory, output_filename) if directory else output_filename
 
 # Read the input JSON file
 try:
-    with open(input_path, 'r', encoding='utf-8') as f:
+    with open(input_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 except FileNotFoundError:
     print(f"Error: File '{input_path}' not found")
@@ -55,7 +56,7 @@ except json.JSONDecodeError:
 cleaned_data = remove_event_tags(data)
 
 # Write the cleaned data to output file
-with open(output_path, 'w', encoding='utf-8') as f:
+with open(output_path, "w", encoding="utf-8") as f:
     json.dump(cleaned_data, f, indent=2, ensure_ascii=False)
 
 print("Event tags removed successfully!")

@@ -1,12 +1,13 @@
 {
   "id": "s3_1_independent_selection_multiples_5",
   "incorrects": [
+    [],
     [
       {
         "condition": {
           "selected": "Scale of 2"
         },
-        "description": "Student selected Scale of 2",
+        "description": "Student selected Scale of 2 (works but not optimal)",
         "is_correct": false,
         "steps": [
           [
@@ -15,15 +16,13 @@
               "method": "update",
               "tangible_id": "bar_graph_fruits",
               "params": {
-                "highlight_categories": [
-                  "Dates"
-                ],
-                "description": "Dates value (60) highlighted in data table."
+                "scale": 2,
+                "description": "Bar graph updates to Scale of 2. All bars land on tick marks but axis has many marks."
               }
             },
             {
               "type": "dialogue",
-              "text": "Scale of 2 works, but look at the biggest number: 60. That means 30 tick marks on the axis. With Scale of 10, you only need 6 tick marks. Which is easier to read?"
+              "text": "Scale of 2 does work. All the values land exactly. But look at the ones place digits: 60, 45, 30, 15. They all end in 0 or 5. Which scale would give you fewer lines on the axis?"
             }
           ]
         ]
@@ -32,7 +31,7 @@
         "condition": {
           "selected": "Scale of 5"
         },
-        "description": "Student selected Scale of 5",
+        "description": "Student selected Scale of 5 (works but not optimal)",
         "is_correct": false,
         "steps": [
           [
@@ -41,12 +40,13 @@
               "method": "update",
               "tangible_id": "bar_graph_fruits",
               "params": {
-                "description": "Scale of 5 and Scale of 10 options highlighted side by side."
+                "scale": 5,
+                "description": "Bar graph updates to Scale of 5. All bars land on tick marks."
               }
             },
             {
               "type": "dialogue",
-              "text": "Scale of 5 fits all the data. But look: to reach 60, you need 12 tick marks. Scale of 10 only needs 6. Both work, but which graph is cleaner?"
+              "text": "Scale of 5 works. All values land exactly. But the biggest number is 60. That means you need tick marks at 0, 5, 10, 15, all the way to 60. That's 13 marks. Scale of 10 would use fewer."
             }
           ]
         ]
@@ -62,14 +62,14 @@
               "method": "animate",
               "tangible_id": "bar_graph_fruits",
               "params": {
-                "event": "preview_scale_comparison",
+                "event": "cycle_scales",
                 "status": "confirmed",
-                "description": "System demonstrates Scale of 10. Axis shows 0, 10, 20, 30, 40, 50, 60. All bars fit cleanly: Dates at 60, Cherries at 45, Bananas at 30, Apples at 15."
+                "description": "Bar graph cycles through scales 2, 5, and 10, showing tick mark density for each."
               }
             },
             {
               "type": "dialogue",
-              "text": "Here's how I think about it. The biggest number is 60. All values end in 0 or 5, so Scale of 5 and Scale of 10 both show exact values. But Scale of 10 only needs 6 tick marks while Scale of 5 needs 12. Fewer marks make the graph easier to read. The answer is Scale of 10 because it balances precision with clarity."
+              "text": "Let me show you how to choose. First, I check the biggest number: 60. That's the maximum the graph needs to reach. Next, I look at the ones place digits: 60, 45, 30, 15. All end in 0 or 5, so they're multiples of 5. That means scales of 5 and 10 will both show exact values. Now I compare. Scale of 5 needs 13 tick marks to reach 60. Scale of 10 only needs 7. Same accuracy, cleaner graph. That's why Scale of 10 is the best choice for this data."
             }
           ]
         ]
@@ -80,162 +80,50 @@
         "condition": {
           "and": [
             {
+              "selected": "All values end in 0 or 5 so they can be graphed precisely."
+            },
+            {
+              "or": [
+                {
+                  "not": {
+                    "selected": "The graph is easy to read."
+                  }
+                },
+                {
+                  "not": {
+                    "selected": "The biggest number is 60 so the bars fit on the graph."
+                  }
+                },
+                {
+                  "not": {
+                    "selected": "Scale of 2 takes too many marks to reach the biggest number."
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "description": "Student selected the precision reason but missed one or more other reasons",
+        "is_correct": false,
+        "steps": [
+          [
+            {
+              "type": "dialogue",
+              "text": "You found one reason. Now think about the biggest number: 60. Does it fit on the graph without going past the axis? And think about Scale of 2. How many tick marks would it take to reach 60 with that scale?"
+            }
+          ]
+        ]
+      },
+      {
+        "condition": {
+          "and": [
+            {
               "not": {
                 "selected": "All values end in 0 or 5 so they can be graphed precisely."
               }
             },
             {
-              "not": {
-                "selected": "The graph is easy to read."
-              }
-            },
-            {
-              "not": {
-                "selected": "The biggest number is 60 so the bars fit on the graph."
-              }
-            },
-            {
-              "not": {
-                "selected": "Scale of 2 takes too many marks to reach the biggest number."
-              }
-            }
-          ]
-        },
-        "description": "Branch 3: Student selected all incorrect answers, none correct",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "data_table",
-              "params": {
-                "description": "Data values highlighted with ones place digits shown: 60 (0), 45 (5), 30 (0), 15 (5)."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "Look at what the question asks: why is Scale of 10 a good choice? Check the ones place digits. What do you notice about 60, 45, 30, 15?"
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "and": [
-            {
               "or": [
-                {
-                  "selected": "All values end in 0 or 5 so they can be graphed precisely."
-                },
-                {
-                  "selected": "The graph is easy to read."
-                },
-                {
-                  "selected": "The biggest number is 60 so the bars fit on the graph."
-                },
-                {
-                  "selected": "Scale of 2 takes too many marks to reach the biggest number."
-                }
-              ]
-            },
-            {
-              "not": {
-                "and": [
-                  {
-                    "selected": "All values end in 0 or 5 so they can be graphed precisely."
-                  },
-                  {
-                    "selected": "The graph is easy to read."
-                  },
-                  {
-                    "selected": "The biggest number is 60 so the bars fit on the graph."
-                  },
-                  {
-                    "selected": "Scale of 2 takes too many marks to reach the biggest number."
-                  }
-                ]
-              }
-            },
-            {
-              "not": {
-                "or": [
-                  {
-                    "not": {
-                      "selected": "All values end in 0 or 5 so they can be graphed precisely."
-                    }
-                  },
-                  {
-                    "not": {
-                      "selected": "The graph is easy to read."
-                    }
-                  },
-                  {
-                    "not": {
-                      "selected": "The biggest number is 60 so the bars fit on the graph."
-                    }
-                  },
-                  {
-                    "not": {
-                      "selected": "Scale of 2 takes too many marks to reach the biggest number."
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "description": "Branch 2: Student selected only correct answers, but not all of them",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "bar_graph_fruits",
-              "params": {
-                "description": "Scale preview system showing comparison: Scale of 2 (30 marks), Scale of 10 (6 marks)."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "You found some correct reasons. Look at all four statements again. Each one explains something important about why Scale of 10 works well. Are there any others that also fit?"
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "and": [
-            {
-              "or": [
-                {
-                  "not": {
-                    "selected": "All values end in 0 or 5 so they can be graphed precisely."
-                  }
-                },
-                {
-                  "not": {
-                    "selected": "The graph is easy to read."
-                  }
-                },
-                {
-                  "not": {
-                    "selected": "The biggest number is 60 so the bars fit on the graph."
-                  }
-                },
-                {
-                  "not": {
-                    "selected": "Scale of 2 takes too many marks to reach the biggest number."
-                  }
-                }
-              ]
-            },
-            {
-              "or": [
-                {
-                  "selected": "All values end in 0 or 5 so they can be graphed precisely."
-                },
                 {
                   "selected": "The graph is easy to read."
                 },
@@ -249,7 +137,7 @@
             }
           ]
         },
-        "description": "Branch 4: Student selected mix of correct and incorrect answers",
+        "description": "Student selected some reasons but missed the precision reason (ending in 0 or 5)",
         "is_correct": false,
         "steps": [
           [
@@ -258,19 +146,25 @@
               "method": "update",
               "tangible_id": "data_table",
               "params": {
-                "description": "Correct selections highlighted in green."
+                "highlight_values": [
+                  60,
+                  45,
+                  30,
+                  15
+                ],
+                "description": "All four values highlight in data table."
               }
             },
             {
               "type": "dialogue",
-              "text": "Some of your choices are right. But check the others carefully. Do they all explain why Scale of 10 is a good choice for this specific data?"
+              "text": "Look at the ones place digits: 60, 45, 30, 15. What do you notice? They all end in 0 or 5. That tells you something important about which scales will show exact values."
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student answered incorrectly. System models the correct answer.",
+        "description": "Student did not select all four reasons. System models the complete reasoning.",
         "is_correct": false,
         "steps": [
           [
@@ -279,19 +173,19 @@
               "method": "animate",
               "tangible_id": "bar_graph_fruits",
               "params": {
-                "event": "demonstrate_all_reasons",
+                "event": "highlight_axis",
                 "status": "confirmed",
-                "description": "System highlights each reason in sequence: ones place digits showing 0 or 5, axis with only 6 clean tick marks, all bars fitting within range, comparison showing Scale of 2 would need 30 marks."
+                "description": "Axis highlights showing 7 tick marks (0, 10, 20, 30, 40, 50, 60)."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me walk through why Scale of 10 works. First, all values end in 0 or 5, so they land exactly on tick marks or halfway between. Second, the graph is easy to read with only 6 marks on the axis. Third, the biggest number is 60, so all bars fit well. Fourth, Scale of 2 would need 30 marks to reach 60, which is too many. All four reasons explain why Scale of 10 is the best choice here."
+              "text": "Here's how to think through all the reasons. First, the biggest number is 60. The graph fits it without extending the axis. Second, look at the ones digits: 60, 45, 30, 15 all end in 0 or 5, so Scale of 10 can graph them precisely. Third, Scale of 10 only needs 7 tick marks to reach 60. Scale of 2 would need 31 marks. That's a lot. Fourth, the graph is clean and easy to read. All four reasons point to Scale of 10 as the best choice."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:06:06.122290+00:00"
+  "_generated_at": "2026-05-05T18:25:36.920964+00:00"
 }

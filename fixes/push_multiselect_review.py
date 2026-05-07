@@ -22,7 +22,13 @@ sys.path.insert(0, str(project_root))
 
 from core.path_manager import get_project_paths  # noqa: E402
 from core.version_manager import get_latest_version  # noqa: E402
-from utils.notion import _divider, _heading, get_page_url, lesson_to_blocks, push_blocks_to_notion  # noqa: E402
+from utils.notion import (  # noqa: E402
+    _divider,
+    _heading,
+    get_page_url,
+    lesson_to_blocks,
+    push_blocks_to_notion,
+)
 
 # Registry key path (no real file — used only as a stable key for notion_pages.json)
 _REGISTRY_STUB = project_root / "review" / "multiselect_mc_unit{unit}.json"

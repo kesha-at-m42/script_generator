@@ -4,22 +4,24 @@
     [
       {
         "condition": {
-          "and": [
+          "incorrect_count": 1
+        },
+        "description": "Student selected an incomplete or incorrect set of categories on first attempt",
+        "is_correct": false,
+        "steps": [
+          [
             {
-              "selected": "Pizza"
-            },
-            {
-              "selected": "Tacos"
-            },
-            {
-              "selected": "Salad"
-            },
-            {
-              "selected": "Burgers"
+              "type": "dialogue",
+              "text": "Read the question again. Which foods does it mention?"
             }
           ]
+        ]
+      },
+      {
+        "condition": {
+          "incorrect_count": 2
         },
-        "description": "Student selected all four categories including Burgers (over-selecting)",
+        "description": "Student selected an incomplete or incorrect set of categories on second attempt",
         "is_correct": false,
         "steps": [
           [
@@ -38,116 +40,14 @@
             },
             {
               "type": "dialogue",
-              "text": "You picked Pizza, Tacos, and Salad correctly. But the question doesn't ask about Burgers. Look at which foods the question names."
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "and": [
-            {
-              "or": [
-                {
-                  "selected": "Pizza"
-                },
-                {
-                  "selected": "Tacos"
-                },
-                {
-                  "selected": "Salad"
-                }
-              ]
-            },
-            {
-              "not": {
-                "and": [
-                  {
-                    "selected": "Pizza"
-                  },
-                  {
-                    "selected": "Tacos"
-                  },
-                  {
-                    "selected": "Salad"
-                  }
-                ]
-              }
-            },
-            {
-              "not": {
-                "selected": "Burgers"
-              }
-            }
-          ]
-        },
-        "description": "Student selected some but not all correct categories (under-selecting)",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "bar_graph_lunch",
-              "params": {
-                "highlight_categories": [
-                  "Pizza",
-                  "Tacos",
-                  "Salad"
-                ],
-                "description": "Pizza, Tacos, and Salad bars pulse."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "You found some of them. Read the question again. Which foods does it name? Select all three."
-            }
-          ]
-        ]
-      },
-      {
-        "condition": {
-          "not": {
-            "or": [
-              {
-                "selected": "Pizza"
-              },
-              {
-                "selected": "Tacos"
-              },
-              {
-                "selected": "Salad"
-              }
-            ]
-          }
-        },
-        "description": "Student selected none of the correct categories or only Burgers (all-wrong)",
-        "is_correct": false,
-        "steps": [
-          [
-            {
-              "type": "scene",
-              "method": "update",
-              "tangible_id": "bar_graph_lunch",
-              "params": {
-                "highlight_categories": [
-                  "Pizza",
-                  "Tacos",
-                  "Salad"
-                ],
-                "description": "Pizza, Tacos, and Salad bars highlight."
-              }
-            },
-            {
-              "type": "dialogue",
-              "text": "The question asks about pizza compared to tacos and salad together. Those are the three categories we need."
+              "text": "The question compares pizza to tacos and salad together. That means we need Pizza, Tacos, and Salad. Which three categories are those?"
             }
           ]
         ]
       },
       {
         "condition": {},
-        "description": "Student answered incorrectly. System models the correct answer.",
+        "description": "Student selected an incomplete or incorrect set of categories. System models the correct answer.",
         "is_correct": false,
         "steps": [
           [
@@ -156,19 +56,19 @@
               "method": "animate",
               "tangible_id": "bar_graph_lunch",
               "params": {
-                "event": "highlight_selections",
+                "event": "highlight_selection",
                 "status": "confirmed",
-                "description": "System selects Pizza, Tacos, and Salad in sequence."
+                "description": "System highlights Pizza, Tacos, and Salad bars in sequence, then all three together."
               }
             },
             {
               "type": "dialogue",
-              "text": "Let me show you. The question says pizza compared to tacos and salad together. That names three foods: Pizza, Tacos, and Salad. We select those three because the question asks about them."
+              "text": "Let me show you. The question asks how many more students chose pizza than tacos and salad together. That tells us we need three categories: Pizza, Tacos, and Salad. We don't need Burgers because the question doesn't mention burgers. The three categories we need are Pizza, Tacos, and Salad."
             }
           ]
         ]
       }
     ]
   ],
-  "_generated_at": "2026-04-20T17:03:53.357508+00:00"
+  "_generated_at": "2026-04-27T15:58:56.461834+00:00"
 }

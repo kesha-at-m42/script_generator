@@ -1,0 +1,113 @@
+[
+  {
+    "discussion_id": "3515917e-ac52-8063-9cbb-001c0307291c",
+    "block_id": "34f5917e-ac52-81d1-affe-e976d36dad76",
+    "section_id": "s1_1_scale_progression_pattern_type_pattern",
+    "beat_description": "Initial scene setup showing all four bar graphs (scales 1, 2, 5, 10) simultaneously",
+    "beat": null,
+    "thread": [
+      {
+        "comment_id": "3515917e-ac52-8010-95ed-001d9b52207f",
+        "comment_text": "We want EACH of the graphs to highlight as she does the count for each (scale of 1 and 2) - then maybe 5 and 10 together for them to check. Following the dialogue, not flashing the answer.",
+        "author_id": "29dd872b-594c-8119-84c1-0002b4f81bc1",
+        "created_time": "2026-04-29T18:57:00.000Z"
+      }
+    ],
+    "pipeline_history": [],
+    "issue_summary": "All four graphs appear at once instead of appearing sequentially with highlights as the guide counts the lines on each scale",
+    "likely_step": "section_structurer",
+    "confidence": "high",
+    "reasoning": "The section_structurer is responsible for creating scene beats that describe tangible changes on screen. The reviewer wants sequential highlighting of each graph as the guide discusses it, but the structurer created four separate 'add' beats that all fire before any dialogue. The structurer should have either: (1) created interleaved scene/dialogue beats to highlight each graph as it's discussed, or (2) created a single add beat followed by highlight beats synchronized with dialogue about each scale.",
+    "suggested_fix": "Restructure the scene beats to add all graphs first, then create highlight beats interleaved with dialogue that counts lines for scale 1, then scale 2, then both 5 and 10 together for student verification"
+  },
+  {
+    "discussion_id": "3515917e-ac52-8076-926c-001ceeb93759",
+    "block_id": "34f5917e-ac52-8122-8b64-e5913aa446cd",
+    "section_id": "s2_1_orientation_transfer_type_d_representation",
+    "beat_description": "Initial scene beats adding vertical and horizontal bar graphs",
+    "beat": null,
+    "thread": [
+      {
+        "comment_id": "3515917e-ac52-80ab-8d91-001d43326453",
+        "comment_text": "We don’t want these visual cues here - that’s what we are asking the student to click and identify",
+        "author_id": "29dd872b-594c-8119-84c1-0002b4f81bc1",
+        "created_time": "2026-04-29T19:07:00.000Z"
+      }
+    ],
+    "pipeline_history": [],
+    "issue_summary": "Scene descriptions explicitly mention visual cues (bar positions between gridlines) that students are being asked to identify themselves",
+    "likely_step": "section_structurer",
+    "confidence": "high",
+    "reasoning": "The scene beat descriptions in beats b0 and b1 state 'Category B bar reaches 35, positioned between 30 and 40 gridlines' — this is a visual cue that reveals the answer before students attempt the task. The section_structurer generates all scene descriptions and is responsible for ensuring they don't give away information students need to discover. This is a scene description accuracy/appropriateness issue, not a dialogue or remediation issue.",
+    "suggested_fix": "Remove the specific positional cues from scene descriptions; describe only what appears without revealing the answer location"
+  },
+  {
+    "discussion_id": "3515917e-ac52-8024-bbcd-001c1914b50d",
+    "block_id": "34f5917e-ac52-81d1-8656-e887fc57dec2",
+    "section_id": "s2_1_orientation_transfer_type_d_representation",
+    "beat_description": "Two sequential prompts asking student to click Category B in vertical graph, then horizontal graph",
+    "beat": null,
+    "thread": [
+      {
+        "comment_id": "3515917e-ac52-800b-8bac-001db7cbd984",
+        "comment_text": "@Kesha Bagadia I think this needs to be regenerated because it has the 2 paths again when what we want is a student to select BOTH this time (not just 1 of the 2 like we adjusted for another problem). Can this be set up more like a multi select, but the multi select parts are the parts of the two graphs?",
+        "author_id": "29dd872b-594c-8119-84c1-0002b4f81bc1",
+        "created_time": "2026-04-29T19:09:00.000Z"
+      },
+      {
+        "comment_id": "3515917e-ac52-80e3-9330-001d8d43a407",
+        "comment_text": "Also, just a note if you do rerun it (and I can change it again later after regeneration….) I don’t want this to be Category A that is the answer again so I switched the letters around so A is 20, B is 40 and C is 35.",
+        "author_id": "29dd872b-594c-8119-84c1-0002b4f81bc1",
+        "created_time": "2026-04-29T19:10:00.000Z"
+      }
+    ],
+    "pipeline_history": [],
+    "issue_summary": "Section uses two separate single-selection prompts instead of one multi-select prompt where student must select the same category in both graphs simultaneously",
+    "likely_step": "section_structurer",
+    "confidence": "high",
+    "reasoning": "The section_structurer creates the initial prompt structure and interaction design. The reviewer wants a single multi-select prompt targeting both graphs at once, but the structurer generated two sequential single-selection prompts (beats b3 and b6). This is a fundamental interaction design decision made during initial section structuring, not a content quality issue that downstream steps would address.",
+    "suggested_fix": "Regenerate section with a single prompt beat using multi-select tool that targets both bar_graph_vertical and bar_graph_horizontal, requiring student to select Category B in both graphs before validation"
+  },
+  {
+    "discussion_id": "3515917e-ac52-80fd-b28f-001ce3c6a393",
+    "block_id": "34f5917e-ac52-8161-b99a-f39694ff2123",
+    "section_id": "s3_1_real_world_connection_type_c",
+    "beat_description": "scene beat showing three scenario images labeled A, B, C",
+    "beat": null,
+    "thread": [
+      {
+        "comment_id": "3515917e-ac52-80f3-a988-001d16ecd1cd",
+        "comment_text": "Can this be multi-choice/select and not labeled A, B, C? I’m not remembering exactly what we said would apply in these situations…",
+        "author_id": "29dd872b-594c-8119-84c1-0002b4f81bc1",
+        "created_time": "2026-04-29T19:12:00.000Z"
+      }
+    ],
+    "pipeline_history": [],
+    "issue_summary": "The prompt uses letter labels (A, B, C) which violates the no-letter-labels rule from the spec.",
+    "likely_step": "section_structurer",
+    "confidence": "high",
+    "reasoning": "The section_structurer created the initial scene beat with letter labels in the image descriptions ('A: Counting money... B: Measuring height... C: Counting items'). The dialogue_rewriter only processes dialogue beats, not scene beats, so it would not have touched this tangible description. The letter labels appear in the scene description and are referenced throughout the prompt and validator logic.",
+    "suggested_fix": "Remove letter labels from the scenario images and use visual differentiation or position-based selection instead."
+  },
+  {
+    "discussion_id": "3515917e-ac52-80d7-b181-001ca84916ac",
+    "block_id": "34f5917e-ac52-81a7-8b62-cdcdf9aaaf62",
+    "section_id": "s3_1_real_world_connection_type_c",
+    "beat_description": "prompt beat asking students to select which situations work well with scale of 10",
+    "beat": null,
+    "thread": [
+      {
+        "comment_id": "3515917e-ac52-807b-9a24-001d15efe4cd",
+        "comment_text": "If we remove A, B and C from the images, we do have to figure out how to refer to them here though",
+        "author_id": "29dd872b-594c-8119-84c1-0002b4f81bc1",
+        "created_time": "2026-04-29T19:21:00.000Z"
+      }
+    ],
+    "pipeline_history": [],
+    "issue_summary": "Prompt options use letter labels (A, B, C) which violates dialogue_rewriter rules, and if images lose labels, prompt becomes unworkable without alternative reference method",
+    "likely_step": "section_structurer",
+    "confidence": "high",
+    "reasoning": "The section_structurer created the prompt beat with options ['A', 'B', 'C'] that directly reference letter labels from the spec. The dialogue_rewriter is responsible for removing letter labels from dialogue beats, but this is a prompt beat with structured options, not dialogue. The structurer should have anticipated that letter labels would be removed from images and designed a prompt mechanism that doesn't depend on them (e.g., clickable images, descriptive option text like 'Counting money in stacks of 10').",
+    "suggested_fix": "Redesign prompt to use descriptive option text or make images themselves selectable, eliminating dependency on letter labels"
+  }
+]

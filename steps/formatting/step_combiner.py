@@ -68,18 +68,18 @@ def combine_steps(input_data):
     """
     # Define which fields belong to sequence metadata vs step data
     METADATA_FIELDS = {
-        'problem_id',
-        'template_id',
-        'mastery_tier',
-        'mastery_verb',
-        'fractions',
-        'no_of_steps'
+        "problem_id",
+        "template_id",
+        "mastery_tier",
+        "mastery_verb",
+        "fractions",
+        "no_of_steps",
     }
 
     # Group items by problem_id
     grouped = defaultdict(list)
     for item in input_data:
-        problem_id = item.get('problem_id')
+        problem_id = item.get("problem_id")
         grouped[problem_id].append(item)
 
     # Combine into sequences
@@ -88,30 +88,19 @@ def combine_steps(input_data):
         items = grouped[problem_id]
 
         # Sort items by step_id
-        items.sort(key=lambda x: x.get('step_id', 1))
+        items.sort(key=lambda x: x.get("step_id", 1))
 
         # Extract metadata from first item (should be same for all items)
-        metadata = {
-            field: items[0][field]
-            for field in METADATA_FIELDS
-            if field in items[0]
-        }
+        metadata = {field: items[0][field] for field in METADATA_FIELDS if field in items[0]}
 
         # Build steps array with step-specific fields
         steps = []
         for item in items:
-            step = {
-                key: value
-                for key, value in item.items()
-                if key not in METADATA_FIELDS
-            }
+            step = {key: value for key, value in item.items() if key not in METADATA_FIELDS}
             steps.append(step)
 
         # Create sequence
-        sequence = {
-            **metadata,
-            'steps': steps
-        }
+        sequence = {**metadata, "steps": steps}
 
         sequences.append(sequence)
 
@@ -151,7 +140,7 @@ if __name__ == "__main__":
             "workspace": [],
             "correct_answer": {"value": "a"},
             "success_path_dialogue": "Yes!",
-            "error_path_generic": {"steps": []}
+            "error_path_generic": {"steps": []},
         },
         # Multi-step problem (step 1)
         {
@@ -168,7 +157,7 @@ if __name__ == "__main__":
             "workspace": [],
             "correct_answer": {"value": ["0", "1/4", "2/4", "3/4", "1"]},
             "success_path_dialogue": "Right.",
-            "error_path_generic": {"steps": []}
+            "error_path_generic": {"steps": []},
         },
         # Multi-step problem (step 2)
         {
@@ -185,8 +174,8 @@ if __name__ == "__main__":
             "workspace": [],
             "correct_answer": {"value": {}},
             "success_path_dialogue": "Good!",
-            "error_path_generic": {"steps": []}
-        }
+            "error_path_generic": {"steps": []},
+        },
     ]
 
     result = combine_steps(sample_input)
@@ -195,7 +184,9 @@ if __name__ == "__main__":
     print(f"Output: {len(result)} sequences")
     print("\nSequences:")
     for seq in result:
-        print(f"  - problem_id={seq['problem_id']}, no_of_steps={seq['no_of_steps']}, steps in array={len(seq['steps'])}")
+        print(
+            f"  - problem_id={seq['problem_id']}, no_of_steps={seq['no_of_steps']}, steps in array={len(seq['steps'])}"
+        )
 
     # Verify structure
     assert len(result) == 2  # 2 unique problem_ids

@@ -61,7 +61,7 @@ Output one string per beat, in the same order. Your output `dialogues` array mus
 1. **Forbidden phrases** — contains any phrase from <forbidden_phrases>
 2. **Hollow praise** — uses "Great job!", "Excellent!", "Perfect!", or similar hollow praise not tied to something specific the student did
 3. **Em dashes / double hyphens** — contains `—` or `--`
-4. **Wrong on_correct opening** — beat with context `"on_correct"` does not open with a brief positive signal
+4. **Incomplete or missing on_correct signal** — beat with context `"on_correct"` either (a) does not open with a brief positive signal, or (b) consists only of a bare positive signal word or phrase with no factual content ("Right.", "Yes.", "Correct." alone) — a bare opener with nothing after it is a violation. On-correct must name the specific answer and close with the principle or what the answer demonstrates. Refer to <on_correct.md> for what substantive on-correct looks like.
 5. **Curriculum-document register** — reads like written text rather than spoken language: overly formal, passive, or structured in a way no real teacher would say out loud
 6. **Letter labels in dialogue** — contains A, B, C or similar letter identifiers carried from the spec. Those are system-level placeholders; the visual narration handles what they refer to. Replace with the actual name, value, or a plain description of what the visual shows.
 
@@ -125,6 +125,7 @@ Read each rewritten line aloud before finalizing. If it sounds like something yo
 """,
     doc_refs=[
         "guide_design.md",
+        "dialogue_examples/on_correct.md",
     ],
     module_ref={
         "forbidden_phrases": "scope_fence.forbidden_phrases",

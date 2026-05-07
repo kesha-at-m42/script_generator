@@ -1,5 +1,5 @@
 # Prompt: starterpack_parser
-# Generated: 2026-04-20T11:59:14.560102
+# Generated: 2026-04-27T10:52:37.687162
 ======================================================================
 
 ## API Parameters
@@ -161,4 +161,3 @@ Cacheable: Yes
 ## Prefill
 
 {"id": "s2_2_worked_example_with_think_aloud",
-

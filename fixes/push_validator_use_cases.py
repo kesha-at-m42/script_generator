@@ -27,7 +27,13 @@ load_dotenv()
 
 from core.path_manager import get_project_paths  # noqa: E402
 from core.version_manager import get_latest_version  # noqa: E402
-from utils.notion import _divider, _heading, _render_main_section, get_page_url, push_blocks_to_notion  # noqa: E402
+from utils.notion import (  # noqa: E402
+    _divider,
+    _heading,
+    _render_main_section,
+    get_page_url,
+    push_blocks_to_notion,
+)
 
 _REGISTRY_STUB = project_root / "review" / "validator_use_cases_unit{unit}.json"
 _DOC_PATH = project_root / "docs" / "references" / "validator_use_cases.md"
@@ -39,6 +45,7 @@ EXAMPLES_PER_USE_CASE = 1
 # Inline markdown → Notion rich_text spans (for doc context rendering)
 # ---------------------------------------------------------------------------
 
+
 def _parse_inline(text: str) -> list[dict]:
     """Convert **bold** and `code` to Notion rich_text spans."""
     spans: list[dict] = []
@@ -48,7 +55,11 @@ def _parse_inline(text: str) -> list[dict]:
             end = text.find("**", i + 2)
             if end != -1:
                 spans.append(
-                    {"type": "text", "text": {"content": text[i + 2 : end]}, "annotations": {"bold": True}}
+                    {
+                        "type": "text",
+                        "text": {"content": text[i + 2 : end]},
+                        "annotations": {"bold": True},
+                    }
                 )
                 i = end + 2
                 continue
@@ -56,7 +67,11 @@ def _parse_inline(text: str) -> list[dict]:
             end = text.find("`", i + 1)
             if end != -1:
                 spans.append(
-                    {"type": "text", "text": {"content": text[i + 1 : end]}, "annotations": {"code": True}}
+                    {
+                        "type": "text",
+                        "text": {"content": text[i + 1 : end]},
+                        "annotations": {"code": True},
+                    }
                 )
                 i = end + 1
                 continue
@@ -74,7 +89,11 @@ def _para(text: str) -> dict:
 
 
 def _bull(text: str) -> dict:
-    return {"object": "block", "type": "bulleted_list_item", "bulleted_list_item": {"rich_text": _parse_inline(text)}}
+    return {
+        "object": "block",
+        "type": "bulleted_list_item",
+        "bulleted_list_item": {"rich_text": _parse_inline(text)},
+    }
 
 
 def _callout(spans: list[dict], emoji: str = "📋") -> dict:
@@ -96,6 +115,7 @@ def _toggle(summary: str, children: list[dict]) -> dict:
 # ---------------------------------------------------------------------------
 # Doc context parser
 # ---------------------------------------------------------------------------
+
 
 def _body_to_blocks(lines: list[str]) -> list[dict]:
     """Convert body lines from a use-case section in the doc to Notion blocks."""
@@ -157,6 +177,7 @@ def load_doc_context() -> dict[str, list[dict]]:
 # Validator condition matchers
 # ---------------------------------------------------------------------------
 
+
 def _correct_cond(validator: list[dict]) -> dict:
     for b in validator:
         if b.get("is_correct"):
@@ -179,7 +200,9 @@ def _is_uc2(validator: list[dict]) -> bool:
     wrong = _wrong_branches(validator)
     if not wrong:
         return False
-    return all("incorrect_count" in b.get("condition", {}) for b in wrong) and not _is_uc1(validator)
+    return all("incorrect_count" in b.get("condition", {}) for b in wrong) and not _is_uc1(
+        validator
+    )
 
 
 def _is_uc3(validator: list[dict]) -> bool:
@@ -232,6 +255,7 @@ USE_CASES: list[tuple[str, Callable[[list[dict]], bool]]] = [
 # ---------------------------------------------------------------------------
 # Section scanning helpers
 # ---------------------------------------------------------------------------
+
 
 def _flatten_branch_steps(branch: dict) -> dict:
     """Flatten steps → beats inside a single validator branch."""
@@ -305,6 +329,7 @@ def _pipeline_label(name: str) -> str:
 # ---------------------------------------------------------------------------
 # Main collection
 # ---------------------------------------------------------------------------
+
 
 def collect_blocks_for_unit(unit_number: int) -> list[dict]:
     out_base = get_project_paths()["outputs"] / f"unit{unit_number}"

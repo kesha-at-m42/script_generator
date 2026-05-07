@@ -1,0 +1,127 @@
+# exitcheck-script.toml
+
+title = "exitcheck"
+type = "sequence"
+
+# ---------------------------------------------------------------------------
+# Section 1 - dual_expression_building
+# ---------------------------------------------------------------------------
+
+[section_101_dual_expression_building]
+template = "array_template"
+
+[step_101_dual_expression_building]
+dialogue = "Here's an array with the rows highlighted. Build the equation for the rows."
+components = ["SceneComponent", "PromptComponent"]
+prompt_text = "Build the equation for the rows."
+
+[step_101.correct]
+dialogue = "Right. 6 rows of 7. 6 times 7 equals 42."
+metadata = { sting_id = "on_correct" }
+
+[step_101.step_502]
+dialogue = "Not quite. Count the rows, the horizontal bands, first. Then could the dots in each row. Last, multiply to find the product."
+id = "light"
+
+[step_101.step_503]
+dialogue = "Not there yet. The rows are highlighted. How many are there? That's the first factor. How many dots are in each row? That's the second factor. Last, how many total dots are there? That's the product."
+id = "medium"
+
+[step_101.step_504]
+dialogue = "Let's break this down step by step. I count the rows: 6. I count the dots in one row: 7. Then I find the total: 7, 14, 21, 28, 35, 42. So the equation is 6 times 7 equals 42."
+id = "heavy"
+
+[step_102_dual_expression_building]
+dialogue = "Now think about the columns. Build the column equation."
+components = ["PromptComponent"]
+prompt_text = "Build the equation for the columns."
+
+[step_102.correct]
+dialogue = "That's it. 7 columns of 6. 7 times 6 equals 42. Same product."
+metadata = { sting_id = "on_correct" }
+
+[step_102.step_506]
+dialogue = "Check the columns, the vertical bands. Then the number in each column."
+id = "light"
+
+[step_102.step_507]
+dialogue = "Here's a hint: the columns are highlighted. Count them. Then find how many dots are there in each column? For the product, what's the total number of dots?"
+id = "medium"
+
+[step_102.step_508]
+dialogue = "Follow me as we do this together. I count the columns: 7. I count the dots in one column: 6. So the equation is 7 times 6 equals 42. The way we read the array changed, but the product stays the same."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 2 - rotation_prediction_identify
+# ---------------------------------------------------------------------------
+
+[section_102_rotation_prediction_identify]
+template = "array_template"
+
+[step_103_rotation_prediction_identify]
+dialogue = "2 rows of 8. That's 2 times 8 equals 16. If I rotate this array, what will the new row expression be?"
+components = ["PromptComponent"]
+prompt_text = "After rotation, what will the row expression be?"
+
+[step_103.correct]
+dialogue = "That's it. 8 times 2. After rotating, 8 rows of 2."
+metadata = { sting_id = "on_correct" }
+
+[step_103.step_510]
+dialogue = "That's the expression now, before rotating. When we rotate, rows become columns and columns become rows. What will the new expression be?"
+id = "2_times_8"
+
+[step_103.step_511]
+dialogue = "16 is the total dots, not the number of rows. After rotation, the current columns will become the new rows. How many rows will there be after rotating?"
+id = "16_times_2"
+
+[step_103.step_512]
+dialogue = "Arrays show equal groups so we use multiplication, not addition. We count rows times dots per row. After rotation, how many rows and dots per row will we have?"
+id = "eight_plus_two"
+
+[step_103.step_513]
+dialogue = "Let me show you how rotation works. The 2 rows become 2 columns. The 8 columns become 8 rows. Now we have 8 rows of 2 dots. The row expression is 8 times 2. Rotation switches the numbers in the multiplication expression."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 3 - equivalence_discrimination_compare
+# ---------------------------------------------------------------------------
+
+[section_103_equivalence_discrimination_compare]
+template = "array_template"
+
+[step_104_equivalence_discrimination_compare]
+dialogue = "Here's an array: 5 rows of 6. That's 30 dots. These four arrays all have 30 dots too. Which one is the same array, just rotated?"
+components = ["PromptComponent"]
+prompt_text = "Which array is the same as 5 times 6, just rotated?"
+
+[step_104.correct]
+dialogue = "Right. 6 rows of 5. That's 5 rows of 6, just turned. Same dots, same product."
+metadata = { sting_id = "on_correct" }
+
+[step_104.step_515]
+dialogue = "That array has 30 dots, but look at the rows. The original array has 5 rows. Remember, when you rotate, the rows become columns. Which array has the correct number of columns?"
+id = "3_times_10"
+
+[step_104.step_516]
+dialogue = "This array has 30 dots, but the row and column counts are different from the 5 rows of 6 array. When you rotate, the rows and columns switch. Which array shows that?"
+id = "10_times_3"
+
+[step_104.step_517]
+dialogue = "That array has 30 dots, but rotating doesn't change the shape of the array. The rows and columns switch when you rotate. Which shows 5 rows of 6 turned?"
+id = "2_times_15"
+
+[step_104.step_518]
+dialogue = "Let me show you this rotation. When I rotate the original array, the 5 rows become 5 columns. The 6 dots in each row become 6 rows. So 5 rows of 6 becomes 6 rows of 5. The rotated array is the 6 × 5 array. Same dots rotated give the same product."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 4 - exit_check_closure
+# ---------------------------------------------------------------------------
+
+[section_104_exit_check_closure]
+template = "array_template"
+
+[step_105_exit_check_closure]
+dialogue = "You're ready. Let's practice."

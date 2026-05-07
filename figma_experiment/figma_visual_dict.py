@@ -120,7 +120,8 @@ def main():
     # 1. Get children of root node
     children = fetch_children(ROOT_NODE)
     frame_children = [
-        c for c in children
+        c
+        for c in children
         if c.get("type") in ("FRAME", "COMPONENT", "COMPONENT_SET", "INSTANCE", "GROUP")
     ]
     print(f"\n{len(frame_children)} frame children:")
@@ -146,10 +147,10 @@ def main():
         url = image_urls.get(nid) or image_urls.get(nid.replace(":", "-"))
 
         if not url:
-            print(f"[{i+1}/{len(frame_children)}] SKIP (no URL): {name}")
+            print(f"[{i + 1}/{len(frame_children)}] SKIP (no URL): {name}")
             continue
 
-        print(f"[{i+1}/{len(frame_children)}] {name}")
+        print(f"[{i + 1}/{len(frame_children)}] {name}")
 
         try:
             img_bytes = fetch_and_compress(url)
@@ -163,12 +164,14 @@ def main():
             description = describe_frame(name, img_bytes)
             print(f"    → {description[:80]}...")
 
-            results.append({
-                "node_id": nid,
-                "name": name,
-                "description": description,
-                "png_path": png_path,
-            })
+            results.append(
+                {
+                    "node_id": nid,
+                    "name": name,
+                    "description": description,
+                    "png_path": png_path,
+                }
+            )
         except Exception as e:
             print(f"    ERROR: {e}")
 

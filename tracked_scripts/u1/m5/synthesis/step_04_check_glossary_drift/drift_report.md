@@ -1,7 +1,7 @@
 # UX/Script Terminology Drift Report
 
-Generated: 2026-04-20 11:58  
-Source: `check_glossary_drift.json`  
+Generated: 2026-05-05 15:06
+Source: `check_glossary_drift.json`
 Scope: Unit 1, Module 5
 
 Discovery document — surfaces spec terminology that needs a glossary decision.
@@ -14,9 +14,7 @@ This does not block generation.
 Phrases in `visual` fields that `toy_spec_loader` couldn't match to any spec file.
 These likely represent concepts not yet in the glossary or toy_specs directory.
 
-| Phrase | Section | Snippet |
-| ---|---|--- |
-| `Scale Preview System shown with all four scale buttons` | `s4_1_metacognitive_reflection_type_1_strategy` | Scale Preview System shown with all four scale buttons visible. |
+_None found._
 
 ---
 
@@ -53,12 +51,3 @@ No inference rule matched — `toy_spec_loader` defaulted to `multiple_choice`.
 Review these sections: the correct tool may be something else.
 
 _None found._
-
----
-
-## Section Detail
-
-### `s4_1_metacognitive_reflection_type_1_strategy`
-
-- **Unresolved:** `Scale Preview System shown with all four scale buttons` in `visual`
-  > Scale Preview System shown with all four scale buttons visible.

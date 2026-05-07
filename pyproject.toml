@@ -38,7 +38,11 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 # Test files can use assert and don't need imports sorted strictly
-"tests/**" = ["F401"]
+"tests/**" = ["F401", "E402"]
+# Docs reference scripts are standalone one-offs, not production code
+"docs/**" = ["F841", "E741", "E402", "E731"]
+# Experimental scripts — not part of the pipeline
+"figma_experiment/**" = ["E402"]
 
 [tool.ruff.format]
 quote-style = "double"

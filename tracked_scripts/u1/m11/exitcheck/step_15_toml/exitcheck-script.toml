@@ -1,0 +1,104 @@
+# exitcheck-script.toml
+
+title = "exitcheck"
+type = "sequence"
+
+# ---------------------------------------------------------------------------
+# Section 1 - build_row_expression
+# ---------------------------------------------------------------------------
+
+[section_101_build_row_expression]
+template = "array_template"
+
+[step_101_build_row_expression]
+dialogue = "Check out this array. Describe what you see by looking at the ROWS, then build the expression that matches."
+components = ["SceneComponent", "PromptComponent"]
+prompt_text = "Build the expression based on ROWS for this array."
+
+[step_101.correct]
+dialogue = "That's it. 2 rows of 7. So that's 2 times 7."
+metadata = { sting_id = "on_correct" }
+
+[step_101.step_502]
+dialogue = "Look again. Count the rows first, then how many dots are in each row."
+id = "light"
+
+[step_101.step_503]
+dialogue = "Remember rows go across . The first number tells us how many rows. The second number tells us how many dots are in each row. Try again."
+id = "medium"
+
+[step_101.step_504]
+dialogue = "Let me show you how this works. First, I count the rows going across: 1, 2. That's 2 rows. Then I count the dots in one row: 7 dots. 2 rows of 7. So the expression is 2 times 7."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 2 - identify_column_expression
+# ---------------------------------------------------------------------------
+
+[section_102_identify_column_expression]
+template = "array_template"
+
+[step_102_identify_column_expression]
+dialogue = "This array can be described as 5 rows of 4. But you can describe the same array by looking at columns instead. Which expression matches the column description?"
+components = ["PromptComponent"]
+prompt_text = "Which expression describes this array by columns?"
+
+[step_102.correct]
+dialogue = "Right. 4 times 5. 4 columns of 5. Same array, just described a different way so we get a different expression."
+metadata = { sting_id = "on_correct" }
+
+[step_102.step_506]
+dialogue = "That's the rows description. Look at columns now. How many columns are there? Each column has how many dots?"
+id = "5_times_4"
+
+[step_102.step_507]
+dialogue = "You're right that there are 4 columns. But count how many dots are in each column. Are there 4?"
+id = "4_by_4"
+
+[step_102.step_508]
+dialogue = "You're right that each column has 5 dots. But count the columns. Are there 5 columns?"
+id = "5_x_5"
+
+[step_102.step_509]
+dialogue = "Let me show you how to think about this. I want to write number of columns by number of dots per column. I count the columns: 1, 2, 3, 4. Four columns. Each column has 5 dots. So using columns, it's 4 columns of 5. The answer is 4 × 5."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 3 - build_equation_from_array
+# ---------------------------------------------------------------------------
+
+[section_103_build_equation_from_array]
+template = "array_template"
+
+[step_103_build_equation_from_array]
+dialogue = "Describe this array by rows or by columns. Your pick. Then build the equation that matches what you see."
+components = ["PromptComponent"]
+prompt_text = "Describe and build the equation for this array."
+
+[step_103.correct]
+dialogue = "Exactly. 6 times 3 equals 18. You saw 6 rows with 3 in each row."
+metadata = { sting_id = "on_correct" }
+
+# skipped correct branch: columns_3x6
+
+[step_103.step_512]
+dialogue = "Let's look closely at either the rows or columns, you decide. Count them, then count how many dots are in each."
+id = "light"
+
+[step_103.step_513]
+dialogue = "Not quite. Your description needs to match your equation. Are you looking at rows or columns? That number goes first. Then the number of dots in each goes second. Finally, find the total number of dots."
+id = "medium"
+
+[step_103.step_514]
+dialogue = "Let me show you the two ways to think about this array. If I want rows, I count the horizontal rows: 6 rows. Then I count the dots in one row: 3 dots. 6 rows of 3 is 18 total dots. 6 times 3 equals 18. If I want columns, I count the vertical columns: 3 columns. Then I count the dots in one column: 6 dots. 3 columns of 6 is 18 total dots. 3 times 6 equals 18. Two ways to describe this array and equations that match. Both are correct."
+id = "heavy"
+
+# ---------------------------------------------------------------------------
+# Section 4 - exit_check_closure
+# ---------------------------------------------------------------------------
+
+[section_104_exit_check_closure]
+template = "array_template"
+
+[step_104_exit_check_closure]
+dialogue = "You're ready. Let's practice."

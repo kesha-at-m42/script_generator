@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:00:54.315298
+# Generated: 2026-04-27T10:54:42.614961
 ======================================================================
 
 ## API Parameters
@@ -952,6 +952,10 @@ Cacheable: Yes
       "context": "lesson"
     },
     {
+      "text": "How many groups? Set the packs.",
+      "context": "lesson"
+    },
+    {
       "text": "4 packs.",
       "context": "on_correct"
     },
@@ -976,4 +980,3 @@ Cacheable: Yes
 ## Prefill
 
 {"id": "s3_1_real_world_bridge_equal_groups", "dialogues": [
-

@@ -265,12 +265,15 @@ def _resolve_context_files(
                 search_dir = pipeline_module_dir / latest_version
             else:
                 version_dirs = sorted(
-                    d for d in pipeline_module_dir.iterdir()
+                    d
+                    for d in pipeline_module_dir.iterdir()
                     if d.is_dir() and d.name.startswith("v")
                 )
                 if not version_dirs:
                     if verbose:
-                        print(f"  [WARN] context_files: no version dir in {pipeline_module_dir}, skipping")
+                        print(
+                            f"  [WARN] context_files: no version dir in {pipeline_module_dir}, skipping"
+                        )
                     continue
                 search_dir = version_dirs[-1]
         else:
@@ -633,7 +636,6 @@ def run_pipeline(
     # Project root for path resolution
     project_root = get_project_root()
 
-
     # Construct template path for template lookup
     template_path = None
     if module_number is not None and template_filename:
@@ -922,6 +924,7 @@ def run_pipeline(
             _batch_summary_client = None
             if step.batch_continuous and step.batch_continuous_summary_prompt:
                 from claude_client import ClaudeClient as _CC
+
                 _batch_summary_client = _CC()
 
             # batch_continuous: pre-load prior context from the most recent version that has
@@ -932,7 +935,11 @@ def run_pipeline(
                 _pipeline_dir = Path(base_step_dir).parent.parent
                 _step_dir_name = Path(base_step_dir).name
                 _all_versions = sorted(
-                    [d for d in _pipeline_dir.iterdir() if d.is_dir() and re.match(r"^v\d+$", d.name)],
+                    [
+                        d
+                        for d in _pipeline_dir.iterdir()
+                        if d.is_dir() and re.match(r"^v\d+$", d.name)
+                    ],
                     key=lambda d: int(d.name[1:]),
                     reverse=True,
                 )
@@ -954,7 +961,9 @@ def run_pipeline(
                             _batch_context_doc.append(_entry)
                     if _batch_context_doc and verbose:
                         _ctx_version = _context_path.parent.parent.name
-                        print(f"  [CONTEXT] Pre-loaded {len(_batch_context_doc)} prior section(s) from {_ctx_version}")
+                        print(
+                            f"  [CONTEXT] Pre-loaded {len(_batch_context_doc)} prior section(s) from {_ctx_version}"
+                        )
 
             for item_idx, item in enumerate(items, 1):
                 # Get item ID (with composite key support for multi-step items)
@@ -990,7 +999,10 @@ def run_pipeline(
                 try:
                     # batch_continuous: inject the full section-context document into this item
                     if step.batch_continuous and _batch_context_doc:
-                        item = {**item, "prior_section_summaries": "\n\n---\n\n".join(_batch_context_doc)}
+                        item = {
+                            **item,
+                            "prior_section_summaries": "\n\n---\n\n".join(_batch_context_doc),
+                        }
 
                     # Flatten item to variables
                     item_vars = flatten_dict(item)
@@ -1000,14 +1012,18 @@ def run_pipeline(
                     # Legacy + rerun slug injection: ensure {slug} is available for prefill.
                     # For legacy items (pre-slug spec_splitter): compute from header.
                     # For reruns with base version: override with old slug to preserve section ids.
-                    if 'header' in merged_vars and 'slug' not in merged_vars:
-                        merged_vars['slug'] = _derive_section_slug(str(merged_vars['header']))
-                    if base_step_dir is not None and 'major' in merged_vars and 'minor' in merged_vars:
+                    if "header" in merged_vars and "slug" not in merged_vars:
+                        merged_vars["slug"] = _derive_section_slug(str(merged_vars["header"]))
+                    if (
+                        base_step_dir is not None
+                        and "major" in merged_vars
+                        and "minor" in merged_vars
+                    ):
                         _old_slug = _lookup_base_section_slug(
-                            base_step_dir, step_name, merged_vars['major'], merged_vars['minor']
+                            base_step_dir, step_name, merged_vars["major"], merged_vars["minor"]
                         )
                         if _old_slug:
-                            merged_vars['slug'] = _old_slug
+                            merged_vars["slug"] = _old_slug
 
                     if verbose:
                         # Show some key variables
@@ -1107,7 +1123,9 @@ def run_pipeline(
 
                                 # Build prompt for conversation tracking
                                 built_prompt = builder.build(
-                                    step.prompt_name, merged_vars, input_content=item_input,
+                                    step.prompt_name,
+                                    merged_vars,
+                                    input_content=item_input,
                                     extra_context=extra_context,
                                 )
 
@@ -1412,7 +1430,11 @@ Review your original instructions and schemas to ensure the regenerated output f
                         )
 
                     # batch_continuous: summarize this section and append to the context document
-                    if step.batch_continuous and _batch_summary_client and isinstance(item_result, dict):
+                    if (
+                        step.batch_continuous
+                        and _batch_summary_client
+                        and isinstance(item_result, dict)
+                    ):
                         try:
                             section_summary = _batch_summary_client.generate(
                                 system=step.batch_continuous_summary_prompt,
@@ -1428,7 +1450,9 @@ Review your original instructions and schemas to ensure the regenerated output f
                                 "\n\n".join(_batch_context_doc), encoding="utf-8"
                             )
                             if verbose:
-                                print(f"    [CONTEXT] section_context.md updated ({len(_batch_context_doc)} sections)")
+                                print(
+                                    f"    [CONTEXT] section_context.md updated ({len(_batch_context_doc)} sections)"
+                                )
                         except Exception as _ce:
                             if verbose:
                                 print(f"    [WARN] batch_continuous summary failed: {_ce}")
@@ -1740,28 +1764,26 @@ def add_common_pipeline_args(parser):
     parser.add_argument("-p", "--pipeline", type=str, help="Pipeline name or number to run")
     parser.add_argument("-u", "--unit", type=int, help="Unit number (optional)")
     parser.add_argument("-m", "--module", type=int, help="Module number (optional)")
+    parser.add_argument("--path", type=str, choices=["a", "b", "c"], help="Path letter: a, b, or c")
     parser.add_argument(
-        "--path", type=str, choices=["a", "b", "c"], help="Path letter: a, b, or c"
-    )
-    parser.add_argument(
-        "-i", "--interactive", action="store_true",
+        "-i",
+        "--interactive",
+        action="store_true",
         help="Enable interactive mode (step-by-step confirmation before each step)",
     )
     parser.add_argument(
-        "--start-from", type=str,
+        "--start-from",
+        type=str,
         help="Start from this step, skipping earlier ones (step number or name)",
     )
     parser.add_argument(
-        "--end-at", type=str,
+        "--end-at",
+        type=str,
         help="Stop after this step (step number or name)",
     )
-    parser.add_argument(
-        "-y", "--yes", action="store_true", help="Skip all confirmation prompts"
-    )
+    parser.add_argument("-y", "--yes", action="store_true", help="Skip all confirmation prompts")
     parser.add_argument("--note", default="", help="Note about this run")
-    parser.add_argument(
-        "--status", type=str, help="Pipeline status label (alpha/beta/rc/final)"
-    )
+    parser.add_argument("--status", type=str, help="Pipeline status label (alpha/beta/rc/final)")
 
 
 def resolve_pipeline_name(pipeline_arg, pipelines):
@@ -1812,7 +1834,11 @@ def prompt_for_run_context(args):
         val = input("Module number (or Enter to skip): ").strip()
         args.module = int(val) if val else None
 
-    if getattr(args, "path", None) is None and getattr(args, "module", None) and not getattr(args, "yes", False):
+    if (
+        getattr(args, "path", None) is None
+        and getattr(args, "module", None)
+        and not getattr(args, "yes", False)
+    ):
         val = input("Path letter (a/b/c or Enter to skip): ").strip().lower()
         args.path = val if val in ("a", "b", "c") else None
 
@@ -1824,6 +1850,7 @@ def prompt_for_run_context(args):
 def apply_yes_flag(args):
     """Set NOTION_YES env var if --yes was passed, suppressing downstream confirmation prompts."""
     import os as _os
+
     if getattr(args, "yes", False):
         _os.environ["NOTION_YES"] = "1"
 
@@ -1845,16 +1872,17 @@ def parse_step_ref_arg(val):
 def _derive_section_slug(header: str) -> str:
     """Compute a deterministic snake_case slug from a section header (fallback for legacy items)."""
     import re as _re
+
     text = header
-    for sep in (':', '—', ' - '):
+    for sep in (":", "—", " - "):
         if sep in text:
             text = text.split(sep, 1)[-1]
             break
-    text = _re.sub(r'[#*\[\]()\\_]', ' ', text)
-    text = _re.sub(r'[^a-z0-9 ]+', ' ', text.lower()).strip()
-    stop = {'a', 'an', 'the', 'and', 'or', 'of', 'to', 'in', 'for', 'from'}
+    text = _re.sub(r"[#*\[\]()\\_]", " ", text)
+    text = _re.sub(r"[^a-z0-9 ]+", " ", text.lower()).strip()
+    stop = {"a", "an", "the", "and", "or", "of", "to", "in", "for", "from"}
     words = [w for w in text.split() if w and w not in stop]
-    return '_'.join(words[:5]) or 'section'
+    return "_".join(words[:5]) or "section"
 
 
 def _lookup_base_section_slug(base_step_dir, step_name: str, major, minor) -> str:
@@ -1863,13 +1891,13 @@ def _lookup_base_section_slug(base_step_dir, step_name: str, major, minor) -> st
     if not collated_file.exists():
         return None
     try:
-        with open(collated_file, 'r', encoding='utf-8') as f:
+        with open(collated_file, "r", encoding="utf-8") as f:
             items = json.load(f)
         prefix = f"s{major}_{minor}_"
-        for entry in (items if isinstance(items, list) else []):
-            old_id = str(entry.get('id', ''))
+        for entry in items if isinstance(items, list) else []:
+            old_id = str(entry.get("id", ""))
             if old_id.startswith(prefix):
-                parts = old_id.split('_', 2)
+                parts = old_id.split("_", 2)
                 if len(parts) == 3:
                     return parts[2]
     except Exception:

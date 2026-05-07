@@ -1,5 +1,5 @@
 # Prompt: dialogue_rewriter
-# Generated: 2026-04-20T12:03:01.491218
+# Generated: 2026-04-27T10:58:07.067349
 ======================================================================
 
 ## API Parameters
@@ -972,4 +972,3 @@ Cacheable: Yes
 ## Prefill
 
 {"id": "s2_2_worked_example_with_think_aloud", "dialogues": [
-

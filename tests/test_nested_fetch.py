@@ -14,7 +14,7 @@ try:
     print(f"Phase Name: {first_phase.get('phase_name')}")
     print(f"Purpose: {first_phase.get('purpose')}")
     print(f"Interaction Count: {first_phase.get('interaction_count')}")
-    print(f"\nFull phase data:")
+    print("\nFull phase data:")
     print(first_phase)
 except Exception as e:
     print(f"\nError: {e}")

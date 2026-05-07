@@ -9,9 +9,9 @@ Usage:
 import subprocess
 import sys
 import time
-from pathlib import Path
-from watchdog.observers import Observer
+
 from watchdog.events import FileSystemEventHandler
+from watchdog.observers import Observer
 
 
 class StreamlitReloader(FileSystemEventHandler):
@@ -32,7 +32,7 @@ class StreamlitReloader(FileSystemEventHandler):
         self.process = subprocess.Popen(
             [sys.executable, "-m", "streamlit", "run", "pipeline_ui.py"],
             stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE
+            stderr=subprocess.PIPE,
         )
         print("✅ Server started")
 
@@ -42,16 +42,16 @@ class StreamlitReloader(FileSystemEventHandler):
             return
 
         # Only restart for Python files
-        if event.src_path.endswith('.py'):
+        if event.src_path.endswith(".py"):
             print(f"📝 Detected change: {event.src_path}")
             time.sleep(0.5)  # Debounce
             self.restart_server()
 
 
 if __name__ == "__main__":
-    print("="*70)
+    print("=" * 70)
     print("🔧 Streamlit Development Server with Auto-reload")
-    print("="*70)
+    print("=" * 70)
     print("\nWatching for changes in:")
     print("  - pipeline_ui.py")
     print("  - core/*.py")

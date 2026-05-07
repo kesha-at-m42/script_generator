@@ -35,7 +35,6 @@ import re
 from pathlib import Path
 from typing import Any
 
-
 # ---------------------------------------------------------------------------
 # Format detection & flattening
 # ---------------------------------------------------------------------------
@@ -155,10 +154,7 @@ def _find_prev_sections_file(output_file_path: Path) -> Path | None:
         if prev_v < 0:
             return None
         prev_path = (
-            version_dir.parent
-            / f"v{prev_v}"
-            / output_file_path.parent.name
-            / output_file_path.name
+            version_dir.parent / f"v{prev_v}" / output_file_path.parent.name / output_file_path.name
         )
         return prev_path if prev_path.exists() else None
     except Exception:

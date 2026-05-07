@@ -5,49 +5,133 @@
     {
       "type": "scene",
       "method": "add",
-      "tangible_id": "bar_graph_colors",
+      "tangible_id": "data_table",
+      "tangible_type": "data_table",
+      "params": {
+        "orientation": "horizontal",
+        "categories": [
+          "Red Team",
+          "Green Team",
+          "Yellow Team",
+          "Blue Team"
+        ],
+        "values": [
+          25,
+          55,
+          70,
+          40
+        ],
+        "description": "Data table appears: Team Scores. Red Team 25, Green Team 55, Yellow Team 70, Blue Team 40."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "add",
+      "tangible_id": "bar_graph_team_scores",
       "tangible_type": "bar_graph",
       "params": {
         "mode": "reading",
-        "orientation": "vertical",
+        "orientation": "horizontal",
         "categories": [
-          "Red",
-          "Blue",
-          "Green",
-          "Yellow"
+          "Red Team",
+          "Green Team",
+          "Yellow Team",
+          "Blue Team"
         ],
-        "description": "Vertical bar graph appears. Favorite Colors data from previous sections."
+        "values": [
+          25,
+          55,
+          70,
+          40
+        ],
+        "scale": 10,
+        "axis_range": [
+          0,
+          80
+        ],
+        "description": "Horizontal bar graph appears: Team Scores. Scale of 10, axis 0–80. Red Team bar at 25, Green Team at 55, Yellow Team at 70, Blue Team at 40. All bars locked in place."
       }
     },
     {
       "type": "dialogue",
-      "text": "You learned to choose scales. Check the biggest number. Does it fit without too many marks on the axis? Check the ones place digits. Are they 0 or 5 to find the exact place for the bar? For very small data, scale of 1 could work. Then pick the easiest to read."
+      "text": "You learned to CHOOSE scales. Check the biggest number. Does it fit without too many marks on the axis? Check the ones place digits. Are they 0 or 5 to find the exact place for the bar? For very small data, Scale of 1 could work. Then pick the easiest to read."
     },
     {
       "type": "current_scene",
       "elements": [
         {
-          "tangible_id": "bar_graph_colors",
-          "description": "Vertical bar graph showing Favorite Colors data.",
+          "tangible_id": "data_table",
+          "description": "Data table showing Team Scores: Red Team 25, Green Team 55, Yellow Team 70, Blue Team 40.",
+          "tangible_type": "data_table",
+          "orientation": "horizontal",
+          "categories": [
+            "Red Team",
+            "Green Team",
+            "Yellow Team",
+            "Blue Team"
+          ],
+          "values": [
+            25,
+            55,
+            70,
+            40
+          ]
+        },
+        {
+          "tangible_id": "bar_graph_team_scores",
+          "description": "Horizontal bar graph: Team Scores. Scale of 10, axis 0–80. All four bars locked at correct heights.",
           "tangible_type": "bar_graph",
           "mode": "reading",
-          "orientation": "vertical",
+          "orientation": "horizontal",
           "categories": [
-            "Red",
-            "Blue",
-            "Green",
-            "Yellow"
+            "Red Team",
+            "Green Team",
+            "Yellow Team",
+            "Blue Team"
+          ],
+          "values": [
+            25,
+            55,
+            70,
+            40
+          ],
+          "scale": 10,
+          "axis_range": [
+            0,
+            80
           ]
         }
       ]
     },
     {
       "type": "scene",
-      "method": "remove",
-      "tangible_id": "bar_graph_colors",
+      "method": "animate",
+      "tangible_id": "bar_graph_team_scores",
       "params": {
-        "description": "Bar graph clears from screen."
+        "event": "fade_out",
+        "status": "confirmed",
+        "description": "Bar graph fades out."
       }
+    },
+    {
+      "type": "scene",
+      "method": "remove",
+      "tangible_id": "bar_graph_team_scores"
+    },
+    {
+      "type": "scene",
+      "method": "animate",
+      "tangible_id": "data_table",
+      "params": {
+        "event": "fade_out",
+        "status": "confirmed",
+        "description": "Data table fades out."
+      }
+    },
+    {
+      "type": "scene",
+      "method": "remove",
+      "tangible_id": "data_table"
     },
     {
       "type": "dialogue",
@@ -58,5 +142,5 @@
       "elements": []
     }
   ],
-  "_generated_at": "2026-04-20T17:03:43.985718+00:00"
+  "_generated_at": "2026-05-05T18:22:14.876940+00:00"
 }

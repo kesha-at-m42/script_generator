@@ -14,12 +14,18 @@
           "Bananas",
           "Cherries"
         ],
+        "values": [
+          20,
+          40,
+          60
+        ],
         "scale": 1,
         "axis_range": [
           0,
           60
         ],
-        "description": "Graph A: vertical bar graph with scale of 1. Apples=20, Bananas=40, Cherries=60. Most tick marks, very detailed."
+        "title": "Graph A",
+        "description": "Vertical bar graph appears. Scale of 1. Apples: 20, Bananas: 40, Cherries: 60. Many tick marks."
       }
     },
     {
@@ -35,12 +41,18 @@
           "Bananas",
           "Cherries"
         ],
+        "values": [
+          20,
+          40,
+          60
+        ],
         "scale": 2,
         "axis_range": [
           0,
           60
         ],
-        "description": "Graph B: vertical bar graph with scale of 2. Apples=20, Bananas=40, Cherries=60. Many tick marks."
+        "title": "Graph B",
+        "description": "Vertical bar graph appears. Scale of 2. Same data. Many tick marks."
       }
     },
     {
@@ -56,12 +68,18 @@
           "Bananas",
           "Cherries"
         ],
+        "values": [
+          20,
+          40,
+          60
+        ],
         "scale": 5,
         "axis_range": [
           0,
           60
         ],
-        "description": "Graph C: vertical bar graph with scale of 5. Apples=20, Bananas=40, Cherries=60. Medium tick marks."
+        "title": "Graph C",
+        "description": "Vertical bar graph appears. Scale of 5. Same data. Medium tick marks."
       }
     },
     {
@@ -77,74 +95,23 @@
           "Bananas",
           "Cherries"
         ],
+        "values": [
+          20,
+          40,
+          60
+        ],
         "scale": 10,
         "axis_range": [
           0,
           60
         ],
-        "description": "Graph D: vertical bar graph with scale of 10. Apples=20, Bananas=40, Cherries=60. Fewest tick marks, clean."
+        "title": "Graph D",
+        "description": "Vertical bar graph appears. Scale of 10. Same data. Fewest tick marks, clean."
       }
     },
     {
       "type": "dialogue",
       "text": "Here's the same data shown four different ways. Look at the differences."
-    },
-    {
-      "type": "current_scene",
-      "elements": [
-        {
-          "tangible_id": "bar_graph_a",
-          "description": "Graph A: vertical bar graph with scale of 1. Apples=20, Bananas=40, Cherries=60. Most tick marks.",
-          "tangible_type": "bar_graph",
-          "mode": "reading",
-          "orientation": "vertical",
-          "categories": [
-            "Apples",
-            "Bananas",
-            "Cherries"
-          ],
-          "scale": 1
-        },
-        {
-          "tangible_id": "bar_graph_b",
-          "description": "Graph B: vertical bar graph with scale of 2. Apples=20, Bananas=40, Cherries=60. Many tick marks.",
-          "tangible_type": "bar_graph",
-          "mode": "reading",
-          "orientation": "vertical",
-          "categories": [
-            "Apples",
-            "Bananas",
-            "Cherries"
-          ],
-          "scale": 2
-        },
-        {
-          "tangible_id": "bar_graph_c",
-          "description": "Graph C: vertical bar graph with scale of 5. Apples=20, Bananas=40, Cherries=60. Medium tick marks.",
-          "tangible_type": "bar_graph",
-          "mode": "reading",
-          "orientation": "vertical",
-          "categories": [
-            "Apples",
-            "Bananas",
-            "Cherries"
-          ],
-          "scale": 5
-        },
-        {
-          "tangible_id": "bar_graph_d",
-          "description": "Graph D: vertical bar graph with scale of 10. Apples=20, Bananas=40, Cherries=60. Fewest tick marks.",
-          "tangible_type": "bar_graph",
-          "mode": "reading",
-          "orientation": "vertical",
-          "categories": [
-            "Apples",
-            "Bananas",
-            "Cherries"
-          ],
-          "scale": 10
-        }
-      ]
     },
     {
       "type": "dialogue",
@@ -153,28 +120,29 @@
     {
       "type": "prompt",
       "text": "Which graph is easiest to read?",
-      "tool": "multiple_choice",
-      "options": [
-        "Graph A",
-        "Graph B",
-        "Graph C",
-        "Graph D"
+      "tool": "click_tangible",
+      "target": [
+        "bar_graph_a",
+        "bar_graph_b",
+        "bar_graph_c",
+        "bar_graph_d"
       ],
       "validator": [
         {
           "condition_id": "correct",
           "condition": {
-            "selected": "Graph D"
+            "selected": "bar_graph_d"
           },
-          "description": "Student selected Graph D (scale of 10), correct",
+          "description": "Student clicked Graph D (Scale of 10), correct",
           "is_correct": true,
           "beats": [
             {
               "type": "scene",
-              "method": "update",
+              "method": "animate",
               "tangible_id": "bar_graph_d",
               "params": {
-                "highlight": true,
+                "event": "highlight",
+                "status": "confirmed",
                 "description": "Graph D highlights to confirm selection."
               }
             },
@@ -183,6 +151,33 @@
               "text": "Scale of 10 is easiest to read here. Fewer lines to count. When all your numbers end in 0 or 5, the bigger scale is usually cleaner."
             }
           ]
+        },
+        {
+          "condition_id": "selected_a",
+          "condition": {
+            "selected": "bar_graph_a"
+          },
+          "description": "Student clicked Graph A (Scale of 1)",
+          "is_correct": false,
+          "beats": []
+        },
+        {
+          "condition_id": "selected_b",
+          "condition": {
+            "selected": "bar_graph_b"
+          },
+          "description": "Student clicked Graph B (Scale of 2)",
+          "is_correct": false,
+          "beats": []
+        },
+        {
+          "condition_id": "selected_c",
+          "condition": {
+            "selected": "bar_graph_c"
+          },
+          "description": "Student clicked Graph C (Scale of 5)",
+          "is_correct": false,
+          "beats": []
         }
       ]
     },
@@ -191,7 +186,7 @@
       "elements": [
         {
           "tangible_id": "bar_graph_a",
-          "description": "Graph A: vertical bar graph with scale of 1. Apples=20, Bananas=40, Cherries=60.",
+          "description": "Vertical bar graph. Scale of 1. Graph A. Apples: 20, Bananas: 40, Cherries: 60. Many tick marks.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -204,7 +199,7 @@
         },
         {
           "tangible_id": "bar_graph_b",
-          "description": "Graph B: vertical bar graph with scale of 2. Apples=20, Bananas=40, Cherries=60.",
+          "description": "Vertical bar graph. Scale of 2. Graph B. Same data. Many tick marks.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -217,7 +212,7 @@
         },
         {
           "tangible_id": "bar_graph_c",
-          "description": "Graph C: vertical bar graph with scale of 5. Apples=20, Bananas=40, Cherries=60.",
+          "description": "Vertical bar graph. Scale of 5. Graph C. Same data. Medium tick marks.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -230,7 +225,7 @@
         },
         {
           "tangible_id": "bar_graph_d",
-          "description": "Graph D: vertical bar graph with scale of 10. Apples=20, Bananas=40, Cherries=60. Multiple choice tool active.",
+          "description": "Vertical bar graph. Scale of 10. Graph D. Same data. Fewest tick marks, clean. click_tangible tool active.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -252,7 +247,7 @@
       "elements": [
         {
           "tangible_id": "bar_graph_a",
-          "description": "Graph A: vertical bar graph with scale of 1. Apples=20, Bananas=40, Cherries=60.",
+          "description": "Vertical bar graph. Scale of 1. Graph A. Apples: 20, Bananas: 40, Cherries: 60. Many tick marks.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -265,7 +260,7 @@
         },
         {
           "tangible_id": "bar_graph_b",
-          "description": "Graph B: vertical bar graph with scale of 2. Apples=20, Bananas=40, Cherries=60.",
+          "description": "Vertical bar graph. Scale of 2. Graph B. Same data. Many tick marks.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -278,7 +273,7 @@
         },
         {
           "tangible_id": "bar_graph_c",
-          "description": "Graph C: vertical bar graph with scale of 5. Apples=20, Bananas=40, Cherries=60.",
+          "description": "Vertical bar graph. Scale of 5. Graph C. Same data. Medium tick marks.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -291,7 +286,7 @@
         },
         {
           "tangible_id": "bar_graph_d",
-          "description": "Graph D: vertical bar graph with scale of 10. Apples=20, Bananas=40, Cherries=60.",
+          "description": "Vertical bar graph. Scale of 10. Graph D. Same data. Fewest tick marks, clean.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "vertical",
@@ -305,5 +300,5 @@
       ]
     }
   ],
-  "_generated_at": "2026-04-20T16:59:25.399739+00:00"
+  "_generated_at": "2026-05-05T20:07:13.227602+00:00"
 }

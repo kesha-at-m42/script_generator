@@ -7,22 +7,23 @@
           "condition": {
             "selected": 5
           },
-          "description": "Student selected 5, confusing items per group with number of groups",
+          "description": "Student selected 5 (items per group) instead of 3 (number of groups)",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
-                "method": "update",
-                "tangible_id": "equal_groups_markers",
+                "method": "animate",
+                "tangible_id": "equal_groups_boxes",
                 "params": {
-                  "highlight_containers": true,
-                  "description": "All 3 boxes highlight to emphasize container count."
+                  "event": "highlight_containers_sequentially",
+                  "status": "proposed",
+                  "description": "Boxes highlight one by one to show the count of groups."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "You counted what's inside. The question asks how many BOXES. Count the containers, not what's in them."
+                "text": "You counted what's inside. First count the boxes themselves. How many boxes do you see?"
               }
             ]
           ]
@@ -31,22 +32,23 @@
           "condition": {
             "selected": 8
           },
-          "description": "Student selected 8, possibly adding groups and items",
+          "description": "Student selected 8 (incorrect sum or miscalculation)",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
-                "method": "update",
-                "tangible_id": "equal_groups_markers",
+                "method": "animate",
+                "tangible_id": "equal_groups_boxes",
                 "params": {
-                  "highlight_containers": true,
-                  "description": "All 3 boxes highlight."
+                  "event": "highlight_containers_sequentially",
+                  "status": "proposed",
+                  "description": "Boxes highlight one by one to emphasize group count."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Groups means how many containers you see. Don't add. Just count the boxes."
+                "text": "We're counting groups. A group is one box. Count the boxes, not what's inside them."
               }
             ]
           ]
@@ -55,22 +57,23 @@
           "condition": {
             "selected": 15
           },
-          "description": "Student selected 15, counted total items instead of groups",
+          "description": "Student selected 15 (total items across all groups)",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
-                "method": "update",
-                "tangible_id": "equal_groups_markers",
+                "method": "animate",
+                "tangible_id": "equal_groups_boxes",
                 "params": {
-                  "highlight_containers": true,
-                  "description": "All 3 boxes highlight to emphasize the containers."
+                  "event": "highlight_containers_sequentially",
+                  "status": "proposed",
+                  "description": "Boxes highlight one by one to show the group count."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "You counted all the markers. We need the number of GROUPS. A group is one box. How many boxes?"
+                "text": "You counted all the markers. The question asks how many groups. Count the boxes, not the markers inside."
               }
             ]
           ]
@@ -84,16 +87,16 @@
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equal_groups_markers",
+                "tangible_id": "equal_groups_boxes",
                 "params": {
-                  "event": "count_containers",
+                  "event": "highlight_containers_sequentially",
                   "status": "confirmed",
-                  "description": "Boxes highlight sequentially: 1, 2, 3."
+                  "description": "Boxes highlight one by one as system counts: 1, 2, 3."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. When we count groups, we count the CONTAINERS. Watch: 1 box, 2 boxes, 3 boxes. Three groups. The answer is 3 because there are 3 boxes."
+                "text": "Let me show you. When we count groups, we count the containers. Watch: one box, two boxes, three boxes. The answer is 3. That's how many groups we have."
               }
             ]
           ]
@@ -104,24 +107,23 @@
           "condition": {
             "selected": 3
           },
-          "description": "Student selected 3, confusing number of groups with items per group",
+          "description": "Student selected 3 (number of groups) instead of 5 (items per group)",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equal_groups_markers",
+                "tangible_id": "equal_groups_boxes",
                 "params": {
-                  "event": "open_container",
-                  "status": "confirmed",
-                  "container_index": 0,
-                  "description": "First box opens to reveal 5 markers inside."
+                  "event": "open_one_container",
+                  "status": "proposed",
+                  "description": "One box opens. Items inside highlight one by one as they are counted."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "That's how many boxes there are. Now look INSIDE one box. Count what's in there."
+                "text": "You counted the boxes. Now look inside one box. How many markers are in that box?"
               }
             ]
           ]
@@ -130,24 +132,23 @@
           "condition": {
             "selected": 8
           },
-          "description": "Student selected 8, possibly adding groups and items",
+          "description": "Student selected 8 (incorrect calculation)",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equal_groups_markers",
+                "tangible_id": "equal_groups_boxes",
                 "params": {
-                  "event": "open_container",
-                  "status": "confirmed",
-                  "container_index": 0,
-                  "description": "First box opens to reveal markers inside."
+                  "event": "open_one_container",
+                  "status": "proposed",
+                  "description": "One box opens. Items inside highlight one by one."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "We're not adding. Look inside ONE box. How many markers are in that box?"
+                "text": "Look inside just one box. Count only the markers you see in that single box."
               }
             ]
           ]
@@ -156,24 +157,23 @@
           "condition": {
             "selected": 15
           },
-          "description": "Student selected 15, counted all items instead of items per group",
+          "description": "Student selected 15 (total items across all groups)",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equal_groups_markers",
+                "tangible_id": "equal_groups_boxes",
                 "params": {
-                  "event": "open_container",
-                  "status": "confirmed",
-                  "container_index": 0,
-                  "description": "First box opens, showing markers inside."
+                  "event": "open_one_container",
+                  "status": "proposed",
+                  "description": "One box opens. Items inside highlight one by one."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "You counted all the markers. We need how many in EACH group. Look at just one box. Count those."
+                "text": "You counted all the markers. The question asks how many in each group. Look in one box only."
               }
             ]
           ]
@@ -187,35 +187,23 @@
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equal_groups_markers",
+                "tangible_id": "equal_groups_boxes",
                 "params": {
-                  "event": "open_container",
+                  "event": "open_one_container",
                   "status": "confirmed",
-                  "container_index": 0,
-                  "description": "First box opens to reveal 5 markers."
-                }
-              },
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "equal_groups_markers",
-                "params": {
-                  "event": "count_items_in_container",
-                  "status": "confirmed",
-                  "container_index": 0,
-                  "description": "Markers inside the first box highlight sequentially: 1, 2, 3, 4, 5."
+                  "description": "One box opens. Items inside highlight one by one as system counts: 1, 2, 3, 4, 5."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Here's how to find items in each group. Open one box and count what's inside. Watch: 1, 2, 3, 4, 5. Five markers in this box. The answer is 5 because each box contains 5 markers."
+                "text": "Here's how to find it. Look inside one box. Count the markers in that box: one, two, three, four, five. The answer is 5. That's how many are in each group."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:00:48.163883+00:00"
+    "_generated_at": "2026-04-27T15:54:23.561736+00:00"
   },
   {
     "id": "s1_2_build_equal_groups_create",
@@ -239,22 +227,22 @@
               }
             ]
           },
-          "description": "Student set container count to 3 (reversed the numbers) on first or second attempt",
+          "description": "Student set container count to 3, reversed the values (first or second attempt)",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "equal_groups_build",
+                "tangible_id": "equal_groups_builder",
                 "params": {
-                  "highlight_control": "container_count",
-                  "description": "Container count control highlights."
+                  "container_count": 3,
+                  "description": "3 bags appear on screen, empty."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "You set 3 bags. But we need 2 GROUPS. The first number tells you how many bags to make. What's the first number?"
+                "text": "You put in the 3. But 2 GROUPS means 2 bags. How many bags do you need?"
               }
             ]
           ]
@@ -272,13 +260,13 @@
               }
             ]
           },
-          "description": "Student set container count incorrectly on first attempt (not the reversed case)",
+          "description": "Student set container count to any value other than 2 or 3 on first attempt",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "dialogue",
-                "text": "Check the prompt. How many groups?"
+                "text": "Look at the words. How many GROUPS?"
               }
             ]
           ]
@@ -296,22 +284,22 @@
               }
             ]
           },
-          "description": "Student set container count incorrectly on second attempt (not the reversed case)",
+          "description": "Student set container count to any value other than 2 or 3 on second attempt",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "equal_groups_build",
+                "tangible_id": "equal_groups_builder",
                 "params": {
-                  "highlight_control": "container_count",
-                  "description": "Container count control highlights."
+                  "highlight_instruction": "2 groups",
+                  "description": "The phrase '2 groups' highlights in the instruction."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "The prompt says 2 groups of 3. The first number is the groups. That's how many bags. Set 2."
+                "text": "2 groups of 3. The first number tells you the groups. That's how many bags you make. Set it to 2."
               }
             ]
           ]
@@ -325,17 +313,17 @@
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equal_groups_build",
+                "tangible_id": "equal_groups_builder",
                 "params": {
-                  "event": "set_container_count",
+                  "event": "set_containers_with_narration",
                   "status": "confirmed",
-                  "container_count": 2,
-                  "description": "System sets container count to 2. 2 empty bags appear."
+                  "description": "System sets container count to 2. Two bags appear on screen, one at a time.",
+                  "container_count": 2
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. When we say 2 groups of 3, the first number tells us how many groups. That's 2. So we need 2 bags. Each bag is one group."
+                "text": "Let me show you. 2 groups of 3. I start with the groups. That's the first number: 2. So I make 2 bags. The number of groups is how many containers you create."
               }
             ]
           ]
@@ -360,22 +348,22 @@
               }
             ]
           },
-          "description": "Student set items per container to 2 (reversed the numbers) on first or second attempt",
+          "description": "Student set items per container to 2, reversed the values (first or second attempt)",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "equal_groups_build",
+                "tangible_id": "equal_groups_builder",
                 "params": {
-                  "highlight_control": "items_per_container",
-                  "description": "Items per container control highlights."
+                  "items_per_container": 2,
+                  "description": "2 items appear in each of the 2 bags."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "You set 2 in each bag. But we already have 2 bags. The second number tells you how many go INSIDE. What's the second number?"
+                "text": "That's how many bags you have. Look inside ONE bag. How many items should be in each?"
               }
             ]
           ]
@@ -393,13 +381,13 @@
               }
             ]
           },
-          "description": "Student set items per container incorrectly on first attempt (not the reversed case)",
+          "description": "Student set items per container to any value other than 3 or 2 on first attempt",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "dialogue",
-                "text": "Look at the prompt again. How many in each group?"
+                "text": "How many go IN EACH group?"
               }
             ]
           ]
@@ -417,22 +405,22 @@
               }
             ]
           },
-          "description": "Student set items per container incorrectly on second attempt (not the reversed case)",
+          "description": "Student set items per container to any value other than 3 or 2 on second attempt",
           "is_correct": false,
           "steps": [
             [
               {
                 "type": "scene",
                 "method": "update",
-                "tangible_id": "equal_groups_build",
+                "tangible_id": "equal_groups_builder",
                 "params": {
-                  "highlight_control": "items_per_container",
-                  "description": "Items per container control highlights."
+                  "highlight_instruction": "of 3",
+                  "description": "The phrase 'of 3' highlights in the instruction."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "The prompt says 2 groups of 3. The second number is how many in each bag. That's 3. Set 3."
+                "text": "2 groups OF 3. The second number tells you what goes inside each bag. Put 3 in each one."
               }
             ]
           ]
@@ -446,24 +434,24 @@
               {
                 "type": "scene",
                 "method": "animate",
-                "tangible_id": "equal_groups_build",
+                "tangible_id": "equal_groups_builder",
                 "params": {
-                  "event": "set_items_per_container",
+                  "event": "fill_containers_with_narration",
                   "status": "confirmed",
-                  "items_per_container": 3,
-                  "description": "System sets items per container to 3. 3 items appear in each of the 2 bags."
+                  "description": "System fills each bag with 3 items. Items appear one at a time in each bag until all bags contain 3.",
+                  "items_per_container": 3
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. When we say 2 groups of 3, the second number tells us how many go in each group. That's 3. So each bag gets 3 items. Now we have 2 groups of 3."
+                "text": "Here's how it works. I already have my 2 bags. Now I look at the second number: 3. That tells me how many go inside EACH bag. So I put 3 items in this bag, and 3 items in this bag. The second number is what goes in each group."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:01:07.278634+00:00"
+    "_generated_at": "2026-04-27T15:54:45.160406+00:00"
   },
   {
     "id": "s1_3_select_expression_identify",
@@ -473,7 +461,7 @@
           "condition": {
             "selected": "2 × 4"
           },
-          "description": "Student selected 2 × 4, reversed factors",
+          "description": "Student selected 2 × 4: reversed the groups and items per group",
           "is_correct": false,
           "steps": [
             [
@@ -483,12 +471,12 @@
                 "tangible_id": "equal_groups_circles",
                 "params": {
                   "highlight_containers": true,
-                  "description": "All 4 circles highlight to emphasize the group count."
+                  "description": "All 4 circles highlight to show the group count."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Count the circles. That's how many groups you have. The groups number goes first in the expression."
+                "text": "Count the circles first. That's your groups. How many circles do you see?"
               }
             ]
           ]
@@ -497,7 +485,7 @@
           "condition": {
             "selected": "4 + 2"
           },
-          "description": "Student selected 4 + 2, used addition instead of multiplication",
+          "description": "Student selected 4 + 2: confused addition with multiplication",
           "is_correct": false,
           "steps": [
             [
@@ -506,13 +494,13 @@
                 "method": "update",
                 "tangible_id": "equal_groups_circles",
                 "params": {
-                  "highlight_items_in_container": 0,
-                  "description": "Items in one circle highlight."
+                  "highlight_one_container": true,
+                  "description": "One circle highlights to show equal groups structure."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "You have equal groups here. When we have groups with the same amount in each, we multiply. Look: 4 circles, 2 dots each. That's 4 × 2."
+                "text": "When you have equal groups, you multiply. The × symbol shows groups of the same size. How many circles? How many dots in each?"
               }
             ]
           ]
@@ -521,7 +509,7 @@
           "condition": {
             "selected": "2 + 4"
           },
-          "description": "Student selected 2 + 4, used addition instead of multiplication",
+          "description": "Student selected 2 + 4: confused addition with multiplication and reversed values",
           "is_correct": false,
           "steps": [
             [
@@ -530,13 +518,13 @@
                 "method": "update",
                 "tangible_id": "equal_groups_circles",
                 "params": {
-                  "highlight_items_in_container": 0,
-                  "description": "Items in one circle highlight."
+                  "highlight_containers": true,
+                  "description": "All circles highlight to show the equal groups structure."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "You have equal groups here. When we have groups with the same amount in each, we multiply. Look: 4 circles, 2 dots each. That's 4 × 2."
+                "text": "Equal groups means multiply, not add. Count the circles. That's the first number. Count the dots in one circle. That's the second number."
               }
             ]
           ]
@@ -552,35 +540,20 @@
                 "method": "animate",
                 "tangible_id": "equal_groups_circles",
                 "params": {
-                  "event": "count_containers",
+                  "event": "highlight_containers_sequentially",
                   "status": "confirmed",
-                  "description": "Circles highlight sequentially as they are counted: 1, 2, 3, 4."
+                  "description": "Circles highlight one by one as they are counted: 1, 2, 3, 4. Then one circle opens to reveal its 2 dots, which highlight: 1, 2."
                 }
               },
               {
                 "type": "dialogue",
-                "text": "Let me show you. First, count the circles: 1, 2, 3, 4. That's 4 groups."
-              },
-              {
-                "type": "scene",
-                "method": "animate",
-                "tangible_id": "equal_groups_circles",
-                "params": {
-                  "event": "count_items_in_container",
-                  "status": "confirmed",
-                  "container_index": 0,
-                  "description": "Dots in one circle highlight: 1, 2."
-                }
-              },
-              {
-                "type": "dialogue",
-                "text": "Now look inside one circle: 1, 2. Two in each group. So it's 4 groups of 2. That's 4 × 2. The groups number comes first, then what's in each group."
+                "text": "Let me show you. First, count the circles: 1, 2, 3, 4. Four circles. Those are my groups. Now look inside one circle: 1, 2. Two dots in each. So I have 4 groups of 2. That's 4 × 2. The first number is always the groups. The second is how many in each group."
               }
             ]
           ]
         }
       ]
     ],
-    "_generated_at": "2026-04-20T17:01:21.529508+00:00"
+    "_generated_at": "2026-04-27T15:55:00.539381+00:00"
   }
 ]

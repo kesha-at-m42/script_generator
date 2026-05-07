@@ -7,7 +7,19 @@
       "tangible_id": "data_table",
       "tangible_type": "data_table",
       "params": {
-        "description": "Data table appears. Marbles in Jars context. Jar A: 7, Jar B: 12, Jar C: 19, Jar D: 23."
+        "categories": [
+          "Jar A",
+          "Jar B",
+          "Jar C",
+          "Jar D"
+        ],
+        "values": [
+          7,
+          12,
+          19,
+          23
+        ],
+        "description": "Horizontal data table appears showing Marbles in Jars data: Jar A: 7, Jar B: 12, Jar C: 19, Jar D: 23."
       }
     },
     {
@@ -24,25 +36,49 @@
           "Jar C",
           "Jar D"
         ],
+        "values": [
+          7,
+          12,
+          19,
+          23
+        ],
+        "scale": null,
+        "axis_range": [
+          0,
+          23
+        ],
         "scale_selector_visible": true,
-        "description": "Horizontal bar graph frame appears with scale selector showing all four scale buttons. No bars displayed yet."
-      }
+        "description": "Scale selector panel appears with all four scale buttons (1, 2, 5, 10) visible. No graph bars displayed yet."
+      },
+      "flag": "placeholder — Scale Preview System not yet fully specced; using bar_graph with scale_selector_visible based on UX context"
     },
     {
       "type": "dialogue",
-      "text": "Here's data about marbles. Look at the biggest number: 23. That's pretty small!"
+      "text": "Here's data about marbles. Look at the biggest number—23. That's pretty small!"
     },
     {
       "type": "current_scene",
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Data table showing Marbles in Jars values.",
-          "tangible_type": "data_table"
+          "description": "Horizontal data table showing Marbles in Jars data: Jar A: 7, Jar B: 12, Jar C: 19, Jar D: 23.",
+          "tangible_type": "data_table",
+          "categories": [
+            "Jar A",
+            "Jar B",
+            "Jar C",
+            "Jar D"
+          ],
+          "values": [
+            7,
+            12,
+            19,
+            23
+          ]
         },
         {
           "tangible_id": "bar_graph_marbles",
-          "description": "Horizontal bar graph frame with scale selector. Four scale buttons visible. No bars displayed yet.",
+          "description": "Scale selector panel with four scale buttons visible. No bars displayed yet.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "horizontal",
@@ -52,13 +88,23 @@
             "Jar C",
             "Jar D"
           ],
-          "scale_selector_visible": true
+          "values": [
+            7,
+            12,
+            19,
+            23
+          ],
+          "scale": null,
+          "axis_range": [
+            0,
+            23
+          ]
         }
       ]
     },
     {
       "type": "dialogue",
-      "text": "This graph is horizontal — the bars go sideways. Let's check: which scales fit? Try clicking each scale."
+      "text": "This graph is horizontal—the bars go sideways. Let's check: which scales fit? Try clicking each scale."
     },
     {
       "type": "prompt",
@@ -69,12 +115,12 @@
         {
           "condition_id": "explored_all_scales",
           "condition": {},
-          "description": "Student explored all four scales. All fit.",
+          "description": "Student explored all four scale options (1, 2, 5, 10) and observed that all fit the data range 0-23",
           "is_correct": true,
           "beats": [
             {
               "type": "dialogue",
-              "text": "All four scales fit!"
+              "text": "You checked them all. All four scales fit!"
             }
           ]
         }
@@ -85,12 +131,24 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Data table showing Marbles in Jars values.",
-          "tangible_type": "data_table"
+          "description": "Horizontal data table showing Marbles in Jars data: Jar A: 7, Jar B: 12, Jar C: 19, Jar D: 23.",
+          "tangible_type": "data_table",
+          "categories": [
+            "Jar A",
+            "Jar B",
+            "Jar C",
+            "Jar D"
+          ],
+          "values": [
+            7,
+            12,
+            19,
+            23
+          ]
         },
         {
           "tangible_id": "bar_graph_marbles",
-          "description": "Horizontal bar graph with scale selector. All four scale options previewed, all showing fit indicator.",
+          "description": "Scale selector panel showing all four scale buttons with checkmarks indicating all scales fit. Student has explored all options.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "horizontal",
@@ -100,13 +158,23 @@
             "Jar C",
             "Jar D"
           ],
-          "scale_selector_visible": true
+          "values": [
+            7,
+            12,
+            19,
+            23
+          ],
+          "scale": null,
+          "axis_range": [
+            0,
+            23
+          ]
         }
       ]
     },
     {
       "type": "dialogue",
-      "text": "Let's look at Scale of 1."
+      "text": "All four scales fit! Let's look at Scale of 1."
     },
     {
       "type": "prompt",
@@ -119,7 +187,7 @@
           "condition": {
             "selected": 1
           },
-          "description": "Student selected Scale of 1.",
+          "description": "Student clicked Scale of 1 button",
           "is_correct": true,
           "beats": [
             {
@@ -128,16 +196,13 @@
               "tangible_id": "bar_graph_marbles",
               "params": {
                 "scale": 1,
-                "axis_range": [
-                  0,
-                  23
-                ],
-                "description": "Bar graph displays with Scale of 1. All bars fit. Axis shows 24 tick marks (0 through 23)."
+                "tick_marks": 24,
+                "description": "Horizontal bar graph displays with scale of 1. All four bars fit correctly, but axis shows 24 tick marks (0 through 23)."
               }
             },
             {
               "type": "dialogue",
-              "text": "It works — every number lands exactly. But look at all those lines on the side! Small data means all scales fit. But some are cleaner than others."
+              "text": "It works—every number lands exactly. But look at all those lines on the side!"
             }
           ]
         }
@@ -148,12 +213,24 @@
       "elements": [
         {
           "tangible_id": "data_table",
-          "description": "Data table showing Marbles in Jars values.",
-          "tangible_type": "data_table"
+          "description": "Horizontal data table showing Marbles in Jars data: Jar A: 7, Jar B: 12, Jar C: 19, Jar D: 23.",
+          "tangible_type": "data_table",
+          "categories": [
+            "Jar A",
+            "Jar B",
+            "Jar C",
+            "Jar D"
+          ],
+          "values": [
+            7,
+            12,
+            19,
+            23
+          ]
         },
         {
           "tangible_id": "bar_graph_marbles",
-          "description": "Horizontal bar graph. Scale of 1. Bars for Jar A: 7, Jar B: 12, Jar C: 19, Jar D: 23. Axis displays 24 tick marks (0-23).",
+          "description": "Horizontal bar graph with scale of 1. All four bars displayed (Jar A: 7, Jar B: 12, Jar C: 19, Jar D: 23). Axis shows 24 tick marks from 0 to 23.",
           "tangible_type": "bar_graph",
           "mode": "reading",
           "orientation": "horizontal",
@@ -163,15 +240,21 @@
             "Jar C",
             "Jar D"
           ],
+          "values": [
+            7,
+            12,
+            19,
+            23
+          ],
           "scale": 1,
           "axis_range": [
             0,
             23
           ],
-          "scale_selector_visible": true
+          "tick_marks": 24
         }
       ]
     }
   ],
-  "_generated_at": "2026-04-20T17:01:04.722189+00:00"
+  "_generated_at": "2026-05-05T18:17:11.337152+00:00"
 }
