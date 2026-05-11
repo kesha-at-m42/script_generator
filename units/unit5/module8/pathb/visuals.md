@@ -63,10 +63,10 @@
   - Points and labels can only be attached to existing ticks
 
   ### Allowed Student Actions
-  - **Place tick**: Place ticks on an unpartitioned or partially partitioned number bar. For example, divide this line into thirds or place a tick at 3/5.
-  - **Select**: Select number lines (1 or more) that match the question requirements. For example, select the number line showing fifths.
-  - **Place point**: Place points at specific tick marks (1 or more). For example, place a point at 3/5 or place 3/5 on the line.
-  - **Label**: Label tick marks (1 or more) by dragging fraction labels (1 or more) to them. For example, place/drag the correct label on the given tick mark or place/drag the given fraction on the correct number line.
+  - **Place tick**: Place ticks on an unpartitioned or partially partitioned number bar. For example, divide this line into thirds or place a tick at 3/5. Undo: click the tick again to erase it.
+  - **Select**: Select number lines (1 or more) that match the question requirements. For example, select the number line showing fifths. Undo: click the selected line again to deselect it.
+  - **Place point**: Place points at specific tick marks (1 or more). For example, place a point at 3/5 or place 3/5 on the line. Undo: drag the point to a different tick to move it, or drag it off the number line to remove it.
+  - **Label**: Label tick marks (1 or more) by dragging fraction labels (1 or more) to them. For example, place/drag the correct label on the given tick mark or place/drag the given fraction on the correct number line. Undo: drag the label back to the palette to remove it.
 
 ---
   ## Shape: Fraction Strip
@@ -129,6 +129,6 @@
   - Maximum of 3 fraction strips can be shown for comparison
 
   ### Allowed Student Actions
-  - **Cut**: Divide the whole strip into intervals. For example, divide this strip into thirds.
-  - **Select**: Select fraction strips (1 or more) that match the question requirements. For example, select the strip showing fifths.
-  - **Shade**: Select sections to shade or unshade. For example, shade 2/3 of the strip.
+  - **Cut**: Divide the whole strip into intervals. For example, divide this strip into thirds. Undo: click the cut line again to remove it.
+  - **Select**: Select fraction strips (1 or more) that match the question requirements. For example, select the strip showing fifths. Undo: click the selected strip again to deselect it.
+  - **Shade**: Select sections to shade or unshade. For example, shade 2/3 of the strip. Undo: click the shaded section again to unshade it.

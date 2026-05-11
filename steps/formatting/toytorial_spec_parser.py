@@ -22,7 +22,7 @@ if str(project_root) not in sys.path:
 def _parse_shapes(content: str) -> list:
     """Split visuals.md on ## Shape: boundaries and parse each block."""
     shapes = []
-    blocks = re.split(r"(?m)^##\s+Shape:\s*", content)
+    blocks = re.split(r"(?m)^\s*##\s+Shape:\s*", content)
 
     for block in blocks[1:]:  # blocks[0] is the preamble
         lines = block.splitlines()
@@ -55,9 +55,9 @@ def _parse_shapes(content: str) -> list:
 def _parse_actions(block_text: str) -> list:
     """Extract Allowed Student Actions from one shape block."""
     m = re.search(
-        r"###\s+Allowed Student Actions\s*\n(.*?)(?:\n###|\n##|\Z)",
+        r"^\s*###\s+Allowed Student Actions\s*\n(.*?)(?:\n\s*###|\n\s*##|\Z)",
         block_text,
-        re.DOTALL,
+        re.DOTALL | re.MULTILINE,
     )
     if not m:
         return []
@@ -67,16 +67,36 @@ def _parse_actions(block_text: str) -> list:
         name = match.group(1).strip()
         full = match.group(2).strip()
 
-        # Split on ". For example," to separate description from examples
+        # Split on ". For example," to separate description from examples+undo
         ex_match = re.search(r"\.\s+For example,\s*", full, re.IGNORECASE)
         if ex_match:
             description = full[: ex_match.start()].strip()
-            examples = full[ex_match.end() :].strip().rstrip(".")
+            remainder = full[ex_match.end() :]
         else:
-            description = full.rstrip(".")
-            examples = ""
+            description = full
+            remainder = ""
 
-        actions.append({"name": name, "description": description, "examples": examples})
+        # Split remainder on ". Undo:" to separate examples from undo mechanic
+        undo_match = re.search(r"\.\s+Undo:\s*", remainder, re.IGNORECASE)
+        if undo_match:
+            examples = remainder[: undo_match.start()].strip()
+            undo = remainder[undo_match.end() :].strip().rstrip(".")
+        else:
+            examples = remainder.strip().rstrip(".")
+            undo = ""
+
+        # If no "For example," block, check if description itself has "Undo:"
+        if not ex_match:
+            undo_match2 = re.search(r"\.\s+Undo:\s*", description, re.IGNORECASE)
+            if undo_match2:
+                undo = description[undo_match2.end() :].strip().rstrip(".")
+                description = description[: undo_match2.start()].strip()
+            else:
+                description = description.rstrip(".")
+
+        actions.append(
+            {"name": name, "description": description, "examples": examples, "undo": undo}
+        )
 
     return actions
 
@@ -134,8 +154,21 @@ def parse_spec(input_data, **kwargs) -> list:
                     "action_name": action["name"],
                     "action_description": action["description"],
                     "action_examples": action["examples"],
+                    "action_undo": action["undo"],
                     "toy_spec": shape["spec"],
                 }
             )
+
+        bridge_index = len(shape["actions"]) + 1
+        items.append(
+            {
+                "id": f"t{bridge_index}_{toy_slug}_bridge",
+                "index": len(items),
+                "type": "bridge",
+                "toy_name": shape["name"],
+                "toy_description": shape["description"],
+                "toy_spec": shape["spec"],
+            }
+        )
 
     return items

@@ -910,5 +910,44 @@
       },
       "output_file": "sampled.json"
     }
+  ],
+  "toytorial_generator": [
+    {
+      "name": "toytorial_spec_parser",
+      "type": "formatting",
+      "function": "toytorial_spec_parser.parse_spec",
+      "description": "Parses visuals.md into one intro item + one action item per Allowed Student Action per toy shape",
+      "function_args": {},
+      "input_file": "visuals.md",
+      "output_file": "toytorial_spec.json"
+    },
+    {
+      "name": "toytorial_generator",
+      "type": "ai",
+      "prompt_name": "toytorial_generator",
+      "description": "Generates one tutorial section per spec item (intro → transition section; action → teaching+practice section)",
+      "variables": {},
+      "input_file": "",
+      "output_file": "toytorial_sections.json",
+      "model": "claude-sonnet-4-5-20250929",
+      "batch_mode": true,
+      "batch_id_field": "id"
+    },
+    {
+      "name": "id_stamper",
+      "type": "formatting",
+      "function": "id_stamper.stamp_ids",
+      "description": "Stamps stable step/beat IDs on every beat in every section",
+      "function_args": {},
+      "output_file": "toytorial_sections.json"
+    },
+    {
+      "name": "notion_push",
+      "type": "formatting",
+      "function": "notion_push.push",
+      "function_args": {
+        "pipeline_name": "Toytorial"
+      }
+    }
   ]
 }
