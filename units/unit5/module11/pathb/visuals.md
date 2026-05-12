@@ -1,4 +1,4 @@
-# Visuals
+﻿# Visuals
 
 > A designer reference for different shapes, their division methods, and available student actions for the given module and path.
 
@@ -68,9 +68,9 @@
   - **Place point**: Place points at specific tick marks (1 or more). For example, place a point at 2/7 or place 3/8 on the line.
 
 ---
-  ## Shape: Fraction Strip
+  ## Shape: Rectangle Bar
 
-  A 1D rectangular bar representing a whole, shown as a horizontal strip that can be divided into equal sections.
+  A 1D rectangular bar representing a whole, shown as a horizontal Bar that can be divided into equal sections.
 
   ### Properties
   - **State**: Can be whole (undivided) or divided into equal sections
@@ -81,10 +81,10 @@
     - Mark reference tangibles in workspace descriptions as "reference bar" or "for comparison only"
 
   ### Intervals
-  The equal parts created by dividing the strip.
+  The equal parts created by dividing the Bar.
 
   #### intervals
-  How the strip is divided into equal parts.
+  How the Bar is divided into equal parts.
 
   - **Type**: Single fraction (uniform) OR array of fractions (non-uniform)
   - **Description**: Defines the size of each interval. A single fraction like "1/6" creates 6 equal sections.
@@ -127,11 +127,11 @@
 
   ### Constraints
   - Denominators used in this module: 2, 3, 4, 5, 6, 7, 8, 9
-  - Maximum of 3 fraction strips can be shown for comparison
-  - Strips used for piece-size comparison intentionally have **different** denominators — both bars are the same total size so the visual difference in section width is meaningful
+  - Maximum of 3 Rectangle Bars can be shown for comparison
+  - Bars used for piece-size comparison intentionally have **different** denominators — both bars are the same total size so the visual difference in section width is meaningful
 
   ### Allowed Student Actions
-  - **Select**: Select fraction strips (1 or more) that match the question requirements. For example, click the bar that shows the bigger piece.
+  - **Select**: Select Rectangle Bars (1 or more) that match the question requirements. For example, click the bar that shows the bigger piece.
 
 ---
   ## Shape: Math Expression

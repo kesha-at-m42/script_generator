@@ -1,4 +1,4 @@
-# Visuals
+﻿# Visuals
 
 > A designer reference for different shapes, their division methods, and available student actions for the given module and path.
 
@@ -69,9 +69,9 @@
   - **Label**: Label tick marks (1 or more) by dragging fraction labels (1 or more) to them. For example, place/drag the correct label on the given tick mark or place/drag the given fraction on the correct number line.
 
 ---
-  ## Shape: Fraction Strip
+  ## Shape: Rectangle Bar
 
-  A 1D rectangular bar representing a whole, shown as a horizontal strip that can be divided into equal sections.
+  A 1D rectangular bar representing a whole, shown as a horizontal Bar that can be divided into equal sections.
 
   ### Properties
   - **State**: Can be whole (undivided) or divided into equal sections
@@ -82,13 +82,13 @@
     - Mark reference tangibles in workspace descriptions as "reference bar" or "for comparison only"
 
   ### Intervals
-  The distinct sections (parts) created by dividing the strip.
+  The distinct sections (parts) created by dividing the Bar.
 
   #### intervals
-  Interval sizes defining how the strip is divided.
+  Interval sizes defining how the Bar is divided.
 
   - **Type**: Fraction OR array of fractions
-  - **Description**: Defines the size of each section in the strip
+  - **Description**: Defines the size of each section in the Bar
   - **Uniform spacing**: Use single fraction (e.g., "1/3" creates 3 equal sections)
   - **Non-uniform spacing**: Use array of fractions (e.g., ["1/4", "1/4", "1/2"])
 
@@ -109,26 +109,26 @@
 
   ### Example Configurations
 
-  **Basic fraction strip with thirds:**
+  **Basic Rectangle Bar with thirds:**
   ```
   range: [0, 1]
   intervals: "1/3"
-  // Creates: Strip divided into 3 equal sections
+  // Creates: Bar divided into 3 equal sections
   ```
 
-  **Fraction strip with shaded sections:**
+  **Rectangle Bar with shaded sections:**
   ```
   range: [0, 1]
   intervals: "1/4"
   intervals_is_shaded: [0, 2]
-  // Creates: Strip with fourths, first and third sections shaded
+  // Creates: Bar with fourths, first and third sections shaded
   ```
 
   ### Constraints
   - Denominators are commonly limited to: 2, 3, 4, 5, 6, or 8
-  - Maximum of 3 fraction strips can be shown for comparison
+  - Maximum of 3 Rectangle Bars can be shown for comparison
 
   ### Allowed Student Actions
-  - **Cut**: Divide the whole strip into intervals. For example, divide this strip into thirds.
-  - **Select**: Select fraction strips (1 or more) that match the question requirements. For example, select the strip showing fifths.
-  - **Shade**: Select sections to shade or unshade. For example, shade 2/3 of the strip.
+  - **Cut**: Divide the whole Bar into intervals. For example, divide this Bar into thirds.
+  - **Select**: Select Rectangle Bars (1 or more) that match the question requirements. For example, select the Bar showing fifths.
+  - **Shade**: Select sections to shade or unshade. For example, shade 2/3 of the Bar.

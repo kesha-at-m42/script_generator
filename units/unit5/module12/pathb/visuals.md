@@ -1,4 +1,4 @@
-# Visuals
+﻿# Visuals
 
 > A designer reference for different shapes, their division methods, and available student actions for the given module and path.
 
@@ -76,9 +76,9 @@
   - **Place point**: Place points at specific tick marks (1 or more). For example, place a point at 2/7 or place 3/8 on the line.
 
 ---
-  ## Shape: Fraction Strip
+  ## Shape: Rectangle Bar
 
-  A 1D rectangular bar representing a whole, shown as a horizontal strip that can be divided into equal sections.
+  A 1D rectangular bar representing a whole, shown as a horizontal Bar that can be divided into equal sections.
 
   ### Properties
   - **State**: Can be whole (undivided) or divided into equal sections
@@ -89,10 +89,10 @@
     - Mark reference tangibles in workspace descriptions as "reference bar" or "for comparison only"
 
   ### Intervals
-  The equal parts created by dividing the strip.
+  The equal parts created by dividing the Bar.
 
   #### intervals
-  How the strip is divided into equal parts.
+  How the Bar is divided into equal parts.
 
   - **Type**: Single fraction (uniform) OR array of fractions (non-uniform)
   - **Description**: Defines the size of each interval. A single fraction like "1/6" creates 6 equal sections.
@@ -149,12 +149,12 @@
 
   ### Constraints
   - Denominators used in this module: 3, 4, 5, 6, 7, 8, 9, or 10
-  - Maximum of 2 fraction strips can be shown for comparison
-  - A Benchmark tangible in the same column will render as a vertical line crossing all strips
+  - Maximum of 2 Rectangle Bars can be shown for comparison
+  - A Benchmark tangible in the same column will render as a vertical line crossing all Bars
   - `missing_intervals` should only be used when the unshaded remainder is the explicit focus of the question
 
   ### Allowed Student Actions
-  - **Select**: Select fraction strips (1 or more) that match the question requirements. For example, click the bar that shows the bigger piece.
+  - **Select**: Select Rectangle Bars (1 or more) that match the question requirements. For example, click the bar that shows the bigger piece.
 
 ---
   ## Shape: Math Expression
@@ -213,7 +213,7 @@
   - It spans vertically across the full height of its column, crossing all stacked shapes
   - Students cannot interact with it (always read-only)
   - When used with stacked number lines, the line crosses both lines simultaneously at the same horizontal position
-  - When used with fraction strips, the line crosses the bar at the proportional position (e.g., 1/2 falls at the midpoint of the bar)
+  - When used with Rectangle Bars, the line crosses the bar at the proportional position (e.g., 1/2 falls at the midpoint of the bar)
 
   ### Configuration
 

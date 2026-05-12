@@ -107,11 +107,11 @@ Keep it brief — two beats only. No prompt, no validator, no new scene setup.
 
 Convert `toy_name` to snake_case for the tangible_id prefix:
 - "Number Line" → `number_line_demo`, `number_line_practice`
-- "Fraction Strip" → `fraction_strip_demo`, `fraction_strip_practice`
+- "Rectangle Bar" → `rectangle_bar_demo`, `rectangle_bar_practice`
 
-Use `_demo` suffix for the demonstration state and `_practice` suffix if you add a second number line/strip for the practice step. When using a single tangible across both steps, keep the same ID and `update` its state.
+Use `_demo` suffix for the demonstration state and `_practice` suffix if you add a second number line/bar for the practice step. When using a single tangible across both steps, keep the same ID and `update` its state.
 
-`tangible_type` must be the snake_case form of `toy_name` (e.g., `number_line`, `fraction_strip`).
+`tangible_type` must be the snake_case form of `toy_name` (e.g., `number_line`, `rectangle_bar`).
 
 ---
 
@@ -135,8 +135,8 @@ Use the correct physical mechanic for each action — this affects how dialogue 
 | Place point | **Drag** a point onto a tick mark on the line | Drag it to a different tick to move it, or drag it off the line to remove it |
 | Label | **Drag** a fraction label onto a tick mark on the line | Drag the label back to the palette |
 | Select | **Tap/click** the number line to select it | Click the selected line again to deselect |
-| Cut (Fraction Strip) | **Click** on the strip to cut it into intervals | Click the cut line again to remove it |
-| Shade (Fraction Strip) | **Click** a section to shade or unshade it | Click the shaded section again to unshade |
+| Cut (Rectangle Bar) | **Click** on the bar to cut it into intervals | Click the cut line again to remove it |
+| Shade (Rectangle Bar) | **Click** a section to shade or unshade it | Click the shaded section again to unshade |
 
 Always describe both the action mechanic and the undo mechanic accurately in dialogue and prompt text.
 

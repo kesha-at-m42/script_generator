@@ -1,4 +1,4 @@
-# Visuals
+﻿# Visuals
 
 > A designer reference for different shapes, their division methods, and available student actions for the given module and path.
 
@@ -69,9 +69,9 @@
   - **Label**: Label tick marks (1 or more) by dragging fraction labels (1 or more) to them. For example, place/drag the correct label on the given tick mark or place/drag the given fraction on the correct number line.
 
 ---
-  ## Shape: Fraction Strip
+  ## Shape: Rectangle Bar
 
-  A 1D rectangular bar representing a whole, shown as a horizontal strip that can be divided into equal sections.
+  A 1D rectangular bar representing a whole, shown as a horizontal Bar that can be divided into equal sections.
 
   ### Properties
   - **State**: Can be whole (undivided) or divided into equal sections
@@ -82,10 +82,10 @@
     - Mark reference tangibles in workspace descriptions as "reference bar" or "for comparison only"
 
   ### Intervals
-  The equal parts created by dividing the strip.
+  The equal parts created by dividing the Bar.
 
   #### intervals
-  How the strip is divided into equal parts.
+  How the Bar is divided into equal parts.
 
   - **Type**: Single fraction (uniform) OR array of fractions (non-uniform)
   - **Description**: Defines the size of each interval. A single fraction like "1/6" creates 6 equal sections.
@@ -112,27 +112,27 @@
 
   ### Example Configurations
 
-  **Basic sixths strip:**
+  **Basic sixths Bar:**
   ```
   intervals: 1/6
-  // Creates: Strip divided into 6 equal sections, none shaded
+  // Creates: Bar divided into 6 equal sections, none shaded
   ```
 
-  **Strip with shading:**
+  **Bar with shading:**
   ```
   intervals: 1/4
   shaded_intervals: 3
-  // Creates: Fourths strip with first 3 intervals shaded (shows 3/4)
+  // Creates: Fourths Bar with first 3 intervals shaded (shows 3/4)
   ```
 
   ### Constraints
   - Denominators used in this module: 4, 5, 6, 7, 8, 10, 12
-  - Maximum of 3 fraction strips can be shown for comparison
-  - All strips in a comparison group must share the same denominator
+  - Maximum of 3 Rectangle Bars can be shown for comparison
+  - All Bars in a comparison group must share the same denominator
 
   ### Allowed Student Actions
-  - **Select**: Select fraction strips (1 or more) that match the question requirements. For example, click the bar that has more parts shaded.
-  - **Shade**: Select intervals to shade or unshade. For example, shade 2/3 of the strip.
+  - **Select**: Select Rectangle Bars (1 or more) that match the question requirements. For example, click the bar that has more parts shaded.
+  - **Shade**: Select intervals to shade or unshade. For example, shade 2/3 of the Bar.
 
 ---
   ## Shape: Math Expression

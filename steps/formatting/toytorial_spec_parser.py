@@ -32,6 +32,10 @@ def _parse_shapes(content: str) -> list:
         shape_name = lines[0].strip()
         body = "\n".join(lines[1:])
 
+        # Skip shapes explicitly excluded from toytorial generation
+        if re.search(r"\*\*Toytorial\*\*:\s*false", body, re.IGNORECASE):
+            continue
+
         # First non-empty, non-heading, non-separator line is the description
         description = ""
         for line in lines[1:]:
