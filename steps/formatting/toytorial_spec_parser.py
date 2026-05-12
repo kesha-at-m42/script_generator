@@ -105,6 +105,9 @@ def _parse_actions(block_text: str) -> list:
     return actions
 
 
+SKIP_ACTIONS = {"Select"}
+
+
 def _to_slug(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", text.lower()).strip("_")
 
@@ -134,6 +137,7 @@ def parse_spec(input_data, **kwargs) -> list:
     items = []
     for shape in shapes:
         toy_slug = _to_slug(shape["name"])
+        included_actions = [a for a in shape["actions"] if a["name"] not in SKIP_ACTIONS]
 
         items.append(
             {
@@ -146,7 +150,7 @@ def parse_spec(input_data, **kwargs) -> list:
             }
         )
 
-        for i, action in enumerate(shape["actions"], start=1):
+        for i, action in enumerate(included_actions, start=1):
             action_slug = _to_slug(action["name"])
             items.append(
                 {
@@ -160,10 +164,11 @@ def parse_spec(input_data, **kwargs) -> list:
                     "action_examples": action["examples"],
                     "action_undo": action["undo"],
                     "toy_spec": shape["spec"],
+                    "prior_actions": [a["name"] for a in included_actions[: i - 1]],
                 }
             )
 
-        bridge_index = len(shape["actions"]) + 1
+        bridge_index = len(included_actions) + 1
         items.append(
             {
                 "id": f"t{bridge_index}_{toy_slug}_bridge",
@@ -172,6 +177,7 @@ def parse_spec(input_data, **kwargs) -> list:
                 "toy_name": shape["name"],
                 "toy_description": shape["description"],
                 "toy_spec": shape["spec"],
+                "covered_actions": [a["name"] for a in included_actions],
             }
         )
 

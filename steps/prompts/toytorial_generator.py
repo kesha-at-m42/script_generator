@@ -46,9 +46,26 @@ All items include:
 - `action_description` — what the interaction does
 - `action_examples` — example task phrasings for this interaction
 - `action_undo` — how to undo this interaction (e.g., "click the tick again to erase it")
+- `prior_actions` — list of action names already taught earlier in this toytorial (empty for the first action)
 
 `"bridge"` items also include:
-- `context` — where the student is about to use this tool (e.g., "Module 6 Warmup")
+- `covered_actions` — list of all action names that were taught before this bridge
+- `prior_section_summaries` — injected automatically when earlier sections exist (see CONTINUITY below)
+
+---
+
+## CONTINUITY
+
+When `prior_section_summaries` is present in the input, earlier sections of this toytorial have already been generated. Read them before writing any dialogue.
+
+**Rules by position:**
+- **After intro (first action section):** Open with a brief, natural transition — not a cold start. The student has just seen the toy for the first time. Something like "Alright, let me show you the first thing you can do with it." works. Do NOT repeat recognition-first language.
+- **After another action (later action sections):** Acknowledge you're continuing. "One more thing." / "Okay, here's another." / "Now this one." Keep it short — the student is in the flow.
+- **Bridge:** May optionally glance back at what was just practiced. One word or phrase is enough: "You've tried a few things with this." Then pivot forward. Never evaluative.
+
+**Structural note — sections are independent workspace resets.** Each section in Lesson Lab is a self-contained block. The workspace does NOT carry over from the previous section. This is why every section uses `scene add` to place its own copy of the toy. Continuity is through dialogue only — never assume a tangible from a prior section is still visible.
+
+If `prior_section_summaries` is absent, this is the first section. Write normally.
 
 ---
 
@@ -96,10 +113,11 @@ Purpose: teach one interaction in three steps — explain, watch, try.
 Purpose: close out the toytorial and hand the student off to whatever comes next.
 
 Structure: `"type": "transition"` section with these beats:
-1. `dialogue` — one short, forward-looking sentence pointing to what comes next. Never evaluative ("You're ready", "You got it"). Examples: "You'll use this in the activity coming up." / "You'll see this one again soon." / "Same tool, now it's time to use it."
-2. `current_scene` — list the toy as it currently appears on screen (use the same tangible_id and state from the preceding section).
+1. `scene` (`add`) — toy in a simple state (same as intro, since workspace resets between sections)
+2. `dialogue` — one short forward-looking sentence. Optionally open with a single backward glance referencing `covered_actions` ("You've tried cutting and shading."), then pivot forward: "You'll use this in the activity coming up." Never evaluative ("You're ready", "You got it"). Total dialogue: 1-2 short sentences.
+3. `current_scene` — list the toy as it currently appears on screen.
 
-Keep it brief — two beats only. No prompt, no validator, no new scene setup.
+Keep it brief. No prompt, no validator.
 
 ---
 
