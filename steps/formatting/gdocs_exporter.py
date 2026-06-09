@@ -39,7 +39,7 @@ _GLOSSARY = [
     ("Visual:", "What appears on screen (visual setup, animations, highlights)"),
     ("Student Interaction:", "The type of action the student performs"),
     ("Prompt:", "The specific question or instruction the student receives"),
-    ("• Options:", "The available answer choices"),
+    ("• Answer option (optional):", "The available answer choice, nested under Prompt"),
     ("🟢  Correct", "Student answers correctly, student moves forward"),
     ("🟡  Attempt 1", "Student answers wrong on first attempt — light remediation"),
     ("🟠  Attempt 2", "Student answers wrong on second attempt — medium remediation"),
@@ -133,11 +133,33 @@ def _parse_starter_pack(md_path: Path) -> dict:
             label = mm.group(1).strip().replace(r"\#", "#")
             misconceptions.append(label)
 
+    # Addressing standard — §1.1.1 Standards Cascade table, "Addressing" row
+    addressing_standard = ""
+    m = re.search(r"\|\s*\*{0,2}Addressing\*{0,2}\s*\|\s*(.+?)\s*\|", text, re.IGNORECASE)
+    if m:
+        addressing_standard = m.group(1).strip()
+
+    # Module bridges — §1.1.2: "From ..." and "To Module N" bold paragraphs
+    building_from = ""
+    building_toward = ""
+    bridges_section = re.search(r"1\.1\.2 Module Bridges(.*?)(?=\n#{2,3}\s|\Z)", text, re.DOTALL)
+    if bridges_section:
+        blob = bridges_section.group(1)
+        m = re.search(r"\*\*From[^*]*\*\*[:\s]*(.*?)(?=\n\*\*|\Z)", blob, re.DOTALL)
+        if m:
+            building_from = re.sub(r"\s+", " ", m.group(1)).strip()
+        m = re.search(r"\*\*To Module[^*]*\*\*[:\s]*(.*?)(?=\n\*\*|\Z)", blob, re.DOTALL)
+        if m:
+            building_toward = re.sub(r"\s+", " ", m.group(1)).strip()
+
     return {
         "title": title,
         "one_thing": one_thing,
         "goals": goals,
+        "addressing_standard": addressing_standard,
         "misconceptions": misconceptions,
+        "building_from": building_from,
+        "building_toward": building_toward,
     }
 
 
@@ -155,15 +177,9 @@ def _render_module_context(doc: Document, module_info: dict, phase: str | None):
         _tight(p, before=0, after=6)
         _run(p, f"Phase: {phase.title()}", italic=True, color=_GRAY)
 
-    if module_info["one_thing"]:
-        p = doc.add_paragraph()
-        _tight(p, before=4, after=2)
-        _run(p, "The One Thing: ", bold=True)
-        _run(p, module_info["one_thing"])
-
     if module_info["goals"]:
         p = doc.add_paragraph()
-        _tight(p, before=6, after=2)
+        _tight(p, before=4, after=2)
         _run(p, "Learning Goals", bold=True)
         for label, text in module_info["goals"]:
             p = doc.add_paragraph()
@@ -171,6 +187,18 @@ def _render_module_context(doc: Document, module_info: dict, phase: str | None):
             _tight(p, before=0, after=1)
             _run(p, f"{label}: ", bold=True)
             _run(p, text)
+        if module_info.get("addressing_standard"):
+            p = doc.add_paragraph()
+            p.paragraph_format.left_indent = Inches(0.2)
+            _tight(p, before=2, after=1)
+            _run(p, "Common Core Standard Addressed: ", bold=True)
+            _run(p, module_info["addressing_standard"])
+
+    if module_info["one_thing"]:
+        p = doc.add_paragraph()
+        _tight(p, before=6, after=2)
+        _run(p, "The One Thing: ", bold=True)
+        _run(p, module_info["one_thing"])
 
     if module_info["misconceptions"]:
         p = doc.add_paragraph()
@@ -181,6 +209,18 @@ def _render_module_context(doc: Document, module_info: dict, phase: str | None):
             p.paragraph_format.left_indent = Inches(0.2)
             _tight(p, before=0, after=1)
             _run(p, f"• {misc}")
+
+    if module_info.get("building_from"):
+        p = doc.add_paragraph()
+        _tight(p, before=6, after=2)
+        _run(p, "Building From: ", bold=True)
+        _run(p, module_info["building_from"])
+
+    if module_info.get("building_toward"):
+        p = doc.add_paragraph()
+        _tight(p, before=2, after=2)
+        _run(p, "Building Toward: ", bold=True)
+        _run(p, module_info["building_toward"])
 
     # Spacer before glossary
     p = doc.add_paragraph()
@@ -310,8 +350,8 @@ def _render_visual(doc: Document, text: str, indent: float):
     p = doc.add_paragraph()
     p.paragraph_format.left_indent = Inches(indent)
     _tight(p, before=1, after=1)
-    _run(p, "Visual: ", bold=True, italic=True, color=_GRAY, size=9.5)
-    _run(p, text, italic=True, color=_GRAY, size=9.5)
+    _run(p, "Visual: ", bold=True)
+    _run(p, text)
 
 
 def _render_prompt(doc: Document, beat: dict, indent: float):
@@ -336,20 +376,24 @@ def _render_prompt(doc: Document, beat: dict, indent: float):
         _tight(p, before=0, after=1)
         _run(p, f"• {opt}")
 
-    for v in beat.get("validator", []):
+    validator = beat.get("validator", [])
+    if validator:
+        p = doc.add_paragraph()
+        p.paragraph_format.left_indent = Inches(indent)
+        _tight(p, before=4, after=2)
+        _run(p, "Based on student response:", bold=True)
+
+    for v in validator:
         emoji, desc = _classify(v)
-        is_correct = v.get("is_correct", False)
-        branch_indent = indent if is_correct else indent + 0.3
-        response_indent = indent if is_correct else indent + 0.5
 
         p = doc.add_paragraph()
-        p.paragraph_format.left_indent = Inches(branch_indent)
-        _tight(p, before=3, after=1)
+        p.paragraph_format.left_indent = Inches(indent)
+        _tight(p, before=2, after=1)
         _run(p, f"{emoji}  ", bold=True)
         _run(p, desc, bold=True, size=9.5)
 
         for rb in _flatten(v):
-            _render_beat(doc, rb, indent=response_indent)
+            _render_beat(doc, rb, indent=indent)
 
 
 def _render_beat(doc: Document, beat: dict, indent: float = 0.0):
